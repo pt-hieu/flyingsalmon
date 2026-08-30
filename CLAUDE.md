@@ -6,6 +6,7 @@ Namespace: `@flyingsalmon`. Future home: `flyingsalmon.superbrian.dev`. First co
 ## Coding conventions
 
 Comments are banned!
+Tailwind opacity modifiers are banned!
 
 ## Structure rules
 
@@ -20,6 +21,7 @@ Comments are banned!
 - Type: Baloo 2 (`--font-heading`) for headings/display, Onest (`--font-sans`) for body and UI. Both OFL 1.1; keep license files with any bundled font.
 - Color: indigo-lean blue accent (hue ~277 in OKLCH) over pure neutral grays (chroma 0). All colors in OKLCH. Light and dark mode both required for every component.
 - Palette-only colors: every color is a step from the Tailwind OKLCH palette (neutral grays, indigo brand, red destructive) behind functional aliases. No color alpha anywhere in the repo, docs chrome included; element opacity for disabled states and motion is fine. See `docs/adr/0004-palette-only-colors.md`.
+- Flat surfaces: no shadows, no elevation tokens. Surfaces separate by solid borders and background steps; interaction feedback lives in the border. See `docs/adr/0003-flat-surfaces.md`.
 - Radius: 12px base via `--radius: 0.75rem`. Never hardcode radii; derive from the scale.
 - Motion: small, springy, under 200ms (continuous indicators like spinner/skeleton exempt). Values, spring presets, and engine split are fixed in `docs/adr/0001-motion-language.md` — specs quote its names. Layout animation allowed via motion's `layout` prop. `prefers-reduced-motion` support deferred for now.
 - Accessibility: WCAG AA is a hard requirement — contrast, visible focus states, full keyboard paths.
