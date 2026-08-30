@@ -9,9 +9,9 @@
     "prebuild": "pnpm registry:build",
     "registry:build": "shadcn build",
     "preview": "vite preview",
-    "lint": "eslint",
-    "format": "prettier --write . && eslint --fix",
-    "check": "prettier --check ."
+    "lint": "oxlint",
+    "format": "oxfmt && oxlint --fix",
+    "check": "oxfmt --check && oxlint"
   },
   "dependencies": {
     "@fontsource-variable/baloo-2": "^5.3.0",
@@ -34,14 +34,14 @@
   },
   "devDependencies": {
     "@tanstack/devtools-vite": "latest",
-    "@tanstack/eslint-config": "latest",
     "@tanstack/router-cli": "^1.132.0",
     "@types/node": "^22.10.2",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^6.0.1",
-    "eslint": "^9.20.0",
-    "prettier": "^3.8.1",
+    "eslint-plugin-sonarjs": "^4.2.0",
+    "oxfmt": "^0.65.0",
+    "oxlint": "^1.80.0",
     "typescript": "^6.0.2",
     "vite": "^8.0.0"
   }
