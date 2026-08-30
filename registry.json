@@ -1,0 +1,170 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "flyingsalmon",
+  "homepage": "https://flyingsalmon.superbrian.dev",
+  "items": [
+    {
+      "name": "theme",
+      "type": "registry:theme",
+      "title": "flyingsalmon theme",
+      "description": "Soft, minimal, playful. Baloo 2 headings, Onest body, indigo accent over pure neutral grays, 12px radius, light and dark.",
+      "dependencies": [
+        "@fontsource-variable/baloo-2",
+        "@fontsource-variable/onest"
+      ],
+      "css": {
+        "@import \"@fontsource-variable/baloo-2\"": {},
+        "@import \"@fontsource-variable/onest\"": {}
+      },
+      "cssVars": {
+        "theme": {
+          "font-sans": "'Onest Variable', sans-serif",
+          "font-heading": "'Baloo 2 Variable', var(--font-sans)"
+        },
+        "light": {
+          "background": "oklch(1 0 0)",
+          "foreground": "oklch(0.145 0 0)",
+          "card": "oklch(1 0 0)",
+          "card-foreground": "oklch(0.145 0 0)",
+          "popover": "oklch(1 0 0)",
+          "popover-foreground": "oklch(0.145 0 0)",
+          "primary": "oklch(0.511 0.262 277)",
+          "primary-foreground": "oklch(0.985 0 0)",
+          "secondary": "oklch(0.97 0 0)",
+          "secondary-foreground": "oklch(0.205 0 0)",
+          "muted": "oklch(0.97 0 0)",
+          "muted-foreground": "oklch(0.556 0 0)",
+          "accent": "oklch(0.955 0.02 277)",
+          "accent-foreground": "oklch(0.457 0.24 277)",
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "border": "oklch(0.922 0 0)",
+          "input": "oklch(0.922 0 0)",
+          "ring": "oklch(0.585 0.233 277)",
+          "radius": "0.75rem"
+        },
+        "dark": {
+          "background": "oklch(0.145 0 0)",
+          "foreground": "oklch(0.985 0 0)",
+          "card": "oklch(0.205 0 0)",
+          "card-foreground": "oklch(0.985 0 0)",
+          "popover": "oklch(0.205 0 0)",
+          "popover-foreground": "oklch(0.985 0 0)",
+          "primary": "oklch(0.673 0.182 277)",
+          "primary-foreground": "oklch(0.145 0 0)",
+          "secondary": "oklch(0.269 0 0)",
+          "secondary-foreground": "oklch(0.985 0 0)",
+          "muted": "oklch(0.269 0 0)",
+          "muted-foreground": "oklch(0.708 0 0)",
+          "accent": "oklch(0.28 0.04 277)",
+          "accent-foreground": "oklch(0.985 0 0)",
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "border": "oklch(1 0 0 / 10%)",
+          "input": "oklch(1 0 0 / 15%)",
+          "ring": "oklch(0.585 0.233 277)"
+        }
+      }
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Button that owns its feedback: loading and success states morph in place.",
+      "dependencies": ["radix-ui", "class-variance-authority"],
+      "files": [{ "path": "src/registry/ui/button.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Text input.",
+      "files": [{ "path": "src/registry/ui/input.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Multi-line text input.",
+      "files": [
+        { "path": "src/registry/ui/textarea.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Select menu.",
+      "dependencies": ["radix-ui", "lucide-react"],
+      "files": [{ "path": "src/registry/ui/select.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Checkbox.",
+      "dependencies": ["radix-ui", "lucide-react"],
+      "files": [
+        { "path": "src/registry/ui/checkbox.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "Toggle switch.",
+      "dependencies": ["radix-ui"],
+      "files": [{ "path": "src/registry/ui/switch.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Badge.",
+      "dependencies": ["radix-ui", "class-variance-authority"],
+      "files": [{ "path": "src/registry/ui/badge.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Card.",
+      "files": [{ "path": "src/registry/ui/card.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Modal dialog.",
+      "dependencies": ["radix-ui", "lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [{ "path": "src/registry/ui/dialog.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "Dropdown menu.",
+      "dependencies": ["radix-ui", "lucide-react"],
+      "files": [
+        { "path": "src/registry/ui/dropdown-menu.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Tabs.",
+      "dependencies": ["radix-ui", "class-variance-authority"],
+      "files": [{ "path": "src/registry/ui/tabs.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Tooltip.",
+      "dependencies": ["radix-ui"],
+      "files": [
+        { "path": "src/registry/ui/tooltip.tsx", "type": "registry:ui" }
+      ]
+    }
+  ]
+}
