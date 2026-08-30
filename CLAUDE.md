@@ -3,6 +3,10 @@
 A shadcn registry that doubles as Brian's design system and public design portfolio.
 Namespace: `@flyingsalmon`. Future home: `flyingsalmon.superbrian.dev`. First consumer: hottrip (an AI trip planner, not built yet — this registry dictates its stack).
 
+## Coding conventions
+
+Comments are banned!
+
 ## Structure rules
 
 - `src/registry/` is the single source of truth for everything distributable (components, theme). `registry.json` composes it.
