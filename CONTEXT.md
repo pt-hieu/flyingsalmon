@@ -9,7 +9,7 @@ A batch-1 primitive that renders inline only: no floating layer, not a composite
 _Avoid_: widget, element, control
 
 **Batch**:
-A shipping group of components specced and built together. Batch 1 holds the 12 atomic components (alert joined via ADR 0002).
+A shipping group of components specced and built together. Batch 1 holds the 11 atomic components (alert joined via ADR 0002; label absorbed into the field components via #4).
 _Avoid_: milestone, phase, wave
 
 **Motion language**:

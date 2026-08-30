@@ -22,3 +22,7 @@ The original feedback rule said the acting component owns all feedback for its a
 - The feedback-rule wording in `CLAUDE.md`, `CONTEXT.md`, and the batch-1 map (issue #1) changes to match.
 - Registry dependencies between atomic components are allowed: button depends on the `spinner` registry item. "Atomic" excludes floating layers and composite widgets, not dependencies.
 - The docs principles page must state the revised boundary when it is written.
+
+## Amendment (issue #4)
+
+"Loading only" scopes what the button shows, not which component may load: input also owns a `loading` state (spinner in its end slot, field stays editable). The rule stands — the acting component shows its own busyness; success and error stay with the app.
