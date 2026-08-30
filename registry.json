@@ -19,7 +19,9 @@
       "cssVars": {
         "theme": {
           "font-sans": "'Onest Variable', sans-serif",
-          "font-heading": "'Baloo 2 Variable', var(--font-sans)"
+          "font-heading": "'Baloo 2 Variable', var(--font-sans)",
+          "motion-fast": "100ms",
+          "motion-base": "150ms"
         },
         "light": {
           "background": "oklch(1 0 0)",
@@ -63,6 +65,16 @@
           "ring": "oklch(0.585 0.233 277)"
         }
       }
+    },
+    {
+      "name": "motion",
+      "type": "registry:lib",
+      "title": "Motion tokens",
+      "description": "The motion language: duration constants and the spring-bounce / spring-settle presets every component animates with.",
+      "dependencies": ["motion"],
+      "files": [
+        { "path": "src/registry/lib/motion.ts", "type": "registry:lib" }
+      ]
     },
     {
       "name": "button",
