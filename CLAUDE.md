@@ -16,7 +16,7 @@ Namespace: `@flyingsalmon`. Future home: `flyingsalmon.superbrian.dev`. First co
 - Type: Baloo 2 (`--font-heading`) for headings/display, Onest (`--font-sans`) for body and UI. Both OFL 1.1; keep license files with any bundled font.
 - Color: indigo-lean blue accent (hue ~277 in OKLCH) over pure neutral grays (chroma 0). All colors in OKLCH. Light and dark mode both required for every component.
 - Radius: 12px base via `--radius: 0.75rem`. Never hardcode radii; derive from the scale.
-- Motion: small, springy, under 200ms, never animates layout, always respects `prefers-reduced-motion`.
+- Motion: small, springy, under 200ms (continuous indicators like spinner/skeleton exempt). Values, spring presets, and engine split are fixed in `docs/adr/0001-motion-language.md` — specs quote its names. Layout animation allowed via motion's `layout` prop. `prefers-reduced-motion` support deferred for now.
 - Accessibility: WCAG AA is a hard requirement — contrast, visible focus states, full keyboard paths.
 
 ## Feedback rule (defining constraint)
