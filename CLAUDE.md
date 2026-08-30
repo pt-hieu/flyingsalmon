@@ -25,7 +25,7 @@ Comments are banned!
 
 ## Feedback rule (defining constraint)
 
-The acting component owns its feedback. Buttons morph through loading/success states; form fields show their own errors. **No toast. No alert component. Ever.** Feedback with no owning action (background failures, cross-page success) is an app concern, deliberately outside this system — the docs principles page states this boundary.
+The acting component shows its own busyness: buttons morph through a loading state; form fields show their own errors. Success and error results belong to the app, shown inline via the alert/info component. **No toast. Ever.** Floating, unowned feedback stays outside this system — the docs principles page states this boundary. Revised from "no alert component" in `docs/adr/0002-feedback-rule-scope.md`.
 
 ## Publishing
 

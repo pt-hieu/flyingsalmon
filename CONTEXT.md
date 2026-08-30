@@ -5,11 +5,11 @@ A shadcn registry that is Brian's design system and public design portfolio. Com
 ## Language
 
 **Atomic component**:
-A batch-1 primitive that renders inline only: no floating layer, no composition of other components. Anything floating (tooltip, select) or composite (dialog, tabs) is not atomic.
+A batch-1 primitive that renders inline only: no floating layer, not a composite widget. Anything floating (tooltip, select) or composite (dialog, tabs) is not atomic. A registry dependency on another atomic component is allowed (button embeds spinner; ADR 0002).
 _Avoid_: widget, element, control
 
 **Batch**:
-A shipping group of components specced and built together. Batch 1 holds the 11 atomic components.
+A shipping group of components specced and built together. Batch 1 holds the 12 atomic components (alert joined via ADR 0002).
 _Avoid_: milestone, phase, wave
 
 **Motion language**:
@@ -21,7 +21,7 @@ One of the four classes in the motion language: state feedback (hover/press/focu
 _Avoid_: animation type, category
 
 **Feedback rule**:
-The defining constraint: the acting component owns its feedback. Buttons morph through loading/success; fields show their own errors. Toast and alert are banned permanently.
+The defining constraint, revised in ADR 0002: the acting component shows its own busyness — the button morphs through loading, fields show their own errors. The app shows success and error inline via alert. Toast is banned permanently.
 _Avoid_: notification policy
 
 **Spec checklist**:
