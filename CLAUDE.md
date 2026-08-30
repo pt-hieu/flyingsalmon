@@ -26,3 +26,13 @@ The acting component owns its feedback. Buttons morph through loading/success st
 ## Publishing
 
 The repo and deploy stay private until Brian says otherwise. No registry versioning: ship-and-overwrite.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in this repo's GitHub Issues (`gh` CLI). See `docs/agents/issue-tracker.md`.
+
+### Domain docs
+
+Single-context: one `CONTEXT.md` at the repo root plus `docs/adr/`. See `docs/agents/domain.md`.
