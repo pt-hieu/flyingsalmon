@@ -113,6 +113,26 @@
       "files": [
         { "path": "src/registry/lib/motion.ts", "type": "registry:lib" }
       ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "The loading primitive for action busyness. One variant, two sizes, a currentColor arc rotating once per 800ms.",
+      "dependencies": ["lucide-react"],
+      "files": [
+        { "path": "src/registry/ui/spinner.tsx", "type": "registry:ui" }
+      ],
+      "cssVars": {
+        "theme": {
+          "animate-spinner": "spinner-rotate 800ms linear infinite"
+        }
+      },
+      "css": {
+        "@keyframes spinner-rotate": {
+          "to": { "transform": "rotate(360deg)" }
+        }
+      }
     }
   ]
 }
