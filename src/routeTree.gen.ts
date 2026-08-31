@@ -16,6 +16,7 @@ import { Route as ComponentsButtonRouteImport } from './routes/components/button
 import { Route as ComponentsInputRouteImport } from './routes/components/input'
 import { Route as ComponentsSpinnerRouteImport } from './routes/components/spinner'
 import { Route as ComponentsSwitchRouteImport } from './routes/components/switch'
+import { Route as ComponentsTextareaRouteImport } from './routes/components/textarea'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +53,11 @@ const ComponentsSwitchRoute = ComponentsSwitchRouteImport.update({
   path: '/switch',
   getParentRoute: () => ComponentsRouteRoute,
 } as any)
+const ComponentsTextareaRoute = ComponentsTextareaRouteImport.update({
+  id: '/textarea',
+  path: '/textarea',
+  getParentRoute: () => ComponentsRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
   '/components/switch': typeof ComponentsSwitchRoute
+  '/components/textarea': typeof ComponentsTextareaRoute
   '/components/': typeof ComponentsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
   '/components/switch': typeof ComponentsSwitchRoute
+  '/components/textarea': typeof ComponentsTextareaRoute
   '/components': typeof ComponentsIndexRoute
 }
 export interface FileRoutesById {
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
   '/components/switch': typeof ComponentsSwitchRoute
+  '/components/textarea': typeof ComponentsTextareaRoute
   '/components/': typeof ComponentsIndexRoute
 }
 export interface FileRouteTypes {
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/components/input'
     | '/components/spinner'
     | '/components/switch'
+    | '/components/textarea'
     | '/components/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/components/input'
     | '/components/spinner'
     | '/components/switch'
+    | '/components/textarea'
     | '/components'
   id:
     | '__root__'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/components/input'
     | '/components/spinner'
     | '/components/switch'
+    | '/components/textarea'
     | '/components/'
   fileRoutesById: FileRoutesById
 }
@@ -165,6 +177,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComponentsSwitchRouteImport
       parentRoute: typeof ComponentsRouteRoute
     }
+    '/components/textarea': {
+      id: '/components/textarea'
+      path: '/textarea'
+      fullPath: '/components/textarea'
+      preLoaderRoute: typeof ComponentsTextareaRouteImport
+      parentRoute: typeof ComponentsRouteRoute
+    }
   }
 }
 
@@ -173,6 +192,7 @@ interface ComponentsRouteRouteChildren {
   ComponentsInputRoute: typeof ComponentsInputRoute
   ComponentsSpinnerRoute: typeof ComponentsSpinnerRoute
   ComponentsSwitchRoute: typeof ComponentsSwitchRoute
+  ComponentsTextareaRoute: typeof ComponentsTextareaRoute
   ComponentsIndexRoute: typeof ComponentsIndexRoute
 }
 
@@ -181,6 +201,7 @@ const ComponentsRouteRouteChildren: ComponentsRouteRouteChildren = {
   ComponentsInputRoute: ComponentsInputRoute,
   ComponentsSpinnerRoute: ComponentsSpinnerRoute,
   ComponentsSwitchRoute: ComponentsSwitchRoute,
+  ComponentsTextareaRoute: ComponentsTextareaRoute,
   ComponentsIndexRoute: ComponentsIndexRoute,
 }
 
@@ -195,12 +216,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
