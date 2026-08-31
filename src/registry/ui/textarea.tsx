@@ -82,6 +82,7 @@ export function Textarea({
             'read-only:bg-muted',
             'disabled:pointer-events-none disabled:opacity-50',
             'aria-invalid:border-destructive aria-invalid:focus-visible:border-destructive aria-invalid:focus-visible:ring-destructive',
+            loading && 'pr-9',
           )}
           {...props}
           rows={minRows}
