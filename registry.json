@@ -141,6 +141,26 @@
       "description": "A single-line text field that owns its label, error message, and busyness. Text-like types only; stays editable while loading.",
       "registryDependencies": ["motion", "spinner"],
       "files": [{ "path": "src/registry/ui/input.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "The region-loading placeholder. Three shape presets sized by the consumer, pulsing on a 2s cycle, always hidden from assistive technology.",
+      "files": [
+        { "path": "src/registry/ui/skeleton.tsx", "type": "registry:ui" }
+      ],
+      "cssVars": {
+        "theme": {
+          "animate-skeleton-pulse": "skeleton-pulse 2s ease-in-out infinite"
+        }
+      },
+      "css": {
+        "@keyframes skeleton-pulse": {
+          "0%, 100%": { "opacity": "1" },
+          "50%": { "opacity": "0.5" }
+        }
+      }
     }
   ]
 }
