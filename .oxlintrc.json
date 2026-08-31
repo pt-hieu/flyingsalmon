@@ -182,6 +182,12 @@
       "rules": {
         "import/consistent-type-specifier-style": "off"
       }
+    },
+    {
+      "files": ["src/test/setup.ts"],
+      "rules": {
+        "import/no-unassigned-import": "off"
+      }
     }
   ],
   "ignorePatterns": ["dist", "src/routeTree.gen.ts"]
