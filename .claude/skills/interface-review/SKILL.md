@@ -1,6 +1,6 @@
 ---
 name: interface-review
-description:  Use when reviewing a component before it ships, auditing a batch of registry files, or when the user asks to check UI quality.
+description: Use when reviewing a component before it ships, auditing a batch of registry files, or when the user asks to check UI quality.
 ---
 
 # Interface review
