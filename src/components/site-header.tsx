@@ -14,8 +14,9 @@ export function SiteHeader() {
             flying<span className="text-primary">salmon</span>
           </Link>
           <Link
-            to="/components/spinner"
+            to="/components"
             className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
+            activeProps={{ className: 'text-foreground' }}
           >
             Components
           </Link>
