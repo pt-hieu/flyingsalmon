@@ -16,25 +16,34 @@ const buttonVariantClasses = {
     'bg-error text-error-foreground hover:bg-red-200 hover:text-red-800 dark:hover:bg-red-900 dark:hover:text-red-200',
 } as const
 
-const buttonSizeClasses = {
-  default: 'h-9 gap-2 px-4 text-sm',
-  sm: 'h-8 gap-1.5 px-3 text-sm',
-  icon: 'size-9',
-  'icon-sm': 'size-8',
-} as const
-
-const leadingSlotSizes = {
-  default: { spinner: 'default', icon: '[&_svg]:size-4' },
-  sm: { spinner: 'sm', icon: '[&_svg]:size-3' },
-  icon: { spinner: 'default', icon: '[&_svg]:size-4' },
-  'icon-sm': { spinner: 'sm', icon: '[&_svg]:size-3' },
+const buttonSizes = {
+  default: {
+    classes: 'h-9 gap-2 px-4 text-sm',
+    spinnerSize: 'default',
+    leadingIconClasses: '[&_svg]:size-4',
+  },
+  sm: {
+    classes: 'h-8 gap-1.5 px-3 text-sm',
+    spinnerSize: 'sm',
+    leadingIconClasses: '[&_svg]:size-3',
+  },
+  icon: {
+    classes: 'size-9',
+    spinnerSize: 'default',
+    leadingIconClasses: '[&_svg]:size-4',
+  },
+  'icon-sm': {
+    classes: 'size-8',
+    spinnerSize: 'sm',
+    leadingIconClasses: '[&_svg]:size-3',
+  },
 } as const
 
 const pressRingClasses =
   'active:ring-primary active:ring-offset-background active:ring-2 active:ring-offset-2'
 
 export type ButtonVariant = keyof typeof buttonVariantClasses
-export type ButtonSize = keyof typeof buttonSizeClasses
+export type ButtonSize = keyof typeof buttonSizes
 
 export interface ButtonProps extends Omit<
   React.ComponentProps<'button'>,
@@ -57,12 +66,12 @@ export function Button({
   ...props
 }: ButtonProps) {
   const rendersLabel = size !== 'icon' && size !== 'icon-sm'
-  const leadingSlotSize = leadingSlotSizes[size]
+  const sizeStyles = buttonSizes[size]
 
   const childrenAsIcon = rendersLabel ? null : children
 
   const leadingContent = loading ? (
-    <Spinner aria-hidden size={leadingSlotSize.spinner} />
+    <Spinner aria-hidden size={sizeStyles.spinnerSize} />
   ) : (
     (icon ?? childrenAsIcon)
   )
@@ -86,7 +95,7 @@ export function Button({
         'outline-none focus-visible:border-ring focus-visible:ring-ring focus-visible:ring-offset-background focus-visible:ring-3 focus-visible:ring-offset-2',
         'disabled:pointer-events-none disabled:opacity-50',
         buttonVariantClasses[variant],
-        buttonSizeClasses[size],
+        sizeStyles.classes,
         loading ? 'cursor-default' : pressRingClasses,
         className,
       )}
@@ -95,13 +104,21 @@ export function Button({
       {leadingContent ? (
         <motion.span
           layout
-          className={cn('flex shrink-0 items-center', leadingSlotSize.icon)}
+          transition={springBounce}
+          className={cn(
+            'flex shrink-0 items-center',
+            sizeStyles.leadingIconClasses,
+          )}
         >
           {leadingContent}
         </motion.span>
       ) : null}
 
-      {rendersLabel ? <motion.span layout>{children}</motion.span> : null}
+      {rendersLabel ? (
+        <motion.span layout transition={springBounce}>
+          {children}
+        </motion.span>
+      ) : null}
     </motion.button>
   )
 }
