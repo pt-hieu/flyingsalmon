@@ -46,8 +46,11 @@ function ButtonPage() {
           <code>secondary</code> carry the actions beside it, <code>ghost</code>{' '}
           the ones inside a dense row. <code>destructive</code> stays soft — a
           red tint with red text, never a solid red fill, because a delete
-          button should read as serious, not as an alarm. There is no{' '}
-          <code>link</code> variant: a link is an <code>&lt;a&gt;</code>.
+          button should read as serious, not as an alarm. It is also the one
+          variant whose hover deepens the text along with the background: the
+          red steps sit close together, so stepping the tint alone would drop
+          its label under AA. There is no <code>link</code> variant: a link is
+          an <code>&lt;a&gt;</code>.
         </p>
         <ModePreview>
           <Button>Save changes</Button>
