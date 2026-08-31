@@ -139,8 +139,9 @@ function SwitchPage() {
           not an exit, so it bounces on the way back too. The track color
           crossfades under it in CSS at <code>--motion-fast</code>, as do the
           hover shade and the focus ring. The loading pulse is a continuous
-          animation: scale and opacity on an 800ms CSS keyframes cycle, matched
-          to the spinner&rsquo;s tempo.
+          animation: the thumb color fades and returns on an 800ms CSS keyframes
+          cycle, matched to the spinner&rsquo;s tempo. The thumb never changes
+          size, so it never reads as travel.
         </p>
       </section>
 
