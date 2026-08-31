@@ -180,6 +180,17 @@
           "50%": { "opacity": "0.7" }
         }
       }
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "A tri-state checkbox that owns its label and error message. One 20px size; the check mark morphs into a dash for the indeterminate state.",
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["motion"],
+      "files": [
+        { "path": "src/registry/ui/checkbox.tsx", "type": "registry:ui" }
+      ]
     }
   ]
 }
