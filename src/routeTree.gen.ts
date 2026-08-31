@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ComponentsRouteRouteImport } from './routes/components/route'
 import { Route as ComponentsIndexRouteImport } from './routes/components/index'
+import { Route as ComponentsButtonRouteImport } from './routes/components/button'
 import { Route as ComponentsInputRouteImport } from './routes/components/input'
 import { Route as ComponentsSpinnerRouteImport } from './routes/components/spinner'
 import { Route as ComponentsTextareaRouteImport } from './routes/components/textarea'
@@ -29,6 +30,11 @@ const ComponentsRouteRoute = ComponentsRouteRouteImport.update({
 const ComponentsIndexRoute = ComponentsIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => ComponentsRouteRoute,
+} as any)
+const ComponentsButtonRoute = ComponentsButtonRouteImport.update({
+  id: '/button',
+  path: '/button',
   getParentRoute: () => ComponentsRouteRoute,
 } as any)
 const ComponentsInputRoute = ComponentsInputRouteImport.update({
@@ -50,6 +56,7 @@ const ComponentsTextareaRoute = ComponentsTextareaRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/components': typeof ComponentsRouteRouteWithChildren
+  '/components/button': typeof ComponentsButtonRoute
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
   '/components/textarea': typeof ComponentsTextareaRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/components/button': typeof ComponentsButtonRoute
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
   '/components/textarea': typeof ComponentsTextareaRoute
@@ -66,6 +74,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/components': typeof ComponentsRouteRouteWithChildren
+  '/components/button': typeof ComponentsButtonRoute
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
   '/components/textarea': typeof ComponentsTextareaRoute
@@ -76,6 +85,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/components'
+    | '/components/button'
     | '/components/input'
     | '/components/spinner'
     | '/components/textarea'
@@ -83,6 +93,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/components/button'
     | '/components/input'
     | '/components/spinner'
     | '/components/textarea'
@@ -91,6 +102,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/components'
+    | '/components/button'
     | '/components/input'
     | '/components/spinner'
     | '/components/textarea'
@@ -125,6 +137,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComponentsIndexRouteImport
       parentRoute: typeof ComponentsRouteRoute
     }
+    '/components/button': {
+      id: '/components/button'
+      path: '/button'
+      fullPath: '/components/button'
+      preLoaderRoute: typeof ComponentsButtonRouteImport
+      parentRoute: typeof ComponentsRouteRoute
+    }
     '/components/input': {
       id: '/components/input'
       path: '/input'
@@ -150,6 +169,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface ComponentsRouteRouteChildren {
+  ComponentsButtonRoute: typeof ComponentsButtonRoute
   ComponentsInputRoute: typeof ComponentsInputRoute
   ComponentsSpinnerRoute: typeof ComponentsSpinnerRoute
   ComponentsTextareaRoute: typeof ComponentsTextareaRoute
@@ -157,6 +177,7 @@ interface ComponentsRouteRouteChildren {
 }
 
 const ComponentsRouteRouteChildren: ComponentsRouteRouteChildren = {
+  ComponentsButtonRoute: ComponentsButtonRoute,
   ComponentsInputRoute: ComponentsInputRoute,
   ComponentsSpinnerRoute: ComponentsSpinnerRoute,
   ComponentsTextareaRoute: ComponentsTextareaRoute,
@@ -174,12 +195,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
