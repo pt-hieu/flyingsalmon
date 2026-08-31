@@ -46,18 +46,26 @@ function ButtonPage() {
           <code>secondary</code> carry the actions beside it, <code>ghost</code>{' '}
           the ones inside a dense row. <code>destructive</code> stays soft — a
           red tint with red text, never a solid red fill, because a delete
-          button should read as serious, not as an alarm. It is also the one
-          variant whose hover deepens the text along with the background: the
-          red steps sit close together, so stepping the tint alone would drop
-          its label under AA. There is no <code>link</code> variant: a link is
-          an <code>&lt;a&gt;</code>.
+          button should read as serious, not as an alarm. There is no{' '}
+          <code>link</code> variant: a link is an <code>&lt;a&gt;</code>.
+        </p>
+        <p className="text-muted-foreground">
+          Hover moves the surface one step and keeps the label above AA. The
+          three neutral variants wash to the same indigo tint, so a surface
+          without a color of its own borrows the accent.{' '}
+          <strong className="text-foreground">
+            Two hovers step the label with the surface, because the surface step
+            alone would drop it under AA:
+          </strong>{' '}
+          <code>destructive</code> in both modes, and <code>default</code> in
+          dark, where the fill deepens instead of paling out.
         </p>
         <ModePreview>
-          <Button>Save changes</Button>
-          <Button variant="outline">Save changes</Button>
-          <Button variant="secondary">Save changes</Button>
-          <Button variant="ghost">Save changes</Button>
-          <Button variant="destructive">Delete project</Button>
+          <Button>Default</Button>
+          <Button variant="outline">Outline</Button>
+          <Button variant="secondary">Secondary</Button>
+          <Button variant="ghost">Ghost</Button>
+          <Button variant="destructive">Destructive</Button>
         </ModePreview>
       </section>
 
@@ -165,18 +173,23 @@ function ButtonPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Focus and press</h2>
         <p className="text-muted-foreground">
-          Tab to a button for the focus ring: 3px of solid indigo, held off the
-          button by a 2px gap in the page color so it stays visible on the
-          filled variants too. It appears on <code>:focus-visible</code> only,
-          so a mouse click never leaves a ring behind. Hold the button for the
-          press ring: a tighter 2px in the primary color, gone the moment you
-          let go. A loading button shows neither press ring — there is nothing
-          to press.
+          Tab to a button for the focus ring: 3px held off the button by a 2px
+          gap in the page color, so it stays visible on the filled variants too.{' '}
+          <strong className="text-foreground">
+            The ring takes the color of the button under it.
+          </strong>{' '}
+          <code>default</code> rings in its own indigo, <code>destructive</code>{' '}
+          in red, and the three neutral variants in <code>--ring</code>, which
+          is the same focus color the input uses. The ring appears on{' '}
+          <code>:focus-visible</code> only, so a mouse click never leaves one
+          behind. Hold the button for the press ring: the same color, a tighter
+          2px, gone the moment you let go. A loading button shows no press ring
+          — there is nothing to press.
         </p>
         <ModePreview>
-          <Button>Tab to me</Button>
-          <Button variant="outline">Tab to me</Button>
-          <Button variant="destructive">Tab to me</Button>
+          <Button>Default</Button>
+          <Button variant="outline">Outline</Button>
+          <Button variant="destructive">Destructive</Button>
         </ModePreview>
       </section>
 

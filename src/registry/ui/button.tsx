@@ -6,14 +6,15 @@ import { Spinner } from '@/registry/ui/spinner'
 
 const buttonVariantClasses = {
   default:
-    'bg-primary text-primary-foreground hover:bg-indigo-700 dark:hover:bg-indigo-300',
+    'bg-primary text-primary-foreground ring-primary hover:bg-indigo-700 dark:hover:bg-indigo-500 dark:hover:text-white',
   outline:
-    'border-input border bg-background text-foreground hover:bg-accent hover:text-accent-foreground',
+    'border-input border bg-background text-foreground ring-ring hover:bg-accent hover:text-accent-foreground',
   secondary:
-    'bg-secondary text-secondary-foreground hover:bg-neutral-200 dark:hover:bg-neutral-700',
-  ghost: 'text-foreground hover:bg-accent hover:text-accent-foreground',
+    'bg-secondary text-secondary-foreground ring-ring hover:bg-accent hover:text-accent-foreground',
+  ghost:
+    'text-foreground ring-ring hover:bg-accent hover:text-accent-foreground',
   destructive:
-    'bg-error text-error-foreground hover:bg-red-200 hover:text-red-800 dark:hover:bg-red-900 dark:hover:text-red-200',
+    'bg-error text-error-foreground ring-destructive hover:bg-red-200 hover:text-red-800 dark:hover:bg-red-900 dark:hover:text-red-200',
 } as const
 
 const buttonSizes = {
@@ -40,7 +41,7 @@ const buttonSizes = {
 } as const
 
 const pressRingClasses =
-  'active:ring-primary active:ring-offset-background active:ring-2 active:ring-offset-2'
+  'active:ring-offset-background active:ring-2 active:ring-offset-2'
 
 export type ButtonVariant = keyof typeof buttonVariantClasses
 export type ButtonSize = keyof typeof buttonSizes
@@ -92,7 +93,7 @@ export function Button({
       className={cn(
         'inline-flex shrink-0 items-center justify-center rounded-md font-medium whitespace-nowrap',
         'transition-[color,background-color,border-color,box-shadow] duration-(--motion-fast)',
-        'outline-none focus-visible:border-ring focus-visible:ring-ring focus-visible:ring-offset-background focus-visible:ring-3 focus-visible:ring-offset-2',
+        'outline-none focus-visible:ring-offset-background focus-visible:ring-3 focus-visible:ring-offset-2',
         'disabled:pointer-events-none disabled:opacity-50',
         buttonVariantClasses[variant],
         sizeStyles.classes,
