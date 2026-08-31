@@ -135,6 +135,14 @@
       }
     },
     {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "The action component. Five variants, four sizes, and a loading state that morphs the button around its own spinner while it stays focused and reachable.",
+      "registryDependencies": ["motion", "spinner"],
+      "files": [{ "path": "src/registry/ui/button.tsx", "type": "registry:ui" }]
+    },
+    {
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
