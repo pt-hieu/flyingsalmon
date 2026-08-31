@@ -141,6 +141,18 @@
       "description": "A single-line text field that owns its label, error message, and busyness. Text-like types only; stays editable while loading.",
       "registryDependencies": ["motion", "spinner"],
       "files": [{ "path": "src/registry/ui/input.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "A flat container that groups related content on one surface. Seven slots, one padding step, no variants; `interactive` opts into hover, press, and focus feedback through a stretched title link.",
+      "files": [{ "path": "src/registry/ui/card.tsx", "type": "registry:ui" }],
+      "cssVars": {
+        "theme": {
+          "card-spacing": "--spacing(4)"
+        }
+      }
     }
   ]
 }
