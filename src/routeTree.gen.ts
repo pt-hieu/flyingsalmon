@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ComponentsRouteRouteImport } from './routes/components/route'
 import { Route as ComponentsIndexRouteImport } from './routes/components/index'
+import { Route as ComponentsBadgeRouteImport } from './routes/components/badge'
 import { Route as ComponentsInputRouteImport } from './routes/components/input'
 import { Route as ComponentsSpinnerRouteImport } from './routes/components/spinner'
 
@@ -30,6 +31,11 @@ const ComponentsIndexRoute = ComponentsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ComponentsRouteRoute,
 } as any)
+const ComponentsBadgeRoute = ComponentsBadgeRouteImport.update({
+  id: '/badge',
+  path: '/badge',
+  getParentRoute: () => ComponentsRouteRoute,
+} as any)
 const ComponentsInputRoute = ComponentsInputRouteImport.update({
   id: '/input',
   path: '/input',
@@ -44,12 +50,14 @@ const ComponentsSpinnerRoute = ComponentsSpinnerRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/components': typeof ComponentsRouteRouteWithChildren
+  '/components/badge': typeof ComponentsBadgeRoute
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
   '/components/': typeof ComponentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/components/badge': typeof ComponentsBadgeRoute
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
   '/components': typeof ComponentsIndexRoute
@@ -58,6 +66,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/components': typeof ComponentsRouteRouteWithChildren
+  '/components/badge': typeof ComponentsBadgeRoute
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
   '/components/': typeof ComponentsIndexRoute
@@ -67,15 +76,22 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/components'
+    | '/components/badge'
     | '/components/input'
     | '/components/spinner'
     | '/components/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/components/input' | '/components/spinner' | '/components'
+  to:
+    | '/'
+    | '/components/badge'
+    | '/components/input'
+    | '/components/spinner'
+    | '/components'
   id:
     | '__root__'
     | '/'
     | '/components'
+    | '/components/badge'
     | '/components/input'
     | '/components/spinner'
     | '/components/'
@@ -109,6 +125,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComponentsIndexRouteImport
       parentRoute: typeof ComponentsRouteRoute
     }
+    '/components/badge': {
+      id: '/components/badge'
+      path: '/badge'
+      fullPath: '/components/badge'
+      preLoaderRoute: typeof ComponentsBadgeRouteImport
+      parentRoute: typeof ComponentsRouteRoute
+    }
     '/components/input': {
       id: '/components/input'
       path: '/input'
@@ -127,12 +150,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface ComponentsRouteRouteChildren {
+  ComponentsBadgeRoute: typeof ComponentsBadgeRoute
   ComponentsInputRoute: typeof ComponentsInputRoute
   ComponentsSpinnerRoute: typeof ComponentsSpinnerRoute
   ComponentsIndexRoute: typeof ComponentsIndexRoute
 }
 
 const ComponentsRouteRouteChildren: ComponentsRouteRouteChildren = {
+  ComponentsBadgeRoute: ComponentsBadgeRoute,
   ComponentsInputRoute: ComponentsInputRoute,
   ComponentsSpinnerRoute: ComponentsSpinnerRoute,
   ComponentsIndexRoute: ComponentsIndexRoute,
