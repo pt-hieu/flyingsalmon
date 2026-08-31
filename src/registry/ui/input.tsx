@@ -76,12 +76,12 @@ export function Input({
   )
 
   return (
-    <div className={cn('flex w-full flex-col gap-2', className)}>
+    <div className={cn('flex w-full flex-col', className)}>
       {label ? (
         <label
           htmlFor={fieldId}
           className={cn(
-            'text-sm font-medium transition-colors duration-(--motion-fast)',
+            'mb-2 text-sm font-medium transition-colors duration-(--motion-fast)',
             error ? 'text-destructive' : 'text-foreground',
             disabled && 'opacity-50',
           )}
@@ -102,8 +102,8 @@ export function Input({
             'border-input bg-background text-foreground w-full rounded-md border',
             'placeholder:text-muted-foreground',
             'transition-[color,border-color,box-shadow] duration-(--motion-fast)',
-            'hover:border-neutral-300 dark:hover:border-neutral-600',
-            'focus-visible:border-ring focus-visible:ring-ring focus-visible:ring-3 focus-visible:outline-none',
+            'enabled:hover:border-neutral-300 dark:enabled:hover:border-neutral-600',
+            'focus-visible:border-ring focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none',
             'read-only:bg-muted',
             'disabled:pointer-events-none disabled:opacity-50',
             'aria-invalid:border-destructive aria-invalid:focus-visible:border-destructive aria-invalid:focus-visible:ring-destructive',
@@ -133,7 +133,7 @@ export function Input({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1, transition: springBounce }}
             exit={{ height: 0, opacity: 0, transition: springSettle }}
-            className="text-destructive overflow-hidden text-sm"
+            className="text-destructive overflow-hidden pt-1 text-xs"
           >
             {error}
           </motion.p>
