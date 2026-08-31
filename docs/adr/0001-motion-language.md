@@ -7,8 +7,8 @@ Every batch-1 component spec must name its micro animation in a shared vocabular
 ## Decision
 
 - **Four animation kinds**: state feedback (hover, press, focus, check), morph (a component reshapes itself), enter/exit, and continuous (spinner, skeleton). Kinds 1–3 stay under 200ms. Continuous is exempt — a spinner loops forever.
-- **Two engines**: CSS transitions handle state feedback; `motion` handles morph and enter/exit. CSS is free and simple for color/opacity; springs matter for movement.
-- **Durations**: `--motion-fast: 100ms` for color and opacity feedback, `--motion-base: 150ms` for morphs and enter/exit. Published as CSS variables so both engines share the same numbers.
+- **Three engines**: CSS transitions handle state feedback; `motion` handles morph and enter/exit; CSS keyframes handle continuous, through a custom `animate-*` utility the component's registry item carries — never Tailwind's built-in `animate-spin` or `animate-pulse`, whose durations are wrong (issue #11). CSS is free and simple for color/opacity and for a loop that never stops; springs matter for movement.
+- **Durations**: `--motion-fast: 100ms` for color and opacity feedback, `--motion-base: 150ms` for morphs and enter/exit. Published as CSS variables so every engine shares the same numbers.
 - **Spring presets**: `spring-bounce` (visualDuration 150ms, bounce 0.3) for morphs and enters — the playful one. `spring-settle` (visualDuration 150ms, bounce 0) for exits — leaving elements must not wobble.
 - **Properties**: prefer `transform`, `opacity`, and color. Layout animation is allowed via motion's `layout` prop, which turns size changes into transforms. This reverses the earlier "never animates layout" rule.
 - **Continuous values**: spinner rotates once per 800ms, linear. Skeleton pulses on a 2s cycle, ease-in-out. Switch loading pulses the thumb (scale plus opacity) on an 800ms cycle, matched to the spinner's tempo (issue #7). Slower reads as broken, faster reads as alarming.
