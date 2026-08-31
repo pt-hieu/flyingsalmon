@@ -5,13 +5,17 @@ import { cn } from '@/lib/utils'
 import { springBounce, springSettle } from '@/registry/lib/motion'
 import { Spinner } from '@/registry/ui/spinner'
 
-const bordersAndVerticalPadding = '2px + 1rem'
+const topAndBottomBorderWidth = '2px'
+const topAndBottomPadding = '1rem'
 
 function rowsToHeight(rows: number) {
-  return `calc(${rows}lh + ${bordersAndVerticalPadding})`
+  return `calc(${rows}lh + ${topAndBottomBorderWidth} + ${topAndBottomPadding})`
 }
 
-export interface TextareaProps extends React.ComponentProps<'textarea'> {
+export interface TextareaProps extends Omit<
+  React.ComponentProps<'textarea'>,
+  'rows'
+> {
   label?: string
   error?: string
   loading?: boolean
@@ -59,7 +63,6 @@ export function Textarea({
       <div className="relative flex">
         <textarea
           id={fieldId}
-          rows={minRows}
           disabled={disabled}
           aria-invalid={error ? true : undefined}
           aria-busy={loading || undefined}
@@ -81,6 +84,7 @@ export function Textarea({
             'aria-invalid:border-destructive aria-invalid:focus-visible:border-destructive aria-invalid:focus-visible:ring-destructive',
           )}
           {...props}
+          rows={minRows}
         />
 
         {loading ? (
