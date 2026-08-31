@@ -18,6 +18,9 @@ const eightLinesOfNotes = [
   'Day 8 — fly home.',
 ].join('\n')
 
+const aLineThatWrapsPastTheSpinner =
+  'Saving this draft of the Da Nang itinerary, which runs long enough to wrap onto a second line.'
+
 function TextareaPage() {
   return (
     <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
@@ -98,7 +101,8 @@ function TextareaPage() {
           <code>loading</code> pins the spinner to the top-right corner inside
           the padding. A textarea has no end slot — text flows across every
           line, so the spinner overlays the corner instead of sitting beside the
-          content.{' '}
+          content. The field reserves that column while it loads, so no line
+          ever runs under the spinner.{' '}
           <strong className="text-foreground">The field stays editable.</strong>{' '}
           Loading here means background work — an autosave, an async check — and
           the submit button is what locks a flow. With an error alongside it,
@@ -108,13 +112,13 @@ function TextareaPage() {
           <Textarea
             className="w-72"
             label="Notes"
-            defaultValue="Saving this draft"
+            defaultValue={aLineThatWrapsPastTheSpinner}
             loading
           />
           <Textarea
             className="w-72"
             label="Notes"
-            defaultValue="Saving this draft"
+            defaultValue={aLineThatWrapsPastTheSpinner}
             loading
             error="That draft failed to save"
           />
@@ -129,7 +133,9 @@ function TextareaPage() {
           Disabled dims the field and its label together and takes no pointer
           events. Read-only keeps full text contrast on a muted background,
           takes a normal cursor, and stays focusable so the value can still be
-          read and copied.
+          read and copied. It keeps the focus ring: a keyboard user must always
+          see where focus landed, and the muted background is what says the
+          field is not editable.
         </p>
         <ModePreview>
           <Textarea
