@@ -62,20 +62,28 @@ export function Checkbox({
           className={cn(
             'text-primary-foreground grid size-5 shrink-0 place-items-center rounded-sm border',
             'transition-[background-color,border-color,box-shadow] duration-(--motion-fast)',
-            'focus-visible:ring-2 focus-visible:outline-none',
+            'focus-visible:ring-offset-background focus-visible:ring-3 focus-visible:ring-offset-2 focus-visible:outline-none',
             'disabled:pointer-events-none disabled:opacity-50',
-            'data-[state=checked]:bg-primary data-[state=indeterminate]:bg-primary',
             error
-              ? 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive'
+              ? [
+                  'border-destructive focus-visible:ring-destructive',
+                  'data-[state=checked]:bg-destructive data-[state=indeterminate]:bg-destructive',
+                  'enabled:hover:data-[state=unchecked]:border-red-700',
+                  'dark:enabled:hover:data-[state=unchecked]:border-red-300',
+                  'enabled:hover:data-[state=checked]:border-red-700 enabled:hover:data-[state=checked]:bg-red-700',
+                  'enabled:hover:data-[state=indeterminate]:border-red-700 enabled:hover:data-[state=indeterminate]:bg-red-700',
+                  'dark:enabled:hover:data-[state=checked]:border-red-500 dark:enabled:hover:data-[state=checked]:bg-red-500',
+                  'dark:enabled:hover:data-[state=indeterminate]:border-red-500 dark:enabled:hover:data-[state=indeterminate]:bg-red-500',
+                ]
               : [
-                  'border-input focus-visible:border-ring focus-visible:ring-ring',
+                  'border-input focus-visible:ring-ring',
+                  'data-[state=checked]:bg-primary data-[state=indeterminate]:bg-primary',
                   'data-[state=checked]:border-primary data-[state=indeterminate]:border-primary',
-                  'enabled:hover:data-[state=unchecked]:border-neutral-300',
-                  'dark:enabled:hover:data-[state=unchecked]:border-neutral-600',
-                  'enabled:hover:data-[state=checked]:border-indigo-700',
-                  'enabled:hover:data-[state=indeterminate]:border-indigo-700',
-                  'dark:enabled:hover:data-[state=checked]:border-indigo-300',
-                  'dark:enabled:hover:data-[state=indeterminate]:border-indigo-300',
+                  'enabled:hover:data-[state=unchecked]:border-primary',
+                  'enabled:hover:data-[state=checked]:border-indigo-700 enabled:hover:data-[state=checked]:bg-indigo-700',
+                  'enabled:hover:data-[state=indeterminate]:border-indigo-700 enabled:hover:data-[state=indeterminate]:bg-indigo-700',
+                  'dark:enabled:hover:data-[state=checked]:border-indigo-500 dark:enabled:hover:data-[state=checked]:bg-indigo-500',
+                  'dark:enabled:hover:data-[state=indeterminate]:border-indigo-500 dark:enabled:hover:data-[state=indeterminate]:bg-indigo-500',
                 ],
           )}
           {...props}
