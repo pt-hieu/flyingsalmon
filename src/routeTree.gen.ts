@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ComponentsRouteRouteImport } from './routes/components/route'
+import { Route as ComponentsIndexRouteImport } from './routes/components/index'
 import { Route as ComponentsInputRouteImport } from './routes/components/input'
 import { Route as ComponentsSpinnerRouteImport } from './routes/components/spinner'
 
@@ -18,45 +20,70 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ComponentsInputRoute = ComponentsInputRouteImport.update({
-  id: '/components/input',
-  path: '/components/input',
+const ComponentsRouteRoute = ComponentsRouteRouteImport.update({
+  id: '/components',
+  path: '/components',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComponentsIndexRoute = ComponentsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ComponentsRouteRoute,
+} as any)
+const ComponentsInputRoute = ComponentsInputRouteImport.update({
+  id: '/input',
+  path: '/input',
+  getParentRoute: () => ComponentsRouteRoute,
+} as any)
 const ComponentsSpinnerRoute = ComponentsSpinnerRouteImport.update({
-  id: '/components/spinner',
-  path: '/components/spinner',
-  getParentRoute: () => rootRouteImport,
+  id: '/spinner',
+  path: '/spinner',
+  getParentRoute: () => ComponentsRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/components': typeof ComponentsRouteRouteWithChildren
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
+  '/components/': typeof ComponentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
+  '/components': typeof ComponentsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/components': typeof ComponentsRouteRouteWithChildren
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
+  '/components/': typeof ComponentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/components/input' | '/components/spinner'
+  fullPaths:
+    | '/'
+    | '/components'
+    | '/components/input'
+    | '/components/spinner'
+    | '/components/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/components/input' | '/components/spinner'
-  id: '__root__' | '/' | '/components/input' | '/components/spinner'
+  to: '/' | '/components/input' | '/components/spinner' | '/components'
+  id:
+    | '__root__'
+    | '/'
+    | '/components'
+    | '/components/input'
+    | '/components/spinner'
+    | '/components/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ComponentsInputRoute: typeof ComponentsInputRoute
-  ComponentsSpinnerRoute: typeof ComponentsSpinnerRoute
+  ComponentsRouteRoute: typeof ComponentsRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -68,28 +95,66 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/components': {
+      id: '/components'
+      path: '/components'
+      fullPath: '/components'
+      preLoaderRoute: typeof ComponentsRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/components/': {
+      id: '/components/'
+      path: '/'
+      fullPath: '/components/'
+      preLoaderRoute: typeof ComponentsIndexRouteImport
+      parentRoute: typeof ComponentsRouteRoute
+    }
     '/components/input': {
       id: '/components/input'
-      path: '/components/input'
+      path: '/input'
       fullPath: '/components/input'
       preLoaderRoute: typeof ComponentsInputRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ComponentsRouteRoute
     }
     '/components/spinner': {
       id: '/components/spinner'
-      path: '/components/spinner'
+      path: '/spinner'
       fullPath: '/components/spinner'
       preLoaderRoute: typeof ComponentsSpinnerRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ComponentsRouteRoute
     }
   }
 }
 
-const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+interface ComponentsRouteRouteChildren {
+  ComponentsInputRoute: typeof ComponentsInputRoute
+  ComponentsSpinnerRoute: typeof ComponentsSpinnerRoute
+  ComponentsIndexRoute: typeof ComponentsIndexRoute
+}
+
+const ComponentsRouteRouteChildren: ComponentsRouteRouteChildren = {
   ComponentsInputRoute: ComponentsInputRoute,
   ComponentsSpinnerRoute: ComponentsSpinnerRoute,
+  ComponentsIndexRoute: ComponentsIndexRoute,
+}
+
+const ComponentsRouteRouteWithChildren = ComponentsRouteRoute._addFileChildren(
+  ComponentsRouteRouteChildren,
+)
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  ComponentsRouteRoute: ComponentsRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
