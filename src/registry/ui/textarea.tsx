@@ -77,11 +77,11 @@ export function Textarea({
             'field-sizing-content resize-none',
             'placeholder:text-muted-foreground',
             'transition-[color,border-color,box-shadow] duration-(--motion-fast)',
-            'enabled:hover:border-neutral-300 dark:enabled:hover:border-neutral-600',
-            'focus-visible:border-ring focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none',
-            'read-only:bg-muted',
+            'enabled:hover:not-focus-visible:border-neutral-300 dark:enabled:hover:not-focus-visible:border-neutral-600',
+            'focus-visible:border-background focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none',
+            'read-only:bg-muted read-only:focus-visible:border-muted',
             'disabled:pointer-events-none disabled:opacity-50',
-            'aria-invalid:border-destructive aria-invalid:focus-visible:border-destructive aria-invalid:focus-visible:ring-destructive',
+            'aria-invalid:border-destructive aria-invalid:focus-visible:border-background aria-invalid:focus-visible:ring-destructive',
             loading && 'pr-9',
           )}
           {...props}
