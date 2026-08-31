@@ -141,6 +141,27 @@
       "description": "A single-line text field that owns its label, error message, and busyness. Text-like types only; stays editable while loading.",
       "registryDependencies": ["motion", "spinner"],
       "files": [{ "path": "src/registry/ui/input.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "An instant-apply on/off control that owns its label and its own busyness. One size, no variants, no error state; a failed toggle is a result the app shows.",
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["motion"],
+      "files": [
+        { "path": "src/registry/ui/switch.tsx", "type": "registry:ui" }
+      ],
+      "cssVars": {
+        "theme": {
+          "animate-switch-thumb-pulse": "switch-thumb-pulse 800ms ease-in-out infinite"
+        }
+      },
+      "css": {
+        "@keyframes switch-thumb-pulse": {
+          "50%": { "transform": "scale(0.75)", "opacity": "0.6" }
+        }
+      }
     }
   ]
 }
