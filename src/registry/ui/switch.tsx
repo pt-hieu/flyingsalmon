@@ -39,7 +39,7 @@ export function Switch({
           onClick?.(event)
         }}
         className={cn(
-          'group inline-flex h-6 w-11 shrink-0 items-center rounded-full p-0.5',
+          'group inline-flex h-6 w-11 shrink-0 items-center rounded-full p-1',
           'data-[state=unchecked]:justify-start data-[state=checked]:justify-end',
           'data-[state=unchecked]:bg-muted-foreground data-[state=checked]:bg-primary',
           'transition-[background-color,box-shadow] duration-(--motion-fast)',
@@ -48,14 +48,14 @@ export function Switch({
           loading
             ? 'cursor-not-allowed'
             : [
-                'data-[state=unchecked]:hover:bg-neutral-600 dark:data-[state=unchecked]:hover:bg-neutral-300',
-                'data-[state=checked]:hover:bg-indigo-700 dark:data-[state=checked]:hover:bg-indigo-300',
+                'data-[state=unchecked]:hover:bg-neutral-600 dark:data-[state=unchecked]:hover:bg-neutral-500',
+                'data-[state=checked]:hover:bg-indigo-700 dark:data-[state=checked]:hover:bg-indigo-500',
               ],
         )}
         {...props}
       >
         <SwitchPrimitive.Thumb asChild>
-          <motion.span layout transition={springBounce} className="size-5">
+          <motion.span layout transition={springBounce} className="size-4">
             <span
               className={cn(
                 'block size-full rounded-full',
