@@ -77,9 +77,10 @@ function CheckboxPage() {
           focus ring, and the label turn destructive, and the message renders
           below.{' '}
           <strong className="text-foreground">
-            The fill stays primary while checked.
+            The fill turns destructive too while checked.
           </strong>{' '}
-          The frame carries the error; the check still states the value.
+          A 20px box is too small to read a red border against a blue fill, so
+          the whole control carries one color.
         </p>
         <ModePreview>
           <div className="flex flex-col gap-4">
@@ -107,7 +108,7 @@ function CheckboxPage() {
           is what lets motion interpolate them — keep the command counts
           identical if you redraw either mark. Unchecking fades and shrinks the
           mark out on <code>spring-settle</code>, with no reverse draw. The
-          fill, the hover border, the focus ring, and the destructive colors are
+          fill, the hover shade, the focus ring, and the destructive colors are
           CSS transitions at <code>--motion-fast</code>.
         </p>
       </section>
@@ -120,7 +121,8 @@ function CheckboxPage() {
           the click target covers both. Tab focuses the box and Space toggles
           it. An error sets <code>aria-invalid</code> and links the message
           through <code>aria-describedby</code>, keeping any description you
-          passed. The focus ring is keyboard-only; there is no press ring,
+          passed. The focus ring is keyboard-only and sits 2px clear of the box,
+          the same 3px ring Button and Switch use. There is no press ring,
           because a held state means nothing on an instant toggle.
         </p>
       </section>
