@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ComponentsRouteRouteImport } from './routes/components/route'
 import { Route as ComponentsIndexRouteImport } from './routes/components/index'
+import { Route as ComponentsAvatarRouteImport } from './routes/components/avatar'
 import { Route as ComponentsInputRouteImport } from './routes/components/input'
 import { Route as ComponentsSpinnerRouteImport } from './routes/components/spinner'
 
@@ -30,6 +31,11 @@ const ComponentsIndexRoute = ComponentsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ComponentsRouteRoute,
 } as any)
+const ComponentsAvatarRoute = ComponentsAvatarRouteImport.update({
+  id: '/avatar',
+  path: '/avatar',
+  getParentRoute: () => ComponentsRouteRoute,
+} as any)
 const ComponentsInputRoute = ComponentsInputRouteImport.update({
   id: '/input',
   path: '/input',
@@ -44,12 +50,14 @@ const ComponentsSpinnerRoute = ComponentsSpinnerRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/components': typeof ComponentsRouteRouteWithChildren
+  '/components/avatar': typeof ComponentsAvatarRoute
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
   '/components/': typeof ComponentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/components/avatar': typeof ComponentsAvatarRoute
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
   '/components': typeof ComponentsIndexRoute
@@ -58,6 +66,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/components': typeof ComponentsRouteRouteWithChildren
+  '/components/avatar': typeof ComponentsAvatarRoute
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
   '/components/': typeof ComponentsIndexRoute
@@ -67,15 +76,22 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/components'
+    | '/components/avatar'
     | '/components/input'
     | '/components/spinner'
     | '/components/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/components/input' | '/components/spinner' | '/components'
+  to:
+    | '/'
+    | '/components/avatar'
+    | '/components/input'
+    | '/components/spinner'
+    | '/components'
   id:
     | '__root__'
     | '/'
     | '/components'
+    | '/components/avatar'
     | '/components/input'
     | '/components/spinner'
     | '/components/'
@@ -109,6 +125,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComponentsIndexRouteImport
       parentRoute: typeof ComponentsRouteRoute
     }
+    '/components/avatar': {
+      id: '/components/avatar'
+      path: '/avatar'
+      fullPath: '/components/avatar'
+      preLoaderRoute: typeof ComponentsAvatarRouteImport
+      parentRoute: typeof ComponentsRouteRoute
+    }
     '/components/input': {
       id: '/components/input'
       path: '/input'
@@ -127,12 +150,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface ComponentsRouteRouteChildren {
+  ComponentsAvatarRoute: typeof ComponentsAvatarRoute
   ComponentsInputRoute: typeof ComponentsInputRoute
   ComponentsSpinnerRoute: typeof ComponentsSpinnerRoute
   ComponentsIndexRoute: typeof ComponentsIndexRoute
 }
 
 const ComponentsRouteRouteChildren: ComponentsRouteRouteChildren = {
+  ComponentsAvatarRoute: ComponentsAvatarRoute,
   ComponentsInputRoute: ComponentsInputRoute,
   ComponentsSpinnerRoute: ComponentsSpinnerRoute,
   ComponentsIndexRoute: ComponentsIndexRoute,
