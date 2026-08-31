@@ -141,6 +141,13 @@
       "description": "A single-line text field that owns its label, error message, and busyness. Text-like types only; stays editable while loading.",
       "registryDependencies": ["motion", "spinner"],
       "files": [{ "path": "src/registry/ui/input.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "A static marker for a status, a category, or a small count. Six variants, one size, never focusable and never animated.",
+      "files": [{ "path": "src/registry/ui/badge.tsx", "type": "registry:ui" }]
     }
   ]
 }
