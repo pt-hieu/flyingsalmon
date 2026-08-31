@@ -135,12 +135,51 @@
       }
     },
     {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "The action component. Five variants, four sizes, and a loading state that morphs the button around its own spinner while it stays focused and reachable.",
+      "registryDependencies": ["motion", "spinner"],
+      "files": [{ "path": "src/registry/ui/button.tsx", "type": "registry:ui" }]
+    },
+    {
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
       "description": "A single-line text field that owns its label, error message, and busyness. Text-like types only; stays editable while loading.",
       "registryDependencies": ["motion", "spinner"],
       "files": [{ "path": "src/registry/ui/input.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "A multiline text field that owns its label, error message, and busyness. Autosizes between a row floor and a row cap; stays editable while loading.",
+      "registryDependencies": ["motion", "spinner"],
+      "files": [
+        { "path": "src/registry/ui/textarea.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "An instant-apply on/off control that owns its label and its own busyness. One size, no variants, no error state; a failed toggle is a result the app shows.",
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["motion"],
+      "files": [
+        { "path": "src/registry/ui/switch.tsx", "type": "registry:ui" }
+      ],
+      "cssVars": {
+        "theme": {
+          "animate-switch-thumb-pulse": "switch-thumb-pulse 800ms ease-in-out infinite"
+        }
+      },
+      "css": {
+        "@keyframes switch-thumb-pulse": {
+          "50%": { "opacity": "0.7" }
+        }
+      }
     },
     {
       "name": "checkbox",
