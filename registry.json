@@ -141,6 +141,17 @@
       "description": "A single-line text field that owns its label, error message, and busyness. Text-like types only; stays editable while loading.",
       "registryDependencies": ["motion", "spinner"],
       "files": [{ "path": "src/registry/ui/input.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "A tri-state checkbox that owns its label and error message. One 20px size; the check mark morphs into a dash for the indeterminate state.",
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["motion"],
+      "files": [
+        { "path": "src/registry/ui/checkbox.tsx", "type": "registry:ui" }
+      ]
     }
   ]
 }
