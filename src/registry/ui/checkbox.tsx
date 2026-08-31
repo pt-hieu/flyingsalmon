@@ -72,6 +72,10 @@ export function Checkbox({
                   'data-[state=checked]:border-primary data-[state=indeterminate]:border-primary',
                   'enabled:hover:data-[state=unchecked]:border-neutral-300',
                   'dark:enabled:hover:data-[state=unchecked]:border-neutral-600',
+                  'enabled:hover:data-[state=checked]:border-indigo-700',
+                  'enabled:hover:data-[state=indeterminate]:border-indigo-700',
+                  'dark:enabled:hover:data-[state=checked]:border-indigo-300',
+                  'dark:enabled:hover:data-[state=indeterminate]:border-indigo-300',
                 ],
           )}
           {...props}
