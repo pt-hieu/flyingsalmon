@@ -17,7 +17,13 @@ export function SiteHeader() {
             to="/components/spinner"
             className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
           >
-            Components
+            Spinner
+          </Link>
+          <Link
+            to="/components/input"
+            className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
+          >
+            Input
           </Link>
         </div>
         <ThemeToggle />
