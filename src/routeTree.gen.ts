@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ComponentsRouteRouteImport } from './routes/components/route'
 import { Route as ComponentsIndexRouteImport } from './routes/components/index'
+import { Route as ComponentsAlertRouteImport } from './routes/components/alert'
 import { Route as ComponentsButtonRouteImport } from './routes/components/button'
 import { Route as ComponentsInputRouteImport } from './routes/components/input'
 import { Route as ComponentsSpinnerRouteImport } from './routes/components/spinner'
@@ -29,6 +30,11 @@ const ComponentsRouteRoute = ComponentsRouteRouteImport.update({
 const ComponentsIndexRoute = ComponentsIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => ComponentsRouteRoute,
+} as any)
+const ComponentsAlertRoute = ComponentsAlertRouteImport.update({
+  id: '/alert',
+  path: '/alert',
   getParentRoute: () => ComponentsRouteRoute,
 } as any)
 const ComponentsButtonRoute = ComponentsButtonRouteImport.update({
@@ -50,6 +56,7 @@ const ComponentsSpinnerRoute = ComponentsSpinnerRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/components': typeof ComponentsRouteRouteWithChildren
+  '/components/alert': typeof ComponentsAlertRoute
   '/components/button': typeof ComponentsButtonRoute
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/components/alert': typeof ComponentsAlertRoute
   '/components/button': typeof ComponentsButtonRoute
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
@@ -66,6 +74,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/components': typeof ComponentsRouteRouteWithChildren
+  '/components/alert': typeof ComponentsAlertRoute
   '/components/button': typeof ComponentsButtonRoute
   '/components/input': typeof ComponentsInputRoute
   '/components/spinner': typeof ComponentsSpinnerRoute
@@ -76,6 +85,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/components'
+    | '/components/alert'
     | '/components/button'
     | '/components/input'
     | '/components/spinner'
@@ -83,6 +93,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/components/alert'
     | '/components/button'
     | '/components/input'
     | '/components/spinner'
@@ -91,6 +102,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/components'
+    | '/components/alert'
     | '/components/button'
     | '/components/input'
     | '/components/spinner'
@@ -125,6 +137,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComponentsIndexRouteImport
       parentRoute: typeof ComponentsRouteRoute
     }
+    '/components/alert': {
+      id: '/components/alert'
+      path: '/alert'
+      fullPath: '/components/alert'
+      preLoaderRoute: typeof ComponentsAlertRouteImport
+      parentRoute: typeof ComponentsRouteRoute
+    }
     '/components/button': {
       id: '/components/button'
       path: '/button'
@@ -150,6 +169,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface ComponentsRouteRouteChildren {
+  ComponentsAlertRoute: typeof ComponentsAlertRoute
   ComponentsButtonRoute: typeof ComponentsButtonRoute
   ComponentsInputRoute: typeof ComponentsInputRoute
   ComponentsSpinnerRoute: typeof ComponentsSpinnerRoute
@@ -157,6 +177,7 @@ interface ComponentsRouteRouteChildren {
 }
 
 const ComponentsRouteRouteChildren: ComponentsRouteRouteChildren = {
+  ComponentsAlertRoute: ComponentsAlertRoute,
   ComponentsButtonRoute: ComponentsButtonRoute,
   ComponentsInputRoute: ComponentsInputRoute,
   ComponentsSpinnerRoute: ComponentsSpinnerRoute,
