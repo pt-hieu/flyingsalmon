@@ -182,6 +182,17 @@ describe('Textarea', () => {
     expect(field.style.maxHeight).toBe('calc(20lh + 2px + 1rem)')
   })
 
+  it('keeps the row count on minRows when a native rows prop is passed', () => {
+    const nativeRowsEscapeHatch = { rows: 12 } as Record<string, unknown>
+
+    render(<Textarea label="Notes" minRows={4} {...nativeRowsEscapeHatch} />)
+
+    const field = screen.getByLabelText('Notes') as HTMLTextAreaElement
+
+    expect(field).toHaveAttribute('rows', '4')
+    expect(field.style.minHeight).toBe('calc(4lh + 2px + 1rem)')
+  })
+
   it('lets a caller style override the row bounds', () => {
     render(<Textarea label="Notes" style={{ maxHeight: '400px' }} />)
 
