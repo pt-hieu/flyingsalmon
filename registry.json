@@ -36,6 +36,7 @@
           "secondary-foreground": "var(--color-neutral-900)",
           "muted": "var(--color-neutral-100)",
           "muted-foreground": "var(--color-neutral-500)",
+          "skeleton": "var(--color-neutral-300)",
           "accent": "var(--color-indigo-50)",
           "accent-foreground": "var(--color-indigo-700)",
           "destructive": "var(--color-red-600)",
@@ -76,6 +77,7 @@
           "secondary-foreground": "var(--color-neutral-50)",
           "muted": "var(--color-neutral-800)",
           "muted-foreground": "var(--color-neutral-400)",
+          "skeleton": "var(--color-neutral-800)",
           "accent": "var(--color-indigo-950)",
           "accent-foreground": "var(--color-neutral-50)",
           "destructive": "var(--color-red-400)",
@@ -224,6 +226,26 @@
       "cssVars": {
         "theme": {
           "card-spacing": "--spacing(4)"
+        }
+      }
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "The region-loading placeholder. Three shape presets sized by the consumer, pulsing on a 2s cycle, always hidden from assistive technology.",
+      "files": [
+        { "path": "src/registry/ui/skeleton.tsx", "type": "registry:ui" }
+      ],
+      "cssVars": {
+        "theme": {
+          "animate-skeleton-pulse": "skeleton-pulse 2s ease-in-out infinite"
+        }
+      },
+      "css": {
+        "@keyframes skeleton-pulse": {
+          "0%, 100%": { "opacity": "1" },
+          "50%": { "opacity": "0.5" }
         }
       }
     }

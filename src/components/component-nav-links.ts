@@ -9,4 +9,5 @@ export const componentNavLinks = [
   { to: '/components/alert', label: 'Alert' },
   { to: '/components/avatar', label: 'Avatar' },
   { to: '/components/card', label: 'Card' },
+  { to: '/components/skeleton', label: 'Skeleton' },
 ] as const
