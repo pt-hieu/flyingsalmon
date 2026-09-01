@@ -23,7 +23,7 @@ Tailwind opacity modifiers are banned!
 - Palette-only colors: every color is a step from the Tailwind OKLCH palette (neutral grays, indigo brand, red destructive) behind functional aliases. No color alpha anywhere in the repo, docs chrome included; element opacity for disabled states and motion is fine. See `docs/adr/0004-palette-only-colors.md`.
 - Flat surfaces: no shadows, no elevation tokens. Surfaces separate by solid borders and background steps; interaction feedback lives in the border. See `docs/adr/0003-flat-surfaces.md`.
 - Radius: 12px base via `--radius: 0.75rem`. Never hardcode radii; derive from the scale.
-- Motion: small, springy, under 200ms (continuous indicators like spinner/skeleton exempt). Values, spring presets, and engine split are fixed in `docs/adr/0001-motion-language.md` — specs quote its names. Layout animation allowed via motion's `layout` prop. `prefers-reduced-motion` support deferred for now.
+- Motion: small, springy, under 200ms (continuous indicators like spinner/skeleton exempt). Values, spring presets, and engine split are fixed in `docs/adr/0001-motion-language.md` — specs quote its names. Layout animation allowed via motion's `layout` prop. Do not worry about `prefers-reduced-motion`: no component implements it, no spec asks for it, and no review flags its absence.
 - Accessibility: WCAG AA is a hard requirement — contrast, visible focus states, full keyboard paths.
 
 ## Feedback rule (defining constraint)
