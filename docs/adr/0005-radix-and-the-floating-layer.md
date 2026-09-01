@@ -1,0 +1,49 @@
+# Radix and the floating layer: lifecycle, positioning, dismiss, focus
+
+Status: accepted
+
+Batch 2 is popover, dialog, dropdown-menu, select, tooltip, and tabs. The floating-layer grilling (issue #49) fixed one contract that the five floating components quote instead of re-deciding. It also settles the Radix choice recorded in the batch-2 map (issue #48), together with the motion-lifecycle answer that made the choice affordable.
+
+## Decision
+
+- **Radix for all six batch-2 components.** `radix-ui` is already a dependency and batch 1 uses it in `checkbox.tsx` and `switch.tsx`. Tabs is not floating but takes Radix anyway for the roving-tabindex keyboard path.
+- **Radix owns mount and unmount.** No `forceMount`, no `AnimatePresence`, no component-owned `open` state, no controllable-state hook. Enter and exit are CSS animations, which is what Radix's own `Presence` waits for.
+- **The spring survives as CSS.** `motion@13.1.1` re-exports `motion-dom`, whose `spring()` prints a CSS shorthand: `spring({ visualDuration: 0.15, bounce: 0.3 }).toString()` gives `250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)`, and `bounce: 0` gives `350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)`. These are the same curves `springBounce` and `springSettle` run in JavaScript, sampled into `linear()`. The overshoot to `1.04` is the playfulness, and it is preserved.
+- **Durations: enter 250ms on the bounce curve, exit 150ms on the settle curve.** The enter keeps its full length or the overshoot is clipped. The exit is compressed because nobody watches a thing leave, and holding the node for 350ms delays focus returning to the trigger.
+- **Portal.** All five mount to `document.body`, always. No `container` override prop.
+- **Modality is fixed per component kind, never a prop.** Dialog is modal. Dropdown-menu and select are modal. Popover is non-modal and never gets a `modal` prop — a modal popover is a dialog under another name. Tooltip is non-modal.
+- **Positioning: `side` and `align` are props, the rest is fixed.** Defaults `side="bottom"`, `align="center"`; tooltip defaults `side="top"`. Fixed by the system: `sideOffset: 8`, `alignOffset: 0`, `avoidCollisions: true`, `collisionPadding: 8`. At a viewport edge content flips first, then shifts. No clamp, no `hideWhenDetached`.
+- **Open state is forwarded, not reimplemented.** All five Radix roots already accept `open`, `defaultOpen`, and `onOpenChange`; select adds `value`, `defaultValue`, and `onValueChange` as an independent axis. Wrapper props extend `React.ComponentProps<typeof Root>` and spread onto `Root`, never onto `Content`.
+- **Motion shapes.** Anchored content scales from `0.96` with `transform-origin: var(--radix-popper-transform-origin)`, so content that flipped still grows from its trigger. Dialog scales from `0.98`, because 4% of a 500px dialog is a lurch where 4% of a popover is a pop. The overlay animates opacity only; it is `fixed inset-0` and scaling it would show a gap at the screen edge.
+- **Dismiss is fixed, with one prop in the whole layer.** Escape always closes, everywhere, and is never configurable. Outside click closes all four; choosing an item closes dropdown-menu and select; tooltip also closes on pointer leave, blur, and any pointer-down. Popover survives page scroll and stays anchored. The one prop is dialog's `dismissible`, default `true`, which disables outside-click dismissal only. Radix's `onPointerDownOutside` and `onInteractOutside` are not passed through.
+- **Focus follows Radix's defaults unmodified.** Dialog traps focus. Dropdown-menu and select move focus into the list, which the arrow-key and typeahead path depends on. Popover moves focus into its content without trapping, so Tab leaves into the page. Tooltip never takes focus. Focus returns to the trigger on close in every case. No `initialFocus` prop.
+- **Scroll lock follows modality.** Dialog, dropdown-menu, and select lock the page through `react-remove-scroll`, already installed as a Radix dependency. Popover and tooltip do not.
+- **Stacking is one `z-50` on every floating surface**, dialog overlay included. No per-kind z-index scale. Everything portals to `document.body`, so equal z-values resolve by mount order and the layer opened later wins — the correct answer for a dropdown inside a dialog or a tooltip on a dialog's close button. Escape unwinds innermost-first through Radix's dismissable-layer stack.
+- **A floating surface separates by a surface step plus its border, not by depth.** Dark mode already did this: `--background` neutral-950 under `--popover` neutral-900. Light mode now matches — `--popover` becomes `var(--color-neutral-50)` against a white `--background`. This answers the flip condition in ADR 0003.
+- **The dialog scrim is a solid palette color at element opacity**: `--color-neutral-950` animated from `0` to `0.5`. No color alpha is introduced, so the flip condition in ADR 0004 is answered by declining to flip.
+- **The shared item is CSS only.** A `floating` registry item carries three keyframe pairs — anchored, dialog, overlay — and their `--animate-*` variables with durations and easings baked in. It holds no TypeScript. Components depend on it and write one class per direction.
+
+## Rationale
+
+- The known conflict is that Radix deletes floating content the moment it closes, and decides when by waiting for a CSS `animationend` event. A `motion` spring drives transforms from JavaScript and fires no such event, so the exit never plays.
+- The usual fix is `forceMount` plus `AnimatePresence`. It works, and it costs roughly twenty duplicated lines in each of five components, a hand-written controllable-state hook, a `pointer-events` guard on the exiting layer whose dismiss handlers are still live, and the fussiest force-mount case of all in select's viewport.
+- `spring().toString()` removes that entire cost. The only thing `forceMount` buys over it is interruption fidelity: a JavaScript spring interrupted mid-flight continues from its current position and velocity, where a CSS animation restarts from its fixed start frame. On a 150ms fade-and-scale that is a small price, and it is paid only when a layer is toggled fast.
+- Fixing modality per component kind rather than exposing it keeps dismiss, focus, scroll lock, and stacking from becoming conditional on a prop.
+- `tw-animate-css` was rejected for the keyframes. It is a third-party dependency we would push onto every consumer, and ADR 0001 already requires each registry item to carry its own `animate-*` utility rather than borrow one.
+
+## Consequences
+
+- **ADR 0001 is revised twice.** CSS keyframes now carry floating enter and exit, not continuous animation only; the engine split there assigned enter/exit to `motion`. And "under 200ms" means visual duration, not wall clock — batch 1's springs already ran 250ms and 350ms end to end, JavaScript just never made anyone write the number down.
+- **ADR 0004 is widened, not broken.** It lists element opacity as fine for disabled states and motion. The scrim is a third sanctioned use. Color alpha stays banned repo-wide with no exception.
+- **ADR 0003's flip condition is answered** with the surface step named above, not with a shadow.
+- **The theme item changes one value**: light `--popover` moves from `var(--color-white)` to `var(--color-neutral-50)`.
+- **A new `floating` registry item** joins the registry, and the five floating components declare it as a dependency.
+- The five floating component specs quote the names above for portal, positioning, dismiss, focus, and motion rather than restating them.
+- A consumer's own `position: fixed` header still shifts when the page locks, because `react-remove-scroll` pads the body. Documented for consumers through the `--removed-body-scroll-bar-size` variable, not solved in the registry.
+- Exit animation is skipped if an app sets `open` to false and unmounts the component in the same render. Radix needs the component alive to play it. This is true of every lifecycle shape considered.
+
+## Deferred
+
+- **A code-carrying `floating` lib item.** The shared surface is CSS today. Revisit after popover and dialog are actually built, per issue #48 — do not guess its shape before two components have used the pattern.
+- **A `container` prop for the portal target**, and an `initialFocus` prop. Both wait for a real consumer need.
+- **`prefers-reduced-motion`**, still deferred by the standing rule in ADR 0001 and `CLAUDE.md`.
