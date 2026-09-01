@@ -7,4 +7,5 @@ export const componentNavLinks = [
   { to: '/components/checkbox', label: 'Checkbox' },
   { to: '/components/badge', label: 'Badge' },
   { to: '/components/alert', label: 'Alert' },
+  { to: '/components/avatar', label: 'Avatar' },
 ] as const
