@@ -8,4 +8,5 @@ export const componentNavLinks = [
   { to: '/components/badge', label: 'Badge' },
   { to: '/components/alert', label: 'Alert' },
   { to: '/components/avatar', label: 'Avatar' },
+  { to: '/components/card', label: 'Card' },
 ] as const
