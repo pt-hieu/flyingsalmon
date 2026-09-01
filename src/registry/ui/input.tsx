@@ -1,8 +1,5 @@
-import { AnimatePresence, motion } from 'motion/react'
-import { useId } from 'react'
-
 import { cn } from '@/lib/utils'
-import { springBounce, springSettle } from '@/registry/lib/motion'
+import { FieldErrorMessage, useFieldIds } from '@/registry/lib/field'
 import { Spinner } from '@/registry/ui/spinner'
 
 const inputSizeClasses = {
@@ -56,14 +53,11 @@ export function Input({
   'aria-describedby': callerDescribedBy,
   ...props
 }: InputProps) {
-  const generatedId = useId()
-  const fieldId = id ?? generatedId
-  const errorMessageId = `${fieldId}-error`
-
-  const describedBy =
-    [callerDescribedBy, error ? errorMessageId : null]
-      .filter(Boolean)
-      .join(' ') || undefined
+  const { fieldId, errorMessageId, describedBy } = useFieldIds({
+    id,
+    error,
+    describedBy: callerDescribedBy,
+  })
 
   const endSlotContent = loading ? (
     <Spinner
@@ -125,20 +119,7 @@ export function Input({
         ) : null}
       </div>
 
-      <AnimatePresence initial={false}>
-        {error ? (
-          <motion.p
-            key="error"
-            id={errorMessageId}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1, transition: springBounce }}
-            exit={{ height: 0, opacity: 0, transition: springSettle }}
-            className="text-destructive overflow-hidden pt-1 text-xs"
-          >
-            {error}
-          </motion.p>
-        ) : null}
-      </AnimatePresence>
+      <FieldErrorMessage id={errorMessageId}>{error}</FieldErrorMessage>
     </div>
   )
 }

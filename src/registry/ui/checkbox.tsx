@@ -1,8 +1,9 @@
 import { AnimatePresence, motion } from 'motion/react'
-import { useId, useState } from 'react'
+import { useState } from 'react'
 import { Checkbox as CheckboxPrimitive } from 'radix-ui'
 
 import { cn } from '@/lib/utils'
+import { FieldErrorMessage, useFieldIds } from '@/registry/lib/field'
 import { springBounce, springSettle } from '@/registry/lib/motion'
 
 export type CheckboxCheckedState = CheckboxPrimitive.CheckedState
@@ -30,18 +31,15 @@ export function Checkbox({
   'aria-describedby': callerDescribedBy,
   ...props
 }: CheckboxProps) {
-  const generatedId = useId()
-  const fieldId = id ?? generatedId
-  const errorMessageId = `${fieldId}-error`
+  const { fieldId, errorMessageId, describedBy } = useFieldIds({
+    id,
+    error,
+    describedBy: callerDescribedBy,
+  })
 
   const [uncontrolledChecked, setUncontrolledChecked] =
     useState<CheckboxCheckedState>(defaultChecked ?? false)
   const currentChecked = checked ?? uncontrolledChecked
-
-  const describedBy =
-    [callerDescribedBy, error ? errorMessageId : null]
-      .filter(Boolean)
-      .join(' ') || undefined
 
   function handleCheckedChange(nextChecked: CheckboxCheckedState) {
     setUncontrolledChecked(nextChecked)
@@ -133,20 +131,7 @@ export function Checkbox({
         ) : null}
       </div>
 
-      <AnimatePresence initial={false}>
-        {error ? (
-          <motion.p
-            key="error"
-            id={errorMessageId}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1, transition: springBounce }}
-            exit={{ height: 0, opacity: 0, transition: springSettle }}
-            className="text-destructive overflow-hidden pt-1 text-xs"
-          >
-            {error}
-          </motion.p>
-        ) : null}
-      </AnimatePresence>
+      <FieldErrorMessage id={errorMessageId}>{error}</FieldErrorMessage>
     </div>
   )
 }
