@@ -296,13 +296,6 @@
       }
     },
     {
-      "name": "popover",
-      "type": "registry:ui",
-      "title": "Popover",
-      "description": "A non-modal panel anchored to its trigger. Focus moves in without a trap; Escape and an outside click dismiss it.",
-      "dependencies": ["radix-ui"]
-    },
-    {
       "name": "dialog",
       "type": "registry:ui",
       "title": "Dialog",
