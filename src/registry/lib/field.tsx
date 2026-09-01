@@ -1,3 +1,4 @@
+import { cva } from 'class-variance-authority'
 import { AnimatePresence, motion } from 'motion/react'
 import { useId } from 'react'
 
@@ -24,6 +25,42 @@ export function useFieldIds({
       .join(' ') || undefined
 
   return { fieldId, errorMessageId, describedBy }
+}
+
+const fieldLabelBaseVariants = cva(
+  'text-sm font-medium transition-colors duration-(--motion-fast)',
+  {
+    variants: {
+      placement: {
+        above: 'mb-2',
+        beside: '',
+      },
+      error: {
+        true: 'text-destructive',
+        false: 'text-foreground',
+      },
+      disabled: {
+        true: 'opacity-50',
+        false: '',
+      },
+    },
+    defaultVariants: {
+      error: false,
+      disabled: false,
+    },
+  },
+)
+
+export type FieldLabelPlacement = 'above' | 'beside'
+
+export interface FieldLabelVariantsOptions {
+  placement: FieldLabelPlacement
+  error?: boolean
+  disabled?: boolean
+}
+
+export function fieldLabelVariants(options: FieldLabelVariantsOptions) {
+  return fieldLabelBaseVariants(options)
 }
 
 export interface FieldErrorMessageProps {
