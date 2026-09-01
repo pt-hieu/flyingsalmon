@@ -63,6 +63,7 @@ body {
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
+  --color-skeleton: var(--skeleton);
   --color-destructive: var(--destructive);
   --color-error-foreground: var(--error-foreground);
   --color-error: var(--error);
@@ -107,6 +108,7 @@ body {
   --secondary-foreground: var(--color-neutral-900);
   --muted: var(--color-neutral-100);
   --muted-foreground: var(--color-neutral-500);
+  --skeleton: var(--color-neutral-300);
   --accent: var(--color-indigo-50);
   --accent-foreground: var(--color-indigo-700);
   --destructive: var(--color-red-600);
@@ -148,6 +150,7 @@ body {
   --secondary-foreground: var(--color-neutral-50);
   --muted: var(--color-neutral-800);
   --muted-foreground: var(--color-neutral-400);
+  --skeleton: var(--color-neutral-800);
   --accent: var(--color-indigo-950);
   --accent-foreground: var(--color-neutral-50);
   --destructive: var(--color-red-400);

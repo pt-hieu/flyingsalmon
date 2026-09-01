@@ -24,7 +24,7 @@ export function Skeleton({
     <div
       data-variant={variant}
       className={cn(
-        'animate-skeleton-pulse bg-muted',
+        'animate-skeleton-pulse bg-skeleton',
         skeletonVariantClasses[variant],
         className,
       )}
