@@ -5,57 +5,37 @@ import { cn } from '@/lib/utils'
 import { springBounce, springSettle } from '@/registry/lib/motion'
 import { Spinner } from '@/registry/ui/spinner'
 
-const inputSizeClasses = {
-  default: 'h-9 px-3 text-sm',
-  sm: 'h-8 px-2.5 text-sm',
-} as const
+const topAndBottomBorderWidth = '2px'
+const topAndBottomPadding = '1rem'
 
-const endSlotPaddingClasses = {
-  default: 'pr-9',
-  sm: 'pr-8',
-} as const
-
-const endSlotPositionClasses = {
-  default: 'right-3',
-  sm: 'right-2.5',
-} as const
-
-export type InputSize = keyof typeof inputSizeClasses
-
-export type InputType =
-  | 'text'
-  | 'email'
-  | 'password'
-  | 'number'
-  | 'search'
-  | 'tel'
-  | 'url'
-
-export interface InputProps extends Omit<
-  React.ComponentProps<'input'>,
-  'size' | 'type'
-> {
-  label?: string
-  size?: InputSize
-  type?: InputType
-  error?: string
-  loading?: boolean
-  endAdornment?: React.ReactNode
+function rowsToHeight(rows: number) {
+  return `calc(${rows}lh + ${topAndBottomBorderWidth} + ${topAndBottomPadding})`
 }
 
-export function Input({
+export interface TextareaProps extends Omit<
+  React.ComponentProps<'textarea'>,
+  'rows'
+> {
+  label?: string
+  error?: string
+  loading?: boolean
+  minRows?: number
+  maxRows?: number
+}
+
+export function Textarea({
   label,
-  size = 'default',
-  type = 'text',
   error,
   loading = false,
-  endAdornment,
+  minRows = 3,
+  maxRows = 8,
   className,
+  style,
   id,
   disabled,
   'aria-describedby': callerDescribedBy,
   ...props
-}: InputProps) {
+}: TextareaProps) {
   const generatedId = useId()
   const fieldId = id ?? generatedId
   const errorMessageId = `${fieldId}-error`
@@ -64,16 +44,6 @@ export function Input({
     [callerDescribedBy, error ? errorMessageId : null]
       .filter(Boolean)
       .join(' ') || undefined
-
-  const endSlotContent = loading ? (
-    <Spinner
-      aria-hidden
-      size={size}
-      className={error ? 'text-destructive' : undefined}
-    />
-  ) : (
-    endAdornment
-  )
 
   return (
     <div className={cn('flex w-full flex-col', className)}>
@@ -90,16 +60,21 @@ export function Input({
         </label>
       ) : null}
 
-      <div className="relative flex items-center">
-        <input
+      <div className="relative flex">
+        <textarea
           id={fieldId}
-          type={type}
           disabled={disabled}
           aria-invalid={error ? true : undefined}
           aria-busy={loading || undefined}
           aria-describedby={describedBy}
+          style={{
+            minHeight: rowsToHeight(minRows),
+            maxHeight: rowsToHeight(maxRows),
+            ...style,
+          }}
           className={cn(
-            'border-input bg-background text-foreground w-full rounded-md border',
+            'border-input bg-background text-foreground w-full rounded-md border px-3 py-2 text-sm',
+            'field-sizing-content resize-none',
             'placeholder:text-muted-foreground',
             'transition-[color,border-color,box-shadow] duration-(--motion-fast)',
             'enabled:hover:not-focus-visible:border-neutral-300 dark:enabled:hover:not-focus-visible:border-neutral-600',
@@ -107,20 +82,18 @@ export function Input({
             'read-only:bg-muted read-only:focus-visible:border-muted',
             'disabled:pointer-events-none disabled:opacity-50',
             'aria-invalid:border-destructive aria-invalid:focus-visible:border-background aria-invalid:focus-visible:ring-destructive',
-            inputSizeClasses[size],
-            endSlotContent && endSlotPaddingClasses[size],
+            loading && 'pr-9',
           )}
           {...props}
+          rows={minRows}
         />
 
-        {endSlotContent ? (
-          <div
-            className={cn(
-              'pointer-events-none absolute flex items-center [&_button]:pointer-events-auto',
-              endSlotPositionClasses[size],
-            )}
-          >
-            {endSlotContent}
+        {loading ? (
+          <div className="pointer-events-none absolute top-2 right-3 flex items-center">
+            <Spinner
+              aria-hidden
+              className={error ? 'text-destructive' : undefined}
+            />
           </div>
         ) : null}
       </div>
