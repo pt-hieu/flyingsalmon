@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import { ModePreview } from '@/components/mode-preview'
+import { Button } from '@/registry/ui/button'
 import {
   Card,
   CardAction,
@@ -35,7 +36,9 @@ function CardPage() {
           <code>CardAction</code>, <code>CardContent</code>, and{' '}
           <code>CardFooter</code>. Use the ones you need. There is no variant
           and no size — width comes from your layout, and the one padding step
-          is <code>--card-spacing</code>.
+          is <code>--card-spacing</code>. <code>CardAction</code> is a direct
+          child of <code>Card</code>, not of the header: it pins to the bottom
+          right so the action never competes with the title for the top edge.
         </p>
         <ModePreview>
           <Card className="w-72">
@@ -83,19 +86,16 @@ function CardPage() {
                 <a href="#kyoto">Weekend in Kyoto</a>
               </CardTitle>
               <CardDescription>Three days, ten stops</CardDescription>
-              <CardAction>
-                <button
-                  type="button"
-                  className="border-border hover:border-ring rounded-md border px-2 py-1 text-xs font-medium transition-colors duration-(--motion-fast)"
-                >
-                  Save
-                </button>
-              </CardAction>
             </CardHeader>
             <CardContent className="text-sm">
               Temples in the morning, tea in the afternoon, a river walk at
               dusk.
             </CardContent>
+            <CardAction>
+              <Button variant="outline" size="sm">
+                Save
+              </Button>
+            </CardAction>
           </Card>
         </ModePreview>
       </section>
@@ -113,12 +113,13 @@ function CardPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Motion</h2>
         <p className="text-muted-foreground">
-          Hover steps the border one gray darker. Press draws a tight 2px{' '}
-          <code>--primary</code> ring while held, matching the button. Focus
-          draws a 2px <code>--ring</code> ring around the whole card boundary.
-          All three are CSS transitions at <code>--motion-fast</code>. The card
-          owns no other motion — list enter, exit, and reorder belong to your
-          app through motion&rsquo;s <code>layout</code> prop.
+          Hover turns the border indigo. Press grows a 2px{' '}
+          <code>--primary</code> ring out of nothing while held, matching the
+          button. Focus draws a 2px <code>--ring</code> ring around the whole
+          card boundary. All three are CSS transitions at{' '}
+          <code>--motion-fast</code>. The card owns no other motion — list
+          enter, exit, and reorder belong to your app through motion&rsquo;s{' '}
+          <code>layout</code> prop.
         </p>
       </section>
 

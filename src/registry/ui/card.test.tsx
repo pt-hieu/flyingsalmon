@@ -19,12 +19,12 @@ describe('Card', () => {
         <CardHeader>
           <CardTitle>Weekend in Kyoto</CardTitle>
           <CardDescription>Three days, ten stops</CardDescription>
-          <CardAction>
-            <button type="button">Save</button>
-          </CardAction>
         </CardHeader>
         <CardContent>Temples, tea, and a river walk.</CardContent>
         <CardFooter>Updated today</CardFooter>
+        <CardAction>
+          <button type="button">Save</button>
+        </CardAction>
       </Card>,
     )
 
@@ -113,10 +113,10 @@ describe('Card', () => {
             <CardTitle>
               <a href="#kyoto">Weekend in Kyoto</a>
             </CardTitle>
-            <CardAction>
-              <button type="button">Save</button>
-            </CardAction>
           </CardHeader>
+          <CardAction>
+            <button type="button">Save</button>
+          </CardAction>
         </Card>
         <button type="button">After</button>
       </>,
@@ -144,12 +144,12 @@ describe('Card', () => {
               Weekend in Kyoto
             </a>
           </CardTitle>
-          <CardAction>
-            <button type="button" onClick={saveTrip}>
-              Save
-            </button>
-          </CardAction>
         </CardHeader>
+        <CardAction>
+          <button type="button" onClick={saveTrip}>
+            Save
+          </button>
+        </CardAction>
       </Card>,
     )
 
@@ -166,10 +166,10 @@ describe('Card', () => {
           <CardTitle>
             <a href="#kyoto">Weekend in Kyoto</a>
           </CardTitle>
-          <CardAction>
-            <button type="button">Save</button>
-          </CardAction>
         </CardHeader>
+        <CardAction>
+          <button type="button">Save</button>
+        </CardAction>
       </Card>,
     )
 
