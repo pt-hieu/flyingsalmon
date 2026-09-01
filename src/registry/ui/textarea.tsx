@@ -1,8 +1,5 @@
-import { AnimatePresence, motion } from 'motion/react'
-import { useId } from 'react'
-
 import { cn } from '@/lib/utils'
-import { springBounce, springSettle } from '@/registry/lib/motion'
+import { FieldErrorMessage, useFieldIds } from '@/registry/lib/field'
 import { Spinner } from '@/registry/ui/spinner'
 
 const topAndBottomBorderWidth = '2px'
@@ -36,14 +33,11 @@ export function Textarea({
   'aria-describedby': callerDescribedBy,
   ...props
 }: TextareaProps) {
-  const generatedId = useId()
-  const fieldId = id ?? generatedId
-  const errorMessageId = `${fieldId}-error`
-
-  const describedBy =
-    [callerDescribedBy, error ? errorMessageId : null]
-      .filter(Boolean)
-      .join(' ') || undefined
+  const { fieldId, errorMessageId, describedBy } = useFieldIds({
+    id,
+    error,
+    describedBy: callerDescribedBy,
+  })
 
   return (
     <div className={cn('flex w-full flex-col', className)}>
@@ -98,20 +92,7 @@ export function Textarea({
         ) : null}
       </div>
 
-      <AnimatePresence initial={false}>
-        {error ? (
-          <motion.p
-            key="error"
-            id={errorMessageId}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1, transition: springBounce }}
-            exit={{ height: 0, opacity: 0, transition: springSettle }}
-            className="text-destructive overflow-hidden pt-1 text-xs"
-          >
-            {error}
-          </motion.p>
-        ) : null}
-      </AnimatePresence>
+      <FieldErrorMessage id={errorMessageId}>{error}</FieldErrorMessage>
     </div>
   )
 }
