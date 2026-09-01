@@ -9,11 +9,19 @@ A batch-1 primitive that renders inline only: no floating layer, not a composite
 _Avoid_: widget, element, control
 
 **Batch**:
-A shipping group of components specced and built together. Batch 1 holds the 11 atomic components (alert joined via ADR 0002; label absorbed into the field components via #4).
+A shipping group of components specced and built together. Batch 1 holds the 11 atomic components (alert joined via ADR 0002; label absorbed into the field components via #4). Batch 2 holds the 6 floating and composite components: popover, dialog, dropdown-menu, select, tooltip, tabs.
 _Avoid_: milestone, phase, wave
 
+**Floating component**:
+A component that renders on a layer above the page flow, positioned against an anchor: popover, dialog, dropdown-menu, select, tooltip. Every floating component shares one portal, positioning, dismiss, and enter/exit contract. Tabs is not floating.
+_Avoid_: overlay, portal component, popup
+
+**Composite component**:
+A component built from several parts that only make sense together, exposed as a named group rather than a single element: tabs is the batch-2 example, and every floating component is also composite. An atomic component is never composite.
+_Avoid_: compound component, widget
+
 **Field family**:
-The components that own a label and an error message: input, textarea, checkbox. All three take their id linkage and their error message from the `field` registry item. Switch is not a member — it has a label but no error state, because a failed toggle is a result the app shows.
+The components that own a label and an error message: input, textarea, checkbox, and select from batch 2. All of them take their id linkage and their error message from the `field` registry item. Switch is not a member — it has a label but no error state, because a failed toggle is a result the app shows.
 _Avoid_: form controls, inputs
 
 **Motion language**:
