@@ -10,6 +10,7 @@ The card spec grilling (issue #9) proposed an elevated variant, which would have
 - **Surfaces separate by solid borders and background steps.** The card draws a 1px solid `--border` edge; dark mode lifts the surface color (`--card` sits above `--background`), not a shadow.
 - **Interaction feedback lives in the border, not in depth.** No hover lifts, no shadow growth, no press-down translations. Hover steps the border color; press draws a tight solid ring (button spec #3, card spec #9).
 - **The focus ring has two widths, set by where it draws.** A ring that stands off the element is 3px with a 2px offset (button #3, checkbox #6, switch #7). A ring that draws on the element's own boundary and replaces its border is 2px with no offset (input #4, textarea #5, card link #9). An offset ring floats clear of the shape and needs the extra weight; a boundary ring sits where a 1px border already read, so 2px is the step up. Both meet 3:1.
+- **A component may show focus without a ring** when its own state indicator moves with focus (tabs #55). Tabs drops the ring entirely. Under manual activation a 1px `--ring` bar marks the focused trigger. Under automatic activation focus always coincides with selection, so the 2px `--primary` active indicator, moving on every arrow key, is the focus feedback. WCAG 2.4.7 requires a visible focus indicator, not a ring; the bar still meets 3:1.
 - **The press ring stays 2px** in every case, offset or not (button #3, card #9). It is tight by intent — it must read as a held state, not as focus.
 
 ## Rationale
