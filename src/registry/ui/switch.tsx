@@ -4,6 +4,10 @@ import { Switch as SwitchPrimitive } from 'radix-ui'
 import { useId } from 'react'
 
 import { cn } from '@/lib/utils'
+import {
+  disabledInteraction,
+  offsetFocusRingGeometry,
+} from '@/registry/lib/interaction'
 import { springBounce } from '@/registry/lib/motion'
 
 const switchVariants = cva(
@@ -12,8 +16,9 @@ const switchVariants = cva(
     'data-[state=unchecked]:justify-start data-[state=checked]:justify-end',
     'data-[state=unchecked]:bg-muted-foreground data-[state=checked]:bg-primary',
     'transition-[background-color,box-shadow] duration-(--motion-fast)',
-    'focus-visible:ring-ring focus-visible:ring-offset-background focus-visible:ring-3 focus-visible:ring-offset-2 focus-visible:outline-none',
-    'disabled:pointer-events-none disabled:opacity-50',
+    'focus-visible:ring-ring',
+    offsetFocusRingGeometry,
+    disabledInteraction,
   ),
   {
     variants: {

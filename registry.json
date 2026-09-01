@@ -117,10 +117,20 @@
       ]
     },
     {
+      "name": "interaction",
+      "type": "registry:lib",
+      "title": "Interaction state classes",
+      "description": "The rendering rules every interactive component shares: the disabled state, and the two focus ring geometries ADR 0003 defines. Geometry only \u2014 each component names its own ring color.",
+      "files": [
+        { "path": "src/registry/lib/interaction.ts", "type": "registry:lib" }
+      ]
+    },
+    {
       "name": "field",
       "type": "registry:lib",
       "title": "Field primitives",
-      "description": "The wiring every field component shares: the label-to-control id linkage with its aria-describedby merge, and the animated error message.",
+      "description": "The wiring every field component shares: the label-to-control id linkage with its aria-describedby merge, the shared label variants, and the animated error message.",
+      "dependencies": ["class-variance-authority"],
       "registryDependencies": ["@flyingsalmon/motion"],
       "files": [
         { "path": "src/registry/lib/field.tsx", "type": "registry:lib" }
@@ -152,7 +162,11 @@
       "title": "Button",
       "description": "The action component. Five variants, four sizes, and a loading state that morphs the button around its own spinner while it stays focused and reachable.",
       "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["@flyingsalmon/motion", "@flyingsalmon/spinner"],
+      "registryDependencies": [
+        "@flyingsalmon/interaction",
+        "@flyingsalmon/motion",
+        "@flyingsalmon/spinner"
+      ],
       "files": [{ "path": "src/registry/ui/button.tsx", "type": "registry:ui" }]
     },
     {
@@ -170,7 +184,11 @@
       "title": "Input",
       "description": "A single-line text field that owns its label, error message, and busyness. Text-like types only; stays editable while loading.",
       "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["@flyingsalmon/field", "@flyingsalmon/spinner"],
+      "registryDependencies": [
+        "@flyingsalmon/field",
+        "@flyingsalmon/interaction",
+        "@flyingsalmon/spinner"
+      ],
       "files": [{ "path": "src/registry/ui/input.tsx", "type": "registry:ui" }]
     },
     {
@@ -179,7 +197,11 @@
       "title": "Textarea",
       "description": "A multiline text field that owns its label, error message, and busyness. Autosizes between a row floor and a row cap; stays editable while loading.",
       "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["@flyingsalmon/field", "@flyingsalmon/spinner"],
+      "registryDependencies": [
+        "@flyingsalmon/field",
+        "@flyingsalmon/interaction",
+        "@flyingsalmon/spinner"
+      ],
       "files": [
         { "path": "src/registry/ui/textarea.tsx", "type": "registry:ui" }
       ]
@@ -190,7 +212,10 @@
       "title": "Switch",
       "description": "An instant-apply on/off control that owns its label and its own busyness. One size, no variants, no error state; a failed toggle is a result the app shows.",
       "dependencies": ["class-variance-authority", "radix-ui"],
-      "registryDependencies": ["@flyingsalmon/motion"],
+      "registryDependencies": [
+        "@flyingsalmon/interaction",
+        "@flyingsalmon/motion"
+      ],
       "files": [
         { "path": "src/registry/ui/switch.tsx", "type": "registry:ui" }
       ],
@@ -211,7 +236,11 @@
       "title": "Checkbox",
       "description": "A tri-state checkbox that owns its label and error message. One 20px size; the check mark morphs into a dash for the indeterminate state.",
       "dependencies": ["class-variance-authority", "radix-ui"],
-      "registryDependencies": ["@flyingsalmon/field", "@flyingsalmon/motion"],
+      "registryDependencies": [
+        "@flyingsalmon/field",
+        "@flyingsalmon/interaction",
+        "@flyingsalmon/motion"
+      ],
       "files": [
         { "path": "src/registry/ui/checkbox.tsx", "type": "registry:ui" }
       ]
