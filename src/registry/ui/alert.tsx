@@ -9,45 +9,37 @@ const alertVariants = {
   info: {
     role: 'status',
     StatusIcon: Info,
-    surfaceClasses:
-      'bg-accent text-accent-foreground border-indigo-200 dark:border-indigo-800',
-    closeButtonClasses:
-      'hover:bg-indigo-100 dark:hover:bg-indigo-900 focus-visible:ring-offset-accent active:ring-offset-accent',
+    borderClasses: 'border-indigo-300 dark:border-indigo-800',
+    iconColorClasses: 'text-primary',
   },
   success: {
     role: 'status',
     StatusIcon: CircleCheck,
-    surfaceClasses:
-      'bg-success text-success-foreground border-green-300 dark:border-green-800',
-    closeButtonClasses:
-      'hover:bg-green-200 dark:hover:bg-green-900 focus-visible:ring-offset-success active:ring-offset-success',
+    borderClasses: 'border-green-300 dark:border-green-800',
+    iconColorClasses: 'text-success-foreground',
   },
   warning: {
     role: 'status',
     StatusIcon: TriangleAlert,
-    surfaceClasses:
-      'bg-warning text-warning-foreground border-amber-300 dark:border-amber-800',
-    closeButtonClasses:
-      'hover:bg-amber-200 dark:hover:bg-amber-900 focus-visible:ring-offset-warning active:ring-offset-warning',
+    borderClasses: 'border-amber-300 dark:border-amber-800',
+    iconColorClasses: 'text-warning-foreground',
   },
   error: {
     role: 'alert',
     StatusIcon: CircleAlert,
-    surfaceClasses:
-      'bg-error text-error-foreground border-red-300 dark:border-red-800',
-    closeButtonClasses:
-      'hover:bg-red-200 dark:hover:bg-red-900 focus-visible:ring-offset-error active:ring-offset-error',
+    borderClasses: 'border-red-300 dark:border-red-800',
+    iconColorClasses: 'text-error-foreground',
   },
 } as const
 
 const alertSizes = {
   default: {
     surfaceClasses: 'gap-3 p-4',
-    iconClasses: '[&_svg]:size-5',
+    iconSizeClasses: '[&_svg]:size-5',
   },
   sm: {
     surfaceClasses: 'gap-2.5 p-3',
-    iconClasses: '[&_svg]:size-4',
+    iconSizeClasses: '[&_svg]:size-4',
   },
 } as const
 
@@ -91,8 +83,8 @@ export function Alert({
           <div
             role={role ?? variantStyles.role}
             className={cn(
-              'flex items-start rounded-lg border text-sm',
-              variantStyles.surfaceClasses,
+              'bg-card text-card-foreground flex items-start rounded-lg border text-sm',
+              variantStyles.borderClasses,
               sizeStyles.surfaceClasses,
               className,
             )}
@@ -103,7 +95,8 @@ export function Alert({
                 aria-hidden
                 className={cn(
                   'flex h-5 shrink-0 items-center',
-                  sizeStyles.iconClasses,
+                  variantStyles.iconColorClasses,
+                  sizeStyles.iconSizeClasses,
                 )}
               >
                 {statusIcon}
@@ -118,10 +111,7 @@ export function Alert({
                 size="icon-sm"
                 aria-label="Dismiss"
                 onClick={onClose}
-                className={cn(
-                  '-my-1.5 -mr-1.5 text-current hover:text-current',
-                  variantStyles.closeButtonClasses,
-                )}
+                className="text-muted-foreground hover:bg-secondary hover:text-foreground focus-visible:ring-offset-card active:ring-offset-card -my-1.5 -mr-1.5"
               >
                 <X />
               </Button>
@@ -144,5 +134,5 @@ export function AlertDescription({
   className,
   ...props
 }: React.ComponentProps<'div'>) {
-  return <div className={className} {...props} />
+  return <div className={cn('text-muted-foreground', className)} {...props} />
 }

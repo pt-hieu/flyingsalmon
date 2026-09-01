@@ -146,7 +146,7 @@
       "name": "alert",
       "type": "registry:ui",
       "title": "Alert",
-      "description": "The app's inline vehicle for the result of an action. Four soft-tint variants, two sizes, an optional close button, and its own enter and exit animation.",
+      "description": "The app's inline vehicle for the result of an action. A neutral surface with four border-and-icon variants, two sizes, an optional close button, and its own enter and exit animation.",
       "dependencies": ["lucide-react"],
       "registryDependencies": ["motion", "button"],
       "files": [{ "path": "src/registry/ui/alert.tsx", "type": "registry:ui" }]
