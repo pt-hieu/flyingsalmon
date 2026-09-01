@@ -5,6 +5,8 @@ export const componentNavLinks = [
   { to: '/components/textarea', label: 'Textarea' },
   { to: '/components/switch', label: 'Switch' },
   { to: '/components/checkbox', label: 'Checkbox' },
+  { to: '/components/badge', label: 'Badge' },
   { to: '/components/alert', label: 'Alert' },
+  { to: '/components/avatar', label: 'Avatar' },
   { to: '/components/card', label: 'Card' },
 ] as const

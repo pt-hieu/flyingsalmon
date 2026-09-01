@@ -202,6 +202,20 @@
       ]
     },
     {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "A static marker for a status, a category, or a small count. Six variants, one size, never focusable and never animated.",
+      "files": [{ "path": "src/registry/ui/badge.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "The identity mark for a person. Image, then two initials on one of eight step-400 hues, then a plain circle. Static and non-focusable.",
+      "files": [{ "path": "src/registry/ui/avatar.tsx", "type": "registry:ui" }]
+    },
+    {
       "name": "card",
       "type": "registry:ui",
       "title": "Card",
