@@ -30,9 +30,10 @@ function AlertPage() {
           Four variants: <code>info</code> is the default, then{' '}
           <code>success</code>, <code>warning</code>, and <code>error</code>.{' '}
           <strong className="text-foreground">
-            The surface stays neutral — <code>card</code> in both modes.
+            The surface and the border stay neutral — <code>card</code> on{' '}
+            <code>border</code> in both modes.
           </strong>{' '}
-          The variant shows in the border and the icon, so an alert reads as a
+          The icon carries the variant on its own, so an alert reads as a
           message on the page and not as a colored block. No solid fill and no
           shadow.
         </p>
@@ -150,16 +151,16 @@ function AlertPage() {
           bigger than an alert. The close button stays the last tab stop.
         </p>
         <ModePreview>
-          <div className="flex w-72 flex-col gap-3">
+          <div className="flex w-80 flex-col gap-3">
             <Alert variant="error" onClose={() => {}}>
               <AlertTitle>The payment failed</AlertTitle>
               <AlertDescription>Your card was declined.</AlertDescription>
-              <div className="mt-1 flex gap-2">
+              <div className="mt-2 flex flex-wrap gap-2">
                 <Button variant="outline" size="sm">
                   Try again
                 </Button>
                 <Button variant="ghost" size="sm">
-                  Use another card
+                  Another card
                 </Button>
               </div>
             </Alert>

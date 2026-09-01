@@ -9,25 +9,21 @@ const alertVariants = {
   info: {
     role: 'status',
     StatusIcon: Info,
-    borderClasses: 'border-indigo-300 dark:border-indigo-800',
     iconColorClasses: 'text-primary',
   },
   success: {
     role: 'status',
     StatusIcon: CircleCheck,
-    borderClasses: 'border-green-300 dark:border-green-800',
     iconColorClasses: 'text-success-foreground',
   },
   warning: {
     role: 'status',
     StatusIcon: TriangleAlert,
-    borderClasses: 'border-amber-300 dark:border-amber-800',
     iconColorClasses: 'text-warning-foreground',
   },
   error: {
     role: 'alert',
     StatusIcon: CircleAlert,
-    borderClasses: 'border-red-300 dark:border-red-800',
     iconColorClasses: 'text-error-foreground',
   },
 } as const
@@ -83,8 +79,7 @@ export function Alert({
           <div
             role={role ?? variantStyles.role}
             className={cn(
-              'bg-card text-card-foreground flex items-start rounded-lg border text-sm',
-              variantStyles.borderClasses,
+              'bg-card text-card-foreground border-border flex items-start rounded-lg border text-sm',
               sizeStyles.surfaceClasses,
               className,
             )}
