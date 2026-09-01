@@ -1,23 +1,78 @@
+import { cva, type VariantProps } from 'class-variance-authority'
+
 import { cn } from '@/lib/utils'
 import { FieldErrorMessage, useFieldIds } from '@/registry/lib/field'
 import { Spinner } from '@/registry/ui/spinner'
 
-const inputSizeClasses = {
-  default: 'h-9 px-3 text-sm',
-  sm: 'h-8 px-2.5 text-sm',
-} as const
+const inputVariants = cva(
+  cn(
+    'border-input bg-background text-foreground w-full rounded-md border',
+    'placeholder:text-muted-foreground',
+    'transition-[color,border-color,box-shadow] duration-(--motion-fast)',
+    'enabled:hover:not-focus-visible:border-neutral-300 dark:enabled:hover:not-focus-visible:border-neutral-600',
+    'focus-visible:border-background focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none',
+    'read-only:bg-muted read-only:focus-visible:border-muted',
+    'disabled:pointer-events-none disabled:opacity-50',
+    'aria-invalid:border-destructive aria-invalid:focus-visible:border-background aria-invalid:focus-visible:ring-destructive',
+  ),
+  {
+    variants: {
+      size: {
+        default: 'h-9 px-3 text-sm',
+        sm: 'h-8 px-2.5 text-sm',
+      },
+      hasEndSlot: {
+        true: '',
+        false: '',
+      },
+    },
+    compoundVariants: [
+      { size: 'default', hasEndSlot: true, class: 'pr-9' },
+      { size: 'sm', hasEndSlot: true, class: 'pr-8' },
+    ],
+    defaultVariants: {
+      size: 'default',
+      hasEndSlot: false,
+    },
+  },
+)
 
-const endSlotPaddingClasses = {
-  default: 'pr-9',
-  sm: 'pr-8',
-} as const
+const inputEndSlotVariants = cva(
+  'pointer-events-none absolute flex items-center [&_button]:pointer-events-auto',
+  {
+    variants: {
+      size: {
+        default: 'right-3',
+        sm: 'right-2.5',
+      },
+    },
+    defaultVariants: {
+      size: 'default',
+    },
+  },
+)
 
-const endSlotPositionClasses = {
-  default: 'right-3',
-  sm: 'right-2.5',
-} as const
+const inputLabelVariants = cva(
+  'mb-2 text-sm font-medium transition-colors duration-(--motion-fast)',
+  {
+    variants: {
+      error: {
+        true: 'text-destructive',
+        false: 'text-foreground',
+      },
+      disabled: {
+        true: 'opacity-50',
+        false: '',
+      },
+    },
+    defaultVariants: {
+      error: false,
+      disabled: false,
+    },
+  },
+)
 
-export type InputSize = keyof typeof inputSizeClasses
+export type InputSize = NonNullable<VariantProps<typeof inputVariants>['size']>
 
 export type InputType =
   | 'text'
@@ -74,11 +129,10 @@ export function Input({
       {label ? (
         <label
           htmlFor={fieldId}
-          className={cn(
-            'mb-2 text-sm font-medium transition-colors duration-(--motion-fast)',
-            error ? 'text-destructive' : 'text-foreground',
-            disabled && 'opacity-50',
-          )}
+          className={inputLabelVariants({
+            error: Boolean(error),
+            disabled: Boolean(disabled),
+          })}
         >
           {label}
         </label>
@@ -92,30 +146,15 @@ export function Input({
           aria-invalid={error ? true : undefined}
           aria-busy={loading || undefined}
           aria-describedby={describedBy}
-          className={cn(
-            'border-input bg-background text-foreground w-full rounded-md border',
-            'placeholder:text-muted-foreground',
-            'transition-[color,border-color,box-shadow] duration-(--motion-fast)',
-            'enabled:hover:not-focus-visible:border-neutral-300 dark:enabled:hover:not-focus-visible:border-neutral-600',
-            'focus-visible:border-background focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none',
-            'read-only:bg-muted read-only:focus-visible:border-muted',
-            'disabled:pointer-events-none disabled:opacity-50',
-            'aria-invalid:border-destructive aria-invalid:focus-visible:border-background aria-invalid:focus-visible:ring-destructive',
-            inputSizeClasses[size],
-            endSlotContent && endSlotPaddingClasses[size],
-          )}
+          className={inputVariants({
+            size,
+            hasEndSlot: Boolean(endSlotContent),
+          })}
           {...props}
         />
 
         {endSlotContent ? (
-          <div
-            className={cn(
-              'pointer-events-none absolute flex items-center [&_button]:pointer-events-auto',
-              endSlotPositionClasses[size],
-            )}
-          >
-            {endSlotContent}
-          </div>
+          <div className={inputEndSlotVariants({ size })}>{endSlotContent}</div>
         ) : null}
       </div>
 

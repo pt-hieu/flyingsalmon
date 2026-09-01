@@ -1,3 +1,4 @@
+import { cva, type VariantProps } from 'class-variance-authority'
 import { CircleAlert, CircleCheck, Info, TriangleAlert, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 
@@ -5,42 +6,54 @@ import { cn } from '@/lib/utils'
 import { springBounce, springSettle } from '@/registry/lib/motion'
 import { Button } from '@/registry/ui/button'
 
-const alertVariants = {
-  info: {
-    role: 'status',
-    StatusIcon: Info,
-    iconColorClasses: 'text-primary',
+const alertVariants = cva(
+  'bg-card text-card-foreground border-border flex items-start rounded-lg border text-sm',
+  {
+    variants: {
+      size: {
+        default: 'gap-3 p-4',
+        sm: 'gap-2.5 p-3',
+      },
+    },
+    defaultVariants: {
+      size: 'default',
+    },
   },
-  success: {
-    role: 'status',
-    StatusIcon: CircleCheck,
-    iconColorClasses: 'text-success-foreground',
-  },
-  warning: {
-    role: 'status',
-    StatusIcon: TriangleAlert,
-    iconColorClasses: 'text-warning-foreground',
-  },
-  error: {
-    role: 'alert',
-    StatusIcon: CircleAlert,
-    iconColorClasses: 'text-error-foreground',
-  },
-} as const
+)
 
-const alertSizes = {
-  default: {
-    surfaceClasses: 'gap-3 p-4',
-    iconSizeClasses: '[&_svg]:size-5',
+const alertIconVariants = cva('flex h-5 shrink-0 items-center', {
+  variants: {
+    variant: {
+      info: 'text-primary',
+      success: 'text-success-foreground',
+      warning: 'text-warning-foreground',
+      error: 'text-error-foreground',
+    },
+    size: {
+      default: '[&_svg]:size-5',
+      sm: '[&_svg]:size-4',
+    },
   },
-  sm: {
-    surfaceClasses: 'gap-2.5 p-3',
-    iconSizeClasses: '[&_svg]:size-4',
+  defaultVariants: {
+    variant: 'info',
+    size: 'default',
   },
-} as const
+})
 
-export type AlertVariant = keyof typeof alertVariants
-export type AlertSize = keyof typeof alertSizes
+export type AlertVariant = NonNullable<
+  VariantProps<typeof alertIconVariants>['variant']
+>
+export type AlertSize = NonNullable<VariantProps<typeof alertVariants>['size']>
+
+const alertStatusByVariant = {
+  info: { role: 'status', StatusIcon: Info },
+  success: { role: 'status', StatusIcon: CircleCheck },
+  warning: { role: 'status', StatusIcon: TriangleAlert },
+  error: { role: 'alert', StatusIcon: CircleAlert },
+} as const satisfies Record<
+  AlertVariant,
+  { role: string; StatusIcon: React.ElementType }
+>
 
 export interface AlertProps extends React.ComponentProps<'div'> {
   variant?: AlertVariant
@@ -61,9 +74,7 @@ export function Alert({
   children,
   ...props
 }: AlertProps) {
-  const variantStyles = alertVariants[variant]
-  const sizeStyles = alertSizes[size]
-  const { StatusIcon } = variantStyles
+  const { role: variantRole, StatusIcon } = alertStatusByVariant[variant]
   const statusIcon = icon === undefined ? <StatusIcon /> : icon
 
   return (
@@ -77,22 +88,14 @@ export function Alert({
           className="overflow-hidden"
         >
           <div
-            role={role ?? variantStyles.role}
-            className={cn(
-              'bg-card text-card-foreground border-border flex items-start rounded-lg border text-sm',
-              sizeStyles.surfaceClasses,
-              className,
-            )}
+            role={role ?? variantRole}
+            className={cn(alertVariants({ size }), className)}
             {...props}
           >
             {statusIcon ? (
               <span
                 aria-hidden
-                className={cn(
-                  'flex h-5 shrink-0 items-center',
-                  variantStyles.iconColorClasses,
-                  sizeStyles.iconSizeClasses,
-                )}
+                className={alertIconVariants({ variant, size })}
               >
                 {statusIcon}
               </span>
