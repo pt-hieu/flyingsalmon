@@ -48,7 +48,8 @@ This checklist is distilled from Vercel's web interface guidelines. Where the tw
 - Interactive elements need visible focus
 - Repo pattern: take the ring geometry from `src/registry/lib/interaction.ts`, never hand-write it. Pick with ADR 0003's question — does the ring stand off the shape, or replace its border? Standing off is `offsetFocusRingGeometry` (button, checkbox, switch); replacing the border is `boundaryFocusRingGeometry` (input, textarea)
 - Both exports carry geometry only. A component that takes one must name its own ring color (`focus-visible:ring-ring`, or a per-variant color). Flag a caller that takes a ring export and names no color — it renders ring width with no visible ring
-- Card is the one exception: it paints its ring on a pseudo-element of a descendant link, so it restates the boundary width itself (ADR 0005)
+- Card is the one exception: it paints its ring on a pseudo-element of a descendant link, so it restates the boundary width itself (ADR 0006)
+- A component may show focus with no ring at all when its own state indicator moves with focus (tabs, ADR 0003). It imports neither export. Do not flag a missing ring there — check that the moving indicator meets 3:1 instead
 - Never `outline-none` / `outline: none` without a focus replacement
 - Use `:focus-visible` over `:focus` (avoid focus ring on click)
 - Group focus with `:focus-within` for compound controls
