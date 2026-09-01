@@ -10,7 +10,6 @@ export const componentNavLinks = [
   { to: '/components/avatar', label: 'Avatar' },
   { to: '/components/card', label: 'Card' },
   { to: '/components/skeleton', label: 'Skeleton' },
-  { to: '/components/popover', label: 'Popover' },
   { to: '/components/dialog', label: 'Dialog' },
   { to: '/components/dropdown-menu', label: 'Dropdown Menu' },
   { to: '/components/select', label: 'Select' },
