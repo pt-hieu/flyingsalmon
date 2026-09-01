@@ -200,6 +200,13 @@
       "files": [
         { "path": "src/registry/ui/checkbox.tsx", "type": "registry:ui" }
       ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "A static marker for a status, a category, or a small count. Six variants, one size, never focusable and never animated.",
+      "files": [{ "path": "src/registry/ui/badge.tsx", "type": "registry:ui" }]
     }
   ]
 }
