@@ -1,12 +1,23 @@
+import { cva, type VariantProps } from 'class-variance-authority'
+
 import { cn } from '@/lib/utils'
 
-const skeletonVariantClasses = {
-  text: 'h-[1em] w-full rounded-sm',
-  circle: 'rounded-full',
-  rectangle: 'rounded-lg',
-} as const
+const skeletonVariants = cva('animate-skeleton-pulse bg-skeleton', {
+  variants: {
+    variant: {
+      text: 'h-[1em] w-full rounded-sm',
+      circle: 'rounded-full',
+      rectangle: 'rounded-lg',
+    },
+  },
+  defaultVariants: {
+    variant: 'text',
+  },
+})
 
-export type SkeletonVariant = keyof typeof skeletonVariantClasses
+export type SkeletonVariant = NonNullable<
+  VariantProps<typeof skeletonVariants>['variant']
+>
 
 export interface SkeletonProps extends Omit<
   React.ComponentProps<'div'>,
@@ -23,11 +34,7 @@ export function Skeleton({
   return (
     <div
       data-variant={variant}
-      className={cn(
-        'animate-skeleton-pulse bg-skeleton',
-        skeletonVariantClasses[variant],
-        className,
-      )}
+      className={cn(skeletonVariants({ variant }), className)}
       {...props}
       aria-hidden="true"
     />
