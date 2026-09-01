@@ -4,7 +4,7 @@
 @import '@fontsource-variable/baloo-2';
 @import '@fontsource-variable/onest';
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark *):not(.dark .light *));
 
 * {
   box-sizing: border-box;

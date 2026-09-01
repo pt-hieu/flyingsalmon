@@ -27,10 +27,14 @@ function AlertPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Variants</h2>
         <p className="text-muted-foreground">
-          Four variants on soft tints: <code>info</code> is the default, then{' '}
-          <code>success</code>, <code>warning</code>, and <code>error</code>.
-          Every variant is a tinted background, a colored border, and colored
-          text — no solid fill and no shadow. Each brings its own lucide icon.
+          Four variants: <code>info</code> is the default, then{' '}
+          <code>success</code>, <code>warning</code>, and <code>error</code>.{' '}
+          <strong className="text-foreground">
+            The surface stays neutral — <code>card</code> in both modes.
+          </strong>{' '}
+          The variant shows in the border and the icon, so an alert reads as a
+          message on the page and not as a colored block. No solid fill and no
+          shadow.
         </p>
         <ModePreview>
           <div className="flex w-72 flex-col gap-3">
@@ -70,8 +74,13 @@ function AlertPage() {
         <p className="text-muted-foreground">
           <code>AlertTitle</code> is optional — "Saved." alone is legal. The
           title uses Onest at medium weight, not Baloo 2, because an alert is a
-          message and not a heading. The status icon aligns with the first line
-          of text.
+          message and not a heading.{' '}
+          <strong className="text-foreground">
+            The description drops to <code>muted-foreground</code>.
+          </strong>{' '}
+          Weight alone was not enough separation at <code>text-sm</code>, so the
+          title keeps the full foreground color and the description steps back.
+          The status icon aligns with the first line of text.
         </p>
         <ModePreview>
           <div className="flex w-72 flex-col gap-3">
@@ -95,9 +104,9 @@ function AlertPage() {
         <h2 className="font-heading text-2xl font-bold">Icon</h2>
         <p className="text-muted-foreground">
           Pass <code>icon</code> to replace the variant icon, or{' '}
-          <code>icon={'{null}'}</code> to drop it. The alert owns the icon size
-          and the gap, so any node you pass lands at the size of the current
-          alert size.
+          <code>icon={'{null}'}</code> to drop it. The alert owns the icon size,
+          the gap, and the color, so any node you pass lands at the size and the
+          color of the current variant.
         </p>
         <ModePreview>
           <div className="flex w-72 flex-col gap-3">
@@ -126,6 +135,35 @@ function AlertPage() {
         </p>
         <ModePreview>
           <DismissDemo />
+        </ModePreview>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Actions</h2>
+        <p className="text-muted-foreground">
+          A result often needs a way forward: retry the payment, undo the
+          delete, open the trip. The alert takes no <code>action</code> prop —
+          put the buttons in the children, under the description.{' '}
+          <strong className="text-foreground">Two actions at most</strong>, one{' '}
+          <code>outline</code> and one <code>ghost</code>, both at{' '}
+          <code>sm</code>. A third action means the message belongs somewhere
+          bigger than an alert. The close button stays the last tab stop.
+        </p>
+        <ModePreview>
+          <div className="flex w-72 flex-col gap-3">
+            <Alert variant="error" onClose={() => {}}>
+              <AlertTitle>The payment failed</AlertTitle>
+              <AlertDescription>Your card was declined.</AlertDescription>
+              <div className="mt-1 flex gap-2">
+                <Button variant="outline" size="sm">
+                  Try again
+                </Button>
+                <Button variant="ghost" size="sm">
+                  Use another card
+                </Button>
+              </div>
+            </Alert>
+          </div>
         </ModePreview>
       </section>
 
@@ -161,8 +199,9 @@ function AlertPage() {
           </strong>{' '}
           The alert does no focus management: when you remove an alert whose
           close button holds focus, send focus back to the control that produced
-          the alert. Every variant meets WCAG AA for text in both modes, and the
-          close button's focus ring clears 3:1 on all four tints.
+          the alert. Text meets WCAG AA in both modes — the description is the
+          floor at 4.73:1 — and the close button's focus ring clears 3:1 on the
+          card surface.
         </p>
       </section>
     </article>

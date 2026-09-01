@@ -105,6 +105,22 @@ describe('Alert', () => {
     expect(screen.getByRole('button', { name: 'After' })).toHaveFocus()
   })
 
+  it('reaches an action in the content before the close button', async () => {
+    const user = userEvent.setup()
+    render(
+      <Alert variant="error" onClose={vi.fn()}>
+        <AlertDescription>Your card was declined.</AlertDescription>
+        <button type="button">Try again</button>
+      </Alert>,
+    )
+
+    await user.tab()
+    expect(screen.getByRole('button', { name: 'Try again' })).toHaveFocus()
+
+    await user.tab()
+    expect(screen.getByRole('button', { name: 'Dismiss' })).toHaveFocus()
+  })
+
   it('has no tab stop without a close handler', async () => {
     const user = userEvent.setup()
     render(
