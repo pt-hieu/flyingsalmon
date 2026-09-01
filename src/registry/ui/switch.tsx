@@ -1,9 +1,68 @@
+import { cva } from 'class-variance-authority'
 import { motion } from 'motion/react'
 import { Switch as SwitchPrimitive } from 'radix-ui'
 import { useId } from 'react'
 
 import { cn } from '@/lib/utils'
 import { springBounce } from '@/registry/lib/motion'
+
+const switchVariants = cva(
+  cn(
+    'group inline-flex h-6 w-11 shrink-0 items-center rounded-full p-1',
+    'data-[state=unchecked]:justify-start data-[state=checked]:justify-end',
+    'data-[state=unchecked]:bg-muted-foreground data-[state=checked]:bg-primary',
+    'transition-[background-color,box-shadow] duration-(--motion-fast)',
+    'focus-visible:ring-ring focus-visible:ring-offset-background focus-visible:ring-3 focus-visible:ring-offset-2 focus-visible:outline-none',
+    'disabled:pointer-events-none disabled:opacity-50',
+  ),
+  {
+    variants: {
+      loading: {
+        true: 'cursor-not-allowed',
+        false: cn(
+          'data-[state=unchecked]:hover:bg-neutral-600 dark:data-[state=unchecked]:hover:bg-neutral-500',
+          'data-[state=checked]:hover:bg-indigo-700 dark:data-[state=checked]:hover:bg-indigo-500',
+        ),
+      },
+    },
+    defaultVariants: {
+      loading: false,
+    },
+  },
+)
+
+const switchThumbVariants = cva(
+  cn(
+    'block size-full rounded-full',
+    'group-data-[state=unchecked]:bg-background group-data-[state=checked]:bg-primary-foreground',
+  ),
+  {
+    variants: {
+      loading: {
+        true: 'animate-switch-thumb-pulse',
+        false: '',
+      },
+    },
+    defaultVariants: {
+      loading: false,
+    },
+  },
+)
+
+const switchLabelVariants = cva(
+  'text-foreground text-sm font-medium transition-opacity duration-(--motion-fast)',
+  {
+    variants: {
+      disabled: {
+        true: 'opacity-50',
+        false: '',
+      },
+    },
+    defaultVariants: {
+      disabled: false,
+    },
+  },
+)
 
 export interface SwitchProps extends Omit<
   React.ComponentProps<typeof SwitchPrimitive.Root>,
@@ -38,31 +97,12 @@ export function Switch({
           }
           onClick?.(event)
         }}
-        className={cn(
-          'group inline-flex h-6 w-11 shrink-0 items-center rounded-full p-1',
-          'data-[state=unchecked]:justify-start data-[state=checked]:justify-end',
-          'data-[state=unchecked]:bg-muted-foreground data-[state=checked]:bg-primary',
-          'transition-[background-color,box-shadow] duration-(--motion-fast)',
-          'focus-visible:ring-ring focus-visible:ring-offset-background focus-visible:ring-3 focus-visible:ring-offset-2 focus-visible:outline-none',
-          'disabled:pointer-events-none disabled:opacity-50',
-          loading
-            ? 'cursor-not-allowed'
-            : [
-                'data-[state=unchecked]:hover:bg-neutral-600 dark:data-[state=unchecked]:hover:bg-neutral-500',
-                'data-[state=checked]:hover:bg-indigo-700 dark:data-[state=checked]:hover:bg-indigo-500',
-              ],
-        )}
+        className={switchVariants({ loading })}
         {...props}
       >
         <SwitchPrimitive.Thumb asChild>
           <motion.span layout transition={springBounce} className="size-4">
-            <span
-              className={cn(
-                'block size-full rounded-full',
-                'group-data-[state=unchecked]:bg-background group-data-[state=checked]:bg-primary-foreground',
-                loading && 'animate-switch-thumb-pulse',
-              )}
-            />
+            <span className={switchThumbVariants({ loading })} />
           </motion.span>
         </SwitchPrimitive.Thumb>
       </SwitchPrimitive.Root>
@@ -70,10 +110,7 @@ export function Switch({
       {label ? (
         <label
           htmlFor={switchId}
-          className={cn(
-            'text-foreground text-sm font-medium transition-opacity duration-(--motion-fast)',
-            disabled && 'opacity-50',
-          )}
+          className={switchLabelVariants({ disabled: Boolean(disabled) })}
         >
           {label}
         </label>
