@@ -9,23 +9,31 @@ A batch-1 primitive that renders inline only: no floating layer, not a composite
 _Avoid_: widget, element, control
 
 **Interactive component**:
-An atomic component that takes focus and can be disabled: button, checkbox, input, switch, textarea. All five take their focus ring geometry and their disabled state from the `interaction` registry item, and each names its own ring color (ADR 0005). Badge, avatar and skeleton are not members and are never focusable. Card is not a member either — it paints its ring on a pseudo-element of a descendant link and restates the boundary width itself.
+An atomic component that takes focus and can be disabled: button, checkbox, input, switch, textarea. All five take their focus ring geometry and their disabled state from the `interaction` registry item, and each names its own ring color (ADR 0006). Badge, avatar and skeleton are not members and are never focusable. Card is not a member either — it paints its ring on a pseudo-element of a descendant link and restates the boundary width itself. Batch-2 components are composite, not atomic, so none of them is a member.
 _Avoid_: control, form control, focusable
 
 **Focus ring shape**:
-Which of the two rings in ADR 0003 a component draws. An offset ring stands clear of the shape (button, checkbox, switch, theme toggle); a boundary ring draws on the element's own edge and replaces its border (input, textarea, card link). The shape picks the export — `offsetFocusRingGeometry` or `boundaryFocusRingGeometry` — and ADR 0003 owns the widths.
+Which focus feedback a component draws, per ADR 0003. An offset ring stands clear of the shape (button, checkbox, switch, theme toggle); a boundary ring draws on the element's own edge and replaces its border (input, textarea, card link); or no ring at all, when the component's own state indicator moves with focus (tabs). The first two pick the export — `offsetFocusRingGeometry` or `boundaryFocusRingGeometry`. The third takes neither and is not an omission. ADR 0003 owns all three.
 _Avoid_: ring style, ring variant, focus style
 
 **Shared style rule**:
-A rendering rule fixed by an ADR or this glossary and therefore centralised in `src/registry/lib/`, as distinct from a class string that merely repeats. Byte-identity is not the bar (ADR 0005). Today: the disabled state, the two focus ring geometries, the field label variants.
+A rendering rule fixed by an ADR or this glossary and therefore centralised in `src/registry/lib/`, as distinct from a class string that merely repeats. Byte-identity is not the bar (ADR 0006). Today: the disabled state, the two focus ring geometries, the field label variants.
 _Avoid_: shared class, style token, common style
 
 **Batch**:
-A shipping group of components specced and built together. Batch 1 holds the 11 atomic components (alert joined via ADR 0002; label absorbed into the field components via #4).
+A shipping group of components specced and built together. Batch 1 holds the 11 atomic components (alert joined via ADR 0002; label absorbed into the field components via #4). Batch 2 holds the 6 floating and composite components: popover, dialog, dropdown-menu, select, tooltip, tabs.
 _Avoid_: milestone, phase, wave
 
+**Floating component**:
+A component that renders on a layer above the page flow, positioned against an anchor: popover, dialog, dropdown-menu, select, tooltip. Every floating component shares one portal, positioning, dismiss, and enter/exit contract. Tabs is not floating.
+_Avoid_: overlay, portal component, popup
+
+**Composite component**:
+A component built from several parts that only make sense together, exposed as a named group rather than a single element: tabs is the batch-2 example, and every floating component is also composite. An atomic component is never composite.
+_Avoid_: compound component, widget
+
 **Field family**:
-The components that own a label and an error message: input, textarea, checkbox. All three take their id linkage, their error message, and their label variants from the `field` registry item. Switch is not a member — it has a label but no error state, because a failed toggle is a result the app shows. That exclusion covers the label too: switch keeps its own label block, which transitions opacity rather than color (ADR 0005).
+The components that own a label and an error message: input, textarea, checkbox, and select from batch 2. All of them take their id linkage, their error message, and their label variants from the `field` registry item. Switch is not a member — it has a label but no error state, because a failed toggle is a result the app shows. That exclusion covers the label too: switch keeps its own label block, which transitions opacity rather than color (ADR 0006).
 _Avoid_: form controls, inputs
 
 **Motion language**:
