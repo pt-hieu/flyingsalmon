@@ -265,6 +265,49 @@
           "50%": { "opacity": "0.5" }
         }
       }
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "A non-modal panel anchored to its trigger. Focus moves in without a trap; Escape and an outside click dismiss it.",
+      "dependencies": ["radix-ui"]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "A modal surface over a scrim. It traps focus, locks scroll, and returns focus to its trigger on close.",
+      "dependencies": ["radix-ui"]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "A modal menu of actions anchored to its trigger. Arrow keys walk the items; choosing one closes the menu.",
+      "dependencies": ["radix-ui"]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "A single-select field that owns its label and error message. The list is a modal surface anchored to the trigger.",
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["field"]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "A non-modal label anchored to its trigger. It never takes focus, and pointer leave, blur, or Escape dismisses it.",
+      "dependencies": ["radix-ui"]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "A horizontal tab set in one underline variant. A sliding indicator tracks the selected tab; a separate bar marks focus.",
+      "dependencies": ["radix-ui"]
     }
   ]
 }
