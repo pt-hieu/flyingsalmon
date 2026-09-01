@@ -4,7 +4,7 @@
 @import '@fontsource-variable/baloo-2';
 @import '@fontsource-variable/onest';
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark *):not(.dark .light *));
 
 * {
   box-sizing: border-box;
@@ -29,6 +29,12 @@ body {
   @keyframes spinner-rotate {
     to {
       transform: rotate(360deg);
+    }
+  }
+  --animate-switch-thumb-pulse: switch-thumb-pulse 800ms ease-in-out infinite;
+  @keyframes switch-thumb-pulse {
+    50% {
+      opacity: 0.7;
     }
   }
   --animate-skeleton-pulse: skeleton-pulse 2s ease-in-out infinite;
