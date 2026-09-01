@@ -1,26 +1,63 @@
+import { cva, type VariantProps } from 'class-variance-authority'
 import { useState } from 'react'
 
 import { cn } from '@/lib/utils'
 
-const avatarSizeClasses = {
-  default: 'size-8 text-xs',
-  sm: 'size-6 text-[0.625rem]',
-} as const
+const avatarVariants = cva(
+  'inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full leading-none select-none',
+  {
+    variants: {
+      size: {
+        default: 'size-8 text-xs',
+        sm: 'size-6 text-[0.625rem]',
+      },
+    },
+    defaultVariants: {
+      size: 'default',
+    },
+  },
+)
 
-const avatarColorClasses = {
-  orange: 'bg-orange-400',
-  amber: 'bg-amber-400',
-  green: 'bg-green-400',
-  teal: 'bg-teal-400',
-  sky: 'bg-sky-400',
-  indigo: 'bg-indigo-400',
-  purple: 'bg-purple-400',
-  pink: 'bg-pink-400',
-} as const
+const avatarImageVariants = cva('size-full object-cover', {
+  variants: {
+    loaded: {
+      true: 'opacity-100',
+      false: 'opacity-0',
+    },
+  },
+  defaultVariants: {
+    loaded: false,
+  },
+})
 
-export type AvatarSize = keyof typeof avatarSizeClasses
+const avatarFallbackVariants = cva(
+  'flex size-full items-center justify-center font-medium text-neutral-950',
+  {
+    variants: {
+      color: {
+        orange: 'bg-orange-400',
+        amber: 'bg-amber-400',
+        green: 'bg-green-400',
+        teal: 'bg-teal-400',
+        sky: 'bg-sky-400',
+        indigo: 'bg-indigo-400',
+        purple: 'bg-purple-400',
+        pink: 'bg-pink-400',
+      },
+    },
+    defaultVariants: {
+      color: 'indigo',
+    },
+  },
+)
 
-export type AvatarColor = keyof typeof avatarColorClasses
+export type AvatarSize = NonNullable<
+  VariantProps<typeof avatarVariants>['size']
+>
+
+export type AvatarColor = NonNullable<
+  VariantProps<typeof avatarFallbackVariants>['color']
+>
 
 export interface AvatarProps extends Omit<
   React.ComponentProps<'span'>,
@@ -63,34 +100,21 @@ export function Avatar({
   const initials = name ? getInitials(name) : ''
 
   return (
-    <span
-      className={cn(
-        'inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full leading-none select-none',
-        avatarSizeClasses[size],
-        className,
-      )}
-      {...props}
-    >
+    <span className={cn(avatarVariants({ size }), className)} {...props}>
       {showsImage ? (
         <img
           src={src}
           alt={accessibleName}
           onLoad={() => setLoadedSource(src)}
           onError={() => setBrokenSource(src)}
-          className={cn(
-            'size-full object-cover',
-            loadedSource === src ? 'opacity-100' : 'opacity-0',
-          )}
+          className={avatarImageVariants({ loaded: loadedSource === src })}
         />
       ) : (
         <span
           role={accessibleName ? 'img' : undefined}
           aria-label={accessibleName || undefined}
           aria-hidden={accessibleName ? undefined : true}
-          className={cn(
-            'flex size-full items-center justify-center font-medium text-neutral-950',
-            avatarColorClasses[color],
-          )}
+          className={avatarFallbackVariants({ color })}
         >
           {initials}
         </span>
