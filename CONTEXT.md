@@ -12,6 +12,10 @@ _Avoid_: widget, element, control
 A shipping group of components specced and built together. Batch 1 holds the 11 atomic components (alert joined via ADR 0002; label absorbed into the field components via #4).
 _Avoid_: milestone, phase, wave
 
+**Field family**:
+The components that own a label and an error message: input, textarea, checkbox. All three take their id linkage and their error message from the `field` registry item. Switch is not a member — it has a label but no error state, because a failed toggle is a result the app shows.
+_Avoid_: form controls, inputs
+
 **Motion language**:
 The shared animation vocabulary — animation kinds, duration scale, spring presets — built on the `motion` library. Every component spec quotes its names. Fixed in ADR 0001.
 _Avoid_: animation system, transitions
