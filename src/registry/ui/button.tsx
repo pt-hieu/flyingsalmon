@@ -2,6 +2,10 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { motion } from 'motion/react'
 
 import { cn } from '@/lib/utils'
+import {
+  disabledInteraction,
+  offsetFocusRingGeometry,
+} from '@/registry/lib/interaction'
 import { springBounce } from '@/registry/lib/motion'
 import { Spinner, type SpinnerSize } from '@/registry/ui/spinner'
 
@@ -9,8 +13,8 @@ const buttonVariants = cva(
   cn(
     'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md font-medium whitespace-nowrap',
     'transition-[color,background-color,border-color,box-shadow] duration-(--motion-fast)',
-    'outline-none focus-visible:ring-offset-background focus-visible:ring-3 focus-visible:ring-offset-2',
-    'disabled:pointer-events-none disabled:opacity-50',
+    offsetFocusRingGeometry,
+    disabledInteraction,
   ),
   {
     variants: {

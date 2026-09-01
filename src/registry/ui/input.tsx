@@ -1,7 +1,16 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
-import { FieldErrorMessage, useFieldIds } from '@/registry/lib/field'
+import {
+  FieldErrorMessage,
+  fieldLabelVariants,
+  useFieldIds,
+} from '@/registry/lib/field'
+import {
+  boundaryFocusRingGeometry,
+  disabledInteraction,
+  invalidBoundaryFocusRingGeometry,
+} from '@/registry/lib/interaction'
 import { Spinner } from '@/registry/ui/spinner'
 
 const inputVariants = cva(
@@ -10,10 +19,12 @@ const inputVariants = cva(
     'placeholder:text-muted-foreground',
     'transition-[color,border-color,box-shadow] duration-(--motion-fast)',
     'enabled:hover:not-focus-visible:border-neutral-300 dark:enabled:hover:not-focus-visible:border-neutral-600',
-    'focus-visible:border-background focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none',
+    'focus-visible:ring-ring',
+    boundaryFocusRingGeometry,
     'read-only:bg-muted read-only:focus-visible:border-muted',
-    'disabled:pointer-events-none disabled:opacity-50',
-    'aria-invalid:border-destructive aria-invalid:focus-visible:border-background aria-invalid:focus-visible:ring-destructive',
+    disabledInteraction,
+    'aria-invalid:border-destructive aria-invalid:focus-visible:ring-destructive',
+    invalidBoundaryFocusRingGeometry,
   ),
   {
     variants: {
@@ -48,26 +59,6 @@ const inputEndSlotVariants = cva(
     },
     defaultVariants: {
       size: 'default',
-    },
-  },
-)
-
-const inputLabelVariants = cva(
-  'mb-2 text-sm font-medium transition-colors duration-(--motion-fast)',
-  {
-    variants: {
-      error: {
-        true: 'text-destructive',
-        false: 'text-foreground',
-      },
-      disabled: {
-        true: 'opacity-50',
-        false: '',
-      },
-    },
-    defaultVariants: {
-      error: false,
-      disabled: false,
     },
   },
 )
@@ -129,7 +120,8 @@ export function Input({
       {label ? (
         <label
           htmlFor={fieldId}
-          className={inputLabelVariants({
+          className={fieldLabelVariants({
+            placement: 'above',
             error: Boolean(error),
             disabled: Boolean(disabled),
           })}

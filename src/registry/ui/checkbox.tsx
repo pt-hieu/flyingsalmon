@@ -4,7 +4,15 @@ import { useState } from 'react'
 import { Checkbox as CheckboxPrimitive } from 'radix-ui'
 
 import { cn } from '@/lib/utils'
-import { FieldErrorMessage, useFieldIds } from '@/registry/lib/field'
+import {
+  FieldErrorMessage,
+  fieldLabelVariants,
+  useFieldIds,
+} from '@/registry/lib/field'
+import {
+  disabledInteraction,
+  offsetFocusRingGeometry,
+} from '@/registry/lib/interaction'
 import { springBounce, springSettle } from '@/registry/lib/motion'
 
 export type CheckboxCheckedState = CheckboxPrimitive.CheckedState
@@ -16,8 +24,8 @@ const checkboxVariants = cva(
   cn(
     'text-primary-foreground grid size-5 shrink-0 place-items-center rounded-sm border',
     'transition-[background-color,border-color,box-shadow] duration-(--motion-fast)',
-    'focus-visible:ring-offset-background focus-visible:ring-3 focus-visible:ring-offset-2 focus-visible:outline-none',
-    'disabled:pointer-events-none disabled:opacity-50',
+    offsetFocusRingGeometry,
+    disabledInteraction,
   ),
   {
     variants: {
@@ -46,26 +54,6 @@ const checkboxVariants = cva(
     },
     defaultVariants: {
       error: false,
-    },
-  },
-)
-
-const checkboxLabelVariants = cva(
-  'text-sm font-medium transition-colors duration-(--motion-fast)',
-  {
-    variants: {
-      error: {
-        true: 'text-destructive',
-        false: 'text-foreground',
-      },
-      disabled: {
-        true: 'opacity-50',
-        false: '',
-      },
-    },
-    defaultVariants: {
-      error: false,
-      disabled: false,
     },
   },
 )
@@ -155,7 +143,8 @@ export function Checkbox({
         {label ? (
           <label
             htmlFor={fieldId}
-            className={checkboxLabelVariants({
+            className={fieldLabelVariants({
+              placement: 'beside',
               error: hasError,
               disabled: Boolean(disabled),
             })}
