@@ -170,7 +170,11 @@ export function DropdownMenuItem({
       )}
       {...props}
     >
-      <span key="icon" aria-hidden className={menuItemIconSlot}>
+      <span
+        key="icon"
+        aria-hidden
+        className={cn(menuItemIconSlot, '[&>svg]:size-4')}
+      >
         {icon}
       </span>
       {asChild ? <Slot.Slottable>{children}</Slot.Slottable> : children}
