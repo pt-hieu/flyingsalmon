@@ -111,26 +111,7 @@ function DialogPage() {
         </p>
         <ModePreview>
           <div className="relative h-96 w-full">
-            <Dialog defaultOpen exhibitionMode>
-              <DialogContent>
-                <DialogTitle>Plan a trip</DialogTitle>
-                <DialogDescription>
-                  Choose a destination and travel dates.
-                </DialogDescription>
-                <DialogBody>
-                  <div className="flex flex-col gap-3">
-                    <Input label="Destination" placeholder="Lisbon" />
-                    <Input label="Dates" placeholder="12–19 Oct" />
-                  </div>
-                </DialogBody>
-                <DialogFooter>
-                  <DialogClose>
-                    <Button variant="outline">Cancel</Button>
-                  </DialogClose>
-                  <Button>Save trip</Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+            <TripDialog defaultOpen exhibitionMode />
           </div>
         </ModePreview>
       </section>
@@ -161,7 +142,14 @@ function DialogPage() {
           <strong className="text-foreground">
             the trigger-less controlled form
           </strong>{' '}
-          — and driving <code>open</code> from its own state.
+          — and driving <code>open</code> from its own state.{' '}
+          <strong className="text-foreground">
+            Only a real <code>DialogTrigger</code> sets{' '}
+            <code>aria-haspopup</code>, <code>aria-expanded</code>, and{' '}
+            <code>aria-controls</code> on its Button.
+          </strong>{' '}
+          A button driving the trigger-less form, like the two below, gets none
+          of that wiring — it is a plain button that happens to open a dialog.
         </p>
         <ModePreview>
           <ReusableTripDialogDemo />
@@ -186,10 +174,22 @@ function DialogPage() {
           open — on the first body or footer control, never the X — and returns
           to the trigger on close. Tab cycles inside and ends on the X. Content
           outside an open dialog is hidden from the accessibility tree. Every
-          text pair meets WCAG AA in both modes.
+          text pair meets WCAG AA in both modes — the tightest is the light
+          description at 4.53:1 against its 4.5:1 floor, measured by converting
+          each OKLCH color to sRGB and computing the WCAG ratio directly, not
+          estimated.
         </p>
       </section>
     </article>
+  )
+}
+
+function TripFormFields() {
+  return (
+    <div className="flex flex-col gap-3">
+      <Input label="Destination" placeholder="Lisbon" />
+      <Input label="Dates" placeholder="12–19 Oct" />
+    </div>
   )
 }
 
@@ -223,10 +223,7 @@ function ControlledDialogDemo() {
           Choose a destination and travel dates.
         </DialogDescription>
         <DialogBody>
-          <div className="flex flex-col gap-3">
-            <Input label="Destination" placeholder="Lisbon" />
-            <Input label="Dates" placeholder="12–19 Oct" />
-          </div>
+          <TripFormFields />
         </DialogBody>
         <DialogFooter>
           <DialogClose>
@@ -244,14 +241,23 @@ function ControlledDialogDemo() {
 function TripDialog({
   children,
   open,
+  defaultOpen,
   onOpenChange,
+  exhibitionMode,
 }: {
   children?: React.ReactElement
   open?: boolean
+  defaultOpen?: boolean
   onOpenChange?: (open: boolean) => void
+  exhibitionMode?: boolean
 }) {
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog
+      open={open}
+      defaultOpen={defaultOpen}
+      onOpenChange={onOpenChange}
+      exhibitionMode={exhibitionMode}
+    >
       {children ? <DialogTrigger>{children}</DialogTrigger> : null}
       <DialogContent>
         <DialogTitle>Plan a trip</DialogTitle>
@@ -259,10 +265,7 @@ function TripDialog({
           Choose a destination and travel dates.
         </DialogDescription>
         <DialogBody>
-          <div className="flex flex-col gap-3">
-            <Input label="Destination" placeholder="Lisbon" />
-            <Input label="Dates" placeholder="12–19 Oct" />
-          </div>
+          <TripFormFields />
         </DialogBody>
         <DialogFooter>
           <DialogClose>
