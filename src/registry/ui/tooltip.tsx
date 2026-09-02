@@ -2,8 +2,12 @@ import { Tooltip as TooltipPrimitive } from 'radix-ui'
 
 import { cn } from '@/lib/utils'
 
-export type TooltipSide = 'top' | 'right' | 'bottom' | 'left'
-export type TooltipAlign = 'start' | 'center' | 'end'
+export type TooltipSide = NonNullable<
+  React.ComponentProps<typeof TooltipPrimitive.Content>['side']
+>
+export type TooltipAlign = NonNullable<
+  React.ComponentProps<typeof TooltipPrimitive.Content>['align']
+>
 
 export function TooltipProvider({ children }: { children: React.ReactNode }) {
   return (
