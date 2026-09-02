@@ -28,7 +28,7 @@
           "foreground": "var(--color-neutral-950)",
           "card": "var(--color-white)",
           "card-foreground": "var(--color-neutral-950)",
-          "popover": "var(--color-white)",
+          "popover": "var(--color-neutral-50)",
           "popover-foreground": "var(--color-neutral-950)",
           "primary": "var(--color-indigo-600)",
           "primary-foreground": "var(--color-neutral-50)",
@@ -135,6 +135,55 @@
       "files": [
         { "path": "src/registry/lib/field.tsx", "type": "registry:lib" }
       ]
+    },
+    {
+      "name": "menu",
+      "type": "registry:lib",
+      "title": "Menu item classes",
+      "description": "The item, highlight, destructive, icon-slot, label, separator, and panel class strings shared by every floating list of actions or values, fixed in the dropdown-menu spec (#52).",
+      "files": [{ "path": "src/registry/lib/menu.ts", "type": "registry:lib" }]
+    },
+    {
+      "name": "floating",
+      "type": "registry:item",
+      "title": "Floating layer motion",
+      "description": "The enter and exit keyframes and --animate-* variables every floating component shares: anchored content, the dialog panel, and the scrim. CSS only, per ADR 0005.",
+      "cssVars": {
+        "theme": {
+          "animate-floating-anchored-enter": "floating-anchored-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
+          "animate-floating-anchored-exit": "floating-anchored-exit 150ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
+          "animate-floating-dialog-enter": "floating-dialog-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
+          "animate-floating-dialog-exit": "floating-dialog-exit 150ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
+          "animate-floating-overlay-enter": "floating-overlay-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
+          "animate-floating-overlay-exit": "floating-overlay-exit 150ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)"
+        }
+      },
+      "css": {
+        "@keyframes floating-anchored-enter": {
+          "from": { "opacity": "0", "transform": "scale(0.96)" },
+          "to": { "opacity": "1", "transform": "scale(1)" }
+        },
+        "@keyframes floating-anchored-exit": {
+          "from": { "opacity": "1", "transform": "scale(1)" },
+          "to": { "opacity": "0", "transform": "scale(0.96)" }
+        },
+        "@keyframes floating-dialog-enter": {
+          "from": { "opacity": "0", "transform": "scale(0.98)" },
+          "to": { "opacity": "1", "transform": "scale(1)" }
+        },
+        "@keyframes floating-dialog-exit": {
+          "from": { "opacity": "1", "transform": "scale(1)" },
+          "to": { "opacity": "0", "transform": "scale(0.98)" }
+        },
+        "@keyframes floating-overlay-enter": {
+          "from": { "opacity": "0" },
+          "to": { "opacity": "0.5" }
+        },
+        "@keyframes floating-overlay-exit": {
+          "from": { "opacity": "0.5" },
+          "to": { "opacity": "0" }
+        }
+      }
     },
     {
       "name": "spinner",
@@ -300,14 +349,16 @@
       "type": "registry:ui",
       "title": "Dialog",
       "description": "A modal surface over a scrim. It traps focus, locks scroll, and returns focus to its trigger on close.",
-      "dependencies": ["radix-ui"]
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["@flyingsalmon/floating"]
     },
     {
       "name": "dropdown-menu",
       "type": "registry:ui",
       "title": "Dropdown Menu",
       "description": "A modal menu of actions anchored to its trigger. Arrow keys walk the items; choosing one closes the menu.",
-      "dependencies": ["radix-ui"]
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["@flyingsalmon/floating", "@flyingsalmon/menu"]
     },
     {
       "name": "select",
@@ -315,14 +366,19 @@
       "title": "Select",
       "description": "A single-select field that owns its label and error message. The list is a modal surface anchored to the trigger.",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["@flyingsalmon/field"]
+      "registryDependencies": [
+        "@flyingsalmon/field",
+        "@flyingsalmon/floating",
+        "@flyingsalmon/menu"
+      ]
     },
     {
       "name": "tooltip",
       "type": "registry:ui",
       "title": "Tooltip",
       "description": "A non-modal label anchored to its trigger. It never takes focus, and pointer leave, blur, or Escape dismisses it.",
-      "dependencies": ["radix-ui"]
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["@flyingsalmon/floating"]
     },
     {
       "name": "tabs",
