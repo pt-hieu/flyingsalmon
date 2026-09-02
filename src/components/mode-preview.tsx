@@ -21,7 +21,7 @@ function ModePanel({
       <div className="border-border text-muted-foreground border-b px-4 py-2 text-xs font-medium">
         {mode === 'light' ? 'Light' : 'Dark'}
       </div>
-      <div className="text-foreground flex flex-1 flex-wrap items-center justify-center gap-8 p-10">
+      <div className="text-foreground relative flex flex-1 flex-wrap items-center justify-center gap-8 p-10">
         {children}
       </div>
     </div>
