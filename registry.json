@@ -369,7 +369,14 @@
       "title": "Dropdown Menu",
       "description": "A modal menu of actions anchored to its trigger. Arrow keys walk the items; choosing one closes the menu.",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["@flyingsalmon/floating", "@flyingsalmon/menu"]
+      "registryDependencies": [
+        "@flyingsalmon/floating",
+        "@flyingsalmon/menu",
+        "@flyingsalmon/button"
+      ],
+      "files": [
+        { "path": "src/registry/ui/dropdown-menu.tsx", "type": "registry:ui" }
+      ]
     },
     {
       "name": "select",
