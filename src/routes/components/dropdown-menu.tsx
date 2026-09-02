@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { Archive, Copy, Ellipsis, Pencil, Trash2 } from 'lucide-react'
+import { Copy, Ellipsis, Pencil, Trash2 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 import { ModePreview } from '@/components/mode-preview'
@@ -250,9 +250,7 @@ function TripCardOverflowMenu() {
                 <DropdownMenuItem onSelect={() => setDeleted(false)}>
                   Duplicate
                 </DropdownMenuItem>
-                <DropdownMenuItem disabled icon={<Archive />}>
-                  Archive
-                </DropdownMenuItem>
+                <DropdownMenuItem disabled>Archive</DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
