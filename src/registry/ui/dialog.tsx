@@ -76,9 +76,12 @@ export function DialogClose({ children, ...props }: DialogCloseProps) {
   )
 }
 
+const dialogScrimClassName = 'inset-0 z-50 bg-neutral-950 opacity-50'
+
 const dialogOverlayVariants = cva(
   cn(
-    'fixed inset-0 z-50 bg-neutral-950 opacity-50',
+    'fixed',
+    dialogScrimClassName,
     'data-[state=open]:animate-floating-overlay-enter',
     'data-[state=closed]:animate-floating-overlay-exit',
   ),
@@ -155,10 +158,7 @@ export function DialogContent({
   if (exhibitionMode) {
     return (
       <>
-        <div
-          aria-hidden
-          className="bg-neutral-950 absolute inset-0 z-50 opacity-50"
-        />
+        <div aria-hidden className={cn('absolute', dialogScrimClassName)} />
         {content}
       </>
     )
