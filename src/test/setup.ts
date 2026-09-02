@@ -12,3 +12,8 @@ class NeverReportingResizeObserver implements ResizeObserver {
 }
 
 globalThis.ResizeObserver ??= NeverReportingResizeObserver
+
+HTMLElement.prototype.hasPointerCapture ??= () => false
+HTMLElement.prototype.setPointerCapture ??= () => {}
+HTMLElement.prototype.releasePointerCapture ??= () => {}
+HTMLElement.prototype.scrollIntoView ??= () => {}
