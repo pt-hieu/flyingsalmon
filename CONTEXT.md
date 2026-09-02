@@ -28,6 +28,14 @@ _Avoid_: milestone, phase, wave
 A component that renders on a layer above the page flow, positioned against an anchor: dialog, dropdown-menu, select, tooltip. Every floating component shares one portal, positioning, dismiss, and enter/exit contract. Tabs is not floating.
 _Avoid_: overlay, portal component, popup
 
+**Pending**:
+The dialog state that marks an operation running inside the dialog, set by the app through the `pending` prop. While pending, Escape, outside click, and the close button do nothing and the close button renders disabled. The dialog shows no busyness of its own beyond that; the acting button inside carries the spinner (feedback rule). An operation that runs outside the dialog does not set it. The only exception to "Escape always closes" in ADR 0005.
+_Avoid_: busy, loading, locked, submitting
+
+**Exhibition mode**:
+A floating component rendered inline for documentation through the `exhibitionMode` prop: no portal, no focus trap, no scroll lock, positioned inside its nearest `relative` ancestor. It exists so the docs `ModePreview` can show two open copies side by side, one per color mode. Never used in an app. Fixed in ADR 0005.
+_Avoid_: preview mode, static mode, inline mode, demo mode
+
 **Composite component**:
 A component built from several parts that only make sense together, exposed as a named group rather than a single element: tabs is the batch-2 example, and every floating component is also composite. An atomic component is never composite.
 _Avoid_: compound component, widget
