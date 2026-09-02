@@ -378,7 +378,10 @@
       "title": "Tooltip",
       "description": "A non-modal label anchored to its trigger. It never takes focus, and pointer leave, blur, or Escape dismisses it.",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["@flyingsalmon/floating"]
+      "registryDependencies": ["@flyingsalmon/floating"],
+      "files": [
+        { "path": "src/registry/ui/tooltip.tsx", "type": "registry:ui" }
+      ]
     },
     {
       "name": "tabs",
