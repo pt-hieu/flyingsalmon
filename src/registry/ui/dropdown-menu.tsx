@@ -72,6 +72,9 @@ export function DropdownMenuContent({
       avoidCollisions
       collisionPadding={8}
       loop={false}
+      onFocusOutside={
+        exhibitionMode ? (event) => event.preventDefault() : undefined
+      }
       className={cn(
         menuContent,
         'outline-hidden',

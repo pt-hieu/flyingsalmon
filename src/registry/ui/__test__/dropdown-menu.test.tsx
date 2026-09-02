@@ -40,6 +40,19 @@ function TripMenu({
   )
 }
 
+function ExhibitionModeMenu() {
+  return (
+    <DropdownMenu defaultOpen exhibitionMode>
+      <DropdownMenuTrigger>
+        <Button>Trip actions</Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem>Rename</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
 describe('DropdownMenu', () => {
   it('opens from the trigger on click', async () => {
     const user = userEvent.setup()
@@ -229,5 +242,25 @@ describe('DropdownMenu', () => {
     await screen.findByRole('menu')
 
     expect(trigger).toHaveAttribute('aria-expanded', 'true')
+  })
+
+  it('keeps two simultaneous exhibitionMode instances open, as the docs ModePreview renders one per color mode', async () => {
+    render(
+      <>
+        <ExhibitionModeMenu />
+        <ExhibitionModeMenu />
+      </>,
+    )
+
+    const menus = await screen.findAllByRole('menu')
+    expect(menus).toHaveLength(2)
+
+    await waitFor(() => {
+      for (const trigger of screen.getAllByRole('button', {
+        name: 'Trip actions',
+      })) {
+        expect(trigger).toHaveAttribute('aria-expanded', 'true')
+      }
+    })
   })
 })
