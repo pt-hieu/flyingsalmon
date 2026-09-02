@@ -17,7 +17,7 @@ Which focus feedback a component draws, per ADR 0003. An offset ring stands clea
 _Avoid_: ring style, ring variant, focus style
 
 **Shared style rule**:
-A rendering rule fixed by an ADR or this glossary and therefore centralised in `src/registry/lib/`, as distinct from a class string that merely repeats. Byte-identity is not the bar (ADR 0006). Today: the disabled state, the two focus ring geometries, the field label variants.
+A rendering rule fixed by an ADR or this glossary and therefore centralised in `src/registry/lib/`, as distinct from a class string that merely repeats. Byte-identity is not the bar (ADR 0006). Today: the disabled state, the two focus ring geometries, the field label variants. The menu item rules join in a third module, `menu`, when dropdown-menu builds (#52).
 _Avoid_: shared class, style token, common style
 
 **Batch**:
@@ -35,6 +35,10 @@ _Avoid_: busy, loading, locked, submitting
 **Exhibition mode**:
 A floating component rendered inline for documentation through the `exhibitionMode` prop: no portal, no focus trap, no scroll lock, positioned inside its nearest `relative` ancestor. It exists so the docs `ModePreview` can show two open copies side by side, one per color mode. Never used in an app. Fixed in ADR 0005.
 _Avoid_: preview mode, static mode, inline mode, demo mode
+
+**Highlighted**:
+The one state of a menu item under the pointer or holding keyboard focus. Radix merges hover and focus into `data-highlighted`, and the item paints it as a solid background step to `--accent` with `--accent-foreground`, a destructive item to `--error` with `--error-foreground`, with no ring and no transition. A menu item has no separate hover, focus, or press state; the highlight is its focus indicator (ADR 0003). Applies to dropdown-menu and, through the shared `menu` rules, to select.
+_Avoid_: hovered, focused item, active item, selected
 
 **Composite component**:
 A component built from several parts that only make sense together, exposed as a named group rather than a single element: tabs is the batch-2 example, and every floating component is also composite. An atomic component is never composite.
