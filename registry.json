@@ -260,7 +260,7 @@
       "type": "registry:ui",
       "title": "Switch",
       "description": "An instant-apply on/off control that owns its label and its own busyness. One size, no variants, no error state; a failed toggle is a result the app shows.",
-      "dependencies": ["class-variance-authority", "radix-ui"],
+      "dependencies": ["radix-ui"],
       "registryDependencies": [
         "@flyingsalmon/interaction",
         "@flyingsalmon/motion"
@@ -284,7 +284,7 @@
       "type": "registry:ui",
       "title": "Checkbox",
       "description": "A tri-state checkbox that owns its label and error message. One 20px size; the check mark morphs into a dash for the indeterminate state.",
-      "dependencies": ["class-variance-authority", "radix-ui"],
+      "dependencies": ["radix-ui"],
       "registryDependencies": [
         "@flyingsalmon/field",
         "@flyingsalmon/interaction",
@@ -385,7 +385,14 @@
       "type": "registry:ui",
       "title": "Tabs",
       "description": "A horizontal tab set in one underline variant. A sliding indicator tracks the selected tab; a separate bar marks focus.",
-      "dependencies": ["radix-ui"]
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["@flyingsalmon/motion"],
+      "files": [
+        {
+          "path": "src/registry/ui/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
