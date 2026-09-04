@@ -76,7 +76,7 @@ export function TabsList({ className, ...props }: TabsListProps) {
 }
 
 const tabsTriggerClassName = cn(
-  'relative inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium whitespace-nowrap',
+  'relative inline-flex h-9 cursor-pointer items-center justify-center rounded-md px-4 text-sm font-medium whitespace-nowrap',
   'text-muted-foreground hover:text-foreground data-[state=active]:text-foreground',
   'transition-colors duration-(--motion-fast)',
   'focus-visible:outline-hidden',
