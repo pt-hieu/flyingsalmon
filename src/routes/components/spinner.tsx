@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import { ModePreview } from '@/components/mode-preview'
-import { Spinner } from '@/registry/ui/spinner'
+import { Spinner, SpinnerSize } from '@/registry/ui/spinner'
 
 export const Route = createFileRoute('/components/spinner')({
   component: SpinnerPage,
@@ -38,7 +38,7 @@ function SpinnerPage() {
         </p>
         <ModePreview>
           <Spinner />
-          <Spinner size="sm" />
+          <Spinner size={SpinnerSize.Small} />
         </ModePreview>
       </section>
 

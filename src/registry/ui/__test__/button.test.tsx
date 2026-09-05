@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 
-import { Button } from '@/registry/ui/button'
+import { Button, ButtonSize } from '@/registry/ui/button'
 
 describe('Button', () => {
   it('calls the click handler when it is idle', async () => {
@@ -142,7 +142,7 @@ describe('Button', () => {
   it('shows the spinner alone on an icon size and keeps its name', () => {
     render(
       <Button
-        size="icon"
+        size={ButtonSize.Icon}
         aria-label="Delete"
         loading
         icon={<span role="img" aria-label="Trash" />}
@@ -158,7 +158,7 @@ describe('Button', () => {
 
   it('renders the icon of an icon-size button that has no icon prop', () => {
     render(
-      <Button size="icon-sm" aria-label="Search">
+      <Button size={ButtonSize.IconSmall} aria-label="Search">
         <span role="img" aria-label="Magnifier" />
       </Button>,
     )

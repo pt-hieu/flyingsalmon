@@ -1,22 +1,21 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import { ModePreview } from '@/components/mode-preview'
-import type { AvatarColor } from '@/registry/ui/avatar'
-import { Avatar } from '@/registry/ui/avatar'
+import { Avatar, AvatarColor, AvatarSize } from '@/registry/ui/avatar'
 
 export const Route = createFileRoute('/components/avatar')({
   component: AvatarPage,
 })
 
 const avatarColors: AvatarColor[] = [
-  'orange',
-  'amber',
-  'green',
-  'teal',
-  'sky',
-  'indigo',
-  'purple',
-  'pink',
+  AvatarColor.Orange,
+  AvatarColor.Amber,
+  AvatarColor.Green,
+  AvatarColor.Teal,
+  AvatarColor.Sky,
+  AvatarColor.Indigo,
+  AvatarColor.Purple,
+  AvatarColor.Pink,
 ]
 
 function AvatarPage() {
@@ -56,10 +55,10 @@ function AvatarPage() {
           <Avatar
             src="/avatar-sample-sky-300.svg"
             name="Ada Lovelace"
-            size="sm"
+            size={AvatarSize.Small}
           />
           <Avatar name="Ada Lovelace" />
-          <Avatar name="Ada Lovelace" size="sm" />
+          <Avatar name="Ada Lovelace" size={AvatarSize.Small} />
         </ModePreview>
       </section>
 
@@ -74,10 +73,17 @@ function AvatarPage() {
         </p>
         <ModePreview>
           <Avatar src="/avatar-sample-sky-300.svg" name="Ada Lovelace" />
-          <Avatar src="/broken-path.png" name="Ada Lovelace" color="purple" />
-          <Avatar name="Grace Brewster Murray Hopper" color="teal" />
-          <Avatar name="Prince" color="amber" />
-          <Avatar color="pink" />
+          <Avatar
+            src="/broken-path.png"
+            name="Ada Lovelace"
+            color={AvatarColor.Purple}
+          />
+          <Avatar
+            name="Grace Brewster Murray Hopper"
+            color={AvatarColor.Teal}
+          />
+          <Avatar name="Prince" color={AvatarColor.Amber} />
+          <Avatar color={AvatarColor.Pink} />
         </ModePreview>
       </section>
 
@@ -129,7 +135,7 @@ function AvatarPage() {
         </p>
         <ModePreview>
           <span className="flex items-center gap-2">
-            <Avatar name="Ada Lovelace" alt="" color="green" />
+            <Avatar name="Ada Lovelace" alt="" color={AvatarColor.Green} />
             <span className="text-sm font-medium">Ada Lovelace</span>
           </span>
         </ModePreview>

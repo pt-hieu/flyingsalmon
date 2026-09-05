@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { CircleAlert, CircleCheck, Sparkles, TriangleAlert } from 'lucide-react'
 
 import { ModePreview } from '@/components/mode-preview'
-import { Badge } from '@/registry/ui/badge'
+import { Badge, BadgeVariant } from '@/registry/ui/badge'
 
 export const Route = createFileRoute('/components/badge')({
   component: BadgePage,
@@ -31,11 +31,11 @@ function BadgePage() {
         </p>
         <ModePreview>
           <Badge>Default</Badge>
-          <Badge variant="secondary">Secondary</Badge>
-          <Badge variant="outline">Outline</Badge>
-          <Badge variant="success">Success</Badge>
-          <Badge variant="warning">Warning</Badge>
-          <Badge variant="error">Error</Badge>
+          <Badge variant={BadgeVariant.Secondary}>Secondary</Badge>
+          <Badge variant={BadgeVariant.Outline}>Outline</Badge>
+          <Badge variant={BadgeVariant.Success}>Success</Badge>
+          <Badge variant={BadgeVariant.Warning}>Warning</Badge>
+          <Badge variant={BadgeVariant.Error}>Error</Badge>
         </ModePreview>
       </section>
 
@@ -57,9 +57,9 @@ function BadgePage() {
           break the line rhythm it lives in.
         </p>
         <ModePreview>
-          <Badge variant="secondary">42</Badge>
-          <Badge variant="secondary">New</Badge>
-          <Badge variant="secondary">In review</Badge>
+          <Badge variant={BadgeVariant.Secondary}>42</Badge>
+          <Badge variant={BadgeVariant.Secondary}>New</Badge>
+          <Badge variant={BadgeVariant.Secondary}>In review</Badge>
         </ModePreview>
       </section>
 
@@ -73,13 +73,13 @@ function BadgePage() {
         </p>
         <ModePreview>
           <Badge icon={<Sparkles />}>New</Badge>
-          <Badge variant="success" icon={<CircleCheck />}>
+          <Badge variant={BadgeVariant.Success} icon={<CircleCheck />}>
             Paid
           </Badge>
-          <Badge variant="warning" icon={<TriangleAlert />}>
+          <Badge variant={BadgeVariant.Warning} icon={<TriangleAlert />}>
             Expiring
           </Badge>
-          <Badge variant="error" icon={<CircleAlert />}>
+          <Badge variant={BadgeVariant.Error} icon={<CircleAlert />}>
             Failed
           </Badge>
         </ModePreview>

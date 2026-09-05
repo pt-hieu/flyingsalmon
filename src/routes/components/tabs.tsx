@@ -1,7 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import { ModePreview } from '@/components/mode-preview'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/registry/ui/tabs'
+import {
+  Tabs,
+  TabsActivationMode,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/registry/ui/tabs'
 
 export const Route = createFileRoute('/components/tabs')({
   component: TabsPage,
@@ -193,7 +199,7 @@ function ManualExample() {
   return (
     <Tabs
       defaultValue="overview"
-      activationMode="manual"
+      activationMode={TabsActivationMode.Manual}
       className="w-full max-w-sm"
     >
       <TabsList>

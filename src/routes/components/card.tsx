@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import { ModePreview } from '@/components/mode-preview'
-import { Button } from '@/registry/ui/button'
+import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import {
   Card,
   CardAction,
@@ -92,7 +92,7 @@ function CardPage() {
               dusk.
             </CardContent>
             <CardAction>
-              <Button variant="outline" size="sm">
+              <Button variant={ButtonVariant.Outline} size={ButtonSize.Small}>
                 Save
               </Button>
             </CardAction>

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 
-import { Skeleton } from '@/registry/ui/skeleton'
+import { Skeleton, SkeletonVariant } from '@/registry/ui/skeleton'
 
 function renderSkeleton(element: React.ReactElement) {
   const { container } = render(element)
@@ -50,13 +50,17 @@ describe('Skeleton', () => {
   })
 
   it('takes the circle shape when asked for it', () => {
-    const skeleton = renderSkeleton(<Skeleton variant="circle" />)
+    const skeleton = renderSkeleton(
+      <Skeleton variant={SkeletonVariant.Circle} />,
+    )
 
     expect(skeleton).toHaveAttribute('data-variant', 'circle')
   })
 
   it('takes the rectangle shape when asked for it', () => {
-    const skeleton = renderSkeleton(<Skeleton variant="rectangle" />)
+    const skeleton = renderSkeleton(
+      <Skeleton variant={SkeletonVariant.Rectangle} />,
+    )
 
     expect(skeleton).toHaveAttribute('data-variant', 'rectangle')
   })

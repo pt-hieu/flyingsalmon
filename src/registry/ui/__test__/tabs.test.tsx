@@ -2,7 +2,13 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/registry/ui/tabs'
+import {
+  Tabs,
+  TabsActivationMode,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/registry/ui/tabs'
 
 function BasicTabs(props: Partial<React.ComponentProps<typeof Tabs>> = {}) {
   return (
@@ -51,7 +57,7 @@ describe('Tabs', () => {
 
   it('moves focus without selecting under manual activation, until Enter or Space', async () => {
     const user = userEvent.setup()
-    render(<BasicTabs activationMode="manual" />)
+    render(<BasicTabs activationMode={TabsActivationMode.Manual} />)
 
     await user.tab()
     await user.keyboard('{ArrowRight}')
@@ -69,7 +75,7 @@ describe('Tabs', () => {
 
   it('selects with Space under manual activation', async () => {
     const user = userEvent.setup()
-    render(<BasicTabs activationMode="manual" />)
+    render(<BasicTabs activationMode={TabsActivationMode.Manual} />)
 
     await user.tab()
     await user.keyboard('{ArrowRight}{ArrowRight}')

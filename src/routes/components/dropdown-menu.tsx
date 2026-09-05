@@ -3,8 +3,13 @@ import { Copy, Ellipsis, Pencil, Trash2 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 import { ModePreview } from '@/components/mode-preview'
-import { Alert, AlertDescription, AlertTitle } from '@/registry/ui/alert'
-import { Button } from '@/registry/ui/button'
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+  AlertVariant,
+} from '@/registry/ui/alert'
+import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/registry/ui/card'
 import {
   Dialog,
@@ -16,9 +21,11 @@ import {
 } from '@/registry/ui/dialog'
 import {
   DropdownMenu,
+  DropdownMenuAlign,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuItemVariant,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
@@ -139,14 +146,14 @@ function DropdownMenuPage() {
             <DropdownMenu defaultOpen exhibitionMode>
               <DropdownMenuTrigger>
                 <Button
-                  variant="ghost"
-                  size="icon-sm"
+                  variant={ButtonVariant.Ghost}
+                  size={ButtonSize.IconSmall}
                   aria-label="Trip actions"
                 >
                   <Ellipsis />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start">
+              <DropdownMenuContent align={DropdownMenuAlign.Start}>
                 <DropdownMenuLabel>Weekend in Kyoto</DropdownMenuLabel>
                 <DropdownMenuItem icon={<Pencil />}>
                   Rename
@@ -154,7 +161,10 @@ function DropdownMenuPage() {
                 </DropdownMenuItem>
                 <DropdownMenuItem icon={<Copy />}>Duplicate</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem icon={<Trash2 />} variant="destructive">
+                <DropdownMenuItem
+                  icon={<Trash2 />}
+                  variant={DropdownMenuItemVariant.Destructive}
+                >
                   Delete trip
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -239,11 +249,15 @@ function TripCardOverflowMenu() {
           <CardTitle>Weekend in Kyoto</CardTitle>
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <Button variant="ghost" size="icon-sm" aria-label="Trip actions">
+              <Button
+                variant={ButtonVariant.Ghost}
+                size={ButtonSize.IconSmall}
+                aria-label="Trip actions"
+              >
                 <Ellipsis />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align={DropdownMenuAlign.End}>
               <DropdownMenuGroup>
                 <DropdownMenuLabel>Manage</DropdownMenuLabel>
                 <DropdownMenuItem onSelect={() => setDeleted(false)}>
@@ -263,7 +277,7 @@ function TripCardOverflowMenu() {
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                variant="destructive"
+                variant={DropdownMenuItemVariant.Destructive}
                 onSelect={() => setDeleteDialogOpen(true)}
               >
                 Delete trip
@@ -289,10 +303,10 @@ function TripCardOverflowMenu() {
           </DialogDescription>
           <DialogFooter>
             <DialogClose>
-              <Button variant="outline">Cancel</Button>
+              <Button variant={ButtonVariant.Outline}>Cancel</Button>
             </DialogClose>
             <Button
-              variant="destructive"
+              variant={ButtonVariant.Destructive}
               loading={deletePending}
               onClick={handleConfirmDelete}
             >
@@ -303,7 +317,7 @@ function TripCardOverflowMenu() {
       </Dialog>
 
       <Alert
-        variant="success"
+        variant={AlertVariant.Success}
         open={deleted}
         onClose={() => setDeleted(false)}
         className="w-72"
