@@ -4,6 +4,7 @@ import { Dialog as DialogPrimitive } from 'radix-ui'
 import { createContext, use } from 'react'
 
 import { cn } from '@/lib/utils'
+import { verticalFocusRingClearance } from '@/registry/lib/interaction'
 import { Button } from '@/registry/ui/button'
 
 export type DialogSize = 'default' | 'lg'
@@ -210,6 +211,7 @@ export function DialogBody({
     <div
       className={cn(
         'min-h-0 flex-1 overflow-y-auto px-(--dialog-spacing)',
+        verticalFocusRingClearance,
         className,
       )}
       {...props}
