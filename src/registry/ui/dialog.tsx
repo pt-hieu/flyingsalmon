@@ -88,6 +88,15 @@ const dialogOverlayVariants = cva(
   ),
 )
 
+const dialogTitleTypeClassName = 'font-heading text-lg font-semibold'
+
+const dialogCloseSlotVariants = cva(
+  cn(
+    'absolute top-(--dialog-spacing) right-4 flex h-[1lh] items-center',
+    dialogTitleTypeClassName,
+  ),
+)
+
 const dialogContentVariants = cva(
   cn(
     'bg-popover text-popover-foreground border-border z-50 flex w-[calc(100%-2rem)] flex-col gap-4',
@@ -142,17 +151,18 @@ export function DialogContent({
     >
       {children}
 
-      <DialogPrimitive.Close asChild>
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          aria-label="Close"
-          disabled={pending}
-          className="absolute top-4 right-4"
-        >
-          <X />
-        </Button>
-      </DialogPrimitive.Close>
+      <div className={dialogCloseSlotVariants()}>
+        <DialogPrimitive.Close asChild>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            aria-label="Close"
+            disabled={pending}
+          >
+            <X />
+          </Button>
+        </DialogPrimitive.Close>
+      </div>
     </DialogPrimitive.Content>
   )
 
@@ -180,7 +190,8 @@ export function DialogTitle({
   return (
     <DialogPrimitive.Title
       className={cn(
-        'font-heading px-(--dialog-spacing) pt-(--dialog-spacing) pr-12 text-lg font-semibold',
+        'px-(--dialog-spacing) pt-(--dialog-spacing) pr-12',
+        dialogTitleTypeClassName,
         className,
       )}
       {...props}
