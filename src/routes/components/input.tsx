@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Search } from 'lucide-react'
 
 import { ModePreview } from '@/components/mode-preview'
-import { Input } from '@/registry/ui/input'
+import { Input, InputSize, InputType } from '@/registry/ui/input'
 
 export const Route = createFileRoute('/components/input')({
   component: InputPage,
@@ -49,14 +49,14 @@ function InputPage() {
           <Input
             className="w-64"
             label="Email"
-            type="email"
+            type={InputType.Email}
             placeholder="you@example.com"
           />
           <Input
             className="w-64"
-            size="sm"
+            size={InputSize.Small}
             label="Email"
-            type="email"
+            type={InputType.Email}
             placeholder="you@example.com"
           />
         </ModePreview>
@@ -74,7 +74,7 @@ function InputPage() {
           <Input
             className="w-64"
             label="Search"
-            type="search"
+            type={InputType.Search}
             placeholder="Find a component"
             endAdornment={
               <Search className="text-muted-foreground size-4" aria-hidden />
@@ -82,9 +82,9 @@ function InputPage() {
           />
           <Input
             className="w-64"
-            size="sm"
+            size={InputSize.Small}
             label="Search"
-            type="search"
+            type={InputType.Search}
             placeholder="Find a component"
             endAdornment={
               <Search className="text-muted-foreground size-3" aria-hidden />
@@ -105,15 +105,15 @@ function InputPage() {
           <Input
             className="w-64"
             label="Email"
-            type="email"
+            type={InputType.Email}
             defaultValue="not-an-address"
             error="Enter a valid email address"
           />
           <Input
             className="w-64"
-            size="sm"
+            size={InputSize.Small}
             label="Email"
-            type="email"
+            type={InputType.Email}
             defaultValue="not-an-address"
             error="Enter a valid email address"
           />

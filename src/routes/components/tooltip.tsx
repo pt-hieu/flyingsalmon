@@ -4,7 +4,7 @@ import { Plus, Share2, Trash2 } from 'lucide-react'
 import { ModePreview } from '@/components/mode-preview'
 import { Preview } from '@/components/preview'
 import { Avatar } from '@/registry/ui/avatar'
-import { Button } from '@/registry/ui/button'
+import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import { Tooltip } from '@/registry/ui/tooltip'
 
 export const Route = createFileRoute('/components/tooltip')({
@@ -54,7 +54,11 @@ function TooltipPage() {
         </p>
         <ModePreview>
           <Tooltip content="Delete this project" exhibitionMode>
-            <Button variant="outline" size="icon" aria-label="Delete">
+            <Button
+              variant={ButtonVariant.Outline}
+              size={ButtonSize.Icon}
+              aria-label="Delete"
+            >
               <Trash2 />
             </Button>
           </Tooltip>
@@ -86,17 +90,29 @@ function TooltipPage() {
         <Preview>
           <div className="flex gap-2">
             <Tooltip content="Add item">
-              <Button variant="outline" size="icon" aria-label="Add item">
+              <Button
+                variant={ButtonVariant.Outline}
+                size={ButtonSize.Icon}
+                aria-label="Add item"
+              >
                 <Plus />
               </Button>
             </Tooltip>
             <Tooltip content="Share">
-              <Button variant="outline" size="icon" aria-label="Share">
+              <Button
+                variant={ButtonVariant.Outline}
+                size={ButtonSize.Icon}
+                aria-label="Share"
+              >
                 <Share2 />
               </Button>
             </Tooltip>
             <Tooltip content="Delete">
-              <Button variant="outline" size="icon" aria-label="Delete">
+              <Button
+                variant={ButtonVariant.Outline}
+                size={ButtonSize.Icon}
+                aria-label="Delete"
+              >
                 <Trash2 />
               </Button>
             </Tooltip>

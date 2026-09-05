@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import { ModePreview } from '@/components/mode-preview'
-import { Skeleton } from '@/registry/ui/skeleton'
+import { Skeleton, SkeletonVariant } from '@/registry/ui/skeleton'
 
 export const Route = createFileRoute('/components/skeleton')({
   component: SkeletonPage,
@@ -43,10 +43,13 @@ function SkeletonPage() {
             <Skeleton />
             <Skeleton className="w-3/4" />
             <div className="flex items-center gap-3">
-              <Skeleton variant="circle" className="size-10" />
+              <Skeleton variant={SkeletonVariant.Circle} className="size-10" />
               <Skeleton className="w-32" />
             </div>
-            <Skeleton variant="rectangle" className="h-24 w-full" />
+            <Skeleton
+              variant={SkeletonVariant.Rectangle}
+              className="h-24 w-full"
+            />
           </div>
         </ModePreview>
       </section>

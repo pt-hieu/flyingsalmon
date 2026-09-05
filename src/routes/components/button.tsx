@@ -3,7 +3,7 @@ import { Plus, Search, Trash2 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 import { ModePreview } from '@/components/mode-preview'
-import { Button } from '@/registry/ui/button'
+import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 
 export const Route = createFileRoute('/components/button')({
   component: ButtonPage,
@@ -62,10 +62,10 @@ function ButtonPage() {
         </p>
         <ModePreview>
           <Button>Default</Button>
-          <Button variant="outline">Outline</Button>
-          <Button variant="secondary">Secondary</Button>
-          <Button variant="ghost">Ghost</Button>
-          <Button variant="destructive">Destructive</Button>
+          <Button variant={ButtonVariant.Outline}>Outline</Button>
+          <Button variant={ButtonVariant.Secondary}>Secondary</Button>
+          <Button variant={ButtonVariant.Ghost}>Ghost</Button>
+          <Button variant={ButtonVariant.Destructive}>Destructive</Button>
         </ModePreview>
       </section>
 
@@ -83,9 +83,17 @@ function ButtonPage() {
         </p>
         <ModePreview>
           <Button>Save changes</Button>
-          <Button size="sm">Save changes</Button>
-          <Button size="icon" aria-label="Add item" icon={<Plus />} />
-          <Button size="icon-sm" aria-label="Add item" icon={<Plus />} />
+          <Button size={ButtonSize.Small}>Save changes</Button>
+          <Button
+            size={ButtonSize.Icon}
+            aria-label="Add item"
+            icon={<Plus />}
+          />
+          <Button
+            size={ButtonSize.IconSmall}
+            aria-label="Add item"
+            icon={<Plus />}
+          />
         </ModePreview>
       </section>
 
@@ -100,10 +108,14 @@ function ButtonPage() {
         </p>
         <ModePreview>
           <Button icon={<Search />}>Search</Button>
-          <Button variant="outline" size="sm" icon={<Plus />}>
+          <Button
+            variant={ButtonVariant.Outline}
+            size={ButtonSize.Small}
+            icon={<Plus />}
+          >
             Add item
           </Button>
-          <Button variant="destructive" icon={<Trash2 />}>
+          <Button variant={ButtonVariant.Destructive} icon={<Trash2 />}>
             Delete project
           </Button>
         </ModePreview>
@@ -121,13 +133,18 @@ function ButtonPage() {
         </p>
         <ModePreview>
           <Button loading>Save changes</Button>
-          <Button variant="outline" loading icon={<Search />}>
+          <Button variant={ButtonVariant.Outline} loading icon={<Search />}>
             Search
           </Button>
-          <Button variant="destructive" loading icon={<Trash2 />}>
+          <Button variant={ButtonVariant.Destructive} loading icon={<Trash2 />}>
             Delete project
           </Button>
-          <Button size="icon" aria-label="Add item" loading icon={<Plus />} />
+          <Button
+            size={ButtonSize.Icon}
+            aria-label="Add item"
+            loading
+            icon={<Plus />}
+          />
         </ModePreview>
       </section>
 
@@ -155,16 +172,16 @@ function ButtonPage() {
         </p>
         <ModePreview>
           <Button disabled>Save changes</Button>
-          <Button variant="outline" disabled>
+          <Button variant={ButtonVariant.Outline} disabled>
             Save changes
           </Button>
-          <Button variant="secondary" disabled>
+          <Button variant={ButtonVariant.Secondary} disabled>
             Save changes
           </Button>
-          <Button variant="ghost" disabled>
+          <Button variant={ButtonVariant.Ghost} disabled>
             Save changes
           </Button>
-          <Button variant="destructive" disabled>
+          <Button variant={ButtonVariant.Destructive} disabled>
             Delete project
           </Button>
         </ModePreview>
@@ -188,8 +205,8 @@ function ButtonPage() {
         </p>
         <ModePreview>
           <Button>Default</Button>
-          <Button variant="outline">Outline</Button>
-          <Button variant="destructive">Destructive</Button>
+          <Button variant={ButtonVariant.Outline}>Outline</Button>
+          <Button variant={ButtonVariant.Destructive}>Destructive</Button>
         </ModePreview>
       </section>
 

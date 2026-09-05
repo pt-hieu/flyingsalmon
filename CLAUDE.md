@@ -1,12 +1,11 @@
-# flyingsalmon
-
 A shadcn registry that doubles as Brian's design system and public design portfolio.
 Namespace: `@flyingsalmon`. Future home: `flyingsalmon.superbrian.dev`. First consumer: hottrip (an AI trip planner, not built yet — this registry dictates its stack).
 
 ## Coding conventions
 
-Comments are banned!
-Tailwind opacity modifiers are banned!
+- No code comments.
+- No Tailwind opacity modifiers such as `ring-ring/50`; they manufacture colors outside the palette (ADR 0004). Element opacity such as `disabled:opacity-50` is fine.
+- Registry file layout, enums, naming, and test rules are in `CODING_STANDARDS.md`.
 
 ## Structure rules
 
@@ -26,20 +25,15 @@ Tailwind opacity modifiers are banned!
 - Motion: small, springy, under 200ms (continuous indicators like spinner/skeleton exempt). Values, spring presets, and engine split are fixed in `docs/adr/0001-motion-language.md` — specs quote its names. Layout animation allowed via motion's `layout` prop. Do not worry about `prefers-reduced-motion`: no component implements it, no spec asks for it, and no review flags its absence.
 - Accessibility: WCAG AA is a hard requirement — contrast, visible focus states, full keyboard paths.
 
-## Feedback rule (defining constraint)
+## Feedback rule
 
-The acting component shows its own busyness: buttons morph through a loading state; form fields show their own errors. Success and error results belong to the app, shown inline via the alert/info component. **No toast. Ever.** Floating, unowned feedback stays outside this system — the docs principles page states this boundary. Revised from "no alert component" in `docs/adr/0002-feedback-rule-scope.md`.
+The acting component shows its own busyness: buttons morph through a loading state; form fields show their own errors. Success and error results belong to the app, shown inline via the alert/info component. **No toast. Ever.** Floating, unowned feedback stays outside this system — the docs principles page states this boundary.
 
 ## Publishing
 
 The repo and deploy stay private until Brian says otherwise. No registry versioning: ship-and-overwrite.
 
-## Agent skills
-
-### Issue tracker
+---
 
 Issues live in this repo's GitHub Issues (`gh` CLI). See `docs/agents/issue-tracker.md`.
-
-### Domain docs
-
 Single-context: one `CONTEXT.md` at the repo root plus `docs/adr/`. See `docs/agents/domain.md`.

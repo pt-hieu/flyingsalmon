@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 
-import { Input } from '@/registry/ui/input'
+import { Input, InputType } from '@/registry/ui/input'
 
 describe('Input', () => {
   it('focuses the field when its label is clicked', async () => {
@@ -182,7 +182,7 @@ describe('Input', () => {
     render(
       <Input
         label="Email"
-        type="email"
+        type={InputType.Email}
         placeholder="you@example.com"
         maxLength={5}
       />,

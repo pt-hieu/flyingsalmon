@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 
 import { ModePreview } from '@/components/mode-preview'
-import { Button } from '@/registry/ui/button'
+import { Button, ButtonVariant } from '@/registry/ui/button'
 import {
   Dialog,
   DialogBody,
@@ -227,7 +227,7 @@ function ControlledDialogDemo() {
         </DialogBody>
         <DialogFooter>
           <DialogClose>
-            <Button variant="outline">Cancel</Button>
+            <Button variant={ButtonVariant.Outline}>Cancel</Button>
           </DialogClose>
           <Button loading={pending} onClick={handleSave}>
             Save trip
@@ -269,7 +269,7 @@ function TripDialog({
         </DialogBody>
         <DialogFooter>
           <DialogClose>
-            <Button variant="outline">Cancel</Button>
+            <Button variant={ButtonVariant.Outline}>Cancel</Button>
           </DialogClose>
           <Button>Save trip</Button>
         </DialogFooter>
@@ -284,7 +284,7 @@ function ReusableTripDialogDemo() {
   return (
     <div className="flex flex-wrap items-center gap-3">
       <Button onClick={() => setOpen(true)}>Plan from the toolbar</Button>
-      <Button variant="outline" onClick={() => setOpen(true)}>
+      <Button variant={ButtonVariant.Outline} onClick={() => setOpen(true)}>
         Plan from a menu item
       </Button>
       <TripDialog open={open} onOpenChange={setOpen} />

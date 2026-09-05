@@ -27,13 +27,18 @@ export function useFieldIds({
   return { fieldId, errorMessageId, describedBy }
 }
 
+export enum FieldLabelPlacement {
+  Above = 'above',
+  Beside = 'beside',
+}
+
 const fieldLabelBaseVariants = cva(
   'text-sm font-medium transition-colors duration-(--motion-fast)',
   {
     variants: {
       placement: {
-        above: 'mb-2',
-        beside: '',
+        [FieldLabelPlacement.Above]: 'mb-2',
+        [FieldLabelPlacement.Beside]: '',
       },
       error: {
         true: 'text-destructive',
@@ -50,8 +55,6 @@ const fieldLabelBaseVariants = cva(
     },
   },
 )
-
-export type FieldLabelPlacement = 'above' | 'beside'
 
 export interface FieldLabelVariantsOptions {
   placement: FieldLabelPlacement

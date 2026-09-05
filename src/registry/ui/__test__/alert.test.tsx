@@ -2,15 +2,20 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 
-import { Alert, AlertDescription, AlertTitle } from '@/registry/ui/alert'
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+  AlertVariant,
+} from '@/registry/ui/alert'
 
 describe('Alert', () => {
   it('announces info, success, and warning politely', () => {
     render(
       <>
         <Alert>Saved as a draft</Alert>
-        <Alert variant="success">Saved</Alert>
-        <Alert variant="warning">Two seats left</Alert>
+        <Alert variant={AlertVariant.Success}>Saved</Alert>
+        <Alert variant={AlertVariant.Warning}>Two seats left</Alert>
       </>,
     )
 
@@ -23,7 +28,7 @@ describe('Alert', () => {
   })
 
   it('announces an error assertively', () => {
-    render(<Alert variant="error">The payment failed</Alert>)
+    render(<Alert variant={AlertVariant.Error}>The payment failed</Alert>)
 
     expect(screen.getByRole('alert')).toHaveTextContent('The payment failed')
     expect(screen.queryByRole('status')).not.toBeInTheDocument()
@@ -31,7 +36,7 @@ describe('Alert', () => {
 
   it('lets a caller role override the variant mapping', () => {
     render(
-      <Alert variant="error" role="status">
+      <Alert variant={AlertVariant.Error} role="status">
         The payment failed
       </Alert>,
     )
@@ -42,7 +47,7 @@ describe('Alert', () => {
 
   it('renders the title and the description together', () => {
     render(
-      <Alert variant="success">
+      <Alert variant={AlertVariant.Success}>
         <AlertTitle>Trip saved</AlertTitle>
         <AlertDescription>Six days in Da Nang, ready to share</AlertDescription>
       </Alert>,
@@ -108,7 +113,7 @@ describe('Alert', () => {
   it('reaches an action in the content before the close button', async () => {
     const user = userEvent.setup()
     render(
-      <Alert variant="error" onClose={vi.fn()}>
+      <Alert variant={AlertVariant.Error} onClose={vi.fn()}>
         <AlertDescription>Your card was declined.</AlertDescription>
         <button type="button">Try again</button>
       </Alert>,
@@ -159,7 +164,7 @@ describe('Alert', () => {
 
   it('shows a caller icon instead of the variant icon', () => {
     render(
-      <Alert variant="success" icon={<span>🎉</span>}>
+      <Alert variant={AlertVariant.Success} icon={<span>🎉</span>}>
         Saved
       </Alert>,
     )
@@ -172,7 +177,7 @@ describe('Alert', () => {
 
   it('shows no icon at all when the icon is null', () => {
     render(
-      <Alert variant="success" icon={null}>
+      <Alert variant={AlertVariant.Success} icon={null}>
         Saved
       </Alert>,
     )
@@ -181,7 +186,7 @@ describe('Alert', () => {
   })
 
   it('shows the variant icon by default', () => {
-    render(<Alert variant="success">Saved</Alert>)
+    render(<Alert variant={AlertVariant.Success}>Saved</Alert>)
 
     expect(
       screen.getByRole('status').querySelectorAll('svg').length,

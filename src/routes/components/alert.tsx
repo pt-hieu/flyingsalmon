@@ -3,8 +3,14 @@ import { PartyPopper } from 'lucide-react'
 import { useState } from 'react'
 
 import { ModePreview } from '@/components/mode-preview'
-import { Alert, AlertDescription, AlertTitle } from '@/registry/ui/alert'
-import { Button } from '@/registry/ui/button'
+import {
+  Alert,
+  AlertDescription,
+  AlertSize,
+  AlertTitle,
+  AlertVariant,
+} from '@/registry/ui/alert'
+import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 
 export const Route = createFileRoute('/components/alert')({
   component: AlertPage,
@@ -40,9 +46,11 @@ function AlertPage() {
         <ModePreview>
           <div className="flex w-72 flex-col gap-3">
             <Alert>Saved as a draft</Alert>
-            <Alert variant="success">Trip saved</Alert>
-            <Alert variant="warning">Two seats left at this price</Alert>
-            <Alert variant="error">The payment failed</Alert>
+            <Alert variant={AlertVariant.Success}>Trip saved</Alert>
+            <Alert variant={AlertVariant.Warning}>
+              Two seats left at this price
+            </Alert>
+            <Alert variant={AlertVariant.Error}>The payment failed</Alert>
           </div>
         </ModePreview>
       </section>
@@ -60,8 +68,8 @@ function AlertPage() {
         </p>
         <ModePreview>
           <div className="flex w-72 flex-col gap-3">
-            <Alert variant="success">Trip saved</Alert>
-            <Alert variant="success" size="sm">
+            <Alert variant={AlertVariant.Success}>Trip saved</Alert>
+            <Alert variant={AlertVariant.Success} size={AlertSize.Small}>
               Trip saved
             </Alert>
           </div>
@@ -85,13 +93,13 @@ function AlertPage() {
         </p>
         <ModePreview>
           <div className="flex w-72 flex-col gap-3">
-            <Alert variant="success">
+            <Alert variant={AlertVariant.Success}>
               <AlertTitle>Trip saved</AlertTitle>
               <AlertDescription>
                 Six days in Da Nang, ready to share.
               </AlertDescription>
             </Alert>
-            <Alert variant="error">
+            <Alert variant={AlertVariant.Error}>
               <AlertTitle>The payment failed</AlertTitle>
               <AlertDescription>
                 Your card was declined. Try another card.
@@ -111,10 +119,10 @@ function AlertPage() {
         </p>
         <ModePreview>
           <div className="flex w-72 flex-col gap-3">
-            <Alert variant="success" icon={<PartyPopper />}>
+            <Alert variant={AlertVariant.Success} icon={<PartyPopper />}>
               Trip saved
             </Alert>
-            <Alert variant="success" icon={null}>
+            <Alert variant={AlertVariant.Success} icon={null}>
               Trip saved
             </Alert>
           </div>
@@ -152,14 +160,14 @@ function AlertPage() {
         </p>
         <ModePreview>
           <div className="flex w-80 flex-col gap-3">
-            <Alert variant="error" onClose={() => {}}>
+            <Alert variant={AlertVariant.Error} onClose={() => {}}>
               <AlertTitle>The payment failed</AlertTitle>
               <AlertDescription>Your card was declined.</AlertDescription>
               <div className="mt-2 flex flex-wrap gap-2">
-                <Button variant="outline" size="sm">
+                <Button variant={ButtonVariant.Outline} size={ButtonSize.Small}>
                   Try again
                 </Button>
-                <Button variant="ghost" size="sm">
+                <Button variant={ButtonVariant.Ghost} size={ButtonSize.Small}>
                   Another card
                 </Button>
               </div>
@@ -214,13 +222,21 @@ function DismissDemo() {
 
   return (
     <div className="flex w-72 flex-col gap-3">
-      <Alert variant="success" open={open} onClose={() => setOpen(false)}>
+      <Alert
+        variant={AlertVariant.Success}
+        open={open}
+        onClose={() => setOpen(false)}
+      >
         <AlertTitle>Trip saved</AlertTitle>
         <AlertDescription>
           Six days in Da Nang, ready to share.
         </AlertDescription>
       </Alert>
-      <Button variant="outline" size="sm" onClick={() => setOpen(true)}>
+      <Button
+        variant={ButtonVariant.Outline}
+        size={ButtonSize.Small}
+        onClick={() => setOpen(true)}
+      >
         Save again
       </Button>
     </div>
@@ -232,11 +248,15 @@ function OpenToggleDemo() {
 
   return (
     <div className="flex w-72 flex-col gap-3">
-      <Alert variant="error" open={open}>
+      <Alert variant={AlertVariant.Error} open={open}>
         <AlertTitle>The payment failed</AlertTitle>
         <AlertDescription>Your card was declined.</AlertDescription>
       </Alert>
-      <Button variant="outline" size="sm" onClick={() => setOpen(!open)}>
+      <Button
+        variant={ButtonVariant.Outline}
+        size={ButtonSize.Small}
+        onClick={() => setOpen(!open)}
+      >
         {open ? 'Close the alert' : 'Open the alert'}
       </Button>
     </div>

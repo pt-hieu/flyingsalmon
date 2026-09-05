@@ -192,7 +192,16 @@
       "description": "The loading primitive for action busyness. One variant, two sizes, a currentColor arc rotating once per 800ms.",
       "dependencies": ["class-variance-authority", "lucide-react"],
       "files": [
-        { "path": "src/registry/ui/spinner.tsx", "type": "registry:ui" }
+        {
+          "path": "src/registry/ui/spinner/classnames.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/spinner/index.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/spinner/spinner.tsx",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/spinner/types.ts", "type": "registry:ui" }
       ],
       "cssVars": {
         "theme": {
@@ -216,7 +225,19 @@
         "@flyingsalmon/motion",
         "@flyingsalmon/spinner"
       ],
-      "files": [{ "path": "src/registry/ui/button.tsx", "type": "registry:ui" }]
+      "files": [
+        { "path": "src/registry/ui/button/button.tsx", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/button/classnames.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/button/index.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/button/spinner-size-by-button-size.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/button/types.ts", "type": "registry:ui" }
+      ]
     },
     {
       "name": "alert",
@@ -225,7 +246,27 @@
       "description": "The app's inline vehicle for the result of an action. A neutral surface where the icon carries the variant, two sizes, an optional close button, and its own enter and exit animation.",
       "dependencies": ["class-variance-authority", "lucide-react"],
       "registryDependencies": ["@flyingsalmon/motion", "@flyingsalmon/button"],
-      "files": [{ "path": "src/registry/ui/alert.tsx", "type": "registry:ui" }]
+      "files": [
+        {
+          "path": "src/registry/ui/alert/alert-description.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/alert/alert-status-by-variant.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/alert/alert-title.tsx",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/alert/alert.tsx", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/alert/classnames.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/alert/index.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/alert/types.ts", "type": "registry:ui" }
+      ]
     },
     {
       "name": "input",
@@ -238,7 +279,19 @@
         "@flyingsalmon/interaction",
         "@flyingsalmon/spinner"
       ],
-      "files": [{ "path": "src/registry/ui/input.tsx", "type": "registry:ui" }]
+      "files": [
+        {
+          "path": "src/registry/ui/input/classnames.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/input/index.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/input/input.tsx", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/input/spinner-size-by-input-size.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/input/types.ts", "type": "registry:ui" }
+      ]
     },
     {
       "name": "textarea",
@@ -252,7 +305,20 @@
         "@flyingsalmon/spinner"
       ],
       "files": [
-        { "path": "src/registry/ui/textarea.tsx", "type": "registry:ui" }
+        {
+          "path": "src/registry/ui/textarea/classnames.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/textarea/index.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/textarea/rows-to-height.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/textarea/textarea.tsx",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/textarea/types.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -266,7 +332,13 @@
         "@flyingsalmon/motion"
       ],
       "files": [
-        { "path": "src/registry/ui/switch.tsx", "type": "registry:ui" }
+        {
+          "path": "src/registry/ui/switch/classnames.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/switch/index.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/switch/switch.tsx", "type": "registry:ui" },
+        { "path": "src/registry/ui/switch/types.ts", "type": "registry:ui" }
       ],
       "cssVars": {
         "theme": {
@@ -291,7 +363,20 @@
         "@flyingsalmon/motion"
       ],
       "files": [
-        { "path": "src/registry/ui/checkbox.tsx", "type": "registry:ui" }
+        {
+          "path": "src/registry/ui/checkbox/checkbox.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/checkbox/classnames.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/checkbox/index.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/checkbox/mark-paths.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/checkbox/types.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -300,7 +385,15 @@
       "title": "Badge",
       "description": "A static marker for a status, a category, or a small count. Six variants, one size, never focusable and never animated.",
       "dependencies": ["class-variance-authority"],
-      "files": [{ "path": "src/registry/ui/badge.tsx", "type": "registry:ui" }]
+      "files": [
+        { "path": "src/registry/ui/badge/badge.tsx", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/badge/classnames.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/badge/index.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/badge/types.ts", "type": "registry:ui" }
+      ]
     },
     {
       "name": "avatar",
@@ -308,7 +401,19 @@
       "title": "Avatar",
       "description": "The identity mark for a person. Image, then two initials on one of eight step-400 hues, then a plain circle. Static and non-focusable.",
       "dependencies": ["class-variance-authority"],
-      "files": [{ "path": "src/registry/ui/avatar.tsx", "type": "registry:ui" }]
+      "files": [
+        { "path": "src/registry/ui/avatar/avatar.tsx", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/avatar/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/avatar/get-initials.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/avatar/index.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/avatar/types.ts", "type": "registry:ui" }
+      ]
     },
     {
       "name": "card",
@@ -316,7 +421,37 @@
       "title": "Card",
       "description": "A flat container that groups related content on one surface. Seven slots, one padding step, no variants; `interactive` opts into hover, press, and focus feedback through a stretched title link.",
       "dependencies": ["class-variance-authority"],
-      "files": [{ "path": "src/registry/ui/card.tsx", "type": "registry:ui" }],
+      "files": [
+        {
+          "path": "src/registry/ui/card/card-action.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/card/card-content.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/card/card-description.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/card/card-footer.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/card/card-header.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/card/card-title.tsx",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/card/card.tsx", "type": "registry:ui" },
+        { "path": "src/registry/ui/card/classnames.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/card/context.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/card/index.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/card/types.ts", "type": "registry:ui" }
+      ],
       "cssVars": {
         "theme": {
           "card-spacing": "--spacing(4)"
@@ -330,7 +465,16 @@
       "description": "The region-loading placeholder. Three shape presets sized by the consumer, pulsing on a 2s cycle, always hidden from assistive technology.",
       "dependencies": ["class-variance-authority"],
       "files": [
-        { "path": "src/registry/ui/skeleton.tsx", "type": "registry:ui" }
+        {
+          "path": "src/registry/ui/skeleton/classnames.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/skeleton/index.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/skeleton/skeleton.tsx",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/skeleton/types.ts", "type": "registry:ui" }
       ],
       "cssVars": {
         "theme": {
@@ -355,7 +499,42 @@
         "@flyingsalmon/button"
       ],
       "files": [
-        { "path": "src/registry/ui/dialog.tsx", "type": "registry:ui" }
+        {
+          "path": "src/registry/ui/dialog/classnames.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/dialog/context.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/dialog/dialog-body.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dialog/dialog-close.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dialog/dialog-content.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dialog/dialog-description.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dialog/dialog-footer.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dialog/dialog-title.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dialog/dialog-trigger.tsx",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/dialog/dialog.tsx", "type": "registry:ui" },
+        { "path": "src/registry/ui/dialog/index.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/dialog/types.ts", "type": "registry:ui" }
       ],
       "cssVars": {
         "theme": {
@@ -375,7 +554,54 @@
         "@flyingsalmon/button"
       ],
       "files": [
-        { "path": "src/registry/ui/dropdown-menu.tsx", "type": "registry:ui" }
+        {
+          "path": "src/registry/ui/dropdown-menu/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dropdown-menu/context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dropdown-menu/dropdown-menu-content.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dropdown-menu/dropdown-menu-group.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dropdown-menu/dropdown-menu-item.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dropdown-menu/dropdown-menu-label.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dropdown-menu/dropdown-menu-separator.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dropdown-menu/dropdown-menu-shortcut.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dropdown-menu/dropdown-menu-trigger.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dropdown-menu/dropdown-menu.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dropdown-menu/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/dropdown-menu/types.ts",
+          "type": "registry:ui"
+        }
       ]
     },
     {
@@ -391,7 +617,39 @@
         "@flyingsalmon/interaction",
         "@flyingsalmon/spinner"
       ],
-      "files": [{ "path": "src/registry/ui/select.tsx", "type": "registry:ui" }]
+      "files": [
+        {
+          "path": "src/registry/ui/select/classnames.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/select/index.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/select/select-group.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/select/select-item.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/select/select-label.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/select/select-panel.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/select/select-separator.tsx",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/select/select.tsx", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/select/spinner-size-by-select-size.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/select/types.ts", "type": "registry:ui" }
+      ]
     },
     {
       "name": "tooltip",
@@ -401,7 +659,20 @@
       "dependencies": ["radix-ui"],
       "registryDependencies": ["@flyingsalmon/floating"],
       "files": [
-        { "path": "src/registry/ui/tooltip.tsx", "type": "registry:ui" }
+        {
+          "path": "src/registry/ui/tooltip/classnames.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/tooltip/index.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/tooltip/tooltip-provider.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/tooltip/tooltip.tsx",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/tooltip/types.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -412,8 +683,22 @@
       "dependencies": ["radix-ui"],
       "registryDependencies": ["@flyingsalmon/motion"],
       "files": [
+        { "path": "src/registry/ui/tabs/classnames.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/tabs/context.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/tabs/index.ts", "type": "registry:ui" },
         {
-          "path": "src/registry/ui/tabs.tsx",
+          "path": "src/registry/ui/tabs/tabs-content.tsx",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/tabs/tabs-list.tsx", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/tabs/tabs-trigger.tsx",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/tabs/tabs.tsx", "type": "registry:ui" },
+        { "path": "src/registry/ui/tabs/types.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/tabs/use-tabs-shared-state.ts",
           "type": "registry:ui"
         }
       ]

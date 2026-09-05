@@ -2,13 +2,14 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 
 import { ModePreview } from '@/components/mode-preview'
-import { Alert } from '@/registry/ui/alert'
+import { Alert, AlertVariant } from '@/registry/ui/alert'
 import {
   Select,
   SelectGroup,
   SelectItem,
   SelectLabel,
   SelectSeparator,
+  SelectSize,
 } from '@/registry/ui/select'
 
 export const Route = createFileRoute('/components/select')({
@@ -65,7 +66,7 @@ function SelectPage() {
           </Select>
           <Select
             className="w-64"
-            size="sm"
+            size={SelectSize.Small}
             label="Currency"
             placeholder="Choose a currency"
           >
@@ -138,7 +139,7 @@ function SelectPage() {
           </Select>
           <Select
             className="w-64"
-            size="sm"
+            size={SelectSize.Small}
             label="Currency"
             placeholder="Choose a currency"
             error="Choose a supported currency"
@@ -262,7 +263,7 @@ function TicketPriorityDemo() {
         <SelectItem value="urgent">Urgent</SelectItem>
       </Select>
 
-      {result ? <Alert variant="success">{result}</Alert> : null}
+      {result ? <Alert variant={AlertVariant.Success}>{result}</Alert> : null}
     </div>
   )
 }

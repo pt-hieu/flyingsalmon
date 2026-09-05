@@ -2,15 +2,15 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 
-import { Badge, type BadgeVariant } from '@/registry/ui/badge'
+import { Badge, BadgeVariant } from '@/registry/ui/badge'
 
 const everyVariant: BadgeVariant[] = [
-  'default',
-  'secondary',
-  'outline',
-  'success',
-  'warning',
-  'error',
+  BadgeVariant.Default,
+  BadgeVariant.Secondary,
+  BadgeVariant.Outline,
+  BadgeVariant.Success,
+  BadgeVariant.Warning,
+  BadgeVariant.Error,
 ]
 
 describe('Badge', () => {
