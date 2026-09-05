@@ -15,4 +15,10 @@ export const componentNavLinks = [
   { to: '/components/select', label: 'Select' },
   { to: '/components/tooltip', label: 'Tooltip' },
   { to: '/components/tabs', label: 'Tabs' },
+  { to: '/components/form', label: 'Form' },
+  { to: '/components/radio-group', label: 'Radio Group' },
+  { to: '/components/table', label: 'Table' },
+  { to: '/components/accordion', label: 'Accordion' },
+  { to: '/components/avatar-group', label: 'Avatar Group' },
+  { to: '/components/separator', label: 'Separator' },
 ] as const
