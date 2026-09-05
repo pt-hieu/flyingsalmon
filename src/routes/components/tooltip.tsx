@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Plus, Share2, Trash2 } from 'lucide-react'
 
 import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Avatar } from '@/registry/ui/avatar'
 import { Button } from '@/registry/ui/button'
 import { Tooltip } from '@/registry/ui/tooltip'
@@ -45,9 +46,11 @@ function TooltipPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Exhibition</h2>
         <p className="text-muted-foreground">
-          <code>exhibitionMode</code> forces the tooltip open, skips the portal,
-          and keeps Radix positioning inside this panel, so both modes show it
-          open at once.
+          <code>exhibitionMode</code> forces the tooltip open and renders it
+          inline instead of through the portal, so it inherits the panel's
+          tokens and both modes show it open at once. It is also isolated from
+          the app's <code>TooltipProvider</code>, so a permanently open tooltip
+          never consumes the shared skip window.
         </p>
         <ModePreview>
           <Tooltip content="Delete this project" exhibitionMode>
@@ -65,10 +68,22 @@ function TooltipPage() {
         <p className="text-muted-foreground">
           <code>TooltipProvider</code> fixes a 500ms open delay and a 300ms skip
           delay, mounted once at the app root. Hover the first icon and count to
-          the open; move to the second inside that 300ms window and it opens at
-          once.
+          the open; move to the second within 300ms of the first closing and it
+          opens at once, with no second count. The window is deliberately short:
+          a longer one makes the delay feel arbitrary, because a hover that
+          follows any recent close — including one a scroll caused — would skip
+          the count while an isolated hover would not.
         </p>
-        <ModePreview>
+        <p className="text-muted-foreground">
+          One Radix limitation shows here. Its hoverable-content grace area
+          tracks the pointer through a <code>document</code> listener that
+          resolves a frame late, so a flick fast enough to fire only two or
+          three pointer events across the row leaves the first tooltip stranded
+          and the second unopened until the pointer moves again. Hoverable
+          content stays on regardless: WCAG 2.1 SC 1.4.13 requires that a
+          pointer be able to move onto the tooltip without it disappearing.
+        </p>
+        <Preview>
           <div className="flex gap-2">
             <Tooltip content="Add item">
               <Button variant="outline" size="icon" aria-label="Add item">
@@ -86,7 +101,7 @@ function TooltipPage() {
               </Button>
             </Tooltip>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -100,11 +115,11 @@ function TooltipPage() {
           — the component does not inject a <code>tabIndex</code>. Avatar takes
           no focus of its own, so this example adds one at the call site.
         </p>
-        <ModePreview>
+        <Preview>
           <Tooltip content="Brian Nguyen">
             <Avatar tabIndex={0} name="Brian Nguyen" />
           </Tooltip>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
