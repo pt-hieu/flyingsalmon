@@ -26,6 +26,7 @@ body {
   --motion-fast: 100ms;
   --motion-base: 150ms;
   --card-spacing: --spacing(4);
+  --dialog-spacing: --spacing(6);
   --animate-spinner: spinner-rotate 800ms linear infinite;
   @keyframes spinner-rotate {
     to {
