@@ -76,7 +76,7 @@ function SelectPage() {
         </ModePreview>
       </section>
 
-      <section className="space-y-4 pb-56">
+      <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">
           Groups, separators, and the checked item
         </h2>
@@ -84,10 +84,12 @@ function SelectPage() {
           <code>SelectGroup</code> takes a <code>SelectLabel</code> as its
           heading and separates from the next group with a{' '}
           <code>SelectSeparator</code>. The checked item shows a{' '}
-          <code>text-primary</code> check in a reserved icon slot; a disabled
-          item stays in the list, dimmed, so its position never shifts. The
-          panel below is pinned open with <code>exhibitionMode</code> for this
-          page only — never use it in an app.
+          <code>text-primary</code> check in a reserved trailing icon slot, so
+          every item label starts at the same left edge; a disabled item stays
+          in the list, dimmed, so its position never shifts. Open a trigger
+          below to see all of it — each one takes <code>exhibitionMode</code>,
+          which renders the panel inline with no portal so it picks up its own
+          pane's color mode. It exists for this docs page only.
         </p>
         <ModePreview>
           <Select
