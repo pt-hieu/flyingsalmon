@@ -2,7 +2,7 @@ export const menuContent =
   'bg-popover text-popover-foreground border border-border rounded-lg p-1 min-w-32 z-50'
 
 export const menuItem =
-  'flex h-8 cursor-pointer items-center gap-2 rounded-md px-2 text-sm data-disabled:pointer-events-none data-disabled:opacity-50'
+  'flex h-8 cursor-pointer items-center gap-2 rounded-md px-2 text-sm outline-hidden data-disabled:pointer-events-none data-disabled:opacity-50'
 
 export const menuItemHighlighted =
   'data-highlighted:bg-accent data-highlighted:text-accent-foreground'

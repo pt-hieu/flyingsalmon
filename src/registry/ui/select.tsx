@@ -252,7 +252,7 @@ export interface SelectItemProps extends Omit<
 export function SelectItem({ className, children, ...props }: SelectItemProps) {
   return (
     <SelectPrimitive.Item
-      className={cn(menuItem, menuItemHighlighted, 'outline-hidden', className)}
+      className={cn(menuItem, menuItemHighlighted, className)}
       {...props}
     >
       <span className="min-w-0 flex-1 truncate">
