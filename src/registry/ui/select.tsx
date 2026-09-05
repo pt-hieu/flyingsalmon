@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 import { Check, ChevronDown } from 'lucide-react'
 import { Select as SelectPrimitive } from 'radix-ui'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 
 import { cn } from '@/lib/utils'
 import {
@@ -69,34 +69,6 @@ const selectChevronClassName =
 
 const selectContentAnimationClassName =
   'data-[state=open]:animate-floating-anchored-enter data-[state=closed]:animate-floating-anchored-exit'
-
-let exhibitionModeMountCount = 0
-let exhibitionModeBodyObserver: MutationObserver | null = null
-
-function keepDocumentBodyInteractiveWhileExhibiting() {
-  exhibitionModeMountCount += 1
-
-  exhibitionModeBodyObserver ??= new MutationObserver(() => {
-    if (document.body.style.pointerEvents === 'none') {
-      document.body.style.pointerEvents = ''
-    }
-  })
-  exhibitionModeBodyObserver.observe(document.body, {
-    attributes: true,
-    attributeFilter: ['style'],
-  })
-  document.body.style.pointerEvents = ''
-
-  return () => {
-    exhibitionModeMountCount -= 1
-
-    if (exhibitionModeMountCount === 0 && exhibitionModeBodyObserver) {
-      exhibitionModeBodyObserver.disconnect()
-      exhibitionModeBodyObserver = null
-      document.body.style.pointerEvents = ''
-    }
-  }
-}
 
 export type SelectSize = NonNullable<
   VariantProps<typeof selectTriggerVariants>['size']
@@ -187,14 +159,6 @@ export function Select({
   const hasError = Boolean(error)
   const triggerRef = useRef<HTMLButtonElement>(null)
 
-  useEffect(() => {
-    if (!exhibitionMode) {
-      return
-    }
-
-    return keepDocumentBodyInteractiveWhileExhibiting()
-  }, [exhibitionMode])
-
   function guardOpeningWhileLoading(event: { preventDefault: () => void }) {
     if (loading) {
       event.preventDefault()
@@ -230,9 +194,9 @@ export function Select({
         value={value}
         defaultValue={defaultValue}
         onValueChange={onValueChange}
-        open={exhibitionMode ? true : open}
+        open={open}
         defaultOpen={defaultOpen}
-        onOpenChange={exhibitionMode ? () => {} : onOpenChange}
+        onOpenChange={onOpenChange}
         disabled={disabled}
         required={required}
         name={name}
