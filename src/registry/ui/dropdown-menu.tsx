@@ -163,7 +163,7 @@ export function DropdownMenuItem({
       asChild={asChild}
       className={cn(
         menuItem,
-        'group',
+        'group -mx-1 rounded-none px-3',
         menuItemHighlighted,
         variant === 'destructive' && menuItemDestructive,
         className,
