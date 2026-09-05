@@ -9,3 +9,5 @@ export const boundaryFocusRingGeometry =
 
 export const invalidBoundaryFocusRingGeometry =
   'aria-invalid:focus-visible:border-background'
+
+export const verticalFocusRingClearance = '-my-1.5 py-1.5'
