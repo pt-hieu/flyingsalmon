@@ -77,7 +77,7 @@ export function DropdownMenuContent({
       }
       className={cn(
         menuContent,
-        'outline-hidden',
+        'min-w-57 outline-hidden',
         'max-h-(--radix-dropdown-menu-content-available-height) overflow-y-auto',
         'origin-(--radix-popper-transform-origin)',
         'data-[state=open]:animate-floating-anchored-enter',
