@@ -291,14 +291,14 @@ export function SelectItem({ className, children, ...props }: SelectItemProps) {
       className={cn(menuItem, menuItemHighlighted, 'outline-hidden', className)}
       {...props}
     >
+      <span className="min-w-0 flex-1 truncate">
+        <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+      </span>
+
       <span className={menuItemIconSlot}>
         <SelectPrimitive.ItemIndicator>
           <Check aria-hidden className="text-primary size-4" />
         </SelectPrimitive.ItemIndicator>
-      </span>
-
-      <span className="min-w-0 flex-1 truncate">
-        <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
       </span>
     </SelectPrimitive.Item>
   )
