@@ -350,7 +350,18 @@
       "title": "Dialog",
       "description": "A modal surface over a scrim. It traps focus, locks scroll, and returns focus to its trigger on close.",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["@flyingsalmon/floating"]
+      "registryDependencies": [
+        "@flyingsalmon/floating",
+        "@flyingsalmon/button"
+      ],
+      "files": [
+        { "path": "src/registry/ui/dialog.tsx", "type": "registry:ui" }
+      ],
+      "cssVars": {
+        "theme": {
+          "dialog-spacing": "--spacing(6)"
+        }
+      }
     },
     {
       "name": "dropdown-menu",

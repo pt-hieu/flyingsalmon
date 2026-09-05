@@ -18,7 +18,7 @@ function ModePanel({
   children: React.ReactNode
 }) {
   return (
-    <div className={cn(mode, 'bg-background flex flex-col')}>
+    <div className={cn(mode, 'bg-background relative flex flex-col')}>
       <div className="border-border text-muted-foreground border-b px-4 py-2 text-xs font-medium">
         {mode === 'light' ? 'Light' : 'Dark'}
       </div>
