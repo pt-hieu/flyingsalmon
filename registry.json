@@ -702,6 +702,51 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "form",
+      "type": "registry:ui",
+      "title": "Form",
+      "description": "A layout shell and a form-library binding. It gives fields their vertical rhythm and an actions row, and renders the submit result inline through alert.",
+      "dependencies": [],
+      "registryDependencies": ["@flyingsalmon/alert"]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "A single choice from a small set of visible options. It owns its label and error message like the rest of the field family.",
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["@flyingsalmon/field"]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "A styled primitive for tabular data: plain table elements in named parts. Sorting, selection, and pagination belong to a data table built on top.",
+      "dependencies": []
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "A vertical stack of headers, each expanding to reveal its own panel. Arrow keys walk the headers; the app decides whether one or many stay open.",
+      "dependencies": ["radix-ui"]
+    },
+    {
+      "name": "avatar-group",
+      "type": "registry:ui",
+      "title": "Avatar Group",
+      "description": "An overlapping row of avatars with an overflow count past a limit. It arranges avatars and adds no identity logic of its own.",
+      "dependencies": [],
+      "registryDependencies": ["@flyingsalmon/avatar"]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "A one-pixel rule that divides content, horizontal or vertical. Decorative by default, announced only when the division carries meaning.",
+      "dependencies": ["radix-ui"]
     }
   ]
 }
