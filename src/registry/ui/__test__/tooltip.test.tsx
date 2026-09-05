@@ -4,6 +4,12 @@ import { describe, expect, it } from 'vitest'
 
 import { Tooltip, TooltipProvider } from '@/registry/ui/tooltip'
 
+const tooltipWithText = (text: string) =>
+  screen.getAllByRole('tooltip').find((node) => node.textContent === text)
+
+const waitPastTheSkipWindow = () =>
+  new Promise((resolve) => setTimeout(resolve, 1200))
+
 function renderTooltip() {
   return render(
     <TooltipProvider>
@@ -92,5 +98,41 @@ describe('Tooltip', () => {
 
     expect(tooltip).toHaveTextContent('Add to favorites')
     expect(container).toContainElement(tooltip)
+  })
+
+  it('keeps the app-wide skip window intact when an exhibited tooltip is on the page', async () => {
+    const user = userEvent.setup()
+    render(
+      <TooltipProvider>
+        <Tooltip content="Delete this project" exhibitionMode>
+          <button type="button">Delete</button>
+        </Tooltip>
+        <Tooltip content="Add item">
+          <button type="button">Add</button>
+        </Tooltip>
+        <Tooltip content="Share">
+          <button type="button">Share</button>
+        </Tooltip>
+      </TooltipProvider>,
+    )
+
+    await user.hover(screen.getByRole('button', { name: 'Add' }))
+    await waitFor(() => expect(tooltipWithText('Add item')).toBeDefined(), {
+      timeout: 1500,
+    })
+
+    await waitPastTheSkipWindow()
+    await user.click(screen.getByRole('button', { name: 'Add' }))
+    await waitFor(() => expect(tooltipWithText('Add item')).toBeUndefined())
+
+    await user.hover(screen.getByRole('button', { name: 'Share' }))
+    await waitFor(() => expect(tooltipWithText('Share')).toBeDefined(), {
+      timeout: 1500,
+    })
+
+    expect(tooltipWithText('Share')).toHaveAttribute(
+      'data-state',
+      'instant-open',
+    )
   })
 })

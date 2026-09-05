@@ -57,7 +57,7 @@ export function Tooltip({
     </TooltipPrimitive.Content>
   )
 
-  return (
+  const tooltipRoot = (
     <TooltipPrimitive.Root {...rootProps} open={exhibitionMode ? true : open}>
       <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
       {exhibitionMode ? (
@@ -67,4 +67,10 @@ export function Tooltip({
       )}
     </TooltipPrimitive.Root>
   )
+
+  if (exhibitionMode) {
+    return <TooltipPrimitive.Provider>{tooltipRoot}</TooltipPrimitive.Provider>
+  }
+
+  return tooltipRoot
 }
