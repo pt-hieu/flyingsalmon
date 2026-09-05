@@ -170,13 +170,15 @@ export function DropdownMenuItem({
       )}
       {...props}
     >
-      <span
-        key="icon"
-        aria-hidden
-        className={cn(menuItemIconSlot, '[&>svg]:size-4')}
-      >
-        {icon}
-      </span>
+      {icon ? (
+        <span
+          key="icon"
+          aria-hidden
+          className={cn(menuItemIconSlot, '[&>svg]:size-4')}
+        >
+          {icon}
+        </span>
+      ) : null}
       {asChild ? <Slot.Slottable>{children}</Slot.Slottable> : children}
     </DropdownMenuPrimitive.Item>
   )

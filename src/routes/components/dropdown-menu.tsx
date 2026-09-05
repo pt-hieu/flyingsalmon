@@ -75,18 +75,20 @@ function DropdownMenuPage() {
         <p className="text-muted-foreground">
           <code>DropdownMenuItem</code> takes <code>variant</code> (
           <code>default</code> or <code>destructive</code>), an{' '}
-          <code>icon</code> rendered in a slot that is always reserved so text
-          aligns down the menu, <code>asChild</code>, <code>onSelect</code>, and{' '}
-          <code>disabled</code>.{' '}
+          <code>icon</code>, <code>asChild</code>, <code>onSelect</code>, and{' '}
+          <code>disabled</code>. The icon slot exists only on an item that gets
+          an <code>icon</code>, so an icon-free menu starts flush at the left
+          edge. Give every item in a menu an icon or give none of them one —
+          mixing the two leaves the text ragged.{' '}
           <strong className="text-foreground">
             An action item uses <code>onSelect</code>; a navigation item wraps
             the router's <code>Link</code> with <code>asChild</code>.
           </strong>{' '}
-          With <code>asChild</code>, the item renders the icon slot, then its
-          children inside Radix <code>Slot.Slottable</code>, so the icon lands
-          inside the <code>Link</code> alongside its own text — the link gets a
-          real <code>href</code>, middle-click, and modifier-click, and choosing
-          it with the keyboard follows it.
+          With <code>asChild</code>, an item with an icon renders the slot, then
+          its children inside Radix <code>Slot.Slottable</code>, so the icon
+          lands inside the <code>Link</code> alongside its own text — the link
+          gets a real <code>href</code>, middle-click, and modifier-click, and
+          choosing it with the keyboard follows it.
         </p>
       </section>
 
