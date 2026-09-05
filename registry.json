@@ -376,12 +376,15 @@
       "type": "registry:ui",
       "title": "Select",
       "description": "A single-select field that owns its label and error message. The list is a modal surface anchored to the trigger.",
-      "dependencies": ["radix-ui"],
+      "dependencies": ["class-variance-authority", "radix-ui"],
       "registryDependencies": [
         "@flyingsalmon/field",
         "@flyingsalmon/floating",
-        "@flyingsalmon/menu"
-      ]
+        "@flyingsalmon/menu",
+        "@flyingsalmon/interaction",
+        "@flyingsalmon/spinner"
+      ],
+      "files": [{ "path": "src/registry/ui/select.tsx", "type": "registry:ui" }]
     },
     {
       "name": "tooltip",
