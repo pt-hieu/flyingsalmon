@@ -188,6 +188,20 @@ function ButtonPage() {
       </section>
 
       <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Inside a form</h2>
+        <p className="text-muted-foreground">
+          A button defaults to <code>type="button"</code>, so a Cancel beside
+          the submit does not post the form.{' '}
+          <strong className="text-foreground">
+            The submit button says <code>type="submit"</code> explicitly.
+          </strong>{' '}
+          HTML's own default is the other way round and turns every button in an
+          action row into a submit, silently. The same default protects a dialog
+          footer or card footer rendered inside a form.
+        </p>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Focus and press</h2>
         <p className="text-muted-foreground">
           Tab to a button for the focus ring: 3px held off the button by a 2px
