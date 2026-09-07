@@ -784,9 +784,9 @@
       "name": "form",
       "type": "registry:ui",
       "title": "Form",
-      "description": "A layout shell and a form-library binding. It gives fields their vertical rhythm and an actions row, and renders the submit result inline through alert.",
+      "description": "A layout shell. It gives fields their vertical rhythm, an actions row, and an optional slot where the app places the submit result as an alert.",
       "dependencies": [],
-      "registryDependencies": ["@flyingsalmon/alert"]
+      "registryDependencies": []
     },
     {
       "name": "radio-group",
