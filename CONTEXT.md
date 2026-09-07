@@ -45,7 +45,7 @@ A component built from several parts that only make sense together, exposed as a
 _Avoid_: compound component, widget
 
 **Field family**:
-The components that own a label and an error message: input, textarea, checkbox, and select from batch 2. All of them take their id linkage, their error message, and their label variants from the `field` registry item. Switch is not a member — it has a label but no error state, because a failed toggle is a result the app shows. That exclusion covers the label too: switch keeps its own label block, which transitions opacity rather than color (ADR 0006).
+The components that own a label and an error message: input, textarea, checkbox, select from batch 2, and radio-group from batch 3. All of them take their id linkage, their error message, and their label variants from the `field` registry item. Their props are the contract any form-state library drives; the registry binds to none (ADR 0007). Switch is not a member — it has a label but no error state, because a failed toggle is a result the app shows. That exclusion covers the label too: switch keeps its own label block, which transitions opacity rather than color (ADR 0006).
 _Avoid_: form controls, inputs
 
 **Motion language**:
