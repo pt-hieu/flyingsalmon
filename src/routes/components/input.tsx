@@ -179,9 +179,10 @@ function InputPage() {
         <p className="text-muted-foreground">
           Hover border, focus ring, and the destructive color changes are CSS
           transitions at <code>--motion-fast</code>. The error message is the
-          one enter and exit: height and opacity on a spring,{' '}
-          <code>spring-bounce</code> in and <code>spring-settle</code> out at{' '}
-          <code>--motion-base</code>. The spinner runs its own 800ms turn.
+          one enter and exit: height and opacity on <code>spring-settle</code>{' '}
+          both ways at <code>--motion-base</code>, because a bounce on a height
+          change makes the fields below overshoot. The spinner runs its own
+          800ms turn.
         </p>
       </section>
 
