@@ -40,6 +40,7 @@ export function Button({
 
   return (
     <motion.button
+      type="button"
       layout
       transition={springBounce}
       aria-busy={loading || undefined}
