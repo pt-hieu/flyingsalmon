@@ -166,6 +166,54 @@ describe('Button', () => {
     expect(screen.getByRole('img', { name: 'Magnifier' })).toBeInTheDocument()
   })
 
+  it('does not submit its form when no type is given', async () => {
+    const user = userEvent.setup()
+    const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault())
+    render(
+      <form onSubmit={onSubmit}>
+        <Button>Cancel</Button>
+      </form>,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'Cancel' }))
+
+    expect(onSubmit).not.toHaveBeenCalled()
+    expect(screen.getByRole('button', { name: 'Cancel' })).toHaveAttribute(
+      'type',
+      'button',
+    )
+  })
+
+  it('submits its form when given type submit', async () => {
+    const user = userEvent.setup()
+    const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault())
+    render(
+      <form onSubmit={onSubmit}>
+        <Button type="submit">Save</Button>
+      </form>,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'Save' }))
+
+    expect(onSubmit).toHaveBeenCalledTimes(1)
+  })
+
+  it('resets its form when given type reset', async () => {
+    const user = userEvent.setup()
+    render(
+      <form>
+        <input aria-label="Trip name" defaultValue="Kyoto" />
+        <Button type="reset">Clear</Button>
+      </form>,
+    )
+
+    await user.clear(screen.getByLabelText('Trip name'))
+    await user.type(screen.getByLabelText('Trip name'), 'Lisbon')
+    await user.click(screen.getByRole('button', { name: 'Clear' }))
+
+    expect(screen.getByLabelText('Trip name')).toHaveValue('Kyoto')
+  })
+
   it('does not submit its form while loading', async () => {
     const user = userEvent.setup()
     const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault())
