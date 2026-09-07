@@ -1,6 +1,6 @@
 # Feedback rule scope: button owns loading only; alert ships
 
-Status: accepted
+Status: accepted; placement and toast clauses superseded by ADR 0008
 
 The original feedback rule said the acting component owns all feedback for its action — buttons morph through loading and success — and banned toast and alert permanently. The button spec grilling (issue #3) stress-tested that rule and narrowed it.
 
@@ -26,3 +26,7 @@ The original feedback rule said the acting component owns all feedback for its a
 ## Amendment (issue #4)
 
 "Loading only" scopes what the button shows, not which component may load: input also owns a `loading` state (spinner in its end slot, field stays editable). The rule stands — the acting component shows its own busyness; success and error stay with the app.
+
+## Superseded in part (ADR 0008)
+
+ADR 0008 keeps the split above — the acting component shows its own busyness, results belong to the app — and replaces "shown inline via alert" and "toast stays banned permanently" with an invariant: feedback appears where the user's attention already is and stays until seen. The ban is restated as properties (auto-dismiss, stacking, no owner, no link to the subject) rather than position, and a shell-owned notice with none of those properties is admitted as the last home in a ranking that starts with the affected item.

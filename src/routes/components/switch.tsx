@@ -125,9 +125,10 @@ function SwitchPage() {
         <p className="text-muted-foreground">
           There is no <code>error</code> prop. A switch that fails to apply is
           an action result, not a field error, so the app reverts{' '}
-          <code>checked</code> and shows the reason inline through alert. That
-          is the feedback rule: the acting component shows its own busyness, the
-          app shows the outcome. Never a toast.
+          <code>checked</code> and shows the reason where the user is looking,
+          on the switch's row or through alert. That is the feedback rule: the
+          acting component shows its own busyness, the app shows the outcome,
+          and the outcome stays until seen.
         </p>
       </section>
 

@@ -27,7 +27,7 @@ Namespace: `@flyingsalmon`. Future home: `flyingsalmon.superbrian.dev`. First co
 
 ## Feedback rule
 
-The acting component shows its own busyness: buttons morph through a loading state; form fields show their own errors. Success and error results belong to the app, shown inline via the alert/info component. **No toast. Ever.** Floating, unowned feedback stays outside this system — the docs principles page states this boundary.
+The acting component shows its own busyness: buttons morph through a loading state; form fields show their own errors. Success and error results belong to the app. **Feedback appears where the user's attention already is and stays until they have seen it** (ADR 0008). Homes for a result, in order: the affected item (it appears, updates, or shows a failed state with retry); the acting surface (the form's result slot, below the actions row, via alert); a shell-owned persistent notice, only when there is no visible home. Anything that auto-dismisses, stacks, has no owner, or has no link back to its subject is banned — that is what "toast" meant, and the bottom-right corner fails on every count. The registry enforces this on its own components and documents the ranking as guidance; the docs principles page states it.
 
 ## Publishing
 
