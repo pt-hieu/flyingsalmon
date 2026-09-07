@@ -2,7 +2,7 @@ import { X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 
 import { cn } from '@/lib/utils'
-import { springBounce, springSettle } from '@/registry/lib/motion'
+import { springSettle } from '@/registry/lib/motion'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 
 import { alertStatusByVariant } from './alert-status-by-variant'
@@ -43,7 +43,7 @@ export function Alert({
         <motion.div
           key="alert"
           initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1, transition: springBounce }}
+          animate={{ height: 'auto', opacity: 1, transition: springSettle }}
           exit={{ height: 0, opacity: 0, transition: springSettle }}
           className={alertPresenceClassName}
         >

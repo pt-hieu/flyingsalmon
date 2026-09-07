@@ -24,9 +24,9 @@ function AlertPage() {
           Alert
         </h1>
         <p className="text-muted-foreground text-lg">
-          The app's inline vehicle for the result of an action. The app places
-          it in the layout and owns its lifecycle. Inline only, never floating —
-          toast stays banned.
+          The app's in-flow vehicle for the result of an action. The app places
+          it where the user is already looking and owns its lifecycle. It never
+          hides itself: feedback stays until the user has seen it.
         </p>
       </header>
 
@@ -180,10 +180,11 @@ function AlertPage() {
         <h2 className="font-heading text-2xl font-bold">Motion</h2>
         <p className="text-muted-foreground">
           <code>open</code> defaults to <code>true</code> and drives the one
-          animation: height and opacity, <code>spring-bounce</code> in and{' '}
-          <code>spring-settle</code> out, both at <code>--motion-base</code>.
-          The alert carries its own <code>AnimatePresence</code>, so the app
-          needs no motion boilerplate to get the exit.{' '}
+          animation: height and opacity on <code>spring-settle</code> both ways
+          at <code>--motion-base</code>. The enter does not bounce, because a
+          bounce on a height change makes the content below overshoot. The alert
+          carries its own <code>AnimatePresence</code>, so the app needs no
+          motion boilerplate to get the exit.{' '}
           <strong className="text-foreground">
             Unmounting <code>&lt;Alert&gt;</code> directly skips the exit
           </strong>{' '}

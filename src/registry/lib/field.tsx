@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority'
 import { AnimatePresence, motion } from 'motion/react'
 import { useId } from 'react'
 
-import { springBounce, springSettle } from '@/registry/lib/motion'
+import { springSettle } from '@/registry/lib/motion'
 
 export interface UseFieldIdsOptions {
   id?: string
@@ -79,7 +79,7 @@ export function FieldErrorMessage({ id, children }: FieldErrorMessageProps) {
           key="error"
           id={id}
           initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1, transition: springBounce }}
+          animate={{ height: 'auto', opacity: 1, transition: springSettle }}
           exit={{ height: 0, opacity: 0, transition: springSettle }}
           className="text-destructive overflow-hidden pt-1 text-xs"
         >
