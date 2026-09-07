@@ -24,9 +24,9 @@ function AlertPage() {
           Alert
         </h1>
         <p className="text-muted-foreground text-lg">
-          The app's inline vehicle for the result of an action. The app places
-          it in the layout and owns its lifecycle. Inline only, never floating —
-          toast stays banned.
+          The app's in-flow vehicle for the result of an action. The app places
+          it where the user is already looking and owns its lifecycle. It never
+          hides itself: feedback stays until the user has seen it.
         </p>
       </header>
 

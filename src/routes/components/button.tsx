@@ -31,10 +31,11 @@ function ButtonPage() {
           A button shows that its action is running. It never shows that the
           action succeeded or failed —{' '}
           <strong className="text-foreground">
-            that result belongs to the app, shown inline by the alert component.
+            that result belongs to the app, shown where the user is already
+            looking.
           </strong>{' '}
-          There is no success tick, no error shake, and no toast anywhere in
-          this system.
+          There is no success tick and no error shake: the changed item, the
+          form's result slot, or a persistent notice carries the outcome.
         </p>
       </section>
 

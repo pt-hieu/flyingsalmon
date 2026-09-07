@@ -57,8 +57,16 @@ One of the four classes in the motion language: state feedback (hover/press/focu
 _Avoid_: animation type, category
 
 **Feedback rule**:
-The defining constraint, revised in ADR 0002: the acting component shows its own busyness — the button morphs through loading, fields show their own errors. The app shows success and error inline via alert. Toast is banned permanently.
-_Avoid_: notification policy
+The defining constraint, revised in ADR 0002 and ADR 0008: the acting component shows its own busyness — the button morphs through loading, fields show their own errors. Results belong to the app and must appear where the user's attention already is, staying until seen. Homes in order: the affected item, the acting surface's result slot, the notice. Feedback that auto-dismisses, stacks, has no owner, or has no link back to its subject is banned, which is what the old "no toast" meant. Enforced on registry components, guidance for apps.
+_Avoid_: notification policy, no toast
+
+**Result slot**:
+The optional position on `Form`, below the actions row, where the app places its submit result as an alert (ADR 0007, ADR 0008). A position, not a renderer: `Form` imports nothing from alert and adds no live region, because the alert announces itself. Holds client-side cross-field validation and server errors on page forms; stays empty on a dialog form, which closes on submit and shows its result on the affected item or through a notice.
+_Avoid_: form alert, error summary, message area
+
+**Notice**:
+The shell-owned surface for a result with no visible home: after navigation, from a closed dialog form, for a confirm-only action. One at a time, persistent until dismissed or replaced, anchored to its trigger or fixed top-centre, announced from a live region mounted before content, never takes focus, always links back to its subject (ADR 0008). Not a toast: it auto-dismisses nothing, stacks nothing, and is owned. A next-batch candidate, not built.
+_Avoid_: toast, snackbar, notification, banner
 
 **Spec checklist**:
 The fixed sections every component spec fills: purpose, variants, sizes, states, keyboard path, contrast, micro animation.
