@@ -27,7 +27,7 @@ export const tableRowVariants = cva('', {
     interactive: {
       true: cn(
         'relative',
-        "[&_a]:after:absolute [&_a]:after:inset-0 [&_a]:after:content-[''] [&_a]:after:rounded-md",
+        "[&_a]:after:absolute [&_a]:after:inset-0 [&_a]:after:content-[''] [&_a]:after:rounded-lg",
         '[&_a]:after:ring-primary [&_a]:after:ring-0',
         '[&_a]:after:transition-[box-shadow] [&_a]:after:duration-(--motion-fast)',
         '[&_a]:focus-visible:outline-none',
@@ -47,12 +47,12 @@ export const tableHeadCellVariants = cva(
   {
     variants: {
       scope: {
-        [TableHeadCellScope.Col]: 'text-muted-foreground h-10 px-4',
+        [TableHeadCellScope.Column]: 'text-muted-foreground h-10 px-4',
         [TableHeadCellScope.Row]: 'text-foreground px-4 py-3',
       },
     },
     defaultVariants: {
-      scope: TableHeadCellScope.Col,
+      scope: TableHeadCellScope.Column,
     },
   },
 )

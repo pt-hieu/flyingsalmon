@@ -13,7 +13,7 @@ export interface TableHeadCellProps extends Omit<
 }
 
 export function TableHeadCell({
-  scope = TableHeadCellScope.Col,
+  scope = TableHeadCellScope.Column,
   className,
   ...props
 }: TableHeadCellProps) {

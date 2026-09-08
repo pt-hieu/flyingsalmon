@@ -1,10 +1,11 @@
-import { use } from 'react'
+import { use, type ComponentProps } from 'react'
 
 import { cn } from '@/lib/utils'
 
 import { tableCellVariants } from './classnames'
 import { TableRowInteractiveContext } from './context'
-import type { TableCellProps } from './types'
+
+export type TableCellProps = ComponentProps<'td'>
 
 export function TableCell({ className, ...props }: TableCellProps) {
   const interactive = use(TableRowInteractiveContext)
