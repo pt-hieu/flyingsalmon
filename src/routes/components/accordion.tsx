@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useEffect, useRef, useState } from 'react'
 
 import { ModePreview } from '@/components/mode-preview'
 import {
@@ -8,6 +9,12 @@ import {
   AccordionTrigger,
   AccordionType,
 } from '@/registry/ui/accordion'
+import { Alert, AlertSize, AlertVariant } from '@/registry/ui/alert'
+import { Avatar, AvatarColor, AvatarSize } from '@/registry/ui/avatar'
+import { Badge, BadgeVariant } from '@/registry/ui/badge'
+import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
+import { Checkbox } from '@/registry/ui/checkbox'
+import { Input } from '@/registry/ui/input'
 
 export const Route = createFileRoute('/components/accordion')({
   component: AccordionPage,
@@ -149,6 +156,122 @@ function AccordionPage() {
       </section>
 
       <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">
+          Triggers that carry more than a label
+        </h2>
+        <p className="text-muted-foreground">
+          A trigger takes any phrasing content, so a row can hold a status
+          badge, a stacked summary line, or a title long enough to wrap.{' '}
+          <strong className="text-foreground">
+            The chevron sits on the first line of the label, not in the middle
+            of the block
+          </strong>{' '}
+          &mdash; a wrapped question and a two-line label both keep the
+          affordance where the eye starts reading. Everything you pass lands
+          inside the heading, so keep it to text and spans; a nested button is
+          not allowed inside the trigger.
+        </p>
+        <ModePreview>
+          <Accordion className="w-full max-w-sm" defaultValue={['flights']}>
+            <AccordionItem value="flights">
+              <AccordionTrigger>
+                <span className="flex flex-col gap-1">
+                  <span className="flex items-center gap-2">
+                    Flights
+                    <Badge variant={BadgeVariant.Success}>Booked</Badge>
+                  </span>
+                  <span className="text-muted-foreground font-sans text-sm font-normal">
+                    Haneda to Itami, 12 April, two seats
+                  </span>
+                </span>
+              </AccordionTrigger>
+              <AccordionContent>
+                Seats 14A and 14B, checked bags included. The airline releases
+                boarding passes a day before departure.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="documents">
+              <AccordionTrigger>
+                What documents do I need at the border, and how far ahead should
+                I apply for them?
+              </AccordionTrigger>
+              <AccordionContent>
+                A passport valid for six more months, and a visa applied for at
+                least three weeks before you fly.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="party">
+              <AccordionTrigger>
+                <span className="flex items-center gap-2">
+                  Travellers
+                  <Badge variant={BadgeVariant.Secondary}>3</Badge>
+                </span>
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="flex items-center gap-2">
+                  <Avatar
+                    size={AvatarSize.Small}
+                    name="Mai Tran"
+                    color={AvatarColor.Teal}
+                  />
+                  <Avatar
+                    size={AvatarSize.Small}
+                    name="Ken Sato"
+                    color={AvatarColor.Amber}
+                  />
+                  <Avatar
+                    size={AvatarSize.Small}
+                    name="Ana Lopez"
+                    color={AvatarColor.Pink}
+                  />
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </ModePreview>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Panels that do work</h2>
+        <p className="text-muted-foreground">
+          A panel is a plain container: fields, choices, and actions all belong
+          in one. The panel measures itself when it opens and settles at{' '}
+          <code>height: auto</code>, so content that appears afterwards &mdash;
+          a validation message, an inline result &mdash; grows the panel instead
+          of being clipped.
+        </p>
+        <p className="text-muted-foreground">
+          <strong className="text-foreground">
+            A result stays inside the panel that produced it.
+          </strong>{' '}
+          The acting surface owns its own outcome (ADR 0008), so the alert below
+          sits under the actions row, in view, and stays until the reader has
+          seen it. Controls inside a panel keep their own hover and focus states
+          and leave the item&rsquo;s divider alone &mdash; only the trigger
+          steps it.
+        </p>
+        <ModePreview>
+          <WorkingPanelsDemo />
+        </ModePreview>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Driven from outside</h2>
+        <p className="text-muted-foreground">
+          Pair <code>value</code> with <code>onValueChange</code> and the open
+          set becomes the app&rsquo;s state: expand all, collapse all, or open
+          the one item a search matched. Under <code>multiple</code> both speak
+          an array, so &ldquo;expand all&rdquo; is the list of every item value
+          and &ldquo;collapse all&rdquo; is the empty array. Keep the array
+          identity stable across renders &mdash; pass state, not a literal built
+          in render.
+        </p>
+        <ModePreview>
+          <ControlledAccordionDemo />
+        </ModePreview>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Props</h2>
         <p className="text-muted-foreground">
           Four parts: <code>Accordion</code>, <code>AccordionItem</code>,{' '}
@@ -260,5 +383,156 @@ function AccordionPage() {
         </p>
       </section>
     </article>
+  )
+}
+
+const packingChecklist = [
+  { value: 'adapter', label: 'Two-pin adapter' },
+  { value: 'shell', label: 'Rain shell' },
+  { value: 'passport', label: 'Passport and copies' },
+]
+
+function WorkingPanelsDemo() {
+  const [note, setNote] = useState('')
+  const [noteError, setNoteError] = useState('')
+  const [saving, setSaving] = useState(false)
+  const [savedNote, setSavedNote] = useState('')
+  const saveTimeout = useRef<ReturnType<typeof setTimeout>>(null)
+
+  useEffect(() => {
+    return () => {
+      if (saveTimeout.current) clearTimeout(saveTimeout.current)
+    }
+  }, [])
+
+  return (
+    <Accordion className="w-full max-w-sm" defaultValue={['note']}>
+      <AccordionItem value="note">
+        <AccordionTrigger>Note for the host</AccordionTrigger>
+        <AccordionContent>
+          <div className="flex flex-col gap-3">
+            <Input
+              label="Arrival note"
+              placeholder="Landing late, around 23:00"
+              value={note}
+              error={noteError}
+              onChange={(event) => {
+                setNote(event.target.value)
+                setNoteError('')
+              }}
+            />
+            <div className="flex justify-end">
+              <Button
+                size={ButtonSize.Small}
+                loading={saving}
+                onClick={() => {
+                  if (!note.trim()) {
+                    setNoteError('Write the note before sending it.')
+                    return
+                  }
+                  setSavedNote('')
+                  setSaving(true)
+                  saveTimeout.current = setTimeout(() => {
+                    setSaving(false)
+                    setSavedNote(note)
+                  }, 1200)
+                }}
+              >
+                Send to host
+              </Button>
+            </div>
+            <Alert
+              size={AlertSize.Small}
+              variant={AlertVariant.Success}
+              open={Boolean(savedNote) && !saving}
+            >
+              The host has your note.
+            </Alert>
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="packing">
+        <AccordionTrigger>Packing list</AccordionTrigger>
+        <AccordionContent>
+          <div className="flex flex-col gap-2">
+            {packingChecklist.map((item) => (
+              <Checkbox key={item.value} label={item.label} />
+            ))}
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="budget">
+        <AccordionTrigger>Budget</AccordionTrigger>
+        <AccordionContent>
+          <dl className="flex flex-col gap-2">
+            <div className="flex justify-between">
+              <dt>Flights</dt>
+              <dd className="text-foreground font-medium">$640</dd>
+            </div>
+            <div className="flex justify-between">
+              <dt>Lodging</dt>
+              <dd className="text-foreground font-medium">$520</dd>
+            </div>
+            <div className="flex justify-between">
+              <dt>Daily spend</dt>
+              <dd className="text-foreground font-medium">$70</dd>
+            </div>
+          </dl>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  )
+}
+
+const itineraryDays = [
+  {
+    value: 'day-one',
+    title: 'Day one, Kyoto',
+    detail: 'Fushimi Inari at dawn, then Nishiki Market for lunch.',
+  },
+  {
+    value: 'day-two',
+    title: 'Day two, Arashiyama',
+    detail: 'The bamboo grove early, monkeys after, river walk at dusk.',
+  },
+  {
+    value: 'day-three',
+    title: 'Day three, Osaka',
+    detail: 'Train at nine, Dotonbori in the evening.',
+  },
+]
+
+function ControlledAccordionDemo() {
+  const [openDays, setOpenDays] = useState<string[]>(['day-one'])
+
+  const allExpanded = openDays.length === itineraryDays.length
+
+  return (
+    <div className="flex w-full max-w-sm flex-col gap-4">
+      <div className="flex items-center justify-between gap-3">
+        <span className="text-muted-foreground text-sm">
+          {openDays.length} of {itineraryDays.length} open
+        </span>
+        <Button
+          variant={ButtonVariant.Outline}
+          size={ButtonSize.Small}
+          onClick={() =>
+            setOpenDays(
+              allExpanded ? [] : itineraryDays.map((day) => day.value),
+            )
+          }
+        >
+          {allExpanded ? 'Collapse all' : 'Expand all'}
+        </Button>
+      </div>
+      <Accordion value={openDays} onValueChange={setOpenDays}>
+        {itineraryDays.map((day) => (
+          <AccordionItem key={day.value} value={day.value}>
+            <AccordionTrigger>{day.title}</AccordionTrigger>
+            <AccordionContent>{day.detail}</AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </div>
   )
 }
