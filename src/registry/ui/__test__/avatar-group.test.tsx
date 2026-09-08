@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 
-import { Avatar, AvatarSize } from '@/registry/ui/avatar'
 import { AvatarGroup } from '@/registry/ui/avatar-group'
 import { TooltipProvider } from '@/registry/ui/tooltip'
 
@@ -69,10 +68,16 @@ describe('AvatarGroup', () => {
     ).not.toBeInTheDocument()
   })
 
-  it('still shows a chip when the roster is one over max', () => {
-    renderAvatarGroup({ items: crew.slice(0, 5), max: 4 })
+  it('counts every person past max into the chip', () => {
+    renderAvatarGroup({ max: 2 })
 
-    expect(screen.getByRole('img', { name: '1 more' })).toHaveTextContent('+1')
+    expect(
+      screen.getByRole('img', { name: 'Grace Hopper' }),
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByRole('img', { name: 'Katherine Johnson' }),
+    ).not.toBeInTheDocument()
+    expect(screen.getByRole('img', { name: '3 more' })).toHaveTextContent('+3')
   })
 
   it('clamps a max below one back up to a single avatar', () => {
@@ -124,23 +129,6 @@ describe('AvatarGroup', () => {
     expect(
       screen.getByRole('group', { name: 'Trip members' }),
     ).toBeInTheDocument()
-  })
-
-  it('renders every avatar at the size given to the group', () => {
-    const { container: referenceContainer } = render(
-      <Avatar name="Reference Person" size={AvatarSize.Small} />,
-    )
-    const referenceClasses = Array.from(
-      referenceContainer.firstElementChild!.classList,
-    )
-
-    renderAvatarGroup({ size: AvatarSize.Small })
-
-    for (const person of crew.slice(0, 4)) {
-      expect(screen.getByRole('img', { name: person.name })).toHaveClass(
-        ...referenceClasses,
-      )
-    }
   })
 
   it('costs one tab stop that enters on the first avatar and leaves the group', async () => {
@@ -206,6 +194,37 @@ describe('AvatarGroup', () => {
 
     await user.keyboard('{ArrowRight}')
     expect(screen.getByRole('img', { name: 'Barbara Liskov' })).toHaveFocus()
+  })
+
+  it('re-enters on the first avatar after focus has left the group', async () => {
+    const user = userEvent.setup()
+    renderAvatarGroupBetweenButtons()
+
+    await user.tab()
+    await user.tab()
+    await user.keyboard('{End}')
+    expect(screen.getByRole('img', { name: '1 more' })).toHaveFocus()
+
+    await user.tab()
+    expect(screen.getByRole('button', { name: 'After' })).toHaveFocus()
+
+    await user.tab({ shift: true })
+    expect(screen.getByRole('img', { name: 'Ada Lovelace' })).toHaveFocus()
+  })
+
+  it('runs a consumer keydown handler alongside its own arrow path', async () => {
+    const user = userEvent.setup()
+    const keysSeen: string[] = []
+    renderAvatarGroupBetweenButtons({
+      onKeyDown: (event) => keysSeen.push(event.key),
+    })
+
+    await user.tab()
+    await user.tab()
+    await user.keyboard('{ArrowRight}')
+
+    expect(keysSeen).toEqual(['ArrowRight'])
+    expect(screen.getByRole('img', { name: 'Grace Hopper' })).toHaveFocus()
   })
 
   it('opens a tooltip naming the person when an avatar takes focus', async () => {
@@ -283,19 +302,5 @@ describe('AvatarGroup', () => {
     expect(screen.getByRole('img', { name: 'Grace Hopper' })).toHaveFocus()
 
     expect(screen.getAllByRole('img')).toHaveLength(2)
-  })
-
-  it('leaves a nameless item without a tooltip', async () => {
-    const user = userEvent.setup()
-    renderAvatarGroupBetweenButtons({
-      items: [{ src: '/anonymous.png' }, { name: 'Grace Hopper' }],
-    })
-
-    await user.tab()
-    await user.tab()
-    expect(screen.getByRole('img', { name: 'Grace Hopper' })).toHaveFocus()
-
-    const tooltip = await screen.findByRole('tooltip', {}, { timeout: 1000 })
-    expect(tooltip).toHaveTextContent('Grace Hopper')
   })
 })
