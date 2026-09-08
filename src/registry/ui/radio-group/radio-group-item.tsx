@@ -1,8 +1,12 @@
 import { RadioGroup as RadioGroupPrimitive } from 'radix-ui'
-import { use, useId } from 'react'
+import { use } from 'react'
 
 import { cn } from '@/lib/utils'
-import { FieldLabelPlacement, fieldLabelVariants } from '@/registry/lib/field'
+import {
+  FieldLabelPlacement,
+  fieldLabelVariants,
+  useFieldIds,
+} from '@/registry/lib/field'
 
 import {
   radioGroupDotClassName,
@@ -26,8 +30,7 @@ export function RadioGroupItem({
   disabled,
   ...props
 }: RadioGroupItemProps) {
-  const generatedId = useId()
-  const itemId = id ?? generatedId
+  const { fieldId } = useFieldIds({ id })
 
   const { error, disabled: groupDisabled } = use(RadioGroupSharedStateContext)
   const isDisabled = Boolean(disabled) || groupDisabled
@@ -35,7 +38,7 @@ export function RadioGroupItem({
   return (
     <div className={cn(radioGroupItemRowClassName, className)}>
       <RadioGroupPrimitive.Item
-        id={itemId}
+        id={fieldId}
         disabled={disabled}
         className={radioGroupItemVariants({ error })}
         {...props}
@@ -45,10 +48,9 @@ export function RadioGroupItem({
 
       {label ? (
         <label
-          htmlFor={itemId}
+          htmlFor={fieldId}
           className={fieldLabelVariants({
             placement: FieldLabelPlacement.Beside,
-            error,
             disabled: isDisabled,
           })}
         >

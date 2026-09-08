@@ -43,6 +43,32 @@ function RadioGroupPage() {
       </section>
 
       <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">States</h2>
+        <p className="text-muted-foreground">
+          One 20px circle, matching Checkbox&apos;s box, on a 20px row. The
+          checked item fills <code>--primary</code> and knocks an 8px dot out of
+          it, so a radio sitting beside a checkbox in the same form reads as the
+          same family — not the unfilled circle with a colored dot that most
+          libraries draw. Hover steps an unchecked border to primary and a
+          checked disc a shade lighter. There is no size prop and no loading
+          state: an option states intent inside a form, and the submit button
+          owns the busyness.
+        </p>
+        <ModePreview>
+          <div className="flex flex-col gap-8">
+            <RadioGroup label="Enabled" defaultValue="checked">
+              <RadioGroupItem value="unchecked" label="Unchecked" />
+              <RadioGroupItem value="checked" label="Checked" />
+            </RadioGroup>
+            <RadioGroup label="Disabled" defaultValue="checked" disabled>
+              <RadioGroupItem value="unchecked" label="Unchecked" />
+              <RadioGroupItem value="checked" label="Checked" />
+            </RadioGroup>
+          </div>
+        </ModePreview>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Basic</h2>
         <p className="text-muted-foreground">
           <code>RadioGroup</code> takes <code>label</code>, <code>error</code>,{' '}
