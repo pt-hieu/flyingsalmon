@@ -952,7 +952,25 @@
       "type": "registry:ui",
       "title": "Separator",
       "description": "A one-pixel rule that divides content, horizontal or vertical. Decorative by default, announced only when the division carries meaning.",
-      "dependencies": ["radix-ui"]
+      "dependencies": ["radix-ui"],
+      "files": [
+        {
+          "path": "src/registry/ui/separator/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/separator/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/separator/separator.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/separator/types.ts",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
