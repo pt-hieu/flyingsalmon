@@ -800,8 +800,46 @@
       "name": "table",
       "type": "registry:ui",
       "title": "Table",
-      "description": "A styled primitive for tabular data: plain table elements in named parts. Sorting, selection, and pagination belong to a data table built on top.",
-      "dependencies": []
+      "description": "A styled primitive for tabular data in seven parts: Table, TableHeader, TableBody, TableFooter, TableRow, TableHeadCell, and TableCell. Horizontal rules only, a primary header rule, a background step on the hovered body row, and an interactive row whose single link stretches over the whole row. Sorting, selection, and pagination belong to a data table built on top.",
+      "dependencies": ["class-variance-authority"],
+      "files": [
+        {
+          "path": "src/registry/ui/table/classnames.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/table/index.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/table/table-body.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/table/table-cell.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/table/table-footer.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/table/table-head-cell.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/table/table-header.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/table/table-row.tsx",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/table/table.tsx", "type": "registry:ui" },
+        { "path": "src/registry/ui/table/types.ts", "type": "registry:ui" }
+      ],
+      "cssVars": {
+        "theme": {
+          "table-header-border": "var(--primary)"
+        }
+      }
     },
     {
       "name": "accordion",
