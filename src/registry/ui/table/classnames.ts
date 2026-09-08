@@ -16,7 +16,8 @@ export const tableBodyVariants = cva(
   cn(
     '[&>tr]:border-border [&>tr]:border-b',
     '[&>tr]:transition-colors [&>tr]:duration-(--motion-fast)',
-    '[&>tr]:hover:bg-accent',
+    '[&>tr[data-interactive]:has([data-row-link]_a:is(:focus-visible,:active))]:border-b-primary',
+    '[&>tr:has(+tr[data-interactive]_[data-row-link]_a:is(:focus-visible,:active))]:border-b-primary',
   ),
 )
 
@@ -27,12 +28,8 @@ export const tableRowVariants = cva('', {
     interactive: {
       true: cn(
         'relative',
-        "[&_a]:after:absolute [&_a]:after:inset-0 [&_a]:after:content-[''] [&_a]:after:rounded-lg",
-        '[&_a]:after:ring-primary [&_a]:after:ring-0',
-        '[&_a]:after:transition-[box-shadow] [&_a]:after:duration-(--motion-fast)',
-        '[&_a]:focus-visible:outline-none',
-        '[&_a]:focus-visible:after:ring-ring [&_a]:focus-visible:after:ring-2',
-        '[&_a]:active:after:ring-primary [&_a]:active:after:ring-2',
+        'hover:bg-accent',
+        'has-[[data-row-link]_a:is(:focus-visible,:active)]:bg-accent',
       ),
       false: '',
     },
@@ -47,7 +44,7 @@ export const tableHeadCellVariants = cva(
   {
     variants: {
       scope: {
-        [TableHeadCellScope.Column]: 'text-muted-foreground h-10 px-4',
+        [TableHeadCellScope.Column]: 'text-foreground h-10 px-4',
         [TableHeadCellScope.Row]: 'text-foreground px-4 py-3',
       },
     },
@@ -60,11 +57,31 @@ export const tableHeadCellVariants = cva(
 export const tableCellVariants = cva('px-4 py-3 align-middle', {
   variants: {
     interactive: {
-      true: '[&_button]:relative [&_button]:z-10',
+      true: '',
+      false: '',
+    },
+    rowLink: {
+      true: '',
       false: '',
     },
   },
+  compoundVariants: [
+    {
+      interactive: true,
+      rowLink: true,
+      class: cn(
+        "[&_a]:after:absolute [&_a]:after:inset-0 [&_a]:after:content-['']",
+        '[&_a]:focus-visible:outline-none',
+      ),
+    },
+    {
+      interactive: true,
+      rowLink: false,
+      class: '[&_a]:relative [&_a]:z-10 [&_button]:relative [&_button]:z-10',
+    },
+  ],
   defaultVariants: {
     interactive: false,
+    rowLink: false,
   },
 })

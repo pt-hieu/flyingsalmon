@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { MapPin } from 'lucide-react'
 
 import { ModePreview } from '@/components/mode-preview'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
@@ -27,9 +26,9 @@ function TablePage() {
         </h1>
         <p className="text-muted-foreground text-lg">
           A styled primitive for tabular data: plain table elements in seven
-          parts. Horizontal rules only, a primary header rule, a background step
-          on the hovered body row, and an interactive row whose single link
-          stretches over the whole row.
+          parts. Horizontal rules only, a primary header rule, left-aligned
+          column labels, and an interactive row whose single link stretches over
+          the whole row and turns the rules above and below it primary.
         </p>
       </header>
 
@@ -53,10 +52,11 @@ function TablePage() {
           <code>--table-header-border</code> line, which is{' '}
           <code>--primary</code>; the footer draws none. There are no vertical
           rules and no outer border &mdash; drop the table inside a{' '}
-          <code>Card</code> if you want it boxed. Hovering a body row steps its
-          background to <code>--accent</code> at <code>--motion-fast</code> so
-          you can track it across a wide table. The header and footer never
-          respond to hover.
+          <code>Card</code> if you want it boxed. Only an interactive row
+          responds to hover, stepping its background to <code>--accent</code> at{' '}
+          <code>--motion-fast</code>; a row you cannot click stays still,
+          because a background step that leads nowhere reads as an affordance
+          that is not there. The header and footer never respond to hover.
         </p>
         <ModePreview>
           <PartsExample />
@@ -68,23 +68,34 @@ function TablePage() {
           Rows that lead somewhere
         </h2>
         <p className="text-muted-foreground">
-          Pass <code>interactive</code> to a <code>TableRow</code> and put one
-          link in any cell &mdash; not necessarily the first.{' '}
+          Pass <code>interactive</code> to a <code>TableRow</code>, then mark
+          the cell holding the row&rsquo;s link with <code>rowLink</code>{' '}
+          &mdash; not necessarily the first cell.{' '}
           <strong className="text-foreground">
-            The link stretches its hit area over the whole row
+            That link stretches its hit area over the whole row
           </strong>{' '}
-          through a pseudo-element, so a click anywhere on the row follows it,
-          the row costs exactly one Tab stop, and Enter activates it natively.
-          The row is not a link and holds no key handler of its own. One link
-          per interactive row: a second one would fight the first for the same
-          area. That constraint is documented, not enforced.
+          through a pseudo-element, so a click anywhere on the row follows it
+          and Enter activates it natively. The row is not a link and holds no
+          key handler of its own. You write the anchor yourself, so a router
+          link works the same as an <code>&lt;a&gt;</code>.
         </p>
         <p className="text-muted-foreground">
-          A button in another cell of an interactive row stays clickable on its
-          own &mdash; the row lifts every nested button above the stretched
-          link. If you need a second link to stay clickable rather than stretch,
-          put <code>[&amp;_a]:relative [&amp;_a]:z-10</code> on the cell that
-          holds it.
+          Every other cell keeps its contents above the stretched link, so a
+          second link or a button in the same row clicks, tabs, and shows its
+          own focus ring exactly as it would anywhere else. Nothing to opt into.
+          Mark two cells <code>rowLink</code> and the two overlays fight over
+          the same area &mdash; that one is on you, and it is visible in your
+          markup rather than inferred from the row.
+        </p>
+        <p className="text-muted-foreground">
+          Focus and press build on hover rather than replacing it. The row takes
+          the same <code>--accent</code> background a pointer gives it, and the
+          line above it and the line below it both turn <code>--primary</code>,
+          in the same weight and color as the header rule. The first body row
+          borrows the header rule as its top line. The background is what tells
+          you which row the two lines belong to, since the upper one is also the
+          previous row&rsquo;s lower one; focus is the louder state because a
+          keyboard user has no pointer to say where they are.
         </p>
         <ModePreview>
           <InteractiveExample />
@@ -97,11 +108,21 @@ function TablePage() {
         </h2>
         <p className="text-muted-foreground">
           One size, no <code>density</code> prop, and no <code>align</code> prop
-          &mdash; <code>align</code> is a real HTML attribute on a cell, and a
-          right-aligned column needs the head cell and every body cell to agree
-          anyway. Numerics take <code>className=&quot;text-right&quot;</code> on
-          both. Column widths and a tighter row rhythm are{' '}
-          <code>className</code> too.
+          &mdash; <code>align</code> is a real HTML attribute on a cell. Column
+          labels always sit left, whatever the column holds. Body cells are
+          yours: numerics take <code>className=&quot;text-right&quot;</code> so
+          digits line up by place value, which is the only way to compare two
+          amounts by reading down the column. A label is a word, not a quantity,
+          so nothing lines up against it and moving it right buys nothing.
+          Column widths and a tighter row rhythm are <code>className</code> too.
+        </p>
+        <p className="text-muted-foreground">
+          A column that holds only controls takes an empty{' '}
+          <code>TableHeadCell</code>. The button already names the action, so a
+          label above it repeats what is written below and then sits far from
+          it, since the controls are right-aligned to give the row a consistent
+          end. Name an action column only when the label says something the
+          buttons do not.
         </p>
         <p className="text-muted-foreground">
           The wrapper is <code>overflow-x-auto</code> and the table is{' '}
@@ -129,9 +150,10 @@ function TablePage() {
           </code>{' '}
           and it exposes <code>rowheader</code> instead, so a screen reader
           announces each cell with the row it belongs to. Styling keys off the
-          scope, not the position: a row header is content, so it takes body
-          geometry, <code>--foreground</code>, and <code>font-medium</code>{' '}
-          rather than the muted column-label type.
+          scope, not the position: a row header takes body geometry rather than
+          the column label&rsquo;s row height. Every cell in the table is{' '}
+          <code>--foreground</code>; head cells separate from body cells by{' '}
+          <code>font-medium</code> alone.
         </p>
         <ModePreview>
           <RowHeaderExample />
@@ -189,34 +211,34 @@ function InteractiveExample() {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHeadCell className="w-8 pr-0" />
           <TableHeadCell>Stop</TableHeadCell>
-          <TableHeadCell className="text-right">Plan</TableHeadCell>
+          <TableHeadCell>Lodging</TableHeadCell>
+          <TableHeadCell />
         </TableRow>
       </TableHeader>
       <TableBody>
         <TableRow interactive>
-          <TableCell className="pr-0">
-            <MapPin aria-hidden className="size-4" />
-          </TableCell>
-          <TableCell>
+          <TableCell rowLink>
             <a href="#kyoto">Kyoto</a>
           </TableCell>
+          <TableCell>
+            <a href="#ryokan-aoi">Ryokan Aoi</a>
+          </TableCell>
           <TableCell className="text-right">
-            <Button variant={ButtonVariant.Outline} size={ButtonSize.Small}>
+            <Button variant={ButtonVariant.Ghost} size={ButtonSize.Small}>
               Save
             </Button>
           </TableCell>
         </TableRow>
         <TableRow interactive>
-          <TableCell className="pr-0">
-            <MapPin aria-hidden className="size-4" />
-          </TableCell>
-          <TableCell>
+          <TableCell rowLink>
             <a href="#kanazawa">Kanazawa</a>
           </TableCell>
+          <TableCell>
+            <a href="#hotel-higashi">Hotel Higashi</a>
+          </TableCell>
           <TableCell className="text-right">
-            <Button variant={ButtonVariant.Outline} size={ButtonSize.Small}>
+            <Button variant={ButtonVariant.Ghost} size={ButtonSize.Small}>
               Save
             </Button>
           </TableCell>
@@ -232,8 +254,8 @@ function AlignmentExample() {
       <TableHeader>
         <TableRow>
           <TableHeadCell className="w-1/2">Stop</TableHeadCell>
-          <TableHeadCell className="text-right">Nights</TableHeadCell>
-          <TableHeadCell className="text-right">Cost</TableHeadCell>
+          <TableHeadCell>Nights</TableHeadCell>
+          <TableHeadCell>Cost</TableHeadCell>
         </TableRow>
       </TableHeader>
       <TableBody>

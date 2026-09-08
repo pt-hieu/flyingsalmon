@@ -18,6 +18,7 @@ export function TableRow({
     <TableRowInteractiveContext value={interactive}>
       <tr
         data-slot="table-row"
+        data-interactive={interactive || undefined}
         className={cn(tableRowVariants({ interactive }), className)}
         {...props}
       />

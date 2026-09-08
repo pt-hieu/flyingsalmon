@@ -110,7 +110,7 @@ describe('Table', () => {
           <TableBody>
             <TableRow interactive>
               <TableCell>Two nights</TableCell>
-              <TableCell>
+              <TableCell rowLink>
                 <a href="#kyoto">Kyoto</a>
               </TableCell>
             </TableRow>
@@ -135,7 +135,7 @@ describe('Table', () => {
         <TableBody>
           <TableRow interactive>
             <TableCell>Two nights</TableCell>
-            <TableCell>
+            <TableCell rowLink>
               <a href="#kyoto" onClick={openStop}>
                 Kyoto
               </a>
@@ -149,5 +149,39 @@ describe('Table', () => {
     await user.keyboard('{Enter}')
 
     expect(openStop).toHaveBeenCalledTimes(1)
+  })
+
+  it('keeps a second link in an interactive row reachable and independent of the row link', async () => {
+    const user = userEvent.setup()
+    const openStop = vi.fn((event: React.MouseEvent) => event.preventDefault())
+    const editStop = vi.fn((event: React.MouseEvent) => event.preventDefault())
+    render(
+      <Table>
+        <TableBody>
+          <TableRow interactive>
+            <TableCell rowLink>
+              <a href="#kyoto" onClick={openStop}>
+                Kyoto
+              </a>
+            </TableCell>
+            <TableCell>
+              <a href="#kyoto-edit" onClick={editStop}>
+                Edit
+              </a>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>,
+    )
+
+    await user.tab()
+    expect(screen.getByRole('link', { name: 'Kyoto' })).toHaveFocus()
+
+    await user.tab()
+    expect(screen.getByRole('link', { name: 'Edit' })).toHaveFocus()
+
+    await user.click(screen.getByRole('link', { name: 'Edit' }))
+    expect(editStop).toHaveBeenCalledTimes(1)
+    expect(openStop).not.toHaveBeenCalled()
   })
 })
