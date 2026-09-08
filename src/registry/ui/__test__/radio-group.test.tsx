@@ -82,15 +82,13 @@ describe('RadioGroup', () => {
       </>,
     )
 
-    const [firstStandardLabel, secondStandardLabel] =
-      screen.getAllByText('Standard')
-    await user.click(secondStandardLabel)
+    const [, giftWrapStandardLabel] = screen.getAllByText('Standard')
+    await user.click(giftWrapStandardLabel)
 
-    const [firstStandardRadio, secondStandardRadio] =
+    const [deliveryStandardRadio, giftWrapStandardRadio] =
       screen.getAllByRole('radio')
-    expect(secondStandardRadio).toBeChecked()
-    expect(firstStandardRadio).not.toBeChecked()
-    expect(firstStandardLabel).toBeInTheDocument()
+    expect(giftWrapStandardRadio).toBeChecked()
+    expect(deliveryStandardRadio).not.toBeChecked()
   })
 
   it('honours a caller-supplied id on an item for its label wiring', async () => {

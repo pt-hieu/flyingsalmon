@@ -32,7 +32,6 @@ export function RadioGroup({
   id,
   disabled,
   'aria-describedby': callerDescribedBy,
-  'aria-labelledby': callerLabelledBy,
   children,
   ...props
 }: RadioGroupProps) {
@@ -65,7 +64,7 @@ export function RadioGroup({
         id={fieldId}
         disabled={disabled}
         orientation={orientation}
-        aria-labelledby={label ? labelId : callerLabelledBy}
+        aria-labelledby={label ? labelId : undefined}
         aria-invalid={hasError ? true : undefined}
         aria-describedby={describedBy}
         className={radioGroupListVariants({ orientation })}
