@@ -897,12 +897,16 @@
       "name": "avatar-group",
       "type": "registry:ui",
       "title": "Avatar Group",
-      "description": "An overlapping row of avatars with an overflow count past a limit. Hover or keyboard focus lifts one avatar and reveals its name; the chip reveals the names it hides.",
+      "description": "An overlapping row of avatars with an overflow count past a limit. Hover or keyboard focus parts the row around one avatar until it stands free and reveals its name; the chip reveals the names it hides.",
       "dependencies": ["class-variance-authority"],
       "registryDependencies": ["@flyingsalmon/avatar", "@flyingsalmon/tooltip"],
       "files": [
         {
           "path": "src/registry/ui/avatar-group/avatar-group.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/avatar-group/child-index-containing.ts",
           "type": "registry:ui"
         },
         {
@@ -914,19 +918,31 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/avatar-group/item-style.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/avatar-group/resolve-item-name.ts",
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/avatar-group/stacking-layer.ts",
+          "path": "src/registry/ui/avatar-group/resolve-roster.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/avatar-group/reveal-steps.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/avatar-group/step-focus-within.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/avatar-group/tab-stop-child-index.ts",
           "type": "registry:ui"
         },
         {
           "path": "src/registry/ui/avatar-group/types.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/avatar-group/use-roving-focus.ts",
           "type": "registry:ui"
         }
       ]

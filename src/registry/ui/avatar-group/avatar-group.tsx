@@ -1,16 +1,20 @@
+import { useState } from 'react'
+
 import { cn } from '@/lib/utils'
 import { Avatar, AvatarSize } from '@/registry/ui/avatar'
 import { Tooltip } from '@/registry/ui/tooltip'
 
+import { childIndexContaining } from './child-index-containing'
 import {
   avatarGroupChipVariants,
   avatarGroupItemClassName,
   avatarGroupVariants,
 } from './classnames'
-import { resolveItemName } from './resolve-item-name'
-import { stackingLayer } from './stacking-layer'
+import { itemStyle } from './item-style'
+import { resolveRoster } from './resolve-roster'
+import { stepFocusWithin } from './step-focus-within'
+import { tabStopChildIndex } from './tab-stop-child-index'
 import type { AvatarGroupItem } from './types'
-import { useRovingFocus } from './use-roving-focus'
 
 export interface AvatarGroupProps extends Omit<
   React.ComponentProps<'div'>,
@@ -31,29 +35,21 @@ export function AvatarGroup({
   onKeyDown,
   onFocus,
   onBlur,
+  onPointerOver,
+  onPointerLeave,
   ...props
 }: AvatarGroupProps) {
-  const visibleLimit = Math.max(1, max)
-  const visibleItems = items.slice(0, visibleLimit)
-  const hiddenItems = items.slice(visibleLimit)
-  const hiddenCount = hiddenItems.length
-  const chipCount = cap === undefined ? hiddenCount : Math.min(hiddenCount, cap)
-  const hiddenNames = hiddenItems
-    .map(resolveItemName)
-    .filter(Boolean)
-    .join(', ')
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [focusedIndex, setFocusedIndex] = useState<number | null>(null)
 
-  const itemNames = visibleItems.map(resolveItemName)
-  const itemFocusPositions: number[] = []
-  let assignedPositions = 0
-  for (const itemName of itemNames) {
-    itemFocusPositions.push(itemName ? assignedPositions++ : -1)
-  }
-  const chipFocusPosition = hiddenCount > 0 ? assignedPositions++ : -1
+  const roster = resolveRoster({ items, max, cap })
+  const revealedIndex = hoveredIndex ?? focusedIndex
+  const tabStopIndex = tabStopChildIndex({
+    roster,
+    focusedChildIndex: focusedIndex,
+  })
 
-  const rovingFocus = useRovingFocus(assignedPositions)
-
-  if (items.length === 0) return null
+  if (roster.visibleItems.length === 0) return null
 
   return (
     <div
@@ -63,59 +59,80 @@ export function AvatarGroup({
       onKeyDown={(event) => {
         onKeyDown?.(event)
 
-        if (!event.defaultPrevented) rovingFocus.handleKeyDown(event)
+        if (!event.defaultPrevented) stepFocusWithin(event)
       }}
       onFocus={(event) => {
         onFocus?.(event)
-        rovingFocus.handleFocus(event)
+        setFocusedIndex(childIndexContaining(event.currentTarget, event.target))
       }}
       onBlur={(event) => {
         onBlur?.(event)
-        rovingFocus.handleBlur(event)
+
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setFocusedIndex(null)
+        }
+      }}
+      onPointerOver={(event) => {
+        onPointerOver?.(event)
+
+        if (event.pointerType === 'touch') return
+
+        const childIndex = childIndexContaining(
+          event.currentTarget,
+          event.target as Node,
+        )
+
+        if (childIndex !== null) setHoveredIndex(childIndex)
+      }}
+      onPointerLeave={(event) => {
+        onPointerLeave?.(event)
+        setHoveredIndex(null)
       }}
     >
-      {visibleItems.map((item, index) => {
-        const itemName = itemNames[index]
-        const itemKey = item.id ?? index
+      {roster.visibleItems.map((visibleItem, childIndex) => {
         const avatarProps = {
-          name: item.name,
-          src: item.src,
-          color: item.color,
+          name: visibleItem.item.name,
+          src: visibleItem.item.src,
+          color: visibleItem.item.color,
           size,
           alt: '',
           className: avatarGroupItemClassName,
-          style: stackingLayer(visibleItems.length - index),
+          style: itemStyle({
+            layer: visibleItem.layer,
+            childIndex,
+            revealedIndex,
+          }),
         }
 
-        if (!itemName)
-          return <Avatar key={itemKey} {...avatarProps} aria-hidden />
+        if (!visibleItem.name)
+          return <Avatar key={visibleItem.key} {...avatarProps} aria-hidden />
 
         return (
-          <Tooltip key={itemKey} content={itemName}>
+          <Tooltip key={visibleItem.key} content={visibleItem.name}>
             <Avatar
               {...avatarProps}
               role="img"
-              aria-label={itemName}
-              tabIndex={
-                itemFocusPositions[index] === rovingFocus.activePosition
-                  ? 0
-                  : -1
-              }
+              aria-label={visibleItem.name}
+              tabIndex={childIndex === tabStopIndex ? 0 : -1}
             />
           </Tooltip>
         )
       })}
 
-      {hiddenCount > 0 ? (
-        <Tooltip content={hiddenNames}>
+      {roster.chip ? (
+        <Tooltip content={roster.chip.hiddenNames}>
           <span
             role="img"
-            aria-label={`${hiddenCount} more`}
-            tabIndex={chipFocusPosition === rovingFocus.activePosition ? 0 : -1}
+            aria-label={`${roster.chip.count} more`}
+            tabIndex={roster.visibleItems.length === tabStopIndex ? 0 : -1}
             className={avatarGroupChipVariants({ size })}
-            style={stackingLayer(0)}
+            style={itemStyle({
+              layer: 0,
+              childIndex: roster.visibleItems.length,
+              revealedIndex,
+            })}
           >
-            {`+${chipCount}`}
+            {roster.chip.text}
           </span>
         </Tooltip>
       ) : null}
