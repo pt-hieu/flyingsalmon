@@ -233,6 +233,17 @@ function AccordionPage() {
           by the trigger.
         </p>
         <p className="text-muted-foreground">
+          <strong className="text-foreground">
+            A panel reserves room for the rings inside it.
+          </strong>{' '}
+          The panel clips itself so the height animation has an edge, which
+          would cut the ring off a full-width field or a right-aligned button
+          sitting flush against it. So the panel carries 6px of horizontal
+          clearance &mdash; padding inside the clip, a matching negative margin
+          outside it &mdash; the same trade the dialog body makes on its
+          vertical axis. Content still lines up flush with the dividers.
+        </p>
+        <p className="text-muted-foreground">
           Focus draws a 2px <code>--primary</code> inset ring on the trigger,
           rounded on the radius scale. A borderless row inside a stack has no
           border to replace and no room for an offset ring without covering its
