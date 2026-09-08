@@ -914,7 +914,19 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/avatar-group/resolve-item-name.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/avatar-group/stacking-layer.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/avatar-group/types.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/avatar-group/use-roving-focus.ts",
           "type": "registry:ui"
         }
       ]
