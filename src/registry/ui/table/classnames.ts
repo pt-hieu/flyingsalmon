@@ -30,6 +30,10 @@ export const tableRowVariants = cva('', {
         'relative',
         'hover:bg-accent',
         'has-[[data-row-link]_a:is(:focus-visible,:active)]:bg-accent',
+        "[&>[data-row-link]_a]:after:absolute [&>[data-row-link]_a]:after:inset-0 [&>[data-row-link]_a]:after:content-['']",
+        '[&>[data-row-link]_a]:focus-visible:outline-none',
+        '[&>:not([data-row-link])_a]:relative [&>:not([data-row-link])_a]:z-10',
+        '[&>:not([data-row-link])_button]:relative [&>:not([data-row-link])_button]:z-10',
       ),
       false: '',
     },
@@ -54,34 +58,4 @@ export const tableHeadCellVariants = cva(
   },
 )
 
-export const tableCellVariants = cva('px-4 py-3 align-middle', {
-  variants: {
-    interactive: {
-      true: '',
-      false: '',
-    },
-    rowLink: {
-      true: '',
-      false: '',
-    },
-  },
-  compoundVariants: [
-    {
-      interactive: true,
-      rowLink: true,
-      class: cn(
-        "[&_a]:after:absolute [&_a]:after:inset-0 [&_a]:after:content-['']",
-        '[&_a]:focus-visible:outline-none',
-      ),
-    },
-    {
-      interactive: true,
-      rowLink: false,
-      class: '[&_a]:relative [&_a]:z-10 [&_button]:relative [&_button]:z-10',
-    },
-  ],
-  defaultVariants: {
-    interactive: false,
-    rowLink: false,
-  },
-})
+export const tableCellVariants = cva('px-4 py-3 align-middle')
