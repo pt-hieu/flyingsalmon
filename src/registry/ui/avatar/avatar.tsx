@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -32,6 +32,16 @@ export function Avatar({
 }: AvatarProps) {
   const [loadedSource, setLoadedSource] = useState<string>()
   const [brokenSource, setBrokenSource] = useState<string>()
+  const imageRef = useRef<HTMLImageElement>(null)
+
+  useEffect(() => {
+    const image = imageRef.current
+
+    if (!image?.complete) return
+
+    if (image.naturalWidth === 0) setBrokenSource(src)
+    else setLoadedSource(src)
+  }, [src])
 
   const accessibleName = alt ?? name ?? ''
   const showsImage = Boolean(src) && brokenSource !== src
@@ -41,6 +51,7 @@ export function Avatar({
     <span className={cn(avatarVariants({ size }), className)} {...props}>
       {showsImage ? (
         <img
+          ref={imageRef}
           src={src}
           alt={accessibleName}
           onLoad={() => setLoadedSource(src)}
