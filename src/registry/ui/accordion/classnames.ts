@@ -15,15 +15,17 @@ export const accordionItemClassName = cn(
 export const accordionHeaderClassName = 'flex'
 
 export const accordionTriggerClassName = cn(
-  'group font-heading text-foreground flex w-full cursor-pointer items-center gap-4 py-4 text-base font-semibold',
+  'group font-heading text-foreground flex w-full cursor-pointer items-start gap-4 py-4 text-base font-semibold',
   insetFocusRingGeometry,
   disabledInteraction,
 )
 
 export const accordionTriggerLabelClassName = 'flex-1 text-left'
 
+export const accordionChevronBoxClassName = 'flex h-6 shrink-0 items-center'
+
 export const accordionChevronClassName = cn(
-  'text-muted-foreground size-4 shrink-0',
+  'text-muted-foreground size-4',
   'transition-[transform,color] [transition-duration:var(--motion-base),var(--motion-fast)]',
   'group-hover:text-foreground',
   'group-data-[state=open]:rotate-180',
