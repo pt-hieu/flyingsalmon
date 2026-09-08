@@ -21,7 +21,7 @@ A rendering rule fixed by an ADR or this glossary and therefore centralised in `
 _Avoid_: shared class, style token, common style
 
 **Batch**:
-A shipping group of components specced and built together. Batch 1 holds the 11 atomic components (alert joined via ADR 0002; label absorbed into the field components via #4). Batch 2 holds the 5 floating and composite components: dialog, dropdown-menu, select, tooltip, tabs. Popover was cut permanently by #50. Batch 3 holds the 6 form and data components: form, radio-group, table, accordion, avatar-group, separator.
+A shipping group of components specced and built together. Batch 1 holds the 11 atomic components (alert joined via ADR 0002; label absorbed into the field components via #4). Batch 2 holds the 5 floating and composite components: dialog, dropdown-menu, select, tooltip, tabs. Popover was cut permanently by #50. Batch 3 holds the 6 form and data components: form, radio-group, table, accordion, avatar-group, separator. Batch 4 holds the 13 components hottrip's screens need and the registry lacks — calendar, date-picker, combobox, number-field, toggle-group, progress, notice, changed-item, empty-state, sidebar, header, carousel, timeline — plus a button amendment; its roster gate is that a named hottrip screen needs the component.
 _Avoid_: milestone, phase, wave
 
 **Floating component**:
