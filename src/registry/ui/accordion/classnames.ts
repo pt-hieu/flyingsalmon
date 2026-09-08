@@ -10,7 +10,7 @@ export const accordionRootClassName = 'flex w-full flex-col'
 export const accordionItemClassName = cn(
   'border-border border-b',
   'transition-colors duration-(--motion-fast)',
-  'has-[button:hover]:border-primary',
+  'has-[[data-slot=accordion-trigger]:hover]:border-primary',
 )
 
 export const accordionHeaderClassName = 'flex'

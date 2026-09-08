@@ -27,6 +27,7 @@ export function AccordionTrigger({
 
   const trigger = (
     <AccordionPrimitive.Trigger
+      data-slot="accordion-trigger"
       className={cn(accordionTriggerClassName, className)}
       {...props}
     >

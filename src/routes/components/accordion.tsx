@@ -192,9 +192,11 @@ function AccordionPage() {
           <strong className="text-foreground">
             The divider answers to the trigger, not the panel.
           </strong>{' '}
-          Hovering an open panel leaves the divider at rest; a button you place
-          inside a panel steps it, because the item&rsquo;s hover selector reads
-          any hovered button it contains.
+          The item watches for a hovered{' '}
+          <code>[data-slot=&quot;accordion-trigger&quot;]</code>, so hovering an
+          open panel leaves the divider at rest &mdash; including the
+          checkboxes, fields, and buttons a panel holds. Only the row that opens
+          the panel claims the divider under it.
         </p>
       </section>
 
