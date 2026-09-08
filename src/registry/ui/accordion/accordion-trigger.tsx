@@ -5,6 +5,7 @@ import { cloneElement } from 'react'
 import { cn } from '@/lib/utils'
 
 import {
+  accordionChevronBoxClassName,
   accordionChevronClassName,
   accordionHeaderClassName,
   accordionTriggerClassName,
@@ -32,7 +33,9 @@ export function AccordionTrigger({
       <span className={accordionTriggerLabelClassName}>
         {heading ? heading.props.children : children}
       </span>
-      <ChevronDown aria-hidden className={accordionChevronClassName} />
+      <span className={accordionChevronBoxClassName}>
+        <ChevronDown aria-hidden className={accordionChevronClassName} />
+      </span>
     </AccordionPrimitive.Trigger>
   )
 
