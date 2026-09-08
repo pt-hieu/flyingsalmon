@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils'
 import {
   disabledInteraction,
+  horizontalFocusRingClearance,
   insetFocusRingGeometry,
 } from '@/registry/lib/interaction'
 
@@ -33,6 +34,7 @@ export const accordionChevronClassName = cn(
 
 export const accordionContentClassName = cn(
   'overflow-hidden text-sm',
+  horizontalFocusRingClearance,
   'data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up',
 )
 
