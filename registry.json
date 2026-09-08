@@ -807,8 +807,53 @@
       "name": "accordion",
       "type": "registry:ui",
       "title": "Accordion",
-      "description": "A vertical stack of headers, each expanding to reveal its own panel. Arrow keys walk the headers; the app decides whether one or many stay open.",
-      "dependencies": ["radix-ui"]
+      "description": "Progressive disclosure in a divider list: a heading row opens its own panel on a height animation. Several items open at once by default; type single with collapsible gives a one-item disclosure.",
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["@flyingsalmon/interaction"],
+      "files": [
+        {
+          "path": "src/registry/ui/accordion/accordion-content.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/accordion/accordion-item.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/accordion/accordion-trigger.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/accordion/accordion.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/accordion/classnames.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/accordion/index.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/accordion/only-heading-element.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/accordion/types.ts", "type": "registry:ui" }
+      ],
+      "cssVars": {
+        "theme": {
+          "animate-accordion-down": "accordion-down 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
+          "animate-accordion-up": "accordion-up 150ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)"
+        }
+      },
+      "css": {
+        "@keyframes accordion-down": {
+          "from": { "height": "0" },
+          "to": { "height": "var(--radix-accordion-content-height)" }
+        },
+        "@keyframes accordion-up": {
+          "from": { "height": "var(--radix-accordion-content-height)" },
+          "to": { "height": "0" }
+        }
+      }
     },
     {
       "name": "avatar-group",
