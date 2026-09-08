@@ -810,9 +810,38 @@
       "name": "radio-group",
       "type": "registry:ui",
       "title": "Radio Group",
-      "description": "A single choice from a small set of visible options. It owns its label and error message like the rest of the field family.",
-      "dependencies": ["radix-ui"],
-      "registryDependencies": ["@flyingsalmon/field"]
+      "description": "A single choice from a small set of visible options, in one 20px size. It owns its label and error message like the rest of the field family; the checked item fills primary with a knocked-out dot that fades in.",
+      "dependencies": ["class-variance-authority", "radix-ui"],
+      "registryDependencies": [
+        "@flyingsalmon/field",
+        "@flyingsalmon/interaction"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/radio-group/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/radio-group/context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/radio-group/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/radio-group/radio-group-item.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/radio-group/radio-group.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/radio-group/types.ts",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "table",
