@@ -107,6 +107,8 @@ body {
   --motion-base: 150ms;
   --card-spacing: --spacing(4);
   --dialog-spacing: --spacing(6);
+  /* Re-declare per mode in :root and .dark if --primary ever diverges by mode. */
+  --table-header-border: var(--primary);
   --animate-spinner: spinner-rotate 800ms linear infinite;
   @keyframes spinner-rotate {
     to {
@@ -234,6 +236,39 @@ body {
     }
     to {
       opacity: 0;
+    }
+  }
+  --animate-accordion-down: accordion-down 250ms
+    linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1);
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  --animate-accordion-up: accordion-up 150ms
+    linear(
+      0,
+      0.3049,
+      0.6506,
+      0.8453,
+      0.936,
+      0.9746,
+      0.9902,
+      0.9963,
+      0.9986,
+      0.9995,
+      1,
+      1
+    );
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
     }
   }
   --color-sidebar-ring: var(--sidebar-ring);
