@@ -786,7 +786,25 @@
       "title": "Form",
       "description": "A layout shell. It gives fields their vertical rhythm, an actions row, and an optional slot where the app places the submit result as an alert.",
       "dependencies": [],
-      "registryDependencies": []
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/form/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/form/form-actions.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/form/form.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/form/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "radio-group",
