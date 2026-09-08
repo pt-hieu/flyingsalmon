@@ -329,13 +329,14 @@ function AccordionPage() {
         <h2 className="font-heading text-2xl font-bold">Motion</h2>
         <p className="text-muted-foreground">
           Height only, from <code>0</code> to the Radix content height, with the
-          panel clipped while it travels. Opening runs 250ms on the bounce
-          curve, closing 150ms on the settle curve &mdash; the same{' '}
-          <code>linear()</code> strings the floating layer uses. The open curve
-          peaks at 1.04, so the panel passes its settled height by 4 percent
-          &mdash; two or three pixels on the panels above &mdash; for about 60ms
-          before it comes back. There is no opacity fade: a panel that fades
-          while it grows reads as two effects fighting.
+          panel clipped while it travels. Both directions run 150ms on{' '}
+          <code>spring-settle</code>, transcribed to the <code>linear()</code>{' '}
+          string the floating layer exits on. A panel displaces everything below
+          it, and ADR 0001 keeps bounce off any dimension that does that: an
+          overshooting height would push the panels under it past their place
+          and drag them back, which reads as a glitch rather than play. There is
+          no opacity fade either &mdash; a panel that fades while it grows reads
+          as two effects fighting.
         </p>
         <p className="text-muted-foreground">
           The height runs on CSS keyframes and Radix owns mount and unmount
@@ -343,9 +344,9 @@ function AccordionPage() {
           no <code>layout</code> prop, no open state of the component&rsquo;s
           own. The chevron rotates 180 degrees on <code>--motion-base</code>,
           select&rsquo;s rotation rule, with a color step to{' '}
-          <code>--foreground</code> riding beside it at{' '}
-          <code>--motion-fast</code>; it settles while the panel is still
-          growing; that mismatch is deliberate and matches select.
+          <code>--primary</code> riding beside it at <code>--motion-fast</code>;
+          rotation and height share the 150ms, so the row and its panel come to
+          rest together.
         </p>
       </section>
 
