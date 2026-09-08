@@ -6,8 +6,10 @@ import { AvatarSize } from '@/registry/ui/avatar'
 export const avatarGroupVariants = cva('isolate flex w-max items-center', {
   variants: {
     size: {
-      [AvatarSize.Default]: '[&>*:not(:first-child)]:-ms-2',
-      [AvatarSize.Small]: '[&>*:not(:first-child)]:-ms-1.5',
+      [AvatarSize.Default]:
+        '[--avatar-group-reveal:--spacing(3.5)] [&>*:not(:first-child)]:-ms-2',
+      [AvatarSize.Small]:
+        '[--avatar-group-reveal:--spacing(3)] [&>*:not(:first-child)]:-ms-1.5',
     },
   },
   defaultVariants: {
@@ -17,10 +19,8 @@ export const avatarGroupVariants = cva('isolate flex w-max items-center', {
 
 export const avatarGroupItemClassName = cn(
   'ring-background relative z-(--avatar-group-layer) rounded-full ring-2',
-  '[transition:transform_var(--motion-base)_ease-out,z-index_0s_var(--motion-base)]',
-  'hover:z-50 hover:scale-110 hover:[transition:transform_var(--motion-base)_ease-out,z-index_0s]',
-  'focus-visible:ring-ring focus-visible:z-50 focus-visible:scale-110 focus-visible:outline-hidden',
-  'focus-visible:[transition:transform_var(--motion-base)_ease-out,z-index_0s]',
+  '[transition:translate_var(--motion-base)_ease-out]',
+  'focus-visible:ring-primary focus-visible:outline-hidden',
 )
 
 export const avatarGroupChipVariants = cva(

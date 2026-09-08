@@ -172,20 +172,43 @@ function AvatarGroupPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Hover and keyboard</h2>
         <p className="text-muted-foreground">
-          Hover an avatar and it lifts to the top of the stack, scales to 1.1
-          over <code>--motion-base</code>, and opens a tooltip with the
+          Hover an avatar and the row parts around it over{' '}
+          <code>--motion-base</code>. Everything to its left slides 14px left
+          and everything to its right slides 14px right — 12px at{' '}
+          <code>sm</code> — which clears the overlap, both 2px rings, and 2px of
+          air.{' '}
+          <strong className="text-foreground">
+            One step, not a fan: the faces beyond the two neighbours travel with
+            them and stay overlapped with each other
+          </strong>
+          , so only the hovered avatar comes free. It stands whole without being
+          lifted over anyone, the resting z-order never moves, and it holds its
+          own place so the pointer cannot lose it. A tooltip opens with the
           person&apos;s name. The chip does the same and lists everyone it
-          hides, comma-joined. Z-order snaps to the top on the way in and holds
-          until the shrink finishes, so an avatar never sinks behind its
-          neighbour mid-return.
+          hides, comma-joined.
+        </p>
+        <p className="text-muted-foreground">
+          Sweeping across the row re-centers the parting on the face under the
+          pointer; the gaps it opens hold the current face rather than closing
+          the row mid-sweep. The row shuts when the pointer leaves the group. It
+          parts 14px past the group&apos;s own box on each side, so keep it
+          clear of a clipped container.
+        </p>
+        <p className="text-muted-foreground">
+          Pressing an avatar does nothing — nothing here is a button — but it
+          closes the tooltip, because the floating layer closes every tooltip on
+          any pointer-down. The name comes back when the pointer leaves the
+          avatar and returns.
         </p>
         <p className="text-muted-foreground">
           The group is <strong className="text-foreground">one tab stop</strong>
           . Tab enters on the first avatar; ArrowRight and ArrowLeft walk the
           avatars and then the chip; Home and End jump to the ends. Nothing
           wraps, and Tab leaves the group. Focus does everything hover does and
-          additionally recolors the separator ring to <code>--ring</code>.
-          Escape closes the open tooltip and leaves focus where it is.
+          additionally recolors the separator ring to <code>--primary</code>,
+          which keeps the indicator visible on a one-person group where the
+          parting has no neighbour to move. Escape closes the open tooltip and
+          leaves focus where it is.
         </p>
         <Preview>
           <AvatarGroup items={tripMembers} aria-label="Trip members" />
