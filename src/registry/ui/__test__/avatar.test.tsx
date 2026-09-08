@@ -1,10 +1,38 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { Avatar } from '@/registry/ui/avatar'
 
+function pretendImagesFinishBeforeMount(naturalWidth: number) {
+  vi.spyOn(HTMLImageElement.prototype, 'complete', 'get').mockReturnValue(true)
+  vi.spyOn(HTMLImageElement.prototype, 'naturalWidth', 'get').mockReturnValue(
+    naturalWidth,
+  )
+}
+
 describe('Avatar', () => {
+  afterEach(() => vi.restoreAllMocks())
+
+  it('shows an image that finished loading before the component mounted', () => {
+    pretendImagesFinishBeforeMount(64)
+
+    const { container } = render(<Avatar src="/ada.png" name="Ada Lovelace" />)
+
+    expect(container.querySelector('img')).toHaveClass('opacity-100')
+  })
+
+  it('swaps in the initials for an image that broke before the component mounted', () => {
+    pretendImagesFinishBeforeMount(0)
+
+    const { container } = render(
+      <Avatar src="/missing.png" name="Ada Lovelace" />,
+    )
+
+    expect(screen.getByText('AL')).toBeInTheDocument()
+    expect(container.querySelector('img')).toBeNull()
+  })
+
   it('shows the image named by the person when a src is given', () => {
     render(<Avatar src="/ada.png" name="Ada Lovelace" />)
 
