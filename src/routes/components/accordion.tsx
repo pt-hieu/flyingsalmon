@@ -305,21 +305,23 @@ function AccordionPage() {
           edge and nothing else &mdash; no outer border, no surface step, no
           horizontal padding &mdash; so the stack sits flush with its container.
           A boxed accordion is the consumer&rsquo;s call: wrap it in card
-          content. Hover steps the item&rsquo;s divider to{' '}
-          <code>--primary</code> and the chevron to <code>--foreground</code> at{' '}
-          <code>--motion-fast</code>; there is no background step and no
-          underline. The row draws no press ring &mdash; it toggles on click and
-          has nothing to hold, the same ground as a menu item.
+          content. Hover and keyboard focus paint the same pair at{' '}
+          <code>--motion-fast</code>: the item&rsquo;s divider steps to{' '}
+          <code>--primary</code>, and so does the chevron. There is no
+          background step, no underline, and no ring in either state. The row
+          draws no press ring either &mdash; it toggles on click and has nothing
+          to hold, the same ground as a menu item.
         </p>
         <p className="text-muted-foreground">
           <strong className="text-foreground">
             The divider answers to the trigger, not the panel.
           </strong>{' '}
-          The item watches for a hovered{' '}
-          <code>[data-slot=&quot;accordion-trigger&quot;]</code>, so hovering an
-          open panel leaves the divider at rest &mdash; including the
-          checkboxes, fields, and buttons a panel holds. Only the row that opens
-          the panel claims the divider under it.
+          The item watches its own{' '}
+          <code>[data-slot=&quot;accordion-trigger&quot;]</code> for hover and
+          for <code>:focus-visible</code>, so a hovered or focused control
+          inside an open panel leaves the divider at rest &mdash; checkboxes,
+          fields, and buttons included. Only the row that opens the panel claims
+          the divider under it.
         </p>
       </section>
 
@@ -369,17 +371,26 @@ function AccordionPage() {
           vertical axis. Content still lines up flush with the dividers.
         </p>
         <p className="text-muted-foreground">
-          Focus draws a 2px <code>--primary</code> inset ring on the trigger,
-          rounded on the radius scale. A borderless row inside a stack has no
-          border to replace and no room for an offset ring without covering its
-          neighbours, so the ring draws inside the row&rsquo;s own edge (ADR
-          0003). Measured against this theme&rsquo;s own palette steps with an
-          OKLCH-to-sRGB contrast check: the ring and the hover divider are
-          3.17:1 on the light background and 5.75:1 on the dark one, the trigger
-          label 18.25:1 and 17.48:1, the chevron 5.17:1 and 7.04:1 &mdash; every
-          pair clears WCAG AA in both modes, with the light ring passing the 3:1
-          non-text bar it was flagged as tight against. Resting dividers are
-          decorative and exempt.
+          <strong className="text-foreground">
+            The trigger draws no focus ring.
+          </strong>{' '}
+          A borderless row has no border to replace and no room for an offset
+          ring without covering its neighbours, and an inset ring reads as a box
+          around a row that has no box. So keyboard focus paints what hover
+          paints: the item&rsquo;s divider and the row&rsquo;s chevron both step
+          to <code>--primary</code> (ADR 0003). The chevron is the half that
+          stays inside the row when the panel is open and the divider sits below
+          it. WCAG 2.4.7 asks for a visible focus indicator, not a ring &mdash;
+          the same ground tabs stands on.
+        </p>
+        <p className="text-muted-foreground">
+          Measured against this theme&rsquo;s own palette steps with an
+          OKLCH-to-sRGB contrast check: the stepped divider and the stepped
+          chevron are 3.17:1 on the light background and 5.75:1 on the dark one,
+          the trigger label 18.25:1 and 17.48:1, the chevron at rest 5.17:1 and
+          7.04:1 &mdash; every pair clears WCAG AA in both modes, with the light
+          step passing the 3:1 non-text bar it was flagged as tight against.
+          Resting dividers are decorative and exempt.
         </p>
       </section>
     </article>
