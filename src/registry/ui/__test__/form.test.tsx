@@ -37,7 +37,7 @@ describe('Form', () => {
     expect(onSubmit).toHaveBeenCalledTimes(1)
   })
 
-  it('reaches onSubmit with an empty required field, which a plain form blocks', async () => {
+  it('reaches onSubmit with an empty required field, which native validation would block', async () => {
     const user = userEvent.setup()
     const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault())
     render(
@@ -105,7 +105,7 @@ describe('Form', () => {
     ).toBeTruthy()
   })
 
-  it('does not submit when a button in the actions row declares no type', async () => {
+  it('leaves the type of the buttons it is given alone, so Cancel does not submit', async () => {
     const user = userEvent.setup()
     const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault())
     render(
@@ -128,7 +128,7 @@ describe('Form', () => {
     const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault())
     render(
       <>
-        <Form id="trip-form" method="post" onSubmit={onSubmit}>
+        <Form id="trip-form" onSubmit={onSubmit}>
           <input aria-label="Destination" />
         </Form>
         <Button type="submit" form="trip-form">
