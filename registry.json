@@ -807,7 +807,6 @@
           "path": "src/registry/ui/table/classnames.ts",
           "type": "registry:ui"
         },
-        { "path": "src/registry/ui/table/context.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/table/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/table/table-body.tsx",
