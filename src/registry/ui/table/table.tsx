@@ -1,7 +1,10 @@
+import type { ComponentProps } from 'react'
+
 import { cn } from '@/lib/utils'
 
 import { tableContainerVariants, tableVariants } from './classnames'
-import type { TableProps } from './types'
+
+export type TableProps = ComponentProps<'table'>
 
 export function Table({ className, ...props }: TableProps) {
   return (
