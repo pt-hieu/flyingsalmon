@@ -10,7 +10,6 @@ export interface TooltipProps extends Omit<
   content: string
   side?: TooltipSide
   align?: TooltipAlign
-  exhibitionMode?: boolean
   children: React.ReactElement
 }
 
@@ -18,39 +17,25 @@ export function Tooltip({
   content,
   side = TooltipSide.Top,
   align = TooltipAlign.Center,
-  exhibitionMode = false,
   children,
-  open,
   ...rootProps
 }: TooltipProps) {
-  const tooltipContent = (
-    <TooltipPrimitive.Content
-      side={side}
-      align={align}
-      sideOffset={8}
-      alignOffset={0}
-      avoidCollisions
-      collisionPadding={8}
-      className={tooltipContentClassName}
-    >
-      {content}
-    </TooltipPrimitive.Content>
-  )
-
-  const tooltipRoot = (
-    <TooltipPrimitive.Root {...rootProps} open={exhibitionMode ? true : open}>
+  return (
+    <TooltipPrimitive.Root {...rootProps}>
       <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
-      {exhibitionMode ? (
-        tooltipContent
-      ) : (
-        <TooltipPrimitive.Portal>{tooltipContent}</TooltipPrimitive.Portal>
-      )}
+      <TooltipPrimitive.Portal>
+        <TooltipPrimitive.Content
+          side={side}
+          align={align}
+          sideOffset={8}
+          alignOffset={0}
+          avoidCollisions
+          collisionPadding={8}
+          className={tooltipContentClassName}
+        >
+          {content}
+        </TooltipPrimitive.Content>
+      </TooltipPrimitive.Portal>
     </TooltipPrimitive.Root>
   )
-
-  if (exhibitionMode) {
-    return <TooltipPrimitive.Provider>{tooltipRoot}</TooltipPrimitive.Provider>
-  }
-
-  return tooltipRoot
 }

@@ -1,7 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Plus, Share2, Trash2 } from 'lucide-react'
 
-import { ModePreview } from '@/components/mode-preview'
 import { Preview } from '@/components/preview'
 import { Avatar } from '@/registry/ui/avatar'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
@@ -41,28 +40,6 @@ function TooltipPage() {
         <p className="text-muted-foreground">
           No touch or long-press support, by decision.
         </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Exhibition</h2>
-        <p className="text-muted-foreground">
-          <code>exhibitionMode</code> forces the tooltip open and renders it
-          inline instead of through the portal, so it inherits the panel's
-          tokens and both modes show it open at once. It is also isolated from
-          the app's <code>TooltipProvider</code>, so a permanently open tooltip
-          never consumes the shared skip window.
-        </p>
-        <ModePreview>
-          <Tooltip content="Delete this project" exhibitionMode>
-            <Button
-              variant={ButtonVariant.Outline}
-              size={ButtonSize.Icon}
-              aria-label="Delete"
-            >
-              <Trash2 />
-            </Button>
-          </Tooltip>
-        </ModePreview>
       </section>
 
       <section className="space-y-4">

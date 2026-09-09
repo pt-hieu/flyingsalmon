@@ -32,10 +32,6 @@ _Avoid_: overlay, portal component, popup
 The dialog state that marks an operation running inside the dialog, set by the app through the `pending` prop. While pending, Escape, outside click, and the close button do nothing and the close button renders disabled. The dialog shows no busyness of its own beyond that; the acting button inside carries the spinner (feedback rule). An operation that runs outside the dialog does not set it. The only exception to "Escape always closes" in ADR 0005.
 _Avoid_: busy, loading, locked, submitting
 
-**Exhibition mode**:
-A floating component rendered inline for documentation through the `exhibitionMode` prop: no portal, no focus trap, no scroll lock, positioned inside its nearest `relative` ancestor. It exists so the docs `ModePreview` can show two open copies side by side, one per color mode. Never used in an app. Fixed in ADR 0005.
-_Avoid_: preview mode, static mode, inline mode, demo mode
-
 **Highlighted**:
 The one state of a menu item under the pointer or holding keyboard focus. Radix merges hover and focus into `data-highlighted`, and the item paints it as a solid background step to `--accent` with `--accent-foreground`, a destructive item to `--error` with `--error-foreground`, with no ring and no transition. A menu item has no separate hover, focus, or press state; the highlight is its focus indicator (ADR 0003). Applies to dropdown-menu and, through the shared `menu` rules, to select.
 _Avoid_: hovered, focused item, active item, selected
