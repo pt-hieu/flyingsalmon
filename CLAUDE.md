@@ -3,9 +3,7 @@ Namespace: `@flyingsalmon`. Future home: `flyingsalmon.superbrian.dev`. First co
 
 ## Coding conventions
 
-- No code comments.
-- No Tailwind opacity modifiers such as `ring-ring/50`; they manufacture colors outside the palette (ADR 0004). Element opacity such as `disabled:opacity-50` is fine.
-- Registry file layout, enums, naming, and test rules are in `CODING_STANDARDS.md`.
+Every coding rule, for the registry and the docs site alike, is in `CODING_STANDARDS.md`.
 
 ## Structure rules
 
