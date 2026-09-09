@@ -1018,6 +1018,109 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "A month grid for picking a single date or a range. It draws the days and owns selection; the trigger, the panel, and the field wiring belong to date-picker.",
+      "dependencies": []
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Date Picker",
+      "description": "A field that opens a calendar in a panel and posts the chosen dates. It owns its label, error, and trigger like the rest of the field family; the grid inside is calendar.",
+      "dependencies": [],
+      "registryDependencies": ["@flyingsalmon/field", "@flyingsalmon/floating"]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "Combobox",
+      "description": "A text field that filters a list in a panel and commits one choice. It owns its label and error like the rest of the field family; the app owns the items.",
+      "dependencies": [],
+      "registryDependencies": [
+        "@flyingsalmon/field",
+        "@flyingsalmon/floating",
+        "@flyingsalmon/menu"
+      ]
+    },
+    {
+      "name": "number-field",
+      "type": "registry:ui",
+      "title": "Number Field",
+      "description": "A numeric field with a unit, bounds, and a step. It owns its label and error like the rest of the field family.",
+      "dependencies": [],
+      "registryDependencies": ["@flyingsalmon/field"]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "description": "A set of chips that toggle independently, in single or multiple mode, wrapping across rows. No shared track and no tab shape: each chip is its own control.",
+      "dependencies": [],
+      "registryDependencies": ["@flyingsalmon/interaction"]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "A bar for an operation of known length, determinate or indeterminate. Spinner covers an action's busyness and skeleton covers a loading region; progress covers measured work.",
+      "dependencies": []
+    },
+    {
+      "name": "notice",
+      "type": "registry:ui",
+      "title": "Notice",
+      "description": "One persistent message for a result with no visible home, dismissed by the user and never by a timer. It links back to its subject and never takes focus.",
+      "dependencies": []
+    },
+    {
+      "name": "changed-item",
+      "type": "registry:ui",
+      "title": "Changed Item",
+      "description": "The highlight an item wears when it is added, updated, removed, or failed. The highlight stays until the user has seen it; a failed item carries its message and a retry.",
+      "dependencies": [],
+      "registryDependencies": ["@flyingsalmon/motion"]
+    },
+    {
+      "name": "empty-state",
+      "type": "registry:ui",
+      "title": "Empty State",
+      "description": "An icon, a title, a description, and an action for a region with nothing in it. A page variant fills the screen; a ghost variant holds a place inside a layout.",
+      "dependencies": ["class-variance-authority"]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "A side panel with header, content, and footer slots that collapses to a narrow strip. It hosts navigation items or any other rail content.",
+      "dependencies": [],
+      "registryDependencies": ["@flyingsalmon/motion"]
+    },
+    {
+      "name": "header",
+      "type": "registry:ui",
+      "title": "Header",
+      "description": "A top bar with leading, title, and trailing slots, optionally sticky. The slots hold registry components; the header adds the frame and its bottom border.",
+      "dependencies": []
+    },
+    {
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "A horizontal scroll-snap track with previous and next controls. Items keep their own width; the carousel owns the snapping and the keyboard path.",
+      "dependencies": [],
+      "registryDependencies": ["@flyingsalmon/button"]
+    },
+    {
+      "name": "timeline",
+      "type": "registry:ui",
+      "title": "Timeline",
+      "description": "A sequence of markers joined by a connector, each item completed, current, or upcoming. Content sits beside its marker.",
+      "dependencies": [],
+      "registryDependencies": ["@flyingsalmon/motion"]
     }
   ]
 }
