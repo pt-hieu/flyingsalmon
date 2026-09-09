@@ -16,8 +16,8 @@ export const tableBodyVariants = cva(
   cn(
     '[&>tr]:border-border [&>tr]:border-b',
     '[&>tr]:transition-colors [&>tr]:duration-(--motion-fast)',
-    '[&>tr[data-interactive]:has([data-row-link]_a:is(:focus-visible,:active))]:border-b-primary',
-    '[&>tr:has(+tr[data-interactive]_[data-row-link]_a:is(:focus-visible,:active))]:border-b-primary',
+    '[&>tr[data-interactive]:has([data-row-link]_a:is(:focus-visible,:active))]:border-b-indicator',
+    '[&>tr:has(+tr[data-interactive]_[data-row-link]_a:is(:focus-visible,:active))]:border-b-indicator',
   ),
 )
 

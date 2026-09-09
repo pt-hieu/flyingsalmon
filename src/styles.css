@@ -107,8 +107,7 @@ body {
   --motion-base: 150ms;
   --card-spacing: --spacing(4);
   --dialog-spacing: --spacing(6);
-  /* Re-declare per mode in :root and .dark if --primary ever diverges by mode. */
-  --table-header-border: var(--primary);
+  --table-header-border: var(--indicator);
   --animate-spinner: spinner-rotate 800ms linear infinite;
   @keyframes spinner-rotate {
     to {
@@ -349,6 +348,8 @@ body {
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
+  --color-indicator-foreground: var(--indicator-foreground);
+  --color-indicator: var(--indicator);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -374,6 +375,8 @@ body {
   --popover-foreground: var(--color-neutral-950);
   --primary: var(--color-indigo-400);
   --primary-foreground: var(--color-neutral-950);
+  --indicator: var(--color-indigo-500);
+  --indicator-foreground: var(--color-white);
   --secondary: var(--color-neutral-100);
   --secondary-foreground: var(--color-neutral-900);
   --muted: var(--color-neutral-100);
@@ -416,6 +419,8 @@ body {
   --popover-foreground: var(--color-neutral-50);
   --primary: var(--color-indigo-400);
   --primary-foreground: var(--color-neutral-950);
+  --indicator: var(--color-indigo-400);
+  --indicator-foreground: var(--color-neutral-950);
   --secondary: var(--color-neutral-800);
   --secondary-foreground: var(--color-neutral-50);
   --muted: var(--color-neutral-800);

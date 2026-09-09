@@ -41,8 +41,9 @@ function CheckboxPage() {
         <p className="text-muted-foreground">
           One 20px box and a 20px row, so a checkbox that starts a row leaves no
           dead space above or below it. Checked and indeterminate both take the
-          primary fill. There is no size prop and no loading state — a checkbox
-          states intent inside a form, and the submit button owns the busyness.
+          <code>--indicator</code> fill. There is no size prop and no loading
+          state — a checkbox states intent inside a form, and the submit button
+          owns the busyness.
         </p>
         <ModePreview>
           <div className="flex flex-col gap-4">

@@ -14,7 +14,7 @@ export const switchVariants = cva(
   cn(
     'group inline-flex h-6 w-11 shrink-0 items-center rounded-full p-1',
     'data-[state=unchecked]:justify-start data-[state=checked]:justify-end',
-    'data-[state=unchecked]:bg-muted-foreground data-[state=checked]:bg-primary',
+    'data-[state=unchecked]:bg-muted-foreground data-[state=checked]:bg-indicator',
     'transition-[background-color,box-shadow] duration-(--motion-fast)',
     'focus-visible:ring-ring',
     offsetFocusRingGeometry,
@@ -26,7 +26,7 @@ export const switchVariants = cva(
         true: 'cursor-not-allowed',
         false: cn(
           'data-[state=unchecked]:hover:bg-neutral-600 dark:data-[state=unchecked]:hover:bg-neutral-500',
-          'data-[state=checked]:hover:bg-indigo-300',
+          'data-[state=checked]:hover:bg-indigo-400 dark:data-[state=checked]:hover:bg-indigo-300',
         ),
       },
     },
@@ -39,7 +39,7 @@ export const switchVariants = cva(
 export const switchThumbVariants = cva(
   cn(
     'block size-full rounded-full',
-    'group-data-[state=unchecked]:bg-background group-data-[state=checked]:bg-primary-foreground',
+    'group-data-[state=unchecked]:bg-background group-data-[state=checked]:bg-indicator-foreground',
   ),
   {
     variants: {
