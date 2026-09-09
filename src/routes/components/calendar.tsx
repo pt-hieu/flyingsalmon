@@ -134,12 +134,15 @@ function CalendarPage() {
           own. The host owns the surface, whether that is date-picker&rsquo;s
           panel or a card on a page. Cells are 36px, six rows always so the
           height never changes between months, and days outside the month are
-          empty, unfocusable cells. Hover and keyboard focus paint one
-          background step and no ring, extending the borderless-item rule from
-          ADR 0003 to a grid cell: an idle day steps to <code>--accent</code>, a
-          day inside the band one shade deeper, and a filled endpoint to the
-          step every primary-filled surface uses. There is no press ring; the
-          fill changing under the pointer is the feedback.
+          empty, unfocusable cells. Every paint sits 2px inside the cell, so a
+          filled day is a 32px rounded square and neighbours never touch; the
+          band runs edge to edge between its endpoints with the same 2px inset
+          above and below. Hover and keyboard focus paint one rounded background
+          step and no ring, extending the borderless-item rule from ADR 0003 to
+          a grid cell: an idle day steps to <code>--accent</code>, a day inside
+          the band one shade deeper, and a filled endpoint to the step every
+          primary-filled surface uses. There is no press ring; the fill changing
+          under the pointer is the feedback.
         </p>
       </section>
 
