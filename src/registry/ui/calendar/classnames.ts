@@ -41,7 +41,6 @@ const bandHoverTint = 'bg-indigo-200 dark:bg-indigo-900'
 export const calendarCellVariants = cva(
   cn(
     'relative flex size-9 cursor-pointer items-center justify-center text-sm outline-hidden select-none',
-    'transition-colors duration-(--motion-fast)',
     'before:absolute before:inset-y-0.5 before:hidden before:bg-indigo-100 dark:before:bg-indigo-950',
   ),
   {
@@ -98,7 +97,7 @@ export const calendarCellVariants = cva(
 export const calendarCellFillVariants = cva(
   cn(
     'absolute inset-0.5 flex items-center justify-center rounded-md',
-    'transition-colors duration-(--motion-fast)',
+    'transition-[border-radius,inset] duration-(--motion-fast)',
   ),
   {
     variants: {
@@ -108,6 +107,14 @@ export const calendarCellFillVariants = cva(
       },
       interior: {
         true: '',
+        false: '',
+      },
+      bandStart: {
+        true: 'right-0 rounded-r-none',
+        false: '',
+      },
+      bandEnd: {
+        true: 'left-0 rounded-l-none',
         false: '',
       },
       highlighted: {
@@ -137,6 +144,8 @@ export const calendarCellFillVariants = cva(
     defaultVariants: {
       filled: false,
       interior: false,
+      bandStart: false,
+      bandEnd: false,
       highlighted: false,
     },
   },
