@@ -68,6 +68,18 @@ _Avoid_: form alert, error summary, message area
 The shell-owned surface for a result with no visible home: after navigation, from a closed dialog form, for a confirm-only action. One at a time, persistent until dismissed or replaced, anchored to its trigger or fixed top-centre, announced from a live region mounted before content, never takes focus, always links back to its subject (ADR 0008). Not a toast: it auto-dismisses nothing, stacks nothing, and is owned. A next-batch candidate, not built.
 _Avoid_: toast, snackbar, notification, banner
 
+**Range**:
+A calendar selection with an inclusive start day and end day, carried as two ISO `YYYY-MM-DD` strings with `start` never after `end`. Calendar's range mode emits one on commit; date-picker posts it as two hidden native inputs. A one-day range is a start equal to its end.
+_Avoid_: period, span, date range, from/to
+
+**Anchor**:
+The first pick of an in-progress range in calendar. While an anchor stands, the pointer or the keyboard cursor previews the range from it, painted the same as a committed range. Escape, or focus leaving the grid, clears the anchor and restores the last committed value; the app never sees a half-selection.
+_Avoid_: start date, first click, pending selection
+
+**Unavailable day**:
+A calendar day outside `min` / `max` or refused by `isDateDisabled`. It stays focusable and reachable by arrow keys, is not selectable, and renders as muted, struck-through text at 4.5:1 because it is reachable. Distinct from the whole calendar being disabled, which removes the grid from the tab order.
+_Avoid_: disabled date, blocked date, excluded day
+
 **Spec checklist**:
 The fixed sections every component spec fills: purpose, variants, sizes, states, keyboard path, contrast, micro animation.
 _Avoid_: template, rubric
