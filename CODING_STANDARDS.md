@@ -1,12 +1,14 @@
 # Coding standards
 
-Rules for every source file in the repo. Sections that name the registry apply under `src/registry/`. Design-system rules such as palette, surfaces, motion, and accessibility stay in `CLAUDE.md`.
-
 ## Source text
 
 - No code comments. Names and structure carry the meaning.
 - Identifiers are spelled out in full. No abbreviations, no single-letter parameters.
 - No Tailwind opacity modifiers on colors, because they produce colors outside the palette (ADR 0004). Opacity applied to a whole element, as for disabled states and motion, is allowed.
+
+## Grouping
+
+Statements inside a function are grouped by goal: the lines that together achieve one thing sit next to each other, and a blank line separates one group from the next. Each branch of a conditional is its own group. The formatter keeps a single blank line and collapses runs of them, so the spacing is the author's responsibility and is reviewed like any other part of the code.
 
 ## Components are folders
 
