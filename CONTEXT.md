@@ -80,6 +80,10 @@ _Avoid_: start date, first click, pending selection
 A calendar day outside `min` / `max` or refused by `isDateDisabled`. It stays focusable and reachable by arrow keys, is not selectable, and renders as muted, struck-through text at 4.5:1 because it is reachable. Distinct from the whole calendar being disabled, which removes the grid from the tab order.
 _Avoid_: disabled date, blocked date, excluded day
 
+**Gated**:
+A variant of an action control (button, toggle-group item) that says the action becomes available after a step the label names, such as signing in. A gated control is fully enabled: it takes focus and activating it starts that step. It is never disabled and never explained by tooltip. The registry has no gated field; an app that wants a sign-up prompt beside a field places a gated button itself. Its solid fill is `--gated`, a functional alias on the amber ramp (ADR 0004).
+_Avoid_: locked, premium, upsell, upgrade
+
 **Spec checklist**:
 The fixed sections every component spec fills: purpose, variants, sizes, states, keyboard path, contrast, micro animation.
 _Avoid_: template, rubric
