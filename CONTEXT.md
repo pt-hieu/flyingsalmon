@@ -88,6 +88,10 @@ _Avoid_: mandatory, non-optional, must-fill
 A variant of an action control (button, toggle-group item) that says the action becomes available after a step the label names, such as signing in. A gated control is fully enabled: it takes focus and activating it starts that step. It is never disabled and never explained by tooltip. The registry has no gated field; an app that wants a sign-up prompt beside a field places a gated button itself. Its solid fill is `--gated`, a functional alias on the amber ramp (ADR 0004).
 _Avoid_: locked, premium, upsell, upgrade
 
+**Stepper**:
+A display-only indicator of position in a sequence with a known count: a horizontal bar of equal segments, filled through the current one, that reads as ticks rather than a fraction. Progress is a fraction of one operation with a known end; timeline is a layout of markers joined by connectors and carries no item states; tabs navigate between peer panels. Stepper has no markers, no connectors, no fraction, and no navigation. The count may grow while mounted. Segment labels and the position text belong to the app.
+_Avoid_: wizard, steps bar, page indicator, dots
+
 **Spec checklist**:
 The fixed sections every component spec fills: purpose, variants, sizes, states, keyboard path, contrast, micro animation.
 _Avoid_: template, rubric
