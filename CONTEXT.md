@@ -45,7 +45,7 @@ A component built from several parts that only make sense together, exposed as a
 _Avoid_: compound component, widget
 
 **Field family**:
-The components that own a label and an error message: input, textarea, checkbox, select from batch 2, and radio-group from batch 3. All of them take their id linkage, their error message, and their label variants from the `field` registry item. Their props are the contract any form-state library drives; the registry binds to none (ADR 0007). Switch is not a member — it has a label but no error state, because a failed toggle is a result the app shows. That exclusion covers the label too: switch keeps its own label block, which transitions opacity rather than color (ADR 0006).
+The components that own a label and an error message: input, textarea, checkbox, select from batch 2, radio-group from batch 3, and toggle-group from batch 4. All of them take their id linkage, their error message, and their label variants from the `field` registry item. Their props are the contract any form-state library drives; the registry binds to none (ADR 0007). Switch is not a member — it has a label but no error state, because a failed toggle is a result the app shows. That exclusion covers the label too: switch keeps its own label block, which transitions opacity rather than color (ADR 0006).
 _Avoid_: form controls, inputs
 
 **Motion language**:
@@ -79,6 +79,14 @@ _Avoid_: start date, first click, pending selection
 **Unavailable day**:
 A calendar day outside `min` / `max` or refused by `isDateDisabled`. It stays focusable and reachable by arrow keys, is not selectable, and renders as muted, struck-through text at 4.5:1 because it is reachable. Distinct from the whole calendar being disabled, which removes the grid from the tab order.
 _Avoid_: disabled date, blocked date, excluded day
+
+**Toggle-group**:
+A field-family control made of chips that toggle, in single or multiple mode, wrapping across rows. It exists beside checkbox and radio-group because single mode can return to empty, multiple mode is one group with one tab stop and a `max`, and a chip can be gated. A chip that does not toggle is a badge. Not a segmented control: no shared track, no tabs shape.
+_Avoid_: chip group, segmented, choice chips, pill selector
+
+**Required**:
+A field-family prop saying the field must hold a value. The control blocks the action that would empty it, sets `aria-required` where its role allows, and the `field` registry item renders a visible marker in the label. Reaching a value from an initial empty is the user's action; a submit while still empty is the app's validation error through `error`. Toggle-group set the meaning; later fields copy it.
+_Avoid_: mandatory, non-optional, must-fill
 
 **Gated**:
 A variant of an action control (button, toggle-group item) that says the action becomes available after a step the label names, such as signing in. A gated control is fully enabled: it takes focus and activating it starts that step. It is never disabled and never explained by tooltip. The registry has no gated field; an app that wants a sign-up prompt beside a field places a gated button itself. Its solid fill is `--gated`, a functional alias on the amber ramp (ADR 0004).
