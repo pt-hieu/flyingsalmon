@@ -19,6 +19,7 @@
   "dependencies": {
     "@fontsource-variable/baloo-2": "^5.3.0",
     "@fontsource-variable/onest": "^5.3.0",
+    "@internationalized/date": "^3.12.4",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-devtools": "latest",
     "@tanstack/react-router": "latest",
@@ -30,6 +31,7 @@
     "motion": "^13.1.1",
     "radix-ui": "^1.6.7",
     "react": "^19.2.0",
+    "react-aria-components": "^1.21.0",
     "react-dom": "^19.2.0",
     "shadcn": "^4.19.0",
     "tailwind-merge": "^3.6.0",
