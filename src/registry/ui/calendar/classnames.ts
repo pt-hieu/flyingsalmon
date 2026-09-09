@@ -36,15 +36,13 @@ export const calendarGridBodyClassName = cn(
   'data-[direction=backward]:animate-calendar-page-backward',
 )
 
-const bandTint = 'bg-indigo-100 dark:bg-indigo-950'
-
 const bandHoverTint = 'bg-indigo-200 dark:bg-indigo-900'
 
 export const calendarCellVariants = cva(
   cn(
     'relative flex size-9 cursor-pointer items-center justify-center text-sm outline-hidden select-none',
     'transition-colors duration-(--motion-fast)',
-    'before:absolute before:inset-y-0 before:hidden before:bg-indigo-100 dark:before:bg-indigo-950',
+    'before:absolute before:inset-y-0.5 before:hidden before:bg-indigo-100 dark:before:bg-indigo-950',
   ),
   {
     variants: {
@@ -61,7 +59,7 @@ export const calendarCellVariants = cva(
         false: '',
       },
       interior: {
-        true: bandTint,
+        true: 'before:inset-x-0 before:block',
         false: '',
       },
       bandStart: {
@@ -82,12 +80,7 @@ export const calendarCellVariants = cva(
         highlighted: true,
         filled: false,
         interior: false,
-        className: 'bg-accent text-accent-foreground',
-      },
-      {
-        highlighted: true,
-        interior: true,
-        className: bandHoverTint,
+        className: 'text-accent-foreground',
       },
     ],
     defaultVariants: {
@@ -104,13 +97,17 @@ export const calendarCellVariants = cva(
 
 export const calendarCellFillVariants = cva(
   cn(
-    'absolute inset-0 flex items-center justify-center rounded-md',
+    'absolute inset-0.5 flex items-center justify-center rounded-md',
     'transition-colors duration-(--motion-fast)',
   ),
   {
     variants: {
       filled: {
         true: 'bg-primary text-primary-foreground',
+        false: '',
+      },
+      interior: {
+        true: '',
         false: '',
       },
       highlighted: {
@@ -124,9 +121,22 @@ export const calendarCellFillVariants = cva(
         highlighted: true,
         className: 'bg-indigo-300',
       },
+      {
+        filled: false,
+        interior: true,
+        highlighted: true,
+        className: bandHoverTint,
+      },
+      {
+        filled: false,
+        interior: false,
+        highlighted: true,
+        className: 'bg-accent',
+      },
     ],
     defaultVariants: {
       filled: false,
+      interior: false,
       highlighted: false,
     },
   },

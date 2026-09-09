@@ -46,13 +46,19 @@ export function CalendarDay({ date }: CalendarDayProps) {
       }}
     >
       {(cell) => {
-        const { filled, highlighted, today } = describeDay(
+        const { filled, interior, highlighted, today } = describeDay(
           cell,
           mode,
           calendarDisabled,
         )
         return (
-          <span className={calendarCellFillVariants({ filled, highlighted })}>
+          <span
+            className={calendarCellFillVariants({
+              filled,
+              interior,
+              highlighted,
+            })}
+          >
             {cell.formattedDate}
             {today ? (
               <span
