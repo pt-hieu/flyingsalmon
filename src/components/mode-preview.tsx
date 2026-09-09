@@ -1,9 +1,20 @@
 import { PreviewSurface } from '@/components/preview'
 import { cn } from '@/lib/utils'
 
-export function ModePreview({ children }: { children: React.ReactNode }) {
+export function ModePreview({
+  stacked = false,
+  children,
+}: {
+  stacked?: boolean
+  children: React.ReactNode
+}) {
   return (
-    <div className="border-border bg-border grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2">
+    <div
+      className={cn(
+        'border-border bg-border grid gap-px overflow-hidden rounded-lg border',
+        !stacked && 'sm:grid-cols-2',
+      )}
+    >
       <ModePanel mode="light">{children}</ModePanel>
       <ModePanel mode="dark">{children}</ModePanel>
     </div>
