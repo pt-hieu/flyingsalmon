@@ -42,9 +42,9 @@ function SwitchPage() {
         <p className="text-muted-foreground">
           One size, no variants. Off is <code>--muted-foreground</code> as the
           track under a <code>--background</code> thumb; on is{' '}
-          <code>--primary</code> under a <code>--primary-foreground</code>{' '}
+          <code>--indicator</code> under an <code>--indicator-foreground</code>{' '}
           thumb. Every pair clears 3:1 against the page and against the thumb in
-          both modes — 4.7:1 in light, 7.6:1 in dark — so the state is readable
+          both modes — 4.6:1 in light, 6.3:1 in dark — so the state is readable
           without color vision.
         </p>
         <p className="text-muted-foreground">
@@ -52,10 +52,10 @@ function SwitchPage() {
             The off thumb takes the page color, not white.
           </strong>{' '}
           A white thumb in dark mode would have to turn near-black on the way to
-          the on state, because <code>--primary-foreground</code> is near-black
-          there. Travel is a morph, so the thumb stays one object with one color
-          across the whole journey. The page color gives that in both modes and
-          raises the dark-mode contrast at the same time.
+          the on state, because <code>--indicator-foreground</code> is
+          near-black there. Travel is a morph, so the thumb stays one object
+          with one color across the whole journey. The page color gives that in
+          both modes and raises the dark-mode contrast at the same time.
         </p>
         <ModePreview>
           <Switch label="Wi-Fi" />

@@ -14,7 +14,7 @@ export const checkboxMarkClassName = 'size-3.5'
 
 export const checkboxVariants = cva(
   cn(
-    'text-primary-foreground grid size-5 shrink-0 place-items-center rounded-sm border',
+    'text-indicator-foreground grid size-5 shrink-0 place-items-center rounded-sm border',
     'transition-[background-color,border-color,box-shadow] duration-(--motion-fast)',
     offsetFocusRingGeometry,
     disabledInteraction,
@@ -34,11 +34,13 @@ export const checkboxVariants = cva(
         ),
         false: cn(
           'border-input focus-visible:ring-ring',
-          'data-[state=checked]:bg-primary data-[state=indeterminate]:bg-primary',
-          'data-[state=checked]:border-primary data-[state=indeterminate]:border-primary',
-          'enabled:hover:data-[state=unchecked]:border-primary',
-          'enabled:hover:data-[state=checked]:border-indigo-300 enabled:hover:data-[state=checked]:bg-indigo-300',
-          'enabled:hover:data-[state=indeterminate]:border-indigo-300 enabled:hover:data-[state=indeterminate]:bg-indigo-300',
+          'data-[state=checked]:bg-indicator data-[state=indeterminate]:bg-indicator',
+          'data-[state=checked]:border-indicator data-[state=indeterminate]:border-indicator',
+          'enabled:hover:data-[state=unchecked]:border-indicator',
+          'enabled:hover:data-[state=checked]:border-indigo-400 enabled:hover:data-[state=checked]:bg-indigo-400',
+          'enabled:hover:data-[state=indeterminate]:border-indigo-400 enabled:hover:data-[state=indeterminate]:bg-indigo-400',
+          'dark:enabled:hover:data-[state=checked]:border-indigo-300 dark:enabled:hover:data-[state=checked]:bg-indigo-300',
+          'dark:enabled:hover:data-[state=indeterminate]:border-indigo-300 dark:enabled:hover:data-[state=indeterminate]:bg-indigo-300',
         ),
       },
     },

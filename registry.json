@@ -109,6 +109,8 @@
           "popover-foreground": "var(--color-neutral-950)",
           "primary": "var(--color-indigo-400)",
           "primary-foreground": "var(--color-neutral-950)",
+          "indicator": "var(--color-indigo-500)",
+          "indicator-foreground": "var(--color-white)",
           "secondary": "var(--color-neutral-100)",
           "secondary-foreground": "var(--color-neutral-900)",
           "muted": "var(--color-neutral-100)",
@@ -150,6 +152,8 @@
           "popover-foreground": "var(--color-neutral-50)",
           "primary": "var(--color-indigo-400)",
           "primary-foreground": "var(--color-neutral-950)",
+          "indicator": "var(--color-indigo-400)",
+          "indicator-foreground": "var(--color-neutral-950)",
           "secondary": "var(--color-neutral-800)",
           "secondary-foreground": "var(--color-neutral-50)",
           "muted": "var(--color-neutral-800)",
@@ -880,7 +884,7 @@
       ],
       "cssVars": {
         "theme": {
-          "table-header-border": "var(--primary)"
+          "table-header-border": "var(--indicator)"
         }
       }
     },

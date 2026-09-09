@@ -99,7 +99,7 @@ function TabsPage() {
         <h2 className="font-heading text-2xl font-bold">States and disabled</h2>
         <p className="text-muted-foreground">
           Inactive labels are <code>--muted-foreground</code>; active labels are{' '}
-          <code>--foreground</code> under the 2px <code>--primary</code> bar.
+          <code>--foreground</code> under the 2px <code>--indicator</code> bar.
           Hover steps an inactive label to <code>--foreground</code> in CSS at{' '}
           <code>--motion-fast</code>, with no fill and no border change &mdash;
           a click moves the indicator immediately, so a press ring would fire
@@ -145,13 +145,13 @@ function TabsPage() {
         <p className="text-muted-foreground">
           Tabs shows focus with no ring &mdash; its own state indicator moves
           with focus instead. Under automatic activation, focus and selection
-          always coincide, so the moving 2px primary bar is the focus feedback;
-          under manual activation, the 1px ring bar is the only cue. Measured
-          with a real OKLCH-to-sRGB contrast check: the light inactive label is
-          4.73:1, the light active bar 6.44:1, and the light focus bar 4.58:1;
-          the dark inactive label is 7.63:1, the dark active bar 6.34:1, and the
-          dark focus bar 4.32:1 &mdash; every pair clears WCAG AA (4.5:1 text,
-          3:1 non-text) in both modes with no fallback needed.
+          always coincide, so the moving 2px indicator bar is the focus
+          feedback; under manual activation, the 1px ring bar is the only cue.
+          Measured with a real OKLCH-to-sRGB contrast check: the light inactive
+          label is 4.73:1, the light active bar 6.44:1, and the light focus bar
+          4.58:1; the dark inactive label is 7.63:1, the dark active bar 6.34:1,
+          and the dark focus bar 4.32:1 &mdash; every pair clears WCAG AA (4.5:1
+          text, 3:1 non-text) in both modes with no fallback needed.
         </p>
         <p className="text-muted-foreground">
           <strong className="text-foreground">

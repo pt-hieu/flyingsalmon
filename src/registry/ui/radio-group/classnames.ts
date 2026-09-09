@@ -13,7 +13,7 @@ export const radioGroupWrapperClassName = 'flex flex-col'
 export const radioGroupItemRowClassName = 'flex items-center gap-2'
 
 export const radioGroupDotClassName = cn(
-  'bg-primary-foreground size-2 rounded-full opacity-0',
+  'bg-indicator-foreground size-2 rounded-full opacity-0',
   'transition-opacity duration-(--motion-base)',
   'group-data-[state=checked]:opacity-100',
 )
@@ -50,9 +50,10 @@ export const radioGroupItemVariants = cva(
         ),
         false: cn(
           'border-input focus-visible:ring-ring',
-          'data-[state=checked]:border-primary data-[state=checked]:bg-primary',
-          'enabled:hover:data-[state=unchecked]:border-primary',
-          'enabled:hover:data-[state=checked]:border-indigo-300 enabled:hover:data-[state=checked]:bg-indigo-300',
+          'data-[state=checked]:border-indicator data-[state=checked]:bg-indicator',
+          'enabled:hover:data-[state=unchecked]:border-indicator',
+          'enabled:hover:data-[state=checked]:border-indigo-400 enabled:hover:data-[state=checked]:bg-indigo-400',
+          'dark:enabled:hover:data-[state=checked]:border-indigo-300 dark:enabled:hover:data-[state=checked]:bg-indigo-300',
         ),
       },
     },
