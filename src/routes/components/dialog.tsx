@@ -99,24 +99,6 @@ function DialogPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Exhibition mode</h2>
-        <p className="text-muted-foreground">
-          <code>exhibitionMode</code> renders the dialog inline, with no portal
-          and no focus trap, positioned inside its nearest <code>relative</code>{' '}
-          ancestor. It exists only so this docs page can show one open dialog
-          per color mode side by side.{' '}
-          <strong className="text-foreground">
-            It is never used in an app.
-          </strong>
-        </p>
-        <ModePreview>
-          <div className="relative h-96 w-full">
-            <TripDialog defaultOpen exhibitionMode />
-          </div>
-        </ModePreview>
-      </section>
-
-      <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Live example</h2>
         <p className="text-muted-foreground">
           Open the dialog to see the enter and exit motion, the focus trap, and
@@ -243,21 +225,14 @@ function TripDialog({
   open,
   defaultOpen,
   onOpenChange,
-  exhibitionMode,
 }: {
   children?: React.ReactElement
   open?: boolean
   defaultOpen?: boolean
   onOpenChange?: (open: boolean) => void
-  exhibitionMode?: boolean
 }) {
   return (
-    <Dialog
-      open={open}
-      defaultOpen={defaultOpen}
-      onOpenChange={onOpenChange}
-      exhibitionMode={exhibitionMode}
-    >
+    <Dialog open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
       {children ? <DialogTrigger>{children}</DialogTrigger> : null}
       <DialogContent>
         <DialogTitle>Plan a trip</DialogTitle>
