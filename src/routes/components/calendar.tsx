@@ -58,9 +58,9 @@ function CalendarPage() {
           <code>mode={'{CalendarMode.Range}'}</code> takes a{' '}
           <code>{'{ start, end }'}</code> pair and reports one back once, on
           commit, with <code>start</code> never after <code>end</code>. Picking
-          the end first normalizes. The endpoints fill primary and flatten the
-          edge that faces the band; the days between them carry a band that
-          starts and stops at the filled squares.{' '}
+          the end first normalizes. The endpoints fill <code>--indicator</code>{' '}
+          and flatten the edge that faces the band; the days between them carry
+          a band that starts and stops at the filled squares.{' '}
           <strong className="text-foreground">
             Two taps is the range path: one on the first day, one on the last.
           </strong>{' '}
@@ -142,8 +142,8 @@ function CalendarPage() {
           step and no ring, extending the borderless-item rule from ADR 0003 to
           a grid cell: an idle day steps to <code>--accent</code>, a day inside
           the band one shade deeper, and a filled endpoint to the step every
-          primary-filled surface uses. There is no press ring; the fill changing
-          under the pointer is the feedback.
+          indicator-filled surface uses. There is no press ring; the fill
+          changing under the pointer is the feedback.
         </p>
       </section>
 

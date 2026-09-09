@@ -26,9 +26,10 @@ function TablePage() {
         </h1>
         <p className="text-muted-foreground text-lg">
           A styled primitive for tabular data: plain table elements in seven
-          parts. Horizontal rules only, a primary header rule, left-aligned
-          column labels, and an interactive row whose single link stretches over
-          the whole row and turns the rules above and below it primary.
+          parts. Horizontal rules only, an indicator-colored header rule,
+          left-aligned column labels, and an interactive row whose single link
+          stretches over the whole row and turns the rules above and below it
+          the same color.
         </p>
       </header>
 
@@ -50,7 +51,7 @@ function TablePage() {
           <code>--border</code> line, including the last, so the table
           terminates on a rule; the header row draws a 1px{' '}
           <code>--table-header-border</code> line, which is{' '}
-          <code>--primary</code>; the footer draws none. There are no vertical
+          <code>--indicator</code>; the footer draws none. There are no vertical
           rules and no outer border &mdash; drop the table inside a{' '}
           <code>Card</code> if you want it boxed. Only an interactive row
           responds to hover, stepping its background to <code>--accent</code> at{' '}
@@ -90,8 +91,8 @@ function TablePage() {
         <p className="text-muted-foreground">
           Focus and press build on hover rather than replacing it. The row takes
           the same <code>--accent</code> background a pointer gives it, and the
-          line above it and the line below it both turn <code>--primary</code>,
-          in the same weight and color as the header rule. The first body row
+          line above it and the line below it both turn <code>--indicator</code>
+          , in the same weight and color as the header rule. The first body row
           borrows the header rule as its top line. The background is what tells
           you which row the two lines belong to, since the upper one is also the
           previous row&rsquo;s lower one; focus is the louder state because a

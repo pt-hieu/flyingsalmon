@@ -11,7 +11,7 @@ export const tabsTriggerClassName = cn(
 )
 
 export const tabsActiveIndicatorClassName =
-  'bg-primary absolute inset-x-0 -bottom-2 h-0.5 rounded-full'
+  'bg-indicator absolute inset-x-0 -bottom-2 h-0.5 rounded-full'
 
 export const tabsFocusIndicatorClassName =
   'bg-ring absolute inset-x-0 -bottom-2 h-px rounded-full'
