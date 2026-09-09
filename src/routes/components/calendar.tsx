@@ -58,8 +58,9 @@ function CalendarPage() {
           <code>mode={'{CalendarMode.Range}'}</code> takes a{' '}
           <code>{'{ start, end }'}</code> pair and reports one back once, on
           commit, with <code>start</code> never after <code>end</code>. Picking
-          the end first normalizes. The endpoints fill primary; the days between
-          them carry a band that starts and stops at the filled squares.{' '}
+          the end first normalizes. The endpoints fill primary and flatten the
+          edge that faces the band; the days between them carry a band that
+          starts and stops at the filled squares.{' '}
           <strong className="text-foreground">
             Two taps is the range path: one on the first day, one on the last.
           </strong>{' '}
@@ -155,10 +156,12 @@ function CalendarPage() {
           header, the buttons, and the height stay still, and nothing exits: the
           outgoing cells read the visible month from the library&rsquo;s
           context, so a copy held back for an exit would repaint onto the new
-          month. Selection, the band, hover, and focus recolor on CSS at{' '}
-          <code>--motion-fast</code>; the preview already moves cell by cell
-          with the pointer, so a spring per cell would only lag it. Calendar
-          carries no <code>motion</code> dependency.
+          month. Selection, the band, hover, and focus snap: the preview already
+          moves cell by cell with the pointer, and a fade behind it would only
+          lag. The one thing that moves inside a cell is an endpoint&rsquo;s
+          shape, its corners rounding or squaring and its flat edge sliding to
+          the cell edge at <code>--motion-fast</code> as the range grows or
+          shrinks. Calendar carries no <code>motion</code> dependency.
         </p>
       </section>
 
