@@ -307,7 +307,7 @@ function AccordionPage() {
           A boxed accordion is the consumer&rsquo;s call: wrap it in card
           content. Hover and keyboard focus paint the same pair at{' '}
           <code>--motion-fast</code>: the item&rsquo;s divider steps to{' '}
-          <code>--primary</code>, and so does the chevron. There is no
+          <code>--indicator</code>, and so does the chevron. There is no
           background step, no underline, and no ring in either state. The row
           draws no press ring either &mdash; it toggles on click and has nothing
           to hold, the same ground as a menu item.
@@ -344,9 +344,9 @@ function AccordionPage() {
           no <code>layout</code> prop, no open state of the component&rsquo;s
           own. The chevron rotates 180 degrees on <code>--motion-base</code>,
           select&rsquo;s rotation rule, with a color step to{' '}
-          <code>--primary</code> riding beside it at <code>--motion-fast</code>;
-          rotation and height share the 150ms, so the row and its panel come to
-          rest together.
+          <code>--indicator</code> riding beside it at{' '}
+          <code>--motion-fast</code>; rotation and height share the 150ms, so
+          the row and its panel come to rest together.
         </p>
       </section>
 
@@ -379,7 +379,7 @@ function AccordionPage() {
           ring without covering its neighbours, and an inset ring reads as a box
           around a row that has no box. So keyboard focus paints what hover
           paints: the item&rsquo;s divider and the row&rsquo;s chevron both step
-          to <code>--primary</code> (ADR 0003). The chevron is the half that
+          to <code>--indicator</code> (ADR 0003). The chevron is the half that
           stays inside the row when the panel is open and the divider sits below
           it. WCAG 2.4.7 asks for a visible focus indicator, not a ring &mdash;
           the same ground tabs stands on.

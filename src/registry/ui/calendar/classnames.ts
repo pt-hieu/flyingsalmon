@@ -102,7 +102,7 @@ export const calendarCellFillVariants = cva(
   {
     variants: {
       filled: {
-        true: 'bg-primary text-primary-foreground',
+        true: 'bg-indicator text-indicator-foreground',
         false: '',
       },
       interior: {
@@ -126,7 +126,7 @@ export const calendarCellFillVariants = cva(
       {
         filled: true,
         highlighted: true,
-        className: 'bg-indigo-300',
+        className: 'bg-indigo-400 dark:bg-indigo-300',
       },
       {
         filled: false,
@@ -156,8 +156,8 @@ export const calendarTodayDotVariants = cva(
   {
     variants: {
       filled: {
-        true: 'bg-primary-foreground',
-        false: 'bg-primary',
+        true: 'bg-indicator-foreground',
+        false: 'bg-indicator',
       },
     },
     defaultVariants: {
