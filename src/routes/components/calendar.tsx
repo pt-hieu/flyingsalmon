@@ -174,11 +174,19 @@ function CalendarPage() {
         </p>
         <p className="text-muted-foreground">
           Measured against this theme&rsquo;s palette with an OKLCH-to-sRGB
-          contrast check: numerals sit at 17.5:1 and 15.5:1 on the popover
-          surface in light and dark, muted weekday and unavailable text at
-          4.95:1 and 6.26:1, the numeral on a filled day at 5.75:1 in both
-          modes, and the today dot at 3.04:1 and 5.11:1 against the popover
-          surface. Every text pair clears WCAG AA, so no fallback step is taken.
+          contrast check, on the two hosts the calendar sits in. Numerals sit at
+          17.5:1 and 15.5:1 on <code>--popover</code> and 18.3:1 and 17.5:1 on{' '}
+          <code>--background</code>, light then dark. Muted weekday and
+          unavailable text sits at 4.95:1 and 6.26:1 on <code>--popover</code>{' '}
+          and 5.17:1 and 7.04:1 on <code>--background</code>. The numeral on a
+          filled day sits at 5.75:1 in both modes. A keyboard-focused
+          unavailable day takes the accent pair,{' '}
+          <code>--accent-foreground</code> on <code>--accent</code>, at 14.5:1
+          and 9.6:1, because muted text on that step would fall to 3.9:1 in
+          dark. The today dot sits at 3.04:1 and 5.11:1 on{' '}
+          <code>--popover</code> and 3.17:1 and 5.75:1 on{' '}
+          <code>--background</code>. Every text pair clears WCAG AA, so no
+          fallback step is taken.
         </p>
       </section>
     </article>

@@ -1,25 +1,24 @@
 import type { CalendarDate } from '@internationalized/date'
+import { useContext } from 'react'
 import { CalendarCell } from 'react-aria-components'
+
+import { cn } from '@/lib/utils'
 
 import {
   calendarCellFillVariants,
   calendarCellVariants,
   calendarTodayDotVariants,
 } from './classnames'
+import { CalendarAppearanceContext } from './context'
 import { describeDay } from './describe-day'
-import type { CalendarMode } from './types'
 
 export interface CalendarDayProps {
   date: CalendarDate
-  mode: CalendarMode
-  calendarDisabled: boolean
 }
 
-export function CalendarDay({
-  date,
-  mode,
-  calendarDisabled,
-}: CalendarDayProps) {
+export function CalendarDay({ date }: CalendarDayProps) {
+  const { mode, calendarDisabled } = useContext(CalendarAppearanceContext)
+
   return (
     <CalendarCell
       date={date}
@@ -27,19 +26,23 @@ export function CalendarDay({
         const {
           hidden,
           unavailable,
+          filled,
           interior,
           bandStart,
           bandEnd,
           highlighted,
         } = describeDay(cell, mode, calendarDisabled)
-        return calendarCellVariants({
-          hidden,
-          unavailable,
-          interior,
-          bandStart,
-          bandEnd,
-          highlighted,
-        })
+        return cn(
+          calendarCellVariants({
+            hidden,
+            unavailable,
+            filled,
+            interior,
+            bandStart,
+            bandEnd,
+            highlighted,
+          }),
+        )
       }}
     >
       {(cell) => {

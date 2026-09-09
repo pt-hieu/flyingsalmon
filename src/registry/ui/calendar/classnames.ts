@@ -1,8 +1,7 @@
 import { cva } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
-import { ButtonSize, ButtonVariant } from '@/registry/ui/button'
-import { buttonVariants } from '@/registry/ui/button/classnames'
+import { ButtonSize, ButtonVariant, buttonVariants } from '@/registry/ui/button'
 
 export const calendarRootClassName = cn(
   'text-foreground inline-flex gap-6',
@@ -37,11 +36,15 @@ export const calendarGridBodyClassName = cn(
   'data-[direction=backward]:animate-calendar-page-backward',
 )
 
+const bandTint = 'bg-indigo-100 dark:bg-indigo-950'
+
+const bandHoverTint = 'bg-indigo-200 dark:bg-indigo-900'
+
 export const calendarCellVariants = cva(
   cn(
     'relative flex size-9 cursor-pointer items-center justify-center text-sm outline-hidden select-none',
     'transition-colors duration-(--motion-fast)',
-    'before:absolute before:inset-y-0 before:hidden',
+    'before:absolute before:inset-y-0 before:hidden before:bg-indigo-100 dark:before:bg-indigo-950',
   ),
   {
     variants: {
@@ -53,16 +56,20 @@ export const calendarCellVariants = cva(
         true: 'text-muted-foreground cursor-not-allowed line-through',
         false: 'text-foreground',
       },
+      filled: {
+        true: '',
+        false: '',
+      },
       interior: {
-        true: 'bg-indigo-100 dark:bg-indigo-950',
+        true: bandTint,
         false: '',
       },
       bandStart: {
-        true: 'before:right-0 before:left-1/2 before:block before:bg-indigo-100 dark:before:bg-indigo-950',
+        true: 'before:right-0 before:left-1/2 before:block',
         false: '',
       },
       bandEnd: {
-        true: 'before:right-1/2 before:left-0 before:block before:bg-indigo-100 dark:before:bg-indigo-950',
+        true: 'before:right-1/2 before:left-0 before:block',
         false: '',
       },
       highlighted: {
@@ -73,18 +80,20 @@ export const calendarCellVariants = cva(
     compoundVariants: [
       {
         highlighted: true,
+        filled: false,
         interior: false,
-        className: 'bg-accent',
+        className: 'bg-accent text-accent-foreground',
       },
       {
         highlighted: true,
         interior: true,
-        className: 'bg-indigo-200 dark:bg-indigo-900',
+        className: bandHoverTint,
       },
     ],
     defaultVariants: {
       hidden: false,
       unavailable: false,
+      filled: false,
       interior: false,
       bandStart: false,
       bandEnd: false,

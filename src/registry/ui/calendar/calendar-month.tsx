@@ -20,7 +20,7 @@ import {
   calendarNavSpacerClassName,
   calendarWeekdayClassName,
 } from './classnames'
-import type { CalendarMode, CalendarPageDirection } from './types'
+import type { CalendarPageDirection } from './types'
 
 export interface CalendarMonthProps {
   monthIndex: number
@@ -28,8 +28,6 @@ export interface CalendarMonthProps {
   direction: CalendarPageDirection | undefined
   showsPrevious: boolean
   showsNext: boolean
-  mode: CalendarMode
-  calendarDisabled: boolean
 }
 
 export function CalendarMonth({
@@ -38,8 +36,6 @@ export function CalendarMonth({
   direction,
   showsPrevious,
   showsNext,
-  mode,
-  calendarDisabled,
 }: CalendarMonthProps) {
   const offset = { months: monthIndex }
 
@@ -84,13 +80,7 @@ export function CalendarMonth({
           data-direction={direction}
           className={calendarGridBodyClassName}
         >
-          {(date) => (
-            <CalendarDay
-              date={date}
-              mode={mode}
-              calendarDisabled={calendarDisabled}
-            />
-          )}
+          {(date) => <CalendarDay date={date} />}
         </CalendarGridBody>
       </CalendarGrid>
     </div>
