@@ -5,20 +5,13 @@ import {
 } from 'react-aria-components'
 
 import { CalendarMonth } from './calendar-month'
-import type { CalendarMode } from './types'
 import { usePageDirection } from './use-page-direction'
 
 export interface CalendarMonthsProps {
   months: number
-  mode: CalendarMode
-  calendarDisabled: boolean
 }
 
-export function CalendarMonths({
-  months,
-  mode,
-  calendarDisabled,
-}: CalendarMonthsProps) {
+export function CalendarMonths({ months }: CalendarMonthsProps) {
   const singleState = useContext(CalendarStateContext)
   const rangeState = useContext(RangeCalendarStateContext)
   const state = singleState ?? rangeState
@@ -39,8 +32,6 @@ export function CalendarMonths({
       direction={direction}
       showsPrevious={monthIndex === 0}
       showsNext={monthIndex === months - 1}
-      mode={mode}
-      calendarDisabled={calendarDisabled}
     />
   ))
 }

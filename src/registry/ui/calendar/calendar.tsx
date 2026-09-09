@@ -1,15 +1,22 @@
-import type { DateValue } from '@internationalized/date'
+import {
+  type CalendarDate,
+  type DateValue,
+  parseDate,
+} from '@internationalized/date'
 import {
   Calendar as AriaCalendar,
+  type CalendarProps as AriaCalendarProps,
   I18nProvider,
   RangeCalendar as AriaRangeCalendar,
+  type RangeCalendarProps as AriaRangeCalendarProps,
 } from 'react-aria-components'
 
 import { cn } from '@/lib/utils'
 
 import { CalendarMonths } from './calendar-months'
 import { calendarRootClassName } from './classnames'
-import { formatIsoDate, parseIsoDate } from './iso-date'
+import { CalendarAppearanceContext } from './context'
+import { formatIsoDate } from './format-iso-date'
 import { CalendarMode, type CalendarRange } from './types'
 
 interface CalendarBaseProps {
@@ -55,8 +62,8 @@ export function Calendar(props: CalendarProps) {
 
   const sharedProps = {
     'aria-label': ariaLabel,
-    minValue: min === undefined ? undefined : parseIsoDate(min),
-    maxValue: max === undefined ? undefined : parseIsoDate(max),
+    minValue: min === undefined ? undefined : parseDate(min),
+    maxValue: max === undefined ? undefined : parseDate(max),
     isDateUnavailable:
       isDateDisabled === undefined
         ? undefined
@@ -66,38 +73,39 @@ export function Calendar(props: CalendarProps) {
     autoFocus,
     visibleDuration: { months },
     weeksInMonth: 6,
-    selectionAlignment: 'start' as const,
+    selectionAlignment: 'start',
     className: cn(calendarRootClassName, className),
-  }
+  } satisfies Partial<AriaCalendarProps<CalendarDate>> &
+    Partial<AriaRangeCalendarProps<CalendarDate>>
 
   if (props.mode === CalendarMode.Range) {
     const { value, onChange } = props
     return (
       <I18nProvider locale={locale}>
-        <AriaRangeCalendar
-          {...sharedProps}
-          commitBehavior="reset"
-          value={
-            value === undefined || value === null
-              ? value
-              : {
-                  start: parseIsoDate(value.start),
-                  end: parseIsoDate(value.end),
-                }
-          }
-          onChange={(range) =>
-            onChange?.({
-              start: formatIsoDate(range.start),
-              end: formatIsoDate(range.end),
-            })
-          }
+        <CalendarAppearanceContext.Provider
+          value={{ mode: CalendarMode.Range, calendarDisabled: disabled }}
         >
-          <CalendarMonths
-            months={months}
-            mode={CalendarMode.Range}
-            calendarDisabled={disabled}
-          />
-        </AriaRangeCalendar>
+          <AriaRangeCalendar
+            {...sharedProps}
+            commitBehavior="reset"
+            value={
+              value === undefined || value === null
+                ? value
+                : {
+                    start: parseDate(value.start),
+                    end: parseDate(value.end),
+                  }
+            }
+            onChange={(range) =>
+              onChange?.({
+                start: formatIsoDate(range.start),
+                end: formatIsoDate(range.end),
+              })
+            }
+          >
+            <CalendarMonths months={months} />
+          </AriaRangeCalendar>
+        </CalendarAppearanceContext.Provider>
       </I18nProvider>
     )
   }
@@ -105,19 +113,19 @@ export function Calendar(props: CalendarProps) {
   const { value, onChange } = props
   return (
     <I18nProvider locale={locale}>
-      <AriaCalendar
-        {...sharedProps}
-        value={
-          value === undefined || value === null ? value : parseIsoDate(value)
-        }
-        onChange={(date) => onChange?.(formatIsoDate(date))}
+      <CalendarAppearanceContext.Provider
+        value={{ mode: CalendarMode.Single, calendarDisabled: disabled }}
       >
-        <CalendarMonths
-          months={months}
-          mode={CalendarMode.Single}
-          calendarDisabled={disabled}
-        />
-      </AriaCalendar>
+        <AriaCalendar
+          {...sharedProps}
+          value={
+            value === undefined || value === null ? value : parseDate(value)
+          }
+          onChange={(date) => onChange?.(formatIsoDate(date))}
+        >
+          <CalendarMonths months={months} />
+        </AriaCalendar>
+      </CalendarAppearanceContext.Provider>
     </I18nProvider>
   )
 }

@@ -23,3 +23,8 @@ export interface DayAppearance {
   highlighted: boolean
   today: boolean
 }
+
+export interface CalendarAppearance {
+  mode: CalendarMode
+  calendarDisabled: boolean
+}

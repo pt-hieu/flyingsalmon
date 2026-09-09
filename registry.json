@@ -1053,14 +1053,18 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/calendar/context.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/calendar/describe-day.ts",
           "type": "registry:ui"
         },
-        { "path": "src/registry/ui/calendar/index.ts", "type": "registry:ui" },
         {
-          "path": "src/registry/ui/calendar/iso-date.ts",
+          "path": "src/registry/ui/calendar/format-iso-date.ts",
           "type": "registry:ui"
         },
+        { "path": "src/registry/ui/calendar/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/calendar/types.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/calendar/use-page-direction.ts",
