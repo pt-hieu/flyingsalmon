@@ -1024,7 +1024,74 @@
       "type": "registry:ui",
       "title": "Calendar",
       "description": "A month grid for picking a single date or a range. It draws the days and owns selection; the trigger, the panel, and the field wiring belong to date-picker.",
-      "dependencies": []
+      "dependencies": [
+        "react-aria-components",
+        "@internationalized/date",
+        "class-variance-authority",
+        "lucide-react"
+      ],
+      "registryDependencies": ["@flyingsalmon/button"],
+      "files": [
+        {
+          "path": "src/registry/ui/calendar/calendar-day.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/calendar/calendar-month.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/calendar/calendar-months.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/calendar/calendar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/calendar/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/calendar/context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/calendar/describe-day.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/calendar/format-iso-date.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/calendar/index.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/calendar/types.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/calendar/use-page-direction.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "animate-calendar-page-forward": "calendar-page-forward 150ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
+          "animate-calendar-page-backward": "calendar-page-backward 150ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
+          "animate-calendar-heading-enter": "calendar-heading-enter 100ms linear"
+        }
+      },
+      "css": {
+        "@keyframes calendar-page-forward": {
+          "from": { "opacity": "0", "transform": "translateX(16px)" },
+          "to": { "opacity": "1", "transform": "translateX(0)" }
+        },
+        "@keyframes calendar-page-backward": {
+          "from": { "opacity": "0", "transform": "translateX(-16px)" },
+          "to": { "opacity": "1", "transform": "translateX(0)" }
+        },
+        "@keyframes calendar-heading-enter": {
+          "from": { "opacity": "0" },
+          "to": { "opacity": "1" }
+        }
+      }
     },
     {
       "name": "date-picker",
