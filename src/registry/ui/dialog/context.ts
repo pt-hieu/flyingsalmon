@@ -6,5 +6,4 @@ export const DialogContext = createContext<DialogContextValue>({
   size: DialogSize.Default,
   dismissible: true,
   pending: false,
-  exhibitionMode: false,
 })

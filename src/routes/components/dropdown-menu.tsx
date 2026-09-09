@@ -131,45 +131,40 @@ function DropdownMenuPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Exhibition mode</h2>
+        <h2 className="font-heading text-2xl font-bold">Icons and shortcuts</h2>
         <p className="text-muted-foreground">
-          <code>exhibitionMode</code> renders the menu inline for this docs
-          page, with Radix <code>modal</code> off — no scroll lock, no
-          outside-pointer block — while Radix's own positioning stays on, so the
-          panel still sits under its trigger.{' '}
-          <strong className="text-foreground">
-            It is never used in an app.
-          </strong>
+          Every item in this menu carries an <code>icon</code>, so the labels
+          line up past a shared slot, and Rename shows a{' '}
+          <code>DropdownMenuShortcut</code> pushed to the trailing edge. Open
+          the trigger to see them.
         </p>
         <ModePreview>
-          <div className="relative h-64 w-full">
-            <DropdownMenu defaultOpen exhibitionMode>
-              <DropdownMenuTrigger>
-                <Button
-                  variant={ButtonVariant.Ghost}
-                  size={ButtonSize.IconSmall}
-                  aria-label="Trip actions"
-                >
-                  <Ellipsis />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align={DropdownMenuAlign.Start}>
-                <DropdownMenuLabel>Weekend in Kyoto</DropdownMenuLabel>
-                <DropdownMenuItem icon={<Pencil />}>
-                  Rename
-                  <DropdownMenuShortcut>⌘R</DropdownMenuShortcut>
-                </DropdownMenuItem>
-                <DropdownMenuItem icon={<Copy />}>Duplicate</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  icon={<Trash2 />}
-                  variant={DropdownMenuItemVariant.Destructive}
-                >
-                  Delete trip
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Button
+                variant={ButtonVariant.Ghost}
+                size={ButtonSize.IconSmall}
+                aria-label="Trip actions"
+              >
+                <Ellipsis />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align={DropdownMenuAlign.Start}>
+              <DropdownMenuLabel>Weekend in Kyoto</DropdownMenuLabel>
+              <DropdownMenuItem icon={<Pencil />}>
+                Rename
+                <DropdownMenuShortcut>⌘R</DropdownMenuShortcut>
+              </DropdownMenuItem>
+              <DropdownMenuItem icon={<Copy />}>Duplicate</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                icon={<Trash2 />}
+                variant={DropdownMenuItemVariant.Destructive}
+              >
+                Delete trip
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </ModePreview>
       </section>
 

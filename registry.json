@@ -636,10 +636,6 @@
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/dropdown-menu/context.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/dropdown-menu/dropdown-menu-content.tsx",
           "type": "registry:ui"
         },

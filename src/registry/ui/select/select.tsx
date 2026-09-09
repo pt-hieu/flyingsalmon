@@ -36,7 +36,6 @@ export interface SelectProps extends Omit<
   'aria-describedby'?: string
   side?: SelectPanelSide
   align?: SelectPanelAlign
-  exhibitionMode?: boolean
   className?: string
   children?: React.ReactNode
 }
@@ -60,7 +59,6 @@ export function Select({
   onOpenChange,
   side = SelectPanelSide.Bottom,
   align = SelectPanelAlign.Center,
-  exhibitionMode = false,
   className,
   children,
   ...props
@@ -79,12 +77,6 @@ export function Select({
       event.preventDefault()
     }
   }
-
-  const panel = (
-    <SelectPanel side={side} align={align}>
-      {children}
-    </SelectPanel>
-  )
 
   return (
     <div className={cn(selectWrapperClassName, className)}>
@@ -145,11 +137,11 @@ export function Select({
           </span>
         </SelectPrimitive.Trigger>
 
-        {exhibitionMode ? (
-          panel
-        ) : (
-          <SelectPrimitive.Portal>{panel}</SelectPrimitive.Portal>
-        )}
+        <SelectPrimitive.Portal>
+          <SelectPanel side={side} align={align}>
+            {children}
+          </SelectPanel>
+        </SelectPrimitive.Portal>
       </SelectPrimitive.Root>
 
       <FieldErrorMessage id={errorMessageId}>{error}</FieldErrorMessage>

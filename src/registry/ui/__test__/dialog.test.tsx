@@ -227,33 +227,4 @@ describe('Dialog', () => {
 
     await waitFor(() => expect(onOpenChange).toHaveBeenCalledWith(false))
   })
-
-  it('keeps exhibitionMode content inside the render container with no focus trap', async () => {
-    render(
-      <div>
-        <div style={{ position: 'relative' }}>
-          <Dialog defaultOpen exhibitionMode>
-            <DialogContent>
-              <DialogTitle>Exhibit</DialogTitle>
-              <DialogBody>
-                <input aria-label="Only field" />
-              </DialogBody>
-            </DialogContent>
-          </Dialog>
-        </div>
-        <button type="button">Outside the exhibit</button>
-      </div>,
-    )
-
-    const dialog = await screen.findByRole('dialog')
-    const container = dialog.closest('div[style]')
-    expect(container).toContainElement(dialog)
-
-    const outsideButton = screen.getByRole('button', {
-      name: 'Outside the exhibit',
-    })
-    outsideButton.focus()
-
-    expect(outsideButton).toHaveFocus()
-  })
 })

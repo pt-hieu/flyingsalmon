@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 import { Tooltip, TooltipProvider } from '@/registry/ui/tooltip'
 
 const tooltipWithText = (text: string) =>
-  screen.getAllByRole('tooltip').find((node) => node.textContent === text)
+  screen.queryAllByRole('tooltip').find((node) => node.textContent === text)
 
 const waitPastTheSkipWindow = () =>
   new Promise((resolve) => setTimeout(resolve, 1200))
@@ -85,28 +85,10 @@ describe('Tooltip', () => {
     expect(trigger).toHaveAttribute('aria-describedby', tooltip.id)
   })
 
-  it('renders inline with no portal and forces open under exhibitionMode', () => {
-    const { container } = render(
-      <TooltipProvider>
-        <Tooltip content="Add to favorites" exhibitionMode>
-          <button type="button">Star</button>
-        </Tooltip>
-      </TooltipProvider>,
-    )
-
-    const tooltip = screen.getByRole('tooltip')
-
-    expect(tooltip).toHaveTextContent('Add to favorites')
-    expect(container).toContainElement(tooltip)
-  })
-
-  it('keeps the app-wide skip window intact when an exhibited tooltip is on the page', async () => {
+  it('opens the next tooltip instantly inside the shared skip window', async () => {
     const user = userEvent.setup()
     render(
       <TooltipProvider>
-        <Tooltip content="Delete this project" exhibitionMode>
-          <button type="button">Delete</button>
-        </Tooltip>
         <Tooltip content="Add item">
           <button type="button">Add</button>
         </Tooltip>
