@@ -85,8 +85,8 @@ A field-family prop saying the field must hold a value. The control blocks the a
 _Avoid_: mandatory, non-optional, must-fill
 
 **Gated**:
-A variant of an action control (button, toggle-group item) that says the action becomes available after a step the label names, such as signing in. A gated control is fully enabled: it takes focus and activating it starts that step. It is never disabled and never explained by tooltip. The registry has no gated field; an app that wants a sign-up prompt beside a field places a gated button itself. Its solid fill is `--gated`, a functional alias on the amber ramp (ADR 0004).
-_Avoid_: locked, premium, upsell, upgrade
+hottrip's term, not the registry's. The registry ships no gated concept, rule, or token; the button ships `ButtonVariant.Amber`, a colour-only variant the app assigns meaning to.
+_Avoid_: gated, locked, premium, upsell, upgrade
 
 **Spec checklist**:
 The fixed sections every component spec fills: purpose, variants, sizes, states, keyboard path, contrast, micro animation.

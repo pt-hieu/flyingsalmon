@@ -20,7 +20,7 @@ Opacity modifiers (`ring-ring/50`, `oklch(1 0 0 / 10%)`) manufacture colors that
 - The focus ring in specs #3–#7 (`ring-ring/50`) became solid indigo-500 in both modes, measured ≥ 3.9:1 against background and card everywhere; correction comments posted on each issue. The button press ring (#3, "at higher opacity") became the `--primary` step per mode, written `ring-primary`.
 - Those correction comments also restated the ring as 3px. The width was never this ADR's to set, and 3px holds only for the offset rings in #3, #6, and #7. The field ring in #4 and #5 ships 2px with no offset and is correct as shipped (#33). ADR 0003 owns the two widths.
 - The status trio ships as tint pairs: `--success` green-100/green-800, `--warning` amber-100/amber-800, `--error` red-100/red-700 in light; step 950 backgrounds with step 300 text in dark. Error no longer reuses `--destructive` (correction on #8) — a tint cannot be derived from a solid without alpha.
-- The gated variant (#117) takes `--gated` / `--gated-foreground`, a solid alias on the amber ramp with one step per mode, structured like `--destructive`. Amber was already a functional ramp through `--warning`, so this adds an alias, not a hue.
+- Button's amber variant (#131) is a palette consumer like avatar: amber-400 fill with neutral-950 text in both modes, hover amber-300, referenced directly with no functional alias.
 - Off-palette values snap to the nearest step, never keep exceptions: `--accent` snapped to indigo-50 light / indigo-950 dark.
 - `src/styles.css` (`outline-ring/50`) and the docs chrome (site header translucency, theme toggle ring) drop their alpha.
 
