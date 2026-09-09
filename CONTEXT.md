@@ -84,10 +84,6 @@ _Avoid_: chip group, segmented, choice chips, pill selector
 A field-family prop saying the field must hold a value. The control blocks the action that would empty it, sets `aria-required` where its role allows, and the `field` registry item renders a visible marker in the label. Reaching a value from an initial empty is the user's action; a submit while still empty is the app's validation error through `error`. Toggle-group set the meaning; later fields copy it.
 _Avoid_: mandatory, non-optional, must-fill
 
-**Gated**:
-hottrip's term, not the registry's. The registry ships no gated concept, rule, or token; the button ships `ButtonVariant.Amber`, a colour-only variant the app assigns meaning to.
-_Avoid_: gated, locked, premium, upsell, upgrade
-
 **Spec checklist**:
 The fixed sections every component spec fills: purpose, variants, sizes, states, keyboard path, contrast, micro animation.
 _Avoid_: template, rubric
