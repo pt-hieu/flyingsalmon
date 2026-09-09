@@ -10,19 +10,17 @@ export interface DialogProps extends Omit<
   size?: DialogSize
   dismissible?: boolean
   pending?: boolean
-  exhibitionMode?: boolean
 }
 
 export function Dialog({
   size = DialogSize.Default,
   dismissible = true,
   pending = false,
-  exhibitionMode = false,
   ...props
 }: DialogProps) {
   return (
-    <DialogContext value={{ size, dismissible, pending, exhibitionMode }}>
-      <DialogPrimitive.Root modal={!exhibitionMode} {...props} />
+    <DialogContext value={{ size, dismissible, pending }}>
+      <DialogPrimitive.Root modal {...props} />
     </DialogContext>
   )
 }

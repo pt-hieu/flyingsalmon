@@ -5,17 +5,9 @@ import { verticalFocusRingClearance } from '@/registry/lib/interaction'
 
 import { DialogSize } from './types'
 
-const dialogScrimClassName = 'inset-0 z-50 bg-neutral-950 opacity-50'
-
-export const dialogExhibitionScrimClassName = cn(
-  'absolute',
-  dialogScrimClassName,
-)
-
 export const dialogOverlayVariants = cva(
   cn(
-    'fixed',
-    dialogScrimClassName,
+    'fixed inset-0 z-50 bg-neutral-950 opacity-50',
     'data-[state=open]:animate-floating-overlay-enter',
     'data-[state=closed]:animate-floating-overlay-exit',
   ),
@@ -32,7 +24,7 @@ export const dialogCloseSlotVariants = cva(
 
 export const dialogContentVariants = cva(
   cn(
-    'bg-popover text-popover-foreground border-border z-50 flex w-[calc(100%-2rem)] flex-col gap-4',
+    'bg-popover text-popover-foreground border-border fixed inset-0 z-50 m-auto flex h-fit w-[calc(100%-2rem)] flex-col gap-4',
     'max-h-[calc(100dvh-2rem)] overflow-hidden rounded-xl border outline-hidden',
     'data-[state=open]:animate-floating-dialog-enter',
     'data-[state=closed]:animate-floating-dialog-exit',
@@ -43,14 +35,9 @@ export const dialogContentVariants = cva(
         [DialogSize.Default]: 'max-w-md',
         [DialogSize.Large]: 'max-w-2xl',
       },
-      exhibitionMode: {
-        true: 'absolute inset-0 m-auto h-fit',
-        false: 'fixed inset-0 m-auto h-fit',
-      },
     },
     defaultVariants: {
       size: DialogSize.Default,
-      exhibitionMode: false,
     },
   },
 )

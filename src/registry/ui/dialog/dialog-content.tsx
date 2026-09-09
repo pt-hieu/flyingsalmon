@@ -8,7 +8,6 @@ import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import {
   dialogCloseSlotVariants,
   dialogContentVariants,
-  dialogExhibitionScrimClassName,
   dialogOverlayVariants,
 } from './classnames'
 import { DialogContext } from './context'
@@ -23,53 +22,41 @@ export function DialogContent({
   children,
   ...props
 }: DialogContentProps) {
-  const { size, dismissible, pending, exhibitionMode } = use(DialogContext)
-
-  const content = (
-    <DialogPrimitive.Content
-      aria-busy={pending || undefined}
-      onEscapeKeyDown={(event) => {
-        if (pending) event.preventDefault()
-      }}
-      onPointerDownOutside={(event) => {
-        if (pending || !dismissible) event.preventDefault()
-      }}
-      onInteractOutside={(event) => {
-        if (pending || !dismissible) event.preventDefault()
-      }}
-      className={cn(dialogContentVariants({ size, exhibitionMode }), className)}
-      {...props}
-    >
-      {children}
-
-      <div className={dialogCloseSlotVariants()}>
-        <DialogPrimitive.Close asChild>
-          <Button
-            variant={ButtonVariant.Ghost}
-            size={ButtonSize.IconSmall}
-            aria-label="Close"
-            disabled={pending}
-          >
-            <X />
-          </Button>
-        </DialogPrimitive.Close>
-      </div>
-    </DialogPrimitive.Content>
-  )
-
-  if (exhibitionMode) {
-    return (
-      <>
-        <div aria-hidden className={dialogExhibitionScrimClassName} />
-        {content}
-      </>
-    )
-  }
+  const { size, dismissible, pending } = use(DialogContext)
 
   return (
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay className={dialogOverlayVariants()} />
-      {content}
+
+      <DialogPrimitive.Content
+        aria-busy={pending || undefined}
+        onEscapeKeyDown={(event) => {
+          if (pending) event.preventDefault()
+        }}
+        onPointerDownOutside={(event) => {
+          if (pending || !dismissible) event.preventDefault()
+        }}
+        onInteractOutside={(event) => {
+          if (pending || !dismissible) event.preventDefault()
+        }}
+        className={cn(dialogContentVariants({ size }), className)}
+        {...props}
+      >
+        {children}
+
+        <div className={dialogCloseSlotVariants()}>
+          <DialogPrimitive.Close asChild>
+            <Button
+              variant={ButtonVariant.Ghost}
+              size={ButtonSize.IconSmall}
+              aria-label="Close"
+              disabled={pending}
+            >
+              <X />
+            </Button>
+          </DialogPrimitive.Close>
+        </div>
+      </DialogPrimitive.Content>
     </DialogPrimitive.Portal>
   )
 }

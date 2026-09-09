@@ -87,10 +87,8 @@ function SelectPage() {
           <code>SelectSeparator</code>. The checked item shows a{' '}
           <code>text-primary</code> check in a reserved trailing icon slot, so
           every item label starts at the same left edge; a disabled item stays
-          in the list, dimmed, so its position never shifts. Open a trigger
-          below to see all of it — each one takes <code>exhibitionMode</code>,
-          which renders the panel inline with no portal so it picks up its own
-          pane's color mode. It exists for this docs page only.
+          in the list, dimmed, so its position never shifts. Open the trigger
+          below to see all of it.
         </p>
         <ModePreview>
           <Select
@@ -98,7 +96,6 @@ function SelectPage() {
             label="Destination"
             placeholder="Choose a destination"
             defaultValue="paris"
-            exhibitionMode
           >
             <SelectGroup>
               <SelectLabel>Popular</SelectLabel>
