@@ -67,12 +67,11 @@ function SidebarPage() {
             One <code>collapsed</code> boolean and one 700px threshold resolve
             all three layouts.
           </strong>{' '}
-          Expanded is the full column, rail is the icon column a collapse
-          produces, and strip is forced under the threshold whatever{' '}
-          <code>collapsed</code> says. CSS paints the three;{' '}
-          <code>useSidebar().layout</code> reports which one is live so a
-          consumer&apos;s header, footer, or rail content can follow without
-          re-deriving the query. The observer reads{' '}
+          Expanded is the full column, collapsed is the icon rail, and strip is
+          forced under the threshold whatever <code>collapsed</code> says. CSS
+          paints the three; <code>useSidebar().layout</code> reports which one
+          is live so a consumer&apos;s header, footer, or rail content can
+          follow without re-deriving the query. The observer reads{' '}
           <code>sidebarStripThreshold</code>; the container query spells the
           same number as <code>@min-[700px]:</code>, because Tailwind scans
           class names as literals and cannot read a JavaScript constant.
@@ -160,9 +159,9 @@ function SidebarPage() {
         <h2 className="font-heading text-2xl font-bold">Widths and tokens</h2>
         <p className="text-muted-foreground">
           <code>--sidebar-width</code> is 18.125rem and{' '}
-          <code>--sidebar-width-rail</code> is 3.5rem, both set on the root and
-          overridable through <code>className</code> rather than through props.
-          The component adds no tokens of its own: it paints{' '}
+          <code>--sidebar-width-collapsed</code> is 3.5rem, both set on the root
+          and overridable through <code>className</code> rather than through
+          props. The component adds no tokens of its own: it paints{' '}
           <code>--background</code>, <code>--border</code>,{' '}
           <code>--accent</code>, <code>--indicator</code>, and{' '}
           <code>--ring</code>.{' '}
@@ -294,7 +293,7 @@ function TripHeader() {
       <SidebarTrigger>
         <PanelLeft />
       </SidebarTrigger>
-      {layout === SidebarLayout.Rail ? null : (
+      {layout === SidebarLayout.Collapsed ? null : (
         <span className="font-heading truncate text-base font-bold">
           Lisbon, 6 days
         </span>
@@ -309,7 +308,7 @@ function TripFooter() {
   return (
     <SidebarFooter>
       <TravellerMenu />
-      {layout === SidebarLayout.Rail ? null : <ThemeToggle />}
+      {layout === SidebarLayout.Collapsed ? null : <ThemeToggle />}
     </SidebarFooter>
   )
 }

@@ -83,7 +83,7 @@ export function SidebarItem({
 
   // The registry tooltip renders text only, so a non-string label keeps its
   // own visible text in the rail instead of gaining a tooltip.
-  if (layout === SidebarLayout.Rail && typeof label === 'string') {
+  if (layout === SidebarLayout.Collapsed && typeof label === 'string') {
     return (
       <Tooltip content={label} side={TooltipSide.Right}>
         {item}

@@ -61,7 +61,9 @@ export function SidebarProvider({
   const belowStripThreshold =
     containerWidth !== null && containerWidth < sidebarStripThreshold
 
-  const wideLayout = collapsed ? SidebarLayout.Rail : SidebarLayout.Expanded
+  const wideLayout = collapsed
+    ? SidebarLayout.Collapsed
+    : SidebarLayout.Expanded
 
   const layout = belowStripThreshold ? SidebarLayout.Strip : wideLayout
 
