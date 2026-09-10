@@ -29,7 +29,7 @@ export const buttonVariants = cva(
         [ButtonVariant.Destructive]:
           'bg-error text-error-foreground ring-destructive hover:bg-red-200 hover:text-red-800 dark:hover:bg-red-900 dark:hover:text-red-200',
         [ButtonVariant.Amber]:
-          'bg-amber-400 text-neutral-950 ring-ring hover:bg-amber-300',
+          'bg-amber-400 text-neutral-950 ring-ring active:ring-amber-400 hover:bg-amber-300',
       },
       size: {
         [ButtonSize.Default]: 'h-9 gap-2 px-4 text-sm',
