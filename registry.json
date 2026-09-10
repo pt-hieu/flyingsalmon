@@ -1093,12 +1093,99 @@
       "name": "combobox",
       "type": "registry:ui",
       "title": "Combobox",
-      "description": "A text field that filters a list in a panel and commits one choice. It owns its label and error like the rest of the field family; the app owns the items.",
-      "dependencies": [],
+      "description": "A text field that opens a panel of the items the app supplies for the current text, taking one value or several as chips, with typed text allowed as a value. It owns its label and error like the rest of the field family; it never filters, fetches, or debounces.",
+      "dependencies": [
+        "downshift",
+        "radix-ui",
+        "motion",
+        "class-variance-authority",
+        "lucide-react"
+      ],
       "registryDependencies": [
         "@flyingsalmon/field",
         "@flyingsalmon/floating",
-        "@flyingsalmon/menu"
+        "@flyingsalmon/menu",
+        "@flyingsalmon/interaction",
+        "@flyingsalmon/spinner",
+        "@flyingsalmon/badge"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/combobox/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/combobox-chip.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/combobox-empty.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/combobox-group.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/combobox-item.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/combobox-label.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/combobox-panel.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/combobox-separator.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/combobox-state-reducer.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/combobox.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/spinner-size-by-combobox-size.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/split-panel-children.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/to-selected-values.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/types.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/use-combobox-item-registry.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/use-combobox-shared-state.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/use-highlight-on-arrow-open.ts",
+          "type": "registry:ui"
+        }
       ]
     },
     {
