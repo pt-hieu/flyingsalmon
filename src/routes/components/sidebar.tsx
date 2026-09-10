@@ -51,18 +51,17 @@ function SidebarPage() {
         <p className="text-muted-foreground text-lg">
           An <code>aside</code> with header, content, and footer slots that
           morphs between an expanded column and an icon rail, and becomes one
-          sticky horizontal strip under a 700px container. The app&apos;s top
-          bar and its sidebar are the same component.
+          sticky horizontal strip under a 700px viewport. The app&apos;s top bar
+          and its sidebar are the same component.
         </p>
       </header>
 
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Three layouts</h2>
         <p className="text-muted-foreground">
-          <code>SidebarProvider</code> is the container. It holds the collapsed
-          state, declares the <code>@container</code> the layout is measured
-          against, and watches that same element with a{' '}
-          <code>ResizeObserver</code>.{' '}
+          <code>SidebarProvider</code> holds the collapsed state and matches the
+          same 700px media query the class names use, through{' '}
+          <code>matchMedia</code>.{' '}
           <strong className="text-foreground">
             One <code>collapsed</code> boolean and one 700px threshold resolve
             all three layouts.
@@ -71,10 +70,12 @@ function SidebarPage() {
           forced under the threshold whatever <code>collapsed</code> says. CSS
           paints the three; <code>useSidebar().layout</code> reports which one
           is live so a consumer&apos;s header, footer, or rail content can
-          follow without re-deriving the query. The observer reads{' '}
-          <code>sidebarStripThreshold</code>; the container query spells the
-          same number as <code>@min-[700px]:</code>, because Tailwind scans
-          class names as literals and cannot read a JavaScript constant.
+          follow without re-deriving the query. <code>matchMedia</code> reads{' '}
+          <code>sidebarStripThreshold</code>; the class names spell the same
+          number as <code>min-[700px]:</code>, because Tailwind scans class
+          names as literals and cannot read a JavaScript constant. The server
+          has no viewport, so <code>layout</code> resolves at hydration and the
+          aside leaves its width to CSS until it does.
         </p>
       </section>
 
@@ -101,9 +102,7 @@ function SidebarPage() {
           rail instead.
         </p>
         <ModePreview stacked>
-          <div className="w-full overflow-x-auto">
-            <AppNavExample />
-          </div>
+          <AppNavExample />
         </ModePreview>
       </section>
 
@@ -118,15 +117,10 @@ function SidebarPage() {
           <strong className="text-foreground">
             That is the whole of the app&apos;s top bar
           </strong>{' '}
-          — the registry ships no separate header component (#128). The preview
-          below is 420px wide, so the same markup as the app nav demo renders as
-          the strip.
+          — the registry ships no separate header component (#128). Narrow the
+          window below 700px and the demo above becomes this, with no change to
+          its markup.
         </p>
-        <ModePreview stacked>
-          <div className="w-full">
-            <StripExample />
-          </div>
-        </ModePreview>
       </section>
 
       <section className="space-y-4">
@@ -334,11 +328,5 @@ function TripShell({ containerClassName }: { containerClassName: string }) {
 }
 
 function AppNavExample() {
-  return <TripShell containerClassName="h-96 min-w-[760px]" />
-}
-
-function StripExample() {
-  return (
-    <TripShell containerClassName="border-border h-96 max-w-[420px] border" />
-  )
+  return <TripShell containerClassName="h-96" />
 }

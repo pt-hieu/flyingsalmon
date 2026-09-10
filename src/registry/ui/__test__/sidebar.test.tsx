@@ -16,23 +16,20 @@ import {
   useSidebar,
 } from '@/registry/ui/sidebar'
 
-const originalResizeObserver = globalThis.ResizeObserver
+/**
+ * jsdom evaluates no media queries, so the viewport width is the test's to
+ * state and the stub answers the sidebar's own query against it.
+ */
+function reportViewportWidth(width: number) {
+  vi.stubGlobal('matchMedia', (query: string) => {
+    const [, breakpoint] = query.match(/min-width:\s*(\d+)px/) ?? []
 
-function reportContainerWidth(width: number) {
-  globalThis.ResizeObserver = class WidthReportingResizeObserver implements ResizeObserver {
-    constructor(private readonly report: ResizeObserverCallback) {}
-
-    observe(target: Element) {
-      this.report(
-        [{ target, contentRect: { width } } as unknown as ResizeObserverEntry],
-        this,
-      )
+    return {
+      matches: width >= Number(breakpoint),
+      addEventListener() {},
+      removeEventListener() {},
     }
-
-    unobserve() {}
-
-    disconnect() {}
-  }
+  })
 }
 
 function LayoutReadout() {
@@ -126,13 +123,13 @@ const activeIndicatorOf = (item: HTMLElement) =>
 
 describe('Sidebar', () => {
   beforeEach(() => {
-    reportContainerWidth(1200)
+    reportViewportWidth(1200)
   })
 
   afterEach(() => {
     vi.restoreAllMocks()
+    vi.unstubAllGlobals()
     delete (HTMLElement.prototype as Partial<HTMLElement>).scrollTop
-    globalThis.ResizeObserver = originalResizeObserver
   })
 
   it('collapses and expands itself when uncontrolled', async () => {
@@ -185,7 +182,7 @@ describe('Sidebar', () => {
   })
 
   it('reports the strip layout below the threshold however it is collapsed', () => {
-    reportContainerWidth(699)
+    reportViewportWidth(699)
     render(<TripSidebar defaultCollapsed />)
 
     expect(screen.getByText('Layout is strip')).toBeInTheDocument()
@@ -244,7 +241,7 @@ describe('Sidebar', () => {
   })
 
   it('renders header and footer content in the strip', () => {
-    reportContainerWidth(420)
+    reportViewportWidth(420)
     render(<TripSidebar />)
 
     expect(screen.getByText('Layout is strip')).toBeInTheDocument()

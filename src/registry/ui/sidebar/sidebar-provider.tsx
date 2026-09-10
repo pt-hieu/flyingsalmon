@@ -1,13 +1,32 @@
 import { LayoutGroup } from 'motion/react'
-import { useEffect, useId, useRef, useState } from 'react'
+import { useId, useState, useSyncExternalStore } from 'react'
 
 import { cn } from '@/lib/utils'
 import { TooltipProvider } from '@/registry/ui/tooltip'
 
-import { sidebarProviderClassName, sidebarShellClassName } from './classnames'
+import { sidebarShellClassName } from './classnames'
 import { SidebarContext } from './context'
-import { sidebarStripThreshold } from './sidebar-strip-threshold'
+import { sidebarWideViewportQuery } from './sidebar-strip-threshold'
 import { SidebarLayout } from './types'
+
+function subscribeToWideViewport(onChange: () => void) {
+  const query = window.matchMedia(sidebarWideViewportQuery)
+  query.addEventListener('change', onChange)
+
+  return () => query.removeEventListener('change', onChange)
+}
+
+function readWideViewport() {
+  return window.matchMedia(sidebarWideViewportQuery).matches
+}
+
+/**
+ * The server has no viewport, so the layout is unknown until hydration and the
+ * sidebar leaves its width to CSS in the meantime.
+ */
+function readWideViewportOnServer() {
+  return null
+}
 
 export interface SidebarProviderProps extends React.ComponentProps<'div'> {
   collapsed?: boolean
@@ -25,26 +44,15 @@ export function SidebarProvider({
 }: SidebarProviderProps) {
   const layoutGroupId = useId()
   const sidebarId = useId()
-  const containerRef = useRef<HTMLDivElement>(null)
 
   const [uncontrolledCollapsed, setUncontrolledCollapsed] =
     useState(defaultCollapsed)
-  const [containerWidth, setContainerWidth] = useState<number | null>(null)
 
-  useEffect(() => {
-    const container = containerRef.current
-
-    if (!container) {
-      return
-    }
-
-    const observer = new ResizeObserver(([entry]) => {
-      setContainerWidth(entry.contentRect.width)
-    })
-    observer.observe(container)
-
-    return () => observer.disconnect()
-  }, [])
+  const wideViewport = useSyncExternalStore(
+    subscribeToWideViewport,
+    readWideViewport,
+    readWideViewportOnServer,
+  )
 
   const collapsed = collapsedProp ?? uncontrolledCollapsed
 
@@ -56,16 +64,13 @@ export function SidebarProvider({
     onCollapsedChange?.(nextCollapsed)
   }
 
-  const measured = containerWidth !== null
-
-  const belowStripThreshold =
-    containerWidth !== null && containerWidth < sidebarStripThreshold
+  const measured = wideViewport !== null
 
   const wideLayout = collapsed
     ? SidebarLayout.Collapsed
     : SidebarLayout.Expanded
 
-  const layout = belowStripThreshold ? SidebarLayout.Strip : wideLayout
+  const layout = wideViewport === false ? SidebarLayout.Strip : wideLayout
 
   return (
     <SidebarContext.Provider
@@ -73,12 +78,8 @@ export function SidebarProvider({
     >
       <TooltipProvider>
         <LayoutGroup id={layoutGroupId}>
-          <div
-            ref={containerRef}
-            className={cn(sidebarProviderClassName, className)}
-            {...props}
-          >
-            <div className={sidebarShellClassName}>{children}</div>
+          <div className={cn(sidebarShellClassName, className)} {...props}>
+            {children}
           </div>
         </LayoutGroup>
       </TooltipProvider>
