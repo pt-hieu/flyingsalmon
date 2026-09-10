@@ -147,9 +147,8 @@ function ProgressPage() {
           Two tokens: <code>--progress-track</code> for the groove and{' '}
           <code>--progress-fill</code>, which aliases <code>--indicator</code>,
           for the fill. The fill clears 3:1 against the track in both modes, so
-          the boundary is readable without color vision. The track sits close to
-          the page on purpose — an empty bar should be visible but quiet, and it
-          needs no border to be seen.
+          the boundary is readable without color vision. The track sits at
+          1.26:1 against the page, so an empty bar is visible without a border.
         </p>
       </section>
 
@@ -160,8 +159,8 @@ function ProgressPage() {
           at 0 and <code>aria-valuemax</code> at <code>max</code>. When
           determinate it carries <code>aria-valuenow</code>, and a screen reader
           reads a percentage. When indeterminate it carries no{' '}
-          <code>aria-valuenow</code> at all, so nothing invents a figure that
-          does not exist yet.
+          <code>aria-valuenow</code> at all, so no percentage is announced
+          before one can be computed.
         </p>
         <p className="text-muted-foreground">
           <code>label</code> becomes <code>aria-label</code> and defaults to

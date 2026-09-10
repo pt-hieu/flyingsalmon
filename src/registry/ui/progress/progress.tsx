@@ -27,6 +27,8 @@ export function Progress({
   const clampedValue = Math.min(Math.max(value ?? 0, 0), max)
   const isComplete = clampedValue >= max
 
+  const fillFraction = max > 0 ? clampedValue / max : 1
+
   const determinateState = isComplete
     ? ProgressState.Complete
     : ProgressState.Loading
@@ -48,7 +50,7 @@ export function Progress({
       ) : (
         <motion.div
           initial={false}
-          animate={{ scaleX: isComplete ? 1 : clampedValue / max }}
+          animate={{ scaleX: fillFraction }}
           transition={springSettle}
           className={progressFillClassName}
         />

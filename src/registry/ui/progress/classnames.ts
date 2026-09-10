@@ -3,10 +3,14 @@ import { cn } from '@/lib/utils'
 export const progressTrackClassName =
   'bg-progress-track h-2 w-full overflow-hidden rounded-full'
 
-export const progressFillClassName =
-  'bg-progress-fill h-full w-full origin-left rounded-full'
+const progressFillBaseClassName = 'bg-progress-fill h-full'
+
+export const progressFillClassName = cn(
+  progressFillBaseClassName,
+  'w-full origin-left',
+)
 
 export const progressIndeterminateSegmentClassName = cn(
-  progressFillClassName,
+  progressFillBaseClassName,
   'animate-progress-indeterminate w-2/5',
 )

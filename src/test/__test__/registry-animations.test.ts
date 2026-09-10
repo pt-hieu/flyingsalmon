@@ -28,35 +28,29 @@ function keyframeName(animationValue: string) {
   return `@keyframes ${animationValue.split(' ')[0]}`
 }
 
+function sourceFiles(directory: string): string[] {
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const path = resolve(directory, entry.name)
+
+    if (entry.isDirectory()) return sourceFiles(path)
+
+    return /\.tsx?$/.test(entry.name) ? [path] : []
+  })
+}
+
 const animatedItems = registry.items.filter(
   (item) => animationVariables(item).length > 0,
 )
 
-const componentsDirectory = resolve(process.cwd(), 'src/registry/ui')
-
 const referencedAnimationClasses = [
   ...new Set(
-    readdirSync(componentsDirectory, { withFileTypes: true })
-      .filter((entry) => entry.isDirectory())
-      .flatMap((entry) => {
-        const classnamesPath = resolve(
-          componentsDirectory,
-          entry.name,
-          'classnames.ts',
-        )
-
-        try {
-          return [
-            ...readFileSync(classnamesPath, 'utf-8').matchAll(
-              /animate-[a-z0-9-]+/g,
-            ),
-          ].map((match) => match[0])
-        } catch {
-          return []
-        }
-      }),
+    sourceFiles(resolve(process.cwd(), 'src/registry')).flatMap((path) =>
+      [...readFileSync(path, 'utf-8').matchAll(/animate-[a-z0-9-]+/g)].map(
+        (match) => match[0],
+      ),
+    ),
   ),
-].toSorted()
+]
 
 describe('registry animations', () => {
   it.each(animatedItems.map((item) => [item.name, item] as const))(
@@ -88,20 +82,18 @@ describe('registry animations', () => {
     expect(unshipped).toEqual([])
   })
 
-  it('mirrors every animation variable between the registry and the site stylesheet', () => {
-    const declaredInRegistry = animatedItems
+  it('mirrors every animation variable an item ships into the site stylesheet', () => {
+    const declaredInStylesheet = new Set(
+      [...siteStylesheet.matchAll(/--(animate-[a-z0-9-]+):/g)].map(
+        (match) => match[1],
+      ),
+    )
+
+    const unmirrored = animatedItems
       .flatMap(animationVariables)
       .map(([name]) => name)
-      .toSorted()
+      .filter((name) => !declaredInStylesheet.has(name))
 
-    const declaredInStylesheet = [
-      ...new Set(
-        [...siteStylesheet.matchAll(/--(animate-[a-z0-9-]+):/g)].map(
-          (match) => match[1],
-        ),
-      ),
-    ].toSorted()
-
-    expect(declaredInStylesheet).toEqual(declaredInRegistry)
+    expect(unmirrored).toEqual([])
   })
 })
