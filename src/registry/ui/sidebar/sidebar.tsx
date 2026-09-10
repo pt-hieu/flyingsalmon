@@ -13,13 +13,12 @@ export type SidebarProps = Omit<
 >
 
 export function Sidebar({ className, ...props }: SidebarProps) {
-  const { collapsed, layout, sidebarId, measured } =
-    useSidebarSharedState('Sidebar')
+  const { collapsed, layout, sidebarId, measured } = useSidebarSharedState()
 
   const isStrip = layout === SidebarLayout.Strip
 
   const wideWidth = collapsed
-    ? 'var(--sidebar-width-rail)'
+    ? 'var(--sidebar-width-collapsed)'
     : 'var(--sidebar-width)'
 
   const width = isStrip ? '100%' : wideWidth

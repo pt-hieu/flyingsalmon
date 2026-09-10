@@ -32,7 +32,7 @@ export function SidebarItem({
   children,
   ...props
 }: SidebarItemProps) {
-  const { layout } = useSidebarSharedState('SidebarItem')
+  const { layout } = useSidebarSharedState()
 
   const slottedElement = asChild
     ? (Children.only(children) as React.ReactElement<SlottedItemProps>)

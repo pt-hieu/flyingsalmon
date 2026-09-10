@@ -16,8 +16,7 @@ export function SidebarTrigger({
   onClick,
   ...props
 }: SidebarTriggerProps) {
-  const { collapsed, setCollapsed, sidebarId } =
-    useSidebarSharedState('SidebarTrigger')
+  const { collapsed, setCollapsed, sidebarId } = useSidebarSharedState()
 
   return (
     <Button
