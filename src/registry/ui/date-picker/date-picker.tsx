@@ -105,10 +105,12 @@ export function DatePicker(props: DatePickerProps) {
   const mode = props.mode ?? DatePickerMode.Single
   const isRange = mode === DatePickerMode.Range
 
-  const { committedValue, entry, setEntry, commit } = useDatePickerValue({
-    value: props.value,
-    defaultValue: props.defaultValue,
-  })
+  const { committedValue, entry, setEntry, rememberValue } = useDatePickerValue(
+    {
+      value: props.value,
+      defaultValue: props.defaultValue,
+    },
+  )
 
   const rejectionOptions = {
     mode,
@@ -139,6 +141,8 @@ export function DatePicker(props: DatePickerProps) {
   const postedRange =
     postedValue === null || typeof postedValue === 'string' ? null : postedValue
 
+  const postsRequired = required && !readOnly
+
   const showsClear =
     committedValue !== null && !required && !loading && !readOnly && !disabled
 
@@ -153,12 +157,12 @@ export function DatePicker(props: DatePickerProps) {
     props.onChange?.(typeof nextValue === 'string' ? nextValue : null)
   }
 
-  function settle(nextValue: DatePickerValue) {
+  function commitValue(nextValue: DatePickerValue) {
     if (toValueKey(nextValue) === toValueKey(committedValue)) {
       return
     }
 
-    commit(nextValue)
+    rememberValue(nextValue)
     notifyChange(nextValue)
   }
 
@@ -176,7 +180,7 @@ export function DatePicker(props: DatePickerProps) {
       return
     }
 
-    settle(nextValue)
+    commitValue(nextValue)
   }
 
   function handleOpenChange(nextOpen: boolean) {
@@ -211,12 +215,12 @@ export function DatePicker(props: DatePickerProps) {
   }
 
   function handleClear() {
-    settle(null)
+    commitValue(null)
     triggerRef.current?.focus()
   }
 
   function handlePanelChange(nextValue: DatePickerValue) {
-    settle(nextValue)
+    commitValue(nextValue)
     setOpen(false)
   }
 
@@ -271,7 +275,11 @@ export function DatePicker(props: DatePickerProps) {
                   aria-label={isRange ? 'Start date' : 'Date'}
                   value={entry.start}
                   onChange={(nextStart: CalendarDate | null) =>
-                    applyEntry({ start: nextStart, end: entry.end })
+                    applyEntry({
+                      start: nextStart,
+                      end: entry.end,
+                      isBeingTyped: true,
+                    })
                   }
                 />
 
@@ -291,7 +299,11 @@ export function DatePicker(props: DatePickerProps) {
                     aria-label="End date"
                     value={entry.end}
                     onChange={(nextEnd: CalendarDate | null) =>
-                      applyEntry({ start: entry.start, end: nextEnd })
+                      applyEntry({
+                        start: entry.start,
+                        end: nextEnd,
+                        isBeingTyped: true,
+                      })
                     }
                   />
                 ) : null}
@@ -301,13 +313,13 @@ export function DatePicker(props: DatePickerProps) {
                     <DatePickerHiddenInput
                       name={props.startName}
                       value={postedRange?.start ?? ''}
-                      required={required}
+                      required={postsRequired}
                       disabled={disabled}
                     />
                     <DatePickerHiddenInput
                       name={props.endName}
                       value={postedRange?.end ?? ''}
-                      required={required}
+                      required={postsRequired}
                       disabled={disabled}
                     />
                   </>
@@ -315,7 +327,7 @@ export function DatePicker(props: DatePickerProps) {
                   <DatePickerHiddenInput
                     name={props.name}
                     value={postedDate}
-                    required={required}
+                    required={postsRequired}
                     disabled={disabled}
                   />
                 )}

@@ -1,9 +1,14 @@
 import type { CalendarDate } from '@internationalized/date'
 
-const shortestFourDigitYear = 1000
+const firstFourDigitYear = 1000
 
 export function isCompleteDate(
   date: CalendarDate | null,
+  isBeingTyped: boolean,
 ): date is CalendarDate {
-  return date !== null && date.year >= shortestFourDigitYear
+  if (date === null) {
+    return false
+  }
+
+  return !isBeingTyped || date.year >= firstFourDigitYear
 }

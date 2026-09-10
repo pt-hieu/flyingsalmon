@@ -160,6 +160,47 @@ describe('DatePicker', () => {
     expect(calendarButton()).toHaveFocus()
   })
 
+  it('returns focus to the segment that opened the panel, not the calendar button', async () => {
+    const user = userEvent.setup()
+    render(<DatePicker label="Departure" defaultValue="2026-03-18" />)
+
+    const monthSegment = segments()[0]
+    await user.click(monthSegment)
+    await user.keyboard('{Alt>}{ArrowDown}{/Alt}')
+    await user.click(
+      await screen.findByRole('button', { name: /March 20, 2026/ }),
+    )
+
+    await waitFor(() =>
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument(),
+    )
+    expect(monthSegment).toHaveFocus()
+  })
+
+  it('keeps a read-only field out of native required validation', async () => {
+    const user = userEvent.setup()
+    const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault())
+    render(
+      <form onSubmit={onSubmit}>
+        <DatePicker label="Departure" name="departure" required readOnly />
+        <button type="submit">Save</button>
+      </form>,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'Save' }))
+
+    expect(onSubmit).toHaveBeenCalledTimes(1)
+  })
+
+  it('posts a value the app supplies for a year before 1000', () => {
+    render(<DatePicker label="Founding" name="founding" value="0850-06-01" />)
+
+    expect(hiddenInput('founding')).toHaveValue('0850-06-01')
+    expect(
+      screen.queryByText("That date isn't available"),
+    ).not.toBeInTheDocument()
+  })
+
   it('leaves the committed range in place when Escape closes a half-picked range', async () => {
     const user = userEvent.setup()
     const onChange = vi.fn()

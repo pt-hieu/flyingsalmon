@@ -32,10 +32,33 @@ export type DatePickerValue = string | DatePickerRange | null
 export interface DatePickerEntry {
   start: CalendarDate | null
   end: CalendarDate | null
+  isBeingTyped: boolean
 }
 
 export interface DatePickerLimits {
   min?: string
   max?: string
   isDateDisabled?: (date: string) => boolean
+}
+
+export interface RejectionMessages {
+  unavailableMessage: string
+  rangeOrderMessage: string
+}
+
+export interface DescribeRejectionOptions
+  extends DatePickerLimits, RejectionMessages {
+  mode: DatePickerMode
+}
+
+export interface UseDatePickerValueOptions {
+  value?: DatePickerValue
+  defaultValue?: DatePickerValue
+}
+
+export interface DatePickerValueState {
+  committedValue: DatePickerValue
+  entry: DatePickerEntry
+  setEntry: (entry: DatePickerEntry) => void
+  rememberValue: (value: DatePickerValue) => void
 }

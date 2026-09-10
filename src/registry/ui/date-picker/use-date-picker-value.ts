@@ -2,19 +2,12 @@ import { useState } from 'react'
 
 import { toEntry } from './to-entry'
 import { toValueKey } from './to-value-key'
-import type { DatePickerEntry, DatePickerValue } from './types'
-
-export interface UseDatePickerValueOptions {
-  value?: DatePickerValue
-  defaultValue?: DatePickerValue
-}
-
-export interface DatePickerValueState {
-  committedValue: DatePickerValue
-  entry: DatePickerEntry
-  setEntry: (entry: DatePickerEntry) => void
-  commit: (value: DatePickerValue) => void
-}
+import type {
+  DatePickerEntry,
+  DatePickerValue,
+  DatePickerValueState,
+  UseDatePickerValueOptions,
+} from './types'
 
 export function useDatePickerValue({
   value,
@@ -36,11 +29,11 @@ export function useDatePickerValue({
     setEntry(toEntry(committedValue))
   }
 
-  function commit(nextValue: DatePickerValue) {
+  function rememberValue(nextValue: DatePickerValue) {
     setOwnValue(nextValue)
     setEntry(toEntry(nextValue))
     setEntryKey(toValueKey(nextValue))
   }
 
-  return { committedValue, entry, setEntry, commit }
+  return { committedValue, entry, setEntry, rememberValue }
 }

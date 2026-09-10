@@ -37,8 +37,8 @@ export const datePickerBoxVariants = cva(
   {
     variants: {
       size: {
-        [DatePickerSize.Default]: 'h-9 gap-1 pr-1.5 pl-3 text-sm',
-        [DatePickerSize.Small]: 'h-8 gap-1 pr-1 pl-2.5 text-sm',
+        [DatePickerSize.Default]: 'h-9 gap-1 pr-1 pl-3 text-sm',
+        [DatePickerSize.Small]: 'h-8 gap-1 pr-0.5 pl-2.5 text-sm',
       },
       disabled: {
         true: 'pointer-events-none opacity-50',
@@ -70,15 +70,10 @@ export const datePickerEndSlotClassName =
 
 export const datePickerIconButtonClassName = cn(
   buttonVariants({ variant: ButtonVariant.Ghost, size: ButtonSize.IconSmall }),
-  'text-muted-foreground size-6 rounded-sm',
-  'focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-0',
-  'active:ring-offset-0',
+  'text-muted-foreground',
 )
 
 export const datePickerIconClassName = 'size-4'
-
-export const datePickerSpinnerSlotClassName =
-  'text-muted-foreground flex size-6 shrink-0 items-center justify-center'
 
 export const datePickerHiddenInputClassName =
   'pointer-events-none absolute inset-0 -z-10 size-full opacity-0'

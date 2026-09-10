@@ -135,12 +135,16 @@ function DatePickerPage() {
           One bordered box holds the segments and the end slot. The box draws
           the boundary ring on <code>focus-within</code>, per ADR 0003: the
           segments are what take focus, and they own no border to replace. The
-          end slot holds the clear button, shown once a value is set and the
-          field is not <code>required</code>, and then the calendar icon button.
-          Behind the box sit visually hidden native inputs carrying the ISO
-          values, the names, and <code>required</code>, so the browser&rsquo;s
-          own constraint validation blocks the submit and puts its bubble at the
-          field.
+          end slot holds the clear button, then the calendar icon button. Clear
+          shows once a value is set, on a field that is not{' '}
+          <code>required</code>, <code>readOnly</code>, <code>loading</code>, or{' '}
+          <code>disabled</code> &mdash; every state where emptying the value is
+          not the user&rsquo;s to do. Behind the box sit visually hidden native
+          inputs carrying the ISO values, the names, and <code>required</code>,
+          so the browser&rsquo;s own constraint validation blocks the submit and
+          puts its bubble at the field. A <code>readOnly</code> field is exempt
+          from that check, as a read-only native control is: the user has no way
+          to satisfy it.
         </p>
         <p className="text-muted-foreground">
           The panel is the Radix popover primitive, portalled to{' '}
@@ -200,15 +204,13 @@ function DatePickerPage() {
         </p>
         <p className="text-muted-foreground">
           <strong className="text-foreground">
-            The focused segment paints <code>--indicator</code>, not{' '}
-            <code>--primary</code>.
+            The focused segment paints <code>--indicator</code>.
           </strong>{' '}
-          The spec named <code>--primary</code>; measured at build it is
-          indigo-400 in both modes, which is 3.12:1 on white and fails AA for
-          text. <code>--indicator</code> is indigo-500 in light and indigo-400
-          in dark, at 4.58:1 and 6.34:1, so it clears AA in both modes and is
-          the step this system already reaches for when indigo has to carry
-          meaning.
+          It sits at 4.58:1 and 6.34:1, clearing AA in both modes.{' '}
+          <code>--primary</code> is the other indigo a field could reach for,
+          and it is indigo-400 in both modes here: 3.12:1 on white, which fails
+          AA for text. <code>--indicator</code> steps to indigo-500 in light and
+          is the step this system already uses when indigo has to carry meaning.
         </p>
       </section>
     </article>
@@ -262,7 +264,7 @@ function TripDatesExample() {
       <p className="text-muted-foreground text-sm">
         {tripDates
           ? `${tripDates.start} to ${tripDates.end}.`
-          : 'No trip picked.'}
+          : 'No dates picked.'}
       </p>
     </div>
   )

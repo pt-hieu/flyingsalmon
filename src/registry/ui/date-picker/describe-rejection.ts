@@ -5,17 +5,8 @@ import {
   DatePickerMode,
   type DatePickerEntry,
   type DatePickerLimits,
+  type DescribeRejectionOptions,
 } from './types'
-
-export interface RejectionMessages {
-  unavailableMessage: string
-  rangeOrderMessage: string
-}
-
-export interface DescribeRejectionOptions
-  extends DatePickerLimits, RejectionMessages {
-  mode: DatePickerMode
-}
 
 function isUnavailable(date: CalendarDate, limits: DatePickerLimits): boolean {
   if (limits.min !== undefined && date.compare(parseDate(limits.min)) < 0) {
@@ -34,9 +25,13 @@ export function describeRejection(
   options: DescribeRejectionOptions,
 ): string | undefined {
   const { mode, unavailableMessage, rangeOrderMessage, ...limits } = options
+  const { isBeingTyped } = entry
 
   if (mode === DatePickerMode.Range) {
-    if (!isCompleteDate(entry.start) || !isCompleteDate(entry.end)) {
+    if (
+      !isCompleteDate(entry.start, isBeingTyped) ||
+      !isCompleteDate(entry.end, isBeingTyped)
+    ) {
       return undefined
     }
 
@@ -50,7 +45,7 @@ export function describeRejection(
     return entry.end.compare(entry.start) < 0 ? rangeOrderMessage : undefined
   }
 
-  if (!isCompleteDate(entry.start)) {
+  if (!isCompleteDate(entry.start, isBeingTyped)) {
     return undefined
   }
 
