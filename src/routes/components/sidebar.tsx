@@ -13,7 +13,6 @@ import { useState } from 'react'
 
 import { ModePreview } from '@/components/mode-preview'
 import { ThemeToggle } from '@/components/theme-toggle'
-import { cn } from '@/lib/utils'
 import { Avatar, AvatarSize } from '@/registry/ui/avatar'
 import {
   DropdownMenu,
@@ -105,25 +104,6 @@ function SidebarPage() {
         <ModePreview stacked>
           <div className="w-full overflow-x-auto">
             <AppNavExample />
-          </div>
-        </ModePreview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">A second rail</h2>
-        <p className="text-muted-foreground">
-          Nothing about the component is navigation. A day-detail rail puts
-          plain content in <code>SidebarContent</code> and its own trigger in
-          the header, and collapses the same way.{' '}
-          <strong className="text-foreground">
-            This is why the threshold is a container query and not a media query
-          </strong>{' '}
-          — a rail nested inside a pane has no relationship to the viewport, and
-          the pane it lives in is what decides whether it still fits.
-        </p>
-        <ModePreview stacked>
-          <div className="w-full overflow-x-auto">
-            <DayDetailExample />
           </div>
         </ModePreview>
       </section>
@@ -361,66 +341,5 @@ function AppNavExample() {
 function StripExample() {
   return (
     <TripShell containerClassName="border-border h-96 max-w-[420px] border" />
-  )
-}
-
-function DayDetailExample() {
-  return (
-    <SidebarProvider
-      defaultCollapsed
-      className="border-border h-96 min-w-[760px] border"
-    >
-      <div className="text-muted-foreground min-w-0 flex-1 p-6 text-sm">
-        Day 3, Alfama. The rail on the right keeps the day&apos;s details within
-        reach without taking the pane over.
-      </div>
-      <DayDetailRail />
-    </SidebarProvider>
-  )
-}
-
-const dayStops = [
-  { hour: '09', time: '09:00', place: 'Miradouro de Santa Luzia' },
-  { hour: '12', time: '12:30', place: 'Lunch at Ti Natércia' },
-  { hour: '15', time: '15:00', place: 'Museu do Fado' },
-]
-
-function DayDetailRail() {
-  const { layout } = useSidebar()
-
-  const isRail = layout === SidebarLayout.Rail
-
-  return (
-    <Sidebar className="border-border border-r-0 border-l">
-      <SidebarHeader>
-        <SidebarTrigger>
-          <PanelLeft />
-        </SidebarTrigger>
-        {isRail ? null : (
-          <span className="font-heading truncate text-base font-bold">
-            Day 3
-          </span>
-        )}
-      </SidebarHeader>
-      <SidebarContent>
-        <ul
-          className={cn(
-            'text-muted-foreground space-y-3',
-            isRail ? 'px-1 text-center text-xs' : 'px-3 text-sm',
-          )}
-        >
-          {dayStops.map((stop) => (
-            <li key={stop.time} className="truncate">
-              {isRail ? stop.hour : `${stop.time} — ${stop.place}`}
-            </li>
-          ))}
-        </ul>
-      </SidebarContent>
-      <SidebarFooter>
-        <span className="text-muted-foreground truncate text-sm">
-          {isRail ? '3/6' : '3 of 6 days planned'}
-        </span>
-      </SidebarFooter>
-    </Sidebar>
   )
 }
