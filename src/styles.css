@@ -130,6 +130,16 @@ body {
       opacity: 0.5;
     }
   }
+  --animate-progress-indeterminate: progress-indeterminate 2s ease-in-out
+    infinite;
+  @keyframes progress-indeterminate {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(250%);
+    }
+  }
   --animate-floating-anchored-enter: floating-anchored-enter 250ms
     linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1);
   @keyframes floating-anchored-enter {
