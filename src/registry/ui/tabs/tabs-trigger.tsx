@@ -23,8 +23,7 @@ export function TabsTrigger({
   children,
   ...props
 }: TabsTriggerProps) {
-  const { activeValue, focusedValue, setFocusedValue } =
-    useTabsSharedState('TabsTrigger')
+  const { activeValue, focusedValue, setFocusedValue } = useTabsSharedState()
 
   const isActive = activeValue === value
   const showFocusIndicator = focusedValue === value && !isActive
