@@ -21,8 +21,8 @@ export function SidebarTrigger({
 
   return (
     <Button
-      variant={ButtonVariant.Ghost}
-      size={ButtonSize.IconSmall}
+      variant={ButtonVariant.Outline}
+      size={ButtonSize.Icon}
       aria-expanded={!collapsed}
       aria-controls={sidebarId}
       aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
