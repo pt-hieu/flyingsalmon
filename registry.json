@@ -1122,7 +1122,41 @@
       "type": "registry:ui",
       "title": "Progress",
       "description": "A bar for an operation of known length, determinate or indeterminate. Spinner covers an action's busyness and skeleton covers a loading region; progress covers measured work.",
-      "dependencies": []
+      "dependencies": ["motion"],
+      "registryDependencies": ["@flyingsalmon/motion", "@flyingsalmon/theme"],
+      "files": [
+        {
+          "path": "src/registry/ui/progress/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/progress/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/progress/progress.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/progress/types.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "animate-progress-indeterminate": "progress-indeterminate 2s ease-in-out infinite"
+        }
+      },
+      "css": {
+        "@keyframes progress-indeterminate": {
+          "from": {
+            "transform": "translateX(-100%)"
+          },
+          "to": {
+            "transform": "translateX(250%)"
+          }
+        }
+      }
     },
     {
       "name": "stepper",
