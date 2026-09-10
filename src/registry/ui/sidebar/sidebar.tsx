@@ -5,15 +5,16 @@ import { springSettle } from '@/registry/lib/motion'
 
 import { sidebarClassName } from './classnames'
 import { SidebarLayout } from './types'
-import { useSidebar } from './use-sidebar'
+import { useSidebarSharedState } from './use-sidebar'
 
 export type SidebarProps = Omit<
   React.ComponentProps<'aside'>,
-  'onAnimationStart' | 'onDrag' | 'onDragStart' | 'onDragEnd'
+  'id' | 'onAnimationStart' | 'onDrag' | 'onDragStart' | 'onDragEnd'
 >
 
 export function Sidebar({ className, ...props }: SidebarProps) {
-  const { collapsed, layout, sidebarId } = useSidebar('Sidebar')
+  const { collapsed, layout, sidebarId, measured } =
+    useSidebarSharedState('Sidebar')
 
   const isStrip = layout === SidebarLayout.Strip
 
@@ -25,13 +26,13 @@ export function Sidebar({ className, ...props }: SidebarProps) {
 
   return (
     <motion.aside
-      id={sidebarId}
       data-collapsed={collapsed}
       initial={false}
-      animate={{ width }}
+      animate={measured ? { width } : undefined}
       transition={isStrip ? { duration: 0 } : springSettle}
       className={cn(sidebarClassName, className)}
       {...props}
+      id={sidebarId}
     />
   )
 }
