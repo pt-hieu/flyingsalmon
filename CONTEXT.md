@@ -116,6 +116,14 @@ _Avoid_: line, rail, track, spine
 A selected item rendered as a focusable pill before the caret in a multiple-mode combobox. It wears `badgeVariants` on a span rather than rendering `Badge`, because badge is never focusable and a chip takes focus so ArrowLeft reaches it and Backspace removes it. Toggle-group's chips are its own toggling controls and are not this.
 _Avoid_: tag, token, pill, badge
 
+**Segment**:
+One editable unit of a typed date — month, day, or year — that React Aria renders as a spin button carrying its own `mm`, `dd`, or `yyyy` placeholder in the locale's order. Digits type it, ArrowUp and ArrowDown step it, Backspace clears it. Segments are what take focus inside date-picker's box, which is why the box draws its ring on `focus-within` (ADR 0003). Stepper's segments are display-only ticks and are not these.
+_Avoid_: part, slot, cell, field
+
+**Rejected entry**:
+A typed date that is complete but refused: outside `min` or `max`, turned down by `isDateDisabled`, or a range end before its start. Date-picker paints the invalid ring, sets `aria-invalid`, and renders `unavailableMessage` or `rangeOrderMessage`, but never calls `onChange` and posts nothing. Distinct from an incomplete entry, which is silent in every way, and from `error`, which is the app's own message and wins over both. A year is not complete until all four digits are typed, so no entry is rejected while it is still being written.
+_Avoid_: invalid date, bad input, validation error
+
 **Spec checklist**:
 The fixed sections every component spec fills: purpose, variants, sizes, states, keyboard path, contrast, micro animation.
 _Avoid_: template, rubric
