@@ -12,7 +12,7 @@ export function TabsContent({
   className,
   ...props
 }: TabsContentProps) {
-  const { activeValue } = useTabsSharedState('TabsContent')
+  const { activeValue } = useTabsSharedState()
   const isSelected = activeValue === value
 
   return (
