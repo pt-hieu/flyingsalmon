@@ -2,11 +2,11 @@ import { useContext } from 'react'
 
 import { TabsSharedStateContext } from './context'
 
-export function useTabsSharedState(componentName: string) {
+export function useTabsSharedState() {
   const sharedState = useContext(TabsSharedStateContext)
 
   if (!sharedState) {
-    throw new Error(`${componentName} must be rendered inside <Tabs>`)
+    throw new Error('Tabs state is only available inside <Tabs>')
   }
 
   return sharedState
