@@ -178,10 +178,10 @@ describe('Sidebar', () => {
     ).toBeInTheDocument()
   })
 
-  it('reports the rail layout when collapsed above the threshold', () => {
+  it('reports the collapsed layout above the threshold', () => {
     render(<TripSidebar defaultCollapsed />)
 
-    expect(screen.getByText('Layout is rail')).toBeInTheDocument()
+    expect(screen.getByText('Layout is collapsed')).toBeInTheDocument()
   })
 
   it('reports the strip layout below the threshold however it is collapsed', () => {
@@ -204,7 +204,7 @@ describe('Sidebar', () => {
   it('keeps each label as the accessible name of its item in the rail', () => {
     render(<TripSidebar defaultCollapsed />)
 
-    expect(screen.getByText('Layout is rail')).toBeInTheDocument()
+    expect(screen.getByText('Layout is collapsed')).toBeInTheDocument()
 
     for (const label of ['Itinerary', 'Budget']) {
       const item = screen.getByRole('button', { name: label })

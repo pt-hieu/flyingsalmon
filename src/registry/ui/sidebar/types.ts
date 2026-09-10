@@ -1,6 +1,6 @@
 export enum SidebarLayout {
   Expanded = 'expanded',
-  Rail = 'rail',
+  Collapsed = 'collapsed',
   Strip = 'strip',
 }
 
