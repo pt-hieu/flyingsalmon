@@ -73,7 +73,10 @@ function SidebarPage() {
           <code>collapsed</code> says. CSS paints the three;{' '}
           <code>useSidebar().layout</code> reports which one is live so a
           consumer&apos;s header, footer, or rail content can follow without
-          re-deriving the query. Both read <code>sidebarStripThreshold</code>.
+          re-deriving the query. The observer reads{' '}
+          <code>sidebarStripThreshold</code>; the container query spells the
+          same number as <code>@min-[700px]:</code>, because Tailwind scans
+          class names as literals and cannot read a JavaScript constant.
         </p>
       </section>
 
@@ -89,7 +92,9 @@ function SidebarPage() {
             The accessible name never depends on that tooltip:
           </strong>{' '}
           the label stays in the DOM, clipped rather than removed, so a screen
-          reader reads the same nav in either layout.
+          reader reads the same nav in either layout. The rail tooltip needs a
+          string label; an item whose children are markup keeps its own visible
+          text in the rail instead.
         </p>
         <ModePreview stacked>
           <div className="w-full overflow-x-auto">
@@ -219,18 +224,24 @@ function SidebarPage() {
   )
 }
 
-const planningLinks = [
+interface TripNavLink {
+  key: string
+  label: string
+  icon: React.ReactNode
+}
+
+const planningLinks: TripNavLink[] = [
   { key: 'itinerary', label: 'Itinerary', icon: <MapPinned /> },
   { key: 'days', label: 'Days', icon: <CalendarDays /> },
   { key: 'places', label: 'Places', icon: <Compass /> },
 ]
 
-const moneyLinks = [
+const moneyLinks: TripNavLink[] = [
   { key: 'budget', label: 'Budget', icon: <Wallet /> },
   { key: 'receipts', label: 'Receipts', icon: <Receipt /> },
 ]
 
-const travellerLinks = [
+const travellerLinks: TripNavLink[] = [
   { key: 'travellers', label: 'Travellers', icon: <Users /> },
   { key: 'settings', label: 'Settings', icon: <Settings /> },
 ]
@@ -242,10 +253,7 @@ function TripNav({
   currentKey: string
   onCurrentKeyChange: (key: string) => void
 }) {
-  const renderGroup = (
-    label: string,
-    links: { key: string; label: string; icon: React.ReactNode }[],
-  ) => (
+  const renderGroup = (label: string, links: TripNavLink[]) => (
     <SidebarGroup>
       <SidebarGroupLabel>{label}</SidebarGroupLabel>
       {links.map((link) => (

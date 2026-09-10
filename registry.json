@@ -1323,6 +1323,10 @@
         {
           "path": "src/registry/ui/sidebar/types.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/use-sidebar.ts",
+          "type": "registry:ui"
         }
       ]
     },

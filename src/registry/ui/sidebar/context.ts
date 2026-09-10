@@ -1,5 +1,5 @@
 import { createContext } from 'react'
 
-import type { SidebarState } from './types'
+import type { SidebarSharedState } from './types'
 
-export const SidebarContext = createContext<SidebarState | null>(null)
+export const SidebarContext = createContext<SidebarSharedState | null>(null)

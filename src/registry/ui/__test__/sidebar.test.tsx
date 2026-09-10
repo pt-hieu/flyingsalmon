@@ -16,7 +16,7 @@ import {
   useSidebar,
 } from '@/registry/ui/sidebar'
 
-const resizeObserverOutsideThisFile = globalThis.ResizeObserver
+const originalResizeObserver = globalThis.ResizeObserver
 
 function reportContainerWidth(width: number) {
   globalThis.ResizeObserver = class WidthReportingResizeObserver implements ResizeObserver {
@@ -72,7 +72,7 @@ function TripSidebar(
 }
 
 const activeIndicatorOf = (item: HTMLElement) =>
-  item.querySelector('.bg-indicator')
+  item.querySelector('[data-slot="sidebar-active-indicator"]')
 
 describe('Sidebar', () => {
   beforeEach(() => {
@@ -80,7 +80,7 @@ describe('Sidebar', () => {
   })
 
   afterEach(() => {
-    globalThis.ResizeObserver = resizeObserverOutsideThisFile
+    globalThis.ResizeObserver = originalResizeObserver
   })
 
   it('collapses and expands itself when uncontrolled', async () => {
@@ -153,10 +153,14 @@ describe('Sidebar', () => {
     render(<TripSidebar defaultCollapsed />)
 
     expect(screen.getByText('Layout is rail')).toBeInTheDocument()
-    expect(
-      screen.getByRole('button', { name: 'Itinerary' }),
-    ).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Budget' })).toBeInTheDocument()
+
+    for (const label of ['Itinerary', 'Budget']) {
+      const item = screen.getByRole('button', { name: label })
+
+      expect(item).toHaveTextContent(label)
+      expect(item).not.toHaveAttribute('aria-label')
+      expect(item).not.toHaveAttribute('aria-labelledby')
+    }
   })
 
   it('renders header and footer content in the strip', () => {

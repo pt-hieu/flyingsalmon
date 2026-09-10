@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 
 import { sidebarTriggerClassName } from './classnames'
-import { useSidebar } from './use-sidebar'
+import { useSidebarSharedState } from './use-sidebar'
 
 export interface SidebarTriggerProps extends Omit<
   React.ComponentProps<typeof Button>,
@@ -16,7 +16,8 @@ export function SidebarTrigger({
   onClick,
   ...props
 }: SidebarTriggerProps) {
-  const { collapsed, setCollapsed, sidebarId } = useSidebar('SidebarTrigger')
+  const { collapsed, setCollapsed, sidebarId } =
+    useSidebarSharedState('SidebarTrigger')
 
   return (
     <Button

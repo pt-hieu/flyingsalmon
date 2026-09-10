@@ -29,7 +29,7 @@ export function SidebarProvider({
 
   const [uncontrolledCollapsed, setUncontrolledCollapsed] =
     useState(defaultCollapsed)
-  const [belowStripThreshold, setBelowStripThreshold] = useState(false)
+  const [containerWidth, setContainerWidth] = useState<number | null>(null)
 
   useEffect(() => {
     const container = containerRef.current
@@ -39,7 +39,7 @@ export function SidebarProvider({
     }
 
     const observer = new ResizeObserver(([entry]) => {
-      setBelowStripThreshold(entry.contentRect.width < sidebarStripThreshold)
+      setContainerWidth(entry.contentRect.width)
     })
     observer.observe(container)
 
@@ -56,13 +56,18 @@ export function SidebarProvider({
     onCollapsedChange?.(nextCollapsed)
   }
 
+  const measured = containerWidth !== null
+
+  const belowStripThreshold =
+    containerWidth !== null && containerWidth < sidebarStripThreshold
+
   const wideLayout = collapsed ? SidebarLayout.Rail : SidebarLayout.Expanded
 
   const layout = belowStripThreshold ? SidebarLayout.Strip : wideLayout
 
   return (
     <SidebarContext.Provider
-      value={{ collapsed, setCollapsed, layout, sidebarId }}
+      value={{ collapsed, setCollapsed, layout, sidebarId, measured }}
     >
       <TooltipProvider>
         <LayoutGroup id={layoutGroupId}>

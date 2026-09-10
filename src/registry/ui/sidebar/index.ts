@@ -13,4 +13,5 @@ export { SidebarProvider, type SidebarProviderProps } from './sidebar-provider'
 export { sidebarStripThreshold } from './sidebar-strip-threshold'
 export { SidebarTrigger, type SidebarTriggerProps } from './sidebar-trigger'
 export { SidebarLayout, type SidebarState } from './types'
+
 export { useSidebar } from './use-sidebar'

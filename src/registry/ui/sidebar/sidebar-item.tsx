@@ -12,7 +12,7 @@ import {
   sidebarItemLabelClassName,
 } from './classnames'
 import { SidebarLayout } from './types'
-import { useSidebar } from './use-sidebar'
+import { useSidebarSharedState } from './use-sidebar'
 
 interface SlottedItemProps {
   children?: React.ReactNode
@@ -32,7 +32,7 @@ export function SidebarItem({
   children,
   ...props
 }: SidebarItemProps) {
-  const { layout } = useSidebar('SidebarItem')
+  const { layout } = useSidebarSharedState('SidebarItem')
 
   const slottedElement = asChild
     ? (Children.only(children) as React.ReactElement<SlottedItemProps>)
@@ -49,7 +49,7 @@ export function SidebarItem({
       <span className={sidebarItemLabelClassName}>{label}</span>
       {isActive ? (
         <motion.span
-          layout
+          data-slot="sidebar-active-indicator"
           layoutId="sidebar-active-indicator"
           transition={springBounce}
           className={sidebarActiveIndicatorClassName}
@@ -81,6 +81,8 @@ export function SidebarItem({
     </button>
   )
 
+  // The registry tooltip renders text only, so a non-string label keeps its
+  // own visible text in the rail instead of gaining a tooltip.
   if (layout === SidebarLayout.Rail && typeof label === 'string') {
     return (
       <Tooltip content={label} side={TooltipSide.Right}>

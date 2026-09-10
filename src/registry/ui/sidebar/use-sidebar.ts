@@ -1,15 +1,25 @@
 import { useContext } from 'react'
 
 import { SidebarContext } from './context'
+import type { SidebarSharedState, SidebarState } from './types'
 
-export function useSidebar(componentName = 'useSidebar') {
-  const sidebarState = useContext(SidebarContext)
+export function useSidebarSharedState(
+  componentName: string,
+): SidebarSharedState {
+  const sharedState = useContext(SidebarContext)
 
-  if (!sidebarState) {
+  if (!sharedState) {
     throw new Error(
       `${componentName} must be rendered inside <SidebarProvider>`,
     )
   }
 
-  return sidebarState
+  return sharedState
+}
+
+export function useSidebar(): SidebarState {
+  const { collapsed, setCollapsed, layout } =
+    useSidebarSharedState('useSidebar')
+
+  return { collapsed, setCollapsed, layout }
 }
