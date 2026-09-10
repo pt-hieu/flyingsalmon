@@ -203,10 +203,11 @@ function SidebarPage() {
           <strong className="text-foreground">
             Tab reaches every item and the trigger, and there are no arrow keys.
           </strong>{' '}
-          These are links in a landmark, not a menu. Focus draws a 2px{' '}
-          <code>--ring</code> ring on the item&apos;s own bounds, with no
-          offset, because Tab moves focus while the current page stays put and
-          the two marks have to be distinguishable.
+          These are links in a landmark, not a menu. A focused item takes the
+          same <code>--accent</code> background as a hovered one and draws no
+          ring: the pointer and the keyboard land on the same mark, and the
+          current page keeps its own — the bar and the <code>--foreground</code>{' '}
+          label — so the two stay distinguishable.
         </p>
       </section>
 

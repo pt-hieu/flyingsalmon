@@ -50,9 +50,9 @@ export const sidebarGroupLabelClassName = cn(
 export const sidebarItemClassName = cn(
   'relative flex h-9 shrink-0 cursor-pointer items-center gap-3 px-3 text-sm whitespace-nowrap',
   'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
+  'focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:outline-hidden',
   'aria-[current=page]:text-foreground aria-[current=page]:font-medium',
   'transition-colors duration-(--motion-fast)',
-  'focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-hidden',
   '@min-[700px]:w-full',
   '@min-[700px]:group-data-[collapsed=true]/sidebar:justify-center @min-[700px]:group-data-[collapsed=true]/sidebar:gap-0 @min-[700px]:group-data-[collapsed=true]/sidebar:px-2',
 )
