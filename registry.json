@@ -1256,9 +1256,75 @@
       "name": "sidebar",
       "type": "registry:ui",
       "title": "Sidebar",
-      "description": "A side panel with header, content, and footer slots that collapses to a narrow strip. It hosts navigation items or any other rail content.",
-      "dependencies": [],
-      "registryDependencies": ["@flyingsalmon/motion"]
+      "description": "An aside with header, content, and footer slots that morphs between an expanded column and an icon rail, and becomes one sticky horizontal strip under a 700px container. It hosts navigation items or any other rail content.",
+      "dependencies": ["motion"],
+      "registryDependencies": [
+        "@flyingsalmon/motion",
+        "@flyingsalmon/tooltip",
+        "@flyingsalmon/button"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/sidebar/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-content.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-footer.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-group-label.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-group.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-header.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-item.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-nav.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-provider.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-strip-threshold.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-trigger.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/types.ts",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "carousel",
