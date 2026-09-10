@@ -86,8 +86,9 @@ function SidebarPage() {
           The whole app shell: header with the trip name and the trigger, nav
           groups in the scrolling content, and a footer holding the avatar menu
           and the theme toggle. Collapse it and the column morphs to the rail —
-          labels fade out, group labels go visually hidden, and each label
-          reappears in a tooltip on hover and on focus.{' '}
+          labels fade out, group labels fade to nothing but keep their space so
+          the groups below them do not jump, and each label reappears in a
+          tooltip on hover and on focus.{' '}
           <strong className="text-foreground">
             The accessible name never depends on that tooltip:
           </strong>{' '}
@@ -163,7 +164,10 @@ function SidebarPage() {
           </strong>{' '}
           Put it in a persistent layout route. A sidebar that remounts on every
           navigation is not wrong — it just draws the bar in place instead of
-          moving it there.
+          moving it there. Items square off against the edges — no radius — and{' '}
+          <code>SidebarContent</code> scrolls without a scrollbar, nudging the
+          active item fully into view when it sits half outside the visible
+          area, down the column or across the strip.
         </p>
       </section>
 
@@ -191,8 +195,8 @@ function SidebarPage() {
         <p className="text-muted-foreground">
           <code>SidebarNav</code> is a <code>nav</code> landmark and requires an{' '}
           <code>aria-label</code>, so a screen reader can tell the app nav from
-          any other nav on the page. <code>SidebarTrigger</code> is a ghost icon
-          button in the small size carrying <code>aria-expanded</code> and{' '}
+          any other nav on the page. <code>SidebarTrigger</code> is an outline
+          icon button carrying <code>aria-expanded</code> and{' '}
           <code>aria-controls</code> pointed at the aside, labelled
           &quot;Collapse sidebar&quot; or &quot;Expand sidebar&quot;; it takes
           its glyph as children, because the registry ships no icons.{' '}
@@ -296,20 +300,30 @@ function TravellerMenu() {
   )
 }
 
+function TripHeader() {
+  const { layout } = useSidebar()
+
+  return (
+    <SidebarHeader>
+      <SidebarTrigger>
+        <PanelLeft />
+      </SidebarTrigger>
+      {layout === SidebarLayout.Rail ? null : (
+        <span className="font-heading truncate text-base font-bold">
+          Lisbon, 6 days
+        </span>
+      )}
+    </SidebarHeader>
+  )
+}
+
 function TripShell({ containerClassName }: { containerClassName: string }) {
   const [currentKey, setCurrentKey] = useState('itinerary')
 
   return (
     <SidebarProvider className={containerClassName}>
       <Sidebar>
-        <SidebarHeader>
-          <SidebarTrigger>
-            <PanelLeft />
-          </SidebarTrigger>
-          <span className="font-heading truncate text-base font-bold">
-            Lisbon, 6 days
-          </span>
-        </SidebarHeader>
+        <TripHeader />
         <SidebarContent>
           <TripNav currentKey={currentKey} onCurrentKeyChange={setCurrentKey} />
         </SidebarContent>

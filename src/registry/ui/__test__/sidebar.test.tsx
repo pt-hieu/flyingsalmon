@@ -71,6 +71,56 @@ function TripSidebar(
   )
 }
 
+/**
+ * jsdom does no layout, so the vertical bounds of the content box and of each
+ * item are the test's to state. Keys are read from `data-slot` first, then the
+ * element's own text.
+ */
+function reportVerticalBounds(bounds: Record<string, [number, number]>) {
+  vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(
+    function (this: HTMLElement) {
+      const [top, bottom] = bounds[
+        this.dataset.slot ?? this.textContent ?? ''
+      ] ?? [0, 0]
+
+      return { top, bottom, left: 0, right: 0 } as DOMRect
+    },
+  )
+
+  const scrollOffsets = new WeakMap<HTMLElement, number>()
+
+  Object.defineProperty(HTMLElement.prototype, 'scrollTop', {
+    configurable: true,
+    get(this: HTMLElement) {
+      return scrollOffsets.get(this) ?? 0
+    },
+    set(this: HTMLElement, offset: number) {
+      scrollOffsets.set(this, offset)
+    },
+  })
+}
+
+function TripNavOnly({ currentLabel }: { currentLabel: string }) {
+  return (
+    <SidebarProvider>
+      <Sidebar>
+        <SidebarContent>
+          <SidebarNav aria-label="Trip">
+            {['Itinerary', 'Budget'].map((label) => (
+              <SidebarItem
+                key={label}
+                aria-current={label === currentLabel ? 'page' : undefined}
+              >
+                {label}
+              </SidebarItem>
+            ))}
+          </SidebarNav>
+        </SidebarContent>
+      </Sidebar>
+    </SidebarProvider>
+  )
+}
+
 const activeIndicatorOf = (item: HTMLElement) =>
   item.querySelector('[data-slot="sidebar-active-indicator"]')
 
@@ -80,6 +130,8 @@ describe('Sidebar', () => {
   })
 
   afterEach(() => {
+    vi.restoreAllMocks()
+    delete (HTMLElement.prototype as Partial<HTMLElement>).scrollTop
     globalThis.ResizeObserver = originalResizeObserver
   })
 
@@ -161,6 +213,34 @@ describe('Sidebar', () => {
       expect(item).not.toHaveAttribute('aria-label')
       expect(item).not.toHaveAttribute('aria-labelledby')
     }
+  })
+
+  it('scrolls the content until an item hanging past its bottom edge is whole', () => {
+    reportVerticalBounds({
+      'sidebar-content': [0, 100],
+      Budget: [80, 120],
+    })
+    render(<TripNavOnly currentLabel="Budget" />)
+
+    const content = screen
+      .getByRole('button', { name: 'Budget' })
+      .closest('[data-slot="sidebar-content"]')
+
+    expect(content).toHaveProperty('scrollTop', 20)
+  })
+
+  it('leaves the scroll alone when the active item is already whole', () => {
+    reportVerticalBounds({
+      'sidebar-content': [0, 100],
+      Itinerary: [10, 46],
+    })
+    render(<TripNavOnly currentLabel="Itinerary" />)
+
+    const content = screen
+      .getByRole('button', { name: 'Itinerary' })
+      .closest('[data-slot="sidebar-content"]')
+
+    expect(content).toHaveProperty('scrollTop', 0)
   })
 
   it('renders header and footer content in the strip', () => {

@@ -21,6 +21,7 @@ export const sidebarHeaderClassName = cn(
 export const sidebarContentClassName = cn(
   'min-w-0 flex-1 overflow-x-auto',
   '@min-[700px]:overflow-x-hidden @min-[700px]:overflow-y-auto @min-[700px]:p-2',
+  '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
 )
 
 export const sidebarFooterClassName = cn(
@@ -42,17 +43,18 @@ export const sidebarGroupClassName = cn(
 export const sidebarGroupLabelClassName = cn(
   'text-muted-foreground sr-only text-xs font-medium',
   '@min-[700px]:not-sr-only @min-[700px]:px-3 @min-[700px]:py-1',
-  '@min-[700px]:group-data-[collapsed=true]/sidebar:sr-only',
+  '@min-[700px]:transition-opacity @min-[700px]:duration-(--motion-fast)',
+  '@min-[700px]:group-data-[collapsed=true]/sidebar:opacity-0',
 )
 
 export const sidebarItemClassName = cn(
-  'relative flex h-9 shrink-0 cursor-pointer items-center gap-3 rounded-md px-3 text-sm whitespace-nowrap',
+  'relative flex h-9 shrink-0 cursor-pointer items-center gap-3 px-3 text-sm whitespace-nowrap',
   'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
   'aria-[current=page]:text-foreground aria-[current=page]:font-medium',
   'transition-colors duration-(--motion-fast)',
   'focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-hidden',
   '@min-[700px]:w-full',
-  '@min-[700px]:group-data-[collapsed=true]/sidebar:justify-center @min-[700px]:group-data-[collapsed=true]/sidebar:px-2',
+  '@min-[700px]:group-data-[collapsed=true]/sidebar:justify-center @min-[700px]:group-data-[collapsed=true]/sidebar:gap-0 @min-[700px]:group-data-[collapsed=true]/sidebar:px-2',
 )
 
 export const sidebarItemIconClassName =
