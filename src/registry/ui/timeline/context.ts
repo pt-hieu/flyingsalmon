@@ -6,4 +6,4 @@ export const TimelineOrientationContext = createContext(
   TimelineOrientation.Vertical,
 )
 
-export const TimelineLastItemContext = createContext(true)
+export const TimelineIsLastItemContext = createContext(true)

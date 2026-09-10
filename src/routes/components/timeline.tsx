@@ -4,6 +4,8 @@ import { LayoutGroup, motion } from 'motion/react'
 import { useId, useState } from 'react'
 
 import { ModePreview } from '@/components/mode-preview'
+import { cn } from '@/lib/utils'
+import { offsetFocusRingGeometry } from '@/registry/lib/interaction'
 import { springBounce } from '@/registry/lib/motion'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import {
@@ -56,14 +58,16 @@ function TimelinePage() {
         <h2 className="font-heading text-2xl font-bold">Parts</h2>
         <p className="text-muted-foreground">
           <code>Timeline</code> renders an <code>ol</code> with list styling
-          reset. <code>TimelineItem</code> renders an <code>li</code> and draws
-          the connector to the next item itself — you never place one, and there
-          is none after the last item. <code>TimelineMarker</code> is a slot:
-          empty it renders a neutral dot, and with children it renders a
-          bordered circle around them. <code>TimelineContent</code> is
-          free-form, with <code>TimelineTitle</code> and{' '}
-          <code>TimelineDescription</code> mirroring card's typography. Every
-          part carries a <code>data-slot</code>.
+          reset. <code>TimelineItem</code> renders an <code>li</code>. The
+          connector to the next item is drawn for you — it belongs to the item,
+          the marker paints it because that is where the geometry lives, and
+          there is none after the last item or on an item with no marker.{' '}
+          <code>TimelineMarker</code> is a slot: empty it renders a neutral dot,
+          and with children it renders a bordered circle around them.{' '}
+          <code>TimelineContent</code> is free-form, with{' '}
+          <code>TimelineTitle</code> and <code>TimelineDescription</code>{' '}
+          mirroring card's typography. Every part carries a{' '}
+          <code>data-slot</code>.
         </p>
         <ModePreview stacked>
           <div className="w-full max-w-md">
@@ -118,6 +122,12 @@ function TimelinePage() {
           icon, or an 8px dot. Both centre on the same 24px line, so a rail can
           mix them: the rail above gives its cities default markers and its
           transport anchors small ones, and the connector still runs straight.
+        </p>
+        <p className="text-muted-foreground">
+          Mixing sizes is a vertical affordance. A horizontal connector spans
+          from its own marker's edge using its own size, so a horizontal
+          timeline should keep one size throughout or the line will overshoot at
+          one end.
         </p>
       </section>
 
@@ -199,11 +209,14 @@ function TimelinePage() {
           stop.
         </p>
         <p className="text-muted-foreground">
-          Tab reaches one stop per linked title, in document order, and the link
-          takes the offset focus ring. Nothing else in the timeline is
-          focusable, and there is no stretched link: an item is never a hit
-          target, so a route rail with five cities and one linked title costs
-          the keyboard user exactly one stop.
+          Tab reaches one stop per linked title, in document order. The title
+          paints the underline, the colour, and the hover, but the anchor is
+          yours, so you put <code>offsetFocusRingGeometry</code> from the{' '}
+          <code>interaction</code> lib on it — that keeps the ring in the one
+          place ADR 0006 puts it and keeps the timeline itself dependency-free.
+          Nothing else in the timeline is focusable, and there is no stretched
+          link: an item is never a hit target, so a route rail with five cities
+          and one linked title costs the keyboard user exactly one stop.
         </p>
       </section>
     </article>
@@ -217,7 +230,12 @@ function RouteRail() {
         <TimelineMarker />
         <TimelineContent>
           <TimelineTitle>
-            <a href="https://en.wikipedia.org/wiki/Hanoi">Hanoi</a>
+            <a
+              href="https://en.wikipedia.org/wiki/Hanoi"
+              className={cn('ring-ring rounded-sm', offsetFocusRingGeometry)}
+            >
+              Hanoi
+            </a>
           </TimelineTitle>
           <TimelineDescription>
             Two nights in the Old Quarter

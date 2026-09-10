@@ -1,4 +1,4 @@
-import { use } from 'react'
+import { Children, use } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -8,7 +8,10 @@ import {
   timelineMarkerClassName,
   timelineMarkerDotClassName,
 } from './classnames'
-import { TimelineLastItemContext, TimelineOrientationContext } from './context'
+import {
+  TimelineIsLastItemContext,
+  TimelineOrientationContext,
+} from './context'
 import { TimelineMarkerSize } from './types'
 
 export interface TimelineMarkerProps extends React.ComponentProps<'span'> {
@@ -22,7 +25,8 @@ export function TimelineMarker({
   ...props
 }: TimelineMarkerProps) {
   const orientation = use(TimelineOrientationContext)
-  const isLastItem = use(TimelineLastItemContext)
+  const isLastItem = use(TimelineIsLastItemContext)
+  const hasMarkerContent = Children.toArray(children).length > 0
 
   return (
     <span
@@ -32,9 +36,11 @@ export function TimelineMarker({
     >
       <span
         data-slot="timeline-marker-box"
-        className={timelineMarkerBoxClassName(size, children !== undefined)}
+        className={timelineMarkerBoxClassName(size, hasMarkerContent)}
       >
-        {children ?? (
+        {hasMarkerContent ? (
+          children
+        ) : (
           <span
             data-slot="timeline-marker-dot"
             className={timelineMarkerDotClassName(size)}
