@@ -23,6 +23,11 @@ export enum ComboboxPanelAlign {
   End = 'end',
 }
 
+export enum ComboboxHighlightEdge {
+  First = 'first',
+  Last = 'last',
+}
+
 export interface ComboboxItemEntry {
   value: string
   label: string

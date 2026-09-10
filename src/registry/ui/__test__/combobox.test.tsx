@@ -1,4 +1,10 @@
-import { render, screen, waitFor, within } from '@testing-library/react'
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { useState } from 'react'
 import { describe, expect, it, vi } from 'vitest'
@@ -9,6 +15,7 @@ import {
   ComboboxItem,
   ComboboxMode,
   type ComboboxProps,
+  ComboboxSeparator,
 } from '@/registry/ui/combobox'
 import { Button } from '@/registry/ui/button'
 import {
@@ -84,8 +91,18 @@ function MultipleCityCombobox({ onValueChange, ...props }: MultipleProps) {
   )
 }
 
+function getInputByLabel(label: string) {
+  return screen.getByRole('combobox', { name: label })
+}
+
 function getInput() {
-  return screen.getByRole('combobox', { name: 'City' })
+  return getInputByLabel('City')
+}
+
+async function waitForClosedPanel() {
+  await waitFor(() => {
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
+  })
 }
 
 describe('Combobox', () => {
@@ -138,9 +155,7 @@ describe('Combobox', () => {
     await user.keyboard('{ArrowDown}{ArrowDown}{Enter}')
 
     expect(onValueChange).toHaveBeenCalledWith('tokyo')
-    await waitFor(() => {
-      expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
-    })
+    await waitForClosedPanel()
     expect(getInput()).toHaveValue('Tokyo')
   })
 
@@ -170,9 +185,7 @@ describe('Combobox', () => {
 
     await user.keyboard('{Escape}')
 
-    await waitFor(() => {
-      expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
-    })
+    await waitForClosedPanel()
     expect(getInput()).toHaveValue('par')
   })
 
@@ -187,9 +200,7 @@ describe('Combobox', () => {
 
     await user.tab()
 
-    await waitFor(() => {
-      expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
-    })
+    await waitForClosedPanel()
     expect(onValueChange).not.toHaveBeenCalled()
   })
 
@@ -363,14 +374,93 @@ describe('Combobox', () => {
     expect(getInput()).toHaveAttribute('aria-invalid', 'true')
     expect(getInput()).toHaveAccessibleDescription('Choose a city on the route')
   })
-})
 
-function getInputByLabel(label: string) {
-  return screen.getByRole('combobox', { name: label })
-}
+  it('keeps the panel open and clears the text when a pick arrives with no hover highlight in multiple mode', async () => {
+    const user = userEvent.setup()
+    render(<MultipleCityCombobox />)
 
-async function waitForClosedPanel() {
-  await waitFor(() => {
+    await user.type(getInputByLabel('Cities'), 'par')
+
+    // A touch tap reaches the item as a bare click: there is no hover to
+    // highlight the row first.
+    fireEvent.click(await screen.findByRole('option', { name: 'Paris' }))
+
+    expect(screen.getByRole('listbox')).toBeInTheDocument()
+    expect(getInputByLabel('Cities')).toHaveValue('')
+    expect(
+      await screen.findByRole('option', { name: 'Paris', selected: true }),
+    ).toBeInTheDocument()
+  })
+
+  it('leaves Home to the caret instead of the list highlight', async () => {
+    const user = userEvent.setup()
+    render(<SingleCityCombobox allowFreeText />)
+
+    await user.type(getInput(), 'paris')
+    await screen.findByRole('listbox')
+    await user.keyboard('{ArrowDown}{ArrowDown}')
+
+    const highlightedTokyo = await screen.findByRole('option', {
+      name: 'Tokyo',
+    })
+
+    await waitFor(() => {
+      expect(getInput()).toHaveAttribute(
+        'aria-activedescendant',
+        highlightedTokyo.id,
+      )
+    })
+
+    await user.keyboard('{Home}')
+
+    expect(getInput()).toHaveAttribute(
+      'aria-activedescendant',
+      highlightedTokyo.id,
+    )
+    expect(getInput()).toHaveProperty('selectionStart', 0)
+  })
+
+  it('does not commit typed text when Enter arrives with the panel closed', async () => {
+    const user = userEvent.setup()
+    const onValueChange = vi.fn()
+    render(<MultipleCityCombobox allowFreeText onValueChange={onValueChange} />)
+
+    await user.type(getInputByLabel('Cities'), 'kyoto')
+    await user.keyboard('{Escape}')
+    await waitForClosedPanel()
+
+    await user.keyboard('{Enter}')
+
+    expect(onValueChange).not.toHaveBeenCalled()
+  })
+
+  it('reports the typed text unchanged on blur when free text is allowed', async () => {
+    const user = userEvent.setup()
+    const onValueChange = vi.fn()
+    render(<SingleCityCombobox allowFreeText onValueChange={onValueChange} />)
+
+    await user.type(getInput(), '  kyoto  ')
+    await user.tab()
+
+    expect(onValueChange).toHaveBeenCalledWith('  kyoto  ')
+  })
+
+  it('refuses to open when the children hold no item and no empty message', async () => {
+    const user = userEvent.setup()
+    render(
+      <Combobox
+        mode={ComboboxMode.Single}
+        label="City"
+        placeholder="Search a city"
+        value={null}
+        onValueChange={vi.fn()}
+      >
+        <ComboboxSeparator />
+      </Combobox>,
+    )
+
+    await user.type(getInput(), 'par')
+
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
   })
-}
+})

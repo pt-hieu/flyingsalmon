@@ -1155,6 +1155,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/combobox/has-panel-content.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/combobox/index.ts",
           "type": "registry:ui"
         },

@@ -1,7 +1,10 @@
 import { cva } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
-import { boundaryFocusWithinRingGeometry } from '@/registry/lib/interaction'
+import {
+  boundaryFocusRingGeometry,
+  boundaryFocusWithinRingGeometry,
+} from '@/registry/lib/interaction'
 import {
   menuContent,
   menuItem,
@@ -99,7 +102,8 @@ export const comboboxSpinnerErrorClassName = 'text-destructive'
 
 export const comboboxChipClassName = cn(
   badgeVariants({ variant: BadgeVariant.Secondary }),
-  'focus-visible:ring-ring focus-visible:border-background focus-visible:ring-2 focus-visible:outline-hidden',
+  boundaryFocusRingGeometry,
+  'focus-visible:ring-ring',
 )
 
 export const comboboxChipRemoveClassName = cn(
