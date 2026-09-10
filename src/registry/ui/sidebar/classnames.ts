@@ -15,19 +15,20 @@ export const sidebarClassName = cn(
 export const sidebarHeaderClassName = cn(
   'flex shrink-0 items-center gap-2',
   '@min-[700px]:p-3',
-  '@min-[700px]:group-data-[collapsed=true]/sidebar:justify-center @min-[700px]:group-data-[collapsed=true]/sidebar:px-2',
+  '@min-[700px]:group-data-[collapsed=true]/sidebar:w-(--sidebar-width-rail) @min-[700px]:group-data-[collapsed=true]/sidebar:justify-center @min-[700px]:group-data-[collapsed=true]/sidebar:px-0',
 )
 
 export const sidebarContentClassName = cn(
   'min-w-0 flex-1 overflow-x-auto',
   '@min-[700px]:overflow-x-hidden @min-[700px]:overflow-y-auto @min-[700px]:p-2',
+  '@min-[700px]:group-data-[collapsed=true]/sidebar:w-(--sidebar-width-rail) @min-[700px]:group-data-[collapsed=true]/sidebar:px-0',
   '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
 )
 
 export const sidebarFooterClassName = cn(
   'flex shrink-0 items-center gap-2',
   '@min-[700px]:border-border @min-[700px]:mt-auto @min-[700px]:border-t @min-[700px]:p-3',
-  '@min-[700px]:group-data-[collapsed=true]/sidebar:justify-center @min-[700px]:group-data-[collapsed=true]/sidebar:px-2',
+  '@min-[700px]:group-data-[collapsed=true]/sidebar:w-(--sidebar-width-rail) @min-[700px]:group-data-[collapsed=true]/sidebar:justify-center @min-[700px]:group-data-[collapsed=true]/sidebar:px-0',
 )
 
 export const sidebarNavClassName = cn(
