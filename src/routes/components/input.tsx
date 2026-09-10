@@ -22,6 +22,21 @@ function InputPage() {
       </header>
 
       <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Types</h2>
+        <p className="text-muted-foreground">
+          Seven text-like types cover what a single line of text can be.{' '}
+          <strong className="text-foreground">
+            <code>number</code> is superseded by number-field,
+          </strong>{' '}
+          which formats and parses in the reader's locale, clamps to its bounds,
+          steps from the keyboard and from its own spin buttons, and reports a
+          number rather than a string. Reach for it whenever the value is a
+          quantity; <code>number</code> here stays for a numeric string nothing
+          does arithmetic on.
+        </p>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">
           className styles the wrapper
         </h2>

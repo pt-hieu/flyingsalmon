@@ -4,6 +4,7 @@ export enum ButtonVariant {
   Secondary = 'secondary',
   Ghost = 'ghost',
   Destructive = 'destructive',
+  Amber = 'amber',
 }
 
 export enum ButtonSize {
