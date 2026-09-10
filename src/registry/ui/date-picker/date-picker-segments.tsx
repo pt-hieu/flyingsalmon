@@ -52,7 +52,6 @@ export function DatePickerSegments({
       isDisabled={disabled}
       isReadOnly={readOnly}
       isInvalid={invalid}
-      className={datePickerSegmentGroupClassName}
     >
       <DateInput className={datePickerSegmentGroupClassName}>
         {(segment) => (
