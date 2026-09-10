@@ -1,5 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import {
+  Compass,
   Copy,
   Ellipsis,
   Pencil,
@@ -50,6 +51,13 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/registry/ui/dropdown-menu'
+import {
+  EmptyState,
+  EmptyStateActions,
+  EmptyStateDescription,
+  EmptyStateIcon,
+  EmptyStateTitle,
+} from '@/registry/ui/empty-state'
 import { Input, InputType } from '@/registry/ui/input'
 import { Select, SelectItem } from '@/registry/ui/select'
 import { Skeleton, SkeletonVariant } from '@/registry/ui/skeleton'
@@ -277,9 +285,21 @@ function TripGrid({
 }) {
   if (trips.length === 0) {
     return (
-      <p className="text-muted-foreground py-12 text-center text-sm">
-        Nothing here yet.
-      </p>
+      <EmptyState className="py-12">
+        <EmptyStateIcon>
+          <Compass />
+        </EmptyStateIcon>
+        <EmptyStateTitle>No trips yet</EmptyStateTitle>
+        <EmptyStateDescription>
+          Tell hottrip where you want to go and it drafts the route.
+        </EmptyStateDescription>
+        <EmptyStateActions>
+          <Button>
+            <Plus />
+            Plan a trip
+          </Button>
+        </EmptyStateActions>
+      </EmptyState>
     )
   }
 
