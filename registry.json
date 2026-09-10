@@ -1143,8 +1143,46 @@
       "name": "empty-state",
       "type": "registry:ui",
       "title": "Empty State",
-      "description": "An icon, a title, a description, and an action for a region with nothing in it. A page variant fills the screen; a ghost variant holds a place inside a layout.",
-      "dependencies": ["class-variance-authority"]
+      "description": "A resting no-content block: an optional icon, a required title, an optional description, and one or two actions. Two sizes, no variants, and no border or background of its own.",
+      "dependencies": ["class-variance-authority"],
+      "files": [
+        {
+          "path": "src/registry/ui/empty-state/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/empty-state/context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/empty-state/empty-state-actions.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/empty-state/empty-state-description.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/empty-state/empty-state-icon.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/empty-state/empty-state-title.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/empty-state/empty-state.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/empty-state/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/empty-state/types.ts",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "sidebar",
