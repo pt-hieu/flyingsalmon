@@ -120,18 +120,16 @@ function ToggleGroupPage() {
         <h2 className="font-heading text-2xl font-bold">Amber</h2>
         <p className="text-muted-foreground">
           <code>variant</code> on an item takes{' '}
-          <code>ToggleGroupItemVariant.Amber</code>: amber-400 with neutral-950
-          text, Button&apos;s amber row.{' '}
+          <code>ToggleGroupItemVariant.Amber</code>, which swaps the pressed
+          fill from <code>--primary</code> to amber-400 with neutral-950 text,
+          Button&apos;s amber row.{' '}
           <strong className="text-foreground">
-            Amber is color and nothing else — the chip toggles like every other
-            one.
+            Only the pressed fill changes: an unpressed amber chip is the same
+            grey as every other chip, and it toggles like every other one.
           </strong>{' '}
           It marks an option that needs a step the label names, such as a visa
-          or a permit. The fill stays amber whether the chip is pressed or not,
-          so the pressed state moves into the border, where every other chip
-          keeps its feedback. A chip that fires an action and never toggles is
-          the app&apos;s to compose from a Button; the registry ships no such
-          rule.
+          or a permit. A chip that fires an action and never toggles is the
+          app&apos;s to compose from a Button; the registry ships no such rule.
         </p>
         <ModePreview>
           <ToggleGroup

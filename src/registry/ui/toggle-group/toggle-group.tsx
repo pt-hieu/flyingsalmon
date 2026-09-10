@@ -160,6 +160,7 @@ export function ToggleGroup(props: ToggleGroupProps) {
               type="hidden"
               name={name}
               value={pressedValue}
+              disabled={isDisabled}
             />
           ))
         : null}

@@ -382,6 +382,47 @@ describe('ToggleGroup', () => {
     expect(submittedInterests).toEqual(['food', 'hike'])
   })
 
+  it('posts nothing while the group is disabled', async () => {
+    const user = userEvent.setup()
+    let submittedTypes: FormDataEntryValue[] = []
+    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
+      submittedTypes = new FormData(event.currentTarget).getAll('activityType')
+    }
+
+    render(
+      <form onSubmit={onSubmit}>
+        <ActivityTypeGroup name="activityType" defaultValue="museum" disabled />
+        <button type="submit">Save</button>
+      </form>,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'Save' }))
+
+    expect(submittedTypes).toEqual([])
+  })
+
+  it('renders a required group that was mounted empty', () => {
+    render(<ActivityTypeGroup required />)
+
+    expect(screen.getByRole('radio', { name: 'Food' })).not.toBeChecked()
+    expect(screen.getByRole('radio', { name: 'Museum' })).not.toBeChecked()
+    expect(screen.getByRole('radio', { name: 'Hike' })).not.toBeChecked()
+  })
+
+  it('renders an item icon without adding it to the accessible name', () => {
+    render(
+      <ToggleGroup label="Activity type">
+        <ToggleGroupItem value="food" icon={<svg data-testid="food-icon" />}>
+          Food
+        </ToggleGroupItem>
+      </ToggleGroup>,
+    )
+
+    expect(screen.getByTestId('food-icon')).toBeInTheDocument()
+    expect(screen.getByRole('radio', { name: 'Food' })).toBeInTheDocument()
+  })
+
   it('does not toggle a disabled item', async () => {
     const user = userEvent.setup()
     const onValueChange = vi.fn()
