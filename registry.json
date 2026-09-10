@@ -1113,9 +1113,43 @@
       "name": "toggle-group",
       "type": "registry:ui",
       "title": "Toggle Group",
-      "description": "A set of chips that toggle independently, in single or multiple mode, wrapping across rows. No shared track and no tab shape: each chip is its own control.",
-      "dependencies": [],
-      "registryDependencies": ["@flyingsalmon/interaction"]
+      "description": "A set of chips that toggle in single or multiple mode, wrapping across rows. Single mode returns to empty, multiple mode takes a max, and required blocks the last deselect. No shared track and no tab shape: each chip is its own control.",
+      "dependencies": ["class-variance-authority", "radix-ui"],
+      "registryDependencies": [
+        "@flyingsalmon/button",
+        "@flyingsalmon/field",
+        "@flyingsalmon/interaction"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/toggle-group/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/toggle-group/context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/toggle-group/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/toggle-group/to-pressed-values.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/toggle-group/toggle-group-item.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/toggle-group/toggle-group.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/toggle-group/types.ts",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "progress",
