@@ -42,12 +42,14 @@ function ButtonPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Variants</h2>
         <p className="text-muted-foreground">
-          Five variants cover every action shape. <code>default</code> is the
-          one primary action on a view. <code>outline</code> and{' '}
+          Six variants cover every action shape. <code>default</code> is the one
+          primary action on a view. <code>outline</code> and{' '}
           <code>secondary</code> carry the actions beside it, <code>ghost</code>{' '}
           the ones inside a dense row. <code>destructive</code> stays soft — a
           red tint with red text, never a solid red fill, because a delete
-          button should read as serious, not as an alarm. There is no{' '}
+          button should read as serious, not as an alarm. <code>amber</code> is
+          a color and nothing more: it sets an action apart from the primary one
+          without claiming a meaning the app has not given it. There is no{' '}
           <code>link</code> variant: a link is an <code>&lt;a&gt;</code>.
         </p>
         <p className="text-muted-foreground">
@@ -67,6 +69,7 @@ function ButtonPage() {
           <Button variant={ButtonVariant.Secondary}>Secondary</Button>
           <Button variant={ButtonVariant.Ghost}>Ghost</Button>
           <Button variant={ButtonVariant.Destructive}>Destructive</Button>
+          <Button variant={ButtonVariant.Amber}>Amber</Button>
         </ModePreview>
       </section>
 

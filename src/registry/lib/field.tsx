@@ -48,10 +48,15 @@ const fieldLabelBaseVariants = cva(
         true: 'opacity-50',
         false: '',
       },
+      required: {
+        true: "after:text-destructive after:ml-0.5 after:[content:'*'_/_'']",
+        false: '',
+      },
     },
     defaultVariants: {
       error: false,
       disabled: false,
+      required: false,
     },
   },
 )
@@ -60,6 +65,7 @@ export interface FieldLabelVariantsOptions {
   placement: FieldLabelPlacement
   error?: boolean
   disabled?: boolean
+  required?: boolean
 }
 
 export function fieldLabelVariants(options: FieldLabelVariantsOptions) {

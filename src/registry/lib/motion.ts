@@ -21,4 +21,5 @@ export const continuousDurations = {
   spinnerRotation: 0.8,
   skeletonPulse: 2,
   switchThumbPulse: 0.8,
+  progressIndeterminate: 2,
 } as const

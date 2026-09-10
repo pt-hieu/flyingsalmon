@@ -116,6 +116,8 @@
           "muted": "var(--color-neutral-100)",
           "muted-foreground": "var(--color-neutral-500)",
           "skeleton": "var(--color-neutral-300)",
+          "progress-track": "var(--color-neutral-200)",
+          "progress-fill": "var(--indicator)",
           "accent": "var(--color-neutral-200)",
           "accent-foreground": "var(--color-neutral-900)",
           "destructive": "var(--color-red-600)",
@@ -133,15 +135,7 @@
           "chart-3": "var(--color-amber-300)",
           "chart-4": "var(--color-pink-300)",
           "chart-5": "var(--color-sky-300)",
-          "radius": "0.75rem",
-          "sidebar": "var(--color-neutral-50)",
-          "sidebar-foreground": "var(--color-neutral-950)",
-          "sidebar-primary": "var(--color-neutral-950)",
-          "sidebar-primary-foreground": "var(--color-neutral-50)",
-          "sidebar-accent": "var(--color-neutral-100)",
-          "sidebar-accent-foreground": "var(--color-neutral-900)",
-          "sidebar-border": "var(--color-neutral-200)",
-          "sidebar-ring": "var(--color-neutral-950)"
+          "radius": "0.75rem"
         },
         "dark": {
           "background": "var(--color-neutral-950)",
@@ -159,6 +153,8 @@
           "muted": "var(--color-neutral-800)",
           "muted-foreground": "var(--color-neutral-400)",
           "skeleton": "var(--color-neutral-800)",
+          "progress-track": "var(--color-neutral-800)",
+          "progress-fill": "var(--indicator)",
           "accent": "var(--color-neutral-700)",
           "accent-foreground": "var(--color-neutral-50)",
           "destructive": "var(--color-red-400)",
@@ -175,15 +171,7 @@
           "chart-2": "var(--color-green-300)",
           "chart-3": "var(--color-amber-300)",
           "chart-4": "var(--color-pink-300)",
-          "chart-5": "var(--color-sky-300)",
-          "sidebar": "var(--color-neutral-900)",
-          "sidebar-foreground": "var(--color-neutral-50)",
-          "sidebar-primary": "var(--color-neutral-50)",
-          "sidebar-primary-foreground": "var(--color-neutral-950)",
-          "sidebar-accent": "var(--color-neutral-800)",
-          "sidebar-accent-foreground": "var(--color-neutral-50)",
-          "sidebar-border": "var(--color-neutral-800)",
-          "sidebar-ring": "var(--color-neutral-50)"
+          "chart-5": "var(--color-sky-300)"
         }
       }
     },
@@ -201,7 +189,7 @@
       "name": "interaction",
       "type": "registry:lib",
       "title": "Interaction state classes",
-      "description": "The rendering rules every interactive component shares: the disabled state, and the two focus ring geometries ADR 0003 defines. Geometry only \u2014 each component names its own ring color.",
+      "description": "The rendering rules every interactive component shares: the disabled state, and the three focus ring geometries ADR 0003 defines. Geometry only \u2014 each component names its own ring color.",
       "files": [
         { "path": "src/registry/lib/interaction.ts", "type": "registry:lib" }
       ]
@@ -299,7 +287,7 @@
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
-      "description": "The action component. Five variants, four sizes, and a loading state that morphs the button around its own spinner while it stays focused and reachable.",
+      "description": "The action component. Six variants, four sizes, and a loading state that morphs the button around its own spinner while it stays focused and reachable.",
       "dependencies": ["class-variance-authority"],
       "registryDependencies": [
         "@flyingsalmon/interaction",
@@ -1137,19 +1125,19 @@
       "dependencies": []
     },
     {
+      "name": "stepper",
+      "type": "registry:ui",
+      "title": "Stepper",
+      "description": "A bar of equal segments filled through the current one, for a position in a sequence of known count. It reads as ticks rather than a fraction; progress covers one operation of known length.",
+      "dependencies": ["motion"],
+      "registryDependencies": ["@flyingsalmon/motion", "@flyingsalmon/theme"]
+    },
+    {
       "name": "notice",
       "type": "registry:ui",
       "title": "Notice",
       "description": "One persistent message for a result with no visible home, dismissed by the user and never by a timer. It links back to its subject and never takes focus.",
       "dependencies": []
-    },
-    {
-      "name": "changed-item",
-      "type": "registry:ui",
-      "title": "Changed Item",
-      "description": "The highlight an item wears when it is added, updated, removed, or failed. The highlight stays until the user has seen it; a failed item carries its message and a retry.",
-      "dependencies": [],
-      "registryDependencies": ["@flyingsalmon/motion"]
     },
     {
       "name": "empty-state",
@@ -1167,27 +1155,19 @@
       "registryDependencies": ["@flyingsalmon/motion"]
     },
     {
-      "name": "header",
-      "type": "registry:ui",
-      "title": "Header",
-      "description": "A top bar with leading, title, and trailing slots, optionally sticky. The slots hold registry components; the header adds the frame and its bottom border.",
-      "dependencies": []
-    },
-    {
       "name": "carousel",
       "type": "registry:ui",
       "title": "Carousel",
       "description": "A horizontal scroll-snap track with previous and next controls. Items keep their own width; the carousel owns the snapping and the keyboard path.",
       "dependencies": [],
-      "registryDependencies": ["@flyingsalmon/button"]
+      "registryDependencies": ["@flyingsalmon/button", "@flyingsalmon/motion"]
     },
     {
       "name": "timeline",
       "type": "registry:ui",
       "title": "Timeline",
-      "description": "A sequence of markers joined by a connector, each item completed, current, or upcoming. Content sits beside its marker.",
-      "dependencies": [],
-      "registryDependencies": ["@flyingsalmon/motion"]
+      "description": "A sequence of markers joined by a connector. Content sits beside its marker; meaning stays with the consumer.",
+      "dependencies": []
     }
   ]
 }

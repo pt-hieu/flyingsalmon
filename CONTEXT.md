@@ -13,15 +13,15 @@ An atomic component that takes focus and can be disabled: button, checkbox, inpu
 _Avoid_: control, form control, focusable
 
 **Focus ring shape**:
-Which focus feedback a component draws, per ADR 0003. An offset ring stands clear of the shape (button, checkbox, switch, theme toggle); a boundary ring draws on the element's own edge and replaces its border (input, textarea, card link); or no ring at all, when the component's own state indicator moves with focus (tabs). The first two pick the export — `offsetFocusRingGeometry` or `boundaryFocusRingGeometry`. The third takes neither and is not an omission. ADR 0003 owns all three.
+Which focus feedback a component draws, per ADR 0003. An offset ring stands clear of the shape (button, checkbox, switch, theme toggle); a boundary ring draws on the element's own edge and replaces its border, on the element's own focus (input, textarea, card link) or on `focus-within` when the focus target is an inner element and the box owning the border is what the user reads as the control (date-picker, number-field); or no ring at all, when the component's own state indicator moves with focus (tabs). A ring picks its export by that answer — `offsetFocusRingGeometry`, `boundaryFocusRingGeometry`, or `boundaryFocusWithinRingGeometry`. The ringless shape takes none of them and is not an omission. ADR 0003 owns every shape named here.
 _Avoid_: ring style, ring variant, focus style
 
 **Shared style rule**:
-A rendering rule fixed by an ADR or this glossary and therefore centralised in `src/registry/lib/`, as distinct from a class string that merely repeats. Byte-identity is not the bar (ADR 0006). Today: the disabled state, the two focus ring geometries, the field label variants. The menu item rules join in a third module, `menu`, when dropdown-menu builds (#52).
+A rendering rule fixed by an ADR or this glossary and therefore centralised in `src/registry/lib/`, as distinct from a class string that merely repeats. Byte-identity is not the bar (ADR 0006). Today: the disabled state, the three focus ring geometries, the field label variants. The menu item rules join in a third module, `menu`, when dropdown-menu builds (#52).
 _Avoid_: shared class, style token, common style
 
 **Batch**:
-A shipping group of components specced and built together. Batch 1 holds the 11 atomic components (alert joined via ADR 0002; label absorbed into the field components via #4). Batch 2 holds the 5 floating and composite components: dialog, dropdown-menu, select, tooltip, tabs. Popover was cut permanently by #50. Batch 3 holds the 6 form and data components: form, radio-group, table, accordion, avatar-group, separator. Batch 4 holds the 13 components hottrip's screens need and the registry lacks — calendar, date-picker, combobox, number-field, toggle-group, progress, notice, changed-item, empty-state, sidebar, header, carousel, timeline — plus a button amendment; its roster gate is that a named hottrip screen needs the component.
+A shipping group of components specced and built together. Batch 1 holds the 11 atomic components (alert joined via ADR 0002; label absorbed into the field components via #4). Batch 2 holds the 5 floating and composite components: dialog, dropdown-menu, select, tooltip, tabs. Popover was cut permanently by #50. Batch 3 holds the 6 form and data components: form, radio-group, table, accordion, avatar-group, separator. Batch 4 holds the 12 components hottrip's screens need and the registry lacks — calendar, date-picker, combobox, number-field, toggle-group, progress, stepper, notice, empty-state, sidebar, carousel, timeline — plus the button's amber variant; header (#128) and changed-item (#125) are cut. Its roster gate is that a named hottrip screen needs the component.
 _Avoid_: milestone, phase, wave
 
 **Floating component**:
@@ -41,7 +41,7 @@ A component built from several parts that only make sense together, exposed as a
 _Avoid_: compound component, widget
 
 **Field family**:
-The components that own a label and an error message: input, textarea, checkbox, select from batch 2, radio-group from batch 3, and toggle-group from batch 4. All of them take their id linkage, their error message, and their label variants from the `field` registry item. Their props are the contract any form-state library drives; the registry binds to none (ADR 0007). Switch is not a member — it has a label but no error state, because a failed toggle is a result the app shows. That exclusion covers the label too: switch keeps its own label block, which transitions opacity rather than color (ADR 0006).
+The components that own a label and an error message: input, textarea, checkbox, select from batch 2, radio-group from batch 3, and date-picker, combobox, number-field and toggle-group from batch 4. All of them take their id linkage, their error message, and their label variants from the `field` registry item. Their props are the contract any form-state library drives; the registry binds to none (ADR 0007). Switch is not a member — it has a label but no error state, because a failed toggle is a result the app shows. That exclusion covers the label too: switch keeps its own label block, which transitions opacity rather than color (ADR 0006).
 _Avoid_: form controls, inputs
 
 **Motion language**:
@@ -61,7 +61,7 @@ The optional position on `Form`, below the actions row, where the app places its
 _Avoid_: form alert, error summary, message area
 
 **Notice**:
-The shell-owned surface for a result with no visible home: after navigation, from a closed dialog form, for a confirm-only action. One at a time, persistent until dismissed or replaced, anchored to its trigger or fixed top-centre, announced from a live region mounted before content, never takes focus, always links back to its subject (ADR 0008). Not a toast: it auto-dismisses nothing, stacks nothing, and is owned. A next-batch candidate, not built.
+The shell-owned surface for a result with no visible home: after navigation, from a closed dialog form, for a confirm-only action. One at a time, persistent until dismissed or replaced, fixed top-centre, announced from a live region mounted before content, never takes focus, always links back to its subject (ADR 0008). Not a toast: it auto-dismisses nothing, stacks nothing, and is owned. An anchored mode is deferred (#145); the fixed one builds in batch 4.
 _Avoid_: toast, snackbar, notification, banner
 
 **Range**:
@@ -77,20 +77,44 @@ A calendar day outside `min` / `max` or refused by `isDateDisabled`. It stays fo
 _Avoid_: disabled date, blocked date, excluded day
 
 **Toggle-group**:
-A field-family control made of chips that toggle, in single or multiple mode, wrapping across rows. It exists beside checkbox and radio-group because single mode can return to empty, multiple mode is one group with one tab stop and a `max`, and a chip can be gated. A chip that does not toggle is a badge. Not a segmented control: no shared track, no tabs shape.
+A field-family control made of chips that toggle, in single or multiple mode, wrapping across rows. It exists beside checkbox and radio-group because single mode can return to empty, and multiple mode is one group with one tab stop and a `max`. A chip that does not toggle is a badge. Not a segmented control: no shared track, no tabs shape.
 _Avoid_: chip group, segmented, choice chips, pill selector
 
 **Required**:
 A field-family prop saying the field must hold a value. The control blocks the action that would empty it, sets `aria-required` where its role allows, and the `field` registry item renders a visible marker in the label. Reaching a value from an initial empty is the user's action; a submit while still empty is the app's validation error through `error`. Toggle-group set the meaning; later fields copy it.
 _Avoid_: mandatory, non-optional, must-fill
 
-**Gated**:
-A variant of an action control (button, toggle-group item) that says the action becomes available after a step the label names, such as signing in. A gated control is fully enabled: it takes focus and activating it starts that step. It is never disabled and never explained by tooltip. The registry has no gated field; an app that wants a sign-up prompt beside a field places a gated button itself. Its solid fill is `--gated`, a functional alias on the amber ramp (ADR 0004).
-_Avoid_: locked, premium, upsell, upgrade
-
 **Stepper**:
 A display-only indicator of position in a sequence with a known count: a horizontal bar of equal segments, filled through the current one, that reads as ticks rather than a fraction. Progress is a fraction of one operation with a known end; timeline is a layout of markers joined by connectors and carries no item states; tabs navigate between peer panels. Stepper has no markers, no connectors, no fraction, and no navigation. The count may grow while mounted. Segment labels and the position text belong to the app.
 _Avoid_: wizard, steps bar, page indicator, dots
+
+**Empty state**:
+A resting no-content state: a title, an optional description, and optional actions saying why a region holds nothing and what the user can do about it. Not feedback and not loading — an error after an action goes to the acting surface's alert or to a notice (ADR 0008), and a region still fetching shows a skeleton. A dead share link qualifies: the user landed on a page with nothing in it, they did not act and fail.
+_Avoid_: blank state, zero state, placeholder, no-data
+
+**Carousel**:
+A horizontally scroll-snapping region of items on native CSS scroll-snap. Many items can be visible at once and the user free-scrolls with trackpad, touch, or scrollbar; the browser settles on an item start. Not a slideshow: one item per viewport is the special case where the item width equals the viewport. Horizontal only.
+_Avoid_: slider, slideshow, gallery, reel
+
+**Current**:
+The carousel item whose start edge is nearest the scroll position at rest, computed on `scrollend` and reported through `onCurrentChange`. Distinct from visible, which every item intersecting the viewport carries: several items are visible at once and exactly one is current.
+_Avoid_: active, selected, index
+
+**Page**:
+One scroller width of carousel movement: the step previous and next take, and the step PageUp and PageDown take. Not one item — a page moves however many items fit, which is one only when the item fills the viewport.
+_Avoid_: slide, screen, step
+
+**Marker**:
+The node that stands for one item in a sequence component. A slot: it renders a default neutral dot when empty, or a bordered circle around a consumer-supplied icon. Two sizes, default and sm. Painted to clear 3:1 on its own.
+_Avoid_: dot, bullet, node, point
+
+**Connector**:
+The line joining consecutive markers. The item draws it implicitly, a consumer never places one, and it stops at the first and last marker. Decorative and exempt under WCAG 1.4.11, because it carries nothing the marker and the content do not already carry; painted `--border`.
+_Avoid_: line, rail, track, spine
+
+**Chip**:
+A selected item rendered as a focusable pill before the caret in a multiple-mode combobox. It wears `badgeVariants` on a span rather than rendering `Badge`, because badge is never focusable and a chip takes focus so ArrowLeft reaches it and Backspace removes it. Toggle-group's chips are its own toggling controls and are not this.
+_Avoid_: tag, token, pill, badge
 
 **Spec checklist**:
 The fixed sections every component spec fills: purpose, variants, sizes, states, keyboard path, contrast, micro animation.
