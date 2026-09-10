@@ -48,7 +48,7 @@ export const sidebarGroupLabelClassName = cn(
 )
 
 export const sidebarItemClassName = cn(
-  'relative flex h-9 shrink-0 cursor-pointer items-center gap-3 px-3 text-sm whitespace-nowrap',
+  'group/sidebar-item relative flex h-9 shrink-0 cursor-pointer items-center gap-3 px-3 text-sm whitespace-nowrap',
   'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
   'focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:outline-hidden',
   'aria-[current=page]:text-foreground aria-[current=page]:font-medium',
@@ -57,8 +57,11 @@ export const sidebarItemClassName = cn(
   '@min-[700px]:group-data-[collapsed=true]/sidebar:justify-center @min-[700px]:group-data-[collapsed=true]/sidebar:gap-0 @min-[700px]:group-data-[collapsed=true]/sidebar:px-2',
 )
 
-export const sidebarItemIconClassName =
-  'flex shrink-0 items-center [&_svg]:size-4'
+export const sidebarItemIconClassName = cn(
+  'flex shrink-0 items-center [&_svg]:size-4',
+  'transition-colors duration-(--motion-fast)',
+  'group-aria-[current=page]/sidebar-item:text-indicator',
+)
 
 export const sidebarItemLabelClassName = cn(
   'overflow-hidden whitespace-nowrap',

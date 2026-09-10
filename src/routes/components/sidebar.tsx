@@ -154,9 +154,9 @@ function SidebarPage() {
           element <code>asChild</code> renders, so a router link that already
           sets it needs nothing else. Idle is <code>--muted-foreground</code> at
           36px, hover steps the background to <code>--accent</code>, and active
-          is <code>--foreground</code> in medium with a 2px{' '}
-          <code>--indicator</code> bar on the leading edge, the bottom edge in
-          the strip.{' '}
+          is <code>--foreground</code> in medium with its icon and a 2px bar
+          both in <code>--indicator</code>, the bar on the leading edge and on
+          the bottom edge in the strip.{' '}
           <strong className="text-foreground">
             The bar is one shared <code>motion.span</code> that slides between
             items on <code>spring-bounce</code>, so the sidebar has to stay
