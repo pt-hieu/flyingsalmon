@@ -70,29 +70,31 @@ const timelineHorizontalConnectorSpanClassNames: Record<
     'left-[calc(50%+0.5rem)] w-[calc(100%+var(--timeline-spacing)-1rem)]',
 }
 
+const timelineConnectorAxisClassNames: Record<TimelineOrientation, string> = {
+  [TimelineOrientation.Vertical]:
+    'w-0.5 flex-1 mb-[calc(var(--timeline-spacing)*-1)]',
+  [TimelineOrientation.Horizontal]: 'absolute top-1/2 h-0.5 -translate-y-1/2',
+}
+
 export function timelineConnectorClassName(
   orientation: TimelineOrientation,
   size: TimelineMarkerSize,
 ) {
-  if (orientation === TimelineOrientation.Horizontal) {
-    return cn(
-      'bg-border absolute top-1/2 h-0.5 -translate-y-1/2',
+  return cn(
+    'bg-border',
+    timelineConnectorAxisClassNames[orientation],
+    orientation === TimelineOrientation.Horizontal &&
       timelineHorizontalConnectorSpanClassNames[size],
-    )
-  }
-
-  return 'bg-border w-0.5 flex-1 mb-[calc(var(--timeline-spacing)*-1)]'
+  )
 }
 
 export const timelineContentClassName = 'flex min-w-0 flex-col gap-1'
 
 export const timelineTitleClassName = cn(
   'font-heading text-foreground text-base leading-6 font-semibold',
-  '[&_a]:text-foreground [&_a]:rounded-sm [&_a]:underline [&_a]:underline-offset-4',
+  '[&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-4',
   '[&_a]:transition-colors [&_a]:duration-(--motion-fast)',
   '[&_a]:hover:text-indicator [&_a]:active:text-indicator',
-  '[&_a]:ring-ring [&_a]:focus-visible:ring-3 [&_a]:focus-visible:ring-offset-2',
-  '[&_a]:focus-visible:ring-offset-background [&_a]:focus-visible:outline-hidden',
 )
 
 export const timelineDescriptionClassName = 'text-muted-foreground text-sm'

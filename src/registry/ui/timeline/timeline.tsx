@@ -1,9 +1,12 @@
-import { Children } from 'react'
+import { Children, isValidElement } from 'react'
 
 import { cn } from '@/lib/utils'
 
 import { timelineClassName } from './classnames'
-import { TimelineLastItemContext, TimelineOrientationContext } from './context'
+import {
+  TimelineIsLastItemContext,
+  TimelineOrientationContext,
+} from './context'
 import { TimelineOrientation } from './types'
 
 export interface TimelineProps extends React.ComponentProps<'ol'> {
@@ -16,7 +19,8 @@ export function Timeline({
   children,
   ...props
 }: TimelineProps) {
-  const itemCount = Children.count(children)
+  const items = Children.toArray(children)
+  const lastItemIndex = items.length - 1
 
   return (
     <TimelineOrientationContext value={orientation}>
@@ -26,10 +30,13 @@ export function Timeline({
         className={cn(timelineClassName(orientation), className)}
         {...props}
       >
-        {Children.map(children, (item, index) => (
-          <TimelineLastItemContext value={index === itemCount - 1}>
+        {items.map((item, index) => (
+          <TimelineIsLastItemContext
+            key={isValidElement(item) ? item.key : index}
+            value={index === lastItemIndex}
+          >
             {item}
-          </TimelineLastItemContext>
+          </TimelineIsLastItemContext>
         ))}
       </ol>
     </TimelineOrientationContext>
