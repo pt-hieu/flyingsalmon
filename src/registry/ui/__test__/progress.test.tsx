@@ -95,7 +95,7 @@ describe('Progress', () => {
     ).toBeInTheDocument()
   })
 
-  it('costs no tab stop', async () => {
+  it('is not focusable', async () => {
     const user = userEvent.setup()
     render(
       <>
@@ -115,6 +115,16 @@ describe('Progress', () => {
     expect(screen.getByRole('progressbar')).toHaveAttribute(
       'id',
       'trip-generation-progress',
+    )
+  })
+
+  it('keeps announcing the value it derives when a caller passes a stale one', () => {
+    const callerProps: React.ComponentProps<'div'> = { 'aria-valuenow': 99 }
+    render(<Progress value={10} {...callerProps} />)
+
+    expect(screen.getByRole('progressbar')).toHaveAttribute(
+      'aria-valuenow',
+      '10',
     )
   })
 })
