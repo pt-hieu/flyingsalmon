@@ -2,7 +2,6 @@ import { useCombobox, useMultipleSelection } from 'downshift'
 import { ChevronDown, X } from 'lucide-react'
 import { AnimatePresence } from 'motion/react'
 import { DismissableLayer, Popper } from 'radix-ui/internal'
-import { Children } from 'react'
 
 import { cn } from '@/lib/utils'
 import {
@@ -28,6 +27,7 @@ import { ComboboxChip } from './combobox-chip'
 import { ComboboxPanel } from './combobox-panel'
 import { createComboboxStateReducer } from './combobox-state-reducer'
 import { ComboboxSharedStateContext } from './context'
+import { hasPanelContent } from './has-panel-content'
 import { splitPanelChildren } from './split-panel-children'
 import { spinnerSizeByComboboxSize } from './spinner-size-by-combobox-size'
 import { toSelectedValues } from './to-selected-values'
@@ -78,6 +78,14 @@ export interface ComboboxMultipleProps extends ComboboxBaseProps {
 
 export type ComboboxProps = ComboboxSingleProps | ComboboxMultipleProps
 
+// Downshift's own key handler runs after the caller's and only stands down when
+// this flag is set on the native event; it is absent from downshift's typings.
+function leaveKeyToTheCaret(event: React.KeyboardEvent) {
+  ;(
+    event.nativeEvent as KeyboardEvent & { preventDownshiftDefault?: boolean }
+  ).preventDownshiftDefault = true
+}
+
 export function Combobox(props: ComboboxProps) {
   const {
     label,
@@ -123,7 +131,7 @@ export function Combobox(props: ComboboxProps) {
   const selectedLabel = isMultiple ? '' : (selectedEntries[0]?.label ?? '')
 
   const { listChildren, emptyChildren } = splitPanelChildren(children)
-  const canOpen = Children.toArray(children).length > 0
+  const canOpen = hasPanelContent(children)
 
   const multipleSelection = useMultipleSelection<ComboboxItemEntry>({
     selectedItems: isMultiple ? selectedEntries : [],
@@ -222,6 +230,10 @@ export function Combobox(props: ComboboxProps) {
   }
 
   function handleEnter() {
+    if (!isOpen) {
+      return
+    }
+
     const highlightedEntry = itemEntries[highlightedIndex]
 
     if (highlightedEntry && !highlightedEntry.disabled) {
@@ -249,6 +261,11 @@ export function Combobox(props: ComboboxProps) {
   function handleInputKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     rememberArrowOpen(event)
 
+    if (event.key === 'Home' || event.key === 'End') {
+      leaveKeyToTheCaret(event)
+      return
+    }
+
     if (event.key === 'Enter') {
       handleEnter()
     }
@@ -263,13 +280,11 @@ export function Combobox(props: ComboboxProps) {
       return
     }
 
-    const typedText = currentInputValue.trim()
-
-    if (typedText === selectedLabel) {
+    if (currentInputValue === selectedLabel) {
       return
     }
 
-    props.onValueChange(typedText.length > 0 ? typedText : null)
+    props.onValueChange(currentInputValue.length > 0 ? currentInputValue : null)
   }
 
   function handleChipKeyDown(

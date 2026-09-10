@@ -1,6 +1,6 @@
 import { Check } from 'lucide-react'
 import { useLayoutEffect } from 'radix-ui/internal'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -43,17 +43,21 @@ export function ComboboxItem({
   } = useComboboxSharedState()
 
   const [element, setElement] = useState<HTMLDivElement | null>(null)
+  const declaredEntry = useMemo(
+    () => ({ value, label: children, disabled }),
+    [value, children, disabled],
+  )
 
   useLayoutEffect(() => {
     if (!element) {
       return
     }
 
-    return registerItem(element, { value, label: children, disabled })
-  }, [element, registerItem, value, children, disabled])
+    return registerItem(element, declaredEntry)
+  }, [element, registerItem, declaredEntry])
 
   const index = itemEntries.findIndex((entry) => entry.value === value)
-  const entry = itemEntries[index] ?? { value, label: children, disabled }
+  const entry = itemEntries[index] ?? declaredEntry
 
   const isSelected = selectedValues.includes(value)
   const isHighlighted = index >= 0 && index === highlightedIndex

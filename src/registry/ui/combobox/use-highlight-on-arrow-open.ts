@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-import type { ComboboxItemEntry } from './types'
+import { ComboboxHighlightEdge, type ComboboxItemEntry } from './types'
 
 export interface HighlightOnArrowOpenOptions {
   isOpen: boolean
@@ -29,7 +29,7 @@ export function useHighlightOnArrowOpen({
   highlightedIndex,
   setHighlightedIndex,
 }: HighlightOnArrowOpenOptions) {
-  const pendingEdgeRef = useRef<'first' | 'last' | null>(null)
+  const pendingEdgeRef = useRef<ComboboxHighlightEdge | null>(null)
 
   useEffect(() => {
     if (!isOpen) {
@@ -44,7 +44,7 @@ export function useHighlightOnArrowOpen({
     }
 
     const index =
-      pendingEdge === 'first'
+      pendingEdge === ComboboxHighlightEdge.First
         ? findFirstEnabledIndex(itemEntries)
         : findLastEnabledIndex(itemEntries)
 
@@ -62,11 +62,11 @@ export function useHighlightOnArrowOpen({
     }
 
     if (event.key === 'ArrowDown') {
-      pendingEdgeRef.current = 'first'
+      pendingEdgeRef.current = ComboboxHighlightEdge.First
     }
 
     if (event.key === 'ArrowUp') {
-      pendingEdgeRef.current = 'last'
+      pendingEdgeRef.current = ComboboxHighlightEdge.Last
     }
   }
 }

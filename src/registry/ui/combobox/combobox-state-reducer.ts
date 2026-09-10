@@ -13,7 +13,19 @@ export interface ComboboxStateReducerOptions {
 type ComboboxState = UseComboboxState<ComboboxItemEntry>
 type ComboboxStateChanges = Partial<ComboboxState>
 
-function reduceMultiplePick(
+function stayOpenAfterPick(
+  state: ComboboxState,
+  changes: ComboboxStateChanges,
+): ComboboxStateChanges {
+  return {
+    ...changes,
+    isOpen: true,
+    inputValue: '',
+    highlightedIndex: state.highlightedIndex,
+  }
+}
+
+function reduceMultipleEnter(
   state: ComboboxState,
   changes: ComboboxStateChanges,
   { allowFreeText }: ComboboxStateReducerOptions,
@@ -25,12 +37,7 @@ function reduceMultiplePick(
     return { ...changes, isOpen: false }
   }
 
-  return {
-    ...changes,
-    isOpen: true,
-    inputValue: '',
-    highlightedIndex: state.highlightedIndex,
-  }
+  return stayOpenAfterPick(state, changes)
 }
 
 function reduceWithVetoes(
@@ -71,8 +78,10 @@ function reduceWithVetoes(
       }
 
     case useCombobox.stateChangeTypes.InputKeyDownEnter:
+      return isMultiple ? reduceMultipleEnter(state, changes, options) : changes
+
     case useCombobox.stateChangeTypes.ItemClick:
-      return isMultiple ? reduceMultiplePick(state, changes, options) : changes
+      return isMultiple ? stayOpenAfterPick(state, changes) : changes
 
     default:
       return changes

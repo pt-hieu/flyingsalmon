@@ -230,9 +230,10 @@ function ComboboxPage() {
           and Shift-Tab close without selecting and move on — the panel is
           non-modal, unlike Select — and focus never leaves the input when the
           panel opens or closes; the highlighted row is the focus indicator, and
-          the input carries <code>aria-activedescendant</code>. The clear and
-          chevron buttons are labelled and out of the tab order, so neither adds
-          a stop between fields.
+          the input carries <code>aria-activedescendant</code>. Home and End
+          stay the caret's, so a long query is still editable from either end.
+          The clear and chevron buttons are labelled and out of the tab order,
+          so neither adds a stop between fields.
         </p>
         <p className="text-muted-foreground">
           The panel registers in the same layer stack as Dialog and
