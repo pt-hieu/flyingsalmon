@@ -27,11 +27,10 @@ export const componentNavLinks = [
   { to: '/components/number-field', label: 'Number Field' },
   { to: '/components/toggle-group', label: 'Toggle Group' },
   { to: '/components/progress', label: 'Progress' },
+  { to: '/components/stepper', label: 'Stepper' },
   { to: '/components/notice', label: 'Notice' },
-  { to: '/components/changed-item', label: 'Changed Item' },
   { to: '/components/empty-state', label: 'Empty State' },
   { to: '/components/sidebar', label: 'Sidebar' },
-  { to: '/components/header', label: 'Header' },
   { to: '/components/carousel', label: 'Carousel' },
   { to: '/components/timeline', label: 'Timeline' },
 ] as const

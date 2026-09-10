@@ -10,6 +10,12 @@ export const boundaryFocusRingGeometry =
 export const invalidBoundaryFocusRingGeometry =
   'aria-invalid:focus-visible:border-background'
 
+export const boundaryFocusWithinRingGeometry =
+  'focus-within:border-background focus-within:ring-2 focus-within:outline-hidden'
+
+export const invalidBoundaryFocusWithinRingGeometry =
+  'aria-invalid:focus-within:border-background'
+
 export const verticalFocusRingClearance = '-my-1.5 py-1.5'
 
 export const horizontalFocusRingClearance = '-mx-1.5 px-1.5'

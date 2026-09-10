@@ -13,6 +13,21 @@ class NeverReportingResizeObserver implements ResizeObserver {
 
 globalThis.ResizeObserver ??= NeverReportingResizeObserver
 
+class NeverReportingIntersectionObserver implements IntersectionObserver {
+  readonly root = null
+  readonly rootMargin = '0px'
+  readonly scrollMargin = '0px'
+  readonly thresholds: ReadonlyArray<number> = []
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+  takeRecords(): IntersectionObserverEntry[] {
+    return []
+  }
+}
+
+globalThis.IntersectionObserver ??= NeverReportingIntersectionObserver
+
 HTMLElement.prototype.hasPointerCapture ??= () => false
 HTMLElement.prototype.setPointerCapture ??= () => {}
 HTMLElement.prototype.releasePointerCapture ??= () => {}
