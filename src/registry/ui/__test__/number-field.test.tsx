@@ -222,7 +222,6 @@ describe('NumberField', () => {
     expect(field).toHaveValue('4')
 
     fireEvent.pointerUp(increase)
-    fireEvent.click(increase, { detail: 1 })
 
     await act(async () => {
       vi.advanceTimersByTime(600)
@@ -273,36 +272,51 @@ describe('NumberField', () => {
     expect(field).not.toHaveAttribute('aria-valuetext')
   })
 
-  it('posts the raw number under name from a hidden input', () => {
+  it('posts the raw number under name, never the formatted text', () => {
     const { container } = render(
-      <NumberField
-        label="Budget"
-        locale="de-DE"
-        name="budgetPerPerson"
-        defaultValue={1500}
-      />,
+      <form>
+        <NumberField
+          label="Budget"
+          locale="de-DE"
+          name="budgetPerPerson"
+          defaultValue={1500}
+        />
+      </form>,
     )
 
-    const hiddenInput = container.querySelector<HTMLInputElement>(
-      'input[type="hidden"]',
-    )
+    const formData = new FormData(container.querySelector('form')!)
 
-    expect(hiddenInput).toHaveAttribute('name', 'budgetPerPerson')
-    expect(hiddenInput?.value).toBe('1500')
     expect(screen.getByLabelText('Budget')).toHaveValue('1.500')
-    expect(screen.getByLabelText('Budget')).not.toHaveAttribute('name')
+    expect([...formData.entries()]).toEqual([['budgetPerPerson', '1500']])
   })
 
   it('posts an empty string under name while the field is empty', () => {
     const { container } = render(
-      <NumberField label="Budget" name="budgetPerPerson" />,
+      <form>
+        <NumberField label="Budget" name="budgetPerPerson" />
+      </form>,
     )
 
-    const hiddenInput = container.querySelector<HTMLInputElement>(
-      'input[type="hidden"]',
+    const formData = new FormData(container.querySelector('form')!)
+
+    expect(formData.get('budgetPerPerson')).toBe('')
+  })
+
+  it('posts nothing at all while the field is disabled', () => {
+    const { container } = render(
+      <form>
+        <NumberField
+          label="Budget"
+          name="budgetPerPerson"
+          defaultValue={1500}
+          disabled
+        />
+      </form>,
     )
 
-    expect(hiddenInput?.value).toBe('')
+    const formData = new FormData(container.querySelector('form')!)
+
+    expect(formData.get('budgetPerPerson')).toBeNull()
   })
 
   it('ignores the wheel over the field', async () => {

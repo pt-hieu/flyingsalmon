@@ -210,9 +210,10 @@ function NumberFieldPage() {
         <p className="text-muted-foreground">
           Both keep the spin buttons in place and mark them{' '}
           <code>aria-disabled</code>, so the control never changes shape as it
-          locks. Disabled dims the field and its label together and takes no
-          pointer events. Read-only keeps full contrast on a muted background
-          and stays focusable, so the value can be read and copied.
+          locks. Disabled dims the field and its label together, takes no
+          pointer events, and posts nothing, exactly like a native disabled
+          control. Read-only keeps full contrast on a muted background, stays
+          focusable so the value can be read and copied, and still posts.
         </p>
         <ModePreview>
           <NumberField
