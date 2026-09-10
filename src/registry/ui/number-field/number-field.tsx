@@ -15,20 +15,18 @@ import {
   numberFieldInputClassName,
   numberFieldWrapperClassName,
 } from './classnames'
+import { boundForKey } from './bound-for-key'
+import { committedNumber } from './committed-number'
+import { formatNumber } from './format-number'
+import { fractionDigitsForStep } from './fraction-digits-for-step'
 import { inputModeForRange } from './input-mode-for-range'
-import { boundForKey, stepDeltaForKey } from './keyboard-commands'
 import { NumberFieldControls } from './number-field-controls'
-import {
-  clampToBounds,
-  formatNumber,
-  fractionDigitsForStep,
-  parseNumber,
-  resolveLocale,
-  roundToFractionDigits,
-  steppedValue,
-  valueTextWithAffixes,
-} from './number-formatting'
+import { parseNumber } from './parse-number'
+import { resolveLocale } from './resolve-locale'
+import { stepDeltaForKey } from './step-delta-for-key'
+import { steppedValue } from './stepped-value'
 import { NumberFieldSize } from './types'
+import { valueTextWithAffixes } from './value-text-with-affixes'
 
 export interface NumberFieldProps extends Omit<
   React.ComponentProps<'input'>,
@@ -146,11 +144,7 @@ export function NumberField({
       return committedValueRef.current
     }
 
-    return clampToBounds(
-      roundToFractionDigits(parsed, fractionDigits),
-      min,
-      max,
-    )
+    return committedNumber(parsed, min, max, fractionDigits)
   }
 
   function applyStep(delta: number) {
@@ -321,6 +315,7 @@ export function NumberField({
         <input
           type="hidden"
           name={name}
+          disabled={disabled}
           value={currentValue === null ? '' : String(currentValue)}
         />
       ) : null}

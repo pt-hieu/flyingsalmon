@@ -1118,7 +1118,23 @@
       ],
       "files": [
         {
+          "path": "src/registry/ui/number-field/bound-for-key.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/number-field/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/committed-number.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/format-number.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/fraction-digits-for-step.ts",
           "type": "registry:ui"
         },
         {
@@ -1130,6 +1146,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/number-field/number-field-controls.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/number-field/number-field-spin-button.tsx",
           "type": "registry:ui"
         },
@@ -1138,7 +1158,11 @@
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/number-field/number-formatting.ts",
+          "path": "src/registry/ui/number-field/parse-number.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/resolve-locale.ts",
           "type": "registry:ui"
         },
         {
@@ -1150,11 +1174,19 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/number-field/stepped-value.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/number-field/types.ts",
           "type": "registry:ui"
         },
         {
           "path": "src/registry/ui/number-field/use-hold-repeat.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/value-text-with-affixes.ts",
           "type": "registry:ui"
         }
       ]

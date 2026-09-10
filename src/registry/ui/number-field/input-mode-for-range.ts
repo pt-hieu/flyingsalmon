@@ -1,7 +1,7 @@
 export function inputModeForRange(
   min: number | undefined,
   fractionDigits: number,
-): 'text' | 'decimal' | 'numeric' {
+): React.ComponentProps<'input'>['inputMode'] {
   if (min === undefined || min < 0) {
     return 'text'
   }
