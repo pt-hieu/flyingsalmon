@@ -93,9 +93,14 @@ function SidebarPage() {
             The accessible name never depends on that tooltip:
           </strong>{' '}
           the label stays in the DOM, clipped rather than removed, so a screen
-          reader reads the same nav in either layout. The rail tooltip needs a
-          string label; an item whose children are markup keeps its own visible
-          text in the rail instead.
+          reader reads the same nav in either layout. Items are the
+          component&apos;s to reshape; header and footer are slots. Both become
+          one rail-wide box with the same padding, and content too wide for it
+          is the app&apos;s to swap on <code>useSidebar().layout</code> — this
+          demo drops the trip name and the theme toggle in the rail, leaving the
+          avatar menu on the centre line. The rail tooltip needs a string label;
+          an item whose children are markup keeps its own visible text in the
+          rail instead.
         </p>
         <ModePreview stacked>
           <div className="w-full overflow-x-auto">
@@ -318,6 +323,17 @@ function TripHeader() {
   )
 }
 
+function TripFooter() {
+  const { layout } = useSidebar()
+
+  return (
+    <SidebarFooter>
+      <TravellerMenu />
+      {layout === SidebarLayout.Rail ? null : <ThemeToggle />}
+    </SidebarFooter>
+  )
+}
+
 function TripShell({ containerClassName }: { containerClassName: string }) {
   const [currentKey, setCurrentKey] = useState('itinerary')
 
@@ -328,10 +344,7 @@ function TripShell({ containerClassName }: { containerClassName: string }) {
         <SidebarContent>
           <TripNav currentKey={currentKey} onCurrentKeyChange={setCurrentKey} />
         </SidebarContent>
-        <SidebarFooter>
-          <TravellerMenu />
-          <ThemeToggle />
-        </SidebarFooter>
+        <TripFooter />
       </Sidebar>
       <div className="text-muted-foreground min-w-0 flex-1 p-6 text-sm">
         The pane beside the sidebar. Collapse the sidebar and this pane takes
