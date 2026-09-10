@@ -1273,7 +1273,54 @@
       "type": "registry:ui",
       "title": "Timeline",
       "description": "A sequence of markers joined by a connector. Content sits beside its marker; meaning stays with the consumer.",
-      "dependencies": []
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/registry/ui/timeline/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/timeline/context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/timeline/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/timeline/timeline-content.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/timeline/timeline-description.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/timeline/timeline-item.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/timeline/timeline-marker.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/timeline/timeline-title.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/timeline/timeline.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/timeline/types.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "timeline-spacing": "--spacing(6)"
+        }
+      }
     }
   ]
 }
