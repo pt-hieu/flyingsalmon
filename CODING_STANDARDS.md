@@ -29,7 +29,7 @@ Consumers import from the folder, never from a file inside it.
 
 A `.tsx` file defines exactly one component, named after the file in PascalCase. A folder that ships several components has one file per component beside the main one.
 
-Utility functions do not each need a file. The ones with low cognitive complexity, a few lines with at most a branch or two, share the folder's `utils.ts`. A utility function whose branching or nesting takes effort to follow gets its own file, named after the function.
+Utility functions do not each need a file. The ones with low cognitive complexity, short and with no nested logic, share the folder's `utils.ts`. A utility function whose branching or nesting takes effort to follow gets its own file, named after the function.
 
 ## Class names live in classnames.ts
 
