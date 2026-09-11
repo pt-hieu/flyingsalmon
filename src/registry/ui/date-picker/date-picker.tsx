@@ -17,7 +17,7 @@ import {
   datePickerBoxVariants,
   datePickerEndSlotClassName,
   datePickerFieldColumnClassName,
-  datePickerIconButtonClassName,
+  datePickerIconButtonVariants,
   datePickerIconClassName,
   datePickerRangeSeparatorClassName,
   datePickerWrapperVariants,
@@ -338,7 +338,7 @@ export function DatePicker(props: DatePickerProps) {
                       type="button"
                       aria-label="Clear"
                       onClick={handleClear}
-                      className={datePickerIconButtonClassName}
+                      className={datePickerIconButtonVariants({ size })}
                     >
                       <X aria-hidden className={datePickerIconClassName} />
                     </button>
@@ -348,7 +348,7 @@ export function DatePicker(props: DatePickerProps) {
                     ref={triggerRef}
                     aria-label="Calendar"
                     disabled={disabled}
-                    className={datePickerIconButtonClassName}
+                    className={datePickerIconButtonVariants({ size })}
                   >
                     {loading ? (
                       <Spinner
