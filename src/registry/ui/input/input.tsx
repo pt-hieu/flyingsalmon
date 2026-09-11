@@ -39,6 +39,7 @@ export function Input({
   className,
   id,
   disabled,
+  required,
   'aria-describedby': callerDescribedBy,
   ...props
 }: InputProps) {
@@ -67,6 +68,7 @@ export function Input({
             placement: FieldLabelPlacement.Above,
             error: Boolean(error),
             disabled: Boolean(disabled),
+            required: Boolean(required),
           })}
         >
           {label}
@@ -78,6 +80,7 @@ export function Input({
           id={fieldId}
           type={type}
           disabled={disabled}
+          required={required}
           aria-invalid={error ? true : undefined}
           aria-busy={loading || undefined}
           aria-describedby={describedBy}

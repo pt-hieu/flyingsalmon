@@ -149,6 +149,25 @@ describe('Checkbox', () => {
     expect(box).toHaveAccessibleDescription('')
   })
 
+  it('exposes a required box as required', () => {
+    render(<Checkbox label="Accept the terms" required />)
+
+    expect(
+      screen.getByRole('checkbox', { name: 'Accept the terms' }),
+    ).toBeRequired()
+  })
+
+  it('keeps the required marker out of the accessible name', () => {
+    render(<Checkbox label="Accept the terms" required />)
+
+    expect(
+      screen.getByRole('checkbox', { name: 'Accept the terms' }),
+    ).toBeInTheDocument()
+    expect(screen.getByText('Accept the terms')).toHaveTextContent(
+      /^Accept the terms$/,
+    )
+  })
+
   it('keeps a caller description alongside the error message', () => {
     render(
       <>

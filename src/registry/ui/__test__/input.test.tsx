@@ -60,6 +60,19 @@ describe('Input', () => {
     expect(field).toHaveAccessibleDescription('')
   })
 
+  it('exposes a required field as required', () => {
+    render(<Input label="Email" required />)
+
+    expect(screen.getByRole('textbox', { name: 'Email' })).toBeRequired()
+  })
+
+  it('keeps the required marker out of the accessible name', () => {
+    render(<Input label="Email" required />)
+
+    expect(screen.getByRole('textbox', { name: 'Email' })).toBeInTheDocument()
+    expect(screen.getByText('Email')).toHaveTextContent(/^Email$/)
+  })
+
   it('keeps a caller description alongside the error message', () => {
     render(
       <>
