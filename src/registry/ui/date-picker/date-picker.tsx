@@ -20,6 +20,7 @@ import {
   datePickerIconButtonVariants,
   datePickerIconClassName,
   datePickerRangeSeparatorClassName,
+  datePickerSpinnerSlotVariants,
   datePickerWrapperVariants,
 } from './classnames'
 import { DatePickerHiddenInput } from './date-picker-hidden-input'
@@ -344,24 +345,31 @@ export function DatePicker(props: DatePickerProps) {
                     </button>
                   ) : null}
 
-                  <PopoverPrimitive.Trigger
-                    ref={triggerRef}
-                    aria-label="Calendar"
-                    disabled={disabled}
-                    className={datePickerIconButtonVariants({ size })}
-                  >
-                    {loading ? (
+                  {loading ? (
+                    <span
+                      className={datePickerSpinnerSlotVariants({
+                        size,
+                        error: errorText !== undefined,
+                      })}
+                    >
                       <Spinner
                         aria-hidden
                         size={spinnerSizeByDatePickerSize[size]}
                       />
-                    ) : (
+                    </span>
+                  ) : (
+                    <PopoverPrimitive.Trigger
+                      ref={triggerRef}
+                      aria-label="Calendar"
+                      disabled={disabled}
+                      className={datePickerIconButtonVariants({ size })}
+                    >
                       <CalendarDays
                         aria-hidden
                         className={datePickerIconClassName}
                       />
-                    )}
-                  </PopoverPrimitive.Trigger>
+                    </PopoverPrimitive.Trigger>
+                  )}
                 </div>
               </div>
             </PopoverPrimitive.Anchor>

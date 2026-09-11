@@ -81,12 +81,14 @@ function DatePickerPage() {
         <h2 className="font-heading text-2xl font-bold">States</h2>
         <p className="text-muted-foreground">
           <code>error</code> is the app&rsquo;s message and wins over the
-          built-in ones. <code>loading</code> swaps a spinner into the icon
-          button, blocks opening, makes the segments read-only, hides the clear
-          button, and sets <code>aria-busy</code>. <code>disabled</code> takes
-          the whole field out of the tab order. The last field below holds a
-          Saturday against an <code>isDateDisabled</code> that refuses weekends,
-          so it renders rejected: the invalid ring, the built-in{' '}
+          built-in ones. <code>loading</code> replaces the calendar button with
+          a spinner in the same footprint, red when the field shows an error, so
+          opening is blocked and the end slot has nothing to hover or tab to. It
+          also makes the segments read-only, hides the clear button, and sets{' '}
+          <code>aria-busy</code>. <code>disabled</code> takes the whole field
+          out of the tab order. The last field below holds a Saturday against an{' '}
+          <code>isDateDisabled</code> that refuses weekends, so it renders
+          rejected: the invalid ring, the built-in{' '}
           <code>unavailableMessage</code>, and nothing posted. A reversed range
           shows <code>rangeOrderMessage</code> instead. Both are props, so they
           translate.

@@ -92,6 +92,26 @@ export const datePickerIconButtonVariants = cva('', {
   },
 })
 
+export const datePickerSpinnerSlotVariants = cva(
+  'flex shrink-0 items-center justify-center',
+  {
+    variants: {
+      size: {
+        [DatePickerSize.Default]: 'size-7',
+        [DatePickerSize.Small]: 'size-6',
+      },
+      error: {
+        true: 'text-destructive',
+        false: '',
+      },
+    },
+    defaultVariants: {
+      size: DatePickerSize.Default,
+      error: false,
+    },
+  },
+)
+
 export const datePickerIconClassName = 'size-4'
 
 export const datePickerHiddenInputClassName =
