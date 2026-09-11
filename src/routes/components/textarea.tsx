@@ -176,7 +176,10 @@ function TextareaPage() {
           screen readers, so the wait is announced once. The keyboard path is
           native: Enter inserts a newline, and Tab always moves focus out of the
           field rather than inserting a tab character. A submit shortcut such as
-          Cmd+Enter belongs to your form, not to this component.
+          Cmd+Enter belongs to your form, not to this component.{' '}
+          <code>required</code> marks the label and reaches the{' '}
+          <code>&lt;textarea&gt;</code>; the validation itself stays with your
+          app.
         </p>
       </section>
     </article>

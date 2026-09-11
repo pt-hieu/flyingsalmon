@@ -207,7 +207,9 @@ function RadioGroupPage() {
           the group and links the message through <code>aria-describedby</code>,
           keeping any description you passed. The focus ring is keyboard-only
           and sits 2px clear of the circle, the same 3px ring Button, Checkbox,
-          and Switch use.
+          and Switch use. <code>required</code> marks the label and sets{' '}
+          <code>aria-required</code> on the group; the validation itself stays
+          with your app.
         </p>
       </section>
     </article>

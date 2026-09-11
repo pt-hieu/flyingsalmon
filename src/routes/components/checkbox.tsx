@@ -124,7 +124,9 @@ function CheckboxPage() {
           through <code>aria-describedby</code>, keeping any description you
           passed. The focus ring is keyboard-only and sits 2px clear of the box,
           the same 3px ring Button and Switch use. There is no press ring,
-          because a held state means nothing on an instant toggle.
+          because a held state means nothing on an instant toggle.{' '}
+          <code>required</code> marks the label and sets{' '}
+          <code>aria-required</code>; the validation itself stays with your app.
         </p>
       </section>
     </article>

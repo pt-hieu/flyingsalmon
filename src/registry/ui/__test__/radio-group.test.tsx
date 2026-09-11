@@ -183,6 +183,25 @@ describe('RadioGroup', () => {
     expect(group).toHaveAccessibleDescription('')
   })
 
+  it('exposes a required group as required', () => {
+    render(<DeliverySpeedGroup required />)
+
+    expect(
+      screen.getByRole('radiogroup', { name: 'Delivery speed' }),
+    ).toBeRequired()
+  })
+
+  it('keeps the required marker out of the accessible name', () => {
+    render(<DeliverySpeedGroup required />)
+
+    expect(
+      screen.getByRole('radiogroup', { name: 'Delivery speed' }),
+    ).toBeInTheDocument()
+    expect(screen.getByText('Delivery speed')).toHaveTextContent(
+      /^Delivery speed$/,
+    )
+  })
+
   it('keeps a caller description alongside the error message', () => {
     render(
       <>
