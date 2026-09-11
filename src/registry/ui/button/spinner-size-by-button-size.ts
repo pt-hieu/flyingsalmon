@@ -7,4 +7,6 @@ export const spinnerSizeByButtonSize: Record<ButtonSize, SpinnerSize> = {
   [ButtonSize.Small]: SpinnerSize.Small,
   [ButtonSize.Icon]: SpinnerSize.Default,
   [ButtonSize.IconSmall]: SpinnerSize.Small,
+  [ButtonSize.FieldIcon]: SpinnerSize.Default,
+  [ButtonSize.FieldIconSmall]: SpinnerSize.Small,
 }
