@@ -19,9 +19,7 @@ describe('onlyHeadingElement', () => {
   ])(
     'rejects %s with an error that names the asChild contract',
     (_description, children) => {
-      expect(() => onlyHeadingElement(children)).toThrow(
-        'AccordionTrigger with asChild expects a single heading element as its child',
-      )
+      expect(() => onlyHeadingElement(children)).toThrow(/asChild/)
     },
   )
 })

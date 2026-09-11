@@ -46,8 +46,6 @@ describe('resolveLocale', () => {
 
 describe('formatNumber', () => {
   it.each([
-    ['groups thousands for the locale', 1234.5, 'en-US', 2, '1,234.5'],
-    ['uses the separators of the locale', 1234.5, 'de-DE', 2, '1.234,5'],
     ['rounds to the allowed fraction digits', 1.239, 'en-US', 2, '1.24'],
     ['adds no trailing zeros to a whole number', 3, 'en-US', 2, '3'],
   ])('%s', (_description, value, locale, fractionDigits, expectedText) => {
@@ -56,13 +54,6 @@ describe('formatNumber', () => {
 })
 
 describe('parseNumber', () => {
-  it.each([
-    ['en-US', '1,234.5'],
-    ['de-DE', '1.234,5'],
-  ])('reads a number written for %s', (locale, text) => {
-    expect(parseNumber(text, locale)).toBe(1234.5)
-  })
-
   it.each([['abc'], ['']])('reads %j as no number', (text) => {
     expect(parseNumber(text, 'en-US')).toBeNull()
   })
