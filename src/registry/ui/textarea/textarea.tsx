@@ -35,6 +35,7 @@ export function Textarea({
   style,
   id,
   disabled,
+  required,
   'aria-describedby': callerDescribedBy,
   ...props
 }: TextareaProps) {
@@ -53,6 +54,7 @@ export function Textarea({
             placement: FieldLabelPlacement.Above,
             error: Boolean(error),
             disabled: Boolean(disabled),
+            required: Boolean(required),
           })}
         >
           {label}
@@ -63,6 +65,7 @@ export function Textarea({
         <textarea
           id={fieldId}
           disabled={disabled}
+          required={required}
           aria-invalid={error ? true : undefined}
           aria-busy={loading || undefined}
           aria-describedby={describedBy}

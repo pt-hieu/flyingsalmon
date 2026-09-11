@@ -37,6 +37,7 @@ export function Checkbox({
   defaultChecked,
   onCheckedChange,
   disabled,
+  required,
   'aria-describedby': callerDescribedBy,
   ...props
 }: CheckboxProps) {
@@ -66,6 +67,7 @@ export function Checkbox({
           defaultChecked={defaultChecked}
           onCheckedChange={handleCheckedChange}
           disabled={disabled}
+          required={required}
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy}
           className={checkboxVariants({ error: hasError })}
@@ -109,6 +111,7 @@ export function Checkbox({
               placement: FieldLabelPlacement.Beside,
               error: hasError,
               disabled: Boolean(disabled),
+              required: Boolean(required),
             })}
           >
             {label}

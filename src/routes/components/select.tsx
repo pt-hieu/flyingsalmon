@@ -222,7 +222,8 @@ function SelectPage() {
           trigger sets <code>aria-busy</code> and stays in the tab order;
           disabled removes it. A plain form posts the chosen value through
           Radix's hidden native <code>&lt;select&gt;</code>, and{' '}
-          <code>required</code> participates in native validation.
+          <code>required</code> marks the label, sets <code>aria-required</code>
+          , and participates in native validation.
         </p>
       </section>
     </article>

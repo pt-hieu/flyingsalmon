@@ -57,6 +57,19 @@ describe('Textarea', () => {
     expect(field).toHaveAccessibleDescription('')
   })
 
+  it('exposes a required field as required', () => {
+    render(<Textarea label="Notes" required />)
+
+    expect(screen.getByRole('textbox', { name: 'Notes' })).toBeRequired()
+  })
+
+  it('keeps the required marker out of the accessible name', () => {
+    render(<Textarea label="Notes" required />)
+
+    expect(screen.getByRole('textbox', { name: 'Notes' })).toBeInTheDocument()
+    expect(screen.getByText('Notes')).toHaveTextContent(/^Notes$/)
+  })
+
   it('keeps a caller description alongside the error message', () => {
     render(
       <>

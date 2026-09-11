@@ -91,6 +91,7 @@ export function Select({
             placement: FieldLabelPlacement.Above,
             error: hasError,
             disabled: Boolean(disabled),
+            required: Boolean(required),
           })}
         >
           {label}
