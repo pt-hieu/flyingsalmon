@@ -14,8 +14,8 @@ import {
   toggleGroupWrapperClassName,
 } from './classnames'
 import { ToggleGroupSharedStateContext } from './context'
-import { toPressedValues } from './to-pressed-values'
 import { ToggleGroupMode, ToggleGroupSize } from './types'
+import { toPressedValues } from './utils'
 
 interface ToggleGroupBaseProps extends Omit<
   React.ComponentProps<'div'>,
