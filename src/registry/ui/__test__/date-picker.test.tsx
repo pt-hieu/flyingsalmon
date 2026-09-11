@@ -274,37 +274,25 @@ describe('DatePicker', () => {
     expect(calendarButton()).toHaveFocus()
   })
 
-  it.each([
-    [
-      'a click',
-      async (user: ReturnType<typeof userEvent.setup>) => {
-        await user.click(calendarButton())
-      },
-    ],
-    [
-      'Enter on the calendar button',
-      async (user: ReturnType<typeof userEvent.setup>) => {
-        calendarButton().focus()
-        await user.keyboard('{Enter}')
-      },
-    ],
-    [
-      'Alt+ArrowDown in a segment',
-      async (user: ReturnType<typeof userEvent.setup>) => {
-        await user.click(segments()[0])
-        await user.keyboard('{Alt>}{ArrowDown}{/Alt}')
-      },
-    ],
-  ])('ignores %s while loading', async (_name, openPanel) => {
-    const user = userEvent.setup()
+  it('replaces the calendar button with a spinner while loading', () => {
     render(<DatePicker label="Departure" loading />)
 
     expect(screen.getByRole('group', { name: 'Departure' })).toHaveAttribute(
       'aria-busy',
       'true',
     )
+    expect(
+      screen.queryByRole('button', { name: 'Calendar' }),
+    ).not.toBeInTheDocument()
+    expect(screen.getByRole('status', { hidden: true })).toBeInTheDocument()
+  })
 
-    await openPanel(user)
+  it('ignores Alt+ArrowDown in a segment while loading', async () => {
+    const user = userEvent.setup()
+    render(<DatePicker label="Departure" loading />)
+
+    await user.click(segments()[0])
+    await user.keyboard('{Alt>}{ArrowDown}{/Alt}')
 
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   })
