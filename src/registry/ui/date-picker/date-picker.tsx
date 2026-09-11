@@ -28,7 +28,6 @@ import { DatePickerSegments } from './date-picker-segments'
 import { describeRejection } from './describe-rejection'
 import { readEntryValue } from './read-entry-value'
 import { spinnerSizeByDatePickerSize } from './spinner-size-by-date-picker-size'
-import { toValueKey } from './to-value-key'
 import {
   DatePickerMode,
   DatePickerPanelAlign,
@@ -40,6 +39,7 @@ import {
   type DatePickerValue,
 } from './types'
 import { useDatePickerValue } from './use-date-picker-value'
+import { toValueKey } from './utils'
 
 interface DatePickerBaseProps extends DatePickerLimits {
   label?: string

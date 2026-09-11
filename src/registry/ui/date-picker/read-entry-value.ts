@@ -1,9 +1,9 @@
-import { isCompleteDate } from './is-complete-date'
 import {
   DatePickerMode,
   type DatePickerEntry,
   type DatePickerValue,
 } from './types'
+import { isCompleteDate } from './utils'
 
 export function readEntryValue(
   entry: DatePickerEntry,

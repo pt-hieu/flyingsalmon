@@ -1,12 +1,12 @@
 import { parseDate, type CalendarDate } from '@internationalized/date'
 
-import { isCompleteDate } from './is-complete-date'
 import {
   DatePickerMode,
   type DatePickerEntry,
   type DatePickerLimits,
   type DescribeRejectionOptions,
 } from './types'
+import { isCompleteDate } from './utils'
 
 function isUnavailable(date: CalendarDate, limits: DatePickerLimits): boolean {
   if (limits.min !== undefined && date.compare(parseDate(limits.min)) < 0) {
