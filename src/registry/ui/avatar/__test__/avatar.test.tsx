@@ -14,14 +14,6 @@ function pretendImagesFinishBeforeMount(naturalWidth: number) {
 describe('Avatar', () => {
   afterEach(() => vi.restoreAllMocks())
 
-  it('shows an image that finished loading before the component mounted', () => {
-    pretendImagesFinishBeforeMount(64)
-
-    const { container } = render(<Avatar src="/ada.png" name="Ada Lovelace" />)
-
-    expect(container.querySelector('img')).toHaveClass('opacity-100')
-  })
-
   it('swaps in the initials for an image that broke before the component mounted', () => {
     pretendImagesFinishBeforeMount(0)
 

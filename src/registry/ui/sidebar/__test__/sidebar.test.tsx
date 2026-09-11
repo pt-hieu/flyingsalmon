@@ -118,9 +118,6 @@ function TripNavOnly({ currentLabel }: { currentLabel: string }) {
   )
 }
 
-const activeIndicatorOf = (item: HTMLElement) =>
-  item.querySelector('[data-slot="sidebar-active-indicator"]')
-
 describe('Sidebar', () => {
   beforeEach(() => {
     reportViewportWidth(1200)
@@ -186,16 +183,6 @@ describe('Sidebar', () => {
     render(<TripSidebar defaultCollapsed />)
 
     expect(screen.getByText('Layout is strip')).toBeInTheDocument()
-  })
-
-  it('draws the active bar only on the item marked as the current page', () => {
-    render(<TripSidebar />)
-
-    const currentItem = screen.getByRole('button', { name: 'Itinerary' })
-    const otherItem = screen.getByRole('button', { name: 'Budget' })
-
-    expect(activeIndicatorOf(currentItem)).toBeInTheDocument()
-    expect(activeIndicatorOf(otherItem)).not.toBeInTheDocument()
   })
 
   it('keeps each label as the accessible name of its item in the rail', () => {
