@@ -4,8 +4,10 @@ import { describe, expect, it } from 'vitest'
 
 import { AvatarGroup } from '@/registry/ui/avatar-group'
 import { resolveRoster } from '@/registry/ui/avatar-group/resolve-roster'
-import { revealSteps } from '@/registry/ui/avatar-group/reveal-steps'
-import { tabStopChildIndex } from '@/registry/ui/avatar-group/tab-stop-child-index'
+import {
+  revealSteps,
+  tabStopChildIndex,
+} from '@/registry/ui/avatar-group/utils'
 import { TooltipProvider } from '@/registry/ui/tooltip'
 
 const crew = [

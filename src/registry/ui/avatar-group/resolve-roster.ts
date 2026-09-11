@@ -1,5 +1,5 @@
-import { resolveItemName } from './resolve-item-name'
 import type { AvatarGroupItem, AvatarGroupRoster } from './types'
+import { resolveItemName } from './utils'
 
 export function resolveRoster({
   items,
