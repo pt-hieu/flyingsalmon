@@ -1177,8 +1177,54 @@
       "type": "registry:ui",
       "title": "Number Field",
       "description": "A numeric field with a unit, bounds, and a step. It owns its label and error like the rest of the field family.",
-      "dependencies": [],
-      "registryDependencies": ["@flyingsalmon/field"]
+      "dependencies": [
+        "@internationalized/number",
+        "class-variance-authority",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@flyingsalmon/field",
+        "@flyingsalmon/interaction",
+        "@flyingsalmon/spinner"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/number-field/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/number-field-controls.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/number-field-spin-button.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/number-field.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/spinner-size-by-number-field-size.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/types.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/use-hold-repeat.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/utils.ts",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "toggle-group",
