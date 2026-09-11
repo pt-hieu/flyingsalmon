@@ -1131,10 +1131,6 @@
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/date-picker/is-complete-date.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/date-picker/read-entry-value.ts",
           "type": "registry:ui"
         },
@@ -1143,19 +1139,15 @@
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/date-picker/to-entry.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/date-picker/to-value-key.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/date-picker/types.ts",
           "type": "registry:ui"
         },
         {
           "path": "src/registry/ui/date-picker/use-date-picker-value.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/date-picker/utils.ts",
           "type": "registry:ui"
         }
       ]

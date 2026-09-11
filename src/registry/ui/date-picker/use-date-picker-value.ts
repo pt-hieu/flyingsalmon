@@ -1,13 +1,12 @@
 import { useState } from 'react'
 
-import { toEntry } from './to-entry'
-import { toValueKey } from './to-value-key'
 import type {
   DatePickerEntry,
   DatePickerValue,
   DatePickerValueState,
   UseDatePickerValueOptions,
 } from './types'
+import { toEntry, toValueKey } from './utils'
 
 export function useDatePickerValue({
   value,
