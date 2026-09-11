@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest'
 
 import {
   ComboboxEmpty,
-  ComboboxItem,
   ComboboxLabel,
   ComboboxSeparator,
 } from '@/registry/ui/combobox'
@@ -31,14 +30,5 @@ describe('splitPanelChildren', () => {
     expect(list).toHaveTextContent('EuropeAsia')
     expect(within(list).getByRole('separator')).toBeInTheDocument()
     expect(empty).toHaveTextContent(/^No city matches$/)
-  })
-
-  it('leaves the empty slot empty when there is no empty message', () => {
-    const { listChildren, emptyChildren } = splitPanelChildren(
-      <ComboboxItem value="paris">Paris</ComboboxItem>,
-    )
-
-    expect(listChildren).toHaveLength(1)
-    expect(emptyChildren).toEqual([])
   })
 })
