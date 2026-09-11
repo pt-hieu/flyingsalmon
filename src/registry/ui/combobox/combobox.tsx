@@ -15,12 +15,13 @@ import { Spinner } from '@/registry/ui/spinner'
 import {
   comboboxChevronClassName,
   comboboxClearIconClassName,
-  comboboxEndSlotButtonClassName,
-  comboboxEndSlotVariants,
+  comboboxEndSlotButtonVariants,
+  comboboxEndSlotClassName,
   comboboxFieldVariants,
   comboboxInputVariants,
   comboboxListClassName,
   comboboxSpinnerErrorClassName,
+  comboboxSpinnerSlotVariants,
   comboboxWrapperClassName,
 } from './classnames'
 import { ComboboxChip } from './combobox-chip'
@@ -315,7 +316,7 @@ export function Combobox(props: ComboboxProps) {
 
   const toggleButtonProps = getToggleButtonProps({
     'aria-label': 'Show suggestions',
-    className: comboboxEndSlotButtonClassName,
+    className: comboboxEndSlotButtonVariants({ size }),
   })
 
   const hasContentToClear =
@@ -380,15 +381,17 @@ export function Combobox(props: ComboboxProps) {
 
                 <input {...inputProps} />
 
-                <div className={comboboxEndSlotVariants({ size })}>
+                <div className={comboboxEndSlotClassName}>
                   {loading ? (
-                    <Spinner
-                      aria-hidden
-                      size={spinnerSizeByComboboxSize[size]}
-                      className={
-                        hasError ? comboboxSpinnerErrorClassName : undefined
-                      }
-                    />
+                    <span className={comboboxSpinnerSlotVariants({ size })}>
+                      <Spinner
+                        aria-hidden
+                        size={spinnerSizeByComboboxSize[size]}
+                        className={
+                          hasError ? comboboxSpinnerErrorClassName : undefined
+                        }
+                      />
+                    </span>
                   ) : null}
 
                   {!loading && hasContentToClear ? (
@@ -396,7 +399,7 @@ export function Combobox(props: ComboboxProps) {
                       type="button"
                       tabIndex={-1}
                       aria-label="Clear selection"
-                      className={comboboxEndSlotButtonClassName}
+                      className={comboboxEndSlotButtonVariants({ size })}
                       onClick={clearField}
                     >
                       <X aria-hidden className={comboboxClearIconClassName} />

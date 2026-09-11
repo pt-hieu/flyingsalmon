@@ -1174,7 +1174,8 @@
         "@flyingsalmon/menu",
         "@flyingsalmon/interaction",
         "@flyingsalmon/spinner",
-        "@flyingsalmon/badge"
+        "@flyingsalmon/badge",
+        "@flyingsalmon/button"
       ],
       "files": [
         {

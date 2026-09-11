@@ -18,6 +18,7 @@ import {
   badgeVariants,
   BadgeVariant,
 } from '@/registry/ui/badge'
+import { ButtonSize, ButtonVariant, buttonVariants } from '@/registry/ui/button'
 
 import { ComboboxSize } from './types'
 
@@ -72,13 +73,44 @@ export const comboboxInputVariants = cva(
   },
 )
 
-export const comboboxEndSlotVariants = cva(
-  'pointer-events-none absolute top-0 flex items-center [&_button]:pointer-events-auto',
+// The box wraps chips onto new rows, so the slot is an overlay anchored to the
+// first row rather than a flex sibling that would wrap away from the input.
+export const comboboxEndSlotClassName = cn(
+  'pointer-events-none absolute top-0.75 right-0.75 flex items-center',
+  '[&_button]:pointer-events-auto',
+)
+
+export const comboboxEndSlotButtonVariants = cva('group', {
+  variants: {
+    size: {
+      [ComboboxSize.Default]: cn(
+        buttonVariants({
+          variant: ButtonVariant.Ghost,
+          size: ButtonSize.FieldIcon,
+        }),
+        'text-muted-foreground',
+      ),
+      [ComboboxSize.Small]: cn(
+        buttonVariants({
+          variant: ButtonVariant.Ghost,
+          size: ButtonSize.FieldIconSmall,
+        }),
+        'text-muted-foreground',
+      ),
+    },
+  },
+  defaultVariants: {
+    size: ComboboxSize.Default,
+  },
+})
+
+export const comboboxSpinnerSlotVariants = cva(
+  'flex shrink-0 items-center justify-center',
   {
     variants: {
       size: {
-        [ComboboxSize.Default]: 'right-3 h-9',
-        [ComboboxSize.Small]: 'right-2.5 h-8',
+        [ComboboxSize.Default]: 'size-7',
+        [ComboboxSize.Small]: 'size-6',
       },
     },
     defaultVariants: {
@@ -87,16 +119,12 @@ export const comboboxEndSlotVariants = cva(
   },
 )
 
-export const comboboxEndSlotButtonClassName =
-  'group flex items-center justify-center outline-hidden'
-
 export const comboboxChevronClassName = cn(
-  'text-muted-foreground size-4 shrink-0',
+  'size-4 shrink-0',
   'transition-transform duration-(--motion-base) group-aria-expanded:rotate-180',
 )
 
-export const comboboxClearIconClassName =
-  'text-muted-foreground size-4 shrink-0'
+export const comboboxClearIconClassName = 'size-4 shrink-0'
 
 export const comboboxSpinnerErrorClassName = 'text-destructive'
 
