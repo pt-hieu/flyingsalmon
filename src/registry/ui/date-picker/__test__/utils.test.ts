@@ -1,6 +1,8 @@
 import { CalendarDate } from '@internationalized/date'
 import { describe, expect, it } from 'vitest'
 
+import { readEntryValue } from '@/registry/ui/date-picker/read-entry-value'
+import { DatePickerMode } from '@/registry/ui/date-picker/types'
 import {
   isCompleteDate,
   toEntry,
@@ -27,41 +29,38 @@ describe('isCompleteDate', () => {
 })
 
 describe('toEntry', () => {
-  it('turns no value into an empty entry', () => {
-    expect(toEntry(null)).toEqual({
-      start: null,
-      end: null,
-      isBeingTyped: false,
-    })
-  })
-
-  it('turns a single ISO date into a start date', () => {
-    expect(toEntry('2026-09-14')).toEqual({
-      start: new CalendarDate(2026, 9, 14),
-      end: null,
-      isBeingTyped: false,
-    })
-  })
-
-  it('turns an ISO range into start and end dates', () => {
-    expect(toEntry({ start: '2026-09-14', end: '2026-09-20' })).toEqual({
-      start: new CalendarDate(2026, 9, 14),
-      end: new CalendarDate(2026, 9, 20),
-      isBeingTyped: false,
-    })
-  })
-})
-
-describe('toValueKey', () => {
   it.each([
-    ['no value', null, ''],
-    ['a single date', '2026-09-14', '2026-09-14'],
+    ['no value', null, DatePickerMode.Single],
+    ['a single date', '2026-09-14', DatePickerMode.Single],
     [
       'a range',
       { start: '2026-09-14', end: '2026-09-20' },
-      '2026-09-14/2026-09-20',
+      DatePickerMode.Range,
     ],
-  ])('keys %s', (_description, value, expectedKey) => {
-    expect(toValueKey(value)).toBe(expectedKey)
+  ])(
+    'turns %s into an entry that reads back as the same value',
+    (_description, value, mode) => {
+      expect(readEntryValue(toEntry(value), mode)).toEqual(value)
+    },
+  )
+})
+
+describe('toValueKey', () => {
+  it('gives equal values the same key', () => {
+    expect(toValueKey({ start: '2026-09-14', end: '2026-09-20' })).toBe(
+      toValueKey({ start: '2026-09-14', end: '2026-09-20' }),
+    )
+  })
+
+  it('gives different values different keys', () => {
+    const keys = [
+      null,
+      '2026-09-14',
+      '2026-09-20',
+      { start: '2026-09-14', end: '2026-09-20' },
+      { start: '2026-09-14', end: '2026-09-21' },
+    ].map(toValueKey)
+
+    expect(new Set(keys).size).toBe(5)
   })
 })

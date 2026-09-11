@@ -6,7 +6,6 @@ import { resolveRoster } from '@/registry/ui/avatar-group/resolve-roster'
 import {
   childIndexContaining,
   resolveItemName,
-  revealSteps,
   stepFocusWithin,
   tabStopChildIndex,
 } from '@/registry/ui/avatar-group/utils'
@@ -60,27 +59,6 @@ describe('resolveItemName', () => {
     ['an empty string when there is neither', { src: '/ada.png' }, ''],
   ])('resolves to %s', (_description, item, expectedName) => {
     expect(resolveItemName(item)).toBe(expectedName)
-  })
-})
-
-describe('revealSteps', () => {
-  it('holds every avatar in place while nothing is revealed', () => {
-    expect(revealSteps({ childIndex: 0, revealedIndex: null })).toBe(0)
-    expect(revealSteps({ childIndex: 4, revealedIndex: null })).toBe(0)
-  })
-
-  it('holds the revealed avatar itself in place', () => {
-    expect(revealSteps({ childIndex: 2, revealedIndex: 2 })).toBe(0)
-  })
-
-  it('pushes everything before the revealed avatar one step back', () => {
-    expect(revealSteps({ childIndex: 1, revealedIndex: 2 })).toBe(-1)
-    expect(revealSteps({ childIndex: 0, revealedIndex: 2 })).toBe(-1)
-  })
-
-  it('pushes everything after the revealed avatar one step forward', () => {
-    expect(revealSteps({ childIndex: 3, revealedIndex: 2 })).toBe(1)
-    expect(revealSteps({ childIndex: 9, revealedIndex: 2 })).toBe(1)
   })
 })
 

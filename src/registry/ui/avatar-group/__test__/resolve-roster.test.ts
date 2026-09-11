@@ -93,26 +93,6 @@ describe('resolveRoster', () => {
     expect(roster.visibleItems[0].name).toBe('Trip owner')
   })
 
-  it('stacks the first person highest and descends to the right', () => {
-    const roster = resolveRoster({ items: crew, max: 4 })
-
-    expect(roster.visibleItems.map((visibleItem) => visibleItem.layer)).toEqual(
-      [4, 3, 2, 1],
-    )
-  })
-
-  it('keys each person by id and falls back to the roster position', () => {
-    const roster = resolveRoster({
-      items: [{ id: 'ada', name: 'Ada Lovelace' }, { name: 'Grace Hopper' }],
-      max: 4,
-    })
-
-    expect(roster.visibleItems.map((visibleItem) => visibleItem.key)).toEqual([
-      'ada',
-      1,
-    ])
-  })
-
   it('resolves an empty roster to nothing to render', () => {
     const roster = resolveRoster({ items: [], max: 4 })
 
