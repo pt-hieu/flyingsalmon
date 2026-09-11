@@ -15,18 +15,20 @@ import {
   numberFieldInputClassName,
   numberFieldWrapperClassName,
 } from './classnames'
-import { boundForKey } from './bound-for-key'
-import { committedNumber } from './committed-number'
-import { formatNumber } from './format-number'
-import { fractionDigitsForStep } from './fraction-digits-for-step'
-import { inputModeForRange } from './input-mode-for-range'
 import { NumberFieldControls } from './number-field-controls'
-import { parseNumber } from './parse-number'
-import { resolveLocale } from './resolve-locale'
-import { stepDeltaForKey } from './step-delta-for-key'
-import { steppedValue } from './stepped-value'
 import { NumberFieldSize } from './types'
-import { valueTextWithAffixes } from './value-text-with-affixes'
+import {
+  boundForKey,
+  committedNumber,
+  formatNumber,
+  fractionDigitsForStep,
+  inputModeForRange,
+  parseNumber,
+  resolveLocale,
+  stepDeltaForKey,
+  steppedValue,
+  valueTextWithAffixes,
+} from './utils'
 
 export interface NumberFieldProps extends Omit<
   React.ComponentProps<'input'>,
