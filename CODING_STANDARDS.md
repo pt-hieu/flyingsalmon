@@ -51,11 +51,12 @@ Boolean variants are not string sets and stay booleans. A type alias that only r
 
 A test file sits in a `__test__` folder beside the file it tests and is named after it: `src/registry/ui/avatar/utils.ts` is tested by `src/registry/ui/avatar/__test__/utils.test.ts`. A component folder's behavior tests go in one file named after the folder, such as `src/registry/ui/avatar/__test__/avatar.test.tsx`.
 
-Every utility function is tested, whether it lives in a folder's `utils.ts`, in a file of its own, or in a shared module under `src/lib/` or `src/registry/lib/`. Class strings, lookup tables, and other constants get no test of their own: a test that restates a constant can only pass (ADR 0006).
+A test verifies the behavior of its target, never how the target achieves it. A test that restates the implementation is tautological: it can only pass. A test that fails on a behavior-preserving refactor is a change detector. Both are worse than no test, and ADR 0006 relies on this rule.
 
-A test pins the behavior a consumer depends on, never how the component achieves it. A test that restates the implementation can only pass. A test that fails on a behavior-preserving refactor is a change detector. Both are worse than no test, and ADR 0006 relies on this rule.
-
-- Assert on what a consumer can observe: the rendered DOM, a returned value, or a prop callback firing. Asserting that an internal function was called pins the implementation.
+- Assert on what a consumer can observe. For a component, that is the rendered content, accessible names and states, focus, or a prop callback firing. For a utility function, it is the value returned for the inputs a caller passes. Asserting that an internal function was called pins the implementation.
+- Do not test the class names or styles a target renders. A class name, an inline style, a CSS value, a motion or design constant, or a value that only feeds one of them restates the design. A restyle breaks such a test without breaking anything a consumer relies on.
+- Do not pin values no consumer can observe, such as React keys, the shape of internal state, or the format of an internal lookup key. Assert the property the caller relies on instead.
+- Every utility function with behavior of its own is tested, whether it lives in a folder's `utils.ts`, in a file of its own, or in a shared module under `src/lib/` or `src/registry/lib/`. A utility function whose output only feeds class names or styles has no behavior of its own.
 - Write the expected value out by hand. An expectation computed with the code under test copies its bug and still passes.
 - Render the real collaborators. Mock only what cannot run in jsdom: network, clock, randomness.
 - When output is unstable, such as generated ids or timestamps, assert the property that must hold rather than the exact string.
