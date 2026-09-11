@@ -939,10 +939,6 @@
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/avatar-group/child-index-containing.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/avatar-group/classnames.ts",
           "type": "registry:ui"
         },
@@ -951,31 +947,15 @@
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/avatar-group/item-style.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/avatar-group/resolve-item-name.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/avatar-group/resolve-roster.ts",
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/avatar-group/reveal-steps.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/avatar-group/step-focus-within.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/avatar-group/tab-stop-child-index.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/avatar-group/types.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/avatar-group/utils.ts",
           "type": "registry:ui"
         }
       ]
