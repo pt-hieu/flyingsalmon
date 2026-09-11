@@ -7,8 +7,8 @@ import {
   avatarImageVariants,
   avatarVariants,
 } from './classnames'
-import { getInitials } from './get-initials'
 import { AvatarColor, AvatarSize } from './types'
+import { getInitials } from './utils'
 
 export interface AvatarProps extends Omit<
   React.ComponentProps<'span'>,

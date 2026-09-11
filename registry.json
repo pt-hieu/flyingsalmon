@@ -480,12 +480,9 @@
           "path": "src/registry/ui/avatar/classnames.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/avatar/get-initials.ts",
-          "type": "registry:ui"
-        },
         { "path": "src/registry/ui/avatar/index.ts", "type": "registry:ui" },
-        { "path": "src/registry/ui/avatar/types.ts", "type": "registry:ui" }
+        { "path": "src/registry/ui/avatar/types.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/avatar/utils.ts", "type": "registry:ui" }
       ]
     },
     {
