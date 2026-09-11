@@ -12,4 +12,6 @@ export enum ButtonSize {
   Small = 'sm',
   Icon = 'icon',
   IconSmall = 'icon-sm',
+  FieldIcon = 'field-icon',
+  FieldIconSmall = 'field-icon-sm',
 }

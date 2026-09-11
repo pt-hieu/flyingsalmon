@@ -5,6 +5,7 @@ import { springBounce } from '@/registry/lib/motion'
 import { Spinner } from '@/registry/ui/spinner'
 
 import { buttonLeadingIconVariants, buttonVariants } from './classnames'
+import { rendersLabelByButtonSize } from './renders-label-by-button-size'
 import { spinnerSizeByButtonSize } from './spinner-size-by-button-size'
 import { ButtonSize, ButtonVariant } from './types'
 
@@ -28,7 +29,7 @@ export function Button({
   onClick,
   ...props
 }: ButtonProps) {
-  const rendersLabel = size !== ButtonSize.Icon && size !== ButtonSize.IconSmall
+  const rendersLabel = rendersLabelByButtonSize[size]
 
   const childrenAsIcon = rendersLabel ? null : children
 
