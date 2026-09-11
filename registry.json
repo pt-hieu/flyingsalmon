@@ -909,11 +909,8 @@
           "type": "registry:ui"
         },
         { "path": "src/registry/ui/accordion/index.ts", "type": "registry:ui" },
-        {
-          "path": "src/registry/ui/accordion/only-heading-element.ts",
-          "type": "registry:ui"
-        },
-        { "path": "src/registry/ui/accordion/types.ts", "type": "registry:ui" }
+        { "path": "src/registry/ui/accordion/types.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/accordion/utils.ts", "type": "registry:ui" }
       ],
       "cssVars": {
         "theme": {
