@@ -156,6 +156,23 @@ describe('Button', () => {
     expect(screen.getByRole('status', { hidden: true })).toBeInTheDocument()
   })
 
+  it.each([ButtonSize.FieldIcon, ButtonSize.FieldIconSmall])(
+    'shows the spinner alone on a %s button and keeps its name',
+    (size) => {
+      render(
+        <Button size={size} aria-label="Clear" loading>
+          <span role="img" aria-label="Cross" />
+        </Button>,
+      )
+
+      expect(screen.getByRole('button', { name: 'Clear' })).toBeInTheDocument()
+      expect(
+        screen.queryByRole('img', { name: 'Cross' }),
+      ).not.toBeInTheDocument()
+      expect(screen.getByRole('status', { hidden: true })).toBeInTheDocument()
+    },
+  )
+
   it('renders the icon of an icon-size button that has no icon prop', () => {
     render(
       <Button size={ButtonSize.IconSmall} aria-label="Search">
