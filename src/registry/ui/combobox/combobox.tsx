@@ -31,7 +31,6 @@ import { ComboboxSharedStateContext } from './context'
 import { hasPanelContent } from './has-panel-content'
 import { splitPanelChildren } from './split-panel-children'
 import { spinnerSizeByComboboxSize } from './spinner-size-by-combobox-size'
-import { toSelectedValues } from './to-selected-values'
 import {
   type ComboboxItemEntry,
   ComboboxMode,
@@ -41,6 +40,7 @@ import {
 } from './types'
 import { useComboboxItemRegistry } from './use-combobox-item-registry'
 import { useHighlightOnArrowOpen } from './use-highlight-on-arrow-open'
+import { toSelectedValues } from './utils'
 
 interface ComboboxBaseProps {
   label?: string

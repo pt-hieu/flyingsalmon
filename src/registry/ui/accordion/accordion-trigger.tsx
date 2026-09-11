@@ -11,7 +11,7 @@ import {
   accordionTriggerClassName,
   accordionTriggerLabelClassName,
 } from './classnames'
-import { onlyHeadingElement } from './only-heading-element'
+import { onlyHeadingElement } from './utils'
 
 export type AccordionTriggerProps = React.ComponentProps<
   typeof AccordionPrimitive.Trigger

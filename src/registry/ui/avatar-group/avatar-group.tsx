@@ -4,17 +4,19 @@ import { cn } from '@/lib/utils'
 import { Avatar, AvatarSize } from '@/registry/ui/avatar'
 import { Tooltip } from '@/registry/ui/tooltip'
 
-import { childIndexContaining } from './child-index-containing'
 import {
   avatarGroupChipVariants,
   avatarGroupItemClassName,
   avatarGroupVariants,
 } from './classnames'
-import { itemStyle } from './item-style'
 import { resolveRoster } from './resolve-roster'
-import { stepFocusWithin } from './step-focus-within'
-import { tabStopChildIndex } from './tab-stop-child-index'
 import type { AvatarGroupItem } from './types'
+import {
+  childIndexContaining,
+  itemStyle,
+  stepFocusWithin,
+  tabStopChildIndex,
+} from './utils'
 
 export interface AvatarGroupProps extends Omit<
   React.ComponentProps<'div'>,

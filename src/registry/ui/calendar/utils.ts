@@ -1,6 +1,11 @@
+import { type DateValue, toCalendarDate } from '@internationalized/date'
 import type { CalendarCellRenderProps } from 'react-aria-components'
 
 import { CalendarMode, type DayAppearance } from './types'
+
+export function formatIsoDate(date: DateValue): string {
+  return toCalendarDate(date).toString()
+}
 
 export function describeDay(
   cell: CalendarCellRenderProps,
