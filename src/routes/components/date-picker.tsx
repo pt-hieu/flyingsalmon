@@ -135,19 +135,20 @@ function DatePickerPage() {
           One bordered box holds the segments and the end slot. The box draws
           the boundary ring on <code>focus-within</code>, per ADR 0003: the
           segments are what take focus, and they own no border to replace. The
-          end slot holds the clear button, then the calendar icon button, each
-          inset the same distance from the box&rsquo;s top, bottom, and right
-          edges, with a corner radius reduced by that inset so its hover fill
-          runs parallel to the box&rsquo;s corner. Clear shows once a value is
-          set, on a field that is not <code>required</code>,{' '}
-          <code>readOnly</code>, <code>loading</code>, or <code>disabled</code>{' '}
-          &mdash; every state where emptying the value is not the user&rsquo;s
-          to do. Behind the box sit visually hidden native inputs carrying the
-          ISO values, the names, and <code>required</code>, so the
-          browser&rsquo;s own constraint validation blocks the submit and puts
-          its bubble at the field. A <code>readOnly</code> field is exempt from
-          that check, as a read-only native control is: the user has no way to
-          satisfy it.
+          end slot holds the clear button, then the calendar icon button, both
+          ghost buttons at Button&rsquo;s <code>field-icon</code> size, so each
+          sits 4px inside the box&rsquo;s top, bottom, and right edges with its
+          corners rounded to match. Neither draws a focus ring: tabbing to one
+          paints its hover fill, and the box&rsquo;s own ring stays on. Clear
+          shows once a value is set, on a field that is not{' '}
+          <code>required</code>, <code>readOnly</code>, <code>loading</code>, or{' '}
+          <code>disabled</code> &mdash; every state where emptying the value is
+          not the user&rsquo;s to do. Behind the box sit visually hidden native
+          inputs carrying the ISO values, the names, and <code>required</code>,
+          so the browser&rsquo;s own constraint validation blocks the submit and
+          puts its bubble at the field. A <code>readOnly</code> field is exempt
+          from that check, as a read-only native control is: the user has no way
+          to satisfy it.
         </p>
         <p className="text-muted-foreground">
           The panel is the Radix popover primitive, portalled to{' '}
@@ -203,7 +204,7 @@ function DatePickerPage() {
           18.96:1 on <code>--background</code>; a placeholder segment and the
           dash at 4.73:1 and 7.63:1; the invalid ring at 4.76:1 and 6.84:1. The
           icon buttons sit at 4.73:1 and 7.63:1 at rest and 14.22:1 and 9.95:1
-          on their hover step.
+          on the fill they share between hover and focus.
         </p>
         <p className="text-muted-foreground">
           <strong className="text-foreground">
