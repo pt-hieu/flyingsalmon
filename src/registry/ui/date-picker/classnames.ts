@@ -6,7 +6,7 @@ import {
   boundaryFocusWithinRingGeometry,
   invalidBoundaryFocusWithinRingGeometry,
 } from '@/registry/lib/interaction'
-import { ButtonSize, ButtonVariant, buttonVariants } from '@/registry/ui/button'
+import { ButtonVariant, buttonVariants } from '@/registry/ui/button'
 
 import { DatePickerSize } from './types'
 
@@ -37,8 +37,8 @@ export const datePickerBoxVariants = cva(
   {
     variants: {
       size: {
-        [DatePickerSize.Default]: 'h-9 gap-1 pr-1 pl-3 text-sm',
-        [DatePickerSize.Small]: 'h-8 gap-1 pr-0.5 pl-2.5 text-sm',
+        [DatePickerSize.Default]: 'h-9 gap-1 pr-0.75 pl-3 text-sm',
+        [DatePickerSize.Small]: 'h-8 gap-1 pr-0.75 pl-2.5 text-sm',
       },
       disabled: {
         true: 'pointer-events-none opacity-50',
@@ -68,9 +68,22 @@ export const datePickerRangeSeparatorClassName =
 export const datePickerEndSlotClassName =
   'ml-auto flex shrink-0 items-center gap-0.5'
 
-export const datePickerIconButtonClassName = cn(
-  buttonVariants({ variant: ButtonVariant.Ghost, size: ButtonSize.IconSmall }),
-  'text-muted-foreground',
+export const datePickerIconButtonVariants = cva(
+  cn(
+    buttonVariants({ variant: ButtonVariant.Ghost, size: null }),
+    'text-muted-foreground rounded-[calc(var(--radius-md)-4px)]',
+  ),
+  {
+    variants: {
+      size: {
+        [DatePickerSize.Default]: 'size-7',
+        [DatePickerSize.Small]: 'size-6',
+      },
+    },
+    defaultVariants: {
+      size: DatePickerSize.Default,
+    },
+  },
 )
 
 export const datePickerIconClassName = 'size-4'

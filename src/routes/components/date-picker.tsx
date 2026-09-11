@@ -135,16 +135,19 @@ function DatePickerPage() {
           One bordered box holds the segments and the end slot. The box draws
           the boundary ring on <code>focus-within</code>, per ADR 0003: the
           segments are what take focus, and they own no border to replace. The
-          end slot holds the clear button, then the calendar icon button. Clear
-          shows once a value is set, on a field that is not{' '}
-          <code>required</code>, <code>readOnly</code>, <code>loading</code>, or{' '}
-          <code>disabled</code> &mdash; every state where emptying the value is
-          not the user&rsquo;s to do. Behind the box sit visually hidden native
-          inputs carrying the ISO values, the names, and <code>required</code>,
-          so the browser&rsquo;s own constraint validation blocks the submit and
-          puts its bubble at the field. A <code>readOnly</code> field is exempt
-          from that check, as a read-only native control is: the user has no way
-          to satisfy it.
+          end slot holds the clear button, then the calendar icon button, each
+          inset the same distance from the box&rsquo;s top, bottom, and right
+          edges, with a corner radius reduced by that inset so its hover fill
+          runs parallel to the box&rsquo;s corner. Clear shows once a value is
+          set, on a field that is not <code>required</code>,{' '}
+          <code>readOnly</code>, <code>loading</code>, or <code>disabled</code>{' '}
+          &mdash; every state where emptying the value is not the user&rsquo;s
+          to do. Behind the box sit visually hidden native inputs carrying the
+          ISO values, the names, and <code>required</code>, so the
+          browser&rsquo;s own constraint validation blocks the submit and puts
+          its bubble at the field. A <code>readOnly</code> field is exempt from
+          that check, as a read-only native control is: the user has no way to
+          satisfy it.
         </p>
         <p className="text-muted-foreground">
           The panel is the Radix popover primitive, portalled to{' '}
