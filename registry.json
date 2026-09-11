@@ -302,6 +302,10 @@
         },
         { "path": "src/registry/ui/button/index.ts", "type": "registry:ui" },
         {
+          "path": "src/registry/ui/button/renders-label-by-button-size.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/button/spinner-size-by-button-size.ts",
           "type": "registry:ui"
         },
