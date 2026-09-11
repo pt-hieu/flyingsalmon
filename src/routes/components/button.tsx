@@ -76,12 +76,16 @@ function ButtonPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Sizes</h2>
         <p className="text-muted-foreground">
-          Four sizes. <code>default</code> at 36px and <code>sm</code> at 32px
+          Six sizes. <code>default</code> at 36px and <code>sm</code> at 32px
           match the two input heights, so a field and its submit button line up
           in a row. <code>icon</code> and <code>icon-sm</code> are the square
-          ones:{' '}
+          ones. <code>field-icon</code> at 28px and <code>field-icon-sm</code>{' '}
+          at 24px are square buttons for inside a 36px or 32px field box: with{' '}
+          <code>pr-0.75</code> on the box, the button sits 4px inside its top,
+          bottom, and right edges, its corners rounded to match the box&rsquo;s.
+          The four square sizes{' '}
           <strong className="text-foreground">
-            they render no label, so give them an <code>aria-label</code>.
+            render no label, so give them an <code>aria-label</code>.
           </strong>{' '}
           There is no <code>xs</code> and no <code>lg</code>.
         </p>
@@ -95,6 +99,18 @@ function ButtonPage() {
           />
           <Button
             size={ButtonSize.IconSmall}
+            aria-label="Add item"
+            icon={<Plus />}
+          />
+          <Button
+            variant={ButtonVariant.Ghost}
+            size={ButtonSize.FieldIcon}
+            aria-label="Add item"
+            icon={<Plus />}
+          />
+          <Button
+            variant={ButtonVariant.Ghost}
+            size={ButtonSize.FieldIconSmall}
             aria-label="Add item"
             icon={<Plus />}
           />
@@ -219,7 +235,10 @@ function ButtonPage() {
           <code>:focus-visible</code> only, so a mouse click never leaves one
           behind. Hold the button for the press ring: the same color, a tighter
           2px, gone the moment you let go. A loading button shows no press ring
-          — there is nothing to press.
+          — there is nothing to press. The two field sizes draw neither ring:
+          they sit inside a field box that already draws its own focus ring,
+          where an offset ring would cross the box&rsquo;s edge, so keyboard
+          focus paints the same fill as hover instead.
         </p>
         <ModePreview>
           <Button>Default</Button>

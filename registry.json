@@ -302,6 +302,10 @@
         },
         { "path": "src/registry/ui/button/index.ts", "type": "registry:ui" },
         {
+          "path": "src/registry/ui/button/renders-label-by-button-size.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/button/spinner-size-by-button-size.ts",
           "type": "registry:ui"
         },
@@ -1086,8 +1090,71 @@
       "type": "registry:ui",
       "title": "Date Picker",
       "description": "A field that opens a calendar in a panel and posts the chosen dates. It owns its label, error, and trigger like the rest of the field family; the grid inside is calendar.",
-      "dependencies": [],
-      "registryDependencies": ["@flyingsalmon/field", "@flyingsalmon/floating"]
+      "dependencies": [
+        "react-aria-components",
+        "@internationalized/date",
+        "class-variance-authority",
+        "radix-ui",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@flyingsalmon/calendar",
+        "@flyingsalmon/field",
+        "@flyingsalmon/floating",
+        "@flyingsalmon/interaction",
+        "@flyingsalmon/spinner",
+        "@flyingsalmon/button"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/date-picker/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/date-picker/date-picker-hidden-input.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/date-picker/date-picker-panel.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/date-picker/date-picker-segments.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/date-picker/date-picker.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/date-picker/describe-rejection.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/date-picker/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/date-picker/read-entry-value.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/date-picker/spinner-size-by-date-picker-size.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/date-picker/types.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/date-picker/use-date-picker-value.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/date-picker/utils.ts",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "combobox",
@@ -1197,8 +1264,54 @@
       "type": "registry:ui",
       "title": "Number Field",
       "description": "A numeric field with a unit, bounds, and a step. It owns its label and error like the rest of the field family.",
-      "dependencies": [],
-      "registryDependencies": ["@flyingsalmon/field"]
+      "dependencies": [
+        "@internationalized/number",
+        "class-variance-authority",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@flyingsalmon/field",
+        "@flyingsalmon/interaction",
+        "@flyingsalmon/spinner"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/number-field/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/number-field-controls.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/number-field-spin-button.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/number-field.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/spinner-size-by-number-field-size.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/types.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/use-hold-repeat.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/utils.ts",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "toggle-group",

@@ -8,11 +8,19 @@ import {
 
 import { ButtonSize, ButtonVariant } from './types'
 
+const ringedSizes = [
+  ButtonSize.Default,
+  ButtonSize.Small,
+  ButtonSize.Icon,
+  ButtonSize.IconSmall,
+]
+
+const fieldSizes = [ButtonSize.FieldIcon, ButtonSize.FieldIconSmall]
+
 export const buttonVariants = cva(
   cn(
-    'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md font-medium whitespace-nowrap',
+    'inline-flex shrink-0 cursor-pointer items-center justify-center font-medium whitespace-nowrap',
     'transition-[color,background-color,border-color,box-shadow] duration-(--motion-fast)',
-    offsetFocusRingGeometry,
     disabledInteraction,
   ),
   {
@@ -32,17 +40,57 @@ export const buttonVariants = cva(
           'bg-amber-400 text-neutral-950 ring-amber-400 hover:bg-amber-300',
       },
       size: {
-        [ButtonSize.Default]: 'h-9 gap-2 px-4 text-sm',
-        [ButtonSize.Small]: 'h-8 gap-1.5 px-3 text-sm',
-        [ButtonSize.Icon]: 'size-9',
-        [ButtonSize.IconSmall]: 'size-8',
+        [ButtonSize.Default]: 'h-9 gap-2 rounded-md px-4 text-sm',
+        [ButtonSize.Small]: 'h-8 gap-1.5 rounded-md px-3 text-sm',
+        [ButtonSize.Icon]: 'size-9 rounded-md',
+        [ButtonSize.IconSmall]: 'size-8 rounded-md',
+        [ButtonSize.FieldIcon]:
+          'size-7 rounded-[calc(var(--radius-md)-4px)] focus-visible:outline-hidden',
+        [ButtonSize.FieldIconSmall]:
+          'size-6 rounded-[calc(var(--radius-md)-4px)] focus-visible:outline-hidden',
       },
       loading: {
         true: 'cursor-default',
-        false:
-          'active:ring-offset-background active:ring-2 active:ring-offset-2',
+        false: '',
       },
     },
+    compoundVariants: [
+      {
+        size: ringedSizes,
+        class: offsetFocusRingGeometry,
+      },
+      {
+        size: ringedSizes,
+        loading: false,
+        class:
+          'active:ring-offset-background active:ring-2 active:ring-offset-2',
+      },
+      {
+        size: fieldSizes,
+        variant: ButtonVariant.Default,
+        class: 'focus-visible:bg-indigo-300',
+      },
+      {
+        size: fieldSizes,
+        variant: [
+          ButtonVariant.Outline,
+          ButtonVariant.Secondary,
+          ButtonVariant.Ghost,
+        ],
+        class: 'focus-visible:bg-accent focus-visible:text-accent-foreground',
+      },
+      {
+        size: fieldSizes,
+        variant: ButtonVariant.Destructive,
+        class:
+          'focus-visible:bg-red-200 focus-visible:text-red-800 dark:focus-visible:bg-red-900 dark:focus-visible:text-red-200',
+      },
+      {
+        size: fieldSizes,
+        variant: ButtonVariant.Amber,
+        class: 'focus-visible:bg-amber-300',
+      },
+    ],
     defaultVariants: {
       variant: ButtonVariant.Default,
       size: ButtonSize.Default,
@@ -58,6 +106,8 @@ export const buttonLeadingIconVariants = cva('flex shrink-0 items-center', {
       [ButtonSize.Small]: '[&_svg]:size-3',
       [ButtonSize.Icon]: '[&_svg]:size-4',
       [ButtonSize.IconSmall]: '[&_svg]:size-3',
+      [ButtonSize.FieldIcon]: '[&_svg]:size-4',
+      [ButtonSize.FieldIconSmall]: '[&_svg]:size-4',
     },
   },
   defaultVariants: {
