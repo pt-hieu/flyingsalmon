@@ -20,13 +20,16 @@ A folder holds these files:
 - One `.tsx` file per component, named after the component in kebab-case, defining that component and its props interface.
 - `classnames.ts` holds every `cva()` call and every reusable `cn()` class string the folder uses.
 - `types.ts` holds every type the folder exports, except component props.
-- Any other runtime value the folder needs, such as a React context, a hook, or a lookup table, gets its own file named after what it holds.
+- `utils.ts` holds the folder's utility functions with low cognitive complexity.
+- Any other runtime value the folder needs, such as a React context, a hook, a lookup table, or a utility function too involved for `utils.ts`, gets its own file named after what it holds.
 
 Consumers import from the folder, never from a file inside it.
 
 ## One component per file
 
 A `.tsx` file defines exactly one component, named after the file in PascalCase. A folder that ships several components has one file per component beside the main one.
+
+Utility functions do not each need a file. The ones with low cognitive complexity, short and with no nested logic, share the folder's `utils.ts`. A utility function whose branching or nesting takes effort to follow gets its own file, named after the function.
 
 ## Class names live in classnames.ts
 
