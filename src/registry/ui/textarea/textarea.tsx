@@ -14,8 +14,8 @@ import {
   textareaVariants,
   textareaWrapperClassName,
 } from './classnames'
-import { rowsToHeight } from './rows-to-height'
 import type { TextareaElementProps } from './types'
+import { rowsToHeight } from './utils'
 
 export interface TextareaProps extends Omit<TextareaElementProps, 'rows'> {
   label?: string

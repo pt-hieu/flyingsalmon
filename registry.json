@@ -384,14 +384,11 @@
         },
         { "path": "src/registry/ui/textarea/index.ts", "type": "registry:ui" },
         {
-          "path": "src/registry/ui/textarea/rows-to-height.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/textarea/textarea.tsx",
           "type": "registry:ui"
         },
-        { "path": "src/registry/ui/textarea/types.ts", "type": "registry:ui" }
+        { "path": "src/registry/ui/textarea/types.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/textarea/utils.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -480,12 +477,9 @@
           "path": "src/registry/ui/avatar/classnames.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/avatar/get-initials.ts",
-          "type": "registry:ui"
-        },
         { "path": "src/registry/ui/avatar/index.ts", "type": "registry:ui" },
-        { "path": "src/registry/ui/avatar/types.ts", "type": "registry:ui" }
+        { "path": "src/registry/ui/avatar/types.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/avatar/utils.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -909,11 +903,8 @@
           "type": "registry:ui"
         },
         { "path": "src/registry/ui/accordion/index.ts", "type": "registry:ui" },
-        {
-          "path": "src/registry/ui/accordion/only-heading-element.ts",
-          "type": "registry:ui"
-        },
-        { "path": "src/registry/ui/accordion/types.ts", "type": "registry:ui" }
+        { "path": "src/registry/ui/accordion/types.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/accordion/utils.ts", "type": "registry:ui" }
       ],
       "cssVars": {
         "theme": {
@@ -945,10 +936,6 @@
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/avatar-group/child-index-containing.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/avatar-group/classnames.ts",
           "type": "registry:ui"
         },
@@ -957,31 +944,15 @@
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/avatar-group/item-style.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/avatar-group/resolve-item-name.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/avatar-group/resolve-roster.ts",
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/avatar-group/reveal-steps.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/avatar-group/step-focus-within.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/avatar-group/tab-stop-child-index.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/avatar-group/types.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/avatar-group/utils.ts",
           "type": "registry:ui"
         }
       ]
@@ -1048,20 +1019,13 @@
           "path": "src/registry/ui/calendar/context.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/calendar/describe-day.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/calendar/format-iso-date.ts",
-          "type": "registry:ui"
-        },
         { "path": "src/registry/ui/calendar/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/calendar/types.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/calendar/use-page-direction.ts",
           "type": "registry:ui"
-        }
+        },
+        { "path": "src/registry/ui/calendar/utils.ts", "type": "registry:ui" }
       ],
       "cssVars": {
         "theme": {
@@ -1239,10 +1203,6 @@
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/combobox/to-selected-values.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/combobox/types.ts",
           "type": "registry:ui"
         },
@@ -1256,6 +1216,10 @@
         },
         {
           "path": "src/registry/ui/combobox/use-highlight-on-arrow-open.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/combobox/utils.ts",
           "type": "registry:ui"
         }
       ]
@@ -1339,10 +1303,6 @@
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/toggle-group/to-pressed-values.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/toggle-group/toggle-group-item.tsx",
           "type": "registry:ui"
         },
@@ -1352,6 +1312,10 @@
         },
         {
           "path": "src/registry/ui/toggle-group/types.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/toggle-group/utils.ts",
           "type": "registry:ui"
         }
       ]

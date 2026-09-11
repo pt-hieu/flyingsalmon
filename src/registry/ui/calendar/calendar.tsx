@@ -16,8 +16,8 @@ import { cn } from '@/lib/utils'
 import { CalendarMonths } from './calendar-months'
 import { calendarRootClassName } from './classnames'
 import { CalendarAppearanceContext } from './context'
-import { formatIsoDate } from './format-iso-date'
 import { CalendarMode, type CalendarRange } from './types'
+import { formatIsoDate } from './utils'
 
 interface CalendarBaseProps {
   'aria-label': string

@@ -10,7 +10,7 @@ import {
   calendarTodayDotVariants,
 } from './classnames'
 import { CalendarAppearanceContext } from './context'
-import { describeDay } from './describe-day'
+import { describeDay } from './utils'
 
 export interface CalendarDayProps {
   date: CalendarDate
