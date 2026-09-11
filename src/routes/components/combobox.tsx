@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { History, MapPin } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 import { ModePreview } from '@/components/mode-preview'
@@ -102,8 +103,11 @@ function ComboboxPage() {
           <code>ComboboxLabel</code> as its heading;{' '}
           <code>ComboboxSeparator</code> rules a line between groups. An item's
           <code>description</code> sits after its label on the same line and
-          truncates; a disabled item stays in the list so positions never shift.
-          Open the panel below to see all of it.
+          truncates, and its <code>icon</code> sits ahead of the label, hidden
+          from screen readers so only the label is read. The icon stays in the
+          list: the input and the chips carry the label alone. A disabled item
+          stays in the list so positions never shift. Open the panel below to
+          see all of it.
         </p>
         <ModePreview>
           <GroupedPlacesDemo />
@@ -336,10 +340,10 @@ function GroupedPlacesDemo() {
     >
       <ComboboxGroup>
         <ComboboxLabel>Recent</ComboboxLabel>
-        <ComboboxItem value="fsq-4" description="Vietnam">
+        <ComboboxItem value="fsq-4" description="Vietnam" icon={<History />}>
           Hanoi
         </ComboboxItem>
-        <ComboboxItem value="fsq-5" description="Japan">
+        <ComboboxItem value="fsq-5" description="Japan" icon={<History />}>
           Hakone
         </ComboboxItem>
       </ComboboxGroup>
@@ -348,10 +352,15 @@ function GroupedPlacesDemo() {
 
       <ComboboxGroup>
         <ComboboxLabel>Everywhere else</ComboboxLabel>
-        <ComboboxItem value="fsq-2" description="France">
+        <ComboboxItem value="fsq-2" description="France" icon={<MapPin />}>
           Reims
         </ComboboxItem>
-        <ComboboxItem value="fsq-1" description="Iceland" disabled>
+        <ComboboxItem
+          value="fsq-1"
+          description="Iceland"
+          icon={<MapPin />}
+          disabled
+        >
           Reykjavík — no flights this season
         </ComboboxItem>
       </ComboboxGroup>

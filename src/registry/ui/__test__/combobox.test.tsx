@@ -445,6 +445,58 @@ describe('Combobox', () => {
     expect(onValueChange).toHaveBeenCalledWith('  kyoto  ')
   })
 
+  it('renders an item icon ahead of the label and keeps it out of the option name', async () => {
+    const user = userEvent.setup()
+    render(
+      <Combobox
+        mode={ComboboxMode.Single}
+        label="City"
+        placeholder="Search a city"
+        value={null}
+        onValueChange={vi.fn()}
+      >
+        <ComboboxItem value="paris" icon={<svg data-testid="paris-icon" />}>
+          Paris
+        </ComboboxItem>
+      </Combobox>,
+    )
+
+    await user.type(getInput(), 'par')
+
+    const option = await screen.findByRole('option', { name: 'Paris' })
+
+    expect(option.firstElementChild).toContainElement(
+      screen.getByTestId('paris-icon'),
+    )
+    expect(
+      screen.getByTestId('paris-icon').closest('[aria-hidden]'),
+    ).not.toBeNull()
+  })
+
+  it('reports the label alone when an item carrying an icon is picked', async () => {
+    const user = userEvent.setup()
+    const onValueChange = vi.fn()
+    render(
+      <Combobox
+        mode={ComboboxMode.Single}
+        label="City"
+        placeholder="Search a city"
+        value={null}
+        onValueChange={onValueChange}
+      >
+        <ComboboxItem value="paris" icon={<svg data-testid="paris-icon" />}>
+          Paris
+        </ComboboxItem>
+      </Combobox>,
+    )
+
+    await user.type(getInput(), 'par')
+    await user.click(await screen.findByRole('option', { name: 'Paris' }))
+
+    expect(onValueChange).toHaveBeenCalledWith('paris')
+    expect(getInput()).toHaveValue('Paris')
+  })
+
   it('refuses to open when the children hold no item and no empty message', async () => {
     const user = userEvent.setup()
     render(

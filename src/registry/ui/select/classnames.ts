@@ -81,7 +81,10 @@ export const selectItemTextClassName = 'min-w-0 flex-1 truncate'
 
 export const selectItemIndicatorIconClassName = 'text-primary size-4'
 
-export const selectItemIconSlotClassName = menuItemIconSlot
+export const selectItemIconSlotClassName = cn(
+  menuItemIconSlot,
+  '[&>svg]:size-4',
+)
 
 export const selectLabelClassName = menuLabel
 

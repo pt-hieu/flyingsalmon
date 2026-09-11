@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -178,5 +178,51 @@ describe('Select', () => {
       'true',
     )
     expect(screen.queryByText('Choose a fruit')).not.toBeInTheDocument()
+  })
+  it('renders an item icon ahead of the label and keeps it out of the option name', async () => {
+    const user = userEvent.setup()
+    render(
+      <Select label="Fruit" placeholder="Choose a fruit">
+        <SelectItem value="apple" icon={<svg data-testid="apple-icon" />}>
+          Apple
+        </SelectItem>
+      </Select>,
+    )
+
+    await user.click(screen.getByRole('combobox', { name: 'Fruit' }))
+
+    const option = await screen.findByRole('option', { name: 'Apple' })
+
+    expect(option.firstElementChild).toContainElement(
+      screen.getByTestId('apple-icon'),
+    )
+    expect(
+      screen.getByTestId('apple-icon').closest('[aria-hidden]'),
+    ).not.toBeNull()
+  })
+
+  it('shows the label alone on the trigger when an item carrying an icon is chosen', async () => {
+    const user = userEvent.setup()
+    const onValueChange = vi.fn()
+    render(
+      <Select
+        label="Fruit"
+        placeholder="Choose a fruit"
+        onValueChange={onValueChange}
+      >
+        <SelectItem value="apple" icon={<svg data-testid="apple-icon" />}>
+          Apple
+        </SelectItem>
+      </Select>,
+    )
+
+    await user.click(screen.getByRole('combobox', { name: 'Fruit' }))
+    await user.click(await screen.findByRole('option', { name: 'Apple' }))
+
+    const trigger = screen.getByRole('combobox', { name: 'Fruit' })
+
+    expect(onValueChange).toHaveBeenCalledWith('apple')
+    expect(trigger).toHaveTextContent('Apple')
+    expect(within(trigger).queryByTestId('apple-icon')).not.toBeInTheDocument()
   })
 })

@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { MapPin, Star } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 import { ModePreview } from '@/components/mode-preview'
@@ -86,9 +87,11 @@ function SelectPage() {
           heading and separates from the next group with a{' '}
           <code>SelectSeparator</code>. The checked item shows a{' '}
           <code>text-primary</code> check in a reserved trailing icon slot, so
-          every item label starts at the same left edge; a disabled item stays
-          in the list, dimmed, so its position never shifts. Open the trigger
-          below to see all of it.
+          every item label starts at the same left edge. An item's{' '}
+          <code>icon</code> sits ahead of the label, hidden from screen readers
+          so only the label is read, and stays in the list: the trigger shows
+          the label alone. A disabled item stays in the list, dimmed, so its
+          position never shifts. Open the trigger below to see all of it.
         </p>
         <ModePreview>
           <Select
@@ -99,17 +102,25 @@ function SelectPage() {
           >
             <SelectGroup>
               <SelectLabel>Popular</SelectLabel>
-              <SelectItem value="tokyo">Tokyo</SelectItem>
-              <SelectItem value="paris">Paris</SelectItem>
-              <SelectItem value="reykjavik" disabled>
+              <SelectItem value="tokyo" icon={<Star />}>
+                Tokyo
+              </SelectItem>
+              <SelectItem value="paris" icon={<Star />}>
+                Paris
+              </SelectItem>
+              <SelectItem value="reykjavik" icon={<Star />} disabled>
                 Reykjavík (sold out)
               </SelectItem>
             </SelectGroup>
             <SelectSeparator />
             <SelectGroup>
               <SelectLabel>More</SelectLabel>
-              <SelectItem value="lisbon">Lisbon</SelectItem>
-              <SelectItem value="hanoi">Hanoi</SelectItem>
+              <SelectItem value="lisbon" icon={<MapPin />}>
+                Lisbon
+              </SelectItem>
+              <SelectItem value="hanoi" icon={<MapPin />}>
+                Hanoi
+              </SelectItem>
             </SelectGroup>
           </Select>
         </ModePreview>
