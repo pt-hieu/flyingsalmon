@@ -1118,31 +1118,11 @@
       ],
       "files": [
         {
-          "path": "src/registry/ui/number-field/bound-for-key.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/number-field/classnames.ts",
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/number-field/committed-number.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/number-field/format-number.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/number-field/fraction-digits-for-step.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/number-field/index.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/number-field/input-mode-for-range.ts",
           "type": "registry:ui"
         },
         {
@@ -1158,23 +1138,7 @@
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/number-field/parse-number.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/number-field/resolve-locale.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/number-field/spinner-size-by-number-field-size.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/number-field/step-delta-for-key.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/number-field/stepped-value.ts",
           "type": "registry:ui"
         },
         {
@@ -1186,7 +1150,7 @@
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/number-field/value-text-with-affixes.ts",
+          "path": "src/registry/ui/number-field/utils.ts",
           "type": "registry:ui"
         }
       ]
