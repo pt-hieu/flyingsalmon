@@ -515,4 +515,59 @@ describe('Combobox', () => {
 
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
   })
+
+  it('drops the highlight when the user types', async () => {
+    const user = userEvent.setup()
+    render(<SingleCityCombobox allowFreeText />)
+
+    await user.tab()
+    await user.keyboard('{ArrowDown}')
+    await screen.findByRole('listbox')
+    expect(getInput().getAttribute('aria-activedescendant')).toBeTruthy()
+
+    await user.keyboard('p')
+
+    await waitFor(() => {
+      expect(getInput().getAttribute('aria-activedescendant') ?? '').toBe('')
+    })
+  })
+
+  it('neither opens nor closes the panel when the input is clicked', async () => {
+    const user = userEvent.setup()
+    render(<SingleCityCombobox />)
+
+    await user.click(getInput())
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
+
+    await user.keyboard('pa')
+    await screen.findByRole('listbox')
+    await user.click(getInput())
+
+    expect(screen.getByRole('listbox')).toBeInTheDocument()
+  })
+
+  it('keeps the typed text when a multiple combobox loses focus', async () => {
+    const user = userEvent.setup()
+    render(<MultipleCityCombobox />)
+
+    await user.type(getInputByLabel('Cities'), 'par')
+    await user.tab()
+
+    await waitForClosedPanel()
+    expect(getInputByLabel('Cities')).toHaveValue('par')
+  })
+
+  it('commits typed text on Enter and stays open for the next entry when free text is allowed in multiple mode', async () => {
+    const user = userEvent.setup()
+    const onValueChange = vi.fn()
+    render(<MultipleCityCombobox allowFreeText onValueChange={onValueChange} />)
+
+    await user.type(getInputByLabel('Cities'), 'kyoto')
+    await screen.findByRole('listbox')
+    await user.keyboard('{Enter}')
+
+    expect(onValueChange).toHaveBeenLastCalledWith(['kyoto'])
+    expect(screen.getByRole('listbox')).toBeInTheDocument()
+    expect(getInputByLabel('Cities')).toHaveValue('')
+  })
 })

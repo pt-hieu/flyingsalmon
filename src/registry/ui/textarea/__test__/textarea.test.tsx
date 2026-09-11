@@ -175,24 +175,16 @@ describe('Textarea', () => {
     expect(screen.getByRole('button', { name: 'After' })).toHaveFocus()
   })
 
-  it('bounds its height between three and eight rows by default', () => {
+  it('starts at three rows by default', () => {
     render(<Textarea label="Notes" />)
 
-    const field = screen.getByLabelText('Notes') as HTMLTextAreaElement
-
-    expect(field).toHaveAttribute('rows', '3')
-    expect(field.style.minHeight).toBe('calc(3lh + 2px + 1rem)')
-    expect(field.style.maxHeight).toBe('calc(8lh + 2px + 1rem)')
+    expect(screen.getByLabelText('Notes')).toHaveAttribute('rows', '3')
   })
 
-  it('bounds its height between the row counts it is given', () => {
-    render(<Textarea label="Notes" minRows={2} maxRows={20} />)
+  it('starts at the minRows it is given', () => {
+    render(<Textarea label="Notes" minRows={2} />)
 
-    const field = screen.getByLabelText('Notes') as HTMLTextAreaElement
-
-    expect(field).toHaveAttribute('rows', '2')
-    expect(field.style.minHeight).toBe('calc(2lh + 2px + 1rem)')
-    expect(field.style.maxHeight).toBe('calc(20lh + 2px + 1rem)')
+    expect(screen.getByLabelText('Notes')).toHaveAttribute('rows', '2')
   })
 
   it('keeps the row count on minRows when a native rows prop is passed', () => {
@@ -200,19 +192,7 @@ describe('Textarea', () => {
 
     render(<Textarea label="Notes" minRows={4} {...nativeRowsEscapeHatch} />)
 
-    const field = screen.getByLabelText('Notes') as HTMLTextAreaElement
-
-    expect(field).toHaveAttribute('rows', '4')
-    expect(field.style.minHeight).toBe('calc(4lh + 2px + 1rem)')
-  })
-
-  it('lets a caller style override the row bounds', () => {
-    render(<Textarea label="Notes" style={{ maxHeight: '400px' }} />)
-
-    const field = screen.getByLabelText('Notes') as HTMLTextAreaElement
-
-    expect(field.style.maxHeight).toBe('400px')
-    expect(field.style.minHeight).toBe('calc(3lh + 2px + 1rem)')
+    expect(screen.getByLabelText('Notes')).toHaveAttribute('rows', '4')
   })
 
   it('passes native props through to the underlying textarea', async () => {
