@@ -160,6 +160,19 @@ describe('Select', () => {
     expect(hiddenSelect).toBeInvalid()
   })
 
+  it('exposes a required trigger as required', () => {
+    render(<FruitSelect required />)
+
+    expect(screen.getByRole('combobox', { name: 'Fruit' })).toBeRequired()
+  })
+
+  it('keeps the required marker out of the accessible name', () => {
+    render(<FruitSelect required />)
+
+    expect(screen.getByRole('combobox', { name: 'Fruit' })).toBeInTheDocument()
+    expect(screen.getByText('Fruit')).toHaveTextContent(/^Fruit$/)
+  })
+
   it('marks the checked item as selected and never renders the placeholder as an option', async () => {
     const user = userEvent.setup()
     render(<FruitSelect defaultValue="banana" />)

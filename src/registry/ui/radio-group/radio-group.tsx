@@ -31,6 +31,7 @@ export function RadioGroup({
   className,
   id,
   disabled,
+  required,
   'aria-describedby': callerDescribedBy,
   children,
   ...props
@@ -54,6 +55,7 @@ export function RadioGroup({
             placement: FieldLabelPlacement.Above,
             error: hasError,
             disabled: isDisabled,
+            required: Boolean(required),
           })}
         >
           {label}
@@ -63,6 +65,7 @@ export function RadioGroup({
       <RadioGroupPrimitive.Root
         id={fieldId}
         disabled={disabled}
+        required={required}
         orientation={orientation}
         aria-labelledby={label ? labelId : undefined}
         aria-invalid={hasError ? true : undefined}

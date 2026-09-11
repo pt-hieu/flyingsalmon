@@ -210,7 +210,9 @@ function InputPage() {
           <code>aria-describedby</code>, keeping any description you passed. A
           loading field sets <code>aria-busy</code> and hides its spinner from
           screen readers, so the wait is announced once. Tab reaches the field
-          first and an interactive adornment second.
+          first and an interactive adornment second. <code>required</code> marks
+          the label and reaches the <code>&lt;input&gt;</code>; the validation
+          itself stays with your app.
         </p>
       </section>
     </article>
