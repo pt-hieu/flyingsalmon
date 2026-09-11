@@ -162,7 +162,10 @@ export const comboboxItemDescriptionClassName = cn(
   'group-data-highlighted:text-neutral-600 dark:group-data-highlighted:text-neutral-300',
 )
 
-export const comboboxItemIconSlotClassName = menuItemIconSlot
+export const comboboxItemIconSlotClassName = cn(
+  menuItemIconSlot,
+  '[&>svg]:size-4',
+)
 
 export const comboboxItemIndicatorIconClassName = 'text-indicator size-4'
 

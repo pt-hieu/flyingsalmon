@@ -21,6 +21,7 @@ export interface ComboboxItemProps extends Omit<
   value: string
   disabled?: boolean
   description?: string
+  icon?: React.ReactNode
   children: string
 }
 
@@ -28,6 +29,7 @@ export function ComboboxItem({
   value,
   disabled = false,
   description,
+  icon,
   className,
   children,
   ...props
@@ -77,6 +79,12 @@ export function ComboboxItem({
         ...props,
       })}
     >
+      {icon ? (
+        <span aria-hidden className={comboboxItemIconSlotClassName}>
+          {icon}
+        </span>
+      ) : null}
+
       <span className={comboboxItemLabelClassName}>{children}</span>
 
       {description ? (
