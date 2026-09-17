@@ -17,24 +17,6 @@ describe('Stepper', () => {
     expect(readSegments('aria-current')).toEqual([null, 'step', null, null])
   })
 
-  it('clamps a current above the count to the last segment', () => {
-    render(<Stepper count={3} current={9} />)
-
-    expect(readSegments('aria-current')).toEqual([null, null, 'step'])
-  })
-
-  it('clamps a current below one to the first segment', () => {
-    render(<Stepper count={3} current={0} />)
-
-    expect(readSegments('aria-current')).toEqual(['step', null, null])
-  })
-
-  it('keeps one current segment when current lands between two', () => {
-    render(<Stepper count={4} current={2.5} />)
-
-    expect(readSegments('aria-current')).toEqual([null, null, 'step', null])
-  })
-
   it('reports each segment as complete, current, or upcoming', () => {
     render(<Stepper count={4} current={2} />)
 

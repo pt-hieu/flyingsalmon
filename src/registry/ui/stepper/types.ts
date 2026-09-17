@@ -3,3 +3,8 @@ export enum StepperSegmentState {
   Current = 'current',
   Upcoming = 'upcoming',
 }
+
+export interface StepperSegment {
+  segmentNumber: number
+  state: StepperSegmentState
+}

@@ -1384,6 +1384,10 @@
         {
           "path": "src/registry/ui/stepper/types.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/stepper/utils.ts",
+          "type": "registry:ui"
         }
       ]
     },
