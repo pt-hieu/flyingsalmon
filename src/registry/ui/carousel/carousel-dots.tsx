@@ -40,6 +40,7 @@ export function CarouselDots({
             className={carouselDotClassName}
             onClick={() => scrollTo(index)}
           >
+            <span className={carouselDotMarkClassName} />
             {index === current ? (
               <motion.span
                 layout
@@ -47,9 +48,7 @@ export function CarouselDots({
                 transition={springBounce}
                 className={carouselCurrentDotMarkClassName}
               />
-            ) : (
-              <span className={carouselDotMarkClassName} />
-            )}
+            ) : null}
           </button>
         )
       })}

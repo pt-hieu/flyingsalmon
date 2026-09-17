@@ -28,12 +28,14 @@ export const carouselItemClassName = 'w-(--carousel-item) shrink-0 snap-start'
 export const carouselDotsClassName = 'flex items-center justify-center gap-1'
 
 export const carouselDotClassName = cn(
-  'ring-ring flex h-6 min-w-6 cursor-pointer items-center justify-center rounded-full px-1',
+  'ring-ring group/dot relative flex h-6 min-w-6 cursor-pointer items-center justify-center rounded-full px-1',
   offsetFocusRingGeometry,
 )
 
-export const carouselDotMarkClassName =
-  'bg-muted-foreground size-2 rounded-full transition-colors duration-(--motion-fast)'
+export const carouselDotMarkClassName = cn(
+  'bg-muted-foreground size-2 rounded-full',
+  'transition-colors duration-(--motion-fast) group-hover/dot:bg-foreground',
+)
 
 export const carouselCurrentDotMarkClassName =
-  'bg-indicator h-2 w-5 rounded-full'
+  'bg-indicator absolute inset-0 m-auto h-2 w-5 rounded-full'
