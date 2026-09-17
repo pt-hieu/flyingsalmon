@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Plane } from 'lucide-react'
+import { Bike, Bus, Footprints, Plane, Ship, TrainFront } from 'lucide-react'
 import { Fragment } from 'react'
 
 import { ModePreview } from '@/components/mode-preview'
@@ -36,6 +36,16 @@ const dayStripClassNames = [
   'bg-chart-5',
 ]
 
+const journeyLegs = [
+  { label: 'Fly to Hanoi', icon: Plane },
+  { label: 'Old Quarter on foot', icon: Footprints },
+  { label: 'Night train south', icon: TrainFront },
+  { label: 'Boats through Tam Coc', icon: Ship },
+  { label: 'Bus over the pass', icon: Bus },
+  { label: 'Bikes to An Bang', icon: Bike },
+  { label: 'Flight home', icon: Plane },
+]
+
 const longTripDayLabels = Array.from(
   { length: 14 },
   (_, index) => `Day ${index + 1}`,
@@ -60,13 +70,13 @@ function CarouselPage() {
           Native scroll, not a slideshow
         </h2>
         <p className="text-muted-foreground">
-          The carousel is a board the user scrolls with a trackpad, a finger, or
-          the scrollbar, and the browser snaps to the nearest item start when
-          the scroll stops. Nothing sits on the scroll path: there is no pointer
-          handling, no JavaScript animation of <code>scrollLeft</code>, and no
-          Embla. What the component adds is the index at rest, the enablement of
-          previous and next, the dots, and a keyboard path. What it gives up is
-          drag-to-scroll with a mouse, which the scrollbar and the two buttons
+          The carousel is a board the user scrolls with a trackpad or a finger,
+          and the browser snaps to the nearest item start when the scroll stops.
+          Nothing sits on the scroll path: there is no pointer handling, no
+          JavaScript animation of <code>scrollLeft</code>, and no Embla. What
+          the component adds is the index the scroll is nearest, the enablement
+          of previous and next, the dots, and a keyboard path. What it gives up
+          is drag-to-scroll with a mouse, which the two buttons and the dots
           cover.
         </p>
         <p className="text-muted-foreground">
@@ -130,6 +140,30 @@ function CarouselPage() {
 
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">
+          An item is not a card
+        </h2>
+        <p className="text-muted-foreground">
+          <code>CarouselItem</code> renders a <code>div</code> with the item
+          width, <code>shrink-0</code>, <code>snap-start</code>, and its own
+          accessible name. It has no border, no background, no padding, and no
+          height, so the card look on the boards above is the page's own markup
+          inside the item. An item holds whatever the app puts in it: a photo, a
+          chart, a control, or a line of text.
+        </p>
+        <p className="text-muted-foreground">
+          The width is the one thing the item does impose, and{' '}
+          <code>w-auto</code> on the item drops it, so the item is as wide as
+          what it holds. The strip below has no chrome at all — an icon and a
+          label per leg, each as wide as its own words — and it snaps, counts,
+          and keys exactly like a board of cards.
+        </p>
+        <ModePreview stacked>
+          <JourneyStrip />
+        </ModePreview>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">
           Children that are not items
         </h2>
         <p className="text-muted-foreground">
@@ -158,17 +192,17 @@ function CarouselPage() {
         </h2>
         <p className="text-muted-foreground">
           <code>current</code> is the index of the item whose start edge is
-          nearest the scroll position at rest, computed on{' '}
-          <code>scrollend</code> and, in browsers that do not fire it, shortly
-          after the last <code>scroll</code> event. It is reported through{' '}
-          <code>onCurrentChange</code> and carried on the item as{' '}
-          <code>data-current</code>. <code>visible</code> is every item
-          intersecting the scroller, from an <code>IntersectionObserver</code>,
-          and lands as <code>data-visible</code>: several items are visible and
-          exactly one is current. Both are yours to style — the day cards above
-          take an <code>--indicator</code> border on <code>data-current</code>,
-          and <code>data-visible</code> is where work that only pays off on
-          screen, like loading a photo, belongs.
+          nearest the scroll position, recomputed on every <code>scroll</code>{' '}
+          event, so it moves with the items rather than after they stop. It is
+          reported through <code>onCurrentChange</code> each time it changes,
+          and carried on the item as <code>data-current</code>.{' '}
+          <code>visible</code> is every item intersecting the scroller, from an{' '}
+          <code>IntersectionObserver</code>, and lands as{' '}
+          <code>data-visible</code>: several items are visible and exactly one
+          is current. Both are yours to style — the day cards above take an{' '}
+          <code>--indicator</code> border on <code>data-current</code>, and{' '}
+          <code>data-visible</code> is where work that only pays off on screen,
+          like loading a photo, belongs.
         </p>
         <p className="text-muted-foreground">
           The carousel is uncontrolled. The scroll position is the truth, so
@@ -189,18 +223,19 @@ function CarouselPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Dots</h2>
         <p className="text-muted-foreground">
-          Each dot is a button labelled by its item, and the current one is a
-          pill with <code>aria-current</code>, so the current dot differs in
-          shape as well as in colour. Above ten items <code>CarouselDots</code>{' '}
+          Each dot is a button labelled by its item and a 24px target. The
+          current one carries <code>aria-current</code> and paints its mark{' '}
+          <code>--primary</code>; every other mark is{' '}
+          <code>--muted-foreground</code> and steps to <code>--foreground</code>{' '}
+          under the pointer. Colour is the whole difference — every dot keeps
+          the same size and shape. Above ten items <code>CarouselDots</code>{' '}
           renders nothing — a row of fourteen dots stops being a map and each
           target shrinks below use — and the app names the position from the
           hook instead, as the fourteen-day board above does.
         </p>
         <p className="text-muted-foreground">
-          The scrollbar stays visible at all times, thin, with a{' '}
-          <code>--muted-foreground</code> thumb on a <code>--background</code>{' '}
-          track. It is the only thing on screen that says a board continues past
-          the edge, so it is never hidden.
+          The scrollbar is hidden. What says a board continues past the edge is
+          the item cut off at the edge, the enabled next button, and the dots.
         </p>
       </section>
 
@@ -239,10 +274,11 @@ function CarouselPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Motion</h2>
         <p className="text-muted-foreground">
-          The dots hold the only animation: the active pill travels between them
-          on a shared <code>layoutId</code> at <code>springBounce</code>. Each
-          dot keeps its own mark underneath, which steps colour under the
-          pointer at <code>--motion-fast</code>. Scrolling is{' '}
+          The dots hold the only animation: a mark steps colour at{' '}
+          <code>--motion-fast</code>, both when it becomes current and under the
+          pointer. Because <code>current</code> follows every scroll event, the
+          colour moves while the items are still travelling, whether the scroll
+          came from a dot, a button, a key, or a finger. Scrolling itself is{' '}
           <code>scroll-behavior: smooth</code>, so the browser picks the
           duration. That is the same movement a trackpad flick produces and sits
           outside ADR 0001's 200ms feedback cap; a JavaScript spring on{' '}
@@ -256,12 +292,12 @@ function CarouselPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Contrast</h2>
         <p className="text-muted-foreground">
-          An inactive dot and the scrollbar thumb are{' '}
-          <code>--muted-foreground</code> on <code>--background</code>: 5.2:1 in
-          light mode and 7.0:1 in dark, against the 3:1 a non-text graphic
-          needs. <code>--border</code> was rejected for both at roughly 1.3:1.
-          The active pill is <code>--indicator</code>, 4.7:1 light and 5.8:1
-          dark, and its shape carries the state as well as its colour.
+          An inactive mark is <code>--muted-foreground</code> on{' '}
+          <code>--background</code>: 5.2:1 in light mode and 7.0:1 in dark,
+          against the 3:1 a non-text graphic needs. <code>--border</code> was
+          rejected at roughly 1.3:1. The current mark is <code>--primary</code>,
+          3.2:1 light and 5.8:1 dark, which clears the same bar with less room
+          to spare in light mode.
         </p>
         <p className="text-muted-foreground">
           Previous and next reuse the button's ghost row unchanged. The
@@ -377,6 +413,33 @@ function LongTripBoard() {
       </div>
 
       <CarouselDots aria-label="Fourteen day trip" />
+    </Carousel>
+  )
+}
+
+function JourneyStrip() {
+  return (
+    <Carousel aria-label="Journey legs" className="w-full">
+      <CarouselContent className="gap-6">
+        {journeyLegs.map(({ label, icon: LegIcon }) => (
+          <CarouselItem
+            key={label}
+            aria-label={label}
+            className="flex w-auto items-center gap-2"
+          >
+            <LegIcon
+              aria-hidden="true"
+              className="text-muted-foreground size-4 shrink-0"
+            />
+            <p className="text-sm whitespace-nowrap">{label}</p>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+
+      <div className="flex w-full items-center justify-between gap-3">
+        <CarouselDots aria-label="Journey legs" />
+        <StepControls />
+      </div>
     </Carousel>
   )
 }
