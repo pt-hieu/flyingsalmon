@@ -141,6 +141,15 @@ function CarouselPage() {
           two groups of days, and the app is what hides them in the narrow
           layout.
         </p>
+        <p className="text-muted-foreground">
+          An empty board is the same rule again. With no items the dots render
+          nothing and both buttons are disabled, and the placeholder below is a
+          plain child of the content, because what a board with nothing on it
+          should say belongs to the app.
+        </p>
+        <ModePreview stacked>
+          <EmptyBoard />
+        </ModePreview>
       </section>
 
       <section className="space-y-4">
@@ -156,7 +165,10 @@ function CarouselPage() {
           <code>data-current</code>. <code>visible</code> is every item
           intersecting the scroller, from an <code>IntersectionObserver</code>,
           and lands as <code>data-visible</code>: several items are visible and
-          exactly one is current.
+          exactly one is current. Both are yours to style — the day cards above
+          take an <code>--indicator</code> border on <code>data-current</code>,
+          and <code>data-visible</code> is where work that only pays off on
+          screen, like loading a photo, belongs.
         </p>
         <p className="text-muted-foreground">
           The carousel is uncontrolled. The scroll position is the truth, so
@@ -228,8 +240,9 @@ function CarouselPage() {
         <h2 className="font-heading text-2xl font-bold">Motion</h2>
         <p className="text-muted-foreground">
           The dots hold the only animation: the active pill travels between them
-          on a shared <code>layoutId</code> at <code>springBounce</code>, and
-          the colour swap runs at <code>--motion-fast</code>. Scrolling is{' '}
+          on a shared <code>layoutId</code> at <code>springBounce</code>. Each
+          dot keeps its own mark underneath, which steps colour under the
+          pointer at <code>--motion-fast</code>. Scrolling is{' '}
           <code>scroll-behavior: smooth</code>, so the browser picks the
           duration. That is the same movement a trackpad flick produces and sits
           outside ADR 0001's 200ms feedback cap; a JavaScript spring on{' '}
@@ -271,8 +284,9 @@ function DayBoard() {
             <CarouselItem
               aria-label={tripDay.label}
               aria-roledescription="day column"
+              className="group/day"
             >
-              <div className="border-border bg-card flex h-full flex-col overflow-hidden rounded-lg border">
+              <div className="border-border bg-card group-data-[current=true]/day:border-indicator flex h-full flex-col overflow-hidden rounded-lg border">
                 <div
                   className={cn(
                     'h-1.5',
@@ -296,10 +310,33 @@ function DayBoard() {
 
       <div className="flex w-full items-center justify-between gap-3">
         <CarouselDots aria-label="Trip days" />
-        <div className="flex items-center gap-1">
-          <CarouselPrevious />
-          <CarouselNext />
+        <StepControls />
+      </div>
+    </Carousel>
+  )
+}
+
+function StepControls() {
+  return (
+    <div className="flex items-center gap-1">
+      <CarouselPrevious />
+      <CarouselNext />
+    </div>
+  )
+}
+
+function EmptyBoard() {
+  return (
+    <Carousel aria-label="Saved trips" className="w-full">
+      <CarouselContent>
+        <div className="border-border text-muted-foreground flex h-20 w-full items-center justify-center rounded-lg border border-dashed text-sm">
+          No saved trips yet
         </div>
+      </CarouselContent>
+
+      <div className="flex w-full items-center justify-between gap-3">
+        <CarouselDots aria-label="Saved trips" />
+        <StepControls />
       </div>
     </Carousel>
   )
@@ -327,7 +364,7 @@ function LongTripBoard() {
             key={label}
             aria-label={label}
             aria-roledescription="day column"
-            className="border-border bg-card flex h-20 items-center justify-center rounded-lg border"
+            className="border-border bg-card data-[current=true]:border-indicator flex h-20 items-center justify-center rounded-lg border"
           >
             <p className="font-heading text-base font-semibold">{label}</p>
           </CarouselItem>
@@ -336,10 +373,7 @@ function LongTripBoard() {
 
       <div className="flex w-full items-center justify-between gap-3">
         <CurrentDayLabel />
-        <div className="flex items-center gap-1">
-          <CarouselPrevious />
-          <CarouselNext />
-        </div>
+        <StepControls />
       </div>
 
       <CarouselDots aria-label="Fourteen day trip" />
