@@ -23,7 +23,7 @@ export function Stepper({
   className,
   ...props
 }: StepperProps) {
-  const currentSegment = Math.min(Math.max(current, 1), count)
+  const currentSegment = Math.round(Math.min(Math.max(current, 1), count))
 
   const segments = Array.from({ length: count }, (_unused, index) => {
     const segmentNumber = index + 1
