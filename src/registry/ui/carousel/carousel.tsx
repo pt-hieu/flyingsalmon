@@ -48,7 +48,7 @@ export function Carousel({
 
   const scrollPages = (pages: number) => {
     if (scrollerRef.current) {
-      scrollByPages(scrollerRef.current, pages)
+      scrollByPages(scrollerRef.current, scrollerRef.current.scrollLeft, pages)
     }
   }
 

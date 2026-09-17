@@ -1,3 +1,5 @@
+import type { CarouselScrollerBox } from './types'
+
 export function inDocumentOrder(elements: HTMLElement[]): HTMLElement[] {
   return elements.toSorted((first, second) =>
     first.compareDocumentPosition(second) & Node.DOCUMENT_POSITION_FOLLOWING
@@ -13,15 +15,16 @@ export function withoutElement(
   return elements.filter((element) => element !== removed)
 }
 
-export function nearestItemIndex(
-  itemStarts: number[],
-  scrollLeft: number,
-): number {
+export function itemStarts(itemElements: HTMLElement[]): number[] {
+  return itemElements.map((itemElement) => itemElement.offsetLeft)
+}
+
+export function nearestItemIndex(starts: number[], scrollLeft: number): number {
   let nearestIndex = 0
   let nearestDistance = Number.POSITIVE_INFINITY
 
-  itemStarts.forEach((itemStart, index) => {
-    const distance = Math.abs(itemStart - scrollLeft)
+  starts.forEach((start, index) => {
+    const distance = Math.abs(start - scrollLeft)
 
     if (distance < nearestDistance) {
       nearestDistance = distance
@@ -47,11 +50,7 @@ export function clampIndex(index: number, count: number): number {
 
 const subPixelScrollTolerance = 1
 
-export function hasNextPage(scrollerBox: {
-  scrollLeft: number
-  clientWidth: number
-  scrollWidth: number
-}): boolean {
+export function hasNextPage(scrollerBox: CarouselScrollerBox): boolean {
   const remaining =
     scrollerBox.scrollWidth - (scrollerBox.scrollLeft + scrollerBox.clientWidth)
 
@@ -62,17 +61,24 @@ export function scrollToItem(
   scrollerElement: HTMLElement,
   itemElements: HTMLElement[],
   index: number,
-) {
+): number | null {
   const itemElement = itemElements[clampIndex(index, itemElements.length)]
 
-  if (!itemElement) return
+  if (!itemElement) return null
 
   scrollerElement.scrollTo({ left: itemElement.offsetLeft, behavior: 'smooth' })
+
+  return itemElement.offsetLeft
 }
 
-export function scrollByPages(scrollerElement: HTMLElement, pages: number) {
-  scrollerElement.scrollTo({
-    left: scrollerElement.scrollLeft + pages * scrollerElement.clientWidth,
-    behavior: 'smooth',
-  })
+export function scrollByPages(
+  scrollerElement: HTMLElement,
+  from: number,
+  pages: number,
+): number {
+  const left = from + pages * scrollerElement.clientWidth
+
+  scrollerElement.scrollTo({ left, behavior: 'smooth' })
+
+  return left
 }
