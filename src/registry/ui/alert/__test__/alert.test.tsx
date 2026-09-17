@@ -162,6 +162,20 @@ describe('Alert', () => {
     })
   })
 
+  it('leaves the moment the app closes it when it does not animate open', () => {
+    const { rerender } = render(
+      <Alert animateOpen={false}>Saved as a draft</Alert>,
+    )
+
+    rerender(
+      <Alert animateOpen={false} open={false}>
+        Saved as a draft
+      </Alert>,
+    )
+
+    expect(screen.queryByText('Saved as a draft')).not.toBeInTheDocument()
+  })
+
   it('shows a caller icon instead of the variant icon', () => {
     render(
       <Alert variant={AlertVariant.Success} icon={<span>🎉</span>}>
