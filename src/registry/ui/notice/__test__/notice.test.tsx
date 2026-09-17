@@ -56,7 +56,7 @@ function TwoNoticeHarness({
   firstNotice: NoticeInput
   secondNotice: NoticeInput
 }) {
-  const { show } = useNotice()
+  const { show, dismiss } = useNotice()
   const firstHandle = useRef<NoticeHandle | null>(null)
 
   return (
@@ -76,6 +76,10 @@ function TwoNoticeHarness({
 
       <button type="button" onClick={() => firstHandle.current?.dismiss()}>
         Dismiss the first
+      </button>
+
+      <button type="button" onClick={dismiss}>
+        Dismiss whatever is showing
       </button>
     </>
   )
@@ -239,6 +243,40 @@ describe('NoticeProvider', () => {
 
     await waitFor(() => {
       expect(screen.queryByText('Trip saved')).not.toBeInTheDocument()
+    })
+  })
+
+  it('dismisses whatever is showing with the app reason', async () => {
+    const user = userEvent.setup()
+    const onSecondDismiss = vi.fn()
+    render(
+      <NoticeProvider>
+        <TwoNoticeHarness
+          firstNotice={{
+            variant: AlertVariant.Success,
+            title: 'Trip saved',
+            subject: <a href="/trips/1">View trip</a>,
+          }}
+          secondNotice={{
+            variant: AlertVariant.Error,
+            title: 'The payment failed',
+            subject: <a href="/trips/1/payment">Try the payment again</a>,
+            onDismiss: onSecondDismiss,
+          }}
+        />
+      </NoticeProvider>,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'Show the second' }))
+    await user.click(
+      screen.getByRole('button', { name: 'Dismiss whatever is showing' }),
+    )
+
+    expect(onSecondDismiss).toHaveBeenCalledTimes(1)
+    expect(onSecondDismiss).toHaveBeenCalledWith(NoticeDismissReason.App)
+
+    await waitFor(() => {
+      expect(screen.queryByText('The payment failed')).not.toBeInTheDocument()
     })
   })
 
