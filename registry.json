@@ -1523,7 +1523,11 @@
       "title": "Carousel",
       "description": "A horizontal scroll-snap track with previous and next controls. Items keep their own width; the carousel owns the snapping and the keyboard path.",
       "dependencies": ["motion", "lucide-react"],
-      "registryDependencies": ["@flyingsalmon/button", "@flyingsalmon/motion"],
+      "registryDependencies": [
+        "@flyingsalmon/button",
+        "@flyingsalmon/interaction",
+        "@flyingsalmon/motion"
+      ],
       "files": [
         {
           "path": "src/registry/ui/carousel/carousel-content.tsx",
