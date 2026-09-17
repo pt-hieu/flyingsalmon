@@ -187,9 +187,11 @@ function NoticePage() {
             <code>spring-settle</code> both ways
           </strong>{' '}
           through the notice's own <code>AnimatePresence</code>, so nothing the
-          app renders has to know about motion. Replacement animates nothing,
-          because a card that re-enters on every new result reads as a stack
-          arriving.
+          app renders has to know about motion. The card is an{' '}
+          <code>Alert</code>, and alert carries its own mount animation, so the
+          height opens on the same spring underneath the travel. Replacement
+          animates nothing, because a card that re-enters on every new result
+          reads as a stack arriving.
         </p>
       </section>
 
@@ -215,11 +217,13 @@ function NoticePage() {
           Focus return after a dismissal is the app's job, as it is with alert.
         </p>
         <p className="text-muted-foreground">
-          Colour comes from alert, so the text clears WCAG AA in both modes and
-          the description is the floor at 4.73:1. The subject is underlined in
-          the card's own foreground, which keeps it apart from the description
-          without relying on colour, and takes <code>--indicator</code> on hover
-          and press at 4.7:1 light and 5.8:1 dark.
+          Colour comes from alert, so the icon, the title, and the description
+          carry the ratios measured on that page. The subject is underlined in{' '}
+          <code>--card-foreground</code>, 18.3:1 light and 15.5:1 dark, which
+          keeps it apart from the description without relying on colour, and
+          takes <code>--indicator</code> on hover and press: 4.7:1 light and
+          5.1:1 dark on the card, the accordion trigger's hover colour rather
+          than <code>--primary</code>, which would not clear AA for text.
         </p>
       </section>
     </article>
