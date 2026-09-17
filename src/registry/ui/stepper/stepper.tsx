@@ -9,6 +9,7 @@ import {
   stepperSegmentFillClassName,
 } from './classnames'
 import { StepperSegmentState } from './types'
+import { stepperSegments } from './utils'
 
 export interface StepperProps extends React.ComponentProps<'div'> {
   count: number
@@ -23,21 +24,7 @@ export function Stepper({
   className,
   ...props
 }: StepperProps) {
-  const currentSegment = Math.round(Math.min(Math.max(current, 1), count))
-
-  const segments = Array.from({ length: count }, (_unused, index) => {
-    const segmentNumber = index + 1
-
-    if (segmentNumber < currentSegment) {
-      return { segmentNumber, state: StepperSegmentState.Complete }
-    }
-
-    if (segmentNumber === currentSegment) {
-      return { segmentNumber, state: StepperSegmentState.Current }
-    }
-
-    return { segmentNumber, state: StepperSegmentState.Upcoming }
-  })
+  const segments = stepperSegments({ count, current })
 
   return (
     <div
