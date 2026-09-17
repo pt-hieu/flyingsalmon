@@ -6,11 +6,13 @@ export enum NoticeDismissReason {
   App = 'app',
 }
 
+export type NoticeSubject = React.ReactElement<{ className?: string }>
+
 export interface NoticeInput {
   variant: AlertVariant
   title: string
   description?: string
-  subject: React.ReactElement
+  subject: NoticeSubject
   onDismiss?: (reason: NoticeDismissReason) => void
 }
 
