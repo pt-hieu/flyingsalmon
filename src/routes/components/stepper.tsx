@@ -113,6 +113,12 @@ function StepperPage() {
           <code>--progress-track</code>. Both tokens come from the theme, which
           is why the stepper does not depend on the progress item.
         </p>
+        <p className="text-muted-foreground">
+          The fill clears the track at 3.72:1 in light mode and 4.3:1 in dark,
+          so the edge between a filled segment and an empty one is readable
+          without color vision. The track sits at 1.26:1 against the page,
+          enough to show how many segments are left.
+        </p>
       </section>
 
       <section className="space-y-4">
