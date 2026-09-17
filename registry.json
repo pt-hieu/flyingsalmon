@@ -1367,7 +1367,25 @@
       "title": "Stepper",
       "description": "A bar of equal segments filled through the current one, for a position in a sequence of known count. It reads as ticks rather than a fraction; progress covers one operation of known length.",
       "dependencies": ["motion"],
-      "registryDependencies": ["@flyingsalmon/motion", "@flyingsalmon/theme"]
+      "registryDependencies": ["@flyingsalmon/motion", "@flyingsalmon/theme"],
+      "files": [
+        {
+          "path": "src/registry/ui/stepper/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/stepper/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/stepper/stepper.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/stepper/types.ts",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "notice",
