@@ -1,28 +1,7 @@
-import { isValidElement } from 'react'
+import { readNodeText } from './read-node-text'
+import type { NoticeInput, NoticeSubject } from './types'
 
-import type { NoticeInput } from './types'
-
-export function readNodeText(node: React.ReactNode): string {
-  if (typeof node === 'string') {
-    return node
-  }
-
-  if (typeof node === 'number') {
-    return String(node)
-  }
-
-  if (Array.isArray(node)) {
-    return node.map(readNodeText).join('')
-  }
-
-  if (isValidElement<{ children?: React.ReactNode }>(node)) {
-    return readNodeText(node.props.children)
-  }
-
-  return ''
-}
-
-export function assertActivatableSubject(subject: React.ReactElement) {
+export function assertActivatableSubject(subject: NoticeSubject) {
   if (process.env.NODE_ENV === 'production') {
     return
   }

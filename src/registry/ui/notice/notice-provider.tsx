@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react'
-import { useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 
 import { springSettle } from '@/registry/lib/motion'
 
@@ -31,45 +31,60 @@ export function NoticeProvider({ children }: NoticeProviderProps) {
   const { politeRegionRef, assertiveRegionRef, announce, clearAnnouncement } =
     useNoticeAnnouncer()
 
-  const dismissShownNotice = (reason: NoticeDismissReason) => {
-    const dismissed = shownNoticeRef.current
+  const dismissShownNotice = useCallback(
+    (reason: NoticeDismissReason) => {
+      const dismissed = shownNoticeRef.current
 
-    if (!dismissed) {
-      return
-    }
+      if (!dismissed) {
+        return
+      }
 
-    shownNoticeRef.current = null
-    setShownNotice(null)
-    clearAnnouncement()
-    dismissed.input.onDismiss?.(reason)
-  }
+      shownNoticeRef.current = null
+      setShownNotice(null)
+      clearAnnouncement()
+      dismissed.input.onDismiss?.(reason)
+    },
+    [clearAnnouncement],
+  )
 
-  const show = (input: NoticeInput): NoticeHandle => {
-    assertActivatableSubject(input.subject)
+  const show = useCallback(
+    (input: NoticeInput): NoticeHandle => {
+      assertActivatableSubject(input.subject)
 
-    const replaced = shownNoticeRef.current
-    replaced?.input.onDismiss?.(NoticeDismissReason.Replaced)
+      const replaced = shownNoticeRef.current
+      replaced?.input.onDismiss?.(NoticeDismissReason.Replaced)
 
-    const shown = { sequence: nextSequence.current, input }
-    nextSequence.current += 1
+      const shown = { sequence: nextSequence.current, input }
+      nextSequence.current += 1
 
-    shownNoticeRef.current = shown
-    setShownNotice(shown)
-    announce(input)
+      shownNoticeRef.current = shown
+      setShownNotice(shown)
+      announce(input)
 
-    return {
-      dismiss: () => {
-        if (shownNoticeRef.current?.sequence === shown.sequence) {
-          dismissShownNotice(NoticeDismissReason.App)
-        }
-      },
-    }
-  }
+      return {
+        dismiss: () => {
+          if (shownNoticeRef.current?.sequence === shown.sequence) {
+            dismissShownNotice(NoticeDismissReason.App)
+          }
+        },
+      }
+    },
+    [announce, dismissShownNotice],
+  )
 
-  const dismiss = () => dismissShownNotice(NoticeDismissReason.App)
+  const dismiss = useCallback(
+    () => dismissShownNotice(NoticeDismissReason.App),
+    [dismissShownNotice],
+  )
+
+  /**
+   * An app that shows a notice from an effect on mount would loop forever if
+   * the hook handed back a new function on every render.
+   */
+  const noticeApi = useMemo(() => ({ show, dismiss }), [show, dismiss])
 
   return (
-    <NoticeContext.Provider value={{ show, dismiss }}>
+    <NoticeContext.Provider value={noticeApi}>
       <div
         ref={politeRegionRef}
         role="status"

@@ -49,6 +49,30 @@ function ShowNoticeButton({
   )
 }
 
+const giveUpAfterAttempts = 3
+
+function ShowNoticeOnMount({
+  notice,
+  onShowAttempt,
+}: {
+  notice: NoticeInput
+  onShowAttempt: () => void
+}) {
+  const noticeApi = useNotice()
+  const attempts = useRef(0)
+
+  useEffect(() => {
+    attempts.current += 1
+    onShowAttempt()
+
+    if (attempts.current <= giveUpAfterAttempts) {
+      noticeApi.show(notice)
+    }
+  }, [noticeApi, notice, onShowAttempt])
+
+  return null
+}
+
 function TwoNoticeHarness({
   firstNotice,
   secondNotice,
@@ -278,6 +302,30 @@ describe('NoticeProvider', () => {
     await waitFor(() => {
       expect(screen.queryByText('The payment failed')).not.toBeInTheDocument()
     })
+  })
+
+  it('shows once for a consumer that shows on mount from an effect', async () => {
+    const showAttempt = vi.fn()
+    render(
+      <NoticeProvider>
+        <ShowNoticeOnMount
+          onShowAttempt={showAttempt}
+          notice={{
+            variant: AlertVariant.Info,
+            title: 'Your trip was forfeited when you signed in',
+            subject: <a href="/trips">View your trips</a>,
+          }}
+        />
+      </NoticeProvider>,
+    )
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Your trip was forfeited when you signed in'),
+      ).toBeInTheDocument()
+    })
+
+    expect(showAttempt).toHaveBeenCalledTimes(1)
   })
 
   it('mounts both live regions empty', () => {
