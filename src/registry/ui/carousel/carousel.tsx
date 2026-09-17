@@ -1,5 +1,4 @@
-import { LayoutGroup } from 'motion/react'
-import { useId, useRef } from 'react'
+import { useRef } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -7,7 +6,7 @@ import { carouselClassName } from './classnames'
 import { CarouselContext } from './context'
 import { useCarouselItems } from './use-carousel-items'
 import { useCarouselMountScroll } from './use-carousel-mount-scroll'
-import { useCarouselRestState } from './use-carousel-rest-state'
+import { useCarouselScrollState } from './use-carousel-scroll-state'
 import { useCarouselVisibleItems } from './use-carousel-visible-items'
 import { hasNextPage, scrollByPages, scrollToItem } from './utils'
 
@@ -24,12 +23,11 @@ export function Carousel({
   children,
   ...props
 }: CarouselProps) {
-  const layoutGroupId = useId()
   const scrollerRef = useRef<HTMLDivElement>(null)
 
   const { itemElements, registerItem } = useCarouselItems()
 
-  const restState = useCarouselRestState({
+  const scrollState = useCarouselScrollState({
     scrollerRef,
     itemElements,
     defaultIndex,
@@ -59,25 +57,23 @@ export function Carousel({
         itemElements,
         registerItem,
         visible,
-        current: restState.current,
+        current: scrollState.current,
         count: itemElements.length,
-        canScrollPrev: restState.current > 0,
-        canScrollNext: hasNextPage(restState),
+        canScrollPrev: scrollState.current > 0,
+        canScrollNext: hasNextPage(scrollState),
         scrollTo,
         scrollPrev: () => scrollPages(-1),
         scrollNext: () => scrollPages(1),
       }}
     >
-      <LayoutGroup id={layoutGroupId}>
-        <section
-          data-slot="carousel"
-          aria-roledescription="carousel"
-          className={cn(carouselClassName, className)}
-          {...props}
-        >
-          {children}
-        </section>
-      </LayoutGroup>
+      <section
+        data-slot="carousel"
+        aria-roledescription="carousel"
+        className={cn(carouselClassName, className)}
+        {...props}
+      >
+        {children}
+      </section>
     </CarouselContext>
   )
 }

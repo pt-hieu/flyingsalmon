@@ -4,8 +4,13 @@ export interface CarouselScrollerBox {
   scrollWidth: number
 }
 
-export interface CarouselRestState extends CarouselScrollerBox {
+export interface CarouselScrollState extends CarouselScrollerBox {
   current: number
+}
+
+export interface CarouselScrollTravel {
+  from: number
+  to: number
 }
 
 export interface CarouselKeyboardScroll {

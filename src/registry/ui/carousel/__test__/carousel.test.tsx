@@ -228,7 +228,7 @@ describe('Carousel', () => {
     render(<DayBoard />)
 
     await user.tab()
-    fireEvent(document.activeElement as HTMLElement, new Event('scrollend'))
+    fireEvent.scroll(document.activeElement as HTMLElement)
 
     await user.keyboard('{ArrowRight}')
     expect(scrollTo).toHaveBeenLastCalledWith({ left: 840, behavior: 'smooth' })
@@ -268,7 +268,7 @@ describe('Carousel', () => {
     render(<DayBoard />)
 
     await user.tab()
-    fireEvent(document.activeElement as HTMLElement, new Event('scrollend'))
+    fireEvent.scroll(document.activeElement as HTMLElement)
 
     await user.keyboard('{PageDown}')
     expect(scrollTo).toHaveBeenLastCalledWith({
@@ -294,7 +294,7 @@ describe('Carousel', () => {
     expect(scrollTo).toHaveBeenLastCalledWith({ left: 0, behavior: 'smooth' })
 
     scrollerBox.scrollLeft = 1680
-    fireEvent(document.activeElement as HTMLElement, new Event('scrollend'))
+    fireEvent.scroll(document.activeElement as HTMLElement)
     await user.keyboard('{ArrowRight}')
 
     expect(scrollTo).toHaveBeenLastCalledWith({
@@ -303,7 +303,7 @@ describe('Carousel', () => {
     })
   })
 
-  it('settles current on the item nearest the scroll position and reports the change once', () => {
+  it('follows the scroll with current and reports each change once', () => {
     const onCurrentChange = vi.fn()
     reportItemStarts(dayCardStarts)
     const scrollerBox = reportScrollerBox({
@@ -316,16 +316,16 @@ describe('Carousel', () => {
       screen.getByRole('region', { name: 'Trip days' }),
     )
 
-    fireEvent(scroller, new Event('scrollend'))
+    fireEvent.scroll(scroller)
     expect(screen.getByText('Showing day 1 of 7')).toBeInTheDocument()
     expect(onCurrentChange).not.toHaveBeenCalled()
 
     scrollerBox.scrollLeft = 1130
-    fireEvent(scroller, new Event('scrollend'))
+    fireEvent.scroll(scroller)
     expect(screen.getByText('Showing day 5 of 7')).toBeInTheDocument()
     expect(onCurrentChange).toHaveBeenCalledExactlyOnceWith(4)
 
-    fireEvent(scroller, new Event('scrollend'))
+    fireEvent.scroll(scroller)
     expect(onCurrentChange).toHaveBeenCalledExactlyOnceWith(4)
   })
 
@@ -366,9 +366,8 @@ describe('Carousel', () => {
     )
 
     scrollerBox.scrollLeft = 1130
-    fireEvent(
+    fireEvent.scroll(
       scrollerOf(screen.getByRole('region', { name: 'Trip days' })),
-      new Event('scrollend'),
     )
 
     expect(screen.getByRole('group', { name: 'Day 1' })).not.toHaveAttribute(
@@ -395,16 +394,15 @@ describe('Carousel', () => {
     expect(next).toBeEnabled()
 
     scrollerBox.scrollLeft = 1030
-    fireEvent(
+    fireEvent.scroll(
       scrollerOf(screen.getByRole('region', { name: 'Trip days' })),
-      new Event('scrollend'),
     )
 
     expect(previous).toBeEnabled()
     expect(next).toBeDisabled()
   })
 
-  it('gives every item a dot that marks the current one and scrolls to its item', async () => {
+  it('gives every item a dot that marks the current one as the scroll moves and scrolls to its item', async () => {
     const user = userEvent.setup()
     reportItemStarts(dayCardStarts)
     const scrollerBox = reportScrollerBox({
@@ -423,9 +421,8 @@ describe('Carousel', () => {
     )
 
     scrollerBox.scrollLeft = 1130
-    fireEvent(
+    fireEvent.scroll(
       scrollerOf(screen.getByRole('region', { name: 'Trip days' })),
-      new Event('scrollend'),
     )
 
     expect(screen.getByRole('button', { name: 'Day 5' })).toHaveAttribute(
@@ -499,9 +496,8 @@ describe('Carousel', () => {
     expect(screen.queryByRole('button', { name: 'Transfer' })).toBeNull()
 
     scrollerBox.scrollLeft = 570
-    fireEvent(
+    fireEvent.scroll(
       scrollerOf(screen.getByRole('region', { name: 'Trip days' })),
-      new Event('scrollend'),
     )
 
     expect(screen.getByText('Showing day 3 of 7')).toBeInTheDocument()
@@ -514,28 +510,5 @@ describe('Carousel', () => {
 
     expect(scrollTo).toHaveBeenCalledWith({ left: 560, behavior: 'instant' })
     expect(screen.getByText('Showing day 3 of 7')).toBeInTheDocument()
-  })
-
-  it('settles current from a scroll that never ends, for browsers without scrollend', () => {
-    vi.useFakeTimers()
-    reportItemStarts(dayCardStarts)
-    const scrollerBox = reportScrollerBox({
-      clientWidth: 900,
-      scrollWidth: 1930,
-    })
-    render(<DayBoard />)
-
-    scrollerBox.scrollLeft = 1130
-    fireEvent.scroll(
-      scrollerOf(screen.getByRole('region', { name: 'Trip days' })),
-    )
-
-    expect(screen.getByText('Showing day 1 of 7')).toBeInTheDocument()
-
-    act(() => vi.advanceTimersByTime(1000))
-
-    expect(screen.getByText('Showing day 5 of 7')).toBeInTheDocument()
-
-    vi.useRealTimers()
   })
 })

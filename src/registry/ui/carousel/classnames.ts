@@ -1,3 +1,5 @@
+import { cva } from 'class-variance-authority'
+
 import { cn } from '@/lib/utils'
 
 import {
@@ -10,15 +12,15 @@ export const carouselClassName = cn(
   '[--carousel-item:270px] [--carousel-inline-padding:0px]',
 )
 
-const alwaysVisibleScrollbar = cn(
-  '[scrollbar-width:thin] [scrollbar-color:var(--muted-foreground)_var(--background)]',
-  '[&::-webkit-scrollbar]:h-2',
+const hiddenScrollbar = cn(
+  '[scrollbar-width:none]',
+  '[&::-webkit-scrollbar]:hidden',
 )
 
 export const carouselContentClassName = cn(
   'relative flex w-full snap-x snap-mandatory scroll-smooth overflow-x-scroll',
   'px-(--carousel-inline-padding) scroll-ps-(--carousel-inline-padding)',
-  alwaysVisibleScrollbar,
+  hiddenScrollbar,
   'ring-ring',
   boundaryFocusRingGeometry,
 )
@@ -28,14 +30,21 @@ export const carouselItemClassName = 'w-(--carousel-item) shrink-0 snap-start'
 export const carouselDotsClassName = 'flex items-center justify-center gap-1'
 
 export const carouselDotClassName = cn(
-  'ring-ring group/dot relative flex h-6 min-w-6 cursor-pointer items-center justify-center rounded-full px-1',
+  'ring-ring group/dot flex size-6 cursor-pointer items-center justify-center rounded-full',
   offsetFocusRingGeometry,
 )
 
-export const carouselDotMarkClassName = cn(
-  'bg-muted-foreground size-2 rounded-full',
-  'transition-colors duration-(--motion-fast) group-hover/dot:bg-foreground',
+export const carouselDotMarkVariants = cva(
+  'size-2 rounded-full transition-colors duration-(--motion-fast)',
+  {
+    variants: {
+      current: {
+        true: 'bg-primary',
+        false: 'bg-muted-foreground group-hover/dot:bg-foreground',
+      },
+    },
+    defaultVariants: {
+      current: false,
+    },
+  },
 )
-
-export const carouselCurrentDotMarkClassName =
-  'bg-indicator absolute inset-0 m-auto h-2 w-5 rounded-full'
