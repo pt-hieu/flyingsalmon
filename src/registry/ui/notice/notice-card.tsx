@@ -15,7 +15,12 @@ export function NoticeCard({ notice, onDismiss }: NoticeCardProps) {
   const subject = notice.subject
 
   return (
-    <Alert variant={notice.variant} role="presentation" onClose={onDismiss}>
+    <Alert
+      variant={notice.variant}
+      role="presentation"
+      animateOpen={false}
+      onClose={onDismiss}
+    >
       <AlertTitle>{notice.title}</AlertTitle>
 
       {notice.description ? (

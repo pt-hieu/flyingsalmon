@@ -188,10 +188,10 @@ function NoticePage() {
           </strong>{' '}
           through the notice's own <code>AnimatePresence</code>, so nothing the
           app renders has to know about motion. The card is an{' '}
-          <code>Alert</code>, and alert carries its own mount animation, so the
-          height opens on the same spring underneath the travel. Replacement
-          animates nothing, because a card that re-enters on every new result
-          reads as a stack arriving.
+          <code>Alert</code> with <code>animateOpen</code> off, so alert's own
+          height animation stays out of the way and the travel is the only thing
+          moving. Replacement animates nothing, because a card that re-enters on
+          every new result reads as a stack arriving.
         </p>
       </section>
 
