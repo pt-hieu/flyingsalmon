@@ -97,7 +97,7 @@ A horizontally scroll-snapping region of items on native CSS scroll-snap. Many i
 _Avoid_: slider, slideshow, gallery, reel
 
 **Current**:
-The carousel item whose start edge is nearest the scroll position at rest, computed on `scrollend` and reported through `onCurrentChange`. Distinct from visible, which every item intersecting the viewport carries: several items are visible at once and exactly one is current.
+The carousel item whose start edge is nearest the scroll position, recomputed on every `scroll` event so it moves with the items, and reported through `onCurrentChange`. Distinct from visible, which every item intersecting the viewport carries: several items are visible at once and exactly one is current.
 _Avoid_: active, selected, index
 
 **Page**:

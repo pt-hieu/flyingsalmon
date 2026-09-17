@@ -1,13 +1,9 @@
-import { motion } from 'motion/react'
-
 import { cn } from '@/lib/utils'
-import { springBounce } from '@/registry/lib/motion'
 
 import { carouselDotsLimit } from './carousel-dots-limit'
 import {
-  carouselCurrentDotMarkClassName,
   carouselDotClassName,
-  carouselDotMarkClassName,
+  carouselDotMarkVariants,
   carouselDotsClassName,
 } from './classnames'
 import { useCarouselSharedState } from './use-carousel'
@@ -29,6 +25,7 @@ export function CarouselDots({
     >
       {itemElements.map((itemElement, index) => {
         const itemLabel = itemElement.getAttribute('aria-label') ?? undefined
+        const isCurrent = index === current
 
         return (
           <button
@@ -36,19 +33,11 @@ export function CarouselDots({
             type="button"
             data-slot="carousel-dot"
             aria-label={itemLabel}
-            aria-current={index === current || undefined}
+            aria-current={isCurrent || undefined}
             className={carouselDotClassName}
             onClick={() => scrollTo(index)}
           >
-            <span className={carouselDotMarkClassName} />
-            {index === current ? (
-              <motion.span
-                layout
-                layoutId="carousel-current-dot"
-                transition={springBounce}
-                className={carouselCurrentDotMarkClassName}
-              />
-            ) : null}
+            <span className={carouselDotMarkVariants({ current: isCurrent })} />
           </button>
         )
       })}

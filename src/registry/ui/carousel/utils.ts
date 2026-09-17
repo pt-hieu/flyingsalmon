@@ -1,4 +1,4 @@
-import type { CarouselScrollerBox } from './types'
+import type { CarouselScrollerBox, CarouselScrollTravel } from './types'
 
 function follows(element: HTMLElement, reference: HTMLElement): boolean {
   return Boolean(
@@ -77,6 +77,19 @@ export function hasNextPage(scrollerBox: CarouselScrollerBox): boolean {
     scrollerBox.scrollWidth - (scrollerBox.scrollLeft + scrollerBox.clientWidth)
 
   return remaining > subPixelScrollTolerance
+}
+
+export function withinScrollTravel({
+  scrollLeft,
+  travel,
+}: {
+  scrollLeft: number
+  travel: CarouselScrollTravel
+}): boolean {
+  const start = Math.min(travel.from, travel.to) - subPixelScrollTolerance
+  const end = Math.max(travel.from, travel.to) + subPixelScrollTolerance
+
+  return scrollLeft >= start && scrollLeft <= end
 }
 
 export function scrollToItem(

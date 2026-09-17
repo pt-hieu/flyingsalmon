@@ -1522,11 +1522,10 @@
       "type": "registry:ui",
       "title": "Carousel",
       "description": "A horizontal scroll-snap track with previous and next controls. Items keep their own width; the carousel owns the snapping and the keyboard path.",
-      "dependencies": ["motion", "lucide-react"],
+      "dependencies": ["class-variance-authority", "lucide-react"],
       "registryDependencies": [
         "@flyingsalmon/button",
-        "@flyingsalmon/interaction",
-        "@flyingsalmon/motion"
+        "@flyingsalmon/interaction"
       ],
       "files": [
         {
@@ -1558,10 +1557,6 @@
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/carousel/carousel-scroll-rest-interval.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/carousel/carousel.tsx",
           "type": "registry:ui"
         },
@@ -1590,7 +1585,7 @@
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/carousel/use-carousel-rest-state.ts",
+          "path": "src/registry/ui/carousel/use-carousel-scroll-state.ts",
           "type": "registry:ui"
         },
         {

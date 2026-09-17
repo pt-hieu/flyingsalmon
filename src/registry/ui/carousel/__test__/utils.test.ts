@@ -6,6 +6,7 @@ import {
   inDocumentOrder,
   nearestItemIndex,
   visibleItemIndexes,
+  withinScrollTravel,
   withoutElement,
 } from '../utils'
 
@@ -115,6 +116,47 @@ describe('hasNextPage', () => {
   it('reports no page left when only a fraction of a pixel remains', () => {
     expect(
       hasNextPage({ scrollLeft: 1029.6, clientWidth: 900, scrollWidth: 1930 }),
+    ).toBe(false)
+  })
+})
+
+describe('withinScrollTravel', () => {
+  it('holds a position the scroller passes on its way to the target', () => {
+    expect(
+      withinScrollTravel({ scrollLeft: 400, travel: { from: 280, to: 840 } }),
+    ).toBe(true)
+  })
+
+  it('holds the target itself', () => {
+    expect(
+      withinScrollTravel({ scrollLeft: 840, travel: { from: 280, to: 840 } }),
+    ).toBe(true)
+  })
+
+  it('holds a target overshot by less than a pixel', () => {
+    expect(
+      withinScrollTravel({ scrollLeft: 840.4, travel: { from: 280, to: 840 } }),
+    ).toBe(true)
+  })
+
+  it('drops a position past the target', () => {
+    expect(
+      withinScrollTravel({ scrollLeft: 1120, travel: { from: 280, to: 840 } }),
+    ).toBe(false)
+  })
+
+  it('drops a position behind the origin', () => {
+    expect(
+      withinScrollTravel({ scrollLeft: 0, travel: { from: 280, to: 840 } }),
+    ).toBe(false)
+  })
+
+  it('reads a travel that runs backwards the same way', () => {
+    expect(
+      withinScrollTravel({ scrollLeft: 400, travel: { from: 840, to: 280 } }),
+    ).toBe(true)
+    expect(
+      withinScrollTravel({ scrollLeft: 1120, travel: { from: 840, to: 280 } }),
     ).toBe(false)
   })
 })

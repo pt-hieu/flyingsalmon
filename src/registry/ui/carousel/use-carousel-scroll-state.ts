@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { carouselScrollRestInterval } from './carousel-scroll-rest-interval'
-import type { CarouselRestState } from './types'
+import type { CarouselScrollState } from './types'
 import { itemStarts, nearestItemIndex } from './utils'
 
-export function useCarouselRestState({
+export function useCarouselScrollState({
   scrollerRef,
   itemElements,
   defaultIndex,
@@ -14,8 +13,8 @@ export function useCarouselRestState({
   itemElements: HTMLElement[]
   defaultIndex: number
   onCurrentChange?: (index: number) => void
-}): CarouselRestState {
-  const [restState, setRestState] = useState<CarouselRestState>({
+}): CarouselScrollState {
+  const [scrollState, setScrollState] = useState<CarouselScrollState>({
     current: defaultIndex,
     scrollLeft: 0,
     clientWidth: 0,
@@ -41,16 +40,16 @@ export function useCarouselRestState({
     })
 
     const measure = () => {
-      setRestState((rest) => ({ ...rest, ...readScrollerBox() }))
+      setScrollState((scroll) => ({ ...scroll, ...readScrollerBox() }))
     }
 
-    const settle = () => {
+    const follow = () => {
       const current = nearestItemIndex(
         itemStarts(itemElements),
         scrollerElement.scrollLeft,
       )
 
-      setRestState({ current, ...readScrollerBox() })
+      setScrollState({ current, ...readScrollerBox() })
 
       if (current !== reportedCurrentRef.current) {
         reportedCurrentRef.current = current
@@ -58,33 +57,18 @@ export function useCarouselRestState({
       }
     }
 
-    let restTimer: ReturnType<typeof setTimeout> | undefined
-
-    const settleNow = () => {
-      clearTimeout(restTimer)
-      settle()
-    }
-
-    const settleAfterRest = () => {
-      clearTimeout(restTimer)
-      restTimer = setTimeout(settle, carouselScrollRestInterval)
-    }
-
     measure()
 
-    scrollerElement.addEventListener('scrollend', settleNow)
-    scrollerElement.addEventListener('scroll', settleAfterRest)
+    scrollerElement.addEventListener('scroll', follow)
 
     const resizeObserver = new ResizeObserver(measure)
     resizeObserver.observe(scrollerElement)
 
     return () => {
-      clearTimeout(restTimer)
-      scrollerElement.removeEventListener('scrollend', settleNow)
-      scrollerElement.removeEventListener('scroll', settleAfterRest)
+      scrollerElement.removeEventListener('scroll', follow)
       resizeObserver.disconnect()
     }
   }, [itemElements, scrollerRef])
 
-  return restState
+  return scrollState
 }
