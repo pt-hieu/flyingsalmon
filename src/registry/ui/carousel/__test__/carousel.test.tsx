@@ -85,6 +85,55 @@ function recordScrollTargets() {
   return scrollTo
 }
 
+/**
+ * jsdom reports no intersections of its own, so which items the scroller shows
+ * is the test's to state.
+ */
+class ReportingIntersectionObserver implements IntersectionObserver {
+  static readonly instances: ReportingIntersectionObserver[] = []
+
+  readonly root = null
+  readonly rootMargin = '0px'
+  readonly scrollMargin = '0px'
+  readonly thresholds: ReadonlyArray<number> = []
+
+  callback: IntersectionObserverCallback
+  targets: HTMLElement[] = []
+
+  constructor(callback: IntersectionObserverCallback) {
+    this.callback = callback
+    ReportingIntersectionObserver.instances.push(this)
+  }
+
+  observe(target: Element) {
+    this.targets.push(target as HTMLElement)
+  }
+
+  unobserve() {}
+  disconnect() {}
+
+  takeRecords(): IntersectionObserverEntry[] {
+    return []
+  }
+
+  report(visibleTargets: HTMLElement[]) {
+    const entries = this.targets.map((target) => ({
+      target,
+      isIntersecting: visibleTargets.includes(target),
+    })) as unknown as IntersectionObserverEntry[]
+
+    this.callback(entries, this)
+  }
+}
+
+function reportVisibleItems(visibleTargets: HTMLElement[]) {
+  act(() => {
+    for (const observer of ReportingIntersectionObserver.instances) {
+      observer.report(visibleTargets)
+    }
+  })
+}
+
 function forgetReportedMeasurements() {
   delete (Element.prototype as unknown as Record<string, unknown>).scrollTo
 
@@ -106,6 +155,14 @@ function CurrentDayReadout() {
   return <p>{`Showing day ${current + 1} of ${count}`}</p>
 }
 
+function VisibleDaysReadout() {
+  const { visible } = useCarousel()
+
+  return (
+    <p>{`Visible days: ${visible.map((index) => index + 1).join(', ')}`}</p>
+  )
+}
+
 function DayBoard({
   days = tripDays,
   ...props
@@ -123,18 +180,25 @@ function DayBoard({
       <CarouselNext />
       <CarouselDots />
       <CurrentDayReadout />
+      <VisibleDaysReadout />
     </Carousel>
   )
 }
 
 describe('Carousel', () => {
   let scrollTo: ReturnType<typeof recordScrollTargets>
+  const neverReportingIntersectionObserver = globalThis.IntersectionObserver
 
   beforeEach(() => {
     scrollTo = recordScrollTargets()
+    ReportingIntersectionObserver.instances.length = 0
+    globalThis.IntersectionObserver = ReportingIntersectionObserver
   })
 
-  afterEach(forgetReportedMeasurements)
+  afterEach(() => {
+    forgetReportedMeasurements()
+    globalThis.IntersectionObserver = neverReportingIntersectionObserver
+  })
 
   it('names itself a carousel, names every item, and takes one tab stop before its controls', async () => {
     const user = userEvent.setup()
@@ -157,31 +221,63 @@ describe('Carousel', () => {
     expect(screen.getByRole('button', { name: 'Next' })).toHaveFocus()
   })
 
-  it('moves by item, to either end, and by page from the keyboard', async () => {
+  it('moves by item and to either end from the keyboard', async () => {
     const user = userEvent.setup()
     reportItemStarts(dayCardStarts)
     reportScrollerBox({ scrollLeft: 560, clientWidth: 900, scrollWidth: 1930 })
     render(<DayBoard />)
 
     await user.tab()
-    const scroller = document.activeElement as HTMLElement
-    fireEvent(scroller, new Event('scrollend'))
+    fireEvent(document.activeElement as HTMLElement, new Event('scrollend'))
 
-    const targetByKey = {
-      '{ArrowRight}': 840,
-      '{ArrowLeft}': 280,
-      '{Home}': 0,
-      '{End}': 1680,
-      '{PageDown}': 1460,
-      '{PageUp}': -340,
-    }
+    await user.keyboard('{ArrowRight}')
+    expect(scrollTo).toHaveBeenLastCalledWith({ left: 840, behavior: 'smooth' })
 
-    for (const [key, left] of Object.entries(targetByKey)) {
-      scrollTo.mockClear()
-      await user.keyboard(key)
+    await user.keyboard('{ArrowLeft}')
+    expect(scrollTo).toHaveBeenLastCalledWith({ left: 560, behavior: 'smooth' })
 
-      expect(scrollTo).toHaveBeenCalledWith({ left, behavior: 'smooth' })
-    }
+    await user.keyboard('{Home}')
+    expect(scrollTo).toHaveBeenLastCalledWith({ left: 0, behavior: 'smooth' })
+
+    await user.keyboard('{End}')
+    expect(scrollTo).toHaveBeenLastCalledWith({
+      left: 1680,
+      behavior: 'smooth',
+    })
+  })
+
+  it('steps on from the item it is already heading to, without waiting for the scroll to end', async () => {
+    const user = userEvent.setup()
+    reportItemStarts(dayCardStarts)
+    reportScrollerBox({ clientWidth: 900, scrollWidth: 1930 })
+    render(<DayBoard />)
+
+    await user.tab()
+
+    await user.keyboard('{ArrowRight}')
+    expect(scrollTo).toHaveBeenLastCalledWith({ left: 280, behavior: 'smooth' })
+
+    await user.keyboard('{ArrowRight}')
+    expect(scrollTo).toHaveBeenLastCalledWith({ left: 560, behavior: 'smooth' })
+  })
+
+  it('moves by a page of the scroller from the keyboard', async () => {
+    const user = userEvent.setup()
+    reportItemStarts(dayCardStarts)
+    reportScrollerBox({ scrollLeft: 940, clientWidth: 900, scrollWidth: 2800 })
+    render(<DayBoard />)
+
+    await user.tab()
+    fireEvent(document.activeElement as HTMLElement, new Event('scrollend'))
+
+    await user.keyboard('{PageDown}')
+    expect(scrollTo).toHaveBeenLastCalledWith({
+      left: 1840,
+      behavior: 'smooth',
+    })
+
+    await user.keyboard('{PageUp}')
+    expect(scrollTo).toHaveBeenLastCalledWith({ left: 940, behavior: 'smooth' })
   })
 
   it('stays on the end item when arrowing past it', async () => {
@@ -231,6 +327,57 @@ describe('Carousel', () => {
 
     fireEvent(scroller, new Event('scrollend'))
     expect(onCurrentChange).toHaveBeenCalledExactlyOnceWith(4)
+  })
+
+  it('marks the items the scroller is showing and offers them to the consumer', () => {
+    reportItemStarts(dayCardStarts)
+    reportScrollerBox({ clientWidth: 900, scrollWidth: 1930 })
+    render(<DayBoard />)
+
+    const firstDay = screen.getByRole('group', { name: 'Day 1' })
+    const secondDay = screen.getByRole('group', { name: 'Day 2' })
+    const fifthDay = screen.getByRole('group', { name: 'Day 5' })
+
+    reportVisibleItems([firstDay, secondDay])
+
+    expect(firstDay).toHaveAttribute('data-visible', 'true')
+    expect(secondDay).toHaveAttribute('data-visible', 'true')
+    expect(fifthDay).not.toHaveAttribute('data-visible')
+    expect(screen.getByText('Visible days: 1, 2')).toBeInTheDocument()
+
+    reportVisibleItems([fifthDay])
+
+    expect(firstDay).not.toHaveAttribute('data-visible')
+    expect(fifthDay).toHaveAttribute('data-visible', 'true')
+    expect(screen.getByText('Visible days: 5')).toBeInTheDocument()
+  })
+
+  it('marks the current item and only the current item', () => {
+    reportItemStarts(dayCardStarts)
+    const scrollerBox = reportScrollerBox({
+      clientWidth: 900,
+      scrollWidth: 1930,
+    })
+    render(<DayBoard />)
+
+    expect(screen.getByRole('group', { name: 'Day 1' })).toHaveAttribute(
+      'data-current',
+      'true',
+    )
+
+    scrollerBox.scrollLeft = 1130
+    fireEvent(
+      scrollerOf(screen.getByRole('region', { name: 'Trip days' })),
+      new Event('scrollend'),
+    )
+
+    expect(screen.getByRole('group', { name: 'Day 1' })).not.toHaveAttribute(
+      'data-current',
+    )
+    expect(screen.getByRole('group', { name: 'Day 5' })).toHaveAttribute(
+      'data-current',
+      'true',
+    )
   })
 
   it('disables previous on the first item and next on the last page', () => {
@@ -303,6 +450,16 @@ describe('Carousel', () => {
     expect(screen.queryByRole('button', { name: 'Day 1' })).toBeNull()
     expect(screen.getByRole('button', { name: 'Previous' })).toBeInTheDocument()
     expect(screen.getByText('Showing day 1 of 11')).toBeInTheDocument()
+  })
+
+  it('counts nothing, shows no dots, and offers no move when it holds no items', () => {
+    reportScrollerBox({ clientWidth: 900, scrollWidth: 900 })
+    render(<DayBoard days={[]} />)
+
+    expect(screen.getByText('Showing day 1 of 0')).toBeInTheDocument()
+    expect(screen.queryByRole('group')).toBeNull()
+    expect(screen.getByRole('button', { name: 'Previous' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Next' })).toBeDisabled()
   })
 
   it('neither counts nor indexes a child that is not an item', () => {

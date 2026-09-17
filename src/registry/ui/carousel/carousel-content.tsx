@@ -1,3 +1,5 @@
+import { useRef } from 'react'
+
 import { cn } from '@/lib/utils'
 
 import { carouselScrollByKey } from './carousel-scroll-by-key'
@@ -10,6 +12,17 @@ export function CarouselContent({
   ...props
 }: React.ComponentProps<'div'>) {
   const { scrollerRef, itemElements, current } = useCarouselSharedState()
+
+  /**
+   * A key pressed while a smooth scroll is still running has to step on from
+   * where that scroll is heading, not from where the carousel last came to
+   * rest, or a second press lands on the item the first one already picked.
+   * The target is remembered against the rest position it was commanded from,
+   * so it is spent as soon as the carousel settles anywhere new.
+   */
+  const commandedScrollRef = useRef<{ settledAt: number; left: number } | null>(
+    null,
+  )
 
   return (
     <div
@@ -29,11 +42,21 @@ export function CarouselContent({
         if (!scroll) return
 
         event.preventDefault()
-        scroll({
+
+        const commanded = commandedScrollRef.current
+
+        const left = scroll({
           scrollerElement: event.currentTarget,
           itemElements,
-          current,
+          from:
+            commanded?.settledAt === current
+              ? commanded.left
+              : event.currentTarget.scrollLeft,
         })
+
+        if (left !== null) {
+          commandedScrollRef.current = { settledAt: current, left }
+        }
       }}
       {...props}
     />

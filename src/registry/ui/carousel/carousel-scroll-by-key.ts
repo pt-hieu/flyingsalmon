@@ -1,23 +1,36 @@
-import { scrollByPages, scrollToItem } from './utils'
+import type { CarouselKeyboardScroll } from './types'
+import {
+  itemStarts,
+  nearestItemIndex,
+  scrollByPages,
+  scrollToItem,
+} from './utils'
 
-export interface CarouselKeyboardScroll {
-  scrollerElement: HTMLElement
-  itemElements: HTMLElement[]
-  current: number
+function stepByItems(scroll: CarouselKeyboardScroll, items: number) {
+  const startIndex = nearestItemIndex(
+    itemStarts(scroll.itemElements),
+    scroll.from,
+  )
+
+  return scrollToItem(
+    scroll.scrollerElement,
+    scroll.itemElements,
+    startIndex + items,
+  )
 }
 
 export const carouselScrollByKey: Record<
   string,
-  (scroll: CarouselKeyboardScroll) => void
+  (scroll: CarouselKeyboardScroll) => number | null
 > = {
-  ArrowRight: ({ scrollerElement, itemElements, current }) =>
-    scrollToItem(scrollerElement, itemElements, current + 1),
-  ArrowLeft: ({ scrollerElement, itemElements, current }) =>
-    scrollToItem(scrollerElement, itemElements, current - 1),
+  ArrowRight: (scroll) => stepByItems(scroll, 1),
+  ArrowLeft: (scroll) => stepByItems(scroll, -1),
   Home: ({ scrollerElement, itemElements }) =>
     scrollToItem(scrollerElement, itemElements, 0),
   End: ({ scrollerElement, itemElements }) =>
     scrollToItem(scrollerElement, itemElements, itemElements.length - 1),
-  PageDown: ({ scrollerElement }) => scrollByPages(scrollerElement, 1),
-  PageUp: ({ scrollerElement }) => scrollByPages(scrollerElement, -1),
+  PageDown: ({ scrollerElement, from }) =>
+    scrollByPages(scrollerElement, from, 1),
+  PageUp: ({ scrollerElement, from }) =>
+    scrollByPages(scrollerElement, from, -1),
 }

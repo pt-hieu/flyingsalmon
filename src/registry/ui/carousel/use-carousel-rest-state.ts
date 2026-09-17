@@ -1,14 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { carouselScrollRestInterval } from './carousel-scroll-rest-interval'
-import { nearestItemIndex } from './utils'
-
-export interface CarouselRestState {
-  current: number
-  scrollLeft: number
-  clientWidth: number
-  scrollWidth: number
-}
+import type { CarouselRestState } from './types'
+import { itemStarts, nearestItemIndex } from './utils'
 
 export function useCarouselRestState({
   scrollerRef,
@@ -52,7 +46,7 @@ export function useCarouselRestState({
 
     const settle = () => {
       const current = nearestItemIndex(
-        itemElements.map((itemElement) => itemElement.offsetLeft),
+        itemStarts(itemElements),
         scrollerElement.scrollLeft,
       )
 
