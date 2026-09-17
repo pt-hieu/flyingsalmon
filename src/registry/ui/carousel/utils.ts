@@ -1,11 +1,33 @@
 import type { CarouselScrollerBox } from './types'
 
-export function inDocumentOrder(elements: HTMLElement[]): HTMLElement[] {
-  return elements.toSorted((first, second) =>
-    first.compareDocumentPosition(second) & Node.DOCUMENT_POSITION_FOLLOWING
-      ? -1
-      : 1,
+function follows(element: HTMLElement, reference: HTMLElement): boolean {
+  return Boolean(
+    reference.compareDocumentPosition(element) &
+    Node.DOCUMENT_POSITION_FOLLOWING,
   )
+}
+
+function insertedInDocumentOrder(
+  ordered: HTMLElement[],
+  inserted: HTMLElement,
+): HTMLElement[] {
+  const followingIndex = ordered.findIndex((element) =>
+    follows(element, inserted),
+  )
+
+  if (followingIndex === -1) {
+    return [...ordered, inserted]
+  }
+
+  return [
+    ...ordered.slice(0, followingIndex),
+    inserted,
+    ...ordered.slice(followingIndex),
+  ]
+}
+
+export function inDocumentOrder(elements: HTMLElement[]): HTMLElement[] {
+  return elements.reduce<HTMLElement[]>(insertedInDocumentOrder, [])
 }
 
 export function withoutElement(
