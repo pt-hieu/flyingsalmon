@@ -1522,8 +1522,86 @@
       "type": "registry:ui",
       "title": "Carousel",
       "description": "A horizontal scroll-snap track with previous and next controls. Items keep their own width; the carousel owns the snapping and the keyboard path.",
-      "dependencies": [],
-      "registryDependencies": ["@flyingsalmon/button", "@flyingsalmon/motion"]
+      "dependencies": ["motion", "lucide-react"],
+      "registryDependencies": ["@flyingsalmon/button", "@flyingsalmon/motion"],
+      "files": [
+        {
+          "path": "src/registry/ui/carousel/carousel-content.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/carousel-dots-limit.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/carousel-dots.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/carousel-item.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/carousel-next.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/carousel-previous.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/carousel-scroll-by-key.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/carousel-scroll-rest-interval.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/carousel.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/types.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/use-carousel-items.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/use-carousel-mount-scroll.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/use-carousel-rest-state.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/use-carousel-visible-items.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/use-carousel.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/carousel/utils.ts",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "timeline",
