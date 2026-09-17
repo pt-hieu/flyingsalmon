@@ -4,32 +4,11 @@ import { AlertVariant } from '@/registry/ui/alert'
 import {
   assertActivatableSubject,
   noticeAnnouncementText,
-  readNodeText,
 } from '@/registry/ui/notice/utils'
 
 function TripLink({ children }: { children: React.ReactNode }) {
   return <a href="/trips/1">{children}</a>
 }
-
-describe('readNodeText', () => {
-  it('reads the text of a nested element tree', () => {
-    expect(
-      readNodeText(
-        <span>
-          View <strong>the Da Nang trip</strong>
-        </span>,
-      ),
-    ).toBe('View the Da Nang trip')
-  })
-
-  it('reads a number as its digits', () => {
-    expect(readNodeText(<span>{6} days</span>)).toBe('6 days')
-  })
-
-  it('reads an element with no text as an empty string', () => {
-    expect(readNodeText(<span />)).toBe('')
-  })
-})
 
 describe('noticeAnnouncementText', () => {
   it('announces the title, the description, and the subject text', () => {

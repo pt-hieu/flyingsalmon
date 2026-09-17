@@ -1420,6 +1420,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/notice/read-node-text.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/notice/types.ts",
           "type": "registry:ui"
         },
