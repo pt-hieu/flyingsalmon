@@ -4,56 +4,52 @@ import { describe, expect, it } from 'vitest'
 
 import { Stepper } from '@/registry/ui/stepper'
 
+function readSegments(attribute: string) {
+  return screen
+    .getAllByRole('listitem')
+    .map((segment) => segment.getAttribute(attribute))
+}
+
 describe('Stepper', () => {
   it('marks only the current segment as the current step', () => {
     render(<Stepper count={4} current={2} />)
 
-    const segments = screen.getAllByRole('listitem')
-    const currentFlags = segments.map((segment) =>
-      segment.getAttribute('aria-current'),
-    )
-
-    expect(currentFlags).toEqual([null, 'step', null, null])
+    expect(readSegments('aria-current')).toEqual([null, 'step', null, null])
   })
 
   it('clamps a current above the count to the last segment', () => {
     render(<Stepper count={3} current={9} />)
 
-    const segments = screen.getAllByRole('listitem')
-    const currentFlags = segments.map((segment) =>
-      segment.getAttribute('aria-current'),
-    )
-
-    expect(currentFlags).toEqual([null, null, 'step'])
+    expect(readSegments('aria-current')).toEqual([null, null, 'step'])
   })
 
   it('clamps a current below one to the first segment', () => {
     render(<Stepper count={3} current={0} />)
 
-    const segments = screen.getAllByRole('listitem')
-    const currentFlags = segments.map((segment) =>
-      segment.getAttribute('aria-current'),
-    )
+    expect(readSegments('aria-current')).toEqual(['step', null, null])
+  })
 
-    expect(currentFlags).toEqual(['step', null, null])
+  it('keeps one current segment when current lands between two', () => {
+    render(<Stepper count={4} current={2.5} />)
+
+    expect(readSegments('aria-current')).toEqual([null, null, 'step', null])
   })
 
   it('reports each segment as complete, current, or upcoming', () => {
     render(<Stepper count={4} current={2} />)
 
-    const segments = screen.getAllByRole('listitem')
-    const states = segments.map((segment) => segment.getAttribute('data-state'))
-
-    expect(states).toEqual(['complete', 'current', 'upcoming', 'upcoming'])
+    expect(readSegments('data-state')).toEqual([
+      'complete',
+      'current',
+      'upcoming',
+      'upcoming',
+    ])
   })
 
   it('names each segment by its position in the count', () => {
     render(<Stepper count={3} current={1} />)
 
-    const segments = screen.getAllByRole('listitem')
-    const names = segments.map((segment) => segment.getAttribute('aria-label'))
-
-    expect(names).toEqual(['1 of 3', '2 of 3', '3 of 3'])
+    expect(readSegments('aria-label')).toEqual(['1 of 3', '2 of 3', '3 of 3'])
   })
 
   it('names the bar Progress when no label is given', () => {
@@ -75,18 +71,20 @@ describe('Stepper', () => {
 
     rerender(<Stepper count={5} current={2} />)
 
-    const segments = screen.getAllByRole('listitem')
-    const states = segments.map((segment) => segment.getAttribute('data-state'))
-    const names = segments.map((segment) => segment.getAttribute('aria-label'))
-
-    expect(states).toEqual([
+    expect(readSegments('data-state')).toEqual([
       'complete',
       'current',
       'upcoming',
       'upcoming',
       'upcoming',
     ])
-    expect(names).toEqual(['1 of 5', '2 of 5', '3 of 5', '4 of 5', '5 of 5'])
+    expect(readSegments('aria-label')).toEqual([
+      '1 of 5',
+      '2 of 5',
+      '3 of 5',
+      '4 of 5',
+      '5 of 5',
+    ])
   })
 
   it('is not focusable', async () => {
