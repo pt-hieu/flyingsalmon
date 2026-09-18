@@ -77,10 +77,6 @@ export function NoticeProvider({ children }: NoticeProviderProps) {
     [dismissShownNotice],
   )
 
-  /**
-   * An app that shows a notice from an effect on mount would loop forever if
-   * the hook handed back a new function on every render.
-   */
   const noticeApi = useMemo(() => ({ show, dismiss }), [show, dismiss])
 
   return (

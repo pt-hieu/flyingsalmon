@@ -109,10 +109,6 @@ function TwoNoticeHarness({
   )
 }
 
-/**
- * A live region only re-announces text it already held when the text leaves the
- * DOM and comes back, and the rendered result alone cannot show that it did.
- */
 function recordLiveRegionTexts(region: HTMLElement, texts: string[]) {
   const observer = new MutationObserver((records) => {
     for (const record of records) {
