@@ -12,7 +12,6 @@ import {
   type NoticeInput,
 } from './types'
 import { useNoticeAnnouncer } from './use-notice-announcer'
-import { assertActivatableSubject } from './utils'
 
 interface ShownNotice {
   sequence: number
@@ -49,8 +48,6 @@ export function NoticeProvider({ children }: NoticeProviderProps) {
 
   const show = useCallback(
     (input: NoticeInput): NoticeHandle => {
-      assertActivatableSubject(input.subject)
-
       const replaced = shownNoticeRef.current
       replaced?.input.onDismiss?.(NoticeDismissReason.Replaced)
 

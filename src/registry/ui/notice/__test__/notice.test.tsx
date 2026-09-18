@@ -8,27 +8,12 @@ import {
   NoticeDismissReason,
   NoticeProvider,
   useNotice,
-  type NoticeContextValue,
   type NoticeHandle,
   type NoticeInput,
 } from '@/registry/ui/notice'
 
 function NoticeConsumer() {
   useNotice()
-
-  return null
-}
-
-function NoticeApiCapture({
-  publish,
-}: {
-  publish: (noticeApi: NoticeContextValue) => void
-}) {
-  const noticeApi = useNotice()
-
-  useEffect(() => {
-    publish(noticeApi)
-  }, [noticeApi, publish])
 
   return null
 }
@@ -509,26 +494,5 @@ describe('NoticeProvider', () => {
     await user.keyboard('{Escape}')
 
     expect(screen.getByText('Trip saved')).toBeInTheDocument()
-  })
-
-  it('rejects a subject that is neither an anchor nor a button', () => {
-    let noticeApi: NoticeContextValue | undefined
-    render(
-      <NoticeProvider>
-        <NoticeApiCapture
-          publish={(capturedNoticeApi) => {
-            noticeApi = capturedNoticeApi
-          }}
-        />
-      </NoticeProvider>,
-    )
-
-    expect(() =>
-      noticeApi?.show({
-        variant: AlertVariant.Info,
-        title: 'Link copied',
-        subject: <span>View trip</span>,
-      }),
-    ).toThrow(/anchor or a button/)
   })
 })

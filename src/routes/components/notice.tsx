@@ -94,8 +94,7 @@ function NoticePage() {
           the data the user submitted. The registry places it under the
           description and paints the link styling; you keep the focus ring, so
           put <code>offsetFocusRingGeometry</code> from the{' '}
-          <code>interaction</code> lib on it. Anything that is neither an anchor
-          nor a button nor a component of its own fails in development.
+          <code>interaction</code> lib on it.
         </p>
       </section>
 
