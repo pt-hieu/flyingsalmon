@@ -1396,7 +1396,50 @@
       "type": "registry:ui",
       "title": "Notice",
       "description": "One persistent message for a result with no visible home, dismissed by the user and never by a timer. It links back to its subject and never takes focus.",
-      "dependencies": []
+      "dependencies": ["motion"],
+      "registryDependencies": ["@flyingsalmon/alert", "@flyingsalmon/motion"],
+      "files": [
+        {
+          "path": "src/registry/ui/notice/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/notice/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/notice/notice-card.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/notice/notice-context.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/notice/notice-provider.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/notice/read-node-text.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/notice/types.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/notice/use-notice-announcer.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/notice/use-notice.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/notice/utils.ts",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "empty-state",
