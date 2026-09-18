@@ -33,11 +33,6 @@ export function useNoticeAnnouncer(): NoticeAnnouncer {
     }
   }, [])
 
-  /**
-   * A screen reader reads a live region when text arrives in it, and text that
-   * is already there is not new. Emptying the region now and writing on the
-   * next frame makes the same words arrive again.
-   */
   const announce = useCallback(
     (notice: NoticeInput) => {
       clearAnnouncement()

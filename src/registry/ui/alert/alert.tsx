@@ -39,10 +39,6 @@ export function Alert({
   const { role: variantRole, StatusIcon } = alertStatusByVariant[variant]
   const statusIcon = icon === undefined ? <StatusIcon /> : icon
 
-  /**
-   * A surface that brings its own entrance, such as notice, would otherwise run
-   * two springs on the same card and read as two separate arrivals.
-   */
   const openAnimation = animateOpen
     ? {
         initial: { height: 0, opacity: 0 },
