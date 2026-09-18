@@ -21,6 +21,7 @@ export interface AlertProps extends React.ComponentProps<'div'> {
   icon?: React.ReactNode
   onClose?: () => void
   open?: boolean
+  animateOpen?: boolean
 }
 
 export function Alert({
@@ -29,6 +30,7 @@ export function Alert({
   icon,
   onClose,
   open = true,
+  animateOpen = true,
   role,
   className,
   children,
@@ -37,14 +39,20 @@ export function Alert({
   const { role: variantRole, StatusIcon } = alertStatusByVariant[variant]
   const statusIcon = icon === undefined ? <StatusIcon /> : icon
 
+  const openAnimation = animateOpen
+    ? {
+        initial: { height: 0, opacity: 0 },
+        animate: { height: 'auto', opacity: 1, transition: springSettle },
+        exit: { height: 0, opacity: 0, transition: springSettle },
+      }
+    : {}
+
   return (
     <AnimatePresence>
       {open ? (
         <motion.div
           key="alert"
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1, transition: springSettle }}
-          exit={{ height: 0, opacity: 0, transition: springSettle }}
+          {...openAnimation}
           className={alertPresenceClassName}
         >
           <div
