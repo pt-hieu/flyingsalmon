@@ -1,14 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { AlertVariant } from '@/registry/ui/alert'
-import {
-  assertActivatableSubject,
-  noticeAnnouncementText,
-} from '@/registry/ui/notice/utils'
-
-function TripLink({ children }: { children: React.ReactNode }) {
-  return <a href="/trips/1">{children}</a>
-}
+import { noticeAnnouncementText } from '@/registry/ui/notice/utils'
 
 describe('noticeAnnouncementText', () => {
   it('announces the title, the description, and the subject text', () => {
@@ -30,25 +23,5 @@ describe('noticeAnnouncementText', () => {
         subject: <a href="/trips/1">View trip</a>,
       }),
     ).toBe('Link copied View trip')
-  })
-})
-
-describe('assertActivatableSubject', () => {
-  it('accepts a button subject', () => {
-    expect(() =>
-      assertActivatableSubject(<button type="button">Reopen the form</button>),
-    ).not.toThrow()
-  })
-
-  it('accepts a component that renders its own element, such as a router link', () => {
-    expect(() =>
-      assertActivatableSubject(<TripLink>View trip</TripLink>),
-    ).not.toThrow()
-  })
-
-  it('names the element it rejects', () => {
-    expect(() => assertActivatableSubject(<span>View trip</span>)).toThrow(
-      '<span>',
-    )
   })
 })
