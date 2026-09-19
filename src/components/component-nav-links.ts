@@ -36,5 +36,5 @@ export const componentNavLinks = [
   { to: '/components/drawer', label: 'Drawer' },
   { to: '/components/breadcrumb', label: 'Breadcrumb' },
   { to: '/components/pagination', label: 'Pagination' },
-  { to: '/components/link', label: 'Link' },
+  { to: '/components/text-link', label: 'Text Link' },
 ] as const
