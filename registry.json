@@ -1647,6 +1647,13 @@
       "title": "Pagination",
       "description": "A page-navigation control for a long list or table. It moves between pages and marks the current one; page size and a range line stay with the app.",
       "dependencies": []
+    },
+    {
+      "name": "link",
+      "type": "registry:ui",
+      "title": "Link",
+      "description": "A styled text link inside prose and UI copy. It navigates to a destination; a button performs an action.",
+      "dependencies": []
     }
   ]
 }
