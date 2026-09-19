@@ -1753,8 +1753,23 @@
       "name": "text-link",
       "type": "registry:ui",
       "title": "Text Link",
-      "description": "A styled text link inside prose and UI copy. It navigates to a destination; a button performs an action.",
-      "dependencies": []
+      "description": "An anchor for a sentence or a line of UI copy. It takes its size and weight from the text around it and carries an underline that never leaves; a link navigates and a button acts.",
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["@flyingsalmon/interaction"],
+      "files": [
+        {
+          "path": "src/registry/ui/text-link/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/text-link/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/text-link/text-link.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
