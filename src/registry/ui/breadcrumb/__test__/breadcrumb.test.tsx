@@ -42,7 +42,7 @@ function CollapsedTripTrail({ triggerLabel }: { triggerLabel?: string }) {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbEllipsis label={triggerLabel}>
+          <BreadcrumbEllipsis aria-label={triggerLabel}>
             <BreadcrumbEllipsisItem asChild>
               <a href="/trips/japan">Japan</a>
             </BreadcrumbEllipsisItem>

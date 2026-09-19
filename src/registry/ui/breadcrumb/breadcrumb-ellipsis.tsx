@@ -13,24 +13,27 @@ import {
   breadcrumbEllipsisTriggerClassName,
 } from './classnames'
 
-export interface BreadcrumbEllipsisProps {
-  label?: string
-  className?: string
+export interface BreadcrumbEllipsisProps extends Omit<
+  React.ComponentProps<'button'>,
+  'children'
+> {
   children: React.ReactNode
 }
 
 export function BreadcrumbEllipsis({
-  label = 'Show hidden levels',
+  'aria-label': ariaLabel = 'Show hidden levels',
   className,
   children,
+  ...props
 }: BreadcrumbEllipsisProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <button
           type="button"
-          aria-label={label}
+          aria-label={ariaLabel}
           className={cn(breadcrumbEllipsisTriggerClassName, className)}
+          {...props}
         >
           <Ellipsis className={breadcrumbEllipsisIconClassName} />
         </button>
