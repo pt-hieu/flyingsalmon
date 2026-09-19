@@ -1625,6 +1625,28 @@
           "timeline-spacing": "--spacing(6)"
         }
       }
+    },
+    {
+      "name": "drawer",
+      "type": "registry:ui",
+      "title": "Drawer",
+      "description": "An edge-anchored modal panel for content that should not take the centre of the screen \u2014 filters, a detail view beside a list, a phone-width navigation panel. It slides in from its edge rather than scaling.",
+      "dependencies": ["radix-ui"],
+      "registryDependencies": ["@flyingsalmon/floating"]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "A trail showing where the current page sits in a hierarchy. Every level above the current one links back up; the current page is plain text.",
+      "dependencies": []
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "A page-navigation control for a long list or table. It moves between pages and marks the current one; page size and a range line stay with the app.",
+      "dependencies": []
     }
   ]
 }

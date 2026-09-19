@@ -33,4 +33,7 @@ export const componentNavLinks = [
   { to: '/components/sidebar', label: 'Sidebar' },
   { to: '/components/carousel', label: 'Carousel' },
   { to: '/components/timeline', label: 'Timeline' },
+  { to: '/components/drawer', label: 'Drawer' },
+  { to: '/components/breadcrumb', label: 'Breadcrumb' },
+  { to: '/components/pagination', label: 'Pagination' },
 ] as const
