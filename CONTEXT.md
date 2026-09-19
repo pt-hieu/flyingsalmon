@@ -40,6 +40,10 @@ _Avoid_: sheet, side panel, slide-over, off-canvas
 A single-line trail of the current page's ancestors in a hierarchy, each a link back up, ending in the current page as plain text. It shows location: never the pages a user visited, which is history, and never position in a sequence, which is stepper. Sidebar moves between sections; breadcrumb moves up within one. A trail has at least two levels, and one that does not fit collapses its middle levels into an ellipsis menu rather than wrapping.
 _Avoid_: path, crumbs, navigation trail, location bar
 
+**Pagination**:
+The control that moves between the numbered pages of one list or table whose page count is known: previous, a window of page numbers, next. Pages count from 1, and a list of one page has no pagination. The window is the run of page numbers on show: the first page, the last page, the current page and its neighbours, with an ellipsis standing for every run of at least two hidden pages, so the control keeps one width as the current page moves. It navigates, which stepper never does; it moves between pages of data, not by a carousel page; and "load more", infinite scroll, the page-size choice, and the "1 to 20 of 240" range line all stay with the app.
+_Avoid_: pager, paginator, page navigation, page indicator
+
 **Highlighted**:
 The one state of a menu item under the pointer or holding keyboard focus. Radix merges hover and focus into `data-highlighted`, and the item paints it as a solid background step to `--accent` with `--accent-foreground`, a destructive item to `--error` with `--error-foreground`, with no ring and no transition. A menu item has no separate hover, focus, or press state; the highlight is its focus indicator (ADR 0003). Applies to dropdown-menu and, through the shared `menu` rules, to select.
 _Avoid_: hovered, focused item, active item, selected
