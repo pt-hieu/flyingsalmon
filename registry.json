@@ -216,13 +216,15 @@
       "name": "floating",
       "type": "registry:item",
       "title": "Floating layer motion",
-      "description": "The enter and exit keyframes and --animate-* variables every floating component shares: anchored content, the dialog panel, and the scrim. CSS only, per ADR 0005.",
+      "description": "The enter and exit keyframes and --animate-* variables every floating component shares: anchored content, the dialog panel, the drawer panel, and the scrim. CSS only, per ADR 0005.",
       "cssVars": {
         "theme": {
           "animate-floating-anchored-enter": "floating-anchored-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
           "animate-floating-anchored-exit": "floating-anchored-exit 150ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
           "animate-floating-dialog-enter": "floating-dialog-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
           "animate-floating-dialog-exit": "floating-dialog-exit 150ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
+          "animate-floating-drawer-enter": "floating-drawer-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
+          "animate-floating-drawer-exit": "floating-drawer-exit 150ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
           "animate-floating-overlay-enter": "floating-overlay-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
           "animate-floating-overlay-exit": "floating-overlay-exit 150ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)"
         }
@@ -243,6 +245,14 @@
         "@keyframes floating-dialog-exit": {
           "from": { "opacity": "1", "transform": "scale(1)" },
           "to": { "opacity": "0", "transform": "scale(0.98)" }
+        },
+        "@keyframes floating-drawer-enter": {
+          "from": { "opacity": "0", "transform": "translateX(24px)" },
+          "to": { "opacity": "1", "transform": "translateX(0)" }
+        },
+        "@keyframes floating-drawer-exit": {
+          "from": { "opacity": "1", "transform": "translateX(0)" },
+          "to": { "opacity": "0", "transform": "translateX(24px)" }
         },
         "@keyframes floating-overlay-enter": {
           "from": { "opacity": "0" },
@@ -1649,9 +1659,9 @@
       "dependencies": []
     },
     {
-      "name": "link",
+      "name": "text-link",
       "type": "registry:ui",
-      "title": "Link",
+      "title": "Text Link",
       "description": "A styled text link inside prose and UI copy. It navigates to a destination; a button performs an action.",
       "dependencies": []
     }
