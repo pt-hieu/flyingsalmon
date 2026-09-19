@@ -1644,9 +1644,31 @@
       "name": "drawer",
       "type": "registry:ui",
       "title": "Drawer",
-      "description": "An edge-anchored modal panel for content that should not take the centre of the screen \u2014 filters, a detail view beside a list, a phone-width navigation panel. It slides in from its edge rather than scaling.",
+      "description": "A modal panel inset at the right edge of the viewport for secondary content that accompanies the page still visible beside it: filters for a list, the detail of a selected row. It is dialog's root and parts with one panel of its own, and it is never app navigation and never a confirm.",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["@flyingsalmon/floating"]
+      "registryDependencies": [
+        "@flyingsalmon/dialog",
+        "@flyingsalmon/button",
+        "@flyingsalmon/floating"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/drawer/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/drawer/drawer-content.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/drawer/drawer.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/drawer/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "breadcrumb",
