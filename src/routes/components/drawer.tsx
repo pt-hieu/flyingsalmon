@@ -324,9 +324,7 @@ function RowDetailDrawerDemo() {
           <TableRow>
             <TableHeadCell>Stop</TableHeadCell>
             <TableHeadCell>Nights</TableHeadCell>
-            <TableHeadCell>
-              <span className="sr-only">Detail</span>
-            </TableHeadCell>
+            <TableHeadCell />
           </TableRow>
         </TableHeader>
         <TableBody>
