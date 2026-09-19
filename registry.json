@@ -1645,7 +1645,7 @@
       "type": "registry:ui",
       "title": "Drawer",
       "description": "A modal panel inset at the right edge of the viewport for secondary content that accompanies the page still visible beside it: filters for a list, the detail of a selected row. It is dialog's root and parts with one panel of its own, and it is never app navigation and never a confirm.",
-      "dependencies": ["radix-ui"],
+      "dependencies": ["class-variance-authority", "radix-ui"],
       "registryDependencies": [
         "@flyingsalmon/dialog",
         "@flyingsalmon/button",
