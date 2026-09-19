@@ -44,6 +44,10 @@ _Avoid_: path, crumbs, navigation trail, location bar
 The control that moves between the numbered pages of one list or table whose page count is known: previous, a window of page numbers, next. Pages count from 1, and a list of one page has no pagination. The window is the run of page numbers on show: the first page, the last page, the current page and its neighbours, with an ellipsis standing for every run of at least two hidden pages, so the control keeps one width as the current page moves. It navigates, which stepper never does; it moves between pages of data, not by a carousel page; and "load more", infinite scroll, the page-size choice, and the "1 to 20 of 240" range line all stay with the app.
 _Avoid_: pager, paginator, page navigation, page indicator
 
+**Text link**:
+An anchor inside a sentence or a line of UI copy that navigates: to another page, another site, or a place on the same page. It takes its size and weight from the text around it and is marked by an underline that never leaves. A link navigates and a button acts, so an action inside a sentence is a button placed inline, never a text link. Breadcrumb's levels, sidebar's items, menu items, and pagination's page numbers are navigation items that read as links by position, and none of them is a text link.
+_Avoid_: link (alone, for the component), hyperlink, inline link, anchor (calendar's **Anchor** is the first pick of a range)
+
 **Highlighted**:
 The one state of a menu item under the pointer or holding keyboard focus. Radix merges hover and focus into `data-highlighted`, and the item paints it as a solid background step to `--accent` with `--accent-foreground`, a destructive item to `--error` with `--error-foreground`, with no ring and no transition. A menu item has no separate hover, focus, or press state; the highlight is its focus indicator (ADR 0003). Applies to dropdown-menu and, through the shared `menu` rules, to select.
 _Avoid_: hovered, focused item, active item, selected
