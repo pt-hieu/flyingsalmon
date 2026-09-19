@@ -167,8 +167,8 @@ function BreadcrumbDocsPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">A long page title</h2>
         <p className="text-muted-foreground">
-          The current page gives first. It truncates at a 20-character cap and
-          shrinks below that cap when the row runs out of room; links never
+          The current page is the part that truncates. It caps at 20 characters
+          and shrinks below that cap when the row runs out of room; links never
           truncate, so the ancestors stay readable. Override the cap with{' '}
           <code>className</code>, and pass <code>title</code> for the full text.
         </p>
@@ -260,11 +260,11 @@ function BreadcrumbDocsPage() {
         <p className="text-muted-foreground">
           Tab moves through the links and the ellipsis trigger and skips the
           current page. The trigger is named &ldquo;Show hidden levels&rdquo;,
-          which <code>label</code> overrides; Enter, Space, or Arrow Down opens
-          its menu, arrows move through the hidden levels, and Escape closes it
-          and returns focus to the trigger. Every focus ring stands 5px off the
-          text inside the row&apos;s 6px gap, clear of the chevrons on either
-          side.
+          which its own <code>aria-label</code> overrides; Enter, Space, or
+          Arrow Down opens its menu, arrows move through the hidden levels, and
+          Escape closes it and returns focus to the trigger. Every focus ring
+          stands 5px off the text inside the row&apos;s 6px gap, clear of the
+          chevrons on either side.
         </p>
         <p className="text-muted-foreground">
           Links and chevrons carry <code>--muted-foreground</code> on the page
