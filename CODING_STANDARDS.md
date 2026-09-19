@@ -12,9 +12,7 @@ Statements inside a function are grouped by goal: the lines that together achiev
 
 ## Components are folders
 
-Every registry component is a folder under `src/registry/ui/`, named after the component in kebab-case. The folder is the unit `registry.json` ships, so every file in it, except those under `__test__/`, is listed in the item's `files`.
-
-A folder holds these files:
+Every registry component is a folder under `src/registry/ui/`, named after the component in kebab-case. The folder is the unit `registry.json` ships, so every file in it, except those under `__test__/`, is listed in the item's `files`. A folder holds these files:
 
 - `index.ts` re-exports the folder's public surface and defines nothing.
 - One `.tsx` file per component, named after the component in kebab-case, defining that component and its props interface.
@@ -25,19 +23,15 @@ A folder holds these files:
 
 Consumers import from the folder, never from a file inside it.
 
-## One component per file
-
 A `.tsx` file defines exactly one component, named after the file in PascalCase. A folder that ships several components has one file per component beside the main one.
 
 Utility functions do not each need a file. The ones with low cognitive complexity, short and with no nested logic, share the folder's `utils.ts`. A utility function whose branching or nesting takes effort to follow gets its own file, named after the function.
 
+Every exported type the folder defines goes in `types.ts`: variant enums, context value shapes, aliases over third-party types, prop-derived helpers. The one exception is the component's own props interface, which stays in the component file directly above the component so the contract and the implementation read together.
+
 ## Class names live in classnames.ts
 
 Every `cva()` call and every `cn()` call that builds a reusable class string is declared in `classnames.ts` and imported by the component file. The component file may merge the consumer's `className` at the render site. It may not declare a class string of its own.
-
-## Types live in types.ts
-
-Every exported type the folder defines goes in `types.ts`: variant enums, context value shapes, aliases over third-party types, prop-derived helpers. The one exception is the component's own props interface, which stays in the component file directly above the component so the contract and the implementation read together.
 
 ## Enums, not string unions
 
