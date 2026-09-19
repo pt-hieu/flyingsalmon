@@ -21,16 +21,20 @@ A rendering rule fixed by an ADR or this glossary and therefore centralised in `
 _Avoid_: shared class, style token, common style
 
 **Batch**:
-A shipping group of components specced and built together. Batch 1 holds the 11 atomic components (alert joined via ADR 0002; label absorbed into the field components via #4). Batch 2 holds the 5 floating and composite components: dialog, dropdown-menu, select, tooltip, tabs. Popover was cut permanently by #50. Batch 3 holds the 6 form and data components: form, radio-group, table, accordion, avatar-group, separator. Batch 4 holds the 12 components hottrip's screens need and the registry lacks — calendar, date-picker, combobox, number-field, toggle-group, progress, stepper, notice, empty-state, sidebar, carousel, timeline — plus the button's amber variant; header (#128) and changed-item (#125) are cut. Its roster gate is that a named hottrip screen needs the component.
+A shipping group of components specced and built together. Batch 1 holds the 11 atomic components (alert joined via ADR 0002; label absorbed into the field components via #4). Batch 2 holds the 5 floating and composite components: dialog, dropdown-menu, select, tooltip, tabs. Popover was cut permanently by #50. Batch 3 holds the 6 form and data components: form, radio-group, table, accordion, avatar-group, separator. Batch 4 holds the 12 components hottrip's screens need and the registry lacks — calendar, date-picker, combobox, number-field, toggle-group, progress, stepper, notice, empty-state, sidebar, carousel, timeline — plus the button's amber variant; header (#128) and changed-item (#125) are cut. Its roster gate is that a named hottrip screen needs the component. Batch 5 holds 3 components: drawer, breadcrumb, pagination. Its roster gate is portfolio completeness: a visitor to a design system would expect the component and no standing ban covers it.
 _Avoid_: milestone, phase, wave
 
 **Floating component**:
-A component that renders on a layer above the page flow, positioned against an anchor: dialog, dropdown-menu, select, tooltip. Every floating component shares one portal, positioning, dismiss, and enter/exit contract. Tabs is not floating.
+A component that renders on a layer above the page flow, positioned against an anchor or the viewport: dialog, drawer, dropdown-menu, select, tooltip. Every floating component shares one portal, positioning, dismiss, and enter/exit contract. Tabs is not floating.
 _Avoid_: overlay, portal component, popup
 
 **Pending**:
-The dialog state that marks an operation running inside the dialog, set by the app through the `pending` prop. While pending, Escape, outside click, and the close button do nothing and the close button renders disabled. The dialog shows no busyness of its own beyond that; the acting button inside carries the spinner (feedback rule). An operation that runs outside the dialog does not set it. The only exception to "Escape always closes" in ADR 0005.
+The state of a dialog or a drawer that marks an operation running inside it, set by the app through the `pending` prop. While pending, Escape, outside click, and the close button do nothing and the close button renders disabled. The surface shows no busyness of its own beyond that; the acting button inside carries the spinner (feedback rule). An operation that runs outside the surface does not set it. The only exception to "Escape always closes" in ADR 0005.
 _Avoid_: busy, loading, locked, submitting
+
+**Drawer**:
+A modal panel anchored to the right edge of the viewport for secondary content that accompanies the page still visible beside it: filters for a list, the detail of a selected row. A dialog interrupts and sits centred; a drawer accompanies and sits at the edge. Never used for app navigation, which is the sidebar's at every width, and never for a confirm.
+_Avoid_: sheet, side panel, slide-over, off-canvas
 
 **Highlighted**:
 The one state of a menu item under the pointer or holding keyboard focus. Radix merges hover and focus into `data-highlighted`, and the item paints it as a solid background step to `--accent` with `--accent-foreground`, a destructive item to `--error` with `--error-foreground`, with no ring and no transition. A menu item has no separate hover, focus, or press state; the highlight is its focus indicator (ADR 0003). Applies to dropdown-menu and, through the shared `menu` rules, to select.
