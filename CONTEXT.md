@@ -36,6 +36,10 @@ _Avoid_: busy, loading, locked, submitting
 A modal panel anchored to the right edge of the viewport for secondary content that accompanies the page still visible beside it: filters for a list, the detail of a selected row. A dialog interrupts and sits centred; a drawer accompanies and sits at the edge. Never used for app navigation, which is the sidebar's at every width, and never for a confirm.
 _Avoid_: sheet, side panel, slide-over, off-canvas
 
+**Breadcrumb**:
+A single-line trail of the current page's ancestors in a hierarchy, each a link back up, ending in the current page as plain text. It shows location: never the pages a user visited, which is history, and never position in a sequence, which is stepper. Sidebar moves between sections; breadcrumb moves up within one. A trail has at least two levels, and one that does not fit collapses its middle levels into an ellipsis menu rather than wrapping.
+_Avoid_: path, crumbs, navigation trail, location bar
+
 **Highlighted**:
 The one state of a menu item under the pointer or holding keyboard focus. Radix merges hover and focus into `data-highlighted`, and the item paints it as a solid background step to `--accent` with `--accent-foreground`, a destructive item to `--error` with `--error-foreground`, with no ring and no transition. A menu item has no separate hover, focus, or press state; the highlight is its focus indicator (ADR 0003). Applies to dropdown-menu and, through the shared `menu` rules, to select.
 _Avoid_: hovered, focused item, active item, selected
@@ -100,13 +104,13 @@ _Avoid_: blank state, zero state, placeholder, no-data
 A horizontally scroll-snapping region of items on native CSS scroll-snap. Many items can be visible at once and the user free-scrolls with trackpad, touch, or scrollbar; the browser settles on an item start. Not a slideshow: one item per viewport is the special case where the item width equals the viewport. Horizontal only.
 _Avoid_: slider, slideshow, gallery, reel
 
-**Current**:
-The carousel item whose start edge is nearest the scroll position at rest, computed on `scrollend` and reported through `onCurrentChange`. Distinct from visible, which every item intersecting the viewport carries: several items are visible at once and exactly one is current.
-_Avoid_: active, selected, index
+**Current item**:
+The carousel item whose start edge is nearest the scroll position at rest, computed on `scrollend` and reported through `onCurrentChange`. Distinct from visible, which every item intersecting the viewport carries: several items are visible at once and exactly one is the current item. Plain "current page" keeps its web meaning: the routed page being viewed.
+_Avoid_: active, selected, index, current (unqualified)
 
-**Page**:
-One scroller width of carousel movement: the step previous and next take, and the step PageUp and PageDown take. Not one item — a page moves however many items fit, which is one only when the item fills the viewport.
-_Avoid_: slide, screen, step
+**Carousel page**:
+One scroller width of carousel movement: the step previous and next take, and the step PageUp and PageDown take. Not one item — a carousel page moves however many items fit, which is one only when the item fills the viewport. Plain "page" keeps its web meaning: a routed page of the app.
+_Avoid_: slide, screen, step, page (unqualified)
 
 **Marker**:
 The node that stands for one item in a sequence component. A slot: it renders a default neutral dot when empty, or a bordered circle around a consumer-supplied icon. Two sizes, default and sm. Painted to clear 3:1 on its own.
