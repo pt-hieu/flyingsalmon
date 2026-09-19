@@ -1685,8 +1685,43 @@
       "name": "pagination",
       "type": "registry:ui",
       "title": "Pagination",
-      "description": "A page-navigation control for a long list or table. It moves between pages and marks the current one; page size and a range line stay with the app.",
-      "dependencies": []
+      "description": "One controlled control that moves between the numbered pages of a list or table: previous, a seven-slot window of page numbers with an ellipsis for every run of at least two hidden pages, and next. A compact form reads \"Page 3 of 12\" instead. Page size and the range line stay with the app.",
+      "dependencies": [
+        "radix-ui",
+        "motion",
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@flyingsalmon/interaction",
+        "@flyingsalmon/motion"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/pagination/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/pagination/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/pagination/pagination-item.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/pagination/pagination.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/pagination/types.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/pagination/utils.ts",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "text-link",
