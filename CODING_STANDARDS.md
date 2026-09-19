@@ -57,6 +57,7 @@ A test verifies the behavior of its target, never how the target achieves it. A 
 - Do not test the class names or styles a target renders. A class name, an inline style, a CSS value, a motion or design constant, or a value that only feeds one of them restates the design. A restyle breaks such a test without breaking anything a consumer relies on.
 - Do not pin values no consumer can observe, such as React keys, the shape of internal state, or the format of an internal lookup key. Assert the property the caller relies on instead.
 - Every utility function with behavior of its own is tested, whether it lives in a folder's `utils.ts`, in a file of its own, or in a shared module under `src/lib/` or `src/registry/lib/`. A utility function whose output only feeds class names or styles has no behavior of its own.
+- Do not test a declarative artifact against itself. A reader sees exactly what it accepts, so a test that restates its clauses documents nothing a reader lacks and catches no defect, because there is no logic to get wrong. Test the code that consumes it, where the behavior is emergent.
 - Write the expected value out by hand. An expectation computed with the code under test copies its bug and still passes.
 - Render the real collaborators. Mock only what cannot run in jsdom: network, clock, randomness.
 - When output is unstable, such as generated ids or timestamps, assert the property that must hold rather than the exact string.
