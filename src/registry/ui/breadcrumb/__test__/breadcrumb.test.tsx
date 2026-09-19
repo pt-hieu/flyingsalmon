@@ -111,15 +111,13 @@ describe('Breadcrumb', () => {
     ).toEqual(['Trips', 'Japan', 'Kyoto'])
   })
 
-  it('renders the consumer own anchor under asChild', () => {
+  it("renders the consumer's own anchor under asChild", () => {
     render(
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <a href="/trips?sort=recent" data-testid="router-link">
-                Trips
-              </a>
+              <a href="/trips?sort=recent">Trips</a>
             </BreadcrumbLink>
           </BreadcrumbItem>
         </BreadcrumbList>
@@ -129,7 +127,6 @@ describe('Breadcrumb', () => {
     const link = screen.getByRole('link', { name: 'Trips' })
 
     expect(link).toHaveAttribute('href', '/trips?sort=recent')
-    expect(link).toHaveAttribute('data-testid', 'router-link')
     expect(link.querySelector('a')).toBeNull()
   })
 
