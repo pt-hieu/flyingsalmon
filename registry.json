@@ -1659,9 +1659,9 @@
       "dependencies": []
     },
     {
-      "name": "link",
+      "name": "text-link",
       "type": "registry:ui",
-      "title": "Link",
+      "title": "Text Link",
       "description": "A styled text link inside prose and UI copy. It navigates to a destination; a button performs an action.",
       "dependencies": []
     }
