@@ -602,6 +602,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/dialog/dialog-surface.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/dialog/dialog-title.tsx",
           "type": "registry:ui"
         },
