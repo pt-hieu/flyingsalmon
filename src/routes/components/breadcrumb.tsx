@@ -208,32 +208,16 @@ function BreadcrumbDocsPage() {
           your router&apos;s link with breadcrumb&apos;s class names on it, so
           the trail navigates through the router instead of reloading the page.{' '}
           <code>BreadcrumbEllipsisItem</code> takes the same{' '}
-          <code>asChild</code> for the hidden levels. The links below are real
-          routes on this site.
+          <code>asChild</code> for the hidden levels. The trail below is this
+          page&apos;s own: two real routes, which is the shortest trail worth
+          rendering.
         </p>
         <ModePreview>
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link to="/components/button">Button</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbEllipsis>
-                  <BreadcrumbEllipsisItem asChild>
-                    <Link to="/components/dialog">Dialog</Link>
-                  </BreadcrumbEllipsisItem>
-                  <BreadcrumbEllipsisItem asChild>
-                    <Link to="/components/dropdown-menu">Dropdown Menu</Link>
-                  </BreadcrumbEllipsisItem>
-                </BreadcrumbEllipsis>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link to="/components/tabs">Tabs</Link>
+                  <Link to="/components">Components</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
