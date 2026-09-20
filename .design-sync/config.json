@@ -1,0 +1,61 @@
+{
+  "pkg": "flyingsalmon",
+  "globalName": "FlyingSalmon",
+  "projectId": "a7ebaee2-3f48-4782-9386-39f8cc9b1fc9",
+  "shape": "package",
+  "buildCmd": "node .design-sync/prepare.mjs",
+  "entry": ".design-sync/.cache/pkg/entry.ts",
+  "srcDir": "../srcmirror",
+  "tsconfig": "../../../tsconfig.json",
+  "cssEntry": "styles.css",
+  "guidelinesGlob": "*.md",
+  "extraFonts": [
+    "../../../node_modules/@fontsource-variable/baloo-2/index.css",
+    "../../../node_modules/@fontsource-variable/onest/index.css"
+  ],
+  "docsDir": "docs",
+  "readmeHeader": ".design-sync/conventions.md",
+  "provider": {
+    "component": "TooltipProvider"
+  },
+  "overrides": {
+    "Dialog": {
+      "cardMode": "single",
+      "primaryStory": "Open",
+      "viewport": "900x620"
+    },
+    "NoticeProvider": {
+      "cardMode": "single",
+      "primaryStory": "Success"
+    },
+    "Tooltip": {
+      "cardMode": "single",
+      "primaryStory": "IconActions"
+    },
+    "Combobox": {
+      "cardMode": "single",
+      "primaryStory": "Groups"
+    },
+    "Select": {
+      "cardMode": "single",
+      "primaryStory": "Destinations"
+    },
+    "Drawer": {
+      "cardMode": "single",
+      "primaryStory": "FilterPanel"
+    },
+    "DropdownMenu": {
+      "cardMode": "single",
+      "primaryStory": "Groups"
+    },
+    "Calendar": {
+      "cardMode": "column"
+    },
+    "Pagination": {
+      "cardMode": "column"
+    },
+    "Sidebar": {
+      "cardMode": "column"
+    }
+  }
+}
