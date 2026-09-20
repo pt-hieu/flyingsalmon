@@ -1,7 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useState } from 'react'
 
 import { ModePreview } from '@/components/mode-preview'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
+import { Pagination } from '@/registry/ui/pagination'
 import {
   Table,
   TableBody,
@@ -161,6 +163,21 @@ function TablePage() {
         </ModePreview>
       </section>
 
+      <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Paged tables</h2>
+        <p className="text-muted-foreground">
+          A table longer than one screen takes a <code>Pagination</code> under
+          it, right-aligned, where the eye lands after the last row. The table
+          renders the rows the app hands it and the control reports the page the
+          user asked for; slicing the data, the page size, and the range line
+          are the app&rsquo;s. The two components know nothing about each other,
+          so the composition is a wrapper with a flex rule and nothing else.
+        </p>
+        <ModePreview>
+          <PagedExample />
+        </ModePreview>
+      </section>
+
       <p className="text-muted-foreground">
         Table sorts nothing, selects nothing, and paginates nothing. Those
         belong to a data table built on top of this one.
@@ -279,6 +296,53 @@ function AlignmentExample() {
         </TableRow>
       </TableFooter>
     </Table>
+  )
+}
+
+const tripStops = [
+  { stop: 'Kyoto', nights: 3, lodging: 'Ryokan Aoi' },
+  { stop: 'Kanazawa', nights: 2, lodging: 'Hotel Higashi' },
+  { stop: 'Takayama', nights: 2, lodging: 'Minshuku Oku' },
+  { stop: 'Matsumoto', nights: 1, lodging: 'Castle View Inn' },
+  { stop: 'Hakone', nights: 2, lodging: 'Onsen Kaede' },
+  { stop: 'Tokyo', nights: 4, lodging: 'Shibuya Loft' },
+]
+
+const stopsPerPage = 2
+
+function PagedExample() {
+  const [page, setPage] = useState(1)
+
+  const pageCount = Math.ceil(tripStops.length / stopsPerPage)
+  const visibleStops = tripStops.slice(
+    (page - 1) * stopsPerPage,
+    page * stopsPerPage,
+  )
+
+  return (
+    <div className="w-full space-y-4">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHeadCell>Stop</TableHeadCell>
+            <TableHeadCell>Nights</TableHeadCell>
+            <TableHeadCell>Lodging</TableHeadCell>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {visibleStops.map((visibleStop) => (
+            <TableRow key={visibleStop.stop}>
+              <TableCell>{visibleStop.stop}</TableCell>
+              <TableCell className="text-right">{visibleStop.nights}</TableCell>
+              <TableCell>{visibleStop.lodging}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      <div className="flex justify-end">
+        <Pagination page={page} pageCount={pageCount} onPageChange={setPage} />
+      </div>
+    </div>
   )
 }
 
