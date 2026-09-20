@@ -61,11 +61,13 @@ function TextLinkPage() {
           with the sentence it sits in and never forces a line of its own. Font
           size, weight, and line height are inherited — there is no{' '}
           <code>size</code> prop and no variant. The text is{' '}
-          <code>--foreground</code> in every state; the underline is 1px at{' '}
-          <code>underline-offset-4</code>, <code>--muted-foreground</code> at
-          rest and <code>--foreground</code> on hover and press. Tab to the link
-          below and the focus ring closes around each line fragment separately,
-          which is what <code>box-decoration-clone</code> is for.
+          <code>--foreground</code> in every state; the underline sits at{' '}
+          <code>underline-offset-4</code> and is 1px{' '}
+          <code>--muted-foreground</code> at rest, 1.5px{' '}
+          <code>--foreground</code> on hover and press. It thickens downward
+          from the offset, so the line box never moves. Tab to the link below
+          and the focus ring closes around each line fragment separately, which
+          is what <code>box-decoration-clone</code> is for.
         </p>
         <ModePreview>
           <p className="max-w-sm text-sm">
@@ -186,17 +188,20 @@ function TextLinkPage() {
           state — browsers restrict <code>:visited</code> to colour, and
           &quot;visited&quot; means nothing for a router link — and no disabled
           state, because an anchor that cannot navigate is plain text. The only
-          thing that moves is the underline colour, on{' '}
-          <code>transition-colors</code> at <code>--motion-fast</code>. The
-          underline never draws in, because it is never absent.
+          thing that moves is the underline: its colour and its thickness
+          together, at <code>--motion-fast</code>. Thickness carries the change
+          where colour alone reads faint — a 1px dark stroke on a light ground
+          loses to antialiasing in a way a light stroke on a dark ground does
+          not. The underline never draws in, because it is never absent.
         </p>
         <p className="text-muted-foreground">
           Tab reaches the link and Enter activates it, the native anchor
           behaviour. Text runs <code>--foreground</code> on{' '}
           <code>--background</code>, the body-text pair; the resting underline
-          is <code>--muted-foreground</code> at 4.73:1 light and 7.63:1 dark.
-          WCAG 1.4.1 does not apply here: the underline never leaves, so the
-          link is never told apart by colour alone.
+          is <code>--muted-foreground</code> at 4.73:1 light and 7.63:1 dark,
+          and the hover underline is <code>--foreground</code> at 1.5px. WCAG
+          1.4.1 does not apply here: the underline never leaves, so the link is
+          never told apart by colour alone.
         </p>
       </section>
     </article>
