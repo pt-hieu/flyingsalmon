@@ -92,9 +92,11 @@ export const timelineContentClassName = 'flex min-w-0 flex-col gap-1'
 
 export const timelineTitleClassName = cn(
   'font-heading text-foreground text-base leading-6 font-semibold',
-  '[&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-4',
-  '[&_a]:transition-colors [&_a]:duration-(--motion-fast)',
-  '[&_a]:hover:text-indicator [&_a]:active:text-indicator',
+  '[&_a]:text-foreground [&_a]:underline [&_a]:decoration-1 [&_a]:underline-offset-4',
+  '[&_a]:decoration-muted-foreground',
+  '[&_a]:transition-[text-decoration-color,text-decoration-thickness] [&_a]:duration-(--motion-fast)',
+  '[&_a]:hover:decoration-foreground [&_a]:active:decoration-foreground',
+  '[&_a]:hover:decoration-[1.5px] [&_a]:active:decoration-[1.5px]',
 )
 
 export const timelineDescriptionClassName = 'text-muted-foreground text-sm'

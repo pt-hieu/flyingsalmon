@@ -64,6 +64,7 @@ import { Skeleton, SkeletonVariant } from '@/registry/ui/skeleton'
 import { Spinner, SpinnerSize } from '@/registry/ui/spinner'
 import { Switch } from '@/registry/ui/switch'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/registry/ui/tabs'
+import { TextLink } from '@/registry/ui/text-link'
 import { Textarea } from '@/registry/ui/textarea'
 import { Tooltip } from '@/registry/ui/tooltip'
 
@@ -198,9 +199,9 @@ function ExemplarPage() {
       <header className="space-y-4">
         <p className="text-muted-foreground text-sm">
           Exemplar — a trip planner assembled from the{' '}
-          <Link to="/components" className="text-foreground underline">
-            registry components
-          </Link>
+          <TextLink asChild>
+            <Link to="/components">registry components</Link>
+          </TextLink>
           .
         </p>
         <div className="flex flex-wrap items-end justify-between gap-4">
