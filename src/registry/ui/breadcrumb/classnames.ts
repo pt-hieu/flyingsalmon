@@ -4,10 +4,9 @@ import { offsetFocusRingGeometry } from '@/registry/lib/interaction'
 export const breadcrumbListClassName =
   'm-0 flex list-none flex-nowrap items-center gap-1.5 p-0 text-sm'
 
-export const breadcrumbItemClassName = cn(
-  'inline-flex shrink-0 items-center',
-  'has-[[aria-current=page]]:min-w-0 has-[[aria-current=page]]:shrink',
-)
+export const breadcrumbItemClassName = 'inline-flex shrink-0 items-center'
+
+export const breadcrumbActiveItemClassName = 'min-w-0 shrink'
 
 const breadcrumbInteractiveClassName = cn(
   'inline-flex shrink-0 items-center rounded-sm whitespace-nowrap',

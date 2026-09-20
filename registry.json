@@ -1664,18 +1664,6 @@
           "type": "registry:ui"
         },
         {
-          "path": "src/registry/ui/breadcrumb/breadcrumb-link.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/breadcrumb/breadcrumb-list.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/breadcrumb/breadcrumb-page.tsx",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/breadcrumb/breadcrumb-separator.tsx",
           "type": "registry:ui"
         },
