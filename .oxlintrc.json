@@ -8,6 +8,7 @@
   },
   "rules": {
     "eslint/no-shadow": "warn",
+    "eslint/no-unused-vars": ["error", { "ignoreRestSiblings": true }],
     "react/react-in-jsx-scope": "off",
     "typescript/consistent-type-imports": "error",
     "import/first": "error",
