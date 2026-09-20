@@ -1649,7 +1649,37 @@
       "type": "registry:ui",
       "title": "Breadcrumb",
       "description": "A trail showing where the current page sits in a hierarchy. Every level above the current one links back up; the current page is plain text.",
-      "dependencies": []
+      "dependencies": ["radix-ui", "lucide-react"],
+      "registryDependencies": [
+        "@flyingsalmon/dropdown-menu",
+        "@flyingsalmon/interaction"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/breadcrumb/breadcrumb-ellipsis.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/breadcrumb/breadcrumb-item.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/breadcrumb/breadcrumb-separator.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/breadcrumb/breadcrumb.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/breadcrumb/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/breadcrumb/index.ts",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "pagination",
