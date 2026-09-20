@@ -5,30 +5,23 @@ import { describe, expect, it } from 'vitest'
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
-  BreadcrumbEllipsisItem,
+  BreadcrumbEllipsisMenuItem,
   BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/registry/ui/breadcrumb'
 
 function TripTrail({ label }: { label?: string }) {
   return (
     <Breadcrumb aria-label={label}>
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/trips">Trips</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/trips/japan">Japan</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>Kyoto</BreadcrumbPage>
-        </BreadcrumbItem>
-      </BreadcrumbList>
+      <BreadcrumbItem link href="/trips">
+        Trips
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem link href="/trips/japan">
+        Japan
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem active>Kyoto</BreadcrumbItem>
     </Breadcrumb>
   )
 }
@@ -36,35 +29,29 @@ function TripTrail({ label }: { label?: string }) {
 function CollapsedTripTrail({ triggerLabel }: { triggerLabel?: string }) {
   return (
     <Breadcrumb>
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/trips">Trips</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbEllipsis aria-label={triggerLabel}>
-            <BreadcrumbEllipsisItem asChild>
-              <a href="/trips/japan">Japan</a>
-            </BreadcrumbEllipsisItem>
-            <BreadcrumbEllipsisItem asChild>
-              <a href="/trips/japan/kyoto">Kyoto</a>
-            </BreadcrumbEllipsisItem>
-            <BreadcrumbEllipsisItem asChild>
-              <a href="/trips/japan/kyoto/day-3">Day 3</a>
-            </BreadcrumbEllipsisItem>
-          </BreadcrumbEllipsis>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/trips/japan/kyoto/day-3/temples">
-            Temples
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>Kinkaku-ji</BreadcrumbPage>
-        </BreadcrumbItem>
-      </BreadcrumbList>
+      <BreadcrumbItem link href="/trips">
+        Trips
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>
+        <BreadcrumbEllipsis aria-label={triggerLabel}>
+          <BreadcrumbEllipsisMenuItem asChild>
+            <a href="/trips/japan">Japan</a>
+          </BreadcrumbEllipsisMenuItem>
+          <BreadcrumbEllipsisMenuItem asChild>
+            <a href="/trips/japan/kyoto">Kyoto</a>
+          </BreadcrumbEllipsisMenuItem>
+          <BreadcrumbEllipsisMenuItem asChild>
+            <a href="/trips/japan/kyoto/day-3">Day 3</a>
+          </BreadcrumbEllipsisMenuItem>
+        </BreadcrumbEllipsis>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem link href="/trips/japan/kyoto/day-3/temples">
+        Temples
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem active>Kinkaku-ji</BreadcrumbItem>
     </Breadcrumb>
   )
 }
@@ -114,13 +101,9 @@ describe('Breadcrumb', () => {
   it("renders the consumer's own anchor under asChild", () => {
     render(
       <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <a href="/trips?sort=recent">Trips</a>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-        </BreadcrumbList>
+        <BreadcrumbItem link asChild>
+          <a href="/trips?sort=recent">Trips</a>
+        </BreadcrumbItem>
       </Breadcrumb>,
     )
 
@@ -128,6 +111,20 @@ describe('Breadcrumb', () => {
 
     expect(link).toHaveAttribute('href', '/trips?sort=recent')
     expect(link.querySelector('a')).toBeNull()
+  })
+
+  it('renders an item that is neither a link nor the current page as plain content', () => {
+    render(
+      <Breadcrumb>
+        <BreadcrumbItem>Trips</BreadcrumbItem>
+      </Breadcrumb>,
+    )
+
+    const item = screen.getByRole('listitem')
+
+    expect(item).toHaveTextContent('Trips')
+    expect(item).not.toHaveAttribute('aria-current')
+    expect(screen.queryByRole('link')).not.toBeInTheDocument()
   })
 
   it('names the ellipsis trigger Show hidden levels', () => {

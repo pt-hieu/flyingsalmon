@@ -1,6 +1,6 @@
 export {
-  DropdownMenuItem as BreadcrumbEllipsisItem,
-  type DropdownMenuItemProps as BreadcrumbEllipsisItemProps,
+  DropdownMenuItem as BreadcrumbEllipsisMenuItem,
+  type DropdownMenuItemProps as BreadcrumbEllipsisMenuItemProps,
 } from '@/registry/ui/dropdown-menu'
 
 export { Breadcrumb, type BreadcrumbProps } from './breadcrumb'
@@ -9,9 +9,6 @@ export {
   type BreadcrumbEllipsisProps,
 } from './breadcrumb-ellipsis'
 export { BreadcrumbItem, type BreadcrumbItemProps } from './breadcrumb-item'
-export { BreadcrumbLink, type BreadcrumbLinkProps } from './breadcrumb-link'
-export { BreadcrumbList, type BreadcrumbListProps } from './breadcrumb-list'
-export { BreadcrumbPage, type BreadcrumbPageProps } from './breadcrumb-page'
 export {
   BreadcrumbSeparator,
   type BreadcrumbSeparatorProps,

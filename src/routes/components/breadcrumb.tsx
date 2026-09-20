@@ -4,11 +4,8 @@ import { ModePreview } from '@/components/mode-preview'
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
-  BreadcrumbEllipsisItem,
+  BreadcrumbEllipsisMenuItem,
   BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/registry/ui/breadcrumb'
 
@@ -60,13 +57,19 @@ function BreadcrumbDocsPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Parts</h2>
         <p className="text-muted-foreground">
-          Eight parts: <code>Breadcrumb</code>, <code>BreadcrumbList</code>,{' '}
-          <code>BreadcrumbItem</code>, <code>BreadcrumbLink</code>,{' '}
-          <code>BreadcrumbPage</code>, <code>BreadcrumbSeparator</code>,{' '}
-          <code>BreadcrumbEllipsis</code>, and{' '}
-          <code>BreadcrumbEllipsisItem</code>. <code>Breadcrumb</code> is a{' '}
-          <code>nav</code>, <code>BreadcrumbList</code> an <code>ol</code>, and{' '}
-          <code>BreadcrumbItem</code> an <code>li</code>.
+          Four parts: <code>Breadcrumb</code>, <code>BreadcrumbItem</code>,{' '}
+          <code>BreadcrumbSeparator</code>, and <code>BreadcrumbEllipsis</code>,
+          with <code>BreadcrumbEllipsisMenuItem</code> for the levels the
+          ellipsis hides. <code>Breadcrumb</code> is the <code>nav</code> and
+          the <code>ol</code> inside it; every other part is an <code>li</code>.
+        </p>
+        <p className="text-muted-foreground">
+          <strong className="text-foreground">One item, three shapes.</strong>{' '}
+          <code>BreadcrumbItem</code> with <code>link</code> is an ancestor and
+          renders an anchor; with <code>active</code> it is the page you are on
+          and renders plain text; with neither it is a bare list item, which is
+          what the ellipsis sits in. <code>link</code> and <code>active</code>{' '}
+          are mutually exclusive, and the types say so.
         </p>
         <p className="text-muted-foreground">
           <strong className="text-foreground">
@@ -86,26 +89,22 @@ function BreadcrumbDocsPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">A trail</h2>
         <p className="text-muted-foreground">
-          Ancestors are <code>BreadcrumbLink</code>; the page you are on is{' '}
-          <code>BreadcrumbPage</code>, plain text carrying{' '}
+          Ancestors carry <code>link</code> and an <code>href</code>; the page
+          you are on carries <code>active</code>, which renders plain text with{' '}
           <code>aria-current=&quot;page&quot;</code>. It is not a link and takes
           no focus, because a link to the page you are already on goes nowhere.
         </p>
         <ModePreview>
           <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="#">Trips</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink href="#">Japan</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Kyoto</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
+            <BreadcrumbItem link href="#">
+              Trips
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem link href="#">
+              Japan
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem active>Kyoto</BreadcrumbItem>
           </Breadcrumb>
         </ModePreview>
       </section>
@@ -127,39 +126,37 @@ function BreadcrumbDocsPage() {
         <p className="text-muted-foreground">
           The ellipsis owns its menu. It renders the dropdown menu, its trigger,
           and its content, and its children are{' '}
-          <code>BreadcrumbEllipsisItem</code>, so a hidden level is always one
-          click or one Arrow Down away. List the hidden levels from the highest
-          ancestor down, the order they sit in the trail.
+          <code>BreadcrumbEllipsisMenuItem</code>, so a hidden level is always
+          one click or one Arrow Down away. It goes in a{' '}
+          <code>BreadcrumbItem</code> with neither <code>link</code> nor{' '}
+          <code>active</code>. List the hidden levels from the highest ancestor
+          down, the order they sit in the trail.
         </p>
         <ModePreview>
           <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="#">Trips</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbEllipsis>
-                  <BreadcrumbEllipsisItem asChild>
-                    <a href="#">Japan</a>
-                  </BreadcrumbEllipsisItem>
-                  <BreadcrumbEllipsisItem asChild>
-                    <a href="#">Kansai</a>
-                  </BreadcrumbEllipsisItem>
-                  <BreadcrumbEllipsisItem asChild>
-                    <a href="#">Kyoto</a>
-                  </BreadcrumbEllipsisItem>
-                </BreadcrumbEllipsis>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink href="#">Day 3</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Kinkaku-ji</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
+            <BreadcrumbItem link href="#">
+              Trips
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbEllipsis>
+                <BreadcrumbEllipsisMenuItem asChild>
+                  <a href="#">Japan</a>
+                </BreadcrumbEllipsisMenuItem>
+                <BreadcrumbEllipsisMenuItem asChild>
+                  <a href="#">Kansai</a>
+                </BreadcrumbEllipsisMenuItem>
+                <BreadcrumbEllipsisMenuItem asChild>
+                  <a href="#">Kyoto</a>
+                </BreadcrumbEllipsisMenuItem>
+              </BreadcrumbEllipsis>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem link href="#">
+              Day 3
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem active>Kinkaku-ji</BreadcrumbItem>
           </Breadcrumb>
         </ModePreview>
       </section>
@@ -181,21 +178,20 @@ function BreadcrumbDocsPage() {
         <ModePreview>
           <div className="w-full max-w-xs">
             <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="#">Trips</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="#">Day 3</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage title="Fushimi Inari and the thousand torii gates">
-                    Fushimi Inari and the thousand torii gates
-                  </BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
+              <BreadcrumbItem link href="#">
+                Trips
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem link href="#">
+                Day 3
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem
+                active
+                title="Fushimi Inari and the thousand torii gates"
+              >
+                Fushimi Inari and the thousand torii gates
+              </BreadcrumbItem>
             </Breadcrumb>
           </div>
         </ModePreview>
@@ -204,27 +200,21 @@ function BreadcrumbDocsPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Router links</h2>
         <p className="text-muted-foreground">
-          <code>BreadcrumbLink</code> takes <code>asChild</code> and renders
-          your router&apos;s link with breadcrumb&apos;s class names on it, so
-          the trail navigates through the router instead of reloading the page.{' '}
-          <code>BreadcrumbEllipsisItem</code> takes the same{' '}
+          A <code>link</code> item takes <code>asChild</code> and renders your
+          router&apos;s link with breadcrumb&apos;s class names on it, so the
+          trail navigates through the router instead of reloading the page.{' '}
+          <code>BreadcrumbEllipsisMenuItem</code> takes the same{' '}
           <code>asChild</code> for the hidden levels. The trail below is this
           page&apos;s own: two real routes, which is the shortest trail worth
           rendering.
         </p>
         <ModePreview>
           <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link to="/components">Components</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
+            <BreadcrumbItem link asChild>
+              <Link to="/components">Components</Link>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem active>Breadcrumb</BreadcrumbItem>
           </Breadcrumb>
         </ModePreview>
       </section>
