@@ -189,10 +189,10 @@ function TimelinePage() {
           The title runs <code>--foreground</code> at 18.3:1 light and 17.5:1
           dark; the description runs <code>--muted-foreground</code> at 5.2:1
           light and 7.0:1 dark. A link inside the title stays{' '}
-          <code>--foreground</code> in every state and carries a permanent 1px
-          underline: <code>--muted-foreground</code> at rest, stepping to{' '}
-          <code>--foreground</code> on hover and press, 4.73:1 light and 7.63:1
-          dark. Those are text link's values, so every prose link in the
+          <code>--foreground</code> in every state and carries a permanent
+          underline: 1px <code>--muted-foreground</code> at rest, stepping to
+          1.5px <code>--foreground</code> on hover and press, 4.73:1 light and
+          7.63:1 dark. Those are text link's values, so every prose link in the
           portfolio follows one rule.
         </p>
       </section>
