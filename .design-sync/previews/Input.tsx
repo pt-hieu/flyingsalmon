@@ -38,7 +38,7 @@ export function EndAdornment() {
   )
 }
 
-export function Error() {
+export function ErrorState() {
   return (
     <div className="flex flex-col gap-3">
       <Input

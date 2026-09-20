@@ -74,7 +74,7 @@ const groupOf = Object.fromEntries(
     names.map((name) => [name, group]),
   ),
 )
-const ROOT_COMPONENTS = Object.keys(groupOf).sort()
+const ROOT_COMPONENTS = Object.keys(groupOf).toSorted()
 
 // ADRs that describe the design language itself. The rest of docs/adr/ records
 // implementation decisions (which primitive library, where class strings live)
@@ -144,7 +144,7 @@ function readComponentDirectories() {
   return readdirSync(REGISTRY_UI_DIR)
     .filter((entry) => entry !== '__test__')
     .filter((entry) => statSync(join(REGISTRY_UI_DIR, entry)).isDirectory())
-    .sort()
+    .toSorted()
 }
 
 function writePackageManifest() {
@@ -210,7 +210,7 @@ function emitDeclarations() {
     ) + '\n',
   )
   execFileSync(
-    'node',
+    process.execPath,
     [
       join(REPO_ROOT, 'node_modules', 'typescript', 'bin', 'tsc'),
       '-p',
@@ -360,7 +360,8 @@ function describeParts(directory, rootExport) {
       entry
         .trim()
         .replace(/^type\s+/, '')
-        .split(/\s+as\s+/)
+        .replace(/\s+/g, ' ')
+        .split(' as ')
         .pop(),
     )
     .filter(Boolean)
@@ -371,7 +372,7 @@ function describeParts(directory, rootExport) {
   )
 
   const described = []
-  for (const partName of [...new Set(partNames)].sort()) {
+  for (const partName of [...new Set(partNames)].toSorted()) {
     // Parts rarely own a <Part>Props type - several members of a family share
     // one slot type - so fall back to whatever their signature actually names.
     const signatureType =
@@ -463,7 +464,7 @@ function compileStylesheet() {
   )
 
   execFileSync(
-    'node',
+    process.execPath,
     [
       join(
         REPO_ROOT,

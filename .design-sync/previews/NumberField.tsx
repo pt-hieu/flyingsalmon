@@ -50,7 +50,7 @@ export function Sizes() {
   )
 }
 
-export function Error() {
+export function ErrorState() {
   return (
     <div className="flex flex-wrap items-end gap-3">
       <NumberField

@@ -25,7 +25,7 @@ export function SelectAllGroup() {
   )
 }
 
-export function Error() {
+export function ErrorState() {
   return (
     <div className="flex flex-col gap-4">
       <Checkbox

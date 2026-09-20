@@ -47,8 +47,8 @@ Nine components tripped `[GRID_OVERFLOW]`. Two distinct causes:
 - **`fixed`/portal content** escapes its grid cell, and `.ds-cell` sets
   `overflow:hidden`, so it renders as an empty card. Fixed with
   `cardMode: "single"` + a `primaryStory`: NoticeProvider, Tooltip, Combobox,
-  Select, Drawer, DropdownMenu (and Dialog, which also needs `viewport:
-  "900x620"`).
+  Select, Drawer, DropdownMenu, and Dialog, which also needs a
+  `viewport` of `900x620`.
 - **Content wider than a grid cell**, which the product card crops. Fixed with
   `cardMode: "column"`: Calendar, Pagination, Sidebar.
 
@@ -143,3 +143,7 @@ is therefore new and should be triaged, not carried.
    stitched into `README.md` as `readmeHeader` and read by the design agent.
    Re-check its claims against `src/styles.css` and the emitted `types.d.ts`
    whenever the theme or an enum changes.
+6. **A format-only edit clears every grade it touches.** The capture tool keys a
+   grade to the preview source hash, so a repo-wide `oxfmt` run invalidates 30+
+   grades whose renders are byte-identical. Budget for the re-grade, or run
+   `pnpm check` before the capture so the formatting lands first.

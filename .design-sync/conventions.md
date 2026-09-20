@@ -9,7 +9,8 @@ Every export — components, compound parts, and the variant enums — lives on 
 one bundle namespace. A component's parts are separate exports, not properties:
 
 ```jsx
-const { Card, CardHeader, CardTitle, CardContent, Button, ButtonVariant } = window.FlyingSalmon
+const { Card, CardHeader, CardTitle, CardContent, Button, ButtonVariant } =
+  window.FlyingSalmon
 ```
 
 ## Variants are enums, never strings
@@ -18,7 +19,9 @@ A closed set of values is a TypeScript enum exported beside its component.
 Pass the member, not the string:
 
 ```jsx
-<Button variant={ButtonVariant.Outline} size={ButtonSize.Small}>Save trip</Button>
+<Button variant={ButtonVariant.Outline} size={ButtonSize.Small}>
+  Save trip
+</Button>
 ```
 
 `variant="outline"` is wrong even though the underlying value is `"outline"`.

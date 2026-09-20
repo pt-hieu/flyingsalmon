@@ -66,7 +66,7 @@ export function Destinations() {
   )
 }
 
-export function Error() {
+export function ErrorState() {
   return (
     <div className="flex flex-wrap items-center gap-3">
       <Select

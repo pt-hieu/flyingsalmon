@@ -32,7 +32,7 @@ export function Autosize() {
   )
 }
 
-export function Error() {
+export function ErrorState() {
   return (
     <div className="flex w-72 flex-col gap-3">
       <Textarea

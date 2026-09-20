@@ -48,7 +48,7 @@ export function Success() {
   )
 }
 
-export function Error() {
+export function ErrorState() {
   return (
     <div className="relative h-56 w-full transform-gpu">
       <NoticeProvider>
