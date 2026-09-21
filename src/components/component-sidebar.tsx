@@ -11,7 +11,7 @@ const activeSidebarLinkProps = { className: 'bg-muted text-foreground' }
 export function ComponentSidebar() {
   return (
     <aside className="border-border hidden w-56 shrink-0 self-stretch border-r md:block">
-      <nav className="sticky top-14 flex max-h-[calc(100dvh-3.5rem)] flex-col gap-6 overflow-y-auto p-4">
+      <nav className="sticky top-14 flex max-h-[calc(100dvh-3.5rem)] flex-col gap-6 overflow-y-auto p-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <Link
           to="/"
           className={sidebarLinkClassName}
