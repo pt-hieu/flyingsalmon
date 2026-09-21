@@ -1,6 +1,6 @@
 import type { CalendarDate } from '@internationalized/date'
 
-import type { CalendarRange } from '@/registry/ui/calendar'
+import type { CalendarRange } from '../calendar'
 
 export enum DatePickerMode {
   Single = 'single',

@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils'
-import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
+
+import { Button, ButtonSize, ButtonVariant } from '../button'
 
 import { sidebarTriggerClassName } from './classnames'
 import { useSidebarSharedState } from './use-sidebar'

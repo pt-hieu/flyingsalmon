@@ -1,7 +1,8 @@
 import { cva } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
-import { ButtonSize, ButtonVariant, buttonVariants } from '@/registry/ui/button'
+
+import { ButtonSize, ButtonVariant, buttonVariants } from '../button'
 
 export const calendarRootClassName = cn(
   'text-foreground inline-flex gap-6',

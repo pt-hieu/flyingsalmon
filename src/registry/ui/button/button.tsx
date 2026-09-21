@@ -2,7 +2,8 @@ import { motion } from 'motion/react'
 
 import { cn } from '@/lib/utils'
 import { springBounce } from '@/registry/lib/motion'
-import { Spinner } from '@/registry/ui/spinner'
+
+import { Spinner } from '../spinner'
 
 import { buttonLeadingIconVariants, buttonVariants } from './classnames'
 import { rendersLabelByButtonSize } from './renders-label-by-button-size'

@@ -2,7 +2,7 @@ import { X } from 'lucide-react'
 import { Dialog as DialogPrimitive } from 'radix-ui'
 import { use } from 'react'
 
-import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
+import { Button, ButtonSize, ButtonVariant } from '../button'
 
 import { dialogCloseSlotVariants, dialogOverlayVariants } from './classnames'
 import { DialogContext } from './context'

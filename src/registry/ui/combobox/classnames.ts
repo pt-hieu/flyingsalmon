@@ -13,12 +13,9 @@ import {
   menuLabel,
   menuSeparator,
 } from '@/registry/lib/menu'
-import {
-  badgeIconVariants,
-  badgeVariants,
-  BadgeVariant,
-} from '@/registry/ui/badge'
-import { ButtonSize, ButtonVariant, buttonVariants } from '@/registry/ui/button'
+
+import { badgeIconVariants, badgeVariants, BadgeVariant } from '../badge'
+import { ButtonSize, ButtonVariant, buttonVariants } from '../button'
 
 import { ComboboxSize } from './types'
 

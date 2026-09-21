@@ -3,7 +3,8 @@ import { Children, cloneElement } from 'react'
 
 import { cn } from '@/lib/utils'
 import { springBounce } from '@/registry/lib/motion'
-import { Tooltip, TooltipSide } from '@/registry/ui/tooltip'
+
+import { Tooltip, TooltipSide } from '../tooltip'
 
 import {
   sidebarActiveIndicatorClassName,

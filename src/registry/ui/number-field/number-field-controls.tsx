@@ -1,6 +1,6 @@
 import { Minus, Plus } from 'lucide-react'
 
-import { Spinner } from '@/registry/ui/spinner'
+import { Spinner } from '../spinner'
 
 import {
   numberFieldLoadingSlotVariants,

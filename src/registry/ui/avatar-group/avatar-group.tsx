@@ -1,8 +1,9 @@
 import { useState } from 'react'
 
 import { cn } from '@/lib/utils'
-import { Avatar, AvatarSize } from '@/registry/ui/avatar'
-import { Tooltip } from '@/registry/ui/tooltip'
+
+import { Avatar, AvatarSize } from '../avatar'
+import { Tooltip } from '../tooltip'
 
 import {
   avatarGroupChipVariants,

@@ -1,7 +1,8 @@
 import { cloneElement } from 'react'
 
 import { cn } from '@/lib/utils'
-import { Alert, AlertDescription, AlertTitle } from '@/registry/ui/alert'
+
+import { Alert, AlertDescription, AlertTitle } from '../alert'
 
 import { noticeSubjectClassName } from './classnames'
 import type { NoticeInput } from './types'

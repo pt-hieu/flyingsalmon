@@ -1,7 +1,8 @@
 import { cva } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
-import { AvatarSize } from '@/registry/ui/avatar'
+
+import { AvatarSize } from '../avatar'
 
 export const avatarGroupVariants = cva('isolate flex w-max items-center', {
   variants: {

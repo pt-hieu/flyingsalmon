@@ -1,4 +1,4 @@
-import { Dialog, type DialogProps } from '@/registry/ui/dialog'
+import { Dialog, type DialogProps } from '../dialog'
 
 export interface DrawerProps extends Omit<DialogProps, 'size'> {}
 

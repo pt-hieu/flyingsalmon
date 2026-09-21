@@ -1,4 +1,4 @@
-import { SpinnerSize } from '@/registry/ui/spinner'
+import { SpinnerSize } from '../spinner'
 
 import { NumberFieldSize } from './types'
 
