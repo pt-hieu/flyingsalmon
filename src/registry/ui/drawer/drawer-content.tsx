@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils'
-import { DialogSurface, type DialogSurfaceProps } from '@/registry/ui/dialog'
+
+import { DialogSurface, type DialogSurfaceProps } from '../dialog'
 
 import { drawerContentVariants } from './classnames'
 

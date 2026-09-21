@@ -1,12 +1,13 @@
 import { Ellipsis } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
+
 import {
   DropdownMenu,
   DropdownMenuAlign,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@/registry/ui/dropdown-menu'
+} from '../dropdown-menu'
 
 import {
   breadcrumbEllipsisIconClassName,

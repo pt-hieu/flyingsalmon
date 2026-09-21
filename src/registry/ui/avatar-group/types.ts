@@ -1,4 +1,4 @@
-import type { AvatarProps } from '@/registry/ui/avatar'
+import type { AvatarProps } from '../avatar'
 
 export type AvatarGroupItem = Pick<
   AvatarProps,

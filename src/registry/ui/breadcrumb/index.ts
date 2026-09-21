@@ -1,7 +1,7 @@
 export {
   DropdownMenuItem as BreadcrumbEllipsisMenuItem,
   type DropdownMenuItemProps as BreadcrumbEllipsisMenuItemProps,
-} from '@/registry/ui/dropdown-menu'
+} from '../dropdown-menu'
 
 export { Breadcrumb, type BreadcrumbProps } from './breadcrumb'
 export {

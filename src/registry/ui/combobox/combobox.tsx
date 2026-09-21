@@ -10,7 +10,8 @@ import {
   fieldLabelVariants,
   useFieldIds,
 } from '@/registry/lib/field'
-import { Spinner } from '@/registry/ui/spinner'
+
+import { Spinner } from '../spinner'
 
 import {
   comboboxChevronClassName,

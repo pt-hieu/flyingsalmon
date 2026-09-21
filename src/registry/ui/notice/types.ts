@@ -1,4 +1,4 @@
-import type { AlertVariant } from '@/registry/ui/alert'
+import type { AlertVariant } from '../alert'
 
 export enum NoticeDismissReason {
   User = 'user',

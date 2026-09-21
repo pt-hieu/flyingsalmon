@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react'
 
-import { AlertVariant } from '@/registry/ui/alert'
+import { AlertVariant } from '../alert'
 
 import type { NoticeAnnouncer, NoticeInput } from './types'
 import { noticeAnnouncementText } from './utils'

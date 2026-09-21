@@ -1,6 +1,6 @@
 import { Popover as PopoverPrimitive } from 'radix-ui'
 
-import { Calendar, CalendarMode } from '@/registry/ui/calendar'
+import { Calendar, CalendarMode } from '../calendar'
 
 import { datePickerPanelClassName } from './classnames'
 import {

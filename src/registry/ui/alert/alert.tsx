@@ -3,7 +3,8 @@ import { AnimatePresence, motion } from 'motion/react'
 
 import { cn } from '@/lib/utils'
 import { springSettle } from '@/registry/lib/motion'
-import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
+
+import { Button, ButtonSize, ButtonVariant } from '../button'
 
 import { alertStatusByVariant } from './alert-status-by-variant'
 import {

@@ -2,7 +2,8 @@ import { LayoutGroup } from 'motion/react'
 import { useId, useState, useSyncExternalStore } from 'react'
 
 import { cn } from '@/lib/utils'
-import { TooltipProvider } from '@/registry/ui/tooltip'
+
+import { TooltipProvider } from '../tooltip'
 
 import { sidebarShellClassName } from './classnames'
 import { SidebarContext } from './context'

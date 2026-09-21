@@ -6,7 +6,8 @@ import {
   boundaryFocusWithinRingGeometry,
   invalidBoundaryFocusWithinRingGeometry,
 } from '@/registry/lib/interaction'
-import { ButtonSize, ButtonVariant, buttonVariants } from '@/registry/ui/button'
+
+import { ButtonSize, ButtonVariant, buttonVariants } from '../button'
 
 import { DatePickerSize } from './types'
 

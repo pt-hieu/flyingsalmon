@@ -7,6 +7,7 @@ export {
   DialogTitle as DrawerTitle,
   DialogTrigger as DrawerTrigger,
   type DialogTriggerProps as DrawerTriggerProps,
-} from '@/registry/ui/dialog'
+} from '../dialog'
+
 export { Drawer, type DrawerProps } from './drawer'
 export { DrawerContent, type DrawerContentProps } from './drawer-content'
