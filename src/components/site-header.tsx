@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 
+import { ComponentSearch } from '@/components/component-search'
 import { ThemeToggle } from '@/components/theme-toggle'
 
 export function SiteHeader() {
@@ -14,14 +15,17 @@ export function SiteHeader() {
             flying<span className="text-primary">salmon</span>
           </Link>
           <Link
-            to="/components"
+            to="/exemplar"
             className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
             activeProps={{ className: 'text-foreground' }}
           >
-            Components
+            Exemplar
           </Link>
         </div>
-        <ThemeToggle />
+        <div className="flex items-center gap-2">
+          <ComponentSearch />
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   )
