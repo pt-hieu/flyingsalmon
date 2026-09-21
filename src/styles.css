@@ -153,7 +153,7 @@ body {
       transform: scale(1);
     }
   }
-  --animate-floating-anchored-exit: floating-anchored-exit 150ms
+  --animate-floating-anchored-exit: floating-anchored-exit 350ms
     linear(
       0,
       0.3049,
@@ -190,7 +190,7 @@ body {
       transform: scale(1);
     }
   }
-  --animate-floating-dialog-exit: floating-dialog-exit 150ms
+  --animate-floating-dialog-exit: floating-dialog-exit 350ms
     linear(
       0,
       0.3049,
@@ -227,7 +227,7 @@ body {
       transform: translateX(0);
     }
   }
-  --animate-floating-drawer-exit: floating-drawer-exit 150ms
+  --animate-floating-drawer-exit: floating-drawer-exit 350ms
     linear(
       0,
       0.3049,
@@ -262,7 +262,7 @@ body {
       opacity: 0.5;
     }
   }
-  --animate-floating-overlay-exit: floating-overlay-exit 150ms
+  --animate-floating-overlay-exit: floating-overlay-exit 350ms
     linear(
       0,
       0.3049,
@@ -285,7 +285,7 @@ body {
       opacity: 0;
     }
   }
-  --animate-accordion-down: accordion-down 150ms
+  --animate-accordion-down: accordion-down 350ms
     linear(
       0,
       0.3049,
@@ -308,7 +308,7 @@ body {
       height: var(--radix-accordion-content-height);
     }
   }
-  --animate-accordion-up: accordion-up 150ms
+  --animate-accordion-up: accordion-up 350ms
     linear(
       0,
       0.3049,
@@ -331,7 +331,7 @@ body {
       height: 0;
     }
   }
-  --animate-calendar-page-forward: calendar-page-forward 150ms
+  --animate-calendar-page-forward: calendar-page-forward 250ms
     linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1);
   @keyframes calendar-page-forward {
     from {
@@ -343,7 +343,7 @@ body {
       transform: translateX(0);
     }
   }
-  --animate-calendar-page-backward: calendar-page-backward 150ms
+  --animate-calendar-page-backward: calendar-page-backward 250ms
     linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1);
   @keyframes calendar-page-backward {
     from {
