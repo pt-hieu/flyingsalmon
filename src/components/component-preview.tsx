@@ -1,0 +1,474 @@
+import { Compass, Ellipsis, ImageIcon, MapPinned } from 'lucide-react'
+
+import type { ComponentRoute } from '@/components/component-catalog'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/registry/ui/accordion'
+import { Alert, AlertSize, AlertTitle, AlertVariant } from '@/registry/ui/alert'
+import { Avatar, AvatarColor, AvatarSize } from '@/registry/ui/avatar'
+import { AvatarGroup } from '@/registry/ui/avatar-group'
+import { Badge, BadgeVariant } from '@/registry/ui/badge'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbSeparator,
+} from '@/registry/ui/breadcrumb'
+import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
+import { Calendar } from '@/registry/ui/calendar'
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/registry/ui/card'
+import { Checkbox } from '@/registry/ui/checkbox'
+import {
+  Combobox,
+  ComboboxItem,
+  ComboboxMode,
+  ComboboxSize,
+} from '@/registry/ui/combobox'
+import { DatePicker, DatePickerSize } from '@/registry/ui/date-picker'
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from '@/registry/ui/dialog'
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/registry/ui/drawer'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/registry/ui/dropdown-menu'
+import {
+  EmptyState,
+  EmptyStateIcon,
+  EmptyStateSize,
+  EmptyStateTitle,
+  EmptyStateTitleElement,
+} from '@/registry/ui/empty-state'
+import { Form, FormActions } from '@/registry/ui/form'
+import { Input, InputSize } from '@/registry/ui/input'
+import { NumberField } from '@/registry/ui/number-field'
+import { Pagination } from '@/registry/ui/pagination'
+import { Progress } from '@/registry/ui/progress'
+import { RadioGroup, RadioGroupItem } from '@/registry/ui/radio-group'
+import { Select, SelectItem, SelectSize } from '@/registry/ui/select'
+import { Separator } from '@/registry/ui/separator'
+import { SidebarGroup, SidebarHeader, SidebarNav } from '@/registry/ui/sidebar'
+import { Skeleton } from '@/registry/ui/skeleton'
+import { Spinner } from '@/registry/ui/spinner'
+import { Stepper } from '@/registry/ui/stepper'
+import { Switch } from '@/registry/ui/switch'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/registry/ui/tabs'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHeadCell,
+  TableHeader,
+  TableRow,
+} from '@/registry/ui/table'
+import { Textarea } from '@/registry/ui/textarea'
+import { TextLink } from '@/registry/ui/text-link'
+import {
+  Timeline,
+  TimelineItem,
+  TimelineMarker,
+  TimelineOrientation,
+} from '@/registry/ui/timeline'
+import { ToggleGroup, ToggleGroupItem } from '@/registry/ui/toggle-group'
+import { Tooltip } from '@/registry/ui/tooltip'
+
+const previewByRoute: Record<ComponentRoute, React.ReactNode> = {
+  '/components/button': (
+    <div className="flex items-center gap-2">
+      <Button size={ButtonSize.Small}>Book trip</Button>
+      <Button variant={ButtonVariant.Outline} size={ButtonSize.Small}>
+        Cancel
+      </Button>
+    </div>
+  ),
+
+  '/components/calendar': (
+    <div className="[zoom:0.42]">
+      <Calendar aria-label="Trip dates" />
+    </div>
+  ),
+
+  '/components/checkbox': (
+    <div className="flex flex-col gap-2 text-sm">
+      <Checkbox label="Flights" defaultChecked />
+      <Checkbox label="Hotels" />
+    </div>
+  ),
+
+  '/components/combobox': (
+    <div className="w-56">
+      <Combobox
+        mode={ComboboxMode.Single}
+        size={ComboboxSize.Small}
+        label="Destination"
+        placeholder="Search a place"
+        value={null}
+        onValueChange={() => {}}
+      >
+        <ComboboxItem value="tokyo">Tokyo</ComboboxItem>
+        <ComboboxItem value="lisbon">Lisbon</ComboboxItem>
+      </Combobox>
+    </div>
+  ),
+
+  '/components/date-picker': (
+    <div className="w-56">
+      <DatePicker
+        size={DatePickerSize.Small}
+        label="Departure"
+        defaultValue="2026-03-04"
+      />
+    </div>
+  ),
+
+  '/components/form': (
+    <Form className="w-56">
+      <Input label="Destination" placeholder="Lisbon" size={InputSize.Small} />
+      <FormActions>
+        <Button size={ButtonSize.Small}>Save trip</Button>
+      </FormActions>
+    </Form>
+  ),
+
+  '/components/input': (
+    <Input
+      className="w-56"
+      label="Destination"
+      placeholder="Lisbon"
+      size={InputSize.Small}
+    />
+  ),
+
+  '/components/number-field': (
+    <NumberField
+      className="w-40"
+      label="Guests"
+      defaultValue={2}
+      min={1}
+      max={8}
+    />
+  ),
+
+  '/components/radio-group': (
+    <RadioGroup className="w-40" label="Speed" defaultValue="standard">
+      <RadioGroupItem value="standard" label="Standard" />
+      <RadioGroupItem value="express" label="Express" />
+    </RadioGroup>
+  ),
+
+  '/components/select': (
+    <Select className="w-40" size={SelectSize.Small} placeholder="Currency">
+      <SelectItem value="usd">US Dollar</SelectItem>
+      <SelectItem value="eur">Euro</SelectItem>
+    </Select>
+  ),
+
+  '/components/switch': (
+    <div className="flex flex-col gap-2">
+      <Switch label="Wi-Fi" defaultChecked />
+      <Switch label="Notifications" />
+    </div>
+  ),
+
+  '/components/textarea': (
+    <Textarea
+      className="w-56"
+      label="Notes"
+      placeholder="Add a note"
+      minRows={2}
+    />
+  ),
+
+  '/components/toggle-group': (
+    <ToggleGroup className="w-56" label="Pace" defaultValue="steady">
+      <ToggleGroupItem value="slow">Slow</ToggleGroupItem>
+      <ToggleGroupItem value="steady">Steady</ToggleGroupItem>
+      <ToggleGroupItem value="packed">Packed</ToggleGroupItem>
+    </ToggleGroup>
+  ),
+
+  '/components/avatar': (
+    <div className="flex items-center gap-2">
+      <Avatar name="Ada Lovelace" color={AvatarColor.Indigo} />
+      <Avatar
+        name="Grace Hopper"
+        size={AvatarSize.Small}
+        color={AvatarColor.Teal}
+      />
+    </div>
+  ),
+
+  '/components/avatar-group': (
+    <AvatarGroup
+      aria-label="Trip members"
+      items={[
+        { id: 'ada', name: 'Ada Lovelace', color: AvatarColor.Sky },
+        { id: 'grace', name: 'Grace Hopper', color: AvatarColor.Teal },
+        {
+          id: 'katherine',
+          name: 'Katherine Johnson',
+          color: AvatarColor.Amber,
+        },
+      ]}
+    />
+  ),
+
+  '/components/badge': (
+    <div className="flex flex-wrap items-center gap-2">
+      <Badge>Default</Badge>
+      <Badge variant={BadgeVariant.Success}>Success</Badge>
+      <Badge variant={BadgeVariant.Outline}>Outline</Badge>
+    </div>
+  ),
+
+  '/components/carousel': (
+    <div className="bg-background flex w-40 flex-col items-center gap-2 rounded-lg p-2">
+      <div className="bg-muted flex h-16 w-full items-center justify-center rounded-md">
+        <ImageIcon aria-hidden className="text-muted-foreground size-6" />
+      </div>
+      <div className="flex items-center gap-1">
+        <span className="bg-primary size-1.5 rounded-full" />
+        <span className="bg-border size-1.5 rounded-full" />
+        <span className="bg-border size-1.5 rounded-full" />
+      </div>
+    </div>
+  ),
+
+  '/components/separator': (
+    <div className="bg-background text-muted-foreground flex w-40 flex-col gap-2 rounded-lg p-3 text-xs">
+      <span>Flights</span>
+      <Separator />
+      <span>Hotels</span>
+    </div>
+  ),
+
+  '/components/table': (
+    <div className="w-56 [zoom:0.9]">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHeadCell>Stop</TableHeadCell>
+            <TableHeadCell>Nights</TableHeadCell>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>Kyoto</TableCell>
+            <TableCell>3</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Tokyo</TableCell>
+            <TableCell>4</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </div>
+  ),
+
+  '/components/timeline': (
+    <Timeline orientation={TimelineOrientation.Horizontal}>
+      <TimelineItem>
+        <TimelineMarker />
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineMarker />
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineMarker />
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineMarker />
+      </TimelineItem>
+    </Timeline>
+  ),
+
+  '/components/tooltip': (
+    <Tooltip content="Copy link">
+      <Button variant={ButtonVariant.Outline} size={ButtonSize.Small}>
+        Share
+      </Button>
+    </Tooltip>
+  ),
+
+  '/components/alert': (
+    <Alert
+      variant={AlertVariant.Success}
+      size={AlertSize.Small}
+      className="w-56"
+    >
+      <AlertTitle>Trip saved</AlertTitle>
+    </Alert>
+  ),
+
+  '/components/empty-state': (
+    <EmptyState size={EmptyStateSize.Small}>
+      <EmptyStateIcon>
+        <Compass />
+      </EmptyStateIcon>
+      <EmptyStateTitle as={EmptyStateTitleElement.H3}>
+        No trips yet
+      </EmptyStateTitle>
+    </EmptyState>
+  ),
+
+  '/components/notice': (
+    <Alert variant={AlertVariant.Info} size={AlertSize.Small} className="w-56">
+      <AlertTitle>Link copied</AlertTitle>
+    </Alert>
+  ),
+
+  '/components/progress': (
+    <Progress className="w-56" value={62} label="Building your trip" />
+  ),
+
+  '/components/skeleton': (
+    <div className="flex w-56 flex-col gap-2">
+      <Skeleton className="h-4 w-3/4" />
+      <Skeleton className="h-4 w-full" />
+      <Skeleton className="h-4 w-1/2" />
+    </div>
+  ),
+
+  '/components/spinner': <Spinner />,
+
+  '/components/accordion': (
+    <Accordion className="w-56">
+      <AccordionItem value="shipping">
+        <AccordionTrigger>Shipping</AccordionTrigger>
+        <AccordionContent>
+          Two working days from the warehouse.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="returns">
+        <AccordionTrigger>Returns</AccordionTrigger>
+        <AccordionContent>Thirty days, no questions asked.</AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  ),
+
+  '/components/card': (
+    <Card className="w-56">
+      <CardHeader>
+        <CardTitle>Weekend in Kyoto</CardTitle>
+        <CardDescription>Three days, ten stops</CardDescription>
+      </CardHeader>
+    </Card>
+  ),
+
+  '/components/dialog': (
+    <Dialog>
+      <DialogTrigger>
+        <Button size={ButtonSize.Small}>New trip</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogTitle>New trip</DialogTitle>
+      </DialogContent>
+    </Dialog>
+  ),
+
+  '/components/drawer': (
+    <Drawer>
+      <DrawerTrigger>
+        <Button variant={ButtonVariant.Outline} size={ButtonSize.Small}>
+          Filter trips
+        </Button>
+      </DrawerTrigger>
+      <DrawerContent>
+        <DrawerTitle>Filter trips</DrawerTitle>
+      </DrawerContent>
+    </Drawer>
+  ),
+
+  '/components/dropdown-menu': (
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        <Button
+          variant={ButtonVariant.Ghost}
+          size={ButtonSize.IconSmall}
+          aria-label="Trip actions"
+        >
+          <Ellipsis />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem>Rename</DropdownMenuItem>
+        <DropdownMenuItem>Duplicate</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  ),
+
+  '/components/breadcrumb': (
+    <Breadcrumb>
+      <BreadcrumbItem link href="#">
+        Trips
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem active>Kyoto</BreadcrumbItem>
+    </Breadcrumb>
+  ),
+
+  '/components/pagination': <Pagination page={2} pageCount={5} />,
+
+  '/components/sidebar': (
+    <div className="border-border bg-background flex w-40 flex-col overflow-hidden rounded-lg border">
+      <SidebarHeader className="border-border border-b">
+        <Avatar name="Trip Co" size={AvatarSize.Small} />
+      </SidebarHeader>
+      <SidebarNav aria-label="Primary" className="p-2">
+        <SidebarGroup className="flex flex-col gap-1">
+          <div className="text-foreground flex h-7 items-center gap-2 px-1 text-xs">
+            <Compass className="size-3.5" />
+            Explore
+          </div>
+          <div className="text-muted-foreground flex h-7 items-center gap-2 px-1 text-xs">
+            <MapPinned className="size-3.5" />
+            Trips
+          </div>
+        </SidebarGroup>
+      </SidebarNav>
+    </div>
+  ),
+
+  '/components/stepper': (
+    <div className="w-56">
+      <Stepper count={4} current={2} label="Trip planning" />
+    </div>
+  ),
+
+  '/components/tabs': (
+    <Tabs defaultValue="overview" className="w-56">
+      <TabsList>
+        <TabsTrigger value="overview">Overview</TabsTrigger>
+        <TabsTrigger value="activity">Activity</TabsTrigger>
+      </TabsList>
+      <TabsContent value="overview">Trip summary and highlights.</TabsContent>
+      <TabsContent value="activity">Recent activity.</TabsContent>
+    </Tabs>
+  ),
+
+  '/components/text-link': (
+    <TextLink href="#itinerary">View itinerary</TextLink>
+  ),
+}
+
+export function ComponentPreview({ to }: { to: ComponentRoute }) {
+  return previewByRoute[to]
+}
