@@ -8,7 +8,20 @@ import tailwindcss from '@tailwindcss/vite'
 
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
-  plugins: [devtools(), tailwindcss(), tanstackStart(), viteReact()],
+  plugins: [
+    devtools(),
+    tailwindcss(),
+    tanstackStart({
+      prerender: {
+        enabled: true,
+        crawlLinks: true,
+        autoSubfolderIndex: false,
+        // A search-param variant writes to the same .html file as its bare path.
+        filter: ({ path }) => !path.includes('?'),
+      },
+    }),
+    viteReact(),
+  ],
 })
 
 export default config
