@@ -29,7 +29,7 @@ The acting component shows its own busyness: buttons morph through a loading sta
 
 ## Publishing
 
-The repo and deploy stay private until Brian says otherwise. No registry versioning: ship-and-overwrite.
+The site and registry are public at `https://flyingsalmon.superbrian.dev`. No registry versioning: ship-and-overwrite.
 
 ---
 
