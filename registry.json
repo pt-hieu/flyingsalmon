@@ -220,13 +220,13 @@
       "cssVars": {
         "theme": {
           "animate-floating-anchored-enter": "floating-anchored-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
-          "animate-floating-anchored-exit": "floating-anchored-exit 150ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
+          "animate-floating-anchored-exit": "floating-anchored-exit 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
           "animate-floating-dialog-enter": "floating-dialog-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
-          "animate-floating-dialog-exit": "floating-dialog-exit 150ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
+          "animate-floating-dialog-exit": "floating-dialog-exit 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
           "animate-floating-drawer-enter": "floating-drawer-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
-          "animate-floating-drawer-exit": "floating-drawer-exit 150ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
+          "animate-floating-drawer-exit": "floating-drawer-exit 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
           "animate-floating-overlay-enter": "floating-overlay-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
-          "animate-floating-overlay-exit": "floating-overlay-exit 150ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)"
+          "animate-floating-overlay-exit": "floating-overlay-exit 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)"
         }
       },
       "css": {
@@ -922,8 +922,8 @@
       ],
       "cssVars": {
         "theme": {
-          "animate-accordion-down": "accordion-down 150ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
-          "animate-accordion-up": "accordion-up 150ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)"
+          "animate-accordion-down": "accordion-down 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
+          "animate-accordion-up": "accordion-up 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)"
         }
       },
       "css": {
@@ -1043,8 +1043,8 @@
       ],
       "cssVars": {
         "theme": {
-          "animate-calendar-page-forward": "calendar-page-forward 150ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
-          "animate-calendar-page-backward": "calendar-page-backward 150ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
+          "animate-calendar-page-forward": "calendar-page-forward 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
+          "animate-calendar-page-backward": "calendar-page-backward 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
           "animate-calendar-heading-enter": "calendar-heading-enter 100ms linear"
         }
       },

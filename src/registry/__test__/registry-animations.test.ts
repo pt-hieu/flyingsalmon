@@ -1,7 +1,10 @@
 import { readdirSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
+import { spring } from 'motion'
 import { describe, expect, it } from 'vitest'
+
+import { springBounce, springSettle } from '@/registry/lib/motion'
 
 type RegistryItem = {
   name: string
@@ -26,6 +29,10 @@ function animationVariables(item: RegistryItem) {
 
 function keyframeName(animationValue: string) {
   return `@keyframes ${animationValue.split(' ')[0]}`
+}
+
+function animationTiming(animationValue: string) {
+  return animationValue.split(' ').slice(1).join(' ')
 }
 
 function sourceFiles(directory: string): string[] {
@@ -95,5 +102,19 @@ describe('registry animations', () => {
       .filter((name) => !declaredInStylesheet.has(name))
 
     expect(unmirrored).toEqual([])
+  })
+
+  it('runs every spring curve for the full duration motion generates for it', () => {
+    const springTimings = [springBounce, springSettle].map((preset) =>
+      spring({ ...preset, keyframes: [0, 1] }).toString(),
+    )
+
+    const mistimed = animatedItems
+      .flatMap(animationVariables)
+      .filter(([, value]) => animationTiming(value).includes('linear('))
+      .filter(([, value]) => !springTimings.includes(animationTiming(value)))
+      .map(([name]) => name)
+
+    expect(mistimed).toEqual([])
   })
 })
