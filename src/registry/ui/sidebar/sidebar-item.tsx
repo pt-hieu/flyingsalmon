@@ -1,5 +1,5 @@
 import { motion } from 'motion/react'
-import { Children, cloneElement } from 'react'
+import { Children, cloneElement, useContext, useEffect } from 'react'
 
 import { cn } from '@/lib/utils'
 import { springBounce } from '@/registry/lib/motion'
@@ -11,8 +11,13 @@ import {
   sidebarItemClassName,
   sidebarItemIconClassName,
   sidebarItemLabelClassName,
+  sidebarNestChildItemClassName,
+  sidebarNestParentItemClassName,
+  sidebarNestRowClassName,
 } from './classnames'
-import { SidebarLayout } from './types'
+import { SidebarNestContext, SidebarNestItemsContext } from './context'
+import { SidebarNestToggle } from './sidebar-nest-toggle'
+import { SidebarLayout, type SidebarNestState } from './types'
 import { useSidebarSharedState } from './use-sidebar'
 
 interface SlottedItemProps {
@@ -26,6 +31,17 @@ export interface SidebarItemProps extends React.ComponentProps<'button'> {
   asChild?: boolean
 }
 
+function ownsCurrentMark(
+  isActive: boolean,
+  nest: SidebarNestState | null,
+  isNestChild: boolean,
+) {
+  if (!nest) return isActive
+  if (isNestChild) return isActive && nest.open
+
+  return isActive || (!nest.open && nest.hasActiveChild)
+}
+
 export function SidebarItem({
   icon,
   asChild = false,
@@ -34,6 +50,9 @@ export function SidebarItem({
   ...props
 }: SidebarItemProps) {
   const { layout } = useSidebarSharedState()
+  const nest = useContext(SidebarNestContext)
+  const isNestChild = useContext(SidebarNestItemsContext)
+  const isNestParent = nest !== null && !isNestChild
 
   const slottedElement = asChild
     ? (Children.only(children) as React.ReactElement<SlottedItemProps>)
@@ -44,11 +63,21 @@ export function SidebarItem({
   const isActive =
     (props['aria-current'] ?? slottedElement?.props['aria-current']) === 'page'
 
+  const registerActiveChild = nest?.registerActiveChild
+
+  useEffect(() => {
+    if (registerActiveChild && isNestChild && isActive) {
+      return registerActiveChild()
+    }
+  }, [registerActiveChild, isNestChild, isActive])
+
+  const showsBar = ownsCurrentMark(isActive, nest, isNestChild)
+
   const content = (
     <>
       {icon ? <span className={sidebarItemIconClassName}>{icon}</span> : null}
       <span className={sidebarItemLabelClassName}>{label}</span>
-      {isActive ? (
+      {showsBar ? (
         <motion.span
           data-slot="sidebar-active-indicator"
           layoutId="sidebar-active-indicator"
@@ -59,27 +88,33 @@ export function SidebarItem({
     </>
   )
 
+  const itemClassName = cn(
+    sidebarItemClassName,
+    isNestParent && sidebarNestParentItemClassName,
+    isNestChild && sidebarNestChildItemClassName,
+    slottedElement?.props.className,
+    className,
+  )
+
   const item = slottedElement ? (
     cloneElement(
       slottedElement,
-      {
-        ...props,
-        className: cn(
-          sidebarItemClassName,
-          slottedElement.props.className,
-          className,
-        ),
-      },
+      { ...props, className: itemClassName },
       content,
     )
   ) : (
-    <button
-      type="button"
-      className={cn(sidebarItemClassName, className)}
-      {...props}
-    >
+    <button type="button" className={itemClassName} {...props}>
       {content}
     </button>
+  )
+
+  const row = isNestParent ? (
+    <div className={sidebarNestRowClassName}>
+      {item}
+      <SidebarNestToggle nest={nest} label={label} />
+    </div>
+  ) : (
+    item
   )
 
   // The registry tooltip renders text only, so a non-string label keeps its
@@ -87,10 +122,10 @@ export function SidebarItem({
   if (layout === SidebarLayout.Collapsed && typeof label === 'string') {
     return (
       <Tooltip content={label} side={TooltipSide.Right}>
-        {item}
+        {row}
       </Tooltip>
     )
   }
 
-  return item
+  return row
 }

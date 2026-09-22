@@ -1565,7 +1565,7 @@
       "type": "registry:ui",
       "title": "Sidebar",
       "description": "An aside with header, content, and footer slots that morphs between an expanded column and an icon rail, and becomes one sticky horizontal strip under a 700px container. It hosts navigation items or any other rail content.",
-      "dependencies": ["motion"],
+      "dependencies": ["motion", "lucide-react"],
       "registryDependencies": [
         "@flyingsalmon/motion",
         "@flyingsalmon/tooltip",
@@ -1610,6 +1610,18 @@
         },
         {
           "path": "src/registry/ui/sidebar/sidebar-nav.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-nest-items.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-nest-toggle.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-nest.tsx",
           "type": "registry:ui"
         },
         {
