@@ -2,8 +2,11 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   CalendarDays,
   Compass,
+  Landmark,
   MapPinned,
+  Mountain,
   PanelLeft,
+  PlaneLanding,
   Receipt,
   Settings,
   Users,
@@ -34,6 +37,8 @@ import {
   SidebarLayout,
   SidebarNav,
   SidebarProvider,
+  SidebarSubmenu,
+  SidebarSubmenuItems,
   SidebarTrigger,
   useSidebar,
 } from '@/registry/ui/sidebar'
@@ -157,6 +162,33 @@ function SidebarPage() {
       </section>
 
       <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Nested items</h2>
+        <p className="text-muted-foreground">
+          <code>SidebarSubmenu</code> wraps a parent <code>SidebarItem</code>{' '}
+          and a <code>SidebarSubmenuItems</code> list of more items. The parent
+          is a page like any other; a chevron at its trailing edge opens and
+          closes the list, pointing right when closed and down when open.
+          Children carry the parent&apos;s styling on the same icon axis, with
+          no indent: a 1px <code>--border</code> line drops from the chevron
+          down the trailing edge to the last child&apos;s midline, and a current
+          child takes the bar on the aside&apos;s edge like any item.{' '}
+          <strong className="text-foreground">
+            In the rail the line goes: the parent and its children share one{' '}
+            <code>--muted</code> block, and the parent&apos;s icon gives way to
+            the chevron on hover, so the whole cell toggles the list.
+          </strong>{' '}
+          The parent page stays one Tab stop ahead of the toggle. Close the list
+          on a current child and the bar springs up to the parent; a submenu
+          whose child becomes current opens itself. The strip shows the block
+          flat and open, with no chevron. <code>open</code>,{' '}
+          <code>defaultOpen</code>, and <code>onOpenChange</code> control it
+          otherwise, and the toggle carries <code>aria-expanded</code> and{' '}
+          <code>aria-controls</code> pointed at the list. The demo above nests
+          the trip&apos;s days under Days.
+        </p>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Widths and tokens</h2>
         <p className="text-muted-foreground">
           <code>--sidebar-width</code> is 18.125rem and{' '}
@@ -218,11 +250,21 @@ interface TripNavLink {
   key: string
   label: string
   icon: React.ReactNode
+  children?: TripNavLink[]
 }
 
 const planningLinks: TripNavLink[] = [
   { key: 'itinerary', label: 'Itinerary', icon: <MapPinned /> },
-  { key: 'days', label: 'Days', icon: <CalendarDays /> },
+  {
+    key: 'days',
+    label: 'Days',
+    icon: <CalendarDays />,
+    children: [
+      { key: 'arrival', label: 'Arrival', icon: <PlaneLanding /> },
+      { key: 'alfama', label: 'Alfama', icon: <Landmark /> },
+      { key: 'sintra', label: 'Sintra', icon: <Mountain /> },
+    ],
+  },
   { key: 'places', label: 'Places', icon: <Compass /> },
 ]
 
@@ -243,19 +285,32 @@ function TripNav({
   currentKey: string
   onCurrentKeyChange: (key: string) => void
 }) {
+  const renderLink = (link: TripNavLink) => (
+    <SidebarItem
+      key={link.key}
+      icon={link.icon}
+      aria-current={currentKey === link.key ? 'page' : undefined}
+      onClick={() => onCurrentKeyChange(link.key)}
+    >
+      {link.label}
+    </SidebarItem>
+  )
+
   const renderGroup = (label: string, links: TripNavLink[]) => (
     <SidebarGroup>
       <SidebarGroupLabel>{label}</SidebarGroupLabel>
-      {links.map((link) => (
-        <SidebarItem
-          key={link.key}
-          icon={link.icon}
-          aria-current={currentKey === link.key ? 'page' : undefined}
-          onClick={() => onCurrentKeyChange(link.key)}
-        >
-          {link.label}
-        </SidebarItem>
-      ))}
+      {links.map((link) =>
+        link.children ? (
+          <SidebarSubmenu key={link.key}>
+            {renderLink(link)}
+            <SidebarSubmenuItems>
+              {link.children.map(renderLink)}
+            </SidebarSubmenuItems>
+          </SidebarSubmenu>
+        ) : (
+          renderLink(link)
+        ),
+      )}
     </SidebarGroup>
   )
 
