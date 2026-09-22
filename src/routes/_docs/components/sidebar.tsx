@@ -14,6 +14,7 @@ import { useState } from 'react'
 import { ModePreview } from '@/components/mode-preview'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { Avatar, AvatarSize } from '@/registry/ui/avatar'
+import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -84,20 +85,24 @@ function SidebarPage() {
         <p className="text-muted-foreground">
           The whole app shell: header with the trip name and the trigger, nav
           groups in the scrolling content, and a footer holding the avatar menu
-          and the theme toggle. Collapse it and the column morphs to the rail —
-          labels fade out, group labels fade to nothing but keep their space so
-          the groups below them do not jump, and each label reappears in a
-          tooltip on hover and on focus.{' '}
+          and the theme toggle. Every icon sits on one axis, the centre line of
+          the rail, in both layouts: the trigger and the avatar button are 36px
+          controls inside a 10px inset, and each item's icon sits 20px in.
+          Collapse it and only the aside's width moves; the labels fade and the
+          narrowing edge clips them, so nothing in the column shifts.{' '}
           <strong className="text-foreground">
-            The accessible name never depends on that tooltip:
+            A group label keeps its row and becomes a rule:
           </strong>{' '}
+          the text fades out and a 1px <code>--border</code> line fades in
+          across the same slot, so the groups still read as groups in the rail
+          and the items below never jump. Each label reappears in a tooltip on
+          hover and on focus. The accessible name never depends on that tooltip:
           the label stays in the DOM, clipped rather than removed, so a screen
           reader reads the same nav in either layout. Items are the
-          component&apos;s to reshape; header and footer are slots. Both become
-          one rail-wide box with the same padding, and content too wide for it
-          is the app&apos;s to swap on <code>useSidebar().layout</code> — this
-          demo drops the trip name and the theme toggle in the rail, leaving the
-          avatar menu on the centre line. The rail tooltip needs a string label;
+          component&apos;s to reshape; header and footer are slots, and content
+          too wide for the rail is the app&apos;s to swap on{' '}
+          <code>useSidebar().layout</code> — this demo drops the trip name and
+          the theme toggle in the rail. The rail tooltip needs a string label;
           an item whose children are markup keeps its own visible text in the
           rail instead.
         </p>
@@ -131,10 +136,13 @@ function SidebarPage() {
           <code>aria-current=&quot;page&quot;</code> — on the item or on the
           element <code>asChild</code> renders, so a router link that already
           sets it needs nothing else. Idle is <code>--muted-foreground</code> at
-          36px, hover steps the background to <code>--accent</code>, and active
-          is <code>--foreground</code> in medium with its icon and a 2px bar
-          both in <code>--indicator</code>, the bar on the leading edge and on
-          the bottom edge in the strip.{' '}
+          36px, hover steps the background to <code>--accent</code> on the
+          item&apos;s own <code>rounded-md</code> box, the ghost button&apos;s
+          shape, and active is <code>--foreground</code> in medium with its icon
+          and a 2px bar both in <code>--indicator</code>. The bar sits outside
+          the box, on the aside&apos;s own edge: the left edge in the column and
+          the bottom edge in the strip, over the strip&apos;s border, where the
+          tabs bar sits.{' '}
           <strong className="text-foreground">
             The bar is one shared <code>motion.span</code> that slides between
             items on <code>spring-bounce</code>, so the sidebar has to stay
@@ -142,10 +150,9 @@ function SidebarPage() {
           </strong>{' '}
           Put it in a persistent layout route. A sidebar that remounts on every
           navigation is not wrong — it just draws the bar in place instead of
-          moving it there. Items square off against the edges — no radius — and{' '}
-          <code>SidebarContent</code> scrolls without a scrollbar, nudging the
-          active item fully into view when it sits half outside the visible
-          area, down the column or across the strip.
+          moving it there. <code>SidebarContent</code> scrolls without a
+          scrollbar, nudging the active item fully into view when it sits half
+          outside the visible area, down the column or across the strip.
         </p>
       </section>
 
@@ -265,9 +272,13 @@ function TravellerMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <button type="button" aria-label="Brian, account menu">
+        <Button
+          variant={ButtonVariant.Ghost}
+          size={ButtonSize.Icon}
+          aria-label="Brian, account menu"
+        >
           <Avatar name="Brian Pham" size={AvatarSize.Small} />
-        </button>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>Brian Pham</DropdownMenuLabel>
