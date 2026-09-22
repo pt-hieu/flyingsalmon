@@ -2,8 +2,11 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   CalendarDays,
   Compass,
+  Landmark,
   MapPinned,
+  Mountain,
   PanelLeft,
+  PlaneLanding,
   Receipt,
   Settings,
   Users,
@@ -14,6 +17,7 @@ import { useState } from 'react'
 import { ModePreview } from '@/components/mode-preview'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { Avatar, AvatarSize } from '@/registry/ui/avatar'
+import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,6 +37,8 @@ import {
   SidebarLayout,
   SidebarNav,
   SidebarProvider,
+  SidebarNest,
+  SidebarNestItems,
   SidebarTrigger,
   useSidebar,
 } from '@/registry/ui/sidebar'
@@ -84,20 +90,24 @@ function SidebarPage() {
         <p className="text-muted-foreground">
           The whole app shell: header with the trip name and the trigger, nav
           groups in the scrolling content, and a footer holding the avatar menu
-          and the theme toggle. Collapse it and the column morphs to the rail —
-          labels fade out, group labels fade to nothing but keep their space so
-          the groups below them do not jump, and each label reappears in a
-          tooltip on hover and on focus.{' '}
+          and the theme toggle. Every icon sits on one axis, the centre line of
+          the rail, in both layouts: the trigger and the avatar button are 36px
+          controls inside a 10px inset, and each item's icon sits 20px in.
+          Collapse it and only the aside's width moves; the labels fade and the
+          narrowing edge clips them, so nothing in the column shifts.{' '}
           <strong className="text-foreground">
-            The accessible name never depends on that tooltip:
+            A group label keeps its row and becomes a rule:
           </strong>{' '}
+          the text fades out and a 1px <code>--border</code> line fades in
+          across the same slot, so the groups still read as groups in the rail
+          and the items below never jump. Each label reappears in a tooltip on
+          hover and on focus. The accessible name never depends on that tooltip:
           the label stays in the DOM, clipped rather than removed, so a screen
           reader reads the same nav in either layout. Items are the
-          component&apos;s to reshape; header and footer are slots. Both become
-          one rail-wide box with the same padding, and content too wide for it
-          is the app&apos;s to swap on <code>useSidebar().layout</code> — this
-          demo drops the trip name and the theme toggle in the rail, leaving the
-          avatar menu on the centre line. The rail tooltip needs a string label;
+          component&apos;s to reshape; header and footer are slots, and content
+          too wide for the rail is the app&apos;s to swap on{' '}
+          <code>useSidebar().layout</code> — this demo drops the trip name and
+          the theme toggle in the rail. The rail tooltip needs a string label;
           an item whose children are markup keeps its own visible text in the
           rail instead.
         </p>
@@ -131,10 +141,13 @@ function SidebarPage() {
           <code>aria-current=&quot;page&quot;</code> — on the item or on the
           element <code>asChild</code> renders, so a router link that already
           sets it needs nothing else. Idle is <code>--muted-foreground</code> at
-          36px, hover steps the background to <code>--accent</code>, and active
-          is <code>--foreground</code> in medium with its icon and a 2px bar
-          both in <code>--indicator</code>, the bar on the leading edge and on
-          the bottom edge in the strip.{' '}
+          36px, hover steps the background to <code>--accent</code> on the
+          item&apos;s own <code>rounded-md</code> box, the ghost button&apos;s
+          shape, and active is <code>--foreground</code> in medium with its icon
+          and a 2px bar both in <code>--indicator</code>. The bar sits outside
+          the box, on the aside&apos;s own edge: the left edge in the column and
+          the bottom edge in the strip, over the strip&apos;s border, where the
+          tabs bar sits.{' '}
           <strong className="text-foreground">
             The bar is one shared <code>motion.span</code> that slides between
             items on <code>spring-bounce</code>, so the sidebar has to stay
@@ -142,10 +155,37 @@ function SidebarPage() {
           </strong>{' '}
           Put it in a persistent layout route. A sidebar that remounts on every
           navigation is not wrong — it just draws the bar in place instead of
-          moving it there. Items square off against the edges — no radius — and{' '}
-          <code>SidebarContent</code> scrolls without a scrollbar, nudging the
-          active item fully into view when it sits half outside the visible
-          area, down the column or across the strip.
+          moving it there. <code>SidebarContent</code> scrolls without a
+          scrollbar, nudging the active item fully into view when it sits half
+          outside the visible area, down the column or across the strip.
+        </p>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Nested items</h2>
+        <p className="text-muted-foreground">
+          <code>SidebarNest</code> wraps a parent <code>SidebarItem</code> and a{' '}
+          <code>SidebarNestItems</code> list of more items. The parent is a page
+          like any other; a chevron at its trailing edge opens and closes the
+          list, pointing right when closed and down when open. Children carry
+          the parent&apos;s styling on the same icon axis, with no indent: a 1px{' '}
+          <code>--border</code> line runs under the chevron from the top of the
+          first child to the bottom of the last. Children end 7px short of the
+          line, so a hover fill never crosses it. A current child takes the bar
+          on the aside&apos;s edge like any item.{' '}
+          <strong className="text-foreground">
+            In the rail the line goes: the parent and its children share one{' '}
+            <code>--muted</code> block, and the parent&apos;s icon gives way to
+            the chevron on hover, so the whole cell toggles the list.
+          </strong>{' '}
+          The parent page stays one Tab stop ahead of the toggle. Close the list
+          on a current child and the bar springs up to the parent; a nest whose
+          child becomes current opens itself. The strip shows the block flat and
+          open, with no chevron. <code>open</code>, <code>defaultOpen</code>,
+          and <code>onOpenChange</code> control it otherwise, and the toggle
+          carries <code>aria-expanded</code> and <code>aria-controls</code>{' '}
+          pointed at the list. The demo above nests the trip&apos;s days under
+          Days.
         </p>
       </section>
 
@@ -211,11 +251,21 @@ interface TripNavLink {
   key: string
   label: string
   icon: React.ReactNode
+  children?: TripNavLink[]
 }
 
 const planningLinks: TripNavLink[] = [
   { key: 'itinerary', label: 'Itinerary', icon: <MapPinned /> },
-  { key: 'days', label: 'Days', icon: <CalendarDays /> },
+  {
+    key: 'days',
+    label: 'Days',
+    icon: <CalendarDays />,
+    children: [
+      { key: 'arrival', label: 'Arrival', icon: <PlaneLanding /> },
+      { key: 'alfama', label: 'Alfama', icon: <Landmark /> },
+      { key: 'sintra', label: 'Sintra', icon: <Mountain /> },
+    ],
+  },
   { key: 'places', label: 'Places', icon: <Compass /> },
 ]
 
@@ -236,19 +286,30 @@ function TripNav({
   currentKey: string
   onCurrentKeyChange: (key: string) => void
 }) {
+  const renderLink = (link: TripNavLink) => (
+    <SidebarItem
+      key={link.key}
+      icon={link.icon}
+      aria-current={currentKey === link.key ? 'page' : undefined}
+      onClick={() => onCurrentKeyChange(link.key)}
+    >
+      {link.label}
+    </SidebarItem>
+  )
+
   const renderGroup = (label: string, links: TripNavLink[]) => (
     <SidebarGroup>
       <SidebarGroupLabel>{label}</SidebarGroupLabel>
-      {links.map((link) => (
-        <SidebarItem
-          key={link.key}
-          icon={link.icon}
-          aria-current={currentKey === link.key ? 'page' : undefined}
-          onClick={() => onCurrentKeyChange(link.key)}
-        >
-          {link.label}
-        </SidebarItem>
-      ))}
+      {links.map((link) =>
+        link.children ? (
+          <SidebarNest key={link.key}>
+            {renderLink(link)}
+            <SidebarNestItems>{link.children.map(renderLink)}</SidebarNestItems>
+          </SidebarNest>
+        ) : (
+          renderLink(link)
+        ),
+      )}
     </SidebarGroup>
   )
 
@@ -265,9 +326,13 @@ function TravellerMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <button type="button" aria-label="Brian, account menu">
+        <Button
+          variant={ButtonVariant.Ghost}
+          size={ButtonSize.Icon}
+          aria-label="Brian, account menu"
+        >
           <Avatar name="Brian Pham" size={AvatarSize.Small} />
-        </button>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>Brian Pham</DropdownMenuLabel>
