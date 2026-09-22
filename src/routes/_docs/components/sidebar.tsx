@@ -171,8 +171,8 @@ function SidebarPage() {
           Children carry the parent&apos;s styling on the same icon axis, with
           no indent: a 1px <code>--border</code> line runs under the chevron
           from the top of the first child to the bottom of the last. Children
-          end 7px short of the line, so a hover fill never crosses it, and a
-          current child takes the bar on the aside&apos;s edge like any item.{' '}
+          end 7px short of the line, so a hover fill never crosses it. A current
+          child takes the bar on the aside&apos;s edge like any item.{' '}
           <strong className="text-foreground">
             In the rail the line goes: the parent and its children share one{' '}
             <code>--muted</code> block, and the parent&apos;s icon gives way to
