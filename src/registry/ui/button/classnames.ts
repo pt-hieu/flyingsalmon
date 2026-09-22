@@ -27,7 +27,7 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         [ButtonVariant.Default]:
-          'bg-primary text-primary-foreground ring-primary hover:bg-indigo-300',
+          'bg-primary text-primary-foreground ring-primary hover:bg-orange-400',
         [ButtonVariant.Outline]:
           'border-input border bg-background text-foreground ring-ring hover:bg-accent hover:text-accent-foreground',
         [ButtonVariant.Secondary]:
@@ -68,7 +68,7 @@ export const buttonVariants = cva(
       {
         size: fieldSizes,
         variant: ButtonVariant.Default,
-        class: 'focus-visible:bg-indigo-300',
+        class: 'focus-visible:bg-orange-400',
       },
       {
         size: fieldSizes,

@@ -14,10 +14,10 @@ Every coding rule, for the registry and the docs site alike, is in `CODING_STAND
 
 ## Design system rules
 
-- Mood: soft, minimal, playful.
-- Type: Baloo 2 (`--font-heading`) for headings/display, Onest (`--font-sans`) for body and UI. Both OFL 1.1; keep license files with any bundled font.
-- Color: indigo-lean blue accent (hue ~277 in OKLCH) over pure neutral grays (chroma 0). All colors in OKLCH. Light mode only: no dark theme, no `dark:` variants.
-- Palette-only colors: every color is a step from the Tailwind OKLCH palette (neutral grays, indigo brand, red destructive) behind functional aliases. No color alpha anywhere in the repo, docs chrome included; element opacity for disabled states and motion is fine. See `docs/adr/0004-palette-only-colors.md`.
+- Mood: bold, warm, social.
+- Type: Bricolage Grotesque (`--font-heading`) for headings/display, Onest (`--font-sans`) for body and UI. Both OFL 1.1; keep license files with any bundled font.
+- Color: an orange primary (`orange-500`, hue ~48 in OKLCH) over an `orange-50` beige page, with white cards and popovers, orange borders, and neutral-gray text (chroma 0). All colors in OKLCH. Light mode only: no dark theme, no `dark:` variants.
+- Palette-only colors: every color is a step from the Tailwind OKLCH palette (neutral grays, orange brand, red destructive) behind functional aliases. No color alpha anywhere in the repo, docs chrome included; element opacity for disabled states and motion is fine. See `docs/adr/0004-palette-only-colors.md`.
 - Flat surfaces: no shadows, no elevation tokens. Surfaces separate by solid borders and background steps; interaction feedback lives in the border. See `docs/adr/0003-flat-surfaces.md`.
 - Radius: 12px base via `--radius: 0.75rem`. Never hardcode radii; derive from the scale.
 - Motion: small, springy, under 200ms (continuous indicators like spinner/skeleton exempt). Values, spring presets, and engine split are fixed in `docs/adr/0001-motion-language.md` — specs quote its names. Layout animation allowed via motion's `layout` prop. Do not worry about `prefers-reduced-motion`: no component implements it, no spec asks for it, and no review flags its absence.

@@ -34,7 +34,7 @@ export const toggleGroupItemVariants = cva(
         [ToggleGroupItemVariant.Default]: cn(
           toggleGroupItemRestRow,
           'data-[state=on]:border-primary data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=on]:ring-primary',
-          'enabled:hover:data-[state=on]:border-indigo-300 enabled:hover:data-[state=on]:bg-indigo-300',
+          'enabled:hover:data-[state=on]:border-orange-400 enabled:hover:data-[state=on]:bg-orange-400',
         ),
         [ToggleGroupItemVariant.Amber]: cn(
           toggleGroupItemRestRow,

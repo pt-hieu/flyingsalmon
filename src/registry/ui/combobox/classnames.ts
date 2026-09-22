@@ -37,7 +37,7 @@ export const comboboxFieldVariants = cva(
         true: 'border-destructive focus-within:ring-destructive',
         false: cn(
           'border-input focus-within:ring-ring',
-          'hover:not-focus-within:border-neutral-300',
+          'hover:not-focus-within:border-orange-300',
         ),
       },
       disabled: {
@@ -154,10 +154,8 @@ export const comboboxItemClassName = cn('group', menuItem, menuItemHighlighted)
 
 export const comboboxItemLabelClassName = 'min-w-0 flex-1 truncate'
 
-export const comboboxItemDescriptionClassName = cn(
-  'text-muted-foreground min-w-0 shrink truncate',
-  'group-data-highlighted:text-neutral-600',
-)
+export const comboboxItemDescriptionClassName =
+  'text-muted-foreground min-w-0 shrink truncate'
 
 export const comboboxItemIconSlotClassName = cn(
   menuItemIconSlot,

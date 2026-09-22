@@ -125,7 +125,7 @@ function AvatarGroupPage() {
           people are not rendered at all, so a 250-person roster costs five
           nodes.{' '}
           <strong className="text-foreground">
-            The chip is an avatar-shaped neutral
+            The chip is an avatar-shaped circle
           </strong>{' '}
           on <code>--secondary</code>, not a ninth avatar hue and not a badge.
         </p>
@@ -262,8 +262,8 @@ function AvatarGroupPage() {
           nor an <code>alt</code> is <code>aria-hidden</code>, gets no tooltip,
           and the arrow keys skip over it. The chip pairs{' '}
           <code>--secondary</code> with <code>--secondary-foreground</code> at
-          roughly 15:1, and the initials keep avatar&apos;s neutral-950 on
-          step-400 hues at 6.3:1 worst case.
+          14.14:1, and the initials keep avatar&apos;s neutral-950 on step-400
+          hues at 6.3:1 worst case.
         </p>
       </section>
 

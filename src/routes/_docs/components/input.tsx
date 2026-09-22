@@ -114,7 +114,7 @@ function InputPage() {
           Pass <code>error</code> and the field owns the whole failure: the
           border, the ring, and the label turn destructive, and the message
           renders below. The field grows downward only, never sideways. There is
-          no shake — the mood is soft, so errors arrive calmly.
+          no shake, so errors arrive calmly.
         </p>
         <Preview>
           <Input
