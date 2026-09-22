@@ -32,6 +32,7 @@ Each component's `.d.ts` names the enum it takes.
 Use the aliases, never a raw palette step and never a hex value:
 `--background` / `--foreground`, `--card` / `--card-foreground`,
 `--popover` / `--popover-foreground`, `--primary` / `--primary-foreground`,
+`--primary-text`,
 `--secondary` / `--secondary-foreground`, `--muted` / `--muted-foreground`,
 `--accent` / `--accent-foreground`, `--error` / `--error-foreground`,
 `--success` / `--success-foreground`, `--warning` / `--warning-foreground`,

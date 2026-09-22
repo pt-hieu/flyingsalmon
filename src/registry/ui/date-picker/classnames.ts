@@ -59,7 +59,7 @@ export const datePickerSegmentClassName = cn(
   'rounded-sm px-0.5 tabular-nums outline-hidden',
   'transition-colors duration-(--motion-fast)',
   'data-placeholder:text-muted-foreground',
-  'data-focused:text-indicator',
+  'data-focused:text-primary-text',
   'data-[type=literal]:text-muted-foreground data-[type=literal]:px-0',
 )
 

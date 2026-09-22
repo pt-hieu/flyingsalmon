@@ -127,7 +127,7 @@ export const calendarCellFillVariants = cva(
       {
         filled: true,
         highlighted: true,
-        className: 'bg-orange-400',
+        className: 'bg-orange-500',
       },
       {
         filled: false,

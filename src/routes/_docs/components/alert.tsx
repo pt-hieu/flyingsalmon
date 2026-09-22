@@ -211,8 +211,8 @@ function AlertPage() {
           close button holds focus, send focus back to the control that produced
           the alert. Text meets WCAG AA — the description is the floor at 7.44:1
           — and the close button's focus ring clears 3:1 on the card surface.
-          The info icon is <code>--primary</code> at 2.89:1 on the card, under
-          the 3:1 non-text bar (ADR 0004).
+          The info icon is <code>--indicator</code> at 3.59:1 on the card,
+          clearing the 3:1 non-text bar (ADR 0004).
         </p>
       </section>
     </article>

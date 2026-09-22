@@ -209,11 +209,11 @@ function DatePickerPage() {
         </p>
         <p className="text-muted-foreground">
           <strong className="text-foreground">
-            The focused segment paints <code>--indicator</code>.
+            The focused segment paints <code>--primary-text</code>.
           </strong>{' '}
-          It is orange-500, the same step as <code>--primary</code>, and sits at
-          2.73:1 on <code>--background</code> and 2.89:1 on white, under the
-          4.5:1 WCAG AA bar for text (ADR 0004).
+          It is orange-700, the step that carries orange as text, and sits at
+          4.93:1 on <code>--background</code> and 5.23:1 on white, clearing WCAG
+          AA (ADR 0004).
         </p>
       </section>
     </article>

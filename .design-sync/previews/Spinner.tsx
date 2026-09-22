@@ -18,7 +18,7 @@ export function Sizes() {
 export function Colors() {
   return (
     <div className="border-border bg-card flex w-72 flex-col gap-3 rounded-lg border p-4 text-sm">
-      <div className="text-primary flex items-center gap-2">
+      <div className="text-primary-text flex items-center gap-2">
         <Spinner size={SpinnerSize.Small} />
         <span>Publishing trip</span>
       </div>

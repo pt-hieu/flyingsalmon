@@ -15,7 +15,7 @@ export const cardVariants = cva(
       interactive: {
         true: cn(
           'relative transition-colors duration-(--motion-fast)',
-          'hover:border-primary',
+          'hover:border-indicator',
         ),
         false: '',
       },
@@ -35,11 +35,11 @@ export const cardTitleVariants = cva(
       interactive: {
         true: cn(
           "[&>a]:after:absolute [&>a]:after:inset-0 [&>a]:after:content-[''] [&>a]:after:rounded-lg",
-          '[&>a]:after:ring-primary [&>a]:after:ring-0',
+          '[&>a]:after:ring-indicator [&>a]:after:ring-0',
           '[&>a]:after:transition-[box-shadow] [&>a]:after:duration-(--motion-fast)',
           '[&>a]:focus-visible:outline-none',
           '[&>a]:focus-visible:after:ring-ring [&>a]:focus-visible:after:ring-2',
-          '[&>a]:active:after:ring-primary [&>a]:active:after:ring-2',
+          '[&>a]:active:after:ring-indicator [&>a]:active:after:ring-2',
         ),
         false: '',
       },
