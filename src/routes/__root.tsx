@@ -7,15 +7,6 @@ import { TooltipProvider } from '@/registry/ui/tooltip'
 
 import appCss from '../styles.css?url'
 
-// Runs before paint so the stored theme applies without a flash.
-const themeInitScript = `
-try {
-  const stored = localStorage.getItem('theme')
-  const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
-  document.documentElement.classList.toggle('dark', dark)
-} catch {}
-`
-
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -41,18 +32,13 @@ export const Route = createRootRoute({
         href: appCss,
       },
     ],
-    scripts: [
-      {
-        children: themeInitScript,
-      },
-    ],
   }),
   shellComponent: RootDocument,
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
         <HeadContent />
       </head>

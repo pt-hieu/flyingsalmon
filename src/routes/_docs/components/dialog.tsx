@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Button, ButtonVariant } from '@/registry/ui/button'
 import {
   Dialog,
@@ -105,9 +105,9 @@ function DialogPage() {
           the disabled X. Save sets <code>pending</code> on the dialog while the
           button carries its own spinner.
         </p>
-        <ModePreview>
+        <Preview>
           <ControlledDialogDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -133,9 +133,9 @@ function DialogPage() {
           A button driving the trigger-less form, like the two below, gets none
           of that wiring — it is a plain button that happens to open a dialog.
         </p>
-        <ModePreview>
+        <Preview>
           <ReusableTripDialogDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -156,10 +156,9 @@ function DialogPage() {
           open — on the first body or footer control, never the X — and returns
           to the trigger on close. Tab cycles inside and ends on the X. Content
           outside an open dialog is hidden from the accessibility tree. Every
-          text pair meets WCAG AA in both modes — the tightest is the light
-          description at 4.53:1 against its 4.5:1 floor, measured by converting
-          each OKLCH color to sRGB and computing the WCAG ratio directly, not
-          estimated.
+          text pair meets WCAG AA — the tightest is the description at 4.53:1
+          against its 4.5:1 floor, measured by converting each OKLCH color to
+          sRGB and computing the WCAG ratio directly, not estimated.
         </p>
       </section>
     </article>

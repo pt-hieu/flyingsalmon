@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { MapPin, Star } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Alert, AlertVariant } from '@/registry/ui/alert'
 import {
   Select,
@@ -55,7 +55,7 @@ function SelectPage() {
           32px at both sizes — a list is dense by nature and does not follow the
           trigger's height.
         </p>
-        <ModePreview>
+        <Preview>
           <Select
             className="w-64"
             label="Currency"
@@ -75,7 +75,7 @@ function SelectPage() {
             <SelectItem value="eur">Euro</SelectItem>
             <SelectItem value="vnd">Vietnamese Dong</SelectItem>
           </Select>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -93,7 +93,7 @@ function SelectPage() {
           the label alone. A disabled item stays in the list, dimmed, so its
           position never shifts. Open the trigger below to see all of it.
         </p>
-        <ModePreview>
+        <Preview>
           <Select
             className="w-64"
             label="Destination"
@@ -123,7 +123,7 @@ function SelectPage() {
               </SelectItem>
             </SelectGroup>
           </Select>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -134,7 +134,7 @@ function SelectPage() {
           the trigger — it may be covered while the panel is open, and reappears
           once it closes.
         </p>
-        <ModePreview>
+        <Preview>
           <Select
             className="w-64"
             label="Currency"
@@ -156,7 +156,7 @@ function SelectPage() {
             <SelectItem value="eur">Euro</SelectItem>
             <SelectItem value="vnd">Vietnamese Dong</SelectItem>
           </Select>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -173,9 +173,9 @@ function SelectPage() {
           succeeds and the result shows inline through Alert, after the field
           settles.
         </p>
-        <ModePreview>
+        <Preview>
           <TicketPriorityDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -188,9 +188,9 @@ function SelectPage() {
           viewport. Long item text truncates with an ellipsis, and the trigger
           truncates the chosen label the same way.
         </p>
-        <ModePreview>
+        <Preview>
           <AirportSelectDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">

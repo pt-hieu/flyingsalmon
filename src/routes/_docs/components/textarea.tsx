@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Textarea } from '@/registry/ui/textarea'
 
 export const Route = createFileRoute('/_docs/components/textarea')({
@@ -62,7 +62,7 @@ function TextareaPage() {
           and the native scrollbar takes over past the cap. Growth is instant —
           a spring per keystroke would fight the caret.
         </p>
-        <ModePreview>
+        <Preview>
           <Textarea
             className="w-72"
             label="Notes"
@@ -74,7 +74,7 @@ function TextareaPage() {
             maxRows={4}
             defaultValue={eightLinesOfNotes}
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -85,14 +85,14 @@ function TextareaPage() {
           renders below. The field grows downward only, never sideways. There is
           no shake — the mood is soft, so errors arrive calmly.
         </p>
-        <ModePreview>
+        <Preview>
           <Textarea
             className="w-72"
             label="Notes"
             defaultValue="Too short."
             error="Write at least ten characters"
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -108,7 +108,7 @@ function TextareaPage() {
           the submit button is what locks a flow. With an error alongside it,
           both show and the spinner turns destructive too.
         </p>
-        <ModePreview>
+        <Preview>
           <Textarea
             className="w-72"
             label="Notes"
@@ -122,7 +122,7 @@ function TextareaPage() {
             loading
             error="That draft failed to save"
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -137,7 +137,7 @@ function TextareaPage() {
           see where focus landed, and the muted background is what says the
           field is not editable.
         </p>
-        <ModePreview>
+        <Preview>
           <Textarea
             className="w-72"
             label="Notes"
@@ -150,7 +150,7 @@ function TextareaPage() {
             defaultValue={'Day 1 — arrive.\nDay 2 — depart.'}
             readOnly
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">

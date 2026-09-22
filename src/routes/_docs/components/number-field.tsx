@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { NumberField, NumberFieldSize } from '@/registry/ui/number-field'
 
 export const Route = createFileRoute('/_docs/components/number-field')({
@@ -61,7 +61,7 @@ function NumberFieldPage() {
           unit. The decrease button dims at the floor and stops there, and so do
           the arrow keys.
         </p>
-        <ModePreview>
+        <Preview>
           <NumberField
             className="w-64"
             label="Group size"
@@ -69,7 +69,7 @@ function NumberFieldPage() {
             min={1}
             max={12}
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -82,7 +82,7 @@ function NumberFieldPage() {
           locale, and the prefix joins it in the announcement:{' '}
           <code>$1,500</code>.
         </p>
-        <ModePreview>
+        <Preview>
           <NumberField
             className="w-64"
             label="Budget per person"
@@ -91,7 +91,7 @@ function NumberFieldPage() {
             min={0}
             step={50}
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -103,7 +103,7 @@ function NumberFieldPage() {
           times <code>step</code> unless you say otherwise — and each spin
           button dims as its end arrives.
         </p>
-        <ModePreview>
+        <Preview>
           <NumberField
             className="w-64"
             label="Duration"
@@ -112,7 +112,7 @@ function NumberFieldPage() {
             min={1}
             max={30}
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -124,7 +124,7 @@ function NumberFieldPage() {
           and no <code>width</code> prop — constrain the wrapper with{' '}
           <code>className</code>, as every example here does.
         </p>
-        <ModePreview>
+        <Preview>
           <NumberField
             className="w-64"
             label="Group size"
@@ -138,7 +138,7 @@ function NumberFieldPage() {
             defaultValue={2}
             min={1}
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -149,7 +149,7 @@ function NumberFieldPage() {
           below. The field grows downward only. Nothing shakes — the mood is
           soft, so errors arrive calmly.
         </p>
-        <ModePreview>
+        <Preview>
           <NumberField
             className="w-64"
             label="Group size"
@@ -167,7 +167,7 @@ function NumberFieldPage() {
             step={50}
             error="Enter a budget above zero"
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -180,7 +180,7 @@ function NumberFieldPage() {
           and the submit button is what locks a flow. With an error alongside,
           both show and the spinner turns destructive.
         </p>
-        <ModePreview>
+        <Preview>
           <NumberField
             className="w-64"
             label="Budget per person"
@@ -200,7 +200,7 @@ function NumberFieldPage() {
             loading
             error="No trips at this budget"
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -215,7 +215,7 @@ function NumberFieldPage() {
           control. Read-only keeps full contrast on a muted background, stays
           focusable so the value can be read and copied, and still posts.
         </p>
-        <ModePreview>
+        <Preview>
           <NumberField
             className="w-64"
             label="Group size"
@@ -232,7 +232,7 @@ function NumberFieldPage() {
             max={30}
             readOnly
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
