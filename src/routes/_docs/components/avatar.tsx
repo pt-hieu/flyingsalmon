@@ -8,14 +8,12 @@ export const Route = createFileRoute('/_docs/components/avatar')({
 })
 
 const avatarColors: AvatarColor[] = [
-  AvatarColor.Orange,
-  AvatarColor.Amber,
-  AvatarColor.Green,
-  AvatarColor.Teal,
   AvatarColor.Sky,
-  AvatarColor.Indigo,
-  AvatarColor.Purple,
   AvatarColor.Pink,
+  AvatarColor.Teal,
+  AvatarColor.Fuchsia,
+  AvatarColor.Cyan,
+  AvatarColor.Blue,
 ]
 
 function AvatarPage() {
@@ -76,13 +74,13 @@ function AvatarPage() {
           <Avatar
             src="/broken-path.png"
             name="Ada Lovelace"
-            color={AvatarColor.Purple}
+            color={AvatarColor.Blue}
           />
           <Avatar
             name="Grace Brewster Murray Hopper"
             color={AvatarColor.Teal}
           />
-          <Avatar name="Prince" color={AvatarColor.Amber} />
+          <Avatar name="Prince" color={AvatarColor.Fuchsia} />
           <Avatar color={AvatarColor.Pink} />
         </ModePreview>
       </section>
@@ -90,17 +88,19 @@ function AvatarPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Color</h2>
         <p className="text-muted-foreground">
-          Eight hues at step 400, closed as a union:{' '}
-          <code>orange amber green teal sky indigo purple pink</code>. The
-          default is <code>indigo</code>. Red is excluded because it carries the
-          destructive meaning. The color drives the fallback circle only; an
-          avatar showing an image never uses it. Pick the hue from a stable key
-          such as a user id, so the same person keeps the same color.
+          The six group colors at their solid step:{' '}
+          <code>sky pink teal fuchsia cyan blue</code>. With no{' '}
+          <code>color</code>, the circle is neutral. Status hues and the indigo
+          accent are left out, so an avatar never reads as a state or an action.
+          The color drives the fallback circle only; an avatar showing an image
+          never uses it. Pick the hue from a stable key such as a user id, so
+          the same person keeps the same color.
         </p>
         <ModePreview>
           {avatarColors.map((avatarColor) => (
             <Avatar key={avatarColor} name="Ada Lovelace" color={avatarColor} />
           ))}
+          <Avatar name="Ada Lovelace" />
         </ModePreview>
       </section>
 
@@ -116,10 +116,11 @@ function AvatarPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Contrast</h2>
         <p className="text-muted-foreground">
-          Initials are always neutral-950. The worst pair is indigo-400 at
-          6.3:1, so all eight hues pass WCAG AA. The values are the same in
-          light and dark mode. White initials fail on every step 400 and are
-          banned here.
+          Initials on a group color are neutral-950 in both modes. The worst
+          pair is pink at 6.6:1, so all six hues pass WCAG AA. The neutral
+          circle takes the page foreground: 14.5:1 on neutral-200 in light and
+          13.1:1 on neutral-800 in dark. White initials fail on every step 400
+          and are banned here.
         </p>
       </section>
 
@@ -135,7 +136,7 @@ function AvatarPage() {
         </p>
         <ModePreview>
           <span className="flex items-center gap-2">
-            <Avatar name="Ada Lovelace" alt="" color={AvatarColor.Green} />
+            <Avatar name="Ada Lovelace" alt="" color={AvatarColor.Cyan} />
             <span className="text-sm font-medium">Ada Lovelace</span>
           </span>
         </ModePreview>

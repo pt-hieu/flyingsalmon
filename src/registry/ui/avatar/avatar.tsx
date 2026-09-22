@@ -7,7 +7,8 @@ import {
   avatarImageVariants,
   avatarVariants,
 } from './classnames'
-import { AvatarColor, AvatarSize } from './types'
+import type { AvatarColor } from './types'
+import { AvatarSize } from './types'
 import { getInitials } from './utils'
 
 export interface AvatarProps extends Omit<
@@ -26,7 +27,7 @@ export function Avatar({
   src,
   name,
   alt,
-  color = AvatarColor.Indigo,
+  color,
   className,
   ...props
 }: AvatarProps) {
@@ -63,7 +64,10 @@ export function Avatar({
           role={accessibleName ? 'img' : undefined}
           aria-label={accessibleName || undefined}
           aria-hidden={accessibleName ? undefined : true}
-          className={avatarFallbackVariants({ color })}
+          className={avatarFallbackVariants({
+            color,
+            neutral: color === undefined,
+          })}
         >
           {initials}
         </span>

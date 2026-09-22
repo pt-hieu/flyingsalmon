@@ -4,12 +4,10 @@ export enum AvatarSize {
 }
 
 export enum AvatarColor {
-  Orange = 'orange',
-  Amber = 'amber',
-  Green = 'green',
-  Teal = 'teal',
   Sky = 'sky',
-  Indigo = 'indigo',
-  Purple = 'purple',
   Pink = 'pink',
+  Teal = 'teal',
+  Fuchsia = 'fuchsia',
+  Cyan = 'cyan',
+  Blue = 'blue',
 }

@@ -207,7 +207,7 @@ const previewByRoute: Record<ComponentRoute, React.ReactNode> = {
 
   '/components/avatar': (
     <div className="flex items-center gap-2">
-      <Avatar name="Ada Lovelace" color={AvatarColor.Indigo} />
+      <Avatar name="Ada Lovelace" color={AvatarColor.Blue} />
       <Avatar
         name="Grace Hopper"
         size={AvatarSize.Small}
@@ -225,7 +225,7 @@ const previewByRoute: Record<ComponentRoute, React.ReactNode> = {
         {
           id: 'katherine',
           name: 'Katherine Johnson',
-          color: AvatarColor.Amber,
+          color: AvatarColor.Fuchsia,
         },
       ]}
     />
