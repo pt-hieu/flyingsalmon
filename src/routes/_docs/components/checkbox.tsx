@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Checkbox } from '@/registry/ui/checkbox'
 
 export const Route = createFileRoute('/_docs/components/checkbox')({
@@ -45,7 +45,7 @@ function CheckboxPage() {
           state — a checkbox states intent inside a form, and the submit button
           owns the busyness.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="flex flex-col gap-4">
             <Checkbox label="Unchecked" />
             <Checkbox label="Checked" defaultChecked />
@@ -53,7 +53,7 @@ function CheckboxPage() {
             <Checkbox label="Disabled" disabled />
             <Checkbox label="Disabled and checked" disabled defaultChecked />
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -66,9 +66,9 @@ function CheckboxPage() {
           Grouping is the app&apos;s job: this component ships no checkbox
           group. Toggle the parent below to watch the mark morph.
         </p>
-        <ModePreview>
+        <Preview>
           <SelectAllExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -83,7 +83,7 @@ function CheckboxPage() {
           A 20px box is too small to read a red border against a blue fill, so
           the whole control carries one color.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="flex flex-col gap-4">
             <Checkbox
               label="Accept the terms"
@@ -95,7 +95,7 @@ function CheckboxPage() {
               error="Accept the updated terms, revised today"
             />
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">

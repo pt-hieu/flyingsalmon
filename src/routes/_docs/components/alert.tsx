@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { PartyPopper } from 'lucide-react'
 import { useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import {
   Alert,
   AlertDescription,
@@ -37,13 +37,13 @@ function AlertPage() {
           <code>success</code>, <code>warning</code>, and <code>error</code>.{' '}
           <strong className="text-foreground">
             The surface and the border stay neutral — <code>card</code> on{' '}
-            <code>border</code> in both modes.
+            <code>border</code>.
           </strong>{' '}
           The icon carries the variant on its own, so an alert reads as a
           message on the page and not as a colored block. No solid fill and no
           shadow.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="flex w-72 flex-col gap-3">
             <Alert>Saved as a draft</Alert>
             <Alert variant={AlertVariant.Success}>Trip saved</Alert>
@@ -52,7 +52,7 @@ function AlertPage() {
             </Alert>
             <Alert variant={AlertVariant.Error}>The payment failed</Alert>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -66,14 +66,14 @@ function AlertPage() {
           A message surface does not shrink its type. The close button is{' '}
           <code>icon-sm</code> in both.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="flex w-72 flex-col gap-3">
             <Alert variant={AlertVariant.Success}>Trip saved</Alert>
             <Alert variant={AlertVariant.Success} size={AlertSize.Small}>
               Trip saved
             </Alert>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -91,7 +91,7 @@ function AlertPage() {
           title keeps the full foreground color and the description steps back.
           The status icon aligns with the first line of text.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="flex w-72 flex-col gap-3">
             <Alert variant={AlertVariant.Success}>
               <AlertTitle>Trip saved</AlertTitle>
@@ -106,7 +106,7 @@ function AlertPage() {
               </AlertDescription>
             </Alert>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -117,7 +117,7 @@ function AlertPage() {
           the gap, and the color, so any node you pass lands at the size and the
           color of the current variant.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="flex w-72 flex-col gap-3">
             <Alert variant={AlertVariant.Success} icon={<PartyPopper />}>
               Trip saved
@@ -126,7 +126,7 @@ function AlertPage() {
               Trip saved
             </Alert>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -142,9 +142,9 @@ function AlertPage() {
           action first. Without <code>onClose</code> there is no close button
           and no tab stop.
         </p>
-        <ModePreview>
+        <Preview>
           <DismissDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -158,7 +158,7 @@ function AlertPage() {
           <code>sm</code>. A third action means the message belongs somewhere
           bigger than an alert. The close button stays the last tab stop.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="flex w-80 flex-col gap-3">
             <Alert variant={AlertVariant.Error} onClose={() => {}}>
               <AlertTitle>The payment failed</AlertTitle>
@@ -173,7 +173,7 @@ function AlertPage() {
               </div>
             </Alert>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -191,9 +191,9 @@ function AlertPage() {
           — <code>AnimatePresence</code> cannot animate its own unmount. That is
           the documented trade for the boilerplate you save.
         </p>
-        <ModePreview>
+        <Preview>
           <OpenToggleDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -209,9 +209,8 @@ function AlertPage() {
           </strong>{' '}
           The alert does no focus management: when you remove an alert whose
           close button holds focus, send focus back to the control that produced
-          the alert. Text meets WCAG AA in both modes — the description is the
-          floor at 4.73:1 — and the close button's focus ring clears 3:1 on the
-          card surface.
+          the alert. Text meets WCAG AA — the description is the floor at 4.73:1
+          — and the close button's focus ring clears 3:1 on the card surface.
         </p>
       </section>
     </article>

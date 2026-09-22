@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -94,7 +94,7 @@ function BreadcrumbDocsPage() {
           <code>aria-current=&quot;page&quot;</code>. It is not a link and takes
           no focus, because a link to the page you are already on goes nowhere.
         </p>
-        <ModePreview>
+        <Preview>
           <Breadcrumb>
             <BreadcrumbItem link href="#">
               Trips
@@ -106,7 +106,7 @@ function BreadcrumbDocsPage() {
             <BreadcrumbSeparator />
             <BreadcrumbItem active>Kyoto</BreadcrumbItem>
           </Breadcrumb>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -132,7 +132,7 @@ function BreadcrumbDocsPage() {
           <code>active</code>. List the hidden levels from the highest ancestor
           down, the order they sit in the trail.
         </p>
-        <ModePreview>
+        <Preview>
           <Breadcrumb>
             <BreadcrumbItem link href="#">
               Trips
@@ -158,7 +158,7 @@ function BreadcrumbDocsPage() {
             <BreadcrumbSeparator />
             <BreadcrumbItem active>Kinkaku-ji</BreadcrumbItem>
           </Breadcrumb>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -175,7 +175,7 @@ function BreadcrumbDocsPage() {
           the signal to collapse a level and the reason a focus ring is never
           cut off.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="w-full max-w-xs">
             <Breadcrumb>
               <BreadcrumbItem link href="#">
@@ -194,7 +194,7 @@ function BreadcrumbDocsPage() {
               </BreadcrumbItem>
             </Breadcrumb>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -208,7 +208,7 @@ function BreadcrumbDocsPage() {
           page&apos;s own: two real routes, which is the shortest trail worth
           rendering.
         </p>
-        <ModePreview>
+        <Preview>
           <Breadcrumb>
             <BreadcrumbItem link asChild>
               <Link to="/">Components</Link>
@@ -216,7 +216,7 @@ function BreadcrumbDocsPage() {
             <BreadcrumbSeparator />
             <BreadcrumbItem active>Breadcrumb</BreadcrumbItem>
           </Breadcrumb>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -258,8 +258,8 @@ function BreadcrumbDocsPage() {
         </p>
         <p className="text-muted-foreground">
           Links and chevrons carry <code>--muted-foreground</code> on the page
-          background at 4.73:1 in light mode and 7.63:1 in dark; hover and the
-          current page are <code>--foreground</code>. All pass WCAG AA.
+          background at 4.73:1; hover and the current page are{' '}
+          <code>--foreground</code>. All pass WCAG AA.
         </p>
       </section>
     </article>

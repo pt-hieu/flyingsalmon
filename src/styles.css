@@ -4,8 +4,6 @@
 @import '@fontsource-variable/baloo-2';
 @import '@fontsource-variable/onest';
 
-@custom-variant dark (&:is(.dark *):not(.dark .light *));
-
 * {
   box-sizing: border-box;
 }
@@ -443,8 +441,7 @@ body {
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-:root,
-.light {
+:root {
   --background: var(--color-white);
   --foreground: var(--color-neutral-950);
   --card: var(--color-white);
@@ -516,79 +513,6 @@ body {
   --group-blue-border: var(--color-blue-300);
   --group-blue-border-hover: var(--color-blue-400);
   --radius: 0.75rem;
-}
-
-.dark {
-  --background: var(--color-neutral-950);
-  --foreground: var(--color-neutral-50);
-  --card: var(--color-neutral-900);
-  --card-foreground: var(--color-neutral-50);
-  --popover: var(--color-neutral-900);
-  --popover-foreground: var(--color-neutral-50);
-  --primary: var(--color-indigo-400);
-  --primary-foreground: var(--color-neutral-950);
-  --indicator: var(--color-indigo-400);
-  --indicator-foreground: var(--color-neutral-950);
-  --secondary: var(--color-neutral-800);
-  --secondary-foreground: var(--color-neutral-50);
-  --muted: var(--color-neutral-800);
-  --muted-foreground: var(--color-neutral-400);
-  --skeleton: var(--color-neutral-800);
-  --progress-track: var(--color-neutral-800);
-  --progress-fill: var(--indicator);
-  --accent: var(--color-neutral-700);
-  --accent-foreground: var(--color-neutral-50);
-  --destructive: var(--color-red-400);
-  --success: var(--color-green-950);
-  --success-foreground: var(--color-green-300);
-  --warning: var(--color-amber-950);
-  --warning-foreground: var(--color-amber-300);
-  --error: var(--color-red-950);
-  --error-foreground: var(--color-red-300);
-  --border: var(--color-neutral-800);
-  --input: var(--color-neutral-700);
-  --ring: var(--color-neutral-50);
-  --chart-1: var(--group-sky);
-  --chart-2: var(--group-pink);
-  --chart-3: var(--group-teal);
-  --chart-4: var(--group-fuchsia);
-  --chart-5: var(--group-cyan);
-  --group-sky: var(--color-sky-400);
-  --group-sky-foreground: var(--color-neutral-950);
-  --group-sky-soft: var(--color-sky-950);
-  --group-sky-soft-foreground: var(--color-sky-300);
-  --group-sky-border: var(--color-sky-700);
-  --group-sky-border-hover: var(--color-sky-600);
-  --group-pink: var(--color-pink-400);
-  --group-pink-foreground: var(--color-neutral-950);
-  --group-pink-soft: var(--color-pink-950);
-  --group-pink-soft-foreground: var(--color-pink-300);
-  --group-pink-border: var(--color-pink-700);
-  --group-pink-border-hover: var(--color-pink-600);
-  --group-teal: var(--color-teal-400);
-  --group-teal-foreground: var(--color-neutral-950);
-  --group-teal-soft: var(--color-teal-950);
-  --group-teal-soft-foreground: var(--color-teal-300);
-  --group-teal-border: var(--color-teal-700);
-  --group-teal-border-hover: var(--color-teal-600);
-  --group-fuchsia: var(--color-fuchsia-400);
-  --group-fuchsia-foreground: var(--color-neutral-950);
-  --group-fuchsia-soft: var(--color-fuchsia-950);
-  --group-fuchsia-soft-foreground: var(--color-fuchsia-300);
-  --group-fuchsia-border: var(--color-fuchsia-700);
-  --group-fuchsia-border-hover: var(--color-fuchsia-600);
-  --group-cyan: var(--color-cyan-400);
-  --group-cyan-foreground: var(--color-neutral-950);
-  --group-cyan-soft: var(--color-cyan-950);
-  --group-cyan-soft-foreground: var(--color-cyan-300);
-  --group-cyan-border: var(--color-cyan-700);
-  --group-cyan-border-hover: var(--color-cyan-600);
-  --group-blue: var(--color-blue-400);
-  --group-blue-foreground: var(--color-neutral-950);
-  --group-blue-soft: var(--color-blue-950);
-  --group-blue-soft-foreground: var(--color-blue-300);
-  --group-blue-border: var(--color-blue-700);
-  --group-blue-border-hover: var(--color-blue-600);
 }
 
 @layer base {

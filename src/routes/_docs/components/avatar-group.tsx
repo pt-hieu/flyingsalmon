@@ -1,6 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { ModePreview } from '@/components/mode-preview'
 import { Preview } from '@/components/preview'
 import { AvatarColor, AvatarSize } from '@/registry/ui/avatar'
 import { AvatarGroup } from '@/registry/ui/avatar-group'
@@ -87,12 +86,12 @@ function AvatarGroupPage() {
           Every avatar and the chip wear a 2px ring in <code>--background</code>{' '}
           that the group owns — a standalone avatar stays ring-less.
         </p>
-        <ModePreview>
+        <Preview>
           <AvatarGroup items={tripMembers} aria-label="Trip members" />
-        </ModePreview>
+        </Preview>
         <p className="text-muted-foreground">
-          On a card in dark mode the ring should match the surface it sits on.
-          Override it at the call site with{' '}
+          On a card the ring should match the surface it sits on. Override it at
+          the call site with{' '}
           <code>className=&quot;[&amp;&gt;*]:ring-card&quot;</code>; there is no
           prop for it.
         </p>
@@ -106,14 +105,14 @@ function AvatarGroupPage() {
           <code>default</code>, 6px at <code>sm</code>. Use <code>sm</code> in
           dense rows such as a table cell or a comment header.
         </p>
-        <ModePreview>
+        <Preview>
           <AvatarGroup items={tripMembers} aria-label="Trip members" />
           <AvatarGroup
             items={tripMembers}
             size={AvatarSize.Small}
             aria-label="Trip members"
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -130,7 +129,7 @@ function AvatarGroupPage() {
           </strong>{' '}
           on <code>--secondary</code>, not a ninth avatar hue and not a badge.
         </p>
-        <ModePreview>
+        <Preview>
           <AvatarGroup
             items={tripMembers}
             max={2}
@@ -146,7 +145,7 @@ function AvatarGroupPage() {
             max={5}
             aria-label="Trip members, all shown"
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -159,14 +158,14 @@ function AvatarGroupPage() {
           reader hears &ldquo;250 more&rdquo;. Below the cap the chip prints the
           real number.
         </p>
-        <ModePreview>
+        <Preview>
           <AvatarGroup
             items={conference}
             cap={99}
             aria-label="Conference attendees"
           />
           <AvatarGroup items={tripMembers} cap={99} aria-label="Trip members" />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -263,8 +262,8 @@ function AvatarGroupPage() {
           nor an <code>alt</code> is <code>aria-hidden</code>, gets no tooltip,
           and the arrow keys skip over it. The chip pairs{' '}
           <code>--secondary</code> with <code>--secondary-foreground</code> at
-          roughly 15:1 in both modes, and the initials keep avatar&apos;s
-          neutral-950 on step-400 hues at 6.3:1 worst case.
+          roughly 15:1, and the initials keep avatar&apos;s neutral-950 on
+          step-400 hues at 6.3:1 worst case.
         </p>
       </section>
 

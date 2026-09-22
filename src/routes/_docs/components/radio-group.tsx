@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import {
   RadioGroup,
   RadioGroupItem,
@@ -54,7 +54,7 @@ function RadioGroupPage() {
           no size prop and no loading state: an option states intent inside a
           form, and the submit button owns the busyness.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="flex flex-col gap-8">
             <RadioGroup label="Enabled" defaultValue="checked">
               <RadioGroupItem value="unchecked" label="Unchecked" />
@@ -65,7 +65,7 @@ function RadioGroupPage() {
               <RadioGroupItem value="checked" label="Checked" />
             </RadioGroup>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -81,13 +81,13 @@ function RadioGroupPage() {
           needs a price or a badge beside it is a group the app composes from
           Radix itself.
         </p>
-        <ModePreview>
+        <Preview>
           <RadioGroup label="Delivery speed" defaultValue="standard">
             <RadioGroupItem value="standard" label="Standard, 3–5 days" />
             <RadioGroupItem value="express" label="Express, next day" />
             <RadioGroupItem value="overnight" label="Overnight, before 9am" />
           </RadioGroup>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -102,7 +102,7 @@ function RadioGroupPage() {
           A row of full sentences wraps unpredictably and loses the alignment
           that makes a set of options scannable.
         </p>
-        <ModePreview>
+        <Preview>
           <RadioGroup
             label="Seat"
             defaultValue="window"
@@ -112,7 +112,7 @@ function RadioGroupPage() {
             <RadioGroupItem value="aisle" label="Aisle" />
             <RadioGroupItem value="either" label="Either" />
           </RadioGroup>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -128,7 +128,7 @@ function RadioGroupPage() {
           <code>disabled</code> on one item takes that option out while the rest
           stay live.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="flex flex-col gap-8">
             <RadioGroup
               label="Delivery speed"
@@ -157,7 +157,7 @@ function RadioGroupPage() {
               <RadioGroupItem value="named" label="Named recipient only" />
             </RadioGroup>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -170,9 +170,9 @@ function RadioGroupPage() {
           JavaScript of your own. These are the props a form-state library
           drives — the registry binds to none of them itself.
         </p>
-        <ModePreview>
+        <Preview>
           <ControlledPaymentExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">

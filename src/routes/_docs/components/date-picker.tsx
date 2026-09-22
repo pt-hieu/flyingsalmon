@@ -8,7 +8,7 @@ import {
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import type { DatePickerRange } from '@/registry/ui/date-picker'
 import { DatePicker, DatePickerMode } from '@/registry/ui/date-picker'
 
@@ -49,9 +49,9 @@ function DatePickerPage() {
           no format prop. <code>min</code> is set to today here, so an earlier
           day is refused in the grid and rejected when typed.
         </p>
-        <ModePreview>
+        <Preview>
           <DepartureExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -72,9 +72,9 @@ function DatePickerPage() {
           range in place in one press, through Calendar&rsquo;s reset commit
           behaviour: the app never sees a half-selection.
         </p>
-        <ModePreview stacked>
+        <Preview>
           <TripDatesExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -93,9 +93,9 @@ function DatePickerPage() {
           shows <code>rangeOrderMessage</code> instead. Both are props, so they
           translate.
         </p>
-        <ModePreview stacked>
+        <Preview>
           <StatesExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -202,21 +202,20 @@ function DatePickerPage() {
         <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
         <p className="text-muted-foreground">
           Measured against this theme&rsquo;s palette with an OKLCH-to-sRGB
-          contrast check, light then dark. A filled segment sits at 19.79:1 and
-          18.96:1 on <code>--background</code>; a placeholder segment and the
-          dash at 4.73:1 and 7.63:1; the invalid ring at 4.76:1 and 6.84:1. The
-          icon buttons sit at 4.73:1 and 7.63:1 at rest and 14.22:1 and 9.95:1
-          on the fill they share between hover and focus.
+          contrast check. A filled segment sits at 19.79:1 on{' '}
+          <code>--background</code>; a placeholder segment and the dash at
+          4.73:1; the invalid ring at 4.76:1. The icon buttons sit at 4.73:1 at
+          rest and 14.22:1 on the fill they share between hover and focus.
         </p>
         <p className="text-muted-foreground">
           <strong className="text-foreground">
             The focused segment paints <code>--indicator</code>.
           </strong>{' '}
-          It sits at 4.58:1 and 6.34:1, clearing AA in both modes.{' '}
-          <code>--primary</code> is the other indigo a field could reach for,
-          and it is indigo-400 in both modes here: 3.12:1 on white, which fails
-          AA for text. <code>--indicator</code> steps to indigo-500 in light and
-          is the step this system already uses when indigo has to carry meaning.
+          It sits at 4.58:1, clearing AA. <code>--primary</code> is the other
+          indigo a field could reach for, and it is indigo-400 here: 3.12:1 on
+          white, which fails AA for text. <code>--indicator</code> is
+          indigo-500, the step this system already uses when indigo has to carry
+          meaning.
         </p>
       </section>
     </article>

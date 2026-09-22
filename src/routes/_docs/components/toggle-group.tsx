@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Coffee, Landmark, Mountain, Music } from 'lucide-react'
 import { useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import {
   ToggleGroup,
   ToggleGroupItem,
@@ -59,9 +59,9 @@ function ToggleGroupPage() {
           user. Each item takes an optional 16px leading <code>icon</code> on
           Button&apos;s slot rule.
         </p>
-        <ModePreview>
+        <Preview>
           <SingleActivityExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -78,9 +78,9 @@ function ToggleGroupPage() {
           A capped chip and a disabled chip are deliberately indistinguishable —
           both are unavailable right now, and the label already explains why.
         </p>
-        <ModePreview>
+        <Preview>
           <MultipleInterestsExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -96,7 +96,7 @@ function ToggleGroupPage() {
           a submit while it is still empty is the app&apos;s validation error,
           shown through <code>error</code>.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="flex flex-col gap-8">
             <ToggleGroup label="Trip pace" required defaultValue="steady">
               <ToggleGroupItem value="slow">Slow</ToggleGroupItem>
@@ -113,7 +113,7 @@ function ToggleGroupPage() {
               <ToggleGroupItem value="packed">Packed</ToggleGroupItem>
             </ToggleGroup>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -131,7 +131,7 @@ function ToggleGroupPage() {
           or a permit. A chip that fires an action and never toggles is the
           app&apos;s to compose from a Button; the registry ships no such rule.
         </p>
-        <ModePreview>
+        <Preview>
           <ToggleGroup
             label="Destinations"
             mode={ToggleGroupMode.Multiple}
@@ -152,7 +152,7 @@ function ToggleGroupPage() {
               Marrakesh, visa needed
             </ToggleGroupItem>
           </ToggleGroup>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -171,7 +171,7 @@ function ToggleGroupPage() {
           A held press draws Button&apos;s tight 2px ring with no scale and no
           translate (ADR 0003).
         </p>
-        <ModePreview>
+        <Preview>
           <div className="flex flex-col gap-8">
             <ToggleGroup label="Default, 36px" defaultValue="food">
               <ToggleGroupItem value="food">Food</ToggleGroupItem>
@@ -203,7 +203,7 @@ function ToggleGroupPage() {
               <ToggleGroupItem value="museums">Museums</ToggleGroupItem>
             </ToggleGroup>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -237,9 +237,9 @@ function ToggleGroupPage() {
           component — the props a form-state library drives, and the registry
           binds to none of them itself (ADR 0007).
         </p>
-        <ModePreview>
+        <Preview>
           <ControlledInterestsExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">

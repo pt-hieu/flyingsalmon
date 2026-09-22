@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import {
   Accordion,
   AccordionContent,
@@ -54,7 +54,7 @@ function AccordionPage() {
           <code>defaultValue</code> takes an array of item values to open on
           first render, so two of the three below start open.
         </p>
-        <ModePreview>
+        <Preview>
           <Accordion
             className="w-full max-w-sm"
             defaultValue={['shipping', 'warranty']}
@@ -81,7 +81,7 @@ function AccordionPage() {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -95,7 +95,7 @@ function AccordionPage() {
           with nothing open. Pass <code>collapsible={'{false}'}</code> when one
           panel must always be visible.
         </p>
-        <ModePreview>
+        <Preview>
           <Accordion
             className="w-full max-w-sm"
             type={AccordionType.Single}
@@ -123,7 +123,7 @@ function AccordionPage() {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -136,7 +136,7 @@ function AccordionPage() {
           &mdash; disabling never hides content. <code>disabled</code> on the
           root cascades to every trigger.
         </p>
-        <ModePreview>
+        <Preview>
           <Accordion className="w-full max-w-sm" defaultValue={['receipt']}>
             <AccordionItem value="receipt" disabled>
               <AccordionTrigger>Receipt</AccordionTrigger>
@@ -152,7 +152,7 @@ function AccordionPage() {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -171,7 +171,7 @@ function AccordionPage() {
           inside the heading, so keep it to text and spans; a nested button is
           not allowed inside the trigger.
         </p>
-        <ModePreview>
+        <Preview>
           <Accordion className="w-full max-w-sm" defaultValue={['flights']}>
             <AccordionItem value="flights">
               <AccordionTrigger>
@@ -228,7 +228,7 @@ function AccordionPage() {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -250,9 +250,9 @@ function AccordionPage() {
           and leave the item&rsquo;s divider alone &mdash; only the trigger
           steps it.
         </p>
-        <ModePreview>
+        <Preview>
           <WorkingPanelsDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -266,9 +266,9 @@ function AccordionPage() {
           identity stable across renders &mdash; pass state, not a literal built
           in render.
         </p>
-        <ModePreview>
+        <Preview>
           <ControlledAccordionDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -387,11 +387,10 @@ function AccordionPage() {
         <p className="text-muted-foreground">
           Measured against this theme&rsquo;s own palette steps with an
           OKLCH-to-sRGB contrast check: the stepped divider and the stepped
-          chevron are 3.17:1 on the light background and 5.75:1 on the dark one,
-          the trigger label 18.25:1 and 17.48:1, the chevron at rest 5.17:1 and
-          7.04:1 &mdash; every pair clears WCAG AA in both modes, with the light
-          step passing the 3:1 non-text bar it was flagged as tight against.
-          Resting dividers are decorative and exempt.
+          chevron are 3.17:1 on the background, the trigger label 18.25:1, the
+          chevron at rest 5.17:1 &mdash; every pair clears WCAG AA, with the
+          stepped divider and chevron passing the 3:1 non-text bar they were
+          flagged as tight against. Resting dividers are decorative and exempt.
         </p>
       </section>
     </article>

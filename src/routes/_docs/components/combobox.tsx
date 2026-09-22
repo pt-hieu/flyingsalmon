@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { History, MapPin } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Alert, AlertVariant } from '@/registry/ui/alert'
 import {
   Combobox,
@@ -89,9 +89,9 @@ function ComboboxPage() {
           Type <em>r</em> or <em>ha</em> to see matches, or <em>zz</em> to see
           the empty row.
         </p>
-        <ModePreview>
+        <Preview>
           <PlaceFieldDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -109,9 +109,9 @@ function ComboboxPage() {
           stays in the list so positions never shift. Open the panel below to
           see all of it.
         </p>
-        <ModePreview>
+        <Preview>
           <GroupedPlacesDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -133,9 +133,9 @@ function ComboboxPage() {
           that read like words do not, so key your items with ids rather than
           labels.
         </p>
-        <ModePreview>
+        <Preview>
           <DestinationFieldDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -150,9 +150,9 @@ function ComboboxPage() {
           input removes the last chip, ArrowLeft from the start of the caret
           focuses it, and Backspace or Delete there removes it.
         </p>
-        <ModePreview>
+        <Preview>
           <InterestsFieldDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -165,9 +165,9 @@ function ComboboxPage() {
           commit: commas occur inside place names, and a blur commit turns an
           abandoned keystroke into a value.
         </p>
-        <ModePreview>
+        <Preview>
           <TravellerTagsDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -179,9 +179,9 @@ function ComboboxPage() {
           while open. <code>disabled</code> dims the whole field and takes it
           out of the tab order.
         </p>
-        <ModePreview>
+        <Preview>
           <ErrorAndDisabledDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -190,9 +190,9 @@ function ComboboxPage() {
           Two field sizes match Input and Select. Items stay 32px at both sizes,
           and in multiple mode the field grows by rows as chips wrap.
         </p>
-        <ModePreview>
+        <Preview>
           <SizesDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">

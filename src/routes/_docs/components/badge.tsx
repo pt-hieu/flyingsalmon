@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { CircleAlert, CircleCheck, Sparkles, TriangleAlert } from 'lucide-react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Badge, BadgeVariant } from '@/registry/ui/badge'
 
 export const Route = createFileRoute('/_docs/components/badge')({
@@ -29,14 +29,14 @@ function BadgePage() {
           <code>success</code>, <code>warning</code>, and <code>error</code>{' '}
           shares one shape: a soft tint behind colored text.
         </p>
-        <ModePreview>
+        <Preview>
           <Badge>Default</Badge>
           <Badge variant={BadgeVariant.Secondary}>Secondary</Badge>
           <Badge variant={BadgeVariant.Outline}>Outline</Badge>
           <Badge variant={BadgeVariant.Success}>Success</Badge>
           <Badge variant={BadgeVariant.Warning}>Warning</Badge>
           <Badge variant={BadgeVariant.Error}>Error</Badge>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -56,11 +56,11 @@ function BadgePage() {
           sits inside a line of text or a table cell, so a second size would
           break the line rhythm it lives in.
         </p>
-        <ModePreview>
+        <Preview>
           <Badge variant={BadgeVariant.Secondary}>42</Badge>
           <Badge variant={BadgeVariant.Secondary}>New</Badge>
           <Badge variant={BadgeVariant.Secondary}>In review</Badge>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -71,7 +71,7 @@ function BadgePage() {
           that keeps the icon out of the reading order. Pass the icon bare.
           There is no trailing icon slot.
         </p>
-        <ModePreview>
+        <Preview>
           <Badge icon={<Sparkles />}>New</Badge>
           <Badge variant={BadgeVariant.Success} icon={<CircleCheck />}>
             Paid
@@ -82,7 +82,7 @@ function BadgePage() {
           <Badge variant={BadgeVariant.Error} icon={<CircleAlert />}>
             Failed
           </Badge>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -101,9 +101,9 @@ function BadgePage() {
           tab stop, and it carries no ARIA role, so a screen reader reads its
           text inline with the surrounding content. A leading icon is decoration
           and is hidden, so the label is read once. Every variant meets WCAG AA
-          contrast in both modes. When the badge is the only carrier of a
-          meaning, give the surrounding text that meaning as well: color alone
-          never states a status.
+          contrast. When the badge is the only carrier of a meaning, give the
+          surrounding text that meaning as well: color alone never states a
+          status.
         </p>
       </section>
     </article>

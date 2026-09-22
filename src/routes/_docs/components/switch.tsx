@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Switch } from '@/registry/ui/switch'
 
 export const Route = createFileRoute('/_docs/components/switch')({
@@ -43,24 +43,22 @@ function SwitchPage() {
           One size, no variants. Off is <code>--muted-foreground</code> as the
           track under a <code>--background</code> thumb; on is{' '}
           <code>--indicator</code> under an <code>--indicator-foreground</code>{' '}
-          thumb. Every pair clears 3:1 against the page and against the thumb in
-          both modes — 4.6:1 in light, 6.3:1 in dark — so the state is readable
-          without color vision.
+          thumb. Every pair clears 3:1 against the page and against the thumb —
+          4.6:1 — so the state is readable without color vision.
         </p>
         <p className="text-muted-foreground">
           <strong className="text-foreground">
-            The off thumb takes the page color, not white.
+            The off thumb takes the page color.
           </strong>{' '}
-          A white thumb in dark mode would have to turn near-black on the way to
-          the on state, because <code>--indicator-foreground</code> is
-          near-black there. Travel is a morph, so the thumb stays one object
-          with one color across the whole journey. The page color gives that in
-          both modes and raises the dark-mode contrast at the same time.
+          The page color and <code>--indicator-foreground</code> are both white,
+          so the thumb keeps one color on the way to the on state. Travel is a
+          morph, so the thumb stays one object with one color across the whole
+          journey.
         </p>
-        <ModePreview>
+        <Preview>
           <Switch label="Wi-Fi" />
           <Switch label="Wi-Fi" defaultChecked />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -71,9 +69,9 @@ function SwitchPage() {
           and revert <code>checked</code> if it fails. The example below
           confirms first: the thumb stays put until the call returns.
         </p>
-        <ModePreview>
+        <Preview>
           <ConfirmFirstDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -86,10 +84,10 @@ function SwitchPage() {
           <code>checked</code> puts it, so you choose optimistic flip or
           confirm-first.
         </p>
-        <ModePreview>
+        <Preview>
           <Switch label="Wi-Fi" loading />
           <Switch label="Wi-Fi" loading checked />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -99,10 +97,10 @@ function SwitchPage() {
           events. Use it when the setting cannot be changed at all; use{' '}
           <code>loading</code> when a change is in flight.
         </p>
-        <ModePreview>
+        <Preview>
           <Switch label="Wi-Fi" disabled />
           <Switch label="Wi-Fi" disabled checked />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -112,10 +110,10 @@ function SwitchPage() {
           names the setting. Pass <code>aria-label</code> so the control keeps
           an accessible name.
         </p>
-        <ModePreview>
+        <Preview>
           <Switch aria-label="Airplane mode" />
           <Switch aria-label="Airplane mode" defaultChecked />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">

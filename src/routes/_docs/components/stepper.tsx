@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import { Stepper } from '@/registry/ui/stepper'
 
@@ -60,9 +60,9 @@ function StepperPage() {
           <code>data-state=&quot;current&quot;</code> is the hook for an app
           that wants a third look.
         </p>
-        <ModePreview>
+        <Preview>
           <SteppedStepperDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -72,9 +72,9 @@ function StepperPage() {
           render as upcoming with no enter animation, because a segment
           appearing is a change to the plan rather than movement through it.
         </p>
-        <ModePreview>
+        <Preview>
           <GrowingStepperDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -86,7 +86,7 @@ function StepperPage() {
           4&rdquo; is the bar plus the app&apos;s own line, because only the app
           knows what a step is called. Compose the two.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="w-full max-w-xs space-y-2">
             <div className="flex items-baseline justify-between text-sm">
               <span className="font-medium">Planning your trip</span>
@@ -99,7 +99,7 @@ function StepperPage() {
               Next: who is coming with you
             </p>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -114,10 +114,10 @@ function StepperPage() {
           is why the stepper does not depend on the progress item.
         </p>
         <p className="text-muted-foreground">
-          The fill clears the track at 3.72:1 in light mode and 4.3:1 in dark,
-          so the edge between a filled segment and an empty one is readable
-          without color vision. The track sits at 1.26:1 against the page,
-          enough to show how many segments are left.
+          The fill clears the track at 3.72:1, so the edge between a filled
+          segment and an empty one is readable without color vision. The track
+          sits at 1.26:1 against the page, enough to show how many segments are
+          left.
         </p>
       </section>
 

@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Compass, Link2Off, Route as RouteIcon, Wallet } from 'lucide-react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Button, ButtonVariant } from '@/registry/ui/button'
 import { Card, CardContent } from '@/registry/ui/card'
 import {
@@ -61,7 +61,7 @@ function EmptyStatePage() {
           consumer supplies a boundary by wrapping the block in a{' '}
           <code>Card</code>.
         </p>
-        <ModePreview>
+        <Preview>
           <EmptyState>
             <EmptyStateIcon>
               <Compass />
@@ -74,7 +74,7 @@ function EmptyStatePage() {
               <Button>Plan a trip</Button>
             </EmptyStateActions>
           </EmptyState>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -86,7 +86,7 @@ function EmptyStatePage() {
           reads as one region's message among others. The component paints no
           border and no background either way.
         </p>
-        <ModePreview stacked>
+        <Preview>
           <div className="w-full max-w-md space-y-6">
             <EmptyState>
               <EmptyStateIcon>
@@ -117,7 +117,7 @@ function EmptyStatePage() {
               </CardContent>
             </Card>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -132,7 +132,7 @@ function EmptyStatePage() {
           <code>gap-2</code>, and the actions row adds <code>mt-2</code> on top
           of it, so it sits a full <code>gap-4</code> step below the text.
         </p>
-        <ModePreview stacked>
+        <Preview>
           <div className="w-full max-w-md space-y-6">
             <Card>
               <CardContent>
@@ -153,7 +153,7 @@ function EmptyStatePage() {
               </CardContent>
             </Card>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -165,7 +165,7 @@ function EmptyStatePage() {
           until the route is approved, so it explains and stops. The block knows
           nothing about Button's props — you pass the buttons you want.
         </p>
-        <ModePreview>
+        <Preview>
           <EmptyState>
             <EmptyStateIcon>
               <Compass />
@@ -179,7 +179,7 @@ function EmptyStatePage() {
               <Button variant={ButtonVariant.Outline}>Browse ideas</Button>
             </EmptyStateActions>
           </EmptyState>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -187,16 +187,13 @@ function EmptyStatePage() {
         <p className="text-muted-foreground">
           The title is <code>--foreground</code> and the description is{' '}
           <code>--muted-foreground</code>, both measured on{' '}
-          <code>--background</code> and on <code>--card</code> in light and dark
-          mode. The title runs 18.3:1 in light mode and 15.5:1 at its worst in
-          dark, on <code>--card</code>. The description runs 5.2:1 in light
-          mode, 7.0:1 on <code>--background</code> in dark and 6.3:1 on{' '}
-          <code>--card</code>. The only <code>--muted</code> surface inside the
-          block is the icon circle, which holds an icon rather than text at
-          4.7:1 light and 5.3:1 dark. Never place the block itself on{' '}
-          <code>--muted</code> without switching the description to{' '}
-          <code>--foreground</code>: the description would land on 4.7:1 light
-          and 5.3:1 dark, which clears AA but leaves nothing to spare.
+          <code>--background</code> and on <code>--card</code>. The title runs
+          18.3:1 and the description 5.2:1 on both. The only{' '}
+          <code>--muted</code> surface inside the block is the icon circle,
+          which holds an icon rather than text at 4.7:1. Never place the block
+          itself on <code>--muted</code> without switching the description to{' '}
+          <code>--foreground</code>: the description would land on 4.7:1, which
+          clears AA but leaves nothing to spare.
         </p>
       </section>
 
