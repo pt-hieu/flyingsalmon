@@ -146,8 +146,8 @@ function NumberFieldPage() {
         <p className="text-muted-foreground">
           <code>error</code> turns the border, the dividers, and the label
           destructive, sets <code>aria-invalid</code>, and renders the message
-          below. The field grows downward only. Nothing shakes — the mood is
-          soft, so errors arrive calmly.
+          below. The field grows downward only. Nothing shakes, so errors arrive
+          calmly.
         </p>
         <Preview>
           <NumberField

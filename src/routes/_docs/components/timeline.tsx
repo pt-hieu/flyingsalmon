@@ -176,22 +176,22 @@ function TimelinePage() {
         <h2 className="font-heading text-2xl font-bold">Contrast</h2>
         <p className="text-muted-foreground">
           The empty marker's dot is <code>--muted-foreground</code> on{' '}
-          <code>--background</code>: 5.2:1, against the 3:1 a non-text graphic
+          <code>--background</code>: 7.01:1, against the 3:1 a non-text graphic
           needs. An icon marker draws a 1px <code>--border</code> circle and
-          puts the icon in <code>--foreground</code> at 18.3:1, so the icon
+          puts the icon in <code>--foreground</code> at 17.20:1, so the icon
           carries the 3:1 and the circle carries nothing. The connector is 2px
-          of <code>--border</code>, 1.3:1: it is decorative and exempt under
+          of <code>--border</code>, 1.28:1: it is decorative and exempt under
           WCAG 1.4.11, because it says only what the markers and the content
           already say.
         </p>
         <p className="text-muted-foreground">
-          The title runs <code>--foreground</code> at 18.3:1; the description
-          runs <code>--muted-foreground</code> at 5.2:1. A link inside the title
-          stays <code>--foreground</code> in every state and carries a permanent
-          underline: 1px <code>--muted-foreground</code> at rest, stepping to
-          1.5px <code>--foreground</code> on hover and press, 4.73:1. Those are
-          text link's values, so every prose link in the portfolio follows one
-          rule.
+          The title runs <code>--foreground</code> at 17.20:1; the description
+          runs <code>--muted-foreground</code> at 7.01:1. A link inside the
+          title stays <code>--foreground</code> in every state and carries a
+          permanent underline: 1px <code>--muted-foreground</code> at rest,
+          7.01:1, stepping to 1.5px <code>--foreground</code> on hover and
+          press. Those are text link's values, so every prose link in the
+          portfolio follows one rule.
         </p>
       </section>
 

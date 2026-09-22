@@ -54,7 +54,7 @@ function ButtonPage() {
         </p>
         <p className="text-muted-foreground">
           Hover moves the surface one step and keeps the label above AA. The
-          three neutral variants wash to the same indigo tint, so a surface
+          three neutral variants wash to the same orange tint, so a surface
           without a color of its own borrows the accent.{' '}
           <strong className="text-foreground">
             One hover steps the label with the surface, because the surface step
@@ -228,7 +228,7 @@ function ButtonPage() {
           <strong className="text-foreground">
             The ring takes the color of the button under it.
           </strong>{' '}
-          <code>default</code> rings in its own indigo, <code>destructive</code>{' '}
+          <code>default</code> rings in its own orange, <code>destructive</code>{' '}
           in red, and the three neutral variants in <code>--ring</code>, which
           is the same focus color the input uses. The ring appears on{' '}
           <code>:focus-visible</code> only, so a mouse click never leaves one

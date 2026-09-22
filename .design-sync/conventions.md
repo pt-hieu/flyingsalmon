@@ -1,6 +1,6 @@
 # Flying Salmon
 
-Brian's design system: soft, minimal, playful. Every component below is the real
+Brian's design system: bold, warm, social. Every component below is the real
 shipped component — compose them, don't restyle them.
 
 ## Import shape
@@ -57,7 +57,7 @@ lives in the border or in a background step, never in a lift or a press-down.
 
 ## Type
 
-`--font-heading` (Baloo 2) for headings and display; `--font-sans` (Onest) for
+`--font-heading` (Bricolage Grotesque) for headings and display; `--font-sans` (Onest) for
 body and UI. In Tailwind: `font-heading` and the default sans.
 
 ## Motion

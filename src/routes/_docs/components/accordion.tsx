@@ -386,11 +386,11 @@ function AccordionPage() {
         </p>
         <p className="text-muted-foreground">
           Measured against this theme&rsquo;s own palette steps with an
-          OKLCH-to-sRGB contrast check: the stepped divider and the stepped
-          chevron are 3.17:1 on the background, the trigger label 18.25:1, the
-          chevron at rest 5.17:1 &mdash; every pair clears WCAG AA, with the
-          stepped divider and chevron passing the 3:1 non-text bar they were
-          flagged as tight against. Resting dividers are decorative and exempt.
+          OKLCH-to-sRGB contrast check on the background: the trigger label is
+          17.20:1 and the chevron at rest 7.01:1, both clearing WCAG AA. The
+          stepped divider and the stepped chevron, in <code>--indicator</code>,
+          are 2.73:1, under the 3:1 non-text bar (ADR 0004). Resting dividers
+          are decorative and exempt.
         </p>
       </section>
     </article>

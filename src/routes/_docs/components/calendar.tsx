@@ -181,16 +181,17 @@ function CalendarPage() {
         <p className="text-muted-foreground">
           Measured against this theme&rsquo;s palette with an OKLCH-to-sRGB
           contrast check, on the two hosts the calendar sits in. Numerals sit at
-          17.5:1 on <code>--popover</code> and 18.3:1 on{' '}
-          <code>--background</code>. Muted weekday and unavailable text sits at
-          4.95:1 on <code>--popover</code> and 5.17:1 on{' '}
-          <code>--background</code>. The numeral on a filled day sits at 5.75:1.
-          A keyboard-focused unavailable day takes the accent pair,{' '}
-          <code>--accent-foreground</code> on <code>--accent</code>, at 14.5:1,
-          because muted text on that step would fall to 4.1:1. The today dot
-          sits at 3.04:1 on <code>--popover</code> and 3.17:1 on{' '}
-          <code>--background</code>. Every text pair clears WCAG AA, so no
-          fallback step is taken.
+          18.25:1 on <code>--popover</code> and 17.20:1 on{' '}
+          <code>--background</code>, and 13.46:1 on the range band. Muted
+          weekday and unavailable text sits at 7.44:1 on <code>--popover</code>{' '}
+          and 7.01:1 on <code>--background</code>. The numeral on a filled day
+          sits at 6.31:1. A keyboard-focused unavailable day takes the accent
+          pair, <code>--accent-foreground</code> on <code>--accent</code>, at
+          11.96:1, like every highlighted idle day. Every text pair clears WCAG
+          AA, so no fallback step is taken. The today dot, in{' '}
+          <code>--indicator</code>, sits at 2.89:1 on <code>--popover</code> and
+          2.73:1 on <code>--background</code>, under the 3:1 non-text bar (ADR
+          0004).
         </p>
       </section>
     </article>

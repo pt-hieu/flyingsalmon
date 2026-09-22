@@ -90,8 +90,8 @@ function AvatarPage() {
         <p className="text-muted-foreground">
           The six group colors at their solid step:{' '}
           <code>sky pink teal fuchsia cyan blue</code>. With no{' '}
-          <code>color</code>, the circle is neutral. Status hues and the indigo
-          accent are left out, so an avatar never reads as a state or an action.
+          <code>color</code>, the circle is neutral. Status hues and the orange
+          brand are left out, so an avatar never reads as a state or an action.
           The color drives the fallback circle only; an avatar showing an image
           never uses it. Pick the hue from a stable key such as a user id, so
           the same person keeps the same color.

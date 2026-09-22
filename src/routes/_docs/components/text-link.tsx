@@ -198,7 +198,7 @@ function TextLinkPage() {
           Tab reaches the link and Enter activates it, the native anchor
           behaviour. Text runs <code>--foreground</code> on{' '}
           <code>--background</code>, the body-text pair; the resting underline
-          is <code>--muted-foreground</code> at 4.73:1, and the hover underline
+          is <code>--muted-foreground</code> at 7.01:1, and the hover underline
           is <code>--foreground</code> at 1.5px. WCAG 1.4.1 does not apply here:
           the underline never leaves, so the link is never told apart by colour
           alone.

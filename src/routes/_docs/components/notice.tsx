@@ -103,10 +103,10 @@ function NoticePage() {
         <p className="text-muted-foreground">
           The four alert variants, unchanged: <code>info</code>,{' '}
           <code>success</code>, <code>warning</code>, and <code>error</code>.
-          The icon carries the variant on a neutral card, and <code>error</code>{' '}
-          is the one that interrupts a screen reader. Each preview below is a
-          frame of its own, so the card lands inside the panel instead of at the
-          top of this page.
+          The icon carries the variant on a plain white card, and{' '}
+          <code>error</code> is the one that interrupts a screen reader. Each
+          preview below is a frame of its own, so the card lands inside the
+          panel instead of at the top of this page.
         </p>
         <Preview>
           <NoticeFrame>
@@ -218,11 +218,11 @@ function NoticePage() {
         <p className="text-muted-foreground">
           Colour comes from alert, so the icon, the title, and the description
           carry the ratios measured on that page. The subject is underlined in{' '}
-          <code>--card-foreground</code>, 18.3:1, which keeps it apart from the
+          <code>--card-foreground</code>, 18.25:1, which keeps it apart from the
           description without relying on colour, and takes{' '}
-          <code>--indicator</code> on hover and press: 4.7:1 on the card, the
-          accordion trigger's hover colour rather than <code>--primary</code>,
-          which would not clear AA for text.
+          <code>--indicator</code> on hover and press, the accordion
+          trigger&apos;s hover colour: 2.89:1 on the card, under the 4.5:1 WCAG
+          AA bar for text (ADR 0004).
         </p>
       </section>
     </article>

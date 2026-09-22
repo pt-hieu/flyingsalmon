@@ -10,7 +10,7 @@
   "cssEntry": "styles.css",
   "guidelinesGlob": "*.md",
   "extraFonts": [
-    "../../../node_modules/@fontsource-variable/baloo-2/index.css",
+    "../../../node_modules/@fontsource-variable/bricolage-grotesque/index.css",
     "../../../node_modules/@fontsource-variable/onest/index.css"
   ],
   "docsDir": "docs",
