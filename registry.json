@@ -819,6 +819,30 @@
       ]
     },
     {
+      "name": "icon-tooltip",
+      "type": "registry:ui",
+      "title": "Icon Tooltip",
+      "description": "A focusable icon named by its tooltip text. Keyboard focus and hover open the tooltip, and the icon stays reachable inside a row whose whole surface is a link.",
+      "registryDependencies": [
+        "@flyingsalmon/tooltip",
+        "@flyingsalmon/interaction"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/icon-tooltip/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/icon-tooltip/icon-tooltip.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/icon-tooltip/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "tabs",
       "type": "registry:ui",
       "title": "Tabs",
