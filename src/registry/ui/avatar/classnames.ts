@@ -30,22 +30,21 @@ export const avatarImageVariants = cva('size-full object-cover', {
 })
 
 export const avatarFallbackVariants = cva(
-  'flex size-full items-center justify-center font-medium text-neutral-950',
+  'flex size-full items-center justify-center font-medium',
   {
     variants: {
       color: {
-        [AvatarColor.Orange]: 'bg-orange-400',
-        [AvatarColor.Amber]: 'bg-amber-400',
-        [AvatarColor.Green]: 'bg-green-400',
-        [AvatarColor.Teal]: 'bg-teal-400',
-        [AvatarColor.Sky]: 'bg-sky-400',
-        [AvatarColor.Indigo]: 'bg-indigo-400',
-        [AvatarColor.Purple]: 'bg-purple-400',
-        [AvatarColor.Pink]: 'bg-pink-400',
+        [AvatarColor.Sky]: 'bg-group-sky text-group-sky-foreground',
+        [AvatarColor.Pink]: 'bg-group-pink text-group-pink-foreground',
+        [AvatarColor.Teal]: 'bg-group-teal text-group-teal-foreground',
+        [AvatarColor.Fuchsia]: 'bg-group-fuchsia text-group-fuchsia-foreground',
+        [AvatarColor.Cyan]: 'bg-group-cyan text-group-cyan-foreground',
+        [AvatarColor.Blue]: 'bg-group-blue text-group-blue-foreground',
       },
-    },
-    defaultVariants: {
-      color: AvatarColor.Indigo,
+      neutral: {
+        true: 'text-foreground bg-neutral-200 dark:bg-neutral-800',
+        false: '',
+      },
     },
   },
 )
