@@ -37,8 +37,8 @@ import {
   SidebarLayout,
   SidebarNav,
   SidebarProvider,
-  SidebarSubmenu,
-  SidebarSubmenuItems,
+  SidebarNest,
+  SidebarNestItems,
   SidebarTrigger,
   useSidebar,
 } from '@/registry/ui/sidebar'
@@ -164,28 +164,28 @@ function SidebarPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Nested items</h2>
         <p className="text-muted-foreground">
-          <code>SidebarSubmenu</code> wraps a parent <code>SidebarItem</code>{' '}
-          and a <code>SidebarSubmenuItems</code> list of more items. The parent
-          is a page like any other; a chevron at its trailing edge opens and
-          closes the list, pointing right when closed and down when open.
-          Children carry the parent&apos;s styling on the same icon axis, with
-          no indent: a 1px <code>--border</code> line runs under the chevron
-          from the top of the first child to the bottom of the last. Children
-          end 7px short of the line, so a hover fill never crosses it. A current
-          child takes the bar on the aside&apos;s edge like any item.{' '}
+          <code>SidebarNest</code> wraps a parent <code>SidebarItem</code> and a{' '}
+          <code>SidebarNestItems</code> list of more items. The parent is a page
+          like any other; a chevron at its trailing edge opens and closes the
+          list, pointing right when closed and down when open. Children carry
+          the parent&apos;s styling on the same icon axis, with no indent: a 1px{' '}
+          <code>--border</code> line runs under the chevron from the top of the
+          first child to the bottom of the last. Children end 7px short of the
+          line, so a hover fill never crosses it. A current child takes the bar
+          on the aside&apos;s edge like any item.{' '}
           <strong className="text-foreground">
             In the rail the line goes: the parent and its children share one{' '}
             <code>--muted</code> block, and the parent&apos;s icon gives way to
             the chevron on hover, so the whole cell toggles the list.
           </strong>{' '}
           The parent page stays one Tab stop ahead of the toggle. Close the list
-          on a current child and the bar springs up to the parent; a submenu
-          whose child becomes current opens itself. The strip shows the block
-          flat and open, with no chevron. <code>open</code>,{' '}
-          <code>defaultOpen</code>, and <code>onOpenChange</code> control it
-          otherwise, and the toggle carries <code>aria-expanded</code> and{' '}
-          <code>aria-controls</code> pointed at the list. The demo above nests
-          the trip&apos;s days under Days.
+          on a current child and the bar springs up to the parent; a nest whose
+          child becomes current opens itself. The strip shows the block flat and
+          open, with no chevron. <code>open</code>, <code>defaultOpen</code>,
+          and <code>onOpenChange</code> control it otherwise, and the toggle
+          carries <code>aria-expanded</code> and <code>aria-controls</code>{' '}
+          pointed at the list. The demo above nests the trip&apos;s days under
+          Days.
         </p>
       </section>
 
@@ -302,12 +302,10 @@ function TripNav({
       <SidebarGroupLabel>{label}</SidebarGroupLabel>
       {links.map((link) =>
         link.children ? (
-          <SidebarSubmenu key={link.key}>
+          <SidebarNest key={link.key}>
             {renderLink(link)}
-            <SidebarSubmenuItems>
-              {link.children.map(renderLink)}
-            </SidebarSubmenuItems>
-          </SidebarSubmenu>
+            <SidebarNestItems>{link.children.map(renderLink)}</SidebarNestItems>
+          </SidebarNest>
         ) : (
           renderLink(link)
         ),

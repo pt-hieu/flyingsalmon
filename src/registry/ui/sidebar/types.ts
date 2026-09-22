@@ -19,7 +19,7 @@ export interface SidebarSharedState extends SidebarState {
   measured: boolean
 }
 
-export interface SidebarSubmenuState {
+export interface SidebarNestState {
   open: boolean
   setOpen: (open: boolean) => void
   itemsId: string

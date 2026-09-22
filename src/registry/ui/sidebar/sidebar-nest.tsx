@@ -2,24 +2,24 @@ import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 
 import { cn } from '@/lib/utils'
 
-import { sidebarSubmenuClassName } from './classnames'
-import { SidebarSubmenuContext, SidebarSubmenuItemsContext } from './context'
+import { sidebarNestClassName } from './classnames'
+import { SidebarNestContext, SidebarNestItemsContext } from './context'
 import { SidebarLayout } from './types'
 import { useSidebarSharedState } from './use-sidebar'
 
-export interface SidebarSubmenuProps extends React.ComponentProps<'div'> {
+export interface SidebarNestProps extends React.ComponentProps<'div'> {
   open?: boolean
   defaultOpen?: boolean
   onOpenChange?: (open: boolean) => void
 }
 
-export function SidebarSubmenu({
+export function SidebarNest({
   open: openProp,
   defaultOpen = false,
   onOpenChange,
   className,
   ...props
-}: SidebarSubmenuProps) {
+}: SidebarNestProps) {
   const { layout } = useSidebarSharedState()
   const itemsId = useId()
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen)
@@ -56,15 +56,15 @@ export function SidebarSubmenu({
   )
 
   return (
-    <SidebarSubmenuContext value={state}>
-      <SidebarSubmenuItemsContext value={false}>
+    <SidebarNestContext value={state}>
+      <SidebarNestItemsContext value={false}>
         <div
-          data-slot="sidebar-submenu"
+          data-slot="sidebar-nest"
           data-state={open ? 'open' : 'closed'}
-          className={cn(sidebarSubmenuClassName, className)}
+          className={cn(sidebarNestClassName, className)}
           {...props}
         />
-      </SidebarSubmenuItemsContext>
-    </SidebarSubmenuContext>
+      </SidebarNestItemsContext>
+    </SidebarNestContext>
   )
 }

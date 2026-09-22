@@ -1,11 +1,9 @@
 import { createContext } from 'react'
 
-import type { SidebarSharedState, SidebarSubmenuState } from './types'
+import type { SidebarSharedState, SidebarNestState } from './types'
 
 export const SidebarContext = createContext<SidebarSharedState | null>(null)
 
-export const SidebarSubmenuContext = createContext<SidebarSubmenuState | null>(
-  null,
-)
+export const SidebarNestContext = createContext<SidebarNestState | null>(null)
 
-export const SidebarSubmenuItemsContext = createContext(false)
+export const SidebarNestItemsContext = createContext(false)
