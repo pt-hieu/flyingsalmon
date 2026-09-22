@@ -91,23 +91,15 @@ export const sidebarSubmenuClassName = cn(
 export const sidebarSubmenuRowClassName =
   'group/sidebar-row relative flex shrink-0 flex-col min-[700px]:w-full'
 
-export const sidebarSubmenuConnectorClassName = cn(
-  'min-[700px]:after:bg-border min-[700px]:after:absolute min-[700px]:after:right-4.5 min-[700px]:after:w-px',
-  'min-[700px]:after:transition-opacity min-[700px]:after:duration-(--motion-fast)',
-  'min-[700px]:group-data-[collapsed=true]/sidebar:after:opacity-0',
-)
-
-export const sidebarSubmenuParentItemClassName = cn(
-  'min-[700px]:group-data-[collapsed=false]/sidebar:pr-9',
-  sidebarSubmenuConnectorClassName,
-  'min-[700px]:after:top-7 min-[700px]:after:h-3',
-  'min-[700px]:group-data-[state=closed]/sidebar-submenu:after:opacity-0',
-)
+export const sidebarSubmenuParentItemClassName =
+  'min-[700px]:group-data-[collapsed=false]/sidebar:pr-9'
 
 export const sidebarSubmenuChildItemClassName = cn(
   'min-[700px]:mt-1',
-  sidebarSubmenuConnectorClassName,
-  'min-[700px]:after:-top-1 min-[700px]:after:bottom-0 min-[700px]:last:after:bottom-4.5',
+  'min-[700px]:after:bg-border min-[700px]:after:absolute min-[700px]:after:-top-1 min-[700px]:after:right-4.5 min-[700px]:after:bottom-0 min-[700px]:after:w-px',
+  'min-[700px]:first:after:top-4.5 min-[700px]:last:after:bottom-4.5',
+  'min-[700px]:after:transition-opacity min-[700px]:after:duration-(--motion-fast)',
+  'min-[700px]:group-data-[collapsed=true]/sidebar:after:opacity-0',
 )
 
 export const sidebarSubmenuToggleClassName = cn(
