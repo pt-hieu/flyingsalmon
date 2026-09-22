@@ -96,7 +96,8 @@ export const sidebarSubmenuParentItemClassName =
 
 export const sidebarSubmenuChildItemClassName = cn(
   'min-[700px]:mt-1',
-  'min-[700px]:after:bg-border min-[700px]:after:absolute min-[700px]:after:-top-1 min-[700px]:after:right-4.5 min-[700px]:after:bottom-0 min-[700px]:after:w-px',
+  'min-[700px]:group-data-[collapsed=false]/sidebar:mr-6.5 min-[700px]:group-data-[collapsed=false]/sidebar:w-auto',
+  'min-[700px]:after:bg-border min-[700px]:after:absolute min-[700px]:after:-top-1 min-[700px]:after:-right-2 min-[700px]:after:bottom-0 min-[700px]:after:w-px',
   'min-[700px]:first:after:top-4.5 min-[700px]:last:after:bottom-4.5',
   'min-[700px]:after:transition-opacity min-[700px]:after:duration-(--motion-fast)',
   'min-[700px]:group-data-[collapsed=true]/sidebar:after:opacity-0',
