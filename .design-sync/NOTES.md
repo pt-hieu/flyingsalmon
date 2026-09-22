@@ -35,7 +35,7 @@ design agent writes that Tailwind never emitted silently does nothing.
 `prepare.mjs` compiles a broad `@source inline(...)` safelist (~45 patterns:
 flex/grid/gap/padding/margin/sizing/type/radius/border/position/z/overflow/
 opacity/cursor/list/aspect, the functional color aliases, and `sm|md|lg|xl` +
-`dark:` + `hover:` variants) plus `@source` over `src/registry`, `src/routes`
+`hover:` variants) plus `@source` over `src/registry`, `src/routes`
 and `.design-sync/previews`. Arbitrary values used in previews (`h-[34rem]`)
 compile because of that last `@source` — they will **not** be available to a
 design unless they are also in the safelist or in scanned source.

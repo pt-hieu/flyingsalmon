@@ -85,7 +85,7 @@ This checklist is distilled from Vercel's web interface guidelines. Where the tw
 
 - Never hardcode a radius. Derive from `--radius` via `--radius-sm`…`--radius-4xl`.
 - Never a raw hex or `rgb()`. Use the OKLCH theme tokens.
-- Every component needs a light and a dark variant
+- Light mode only: no `dark:` variants, no dark theme
 
 ### Typography
 
@@ -112,12 +112,6 @@ This checklist is distilled from Vercel's web interface guidelines. Where the tw
 - During drag: disable text selection, `inert` on dragged elements
 - Drag/swipe/pinch gestures need a tap/click and keyboard alternative
 - `autoFocus` sparingly — desktop only, single primary input
-
-### Dark mode
-
-- `color-scheme: dark` on `<html>` for dark themes (fixes scrollbar, inputs)
-- `<meta name="theme-color">` matches page background
-- Native `<select>`: explicit `background-color` and `color` (Windows dark mode)
 
 ### Hydration safety
 
