@@ -169,8 +169,8 @@ function SidebarPage() {
           is a page like any other; a chevron at its trailing edge opens and
           closes the list, pointing right when closed and down when open.
           Children carry the parent&apos;s styling on the same icon axis, with
-          no indent: a 1px <code>--border</code> line drops from the chevron
-          down the trailing edge to the last child&apos;s midline, and a current
+          no indent: a 1px <code>--border</code> line runs under the chevron
+          from the first child&apos;s midline to the last&apos;s, and a current
           child takes the bar on the aside&apos;s edge like any item.{' '}
           <strong className="text-foreground">
             In the rail the line goes: the parent and its children share one{' '}
