@@ -467,6 +467,7 @@ body {
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-text: var(--primary-text);
   --color-primary: var(--primary);
   --color-indicator-foreground: var(--indicator-foreground);
   --color-indicator: var(--indicator);
@@ -494,7 +495,8 @@ body {
   --popover-foreground: var(--color-neutral-950);
   --primary: var(--color-orange-500);
   --primary-foreground: var(--color-neutral-950);
-  --indicator: var(--color-orange-500);
+  --primary-text: var(--color-orange-700);
+  --indicator: var(--color-orange-600);
   --indicator-foreground: var(--color-neutral-950);
   --secondary: var(--color-orange-100);
   --secondary-foreground: var(--color-neutral-900);

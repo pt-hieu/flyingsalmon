@@ -27,7 +27,7 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         [ButtonVariant.Default]:
-          'bg-primary text-primary-foreground ring-primary hover:bg-orange-400',
+          'bg-primary text-primary-foreground ring-indicator hover:bg-orange-400',
         [ButtonVariant.Outline]:
           'border-input border bg-background text-foreground ring-ring hover:bg-accent hover:text-accent-foreground',
         [ButtonVariant.Secondary]:

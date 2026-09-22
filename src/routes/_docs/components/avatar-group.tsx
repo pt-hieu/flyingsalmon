@@ -204,7 +204,7 @@ function AvatarGroupPage() {
           . Tab enters on the first avatar; ArrowRight and ArrowLeft walk the
           avatars and then the chip; Home and End jump to the ends. Nothing
           wraps, and Tab leaves the group. Focus does everything hover does and
-          additionally recolors the separator ring to <code>--primary</code>,
+          additionally recolors the separator ring to <code>--indicator</code>,
           which keeps the indicator visible on a one-person group where the
           parting has no neighbour to move. Escape closes the open tooltip and
           leaves focus where it is.

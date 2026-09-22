@@ -389,7 +389,7 @@ function AccordionPage() {
           OKLCH-to-sRGB contrast check on the background: the trigger label is
           17.20:1 and the chevron at rest 7.01:1, both clearing WCAG AA. The
           stepped divider and the stepped chevron, in <code>--indicator</code>,
-          are 2.73:1, under the 3:1 non-text bar (ADR 0004). Resting dividers
+          are 3.38:1, clearing the 3:1 non-text bar (ADR 0004). Resting dividers
           are decorative and exempt.
         </p>
       </section>

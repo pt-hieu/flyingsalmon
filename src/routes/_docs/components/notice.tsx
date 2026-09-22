@@ -220,9 +220,8 @@ function NoticePage() {
           carry the ratios measured on that page. The subject is underlined in{' '}
           <code>--card-foreground</code>, 18.25:1, which keeps it apart from the
           description without relying on colour, and takes{' '}
-          <code>--indicator</code> on hover and press, the accordion
-          trigger&apos;s hover colour: 2.89:1 on the card, under the 4.5:1 WCAG
-          AA bar for text (ADR 0004).
+          <code>--primary-text</code> on hover and press: 5.23:1 on the card,
+          clearing WCAG AA for text (ADR 0004).
         </p>
       </section>
     </article>

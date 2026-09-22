@@ -20,7 +20,7 @@ export const alertVariants = cva(
 export const alertIconVariants = cva('flex h-5 shrink-0 items-center', {
   variants: {
     variant: {
-      [AlertVariant.Info]: 'text-primary',
+      [AlertVariant.Info]: 'text-indicator',
       [AlertVariant.Success]: 'text-success-foreground',
       [AlertVariant.Warning]: 'text-warning-foreground',
       [AlertVariant.Error]: 'text-error-foreground',
