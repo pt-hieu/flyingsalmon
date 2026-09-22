@@ -3,10 +3,10 @@ import { Avatar, AvatarColor, AvatarSize } from 'flyingsalmon'
 export function Sizes() {
   return (
     <div className="flex items-center gap-3">
-      <Avatar name="Ada Lovelace" color={AvatarColor.Indigo} />
+      <Avatar name="Ada Lovelace" color={AvatarColor.Blue} />
       <Avatar
         name="Ada Lovelace"
-        color={AvatarColor.Indigo}
+        color={AvatarColor.Blue}
         size={AvatarSize.Small}
       />
     </div>
@@ -16,14 +16,13 @@ export function Sizes() {
 export function Colors() {
   return (
     <div className="flex flex-wrap items-center gap-3">
-      <Avatar name="Ada Lovelace" color={AvatarColor.Orange} />
-      <Avatar name="Grace Hopper" color={AvatarColor.Amber} />
-      <Avatar name="Katherine Johnson" color={AvatarColor.Green} />
-      <Avatar name="Alan Turing" color={AvatarColor.Teal} />
-      <Avatar name="Barbara Liskov" color={AvatarColor.Sky} />
-      <Avatar name="Margaret Hamilton" color={AvatarColor.Indigo} />
-      <Avatar name="Hedy Lamarr" color={AvatarColor.Purple} />
-      <Avatar name="Radia Perlman" color={AvatarColor.Pink} />
+      <Avatar name="Ada Lovelace" color={AvatarColor.Sky} />
+      <Avatar name="Grace Hopper" color={AvatarColor.Pink} />
+      <Avatar name="Katherine Johnson" color={AvatarColor.Teal} />
+      <Avatar name="Alan Turing" color={AvatarColor.Fuchsia} />
+      <Avatar name="Barbara Liskov" color={AvatarColor.Cyan} />
+      <Avatar name="Margaret Hamilton" color={AvatarColor.Blue} />
+      <Avatar name="Radia Perlman" />
     </div>
   )
 }
