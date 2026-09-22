@@ -18,3 +18,11 @@ export interface SidebarSharedState extends SidebarState {
    */
   measured: boolean
 }
+
+export interface SidebarSubmenuState {
+  open: boolean
+  setOpen: (open: boolean) => void
+  itemsId: string
+  hasActiveChild: boolean
+  registerActiveChild: () => () => void
+}

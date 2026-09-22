@@ -1565,7 +1565,7 @@
       "type": "registry:ui",
       "title": "Sidebar",
       "description": "An aside with header, content, and footer slots that morphs between an expanded column and an icon rail, and becomes one sticky horizontal strip under a 700px container. It hosts navigation items or any other rail content.",
-      "dependencies": ["motion"],
+      "dependencies": ["motion", "lucide-react"],
       "registryDependencies": [
         "@flyingsalmon/motion",
         "@flyingsalmon/tooltip",
@@ -1618,6 +1618,18 @@
         },
         {
           "path": "src/registry/ui/sidebar/sidebar-strip-threshold.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-submenu-items.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-submenu-toggle.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-submenu.tsx",
           "type": "registry:ui"
         },
         {

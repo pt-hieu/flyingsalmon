@@ -1,5 +1,5 @@
 import { motion } from 'motion/react'
-import { Children, cloneElement } from 'react'
+import { Children, cloneElement, useContext, useEffect } from 'react'
 
 import { cn } from '@/lib/utils'
 import { springBounce } from '@/registry/lib/motion'
@@ -11,8 +11,13 @@ import {
   sidebarItemClassName,
   sidebarItemIconClassName,
   sidebarItemLabelClassName,
+  sidebarSubmenuChildItemClassName,
+  sidebarSubmenuParentItemClassName,
+  sidebarSubmenuRowClassName,
 } from './classnames'
-import { SidebarLayout } from './types'
+import { SidebarSubmenuContext, SidebarSubmenuItemsContext } from './context'
+import { SidebarSubmenuToggle } from './sidebar-submenu-toggle'
+import { SidebarLayout, type SidebarSubmenuState } from './types'
 import { useSidebarSharedState } from './use-sidebar'
 
 interface SlottedItemProps {
@@ -26,6 +31,17 @@ export interface SidebarItemProps extends React.ComponentProps<'button'> {
   asChild?: boolean
 }
 
+function ownsCurrentMark(
+  isActive: boolean,
+  submenu: SidebarSubmenuState | null,
+  isSubmenuChild: boolean,
+) {
+  if (!submenu) return isActive
+  if (isSubmenuChild) return isActive && submenu.open
+
+  return isActive || (!submenu.open && submenu.hasActiveChild)
+}
+
 export function SidebarItem({
   icon,
   asChild = false,
@@ -34,6 +50,9 @@ export function SidebarItem({
   ...props
 }: SidebarItemProps) {
   const { layout } = useSidebarSharedState()
+  const submenu = useContext(SidebarSubmenuContext)
+  const isSubmenuChild = useContext(SidebarSubmenuItemsContext)
+  const isSubmenuParent = submenu !== null && !isSubmenuChild
 
   const slottedElement = asChild
     ? (Children.only(children) as React.ReactElement<SlottedItemProps>)
@@ -44,11 +63,21 @@ export function SidebarItem({
   const isActive =
     (props['aria-current'] ?? slottedElement?.props['aria-current']) === 'page'
 
+  const registerActiveChild = submenu?.registerActiveChild
+
+  useEffect(() => {
+    if (registerActiveChild && isSubmenuChild && isActive) {
+      return registerActiveChild()
+    }
+  }, [registerActiveChild, isSubmenuChild, isActive])
+
+  const showsBar = ownsCurrentMark(isActive, submenu, isSubmenuChild)
+
   const content = (
     <>
       {icon ? <span className={sidebarItemIconClassName}>{icon}</span> : null}
       <span className={sidebarItemLabelClassName}>{label}</span>
-      {isActive ? (
+      {showsBar ? (
         <motion.span
           data-slot="sidebar-active-indicator"
           layoutId="sidebar-active-indicator"
@@ -59,27 +88,33 @@ export function SidebarItem({
     </>
   )
 
+  const itemClassName = cn(
+    sidebarItemClassName,
+    isSubmenuParent && sidebarSubmenuParentItemClassName,
+    isSubmenuChild && sidebarSubmenuChildItemClassName,
+    slottedElement?.props.className,
+    className,
+  )
+
   const item = slottedElement ? (
     cloneElement(
       slottedElement,
-      {
-        ...props,
-        className: cn(
-          sidebarItemClassName,
-          slottedElement.props.className,
-          className,
-        ),
-      },
+      { ...props, className: itemClassName },
       content,
     )
   ) : (
-    <button
-      type="button"
-      className={cn(sidebarItemClassName, className)}
-      {...props}
-    >
+    <button type="button" className={itemClassName} {...props}>
       {content}
     </button>
+  )
+
+  const row = isSubmenuParent ? (
+    <div className={sidebarSubmenuRowClassName}>
+      {item}
+      <SidebarSubmenuToggle submenu={submenu} label={label} />
+    </div>
+  ) : (
+    item
   )
 
   // The registry tooltip renders text only, so a non-string label keeps its
@@ -87,10 +122,10 @@ export function SidebarItem({
   if (layout === SidebarLayout.Collapsed && typeof label === 'string') {
     return (
       <Tooltip content={label} side={TooltipSide.Right}>
-        {item}
+        {row}
       </Tooltip>
     )
   }
 
-  return item
+  return row
 }
