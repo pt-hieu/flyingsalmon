@@ -140,6 +140,10 @@ _Avoid_: part, slot, cell, field
 A typed date that is complete but refused: outside `min` or `max`, turned down by `isDateDisabled`, or a range end before its start. Date-picker paints the invalid ring, sets `aria-invalid`, and renders `unavailableMessage` or `rangeOrderMessage`, but never calls `onChange` and posts nothing. Distinct from an incomplete entry, which is silent in every way, and from `error`, which is the app's own message and wins over both. A year is not complete until all four digits are typed, so no entry is rejected while it is still being written.
 _Avoid_: invalid date, bad input, validation error
 
+**Group color**:
+One of six hues — sky, pink, teal, fuchsia, cyan, blue — that ties the elements belonging to one item in a set together and tells that item apart from its neighbors: a Trip's Stays, a chart's series, a person's avatar. A consumer picks it by hue name through the `--group-<hue>` aliases. It carries no meaning of its own, so it never stands in for a status or the accent, and it never works alone: the item always carries a text label too. ADR 0004 owns the hues, their aliases, and the recommended order.
+_Avoid_: category color, series color, identity color, decorative hue
+
 **Spec checklist**:
 The fixed sections every component spec fills: purpose, variants, sizes, states, keyboard path, contrast, micro animation.
 _Avoid_: template, rubric
