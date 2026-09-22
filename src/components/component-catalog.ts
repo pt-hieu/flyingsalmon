@@ -146,6 +146,13 @@ const catalogEntries = [
     docsPending: true,
   },
   {
+    to: '/components/icon-tooltip',
+    registryName: 'icon-tooltip',
+    label: 'Icon Tooltip',
+    category: ComponentCategory.DataDisplay,
+    aliases: ['info icon', 'icon hint', 'emoji tooltip'],
+  },
+  {
     to: '/components/separator',
     registryName: 'separator',
     label: 'Separator',
