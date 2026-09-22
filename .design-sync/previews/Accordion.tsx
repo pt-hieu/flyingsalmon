@@ -109,7 +109,7 @@ export function RichTrigger() {
             <Avatar
               size={AvatarSize.Small}
               name="Ken Sato"
-              color={AvatarColor.Amber}
+              color={AvatarColor.Fuchsia}
             />
             <Avatar
               size={AvatarSize.Small}

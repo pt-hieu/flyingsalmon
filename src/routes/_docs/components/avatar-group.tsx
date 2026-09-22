@@ -18,8 +18,8 @@ const tripMembers: AvatarGroupItem[] = [
     color: AvatarColor.Sky,
   },
   { id: 'grace', name: 'Grace Hopper', color: AvatarColor.Teal },
-  { id: 'katherine', name: 'Katherine Johnson', color: AvatarColor.Amber },
-  { id: 'alan', name: 'Alan Turing', color: AvatarColor.Purple },
+  { id: 'katherine', name: 'Katherine Johnson', color: AvatarColor.Fuchsia },
+  { id: 'alan', name: 'Alan Turing', color: AvatarColor.Blue },
   { id: 'barbara', name: 'Barbara Liskov', color: AvatarColor.Pink },
 ]
 
@@ -28,7 +28,7 @@ const conference: AvatarGroupItem[] = [
   ...Array.from({ length: 249 }, (_unused, index) => ({
     id: `attendee-${index}`,
     name: `Attendee ${index + 1}`,
-    color: AvatarColor.Green,
+    color: AvatarColor.Cyan,
   })),
 ]
 
