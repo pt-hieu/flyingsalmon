@@ -12,8 +12,8 @@ import {
   SidebarItem,
   SidebarNav,
   SidebarProvider,
-  SidebarSubmenu,
-  SidebarSubmenuItems,
+  SidebarNest,
+  SidebarNestItems,
   SidebarTrigger,
   useSidebar,
 } from '@/registry/ui/sidebar'
@@ -120,7 +120,7 @@ function TripNavOnly({ currentLabel }: { currentLabel: string }) {
   )
 }
 
-function DaysSubmenu({
+function DaysNest({
   currentLabel,
   defaultOpen,
 }: {
@@ -142,12 +142,12 @@ function DaysSubmenu({
         <SidebarContent>
           <SidebarNav aria-label="Trip">
             {renderItem('Itinerary')}
-            <SidebarSubmenu defaultOpen={defaultOpen}>
+            <SidebarNest defaultOpen={defaultOpen}>
               {renderItem('Days')}
-              <SidebarSubmenuItems>
+              <SidebarNestItems>
                 {['Arrival', 'Sintra'].map(renderItem)}
-              </SidebarSubmenuItems>
-            </SidebarSubmenu>
+              </SidebarNestItems>
+            </SidebarNest>
           </SidebarNav>
         </SidebarContent>
       </Sidebar>
@@ -279,12 +279,12 @@ describe('Sidebar', () => {
     expect(screen.getByText('Signed in as Brian')).toBeVisible()
   })
 
-  describe('submenu', () => {
+  describe('nest', () => {
     it('reveals its children through the parent toggle', async () => {
       const user = userEvent.setup()
-      render(<DaysSubmenu currentLabel="Itinerary" />)
+      render(<DaysNest currentLabel="Itinerary" />)
 
-      const toggle = screen.getByRole('button', { name: 'Days submenu' })
+      const toggle = screen.getByRole('button', { name: 'Days items' })
       expect(toggle).toHaveAttribute('aria-expanded', 'false')
       expect(screen.queryByRole('button', { name: 'Sintra' })).toBeNull()
 
@@ -299,16 +299,16 @@ describe('Sidebar', () => {
     })
 
     it('keeps the parent page reachable beside the toggle', () => {
-      render(<DaysSubmenu defaultOpen />)
+      render(<DaysNest defaultOpen />)
 
       expect(screen.getByRole('button', { name: 'Days' })).toBeInTheDocument()
       expect(
-        screen.getByRole('button', { name: 'Days submenu' }),
+        screen.getByRole('button', { name: 'Days items' }),
       ).toHaveAttribute('aria-expanded', 'true')
     })
 
     it('opens itself when a child is the current page', () => {
-      render(<DaysSubmenu currentLabel="Sintra" />)
+      render(<DaysNest currentLabel="Sintra" />)
 
       expect(screen.getByRole('button', { name: 'Sintra' })).toBeInTheDocument()
       expect(currentMarkOwner()).toBe('Sintra')
@@ -316,16 +316,16 @@ describe('Sidebar', () => {
 
     it('hands the current mark to the parent while closed', async () => {
       const user = userEvent.setup()
-      render(<DaysSubmenu currentLabel="Sintra" />)
+      render(<DaysNest currentLabel="Sintra" />)
 
-      await user.click(screen.getByRole('button', { name: 'Days submenu' }))
+      await user.click(screen.getByRole('button', { name: 'Days items' }))
 
       expect(currentMarkOwner()).toBe('Days')
     })
 
     it('shows its children flat in the strip', () => {
       reportViewportWidth(600)
-      render(<DaysSubmenu currentLabel="Itinerary" />)
+      render(<DaysNest currentLabel="Itinerary" />)
 
       expect(screen.getByRole('button', { name: 'Sintra' })).toBeInTheDocument()
     })

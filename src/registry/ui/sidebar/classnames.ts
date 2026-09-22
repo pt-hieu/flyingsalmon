@@ -54,7 +54,7 @@ export const sidebarItemClassName = cn(
   'group/sidebar-item relative flex h-9 shrink-0 cursor-pointer items-center gap-3 rounded-md px-3 text-sm whitespace-nowrap',
   'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
   'group-hover/sidebar-row:bg-accent group-hover/sidebar-row:text-accent-foreground',
-  'group-has-[[data-slot=sidebar-submenu-toggle]:focus-visible]/sidebar-row:bg-accent group-has-[[data-slot=sidebar-submenu-toggle]:focus-visible]/sidebar-row:text-accent-foreground',
+  'group-has-[[data-slot=sidebar-nest-toggle]:focus-visible]/sidebar-row:bg-accent group-has-[[data-slot=sidebar-nest-toggle]:focus-visible]/sidebar-row:text-accent-foreground',
   'focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:outline-hidden',
   'aria-[current=page]:text-foreground aria-[current=page]:font-medium',
   'transition-colors duration-(--motion-fast)',
@@ -66,7 +66,7 @@ export const sidebarItemIconClassName = cn(
   'transition-[color,opacity] duration-(--motion-fast)',
   'group-aria-[current=page]/sidebar-item:text-indicator',
   'min-[700px]:group-data-[collapsed=true]/sidebar:group-hover/sidebar-row:opacity-0',
-  'min-[700px]:group-data-[collapsed=true]/sidebar:group-has-[[data-slot=sidebar-submenu-toggle]:focus-visible]/sidebar-row:opacity-0',
+  'min-[700px]:group-data-[collapsed=true]/sidebar:group-has-[[data-slot=sidebar-nest-toggle]:focus-visible]/sidebar-row:opacity-0',
 )
 
 export const sidebarItemLabelClassName = cn(
@@ -82,20 +82,20 @@ export const sidebarActiveIndicatorClassName = cn(
 
 export const sidebarTriggerClassName = 'min-[700px]:inline-flex hidden'
 
-export const sidebarSubmenuClassName = cn(
-  'group/sidebar-submenu rounded-md',
+export const sidebarNestClassName = cn(
+  'group/sidebar-nest rounded-md',
   'transition-colors duration-(--motion-fast)',
   'max-[700px]:bg-muted max-[700px]:flex max-[700px]:flex-row max-[700px]:items-center max-[700px]:gap-1',
   'min-[700px]:group-data-[collapsed=true]/sidebar:data-[state=open]:bg-muted',
 )
 
-export const sidebarSubmenuRowClassName =
+export const sidebarNestRowClassName =
   'group/sidebar-row relative flex shrink-0 flex-col min-[700px]:w-full'
 
-export const sidebarSubmenuParentItemClassName =
+export const sidebarNestParentItemClassName =
   'min-[700px]:group-data-[collapsed=false]/sidebar:pr-9'
 
-export const sidebarSubmenuChildItemClassName = cn(
+export const sidebarNestChildItemClassName = cn(
   'min-[700px]:mt-1',
   'min-[700px]:group-data-[collapsed=false]/sidebar:mr-6.5 min-[700px]:group-data-[collapsed=false]/sidebar:w-auto',
   'min-[700px]:after:bg-border min-[700px]:after:absolute min-[700px]:after:-top-1 min-[700px]:after:-right-2 min-[700px]:after:bottom-0 min-[700px]:after:w-px',
@@ -104,23 +104,23 @@ export const sidebarSubmenuChildItemClassName = cn(
   'min-[700px]:group-data-[collapsed=true]/sidebar:after:opacity-0',
 )
 
-export const sidebarSubmenuToggleClassName = cn(
+export const sidebarNestToggleClassName = cn(
   'group/sidebar-toggle text-muted-foreground absolute inset-y-0 right-0 hidden w-9 cursor-pointer items-center justify-center',
   'focus-visible:outline-hidden',
   'min-[700px]:flex',
   'min-[700px]:group-data-[collapsed=true]/sidebar:inset-0 min-[700px]:group-data-[collapsed=true]/sidebar:w-auto',
 )
 
-export const sidebarSubmenuChevronClassName = cn(
+export const sidebarNestChevronClassName = cn(
   'size-4',
   'transition-[transform,opacity] [transition-duration:var(--motion-base),var(--motion-fast)]',
-  'group-data-[state=open]/sidebar-submenu:rotate-90',
+  'group-data-[state=open]/sidebar-nest:rotate-90',
   'min-[700px]:group-data-[collapsed=true]/sidebar:opacity-0',
   'min-[700px]:group-data-[collapsed=true]/sidebar:group-hover/sidebar-row:opacity-100',
   'min-[700px]:group-data-[collapsed=true]/sidebar:group-focus-visible/sidebar-toggle:opacity-100',
 )
 
-export const sidebarSubmenuItemsClassName = cn(
+export const sidebarNestItemsClassName = cn(
   '-mx-2 flex flex-row items-center gap-1 px-2',
   'max-[700px]:-my-2 max-[700px]:py-2',
   'min-[700px]:flex-col min-[700px]:items-stretch min-[700px]:gap-0 min-[700px]:overflow-hidden',

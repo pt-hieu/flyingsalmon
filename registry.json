@@ -1613,23 +1613,23 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/sidebar/sidebar-nest-items.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-nest-toggle.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sidebar/sidebar-nest.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/sidebar/sidebar-provider.tsx",
           "type": "registry:ui"
         },
         {
           "path": "src/registry/ui/sidebar/sidebar-strip-threshold.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/sidebar/sidebar-submenu-items.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/sidebar/sidebar-submenu-toggle.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/sidebar/sidebar-submenu.tsx",
           "type": "registry:ui"
         },
         {

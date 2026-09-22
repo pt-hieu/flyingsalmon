@@ -11,13 +11,13 @@ import {
   sidebarItemClassName,
   sidebarItemIconClassName,
   sidebarItemLabelClassName,
-  sidebarSubmenuChildItemClassName,
-  sidebarSubmenuParentItemClassName,
-  sidebarSubmenuRowClassName,
+  sidebarNestChildItemClassName,
+  sidebarNestParentItemClassName,
+  sidebarNestRowClassName,
 } from './classnames'
-import { SidebarSubmenuContext, SidebarSubmenuItemsContext } from './context'
-import { SidebarSubmenuToggle } from './sidebar-submenu-toggle'
-import { SidebarLayout, type SidebarSubmenuState } from './types'
+import { SidebarNestContext, SidebarNestItemsContext } from './context'
+import { SidebarNestToggle } from './sidebar-nest-toggle'
+import { SidebarLayout, type SidebarNestState } from './types'
 import { useSidebarSharedState } from './use-sidebar'
 
 interface SlottedItemProps {
@@ -33,13 +33,13 @@ export interface SidebarItemProps extends React.ComponentProps<'button'> {
 
 function ownsCurrentMark(
   isActive: boolean,
-  submenu: SidebarSubmenuState | null,
-  isSubmenuChild: boolean,
+  nest: SidebarNestState | null,
+  isNestChild: boolean,
 ) {
-  if (!submenu) return isActive
-  if (isSubmenuChild) return isActive && submenu.open
+  if (!nest) return isActive
+  if (isNestChild) return isActive && nest.open
 
-  return isActive || (!submenu.open && submenu.hasActiveChild)
+  return isActive || (!nest.open && nest.hasActiveChild)
 }
 
 export function SidebarItem({
@@ -50,9 +50,9 @@ export function SidebarItem({
   ...props
 }: SidebarItemProps) {
   const { layout } = useSidebarSharedState()
-  const submenu = useContext(SidebarSubmenuContext)
-  const isSubmenuChild = useContext(SidebarSubmenuItemsContext)
-  const isSubmenuParent = submenu !== null && !isSubmenuChild
+  const nest = useContext(SidebarNestContext)
+  const isNestChild = useContext(SidebarNestItemsContext)
+  const isNestParent = nest !== null && !isNestChild
 
   const slottedElement = asChild
     ? (Children.only(children) as React.ReactElement<SlottedItemProps>)
@@ -63,15 +63,15 @@ export function SidebarItem({
   const isActive =
     (props['aria-current'] ?? slottedElement?.props['aria-current']) === 'page'
 
-  const registerActiveChild = submenu?.registerActiveChild
+  const registerActiveChild = nest?.registerActiveChild
 
   useEffect(() => {
-    if (registerActiveChild && isSubmenuChild && isActive) {
+    if (registerActiveChild && isNestChild && isActive) {
       return registerActiveChild()
     }
-  }, [registerActiveChild, isSubmenuChild, isActive])
+  }, [registerActiveChild, isNestChild, isActive])
 
-  const showsBar = ownsCurrentMark(isActive, submenu, isSubmenuChild)
+  const showsBar = ownsCurrentMark(isActive, nest, isNestChild)
 
   const content = (
     <>
@@ -90,8 +90,8 @@ export function SidebarItem({
 
   const itemClassName = cn(
     sidebarItemClassName,
-    isSubmenuParent && sidebarSubmenuParentItemClassName,
-    isSubmenuChild && sidebarSubmenuChildItemClassName,
+    isNestParent && sidebarNestParentItemClassName,
+    isNestChild && sidebarNestChildItemClassName,
     slottedElement?.props.className,
     className,
   )
@@ -108,10 +108,10 @@ export function SidebarItem({
     </button>
   )
 
-  const row = isSubmenuParent ? (
-    <div className={sidebarSubmenuRowClassName}>
+  const row = isNestParent ? (
+    <div className={sidebarNestRowClassName}>
       {item}
-      <SidebarSubmenuToggle submenu={submenu} label={label} />
+      <SidebarNestToggle nest={nest} label={label} />
     </div>
   ) : (
     item

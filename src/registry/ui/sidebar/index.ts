@@ -11,11 +11,11 @@ export { SidebarItem, type SidebarItemProps } from './sidebar-item'
 export { SidebarNav, type SidebarNavProps } from './sidebar-nav'
 export { SidebarProvider, type SidebarProviderProps } from './sidebar-provider'
 export { sidebarStripThreshold } from './sidebar-strip-threshold'
-export { SidebarSubmenu, type SidebarSubmenuProps } from './sidebar-submenu'
+export { SidebarNest, type SidebarNestProps } from './sidebar-nest'
 export {
-  SidebarSubmenuItems,
-  type SidebarSubmenuItemsProps,
-} from './sidebar-submenu-items'
+  SidebarNestItems,
+  type SidebarNestItemsProps,
+} from './sidebar-nest-items'
 export { SidebarTrigger, type SidebarTriggerProps } from './sidebar-trigger'
 export { SidebarLayout, type SidebarState } from './types'
 
