@@ -152,8 +152,8 @@ export const calendarCellFillVariants = cva(
   },
 )
 
-export const calendarTodayDotVariants = cva(
-  'absolute bottom-1 left-1/2 size-1 -translate-x-1/2 rounded-full',
+export const calendarTodayDashVariants = cva(
+  'absolute bottom-1 left-1/2 h-0.5 w-3 -translate-x-1/2 rounded-full',
   {
     variants: {
       filled: {
