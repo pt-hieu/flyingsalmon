@@ -10,11 +10,6 @@ export enum ToggleGroupSize {
   Small = 'sm',
 }
 
-export enum ToggleGroupItemVariant {
-  Default = 'default',
-  Amber = 'amber',
-}
-
 export type ToggleGroupItemRootProps = React.ComponentProps<
   typeof ToggleGroupPrimitive.Item
 >

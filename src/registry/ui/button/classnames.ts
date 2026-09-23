@@ -27,17 +27,15 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         [ButtonVariant.Default]:
-          'bg-primary text-primary-foreground ring-indicator hover:bg-orange-400',
+          'bg-primary text-primary-foreground ring-indicator hover:bg-orange-700',
         [ButtonVariant.Outline]:
-          'border-input border bg-background text-foreground ring-ring hover:bg-accent hover:text-accent-foreground',
+          'border-input border bg-background text-foreground ring-accent hover:bg-accent hover:text-accent-foreground',
         [ButtonVariant.Secondary]:
-          'bg-secondary text-secondary-foreground ring-ring hover:bg-accent hover:text-accent-foreground',
+          'bg-secondary text-secondary-foreground ring-accent hover:bg-accent hover:text-accent-foreground',
         [ButtonVariant.Ghost]:
-          'text-foreground ring-ring hover:bg-accent hover:text-accent-foreground',
+          'text-foreground ring-accent hover:bg-accent hover:text-accent-foreground',
         [ButtonVariant.Destructive]:
           'bg-error text-error-foreground ring-destructive hover:bg-red-200 hover:text-red-800',
-        [ButtonVariant.Amber]:
-          'bg-amber-400 text-neutral-950 ring-amber-400 hover:bg-amber-300',
       },
       size: {
         [ButtonSize.Default]: 'h-9 gap-2 rounded-md px-4 text-sm',
@@ -68,7 +66,7 @@ export const buttonVariants = cva(
       {
         size: fieldSizes,
         variant: ButtonVariant.Default,
-        class: 'focus-visible:bg-orange-400',
+        class: 'focus-visible:bg-orange-700',
       },
       {
         size: fieldSizes,
@@ -83,11 +81,6 @@ export const buttonVariants = cva(
         size: fieldSizes,
         variant: ButtonVariant.Destructive,
         class: 'focus-visible:bg-red-200 focus-visible:text-red-800',
-      },
-      {
-        size: fieldSizes,
-        variant: ButtonVariant.Amber,
-        class: 'focus-visible:bg-amber-300',
       },
     ],
     defaultVariants: {

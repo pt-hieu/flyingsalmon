@@ -16,7 +16,7 @@ Every coding rule, for the registry and the docs site alike, is in `CODING_STAND
 
 - Mood: bold, warm, social.
 - Type: Bricolage Grotesque (`--font-heading`) for headings/display, Onest (`--font-sans`) for body and UI. Both OFL 1.1; keep license files with any bundled font.
-- Color: an orange primary (`orange-500`, hue ~48 in OKLCH, fills under text only; marks take `--indicator` orange-600, orange text takes `--primary-text` orange-700) over an `orange-50` beige page, with white cards and popovers, orange borders, and neutral-gray text (chroma 0). All colors in OKLCH. Light mode only: no dark theme, no `dark:` variants.
+- Color: an orange primary (`orange-600`, hue ~41 in OKLCH, a fill under white text; marks take `--indicator` orange-600, orange text takes `--primary-text` orange-700) over an `orange-50` beige page, with white cards and popovers, orange borders, and neutral-gray text (chroma 0). All colors in OKLCH. Light mode only: no dark theme, no `dark:` variants.
 - Palette-only colors: every color is a step from the Tailwind OKLCH palette (neutral grays, orange brand, red destructive) behind functional aliases. No color alpha anywhere in the repo, docs chrome included; element opacity for disabled states and motion is fine. See `docs/adr/0004-palette-only-colors.md`.
 - Flat surfaces: no shadows, no elevation tokens. Surfaces separate by solid borders and background steps; interaction feedback lives in the border. See `docs/adr/0003-flat-surfaces.md`.
 - Radius: 12px base via `--radius: 0.75rem`. Never hardcode radii; derive from the scale.

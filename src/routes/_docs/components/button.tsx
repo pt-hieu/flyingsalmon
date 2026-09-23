@@ -42,14 +42,12 @@ function ButtonPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Variants</h2>
         <p className="text-muted-foreground">
-          Six variants cover every action shape. <code>default</code> is the one
+          Five variants cover every action shape. <code>default</code> is the one
           primary action on a view. <code>outline</code> and{' '}
           <code>secondary</code> carry the actions beside it, <code>ghost</code>{' '}
           the ones inside a dense row. <code>destructive</code> stays soft — a
           red tint with red text, never a solid red fill, because a delete
-          button should read as serious, not as an alarm. <code>amber</code> is
-          a color and nothing more: it sets an action apart from the primary one
-          without claiming a meaning the app has not given it. There is no{' '}
+          button should read as serious, not as an alarm. There is no{' '}
           <code>link</code> variant: a link is an <code>&lt;a&gt;</code>.
         </p>
         <p className="text-muted-foreground">
@@ -68,7 +66,6 @@ function ButtonPage() {
           <Button variant={ButtonVariant.Secondary}>Secondary</Button>
           <Button variant={ButtonVariant.Ghost}>Ghost</Button>
           <Button variant={ButtonVariant.Destructive}>Destructive</Button>
-          <Button variant={ButtonVariant.Amber}>Amber</Button>
         </Preview>
       </section>
 
@@ -229,10 +226,9 @@ function ButtonPage() {
             The ring takes the hue of the button under it.
           </strong>{' '}
           <code>default</code> rings in <code>--indicator</code>, orange-600,
-          one step darker than its orange-500 fill so it clears 3:1 against the
-          page (3.38:1), <code>destructive</code> in red, and the three neutral
-          variants in <code>--ring</code>, which is the same focus color the
-          input uses. The ring appears on <code>:focus-visible</code> only, so a
+          its own fill color, which clears 3:1 against the page (3.38:1),{' '}
+          <code>destructive</code> in red, and the three neutral variants in{' '}
+          <code>--accent</code>, the orange tint they wash to on hover. The ring appears on <code>:focus-visible</code> only, so a
           mouse click never leaves one behind. Hold the button for the press
           ring: the same color, a tighter 2px, gone the moment you let go. A
           loading button shows no press ring — there is nothing to press. The
