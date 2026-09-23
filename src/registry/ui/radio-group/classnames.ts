@@ -12,6 +12,18 @@ export const radioGroupWrapperClassName = 'flex flex-col'
 
 export const radioGroupItemRowClassName = 'flex items-center gap-2'
 
+export const radioGroupItemLabelCursorVariants = cva('', {
+  variants: {
+    disabled: {
+      true: '',
+      false: 'cursor-pointer',
+    },
+  },
+  defaultVariants: {
+    disabled: false,
+  },
+})
+
 export const radioGroupDotClassName = cn(
   'bg-indicator-foreground size-2 rounded-full opacity-0',
   'transition-opacity duration-(--motion-base)',
@@ -32,7 +44,7 @@ export const radioGroupListVariants = cva('flex', {
 
 export const radioGroupItemVariants = cva(
   cn(
-    'group grid size-5 shrink-0 place-items-center rounded-full border',
+    'group grid size-5 shrink-0 cursor-pointer place-items-center rounded-full border',
     'transition-[background-color,border-color,box-shadow] duration-(--motion-fast)',
     offsetFocusRingGeometry,
     disabledInteraction,

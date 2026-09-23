@@ -25,6 +25,7 @@ export const switchVariants = cva(
       loading: {
         true: 'cursor-not-allowed',
         false: cn(
+          'cursor-pointer',
           'data-[state=unchecked]:hover:bg-neutral-700',
           'data-[state=checked]:hover:bg-orange-700',
         ),
@@ -62,9 +63,21 @@ export const switchLabelVariants = cva(
         true: 'opacity-50',
         false: '',
       },
+      loading: {
+        true: 'cursor-not-allowed',
+        false: '',
+      },
     },
+    compoundVariants: [
+      {
+        disabled: false,
+        loading: false,
+        className: 'cursor-pointer',
+      },
+    ],
     defaultVariants: {
       disabled: false,
+      loading: false,
     },
   },
 )

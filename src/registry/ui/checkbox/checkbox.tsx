@@ -12,6 +12,7 @@ import {
 import { springBounce, springSettle } from '@/registry/lib/motion'
 
 import {
+  checkboxLabelCursorVariants,
   checkboxMarkClassName,
   checkboxRowClassName,
   checkboxVariants,
@@ -107,12 +108,15 @@ export function Checkbox({
         {label ? (
           <label
             htmlFor={fieldId}
-            className={fieldLabelVariants({
-              placement: FieldLabelPlacement.Beside,
-              error: hasError,
-              disabled: Boolean(disabled),
-              required: Boolean(required),
-            })}
+            className={cn(
+              fieldLabelVariants({
+                placement: FieldLabelPlacement.Beside,
+                error: hasError,
+                disabled: Boolean(disabled),
+                required: Boolean(required),
+              }),
+              checkboxLabelCursorVariants({ disabled: Boolean(disabled) }),
+            )}
           >
             {label}
           </label>
