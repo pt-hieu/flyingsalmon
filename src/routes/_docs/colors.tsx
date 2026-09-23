@@ -29,7 +29,8 @@ const surfaceTokens: ColorToken[] = [
     name: '--popover',
     step: 'white',
     swatchClassName: 'bg-popover',
-    usage: 'Floating surfaces: menus, the date-picker popover, dialogs, drawers.',
+    usage:
+      'Floating surfaces: menus, the date-picker popover, dialogs, drawers.',
   },
   {
     name: '--muted',
