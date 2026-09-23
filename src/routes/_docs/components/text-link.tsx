@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { ArrowUpRight } from 'lucide-react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import {
   Alert,
   AlertDescription,
@@ -69,7 +69,7 @@ function TextLinkPage() {
           and the focus ring closes around each line fragment separately, which
           is what <code>box-decoration-clone</code> is for.
         </p>
-        <ModePreview>
+        <Preview>
           <p className="max-w-sm text-sm">
             Every itinerary starts from a template, and the one we reach for
             most is the{' '}
@@ -78,7 +78,7 @@ function TextLinkPage() {
             </TextLink>
             , which fits temples, tea, and a river walk into a weekend.
           </p>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -91,7 +91,7 @@ function TextLinkPage() {
           <code>currentColor</code> inheritance: the contrast with the
           surrounding text is the point.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="w-full max-w-sm">
             <Alert variant={AlertVariant.Warning} animateOpen={false}>
               <AlertTitle>Two travellers have no passport on file</AlertTitle>
@@ -102,7 +102,7 @@ function TextLinkPage() {
               </AlertDescription>
             </Alert>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -114,7 +114,7 @@ function TextLinkPage() {
           <code>svg</code> child sits inline at text scale, so it grows and
           shrinks with the sentence instead of holding a fixed pixel size.
         </p>
-        <ModePreview>
+        <Preview>
           <p className="max-w-sm text-sm">
             Japan's rail passes are explained on{' '}
             <TextLink
@@ -127,7 +127,7 @@ function TextLinkPage() {
             </TextLink>
             , which lists every regional option.
           </p>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -140,7 +140,7 @@ function TextLinkPage() {
           component is named <code>TextLink</code> rather than <code>Link</code>{' '}
           precisely because this case nests the two.
         </p>
-        <ModePreview>
+        <Preview>
           <p className="max-w-sm text-sm">
             Everything on this page is built from the{' '}
             <TextLink asChild>
@@ -148,7 +148,7 @@ function TextLinkPage() {
             </TextLink>
             .
           </p>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -160,7 +160,7 @@ function TextLinkPage() {
           <code>className</code> so the gap matches what the link sits on — the
           same override alert's close button makes.
         </p>
-        <ModePreview>
+        <Preview>
           <Card className="w-full max-w-sm">
             <CardHeader>
               <CardTitle>Weekend in Kyoto</CardTitle>
@@ -176,7 +176,7 @@ function TextLinkPage() {
               .
             </CardContent>
           </Card>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -198,10 +198,10 @@ function TextLinkPage() {
           Tab reaches the link and Enter activates it, the native anchor
           behaviour. Text runs <code>--foreground</code> on{' '}
           <code>--background</code>, the body-text pair; the resting underline
-          is <code>--muted-foreground</code> at 4.73:1 light and 7.63:1 dark,
-          and the hover underline is <code>--foreground</code> at 1.5px. WCAG
-          1.4.1 does not apply here: the underline never leaves, so the link is
-          never told apart by colour alone.
+          is <code>--muted-foreground</code> at 4.73:1, and the hover underline
+          is <code>--foreground</code> at 1.5px. WCAG 1.4.1 does not apply here:
+          the underline never leaves, so the link is never told apart by colour
+          alone.
         </p>
       </section>
     </article>

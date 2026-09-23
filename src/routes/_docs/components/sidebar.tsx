@@ -14,8 +14,7 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
-import { ThemeToggle } from '@/components/theme-toggle'
+import { Preview } from '@/components/preview'
 import { Avatar, AvatarSize } from '@/registry/ui/avatar'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import {
@@ -106,14 +105,13 @@ function SidebarPage() {
           reader reads the same nav in either layout. Items are the
           component&apos;s to reshape; header and footer are slots, and content
           too wide for the rail is the app&apos;s to swap on{' '}
-          <code>useSidebar().layout</code> — this demo drops the trip name and
-          the theme toggle in the rail. The rail tooltip needs a string label;
-          an item whose children are markup keeps its own visible text in the
-          rail instead.
+          <code>useSidebar().layout</code> — this demo drops the trip name in
+          the rail. The rail tooltip needs a string label; an item whose
+          children are markup keeps its own visible text in the rail instead.
         </p>
-        <ModePreview stacked>
+        <Preview>
           <AppNavExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -362,12 +360,9 @@ function TripHeader() {
 }
 
 function TripFooter() {
-  const { layout } = useSidebar()
-
   return (
     <SidebarFooter>
       <TravellerMenu />
-      {layout === SidebarLayout.Collapsed ? null : <ThemeToggle />}
     </SidebarFooter>
   )
 }

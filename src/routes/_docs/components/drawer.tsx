@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import { Checkbox } from '@/registry/ui/checkbox'
 import {
@@ -152,9 +152,9 @@ function DrawerPage() {
           The panel a drawer was designed for. Open it and the list it filters
           is still on screen beside it.
         </p>
-        <ModePreview>
+        <Preview>
           <FilterDrawerDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -168,9 +168,9 @@ function DrawerPage() {
           they carry none of the <code>aria-expanded</code> wiring a real
           trigger sets.
         </p>
-        <ModePreview>
+        <Preview>
           <RowDetailDrawerDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -182,9 +182,9 @@ function DrawerPage() {
           it. Drop <code>fitContent</code> and the same table would scroll
           inside a 448px panel.
         </p>
-        <ModePreview>
+        <Preview>
           <FitContentDrawerDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -196,9 +196,9 @@ function DrawerPage() {
           input. Click the page beside it and the panel stays; Escape and the X
           still close it.
         </p>
-        <ModePreview>
+        <Preview>
           <NonDismissibleDrawerDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -210,9 +210,9 @@ function DrawerPage() {
           its own spinner. Escape, the scrim, and the X all do nothing until it
           finishes.
         </p>
-        <ModePreview>
+        <Preview>
           <PendingDrawerDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -241,7 +241,7 @@ function DrawerPage() {
           to the trigger on close. Tab cycles inside and ends on the X. Content
           outside an open drawer is hidden from the accessibility tree. The
           surface, the text, and the border are dialog's colors, so every pair
-          meets WCAG AA in both modes with nothing new to measure.
+          meets WCAG AA with nothing new to measure.
         </p>
       </section>
     </article>

@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Pagination } from '@/registry/ui/pagination'
 
 export const Route = createFileRoute('/_docs/components/pagination')({
@@ -41,9 +41,9 @@ function PaginationPage() {
           one owner to slide between items. A <code>pageCount</code> of 1 or
           less renders nothing, so a one-page list needs no guard around it.
         </p>
-        <ModePreview>
+        <Preview>
           <ControlledExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -84,9 +84,9 @@ function PaginationPage() {
           appears. Nothing to configure: the same component decides from{' '}
           <code>pageCount</code>.
         </p>
-        <ModePreview>
+        <Preview>
           <FewPagesExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -100,9 +100,9 @@ function PaginationPage() {
           component never measures width and has no breakpoint behaviour, so the
           form is the consumer&rsquo;s choice.
         </p>
-        <ModePreview>
+        <Preview>
           <CompactExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -123,9 +123,9 @@ function PaginationPage() {
           page it shows comes from this page&rsquo;s own URL. Move it and the
           address bar moves with it.
         </p>
-        <ModePreview>
+        <Preview>
           <LinkExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -190,9 +190,8 @@ function PaginationPage() {
         <p className="text-muted-foreground">
           Items at rest, the ellipsis, and the compact text are{' '}
           <code>--muted-foreground</code> on <code>--background</code>, measured
-          at 4.73:1 in light mode and 7.63:1 in dark; hover and the current page
-          are <code>--foreground</code>. Every pair clears WCAG AA in both
-          modes.
+          at 4.73:1; hover and the current page are <code>--foreground</code>.
+          Every pair clears WCAG AA.
         </p>
       </section>
     </article>

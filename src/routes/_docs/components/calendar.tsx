@@ -7,7 +7,7 @@ import {
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import type { CalendarRange } from '@/registry/ui/calendar'
 import { Calendar, CalendarMode } from '@/registry/ui/calendar'
 
@@ -47,9 +47,9 @@ function CalendarPage() {
           edge of this month. Pressing the selected day again keeps it selected;
           clearing is <code>value={'{null}'}</code> from the app.
         </p>
-        <ModePreview>
+        <Preview>
           <SingleDayExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -75,9 +75,9 @@ function CalendarPage() {
           together. Tab into the grid and arrow across the range to see the
           focused day step one shade deeper on its own tint, with no ring.
         </p>
-        <ModePreview stacked>
+        <Preview>
           <TripRangeExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -100,9 +100,9 @@ function CalendarPage() {
           and shows nothing, because the state of the value is the app&rsquo;s
           to explain.
         </p>
-        <ModePreview>
+        <Preview>
           <GermanWeekdaysExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -181,16 +181,14 @@ function CalendarPage() {
         <p className="text-muted-foreground">
           Measured against this theme&rsquo;s palette with an OKLCH-to-sRGB
           contrast check, on the two hosts the calendar sits in. Numerals sit at
-          17.5:1 and 15.5:1 on <code>--popover</code> and 18.3:1 and 17.5:1 on{' '}
-          <code>--background</code>, light then dark. Muted weekday and
-          unavailable text sits at 4.95:1 and 6.26:1 on <code>--popover</code>{' '}
-          and 5.17:1 and 7.04:1 on <code>--background</code>. The numeral on a
-          filled day sits at 5.75:1 in both modes. A keyboard-focused
-          unavailable day takes the accent pair,{' '}
-          <code>--accent-foreground</code> on <code>--accent</code>, at 14.5:1
-          and 9.6:1, because muted text on that step would fall to 3.9:1 in
-          dark. The today dot sits at 3.04:1 and 5.11:1 on{' '}
-          <code>--popover</code> and 3.17:1 and 5.75:1 on{' '}
+          17.5:1 on <code>--popover</code> and 18.3:1 on{' '}
+          <code>--background</code>. Muted weekday and unavailable text sits at
+          4.95:1 on <code>--popover</code> and 5.17:1 on{' '}
+          <code>--background</code>. The numeral on a filled day sits at 5.75:1.
+          A keyboard-focused unavailable day takes the accent pair,{' '}
+          <code>--accent-foreground</code> on <code>--accent</code>, at 14.5:1,
+          because muted text on that step would fall to 4.1:1. The today dot
+          sits at 3.04:1 on <code>--popover</code> and 3.17:1 on{' '}
           <code>--background</code>. Every text pair clears WCAG AA, so no
           fallback step is taken.
         </p>

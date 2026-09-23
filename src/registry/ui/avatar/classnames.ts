@@ -42,7 +42,7 @@ export const avatarFallbackVariants = cva(
         [AvatarColor.Blue]: 'bg-group-blue text-group-blue-foreground',
       },
       neutral: {
-        true: 'text-foreground bg-neutral-200 dark:bg-neutral-800',
+        true: 'text-foreground bg-neutral-200',
         false: '',
       },
     },

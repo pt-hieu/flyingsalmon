@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import {
   Card,
@@ -40,7 +40,7 @@ function CardPage() {
           child of <code>Card</code>, not of the header: it pins to the bottom
           right so the action never competes with the title for the top edge.
         </p>
-        <ModePreview>
+        <Preview>
           <Card className="w-72">
             <CardHeader>
               <CardTitle>Weekend in Kyoto</CardTitle>
@@ -54,16 +54,14 @@ function CardPage() {
               Updated today
             </CardFooter>
           </Card>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Flat, never raised</h2>
         <p className="text-muted-foreground">
           The card separates from the page with a solid 1px border and a surface
-          step, never a shadow. Dark mode lifts <code>--card</code> above{' '}
-          <code>--background</code> instead of adding depth. The system ships no
-          shadow tokens at all.
+          step, never a shadow. The system ships no shadow tokens at all.
         </p>
       </section>
 
@@ -79,7 +77,7 @@ function CardPage() {
           itself is not a link, so a nested button stays valid HTML and stays
           independently clickable.
         </p>
-        <ModePreview>
+        <Preview>
           <Card interactive className="w-72">
             <CardHeader>
               <CardTitle>
@@ -97,7 +95,7 @@ function CardPage() {
               </Button>
             </CardAction>
           </Card>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">

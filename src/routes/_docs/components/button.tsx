@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Plus, Search, Trash2 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 
 export const Route = createFileRoute('/_docs/components/button')({
@@ -57,20 +57,19 @@ function ButtonPage() {
           three neutral variants wash to the same indigo tint, so a surface
           without a color of its own borrows the accent.{' '}
           <strong className="text-foreground">
-            Two hovers step the label with the surface, because the surface step
+            One hover steps the label with the surface, because the surface step
             alone would drop it under AA:
           </strong>{' '}
-          <code>destructive</code> in both modes, and <code>default</code> in
-          dark, where the fill deepens instead of paling out.
+          <code>destructive</code>.
         </p>
-        <ModePreview>
+        <Preview>
           <Button>Default</Button>
           <Button variant={ButtonVariant.Outline}>Outline</Button>
           <Button variant={ButtonVariant.Secondary}>Secondary</Button>
           <Button variant={ButtonVariant.Ghost}>Ghost</Button>
           <Button variant={ButtonVariant.Destructive}>Destructive</Button>
           <Button variant={ButtonVariant.Amber}>Amber</Button>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -89,7 +88,7 @@ function ButtonPage() {
           </strong>{' '}
           There is no <code>xs</code> and no <code>lg</code>.
         </p>
-        <ModePreview>
+        <Preview>
           <Button>Save changes</Button>
           <Button size={ButtonSize.Small}>Save changes</Button>
           <Button
@@ -114,7 +113,7 @@ function ButtonPage() {
             aria-label="Add item"
             icon={<Plus />}
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -126,7 +125,7 @@ function ButtonPage() {
           child if you prefer that spelling. There is no <code>asChild</code>: a
           button is a <code>&lt;button&gt;</code>.
         </p>
-        <ModePreview>
+        <Preview>
           <Button icon={<Search />}>Search</Button>
           <Button
             variant={ButtonVariant.Outline}
@@ -138,7 +137,7 @@ function ButtonPage() {
           <Button variant={ButtonVariant.Destructive} icon={<Trash2 />}>
             Delete project
           </Button>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -151,7 +150,7 @@ function ButtonPage() {
           label stays at full opacity the whole time, so the button never hides
           what it does. Icon sizes show the spinner alone.
         </p>
-        <ModePreview>
+        <Preview>
           <Button loading>Save changes</Button>
           <Button variant={ButtonVariant.Outline} loading icon={<Search />}>
             Search
@@ -165,7 +164,7 @@ function ButtonPage() {
             loading
             icon={<Plus />}
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -177,9 +176,9 @@ function ButtonPage() {
           <code>--motion-base</code>. Nothing around the button jumps, because
           the morph runs on transforms.
         </p>
-        <ModePreview>
+        <Preview>
           <LoadingMorphDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -190,7 +189,7 @@ function ButtonPage() {
           A disabled button leaves the tab order; a loading one must not, or a
           keyboard user loses their place mid-action.
         </p>
-        <ModePreview>
+        <Preview>
           <Button disabled>Save changes</Button>
           <Button variant={ButtonVariant.Outline} disabled>
             Save changes
@@ -204,7 +203,7 @@ function ButtonPage() {
           <Button variant={ButtonVariant.Destructive} disabled>
             Delete project
           </Button>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -240,11 +239,11 @@ function ButtonPage() {
           where an offset ring would cross the box&rsquo;s edge, so keyboard
           focus paints the same fill as hover instead.
         </p>
-        <ModePreview>
+        <Preview>
           <Button>Default</Button>
           <Button variant={ButtonVariant.Outline}>Outline</Button>
           <Button variant={ButtonVariant.Destructive}>Destructive</Button>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -270,7 +269,7 @@ function ButtonPage() {
           and Space — including form submission. Its spinner is{' '}
           <code>aria-hidden</code>, so the wait is announced once through{' '}
           <code>aria-busy</code> and the label stays the accessible name. Every
-          variant meets WCAG AA for text in both modes, hover states included.
+          variant meets WCAG AA for text, hover states included.
         </p>
       </section>
     </article>

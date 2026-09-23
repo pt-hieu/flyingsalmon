@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import { Pagination } from '@/registry/ui/pagination'
 import {
@@ -61,9 +61,9 @@ function TablePage() {
           because a background step that leads nowhere reads as an affordance
           that is not there. The header and footer never respond to hover.
         </p>
-        <ModePreview>
+        <Preview>
           <PartsExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -100,9 +100,9 @@ function TablePage() {
           previous row&rsquo;s lower one; focus is the louder state because a
           keyboard user has no pointer to say where they are.
         </p>
-        <ModePreview>
+        <Preview>
           <InteractiveExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -137,9 +137,9 @@ function TablePage() {
           </strong>
           . It is not automatic.
         </p>
-        <ModePreview>
+        <Preview>
           <AlignmentExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -158,9 +158,9 @@ function TablePage() {
           <code>--foreground</code>; head cells separate from body cells by{' '}
           <code>font-medium</code> alone.
         </p>
-        <ModePreview>
+        <Preview>
           <RowHeaderExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -173,9 +173,9 @@ function TablePage() {
           are the app&rsquo;s. The two components know nothing about each other,
           so the composition is a wrapper with a flex rule and nothing else.
         </p>
-        <ModePreview>
+        <Preview>
           <PagedExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <p className="text-muted-foreground">

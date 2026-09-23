@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import {
   Alert,
   AlertDescription,
@@ -53,7 +53,7 @@ function FormPage() {
           child, because the shell owns where it appears and a child cannot
           guarantee its own position.
         </p>
-        <ModePreview>
+        <Preview>
           <Form
             className="w-full max-w-sm"
             onSubmit={preventNavigationOnSubmit}
@@ -69,7 +69,7 @@ function FormPage() {
               <Button type="submit">Save trip</Button>
             </FormActions>
           </Form>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -124,9 +124,9 @@ function FormPage() {
           and no form-level <code>disabled</code>; every field already takes its
           own <code>disabled</code>.
         </p>
-        <ModePreview>
+        <Preview>
           <LiveSubmitDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -138,7 +138,7 @@ function FormPage() {
           collects them nor renders a summary, and it never reads error state
           from a context.
         </p>
-        <ModePreview>
+        <Preview>
           <Form
             className="w-full max-w-sm"
             onSubmit={preventNavigationOnSubmit}
@@ -162,7 +162,7 @@ function FormPage() {
               <Button type="submit">Save trip</Button>
             </FormActions>
           </Form>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -185,7 +185,7 @@ function FormPage() {
           itself through its own role. A dialog form leaves the slot empty — it
           closes on submit, so its result belongs on the item that changed.
         </p>
-        <ModePreview>
+        <Preview>
           <Form
             className="w-full max-w-sm"
             onSubmit={preventNavigationOnSubmit}
@@ -208,7 +208,7 @@ function FormPage() {
               <Button type="submit">Pay</Button>
             </FormActions>
           </Form>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">

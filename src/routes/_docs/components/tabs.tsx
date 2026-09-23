@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import {
   Tabs,
   TabsActivationMode,
@@ -40,7 +40,7 @@ function TabsPage() {
           <code>TabsTrigger</code> itself, never exported, so a consumer can
           never place it wrong.
         </p>
-        <ModePreview>
+        <Preview>
           <Tabs defaultValue="account" className="w-full max-w-xs">
             <TabsList>
               <TabsTrigger value="account">Account</TabsTrigger>
@@ -62,7 +62,7 @@ function TabsPage() {
               Change your password.
             </TabsContent>
           </Tabs>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -75,9 +75,9 @@ function TabsPage() {
           does not fetch on mount. Try it: focus the list below and use the
           arrow keys.
         </p>
-        <ModePreview>
+        <Preview>
           <AutomaticExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -90,9 +90,9 @@ function TabsPage() {
           the only case where it shows. Try it: focus the list, arrow to a
           different trigger, and note the thin bar before pressing Enter.
         </p>
-        <ModePreview>
+        <Preview>
           <ManualExample />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -147,11 +147,10 @@ function TabsPage() {
           with focus instead. Under automatic activation, focus and selection
           always coincide, so the moving 2px indicator bar is the focus
           feedback; under manual activation, the 1px ring bar is the only cue.
-          Measured with a real OKLCH-to-sRGB contrast check: the light inactive
-          label is 4.73:1, the light active bar 6.44:1, and the light focus bar
-          4.58:1; the dark inactive label is 7.63:1, the dark active bar 6.34:1,
-          and the dark focus bar 4.32:1 &mdash; every pair clears WCAG AA (4.5:1
-          text, 3:1 non-text) in both modes with no fallback needed.
+          Measured with a real OKLCH-to-sRGB contrast check: the inactive label
+          is 4.73:1, the active bar 6.44:1, and the focus bar 4.58:1 &mdash;
+          every pair clears WCAG AA (4.5:1 text, 3:1 non-text) with no fallback
+          needed.
         </p>
         <p className="text-muted-foreground">
           <strong className="text-foreground">

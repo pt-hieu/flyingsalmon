@@ -46,8 +46,8 @@ motion fade) is fine.
 ## Flat surfaces
 
 No shadows, no elevation, ever — there are no shadow tokens to reach for.
-Surfaces separate by a solid 1px `--border` edge and a background step; dark
-mode lifts the surface color rather than adding depth. Interaction feedback
+Surfaces separate by a solid 1px `--border` edge and a background step.
+Interaction feedback
 lives in the border or in a background step, never in a lift or a press-down.
 
 ## Radius

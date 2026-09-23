@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import { Progress } from '@/registry/ui/progress'
 
@@ -58,9 +58,9 @@ function ProgressPage() {
           The spring never overshoots, because a fill past its value misreports
           the work.
         </p>
-        <ModePreview>
+        <Preview>
           <SteppedProgressDemo />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -72,11 +72,11 @@ function ProgressPage() {
           fraction is not computable yet — the window before the first progress
           event arrives. Swap to a number as soon as one exists.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="w-full max-w-xs">
             <Progress />
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -88,12 +88,12 @@ function ProgressPage() {
           for both the fill and the announced value, so an off-by-one from a
           server never draws a bar past its end.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="w-full max-w-xs space-y-2">
             <Progress value={5} max={7} label="Writing days" />
             <p className="text-muted-foreground text-xs">Day 5 of 7</p>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -106,7 +106,7 @@ function ProgressPage() {
           app&apos;s, because only the app knows what phase the work is in and
           how to word it. Compose them around the bar.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="w-full max-w-xs space-y-2">
             <div className="flex items-baseline justify-between text-sm">
               <span className="font-medium">Building your trip</span>
@@ -117,7 +117,7 @@ function ProgressPage() {
               Picking anchors in Kyoto
             </p>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -132,13 +132,13 @@ function ProgressPage() {
           already looking. <code>data-state</code> is the hook for an app that
           wants to react to the end of the work.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="w-full max-w-xs space-y-3">
             <Progress value={0} />
             <Progress value={45} />
             <Progress value={100} />
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -146,9 +146,9 @@ function ProgressPage() {
         <p className="text-muted-foreground">
           Two tokens: <code>--progress-track</code> for the groove and{' '}
           <code>--progress-fill</code>, which aliases <code>--indicator</code>,
-          for the fill. The fill clears 3:1 against the track in both modes, so
-          the boundary is readable without color vision. The track sits at
-          1.26:1 against the page, so an empty bar is visible without a border.
+          for the fill. The fill clears 3:1 against the track, so the boundary
+          is readable without color vision. The track sits at 1.26:1 against the
+          page, so an empty bar is visible without a border.
         </p>
       </section>
 

@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Skeleton, SkeletonVariant } from '@/registry/ui/skeleton'
 
 export const Route = createFileRoute('/_docs/components/skeleton')({
@@ -38,7 +38,7 @@ function SkeletonPage() {
           <code>circle</code> and <code>rectangle</code> carry no size of their
           own.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="w-full max-w-xs space-y-3">
             <Skeleton />
             <Skeleton className="w-3/4" />
@@ -51,7 +51,7 @@ function SkeletonPage() {
               className="h-24 w-full"
             />
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -65,7 +65,7 @@ function SkeletonPage() {
           as <code>data-variant</code>, so a consumer can target one shape from
           CSS or from a test.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="w-full max-w-xs space-y-3 text-xs">
             <Skeleton />
             <p className="text-muted-foreground">Small text line</p>
@@ -74,7 +74,7 @@ function SkeletonPage() {
             <Skeleton />
             <p className="text-muted-foreground text-xs">Heading line</p>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">

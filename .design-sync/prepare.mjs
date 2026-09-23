@@ -135,7 +135,6 @@ const SAFELIST = [
   '{sm,md,lg,xl}:{p,px,py,gap,m,mx,my}-{0,1,2,3,4,5,6,8,10,12}',
   '{sm,md,lg,xl}:text-{xs,sm,base,lg,xl,2xl,3xl,4xl}',
   '{sm,md,lg,xl}:w-{auto,full,fit}',
-  'dark:{bg,text,border}-{background,foreground,card,muted,muted-foreground,border,primary}',
   'hover:{bg,text,border}-{accent,accent-foreground,muted,primary,primary-foreground,border}',
   'focus-visible:outline-none',
 ]

@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { useRef, useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { cn } from '@/lib/utils'
 import { offsetFocusRingGeometry } from '@/registry/lib/interaction'
 import { AlertVariant } from '@/registry/ui/alert'
@@ -108,11 +108,11 @@ function NoticePage() {
           frame of its own, so the card lands inside the panel instead of at the
           top of this page.
         </p>
-        <ModePreview>
+        <Preview>
           <NoticeFrame>
             <VariantExamples />
           </NoticeFrame>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -124,11 +124,11 @@ function NoticePage() {
           so the app that owned it knows it is gone. The new text is announced
           again even when it reads the same as the old.
         </p>
-        <ModePreview>
+        <Preview>
           <NoticeFrame>
             <ReplacementExample />
           </NoticeFrame>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -146,11 +146,11 @@ function NoticePage() {
           . Dismissing from the handle reports the <code>app</code> reason;
           dismissing from the close button reports <code>user</code>.
         </p>
-        <ModePreview>
+        <Preview>
           <NoticeFrame>
             <SubjectOnScreenExample />
           </NoticeFrame>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -164,11 +164,11 @@ function NoticePage() {
           case ADR 0008 was written around. Save the trip below and the planner
           fails on purpose.
         </p>
-        <ModePreview>
+        <Preview>
           <NoticeFrame>
             <ClosedDialogExample />
           </NoticeFrame>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -218,11 +218,11 @@ function NoticePage() {
         <p className="text-muted-foreground">
           Colour comes from alert, so the icon, the title, and the description
           carry the ratios measured on that page. The subject is underlined in{' '}
-          <code>--card-foreground</code>, 18.3:1 light and 15.5:1 dark, which
-          keeps it apart from the description without relying on colour, and
-          takes <code>--indicator</code> on hover and press: 4.7:1 light and
-          5.1:1 dark on the card, the accordion trigger's hover colour rather
-          than <code>--primary</code>, which would not clear AA for text.
+          <code>--card-foreground</code>, 18.3:1, which keeps it apart from the
+          description without relying on colour, and takes{' '}
+          <code>--indicator</code> on hover and press: 4.7:1 on the card, the
+          accordion trigger's hover colour rather than <code>--primary</code>,
+          which would not clear AA for text.
         </p>
       </section>
     </article>

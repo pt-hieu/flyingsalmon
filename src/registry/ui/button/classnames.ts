@@ -35,7 +35,7 @@ export const buttonVariants = cva(
         [ButtonVariant.Ghost]:
           'text-foreground ring-ring hover:bg-accent hover:text-accent-foreground',
         [ButtonVariant.Destructive]:
-          'bg-error text-error-foreground ring-destructive hover:bg-red-200 hover:text-red-800 dark:hover:bg-red-900 dark:hover:text-red-200',
+          'bg-error text-error-foreground ring-destructive hover:bg-red-200 hover:text-red-800',
         [ButtonVariant.Amber]:
           'bg-amber-400 text-neutral-950 ring-amber-400 hover:bg-amber-300',
       },
@@ -82,8 +82,7 @@ export const buttonVariants = cva(
       {
         size: fieldSizes,
         variant: ButtonVariant.Destructive,
-        class:
-          'focus-visible:bg-red-200 focus-visible:text-red-800 dark:focus-visible:bg-red-900 dark:focus-visible:text-red-200',
+        class: 'focus-visible:bg-red-200 focus-visible:text-red-800',
       },
       {
         size: fieldSizes,
