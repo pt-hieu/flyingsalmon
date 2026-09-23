@@ -1,4 +1,11 @@
-import { Compass, Ellipsis, ImageIcon, MapPinned } from 'lucide-react'
+import {
+  CalendarClock,
+  Compass,
+  Ellipsis,
+  ImageIcon,
+  Lock,
+  MapPinned,
+} from 'lucide-react'
 
 import type { ComponentRoute } from '@/components/component-catalog'
 import {
@@ -58,6 +65,7 @@ import {
   EmptyStateTitleElement,
 } from '@/registry/ui/empty-state'
 import { Form, FormActions } from '@/registry/ui/form'
+import { IconTooltip } from '@/registry/ui/icon-tooltip'
 import { Input, InputSize } from '@/registry/ui/input'
 import { NumberField } from '@/registry/ui/number-field'
 import { Pagination } from '@/registry/ui/pagination'
@@ -249,6 +257,18 @@ const previewByRoute: Record<ComponentRoute, React.ReactNode> = {
         <span className="bg-border size-1.5 rounded-full" />
         <span className="bg-border size-1.5 rounded-full" />
       </div>
+    </div>
+  ),
+
+  '/components/icon-tooltip': (
+    <div className="bg-background text-muted-foreground flex items-center gap-2 rounded-lg px-3 py-2 text-xs [&_svg]:size-4">
+      <span className="text-foreground">Day 1</span>
+      <IconTooltip content="Locked, so the AI won’t change it">
+        <Lock aria-hidden />
+      </IconTooltip>
+      <IconTooltip content="Tied to this date">
+        <CalendarClock aria-hidden />
+      </IconTooltip>
     </div>
   ),
 
