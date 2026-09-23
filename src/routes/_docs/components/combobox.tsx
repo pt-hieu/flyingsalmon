@@ -217,10 +217,10 @@ function ComboboxPage() {
           pair — scale from <code>0.96</code> plus fade, 250ms on the bounce
           curve in and 150ms on the settle curve out, growing from the field.
           The chevron rotates 180 degrees at <code>--motion-base</code>, and the
-          field's border and focus ring transition at{' '}
-          <code>--motion-fast</code>. Chips appear and disappear at once, and
-          their neighbours and the caret reflow without motion. The item
-          highlight, the check, the clear button, and the spinner all snap too.
+          field's border and focus ring transition at <code>--motion-fast</code>
+          . Chips appear and disappear at once, and their neighbours and the
+          caret reflow without motion. The item highlight, the check, the clear
+          button, and the spinner all snap too.
         </p>
       </section>
 

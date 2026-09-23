@@ -42,8 +42,8 @@ function ButtonPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Variants</h2>
         <p className="text-muted-foreground">
-          Five variants cover every action shape. <code>default</code> is the one
-          primary action on a view. <code>outline</code> and{' '}
+          Five variants cover every action shape. <code>default</code> is the
+          one primary action on a view. <code>outline</code> and{' '}
           <code>secondary</code> carry the actions beside it, <code>ghost</code>{' '}
           the ones inside a dense row. <code>destructive</code> stays soft — a
           red tint with red text, never a solid red fill, because a delete
@@ -228,14 +228,14 @@ function ButtonPage() {
           <code>default</code> rings in <code>--indicator</code>, orange-600,
           its own fill color, which clears 3:1 against the page (3.38:1),{' '}
           <code>destructive</code> in red, and the three neutral variants in{' '}
-          <code>--accent</code>, the orange tint they wash to on hover. The ring appears on <code>:focus-visible</code> only, so a
-          mouse click never leaves one behind. Hold the button for the press
-          ring: the same color, a tighter 2px, gone the moment you let go. A
-          loading button shows no press ring — there is nothing to press. The
-          two field sizes draw neither ring: they sit inside a field box that
-          already draws its own focus ring, where an offset ring would cross the
-          box&rsquo;s edge, so keyboard focus paints the same fill as hover
-          instead.
+          <code>--accent</code>, the orange tint they wash to on hover. The ring
+          appears on <code>:focus-visible</code> only, so a mouse click never
+          leaves one behind. Hold the button for the press ring: the same color,
+          a tighter 2px, gone the moment you let go. A loading button shows no
+          press ring — there is nothing to press. The two field sizes draw
+          neither ring: they sit inside a field box that already draws its own
+          focus ring, where an offset ring would cross the box&rsquo;s edge, so
+          keyboard focus paints the same fill as hover instead.
         </p>
         <Preview>
           <Button>Default</Button>

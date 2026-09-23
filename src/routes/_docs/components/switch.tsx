@@ -52,10 +52,10 @@ function SwitchPage() {
           <strong className="text-foreground">
             The off thumb takes the page color.
           </strong>{' '}
-          The on thumb takes <code>--indicator-foreground</code>, white,
-          the color that carries content on every indicator fill. Travel is a
-          morph, so the thumb stays one object across the whole journey, and its
-          color swaps with the state.
+          The on thumb takes <code>--indicator-foreground</code>, white, the
+          color that carries content on every indicator fill. Travel is a morph,
+          so the thumb stays one object across the whole journey, and its color
+          swaps with the state.
         </p>
         <Preview>
           <Switch label="Wi-Fi" />
