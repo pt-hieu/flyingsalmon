@@ -21,6 +21,33 @@ export function ComponentSidebar() {
           Overview
         </Link>
 
+        <div
+          role="group"
+          aria-labelledby="sidebar-category-foundations"
+          className="flex flex-col gap-1"
+        >
+          <span
+            id="sidebar-category-foundations"
+            className="text-muted-foreground px-3 pb-1 text-xs font-medium"
+          >
+            Foundations
+          </span>
+          <Link
+            to="/colors"
+            className={sidebarLinkClassName}
+            activeProps={activeSidebarLinkProps}
+          >
+            Colors
+          </Link>
+          <Link
+            to="/spacing"
+            className={sidebarLinkClassName}
+            activeProps={activeSidebarLinkProps}
+          >
+            Spacing
+          </Link>
+        </div>
+
         {groupComponentsByCategory(componentCatalog).map((categoryGroup) => (
           <div
             key={categoryGroup.category}
