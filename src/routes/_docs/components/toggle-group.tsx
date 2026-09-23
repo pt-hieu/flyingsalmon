@@ -124,7 +124,10 @@ function ToggleGroupPage() {
           Chips are fully rounded and wrap across rows. A chip rests on{' '}
           <code>--secondary</code> with its border in the same color, so hover
           shows up as the border stepping to <code>--accent</code>; pressed
-          fills <code>--primary</code> and steps one shade lighter on hover.{' '}
+          fills <code>--primary</code> and steps to orange-700 on hover. Rings
+          follow Button: an unpressed chip rings in <code>--accent</code>, the
+          colour its hover border turns, and a pressed chip in{' '}
+          <code>--indicator</code>, its own fill colour.{' '}
           <strong className="text-foreground">
             Feedback lives in the border and the fill, never in elevation.
           </strong>{' '}
