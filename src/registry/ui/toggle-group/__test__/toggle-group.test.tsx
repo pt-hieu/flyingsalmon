@@ -6,7 +6,6 @@ import { describe, expect, it, vi } from 'vitest'
 import {
   ToggleGroup,
   ToggleGroupItem,
-  ToggleGroupItemVariant,
   ToggleGroupMode,
   type ToggleGroupMultipleProps,
   type ToggleGroupSingleProps,
@@ -289,31 +288,6 @@ describe('ToggleGroup', () => {
     expect(screen.getByRole('button', { name: 'Food' })).toHaveAttribute(
       'aria-pressed',
       'false',
-    )
-  })
-
-  it('toggles an amber item like any other', async () => {
-    const user = userEvent.setup()
-    const onValueChange = vi.fn()
-    render(
-      <ToggleGroup
-        label="Interests"
-        mode={ToggleGroupMode.Multiple}
-        onValueChange={onValueChange}
-      >
-        <ToggleGroupItem value="food">Food</ToggleGroupItem>
-        <ToggleGroupItem value="visa" variant={ToggleGroupItemVariant.Amber}>
-          Visa needed
-        </ToggleGroupItem>
-      </ToggleGroup>,
-    )
-
-    await user.click(screen.getByRole('button', { name: 'Visa needed' }))
-
-    expect(onValueChange).toHaveBeenCalledWith(['visa'])
-    expect(screen.getByRole('button', { name: 'Visa needed' })).toHaveAttribute(
-      'aria-pressed',
-      'true',
     )
   })
 

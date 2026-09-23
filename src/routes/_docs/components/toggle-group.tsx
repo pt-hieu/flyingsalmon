@@ -6,7 +6,6 @@ import { Preview } from '@/components/preview'
 import {
   ToggleGroup,
   ToggleGroupItem,
-  ToggleGroupItemVariant,
   ToggleGroupMode,
   ToggleGroupSize,
 } from '@/registry/ui/toggle-group'
@@ -26,7 +25,7 @@ function ToggleGroupPage() {
           Chips that toggle, in single or multiple mode, wrapping across rows. A
           member of the field family: it owns its label and its error message,
           takes <code>required</code>, and posts through <code>name</code>. Two
-          sizes, one per-item color variant.
+          sizes.
         </p>
       </header>
 
@@ -117,46 +116,6 @@ function ToggleGroupPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Amber</h2>
-        <p className="text-muted-foreground">
-          <code>variant</code> on an item takes{' '}
-          <code>ToggleGroupItemVariant.Amber</code>, which swaps the pressed
-          fill from <code>--primary</code> to amber-400 with neutral-950 text,
-          Button&apos;s amber row.{' '}
-          <strong className="text-foreground">
-            Only the pressed fill changes: an unpressed amber chip is the same
-            <code>--secondary</code> tint as every other chip, and it toggles
-            like every other one.
-          </strong>{' '}
-          It marks an option that needs a step the label names, such as a visa
-          or a permit. A chip that fires an action and never toggles is the
-          app&apos;s to compose from a Button; the registry ships no such rule.
-        </p>
-        <Preview>
-          <ToggleGroup
-            label="Destinations"
-            mode={ToggleGroupMode.Multiple}
-            defaultValue={['lisbon', 'hanoi']}
-          >
-            <ToggleGroupItem value="lisbon">Lisbon</ToggleGroupItem>
-            <ToggleGroupItem value="osaka">Osaka</ToggleGroupItem>
-            <ToggleGroupItem
-              value="hanoi"
-              variant={ToggleGroupItemVariant.Amber}
-            >
-              Hanoi, visa needed
-            </ToggleGroupItem>
-            <ToggleGroupItem
-              value="marrakesh"
-              variant={ToggleGroupItemVariant.Amber}
-            >
-              Marrakesh, visa needed
-            </ToggleGroupItem>
-          </ToggleGroup>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Sizes and states</h2>
         <p className="text-muted-foreground">
           <code>size</code> sits on the group, not on the item:{' '}
@@ -165,7 +124,10 @@ function ToggleGroupPage() {
           Chips are fully rounded and wrap across rows. A chip rests on{' '}
           <code>--secondary</code> with its border in the same color, so hover
           shows up as the border stepping to <code>--accent</code>; pressed
-          fills <code>--primary</code> and steps one shade lighter on hover.{' '}
+          fills <code>--primary</code> and steps to orange-700 on hover. Rings
+          follow Button: an unpressed chip rings in <code>--accent</code>, the
+          colour its hover border turns, and a pressed chip in{' '}
+          <code>--indicator</code>, its own fill colour.{' '}
           <strong className="text-foreground">
             Feedback lives in the border and the fill, never in elevation.
           </strong>{' '}

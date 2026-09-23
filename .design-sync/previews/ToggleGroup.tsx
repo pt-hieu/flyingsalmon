@@ -1,7 +1,6 @@
 import {
   ToggleGroup,
   ToggleGroupItem,
-  ToggleGroupItemVariant,
   ToggleGroupMode,
   ToggleGroupSize,
 } from 'flyingsalmon'
@@ -40,25 +39,6 @@ export function Multiple() {
       <ToggleGroupItem value="hikes">Hikes</ToggleGroupItem>
       <ToggleGroupItem value="nightlife">Nightlife</ToggleGroupItem>
       <ToggleGroupItem value="beaches">Beaches</ToggleGroupItem>
-    </ToggleGroup>
-  )
-}
-
-export function Amber() {
-  return (
-    <ToggleGroup
-      label="Destinations"
-      mode={ToggleGroupMode.Multiple}
-      defaultValue={['lisbon', 'hanoi']}
-    >
-      <ToggleGroupItem value="lisbon">Lisbon</ToggleGroupItem>
-      <ToggleGroupItem value="osaka">Osaka</ToggleGroupItem>
-      <ToggleGroupItem value="hanoi" variant={ToggleGroupItemVariant.Amber}>
-        Hanoi, visa needed
-      </ToggleGroupItem>
-      <ToggleGroupItem value="marrakesh" variant={ToggleGroupItemVariant.Amber}>
-        Marrakesh, visa needed
-      </ToggleGroupItem>
     </ToggleGroup>
   )
 }

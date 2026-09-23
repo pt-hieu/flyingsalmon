@@ -62,12 +62,13 @@ function TextLinkPage() {
           size, weight, and line height are inherited — there is no{' '}
           <code>size</code> prop and no variant. The text is{' '}
           <code>--foreground</code> in every state; the underline sits at{' '}
-          <code>underline-offset-4</code> and is 1px{' '}
-          <code>--muted-foreground</code> at rest, 1.5px{' '}
-          <code>--foreground</code> on hover and press. It thickens downward
-          from the offset, so the line box never moves. Tab to the link below
-          and the focus ring closes around each line fragment separately, which
-          is what <code>box-decoration-clone</code> is for.
+          <code>underline-offset-4</code> and is 1px <code>--indicator</code> at
+          rest, 1.5px orange-700 on hover and press. At rest it sits at 3.38:1
+          on the page and 3.59:1 on white, clearing the 3:1 non-text bar (ADR
+          0004). It thickens downward from the offset, so the line box never
+          moves. Tab to the link below and the focus ring closes around each
+          line fragment separately, which is what{' '}
+          <code>box-decoration-clone</code> is for.
         </p>
         <Preview>
           <p className="max-w-sm text-sm">

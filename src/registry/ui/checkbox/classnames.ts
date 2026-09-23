@@ -12,9 +12,21 @@ export const checkboxRowClassName = 'flex items-center gap-2'
 
 export const checkboxMarkClassName = 'size-3.5'
 
+export const checkboxLabelCursorVariants = cva('', {
+  variants: {
+    disabled: {
+      true: '',
+      false: 'cursor-pointer',
+    },
+  },
+  defaultVariants: {
+    disabled: false,
+  },
+})
+
 export const checkboxVariants = cva(
   cn(
-    'text-indicator-foreground grid size-5 shrink-0 place-items-center rounded-sm border',
+    'text-indicator-foreground grid size-5 shrink-0 cursor-pointer place-items-center rounded-sm border',
     'transition-[background-color,border-color,box-shadow] duration-(--motion-fast)',
     offsetFocusRingGeometry,
     disabledInteraction,
@@ -30,12 +42,12 @@ export const checkboxVariants = cva(
           'enabled:hover:data-[state=indeterminate]:border-red-700 enabled:hover:data-[state=indeterminate]:bg-red-700',
         ),
         false: cn(
-          'border-input focus-visible:ring-ring',
+          'border-input focus-visible:ring-indicator',
           'data-[state=checked]:bg-indicator data-[state=indeterminate]:bg-indicator',
           'data-[state=checked]:border-indicator data-[state=indeterminate]:border-indicator',
           'enabled:hover:data-[state=unchecked]:border-indicator',
-          'enabled:hover:data-[state=checked]:border-orange-500 enabled:hover:data-[state=checked]:bg-orange-500',
-          'enabled:hover:data-[state=indeterminate]:border-orange-500 enabled:hover:data-[state=indeterminate]:bg-orange-500',
+          'enabled:hover:data-[state=checked]:border-orange-700 enabled:hover:data-[state=checked]:bg-orange-700',
+          'enabled:hover:data-[state=indeterminate]:border-orange-700 enabled:hover:data-[state=indeterminate]:bg-orange-700',
         ),
       },
     },
