@@ -21,7 +21,7 @@ export const avatarGroupVariants = cva('isolate flex w-max items-center', {
 export const avatarGroupItemClassName = cn(
   'ring-background relative z-(--avatar-group-layer) rounded-full ring-2',
   '[transition:translate_var(--motion-base)_ease-out]',
-  'focus-visible:ring-primary focus-visible:outline-hidden',
+  'focus-visible:ring-indicator focus-visible:outline-hidden',
 )
 
 export const avatarGroupChipVariants = cva(

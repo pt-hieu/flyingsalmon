@@ -125,7 +125,7 @@ function AvatarGroupPage() {
           people are not rendered at all, so a 250-person roster costs five
           nodes.{' '}
           <strong className="text-foreground">
-            The chip is an avatar-shaped neutral
+            The chip is an avatar-shaped circle
           </strong>{' '}
           on <code>--secondary</code>, not a ninth avatar hue and not a badge.
         </p>
@@ -204,7 +204,7 @@ function AvatarGroupPage() {
           . Tab enters on the first avatar; ArrowRight and ArrowLeft walk the
           avatars and then the chip; Home and End jump to the ends. Nothing
           wraps, and Tab leaves the group. Focus does everything hover does and
-          additionally recolors the separator ring to <code>--primary</code>,
+          additionally recolors the separator ring to <code>--indicator</code>,
           which keeps the indicator visible on a one-person group where the
           parting has no neighbour to move. Escape closes the open tooltip and
           leaves focus where it is.
@@ -262,8 +262,8 @@ function AvatarGroupPage() {
           nor an <code>alt</code> is <code>aria-hidden</code>, gets no tooltip,
           and the arrow keys skip over it. The chip pairs{' '}
           <code>--secondary</code> with <code>--secondary-foreground</code> at
-          roughly 15:1, and the initials keep avatar&apos;s neutral-950 on
-          step-400 hues at 6.3:1 worst case.
+          14.14:1, and the initials keep avatar&apos;s neutral-950 on step-400
+          hues at 6.3:1 worst case.
         </p>
       </section>
 

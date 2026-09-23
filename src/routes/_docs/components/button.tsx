@@ -54,7 +54,7 @@ function ButtonPage() {
         </p>
         <p className="text-muted-foreground">
           Hover moves the surface one step and keeps the label above AA. The
-          three neutral variants wash to the same indigo tint, so a surface
+          three neutral variants wash to the same orange tint, so a surface
           without a color of its own borrows the accent.{' '}
           <strong className="text-foreground">
             One hover steps the label with the surface, because the surface step
@@ -226,18 +226,20 @@ function ButtonPage() {
           Tab to a button for the focus ring: 3px held off the button by a 2px
           gap in the page color, so it stays visible on the filled variants too.{' '}
           <strong className="text-foreground">
-            The ring takes the color of the button under it.
+            The ring takes the hue of the button under it.
           </strong>{' '}
-          <code>default</code> rings in its own indigo, <code>destructive</code>{' '}
-          in red, and the three neutral variants in <code>--ring</code>, which
-          is the same focus color the input uses. The ring appears on{' '}
-          <code>:focus-visible</code> only, so a mouse click never leaves one
-          behind. Hold the button for the press ring: the same color, a tighter
-          2px, gone the moment you let go. A loading button shows no press ring
-          — there is nothing to press. The two field sizes draw neither ring:
-          they sit inside a field box that already draws its own focus ring,
-          where an offset ring would cross the box&rsquo;s edge, so keyboard
-          focus paints the same fill as hover instead.
+          <code>default</code> rings in <code>--indicator</code>, orange-600,
+          one step darker than its orange-500 fill so it clears 3:1 against the
+          page (3.38:1), <code>destructive</code> in red, and the three neutral
+          variants in <code>--ring</code>, which is the same focus color the
+          input uses. The ring appears on <code>:focus-visible</code> only, so a
+          mouse click never leaves one behind. Hold the button for the press
+          ring: the same color, a tighter 2px, gone the moment you let go. A
+          loading button shows no press ring — there is nothing to press. The
+          two field sizes draw neither ring: they sit inside a field box that
+          already draws its own focus ring, where an offset ring would cross the
+          box&rsquo;s edge, so keyboard focus paints the same fill as hover
+          instead.
         </p>
         <Preview>
           <Button>Default</Button>

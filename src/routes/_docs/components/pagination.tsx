@@ -190,8 +190,10 @@ function PaginationPage() {
         <p className="text-muted-foreground">
           Items at rest, the ellipsis, and the compact text are{' '}
           <code>--muted-foreground</code> on <code>--background</code>, measured
-          at 4.73:1; hover and the current page are <code>--foreground</code>.
-          Every pair clears WCAG AA.
+          at 7.01:1; hover and the current page are <code>--foreground</code>,
+          17.20:1. Every text pair clears WCAG AA. The current-page bar is{' '}
+          <code>--indicator</code> at 3.38:1, clearing the 3:1 non-text bar (ADR
+          0004).
         </p>
       </section>
     </article>

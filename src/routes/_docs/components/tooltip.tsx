@@ -147,10 +147,10 @@ function TooltipPage() {
         <h2 className="font-heading text-2xl font-bold">Surface and motion</h2>
         <p className="text-muted-foreground">
           The chip inverts to <code>bg-foreground text-background</code> with no
-          border and no arrow: white text on neutral-950. It enters and exits on
-          the <code>floating</code> item&apos;s anchored pair, scaling from{' '}
-          <code>0.96</code> with the Radix popper transform origin, so content
-          that flips still grows from its trigger.
+          border and no arrow: orange-50 text on neutral-950, 17.20:1. It enters
+          and exits on the <code>floating</code> item&apos;s anchored pair,
+          scaling from <code>0.96</code> with the Radix popper transform origin,
+          so content that flips still grows from its trigger.
         </p>
       </section>
 

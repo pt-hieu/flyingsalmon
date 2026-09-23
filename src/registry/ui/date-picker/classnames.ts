@@ -29,7 +29,7 @@ export const datePickerBoxVariants = cva(
   cn(
     'border-input bg-background text-foreground relative flex w-full items-center rounded-md border',
     'transition-[color,border-color,box-shadow] duration-(--motion-fast)',
-    'hover:not-focus-within:border-neutral-300',
+    'hover:not-focus-within:border-orange-300',
     'focus-within:ring-ring',
     boundaryFocusWithinRingGeometry,
     'aria-invalid:border-destructive aria-invalid:focus-within:ring-destructive',
@@ -59,7 +59,7 @@ export const datePickerSegmentClassName = cn(
   'rounded-sm px-0.5 tabular-nums outline-hidden',
   'transition-colors duration-(--motion-fast)',
   'data-placeholder:text-muted-foreground',
-  'data-focused:text-indicator',
+  'data-focused:text-primary-text',
   'data-[type=literal]:text-muted-foreground data-[type=literal]:px-0',
 )
 

@@ -146,9 +146,10 @@ function ProgressPage() {
         <p className="text-muted-foreground">
           Two tokens: <code>--progress-track</code> for the groove and{' '}
           <code>--progress-fill</code>, which aliases <code>--indicator</code>,
-          for the fill. The fill clears 3:1 against the track, so the boundary
-          is readable without color vision. The track sits at 1.26:1 against the
-          page, so an empty bar is visible without a border.
+          for the fill. The fill sits at 2.65:1 against the track, under the 3:1
+          non-text bar, by Brian's agreement (ADR 0004); it clears 3.38:1
+          against the page. The track sits at 1.28:1 against the page, so an
+          empty bar is visible without a border.
         </p>
       </section>
 

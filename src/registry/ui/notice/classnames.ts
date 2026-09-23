@@ -8,5 +8,5 @@ export const noticeOutletClassName =
 export const noticeSubjectClassName = cn(
   'text-card-foreground w-fit underline underline-offset-4',
   'transition-colors duration-(--motion-fast)',
-  'hover:text-indicator active:text-indicator',
+  'hover:text-primary-text active:text-primary-text',
 )

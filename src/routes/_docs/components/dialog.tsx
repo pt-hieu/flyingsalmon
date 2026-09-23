@@ -49,10 +49,10 @@ function DialogPage() {
           — <code>DialogContent</code> stacks title, description, body, and
           footer with a fixed gap; the title-to-description gap is tightened by
           margin on <code>DialogDescription</code>. <code>DialogTitle</code> is
-          required and set in Baloo 2, because a modal that stops the page must
-          say what it is. <code>DialogDescription</code> is optional.{' '}
-          <code>DialogBody</code> is the only scroll region. The X is always
-          rendered, positioned top-right, and last in the DOM.
+          required and set in Bricolage Grotesque, because a modal that stops
+          the page must say what it is. <code>DialogDescription</code> is
+          optional. <code>DialogBody</code> is the only scroll region. The X is
+          always rendered, positioned top-right, and last in the DOM.
         </p>
         <p className="text-muted-foreground">
           <strong className="text-foreground">There is no alert-dialog.</strong>{' '}
@@ -156,7 +156,7 @@ function DialogPage() {
           open — on the first body or footer control, never the X — and returns
           to the trigger on close. Tab cycles inside and ends on the X. Content
           outside an open dialog is hidden from the accessibility tree. Every
-          text pair meets WCAG AA — the tightest is the description at 4.53:1
+          text pair meets WCAG AA — the tightest is the description at 7.44:1
           against its 4.5:1 floor, measured by converting each OKLCH color to
           sRGB and computing the WCAG ratio directly, not estimated.
         </p>

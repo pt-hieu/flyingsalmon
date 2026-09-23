@@ -27,7 +27,7 @@ function BadgePage() {
           Six variants. <code>default</code> and <code>secondary</code> fill;{' '}
           <code>outline</code> draws a border only. The status trio{' '}
           <code>success</code>, <code>warning</code>, and <code>error</code>{' '}
-          shares one shape: a soft tint behind colored text.
+          shares one shape: a fill behind colored text.
         </p>
         <Preview>
           <Badge>Default</Badge>
