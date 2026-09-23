@@ -23,7 +23,7 @@ export const Route = createRootRoute({
       {
         name: 'description',
         content:
-          'flyingsalmon — a soft, minimal, playful design system by Brian. Distributed as a shadcn registry.',
+          'flyingsalmon — a bold, warm, social design system by Brian. Distributed as a shadcn registry.',
       },
     ],
     links: [

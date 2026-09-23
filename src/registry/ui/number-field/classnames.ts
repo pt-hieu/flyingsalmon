@@ -47,7 +47,7 @@ export const numberFieldBoxVariants = cva(
         disabled: false,
         readOnly: false,
         error: false,
-        class: 'hover:not-focus-within:border-neutral-300',
+        class: 'hover:not-focus-within:border-orange-300',
       },
     ],
     defaultVariants: {
@@ -78,7 +78,7 @@ export const numberFieldSpinButtonVariants = cva(
   cn(
     'text-foreground bg-muted border-input flex shrink-0 cursor-pointer items-center justify-center border-l',
     'transition-colors duration-(--motion-fast)',
-    'hover:bg-accent active:bg-neutral-300',
+    'hover:bg-accent active:bg-orange-300',
     'aria-disabled:text-muted-foreground aria-disabled:cursor-default',
     'aria-disabled:hover:bg-muted aria-disabled:active:bg-muted',
   ),

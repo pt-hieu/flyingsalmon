@@ -86,7 +86,7 @@ function SelectPage() {
           <code>SelectGroup</code> takes a <code>SelectLabel</code> as its
           heading and separates from the next group with a{' '}
           <code>SelectSeparator</code>. The checked item shows a{' '}
-          <code>text-primary</code> check in a reserved trailing icon slot, so
+          <code>text-indicator</code> check in a reserved trailing icon slot, so
           every item label starts at the same left edge. An item's{' '}
           <code>icon</code> sits ahead of the label, hidden from screen readers
           so only the label is read, and stays in the list: the trigger shows

@@ -148,9 +148,9 @@ function TabsPage() {
           always coincide, so the moving 2px indicator bar is the focus
           feedback; under manual activation, the 1px ring bar is the only cue.
           Measured with a real OKLCH-to-sRGB contrast check: the inactive label
-          is 4.73:1, the active bar 6.44:1, and the focus bar 4.58:1 &mdash;
-          every pair clears WCAG AA (4.5:1 text, 3:1 non-text) with no fallback
-          needed.
+          is 7.01:1 and the focus bar 17.20:1, both clearing WCAG AA. The active
+          bar, in <code>--indicator</code>, is 3.38:1, clearing the 3:1 non-text
+          bar (ADR 0004).
         </p>
         <p className="text-muted-foreground">
           <strong className="text-foreground">

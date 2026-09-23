@@ -53,7 +53,7 @@ function SpinnerPage() {
           <span className="text-foreground">
             <Spinner />
           </span>
-          <span className="text-primary">
+          <span className="text-indicator">
             <Spinner />
           </span>
           <span className="text-muted-foreground">

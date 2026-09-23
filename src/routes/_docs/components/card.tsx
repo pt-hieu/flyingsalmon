@@ -111,8 +111,8 @@ function CardPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Motion</h2>
         <p className="text-muted-foreground">
-          Hover turns the border indigo. Press grows a 2px{' '}
-          <code>--primary</code> ring out of nothing while held, matching the
+          Hover turns the border orange. Press grows a 2px{' '}
+          <code>--indicator</code> ring out of nothing while held, matching the
           button. Focus draws a 2px <code>--ring</code> ring around the whole
           card boundary. All three are CSS transitions at{' '}
           <code>--motion-fast</code>. The card owns no other motion — list

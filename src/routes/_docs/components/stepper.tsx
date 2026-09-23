@@ -114,10 +114,9 @@ function StepperPage() {
           is why the stepper does not depend on the progress item.
         </p>
         <p className="text-muted-foreground">
-          The fill clears the track at 3.72:1, so the edge between a filled
-          segment and an empty one is readable without color vision. The track
-          sits at 1.26:1 against the page, enough to show how many segments are
-          left.
+          The fill sits at 2.65:1 against the track, under the 3:1 non-text bar,
+          by Brian's agreement (ADR 0004). The track sits at 1.28:1 against the
+          page, enough to show how many segments are left.
         </p>
       </section>
 

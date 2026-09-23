@@ -36,7 +36,7 @@ function AlertPage() {
           Four variants: <code>info</code> is the default, then{' '}
           <code>success</code>, <code>warning</code>, and <code>error</code>.{' '}
           <strong className="text-foreground">
-            The surface and the border stay neutral — <code>card</code> on{' '}
+            The surface and the border stay plain — <code>card</code> on{' '}
             <code>border</code>.
           </strong>{' '}
           The icon carries the variant on its own, so an alert reads as a
@@ -82,8 +82,8 @@ function AlertPage() {
         </h2>
         <p className="text-muted-foreground">
           <code>AlertTitle</code> is optional — "Saved." alone is legal. The
-          title uses Onest at medium weight, not Baloo 2, because an alert is a
-          message and not a heading.{' '}
+          title uses Onest at medium weight, not Bricolage Grotesque, because an
+          alert is a message and not a heading.{' '}
           <strong className="text-foreground">
             The description drops to <code>muted-foreground</code>.
           </strong>{' '}
@@ -209,8 +209,10 @@ function AlertPage() {
           </strong>{' '}
           The alert does no focus management: when you remove an alert whose
           close button holds focus, send focus back to the control that produced
-          the alert. Text meets WCAG AA — the description is the floor at 4.73:1
+          the alert. Text meets WCAG AA — the description is the floor at 7.44:1
           — and the close button's focus ring clears 3:1 on the card surface.
+          The info icon is <code>--indicator</code> at 3.59:1 on the card,
+          clearing the 3:1 non-text bar (ADR 0004).
         </p>
       </section>
     </article>

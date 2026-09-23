@@ -1,6 +1,6 @@
 # Flying Salmon
 
-Brian's design system: soft, minimal, playful. Every component below is the real
+Brian's design system: bold, warm, social. Every component below is the real
 shipped component — compose them, don't restyle them.
 
 ## Import shape
@@ -32,6 +32,7 @@ Each component's `.d.ts` names the enum it takes.
 Use the aliases, never a raw palette step and never a hex value:
 `--background` / `--foreground`, `--card` / `--card-foreground`,
 `--popover` / `--popover-foreground`, `--primary` / `--primary-foreground`,
+`--primary-text`,
 `--secondary` / `--secondary-foreground`, `--muted` / `--muted-foreground`,
 `--accent` / `--accent-foreground`, `--error` / `--error-foreground`,
 `--success` / `--success-foreground`, `--warning` / `--warning-foreground`,
@@ -57,7 +58,7 @@ lives in the border or in a background step, never in a lift or a press-down.
 
 ## Type
 
-`--font-heading` (Baloo 2) for headings and display; `--font-sans` (Onest) for
+`--font-heading` (Bricolage Grotesque) for headings and display; `--font-sans` (Onest) for
 body and UI. In Tailwind: `font-heading` and the default sans.
 
 ## Motion

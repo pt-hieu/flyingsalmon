@@ -37,12 +37,12 @@ export const calendarGridBodyClassName = cn(
   'data-[direction=backward]:animate-calendar-page-backward',
 )
 
-const bandHoverTint = 'bg-indigo-200'
+const bandHoverTint = 'bg-orange-300'
 
 export const calendarCellVariants = cva(
   cn(
     'relative flex size-9 cursor-pointer items-center justify-center text-sm outline-hidden select-none',
-    'before:absolute before:inset-y-0.5 before:hidden before:bg-indigo-100',
+    'before:absolute before:inset-y-0.5 before:hidden before:bg-orange-200',
   ),
   {
     variants: {
@@ -127,7 +127,7 @@ export const calendarCellFillVariants = cva(
       {
         filled: true,
         highlighted: true,
-        className: 'bg-indigo-400',
+        className: 'bg-orange-500',
       },
       {
         filled: false,

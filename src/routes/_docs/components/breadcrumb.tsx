@@ -225,9 +225,9 @@ function BreadcrumbDocsPage() {
           Links and the ellipsis trigger sit on <code>--muted-foreground</code>{' '}
           and step to <code>--foreground</code> on hover and while pressed, with
           no underline: position in the trail and the chevrons already say these
-          are links, and indigo stays reserved for indicators. The current page
-          is <code>--foreground</code> at normal weight. There is no disabled
-          state.
+          are links, and orange stays reserved for the brand and indicators. The
+          current page is <code>--foreground</code> at normal weight. There is
+          no disabled state.
         </p>
         <p className="text-muted-foreground">
           The colour change is the only motion, on <code>--motion-fast</code>.
@@ -258,7 +258,7 @@ function BreadcrumbDocsPage() {
         </p>
         <p className="text-muted-foreground">
           Links and chevrons carry <code>--muted-foreground</code> on the page
-          background at 4.73:1; hover and the current page are{' '}
+          background at 7.01:1; hover and the current page are{' '}
           <code>--foreground</code>. All pass WCAG AA.
         </p>
       </section>

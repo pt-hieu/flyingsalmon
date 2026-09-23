@@ -43,17 +43,19 @@ function SwitchPage() {
           One size, no variants. Off is <code>--muted-foreground</code> as the
           track under a <code>--background</code> thumb; on is{' '}
           <code>--indicator</code> under an <code>--indicator-foreground</code>{' '}
-          thumb. Every pair clears 3:1 against the page and against the thumb —
-          4.6:1 — so the state is readable without color vision.
+          thumb. The thumb clears 3:1 against its track in both states — 7.01:1
+          off, 5.08:1 on — so the state is readable without color vision. The
+          off track sits at 7.01:1 on the page and the on track at 3.38:1, both
+          clearing the 3:1 non-text bar (ADR 0004).
         </p>
         <p className="text-muted-foreground">
           <strong className="text-foreground">
             The off thumb takes the page color.
           </strong>{' '}
-          The page color and <code>--indicator-foreground</code> are both white,
-          so the thumb keeps one color on the way to the on state. Travel is a
-          morph, so the thumb stays one object with one color across the whole
-          journey.
+          The on thumb takes <code>--indicator-foreground</code>, neutral-950,
+          the color that carries content on every indicator fill. Travel is a
+          morph, so the thumb stays one object across the whole journey, and its
+          color swaps with the state.
         </p>
         <Preview>
           <Switch label="Wi-Fi" />

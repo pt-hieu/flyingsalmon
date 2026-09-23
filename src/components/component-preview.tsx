@@ -245,7 +245,7 @@ const previewByRoute: Record<ComponentRoute, React.ReactNode> = {
         <ImageIcon aria-hidden className="text-muted-foreground size-6" />
       </div>
       <div className="flex items-center gap-1">
-        <span className="bg-primary size-1.5 rounded-full" />
+        <span className="bg-indicator size-1.5 rounded-full" />
         <span className="bg-border size-1.5 rounded-full" />
         <span className="bg-border size-1.5 rounded-full" />
       </div>

@@ -125,7 +125,8 @@ function ToggleGroupPage() {
           Button&apos;s amber row.{' '}
           <strong className="text-foreground">
             Only the pressed fill changes: an unpressed amber chip is the same
-            grey as every other chip, and it toggles like every other one.
+            <code>--secondary</code> tint as every other chip, and it toggles
+            like every other one.
           </strong>{' '}
           It marks an option that needs a step the label names, such as a visa
           or a permit. A chip that fires an action and never toggles is the

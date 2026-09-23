@@ -22,7 +22,7 @@ export const selectTriggerVariants = cva(
     'group border-input bg-background text-foreground relative flex w-full items-center justify-between gap-2 rounded-md border',
     'data-[placeholder]:text-muted-foreground',
     'transition-[color,border-color,box-shadow] duration-(--motion-fast)',
-    'enabled:hover:not-focus-visible:border-neutral-300',
+    'enabled:hover:not-focus-visible:border-orange-300',
     'focus-visible:ring-ring',
     boundaryFocusRingGeometry,
     disabledInteraction,
@@ -79,7 +79,7 @@ export const selectItemClassName = cn(menuItem, menuItemHighlighted)
 
 export const selectItemTextClassName = 'min-w-0 flex-1 truncate'
 
-export const selectItemIndicatorIconClassName = 'text-primary size-4'
+export const selectItemIndicatorIconClassName = 'text-indicator size-4'
 
 export const selectItemIconSlotClassName = cn(
   menuItemIconSlot,

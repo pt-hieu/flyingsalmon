@@ -188,12 +188,11 @@ function EmptyStatePage() {
           The title is <code>--foreground</code> and the description is{' '}
           <code>--muted-foreground</code>, both measured on{' '}
           <code>--background</code> and on <code>--card</code>. The title runs
-          18.3:1 and the description 5.2:1 on both. The only{' '}
-          <code>--muted</code> surface inside the block is the icon circle,
-          which holds an icon rather than text at 4.7:1. Never place the block
-          itself on <code>--muted</code> without switching the description to{' '}
-          <code>--foreground</code>: the description would land on 4.7:1, which
-          clears AA but leaves nothing to spare.
+          17.20:1 on the background and 18.25:1 on the card; the description
+          7.01:1 and 7.44:1. The only <code>--muted</code> surface inside the
+          block is the icon circle, which holds an icon rather than text at
+          6.48:1. Placed on <code>--muted</code>, the block keeps its
+          description at 6.48:1.
         </p>
       </section>
 
