@@ -22,7 +22,7 @@ export const toggleGroupItemVariants = cva(
     'active:ring-offset-background active:ring-2 active:ring-offset-2',
     offsetFocusRingGeometry,
     disabledInteraction,
-    'border-secondary bg-secondary text-secondary-foreground ring-ring',
+    'border-secondary bg-secondary text-secondary-foreground ring-accent',
     'enabled:hover:border-accent',
     'data-[state=on]:border-primary data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=on]:ring-indicator',
     'enabled:hover:data-[state=on]:border-orange-700 enabled:hover:data-[state=on]:bg-orange-700',
