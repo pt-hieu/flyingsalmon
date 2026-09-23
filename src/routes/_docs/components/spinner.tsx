@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Spinner, SpinnerSize } from '@/registry/ui/spinner'
 
 export const Route = createFileRoute('/_docs/components/spinner')({
@@ -36,10 +36,10 @@ function SpinnerPage() {
           and <code>sm</code> at 12px. Standalone use takes <code>default</code>
           .
         </p>
-        <ModePreview>
+        <Preview>
           <Spinner />
           <Spinner size={SpinnerSize.Small} />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -49,7 +49,7 @@ function SpinnerPage() {
           behind it, so the spinner inherits the text color of whatever contains
           it.
         </p>
-        <ModePreview>
+        <Preview>
           <span className="text-foreground">
             <Spinner />
           </span>
@@ -62,7 +62,7 @@ function SpinnerPage() {
           <span className="text-destructive">
             <Spinner />
           </span>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">

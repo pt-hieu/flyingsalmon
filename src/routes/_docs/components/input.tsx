@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Search } from 'lucide-react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Input, InputSize, InputType } from '@/registry/ui/input'
 
 export const Route = createFileRoute('/_docs/components/input')({
@@ -60,7 +60,7 @@ function InputPage() {
           Two sizes match the button size tiers, so a field and its submit
           button line up in a row. There is no variant prop — one look.
         </p>
-        <ModePreview>
+        <Preview>
           <Input
             className="w-64"
             label="Email"
@@ -74,7 +74,7 @@ function InputPage() {
             type={InputType.Email}
             placeholder="you@example.com"
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -85,7 +85,7 @@ function InputPage() {
           plain icon with <code>aria-hidden</code> to describe the field, or a
           ghost icon button to act on it. There is no leading slot.
         </p>
-        <ModePreview>
+        <Preview>
           <Input
             className="w-64"
             label="Search"
@@ -105,7 +105,7 @@ function InputPage() {
               <Search className="text-muted-foreground size-3" aria-hidden />
             }
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -116,7 +116,7 @@ function InputPage() {
           renders below. The field grows downward only, never sideways. There is
           no shake — the mood is soft, so errors arrive calmly.
         </p>
-        <ModePreview>
+        <Preview>
           <Input
             className="w-64"
             label="Email"
@@ -132,7 +132,7 @@ function InputPage() {
             defaultValue="not-an-address"
             error="Enter a valid email address"
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -146,7 +146,7 @@ function InputPage() {
           both show and the spinner turns destructive too: hiding the message
           during a re-check would flash a validity the field has not earned.
         </p>
-        <ModePreview>
+        <Preview>
           <Input
             className="w-64"
             label="Username"
@@ -160,7 +160,7 @@ function InputPage() {
             loading
             error="That name is already taken"
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -173,7 +173,7 @@ function InputPage() {
           takes a normal cursor, and stays focusable so the value can still be
           read and copied.
         </p>
-        <ModePreview>
+        <Preview>
           <Input
             className="w-64"
             label="Email"
@@ -186,7 +186,7 @@ function InputPage() {
             defaultValue="fs_8f252f6"
             readOnly
           />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">

@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import { Separator, SeparatorOrientation } from '@/registry/ui/separator'
 
@@ -35,7 +35,7 @@ function SeparatorPage() {
           uses. There is no color prop; a consumer that needs another color
           passes one through <code>className</code>.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="flex w-full max-w-xs flex-col gap-3">
             <p className="text-sm">Kyoto</p>
             <Separator />
@@ -43,7 +43,7 @@ function SeparatorPage() {
             <Separator />
             <p className="text-sm">Nara</p>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -56,7 +56,7 @@ function SeparatorPage() {
           toolbar divider needs no explicit height. Radix writes the axis out as{' '}
           <code>data-orientation</code>, which is a public CSS hook.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="flex items-center gap-3">
             <Button variant={ButtonVariant.Ghost} size={ButtonSize.Small}>
               Day
@@ -72,7 +72,7 @@ function SeparatorPage() {
               Export
             </Button>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -88,13 +88,13 @@ function SeparatorPage() {
           horizontal. It looks exactly the same either way: one line, one look.
           The separator is never focusable and never enters the tab order.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="flex w-full max-w-xs flex-col gap-4">
             <p className="text-sm">Traveller details</p>
             <Separator decorative={false} />
             <p className="text-sm">Payment details</p>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -107,7 +107,7 @@ function SeparatorPage() {
           row, so in a parent that is neither flex nor grid it has no height to
           take and the caller must pass one through <code>className</code>.
         </p>
-        <ModePreview>
+        <Preview>
           <div className="flex w-full max-w-xs flex-col gap-2">
             <p className="text-sm">Tight rhythm</p>
             <Separator />
@@ -118,7 +118,7 @@ function SeparatorPage() {
             <Separator />
             <p className="text-sm">gap-6</p>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">

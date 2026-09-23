@@ -147,9 +147,8 @@ function TooltipPage() {
         <h2 className="font-heading text-2xl font-bold">Surface and motion</h2>
         <p className="text-muted-foreground">
           The chip inverts to <code>bg-foreground text-background</code> with no
-          border and no arrow: light is white text on neutral-950, dark is
-          neutral-950 text on neutral-50. It enters and exits on the{' '}
-          <code>floating</code> item&apos;s anchored pair, scaling from{' '}
+          border and no arrow: white text on neutral-950. It enters and exits on
+          the <code>floating</code> item&apos;s anchored pair, scaling from{' '}
           <code>0.96</code> with the Radix popper transform origin, so content
           that flips still grows from its trigger.
         </p>
@@ -158,9 +157,9 @@ function TooltipPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
         <p className="text-muted-foreground">
-          Both surfaces meet WCAG AA contrast in light and dark mode. The
-          tooltip never takes focus, so it draws no ring of its own — the
-          trigger keeps whichever ring it already has.
+          The chip meets WCAG AA contrast. The tooltip never takes focus, so it
+          draws no ring of its own — the trigger keeps whichever ring it already
+          has.
         </p>
       </section>
     </article>

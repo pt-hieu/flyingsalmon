@@ -2,7 +2,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { Copy, Ellipsis, Pencil, Trash2 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import {
   Alert,
   AlertDescription,
@@ -138,7 +138,7 @@ function DropdownMenuPage() {
           <code>DropdownMenuShortcut</code> pushed to the trailing edge. Open
           the trigger to see them.
         </p>
-        <ModePreview>
+        <Preview>
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Button
@@ -165,7 +165,7 @@ function DropdownMenuPage() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -181,9 +181,9 @@ function DropdownMenuPage() {
           the delete runs. The menu itself never holds open and shows no
           busyness — the dialog and, after it closes, the alert carry that.
         </p>
-        <ModePreview>
+        <Preview>
           <TripCardOverflowMenu />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">

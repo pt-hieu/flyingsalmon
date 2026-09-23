@@ -3,7 +3,7 @@ import { Plane, TrainFront } from 'lucide-react'
 import { LayoutGroup, motion } from 'motion/react'
 import { useId, useState } from 'react'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { cn } from '@/lib/utils'
 import { offsetFocusRingGeometry } from '@/registry/lib/interaction'
 import { springBounce } from '@/registry/lib/motion'
@@ -69,11 +69,11 @@ function TimelinePage() {
           mirroring card's typography. Every part carries a{' '}
           <code>data-slot</code>.
         </p>
-        <ModePreview stacked>
+        <Preview>
           <div className="w-full max-w-md">
             <RouteRail />
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -101,7 +101,7 @@ function TimelinePage() {
           <code>TimelineContent</code>. There is no hidden-content mode and no
           separate component: leaving the content out is the whole recipe.
         </p>
-        <ModePreview stacked>
+        <Preview>
           <div className="w-full max-w-md">
             <Timeline orientation={TimelineOrientation.Horizontal}>
               {tripDays.map((day) => (
@@ -111,7 +111,7 @@ function TimelinePage() {
               ))}
             </Timeline>
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -165,35 +165,33 @@ function TimelinePage() {
           appears at its new place with no travel, which is the correct
           fallback, not a bug.
         </p>
-        <ModePreview stacked>
+        <Preview>
           <div className="w-full max-w-md">
             <MovingCurrentMarker />
           </div>
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Contrast</h2>
         <p className="text-muted-foreground">
           The empty marker's dot is <code>--muted-foreground</code> on{' '}
-          <code>--background</code>: 5.2:1 in light mode and 7.0:1 in dark,
-          against the 3:1 a non-text graphic needs. An icon marker draws a 1px{' '}
-          <code>--border</code> circle and puts the icon in{' '}
-          <code>--foreground</code> at 18.3:1 light and 17.5:1 dark, so the icon
+          <code>--background</code>: 5.2:1, against the 3:1 a non-text graphic
+          needs. An icon marker draws a 1px <code>--border</code> circle and
+          puts the icon in <code>--foreground</code> at 18.3:1, so the icon
           carries the 3:1 and the circle carries nothing. The connector is 2px
-          of <code>--border</code>, 1.3:1 in both modes: it is decorative and
-          exempt under WCAG 1.4.11, because it says only what the markers and
-          the content already say.
+          of <code>--border</code>, 1.3:1: it is decorative and exempt under
+          WCAG 1.4.11, because it says only what the markers and the content
+          already say.
         </p>
         <p className="text-muted-foreground">
-          The title runs <code>--foreground</code> at 18.3:1 light and 17.5:1
-          dark; the description runs <code>--muted-foreground</code> at 5.2:1
-          light and 7.0:1 dark. A link inside the title stays{' '}
-          <code>--foreground</code> in every state and carries a permanent
+          The title runs <code>--foreground</code> at 18.3:1; the description
+          runs <code>--muted-foreground</code> at 5.2:1. A link inside the title
+          stays <code>--foreground</code> in every state and carries a permanent
           underline: 1px <code>--muted-foreground</code> at rest, stepping to
-          1.5px <code>--foreground</code> on hover and press, 4.73:1 light and
-          7.63:1 dark. Those are text link's values, so every prose link in the
-          portfolio follows one rule.
+          1.5px <code>--foreground</code> on hover and press, 4.73:1. Those are
+          text link's values, so every prose link in the portfolio follows one
+          rule.
         </p>
       </section>
 

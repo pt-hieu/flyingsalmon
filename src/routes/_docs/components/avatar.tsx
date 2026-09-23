@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { ModePreview } from '@/components/mode-preview'
+import { Preview } from '@/components/preview'
 import { Avatar, AvatarColor, AvatarSize } from '@/registry/ui/avatar'
 
 export const Route = createFileRoute('/_docs/components/avatar')({
@@ -48,7 +48,7 @@ function AvatarPage() {
           <code>sm</code> at 24px with 10px initials. Use <code>sm</code> in
           dense rows such as comment lists.
         </p>
-        <ModePreview>
+        <Preview>
           <Avatar src="/avatar-sample-sky-300.svg" name="Ada Lovelace" />
           <Avatar
             src="/avatar-sample-sky-300.svg"
@@ -57,7 +57,7 @@ function AvatarPage() {
           />
           <Avatar name="Ada Lovelace" />
           <Avatar name="Ada Lovelace" size={AvatarSize.Small} />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -69,7 +69,7 @@ function AvatarPage() {
           image loads, the avatar draws nothing and holds its layout box, so the
           row never shifts.
         </p>
-        <ModePreview>
+        <Preview>
           <Avatar src="/avatar-sample-sky-300.svg" name="Ada Lovelace" />
           <Avatar
             src="/broken-path.png"
@@ -82,7 +82,7 @@ function AvatarPage() {
           />
           <Avatar name="Prince" color={AvatarColor.Fuchsia} />
           <Avatar color={AvatarColor.Pink} />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -96,12 +96,12 @@ function AvatarPage() {
           never uses it. Pick the hue from a stable key such as a user id, so
           the same person keeps the same color.
         </p>
-        <ModePreview>
+        <Preview>
           {avatarColors.map((avatarColor) => (
             <Avatar key={avatarColor} name="Ada Lovelace" color={avatarColor} />
           ))}
           <Avatar name="Ada Lovelace" />
-        </ModePreview>
+        </Preview>
       </section>
 
       <section className="space-y-4">
@@ -116,11 +116,10 @@ function AvatarPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Contrast</h2>
         <p className="text-muted-foreground">
-          Initials on a group color are neutral-950 in both modes. The worst
-          pair is pink at 6.6:1, so all six hues pass WCAG AA. The neutral
-          circle takes the page foreground: 14.5:1 on neutral-200 in light and
-          13.1:1 on neutral-800 in dark. White initials fail on every step 400
-          and are banned here.
+          Initials on a group color are neutral-950. The worst pair is pink at
+          6.6:1, so all six hues pass WCAG AA. The neutral circle takes the page
+          foreground: 14.5:1 on neutral-200. White initials fail on every step
+          400 and are banned here.
         </p>
       </section>
 
@@ -134,12 +133,12 @@ function AvatarPage() {
           when the name sits next to the avatar as text — the avatar then leaves
           the accessibility tree and the name is read once.
         </p>
-        <ModePreview>
+        <Preview>
           <span className="flex items-center gap-2">
             <Avatar name="Ada Lovelace" alt="" color={AvatarColor.Cyan} />
             <span className="text-sm font-medium">Ada Lovelace</span>
           </span>
-        </ModePreview>
+        </Preview>
       </section>
     </article>
   )
