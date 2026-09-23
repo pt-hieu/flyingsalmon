@@ -18,7 +18,7 @@ export const textareaSpinnerErrorClassName = 'text-destructive'
 
 export const textareaVariants = cva(
   cn(
-    'border-input bg-background text-foreground w-full rounded-md border px-3 py-2 text-sm',
+    'border-input bg-card text-foreground w-full rounded-md border px-3 py-2 text-sm',
     'field-sizing-content resize-none',
     'placeholder:text-muted-foreground',
     'transition-[color,border-color,box-shadow] duration-(--motion-fast)',
