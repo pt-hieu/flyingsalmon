@@ -1,6 +1,5 @@
 import { useCombobox, useMultipleSelection } from 'downshift'
 import { ChevronDown, X } from 'lucide-react'
-import { AnimatePresence } from 'motion/react'
 import { DismissableLayer, Popper } from 'radix-ui/internal'
 
 import { cn } from '@/lib/utils'
@@ -361,24 +360,22 @@ export function Combobox(props: ComboboxProps) {
                   disabled,
                 })}
               >
-                <AnimatePresence initial={false}>
-                  {isMultiple
-                    ? selectedEntries.map((entry, index) => (
-                        <ComboboxChip
-                          key={entry.value}
-                          onRemove={() => removeValue(entry.value)}
-                          {...multipleSelection.getSelectedItemProps({
-                            selectedItem: entry,
-                            index,
-                            onKeyDown: (event) =>
-                              handleChipKeyDown(event, entry.value),
-                          })}
-                        >
-                          {entry.label}
-                        </ComboboxChip>
-                      ))
-                    : null}
-                </AnimatePresence>
+                {isMultiple
+                  ? selectedEntries.map((entry, index) => (
+                      <ComboboxChip
+                        key={entry.value}
+                        onRemove={() => removeValue(entry.value)}
+                        {...multipleSelection.getSelectedItemProps({
+                          selectedItem: entry,
+                          index,
+                          onKeyDown: (event) =>
+                            handleChipKeyDown(event, entry.value),
+                        })}
+                      >
+                        {entry.label}
+                      </ComboboxChip>
+                    ))
+                  : null}
 
                 <input {...inputProps} />
 

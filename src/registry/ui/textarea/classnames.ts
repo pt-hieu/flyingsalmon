@@ -23,7 +23,7 @@ export const textareaVariants = cva(
     'placeholder:text-muted-foreground',
     'transition-[color,border-color,box-shadow] duration-(--motion-fast)',
     'enabled:hover:not-focus-visible:border-orange-300',
-    'focus-visible:ring-ring',
+    'focus-visible:ring-indicator',
     boundaryFocusRingGeometry,
     'read-only:bg-muted read-only:focus-visible:border-muted',
     disabledInteraction,

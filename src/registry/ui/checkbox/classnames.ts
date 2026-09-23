@@ -30,7 +30,7 @@ export const checkboxVariants = cva(
           'enabled:hover:data-[state=indeterminate]:border-red-700 enabled:hover:data-[state=indeterminate]:bg-red-700',
         ),
         false: cn(
-          'border-input focus-visible:ring-ring',
+          'border-input focus-visible:ring-indicator',
           'data-[state=checked]:bg-indicator data-[state=indeterminate]:bg-indicator',
           'data-[state=checked]:border-indicator data-[state=indeterminate]:border-indicator',
           'enabled:hover:data-[state=unchecked]:border-indicator',

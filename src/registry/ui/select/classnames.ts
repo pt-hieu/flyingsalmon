@@ -23,7 +23,7 @@ export const selectTriggerVariants = cva(
     'data-[placeholder]:text-muted-foreground',
     'transition-[color,border-color,box-shadow] duration-(--motion-fast)',
     'enabled:hover:not-focus-visible:border-orange-300',
-    'focus-visible:ring-ring',
+    'focus-visible:ring-indicator',
     boundaryFocusRingGeometry,
     disabledInteraction,
     'aria-invalid:border-destructive aria-invalid:focus-visible:ring-destructive',

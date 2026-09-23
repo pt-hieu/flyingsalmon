@@ -1232,7 +1232,6 @@
       "dependencies": [
         "downshift",
         "radix-ui",
-        "motion",
         "class-variance-authority",
         "lucide-react"
       ],

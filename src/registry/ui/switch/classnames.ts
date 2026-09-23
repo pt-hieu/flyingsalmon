@@ -16,7 +16,7 @@ export const switchVariants = cva(
     'data-[state=unchecked]:justify-start data-[state=checked]:justify-end',
     'data-[state=unchecked]:bg-muted-foreground data-[state=checked]:bg-indicator',
     'transition-[background-color,box-shadow] duration-(--motion-fast)',
-    'focus-visible:ring-ring',
+    'focus-visible:ring-indicator',
     offsetFocusRingGeometry,
     disabledInteraction,
   ),
