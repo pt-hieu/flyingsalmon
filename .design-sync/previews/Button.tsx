@@ -10,7 +10,6 @@ export function Variants() {
       <Button variant={ButtonVariant.Secondary}>Secondary</Button>
       <Button variant={ButtonVariant.Ghost}>Ghost</Button>
       <Button variant={ButtonVariant.Destructive}>Delete trip</Button>
-      <Button variant={ButtonVariant.Amber}>Amber</Button>
     </div>
   )
 }

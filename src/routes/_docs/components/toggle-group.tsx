@@ -6,7 +6,6 @@ import { Preview } from '@/components/preview'
 import {
   ToggleGroup,
   ToggleGroupItem,
-  ToggleGroupItemVariant,
   ToggleGroupMode,
   ToggleGroupSize,
 } from '@/registry/ui/toggle-group'
@@ -26,7 +25,7 @@ function ToggleGroupPage() {
           Chips that toggle, in single or multiple mode, wrapping across rows. A
           member of the field family: it owns its label and its error message,
           takes <code>required</code>, and posts through <code>name</code>. Two
-          sizes, one per-item color variant.
+          sizes.
         </p>
       </header>
 
@@ -113,46 +112,6 @@ function ToggleGroupPage() {
               <ToggleGroupItem value="packed">Packed</ToggleGroupItem>
             </ToggleGroup>
           </div>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Amber</h2>
-        <p className="text-muted-foreground">
-          <code>variant</code> on an item takes{' '}
-          <code>ToggleGroupItemVariant.Amber</code>, which swaps the pressed
-          fill from <code>--primary</code> to amber-400 with neutral-950 text,
-          Button&apos;s amber row.{' '}
-          <strong className="text-foreground">
-            Only the pressed fill changes: an unpressed amber chip is the same
-            <code>--secondary</code> tint as every other chip, and it toggles
-            like every other one.
-          </strong>{' '}
-          It marks an option that needs a step the label names, such as a visa
-          or a permit. A chip that fires an action and never toggles is the
-          app&apos;s to compose from a Button; the registry ships no such rule.
-        </p>
-        <Preview>
-          <ToggleGroup
-            label="Destinations"
-            mode={ToggleGroupMode.Multiple}
-            defaultValue={['lisbon', 'hanoi']}
-          >
-            <ToggleGroupItem value="lisbon">Lisbon</ToggleGroupItem>
-            <ToggleGroupItem value="osaka">Osaka</ToggleGroupItem>
-            <ToggleGroupItem
-              value="hanoi"
-              variant={ToggleGroupItemVariant.Amber}
-            >
-              Hanoi, visa needed
-            </ToggleGroupItem>
-            <ToggleGroupItem
-              value="marrakesh"
-              variant={ToggleGroupItemVariant.Amber}
-            >
-              Marrakesh, visa needed
-            </ToggleGroupItem>
-          </ToggleGroup>
         </Preview>
       </section>
 

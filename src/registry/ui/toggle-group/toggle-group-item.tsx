@@ -8,15 +8,13 @@ import {
   toggleGroupItemVariants,
 } from './classnames'
 import { ToggleGroupSharedStateContext } from './context'
-import { type ToggleGroupItemRootProps, ToggleGroupItemVariant } from './types'
+import type { ToggleGroupItemRootProps } from './types'
 
 export interface ToggleGroupItemProps extends ToggleGroupItemRootProps {
-  variant?: ToggleGroupItemVariant
   icon?: React.ReactNode
 }
 
 export function ToggleGroupItem({
-  variant = ToggleGroupItemVariant.Default,
   icon,
   value,
   disabled,
@@ -32,7 +30,7 @@ export function ToggleGroupItem({
     <ToggleGroupPrimitive.Item
       value={value}
       disabled={Boolean(disabled) || isCapped}
-      className={cn(toggleGroupItemVariants({ variant, size }), className)}
+      className={cn(toggleGroupItemVariants({ size }), className)}
       {...props}
     >
       {icon ? (
