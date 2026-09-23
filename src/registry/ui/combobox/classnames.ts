@@ -36,7 +36,7 @@ export const comboboxFieldVariants = cva(
       invalid: {
         true: 'border-destructive focus-within:ring-destructive',
         false: cn(
-          'border-input focus-within:ring-ring',
+          'border-input focus-within:ring-indicator',
           'hover:not-focus-within:border-orange-300',
         ),
       },
@@ -128,7 +128,7 @@ export const comboboxSpinnerErrorClassName = 'text-destructive'
 export const comboboxChipClassName = cn(
   badgeVariants({ variant: BadgeVariant.Secondary }),
   boundaryFocusRingGeometry,
-  'focus-visible:ring-ring',
+  'focus-visible:ring-indicator',
 )
 
 export const comboboxChipRemoveClassName = cn(

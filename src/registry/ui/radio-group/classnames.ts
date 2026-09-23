@@ -47,7 +47,7 @@ export const radioGroupItemVariants = cva(
           'enabled:hover:data-[state=checked]:border-red-700 enabled:hover:data-[state=checked]:bg-red-700',
         ),
         false: cn(
-          'border-input focus-visible:ring-ring',
+          'border-input focus-visible:ring-indicator',
           'data-[state=checked]:border-indicator data-[state=checked]:bg-indicator',
           'enabled:hover:data-[state=unchecked]:border-indicator',
           'enabled:hover:data-[state=checked]:border-orange-700 enabled:hover:data-[state=checked]:bg-orange-700',
