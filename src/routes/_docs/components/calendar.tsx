@@ -42,7 +42,7 @@ function CalendarPage() {
         <p className="text-muted-foreground">
           The default mode. <code>value</code> is a string or <code>null</code>,
           and <code>onChange</code> fires with the clicked day. Today wears a
-          dot under its numeral. <code>min</code> is set to today here, so every
+          dash under its numeral. <code>min</code> is set to today here, so every
           earlier day is struck through and the previous button disables at the
           edge of this month. Pressing the selected day again keeps it selected;
           clearing is <code>value={'{null}'}</code> from the app.
@@ -189,7 +189,7 @@ function CalendarPage() {
           unavailable day takes the accent pair,{' '}
           <code>--accent-foreground</code> on <code>--accent</code>, at 11.96:1,
           like every highlighted idle day. Every text pair clears WCAG AA, so no
-          fallback step is taken. The today dot, in <code>--indicator</code>,
+          fallback step is taken. The today dash, in <code>--indicator</code>,
           sits at 3.59:1 on <code>--popover</code> and 3.38:1 on{' '}
           <code>--background</code>, clearing the 3:1 non-text bar. On a hovered
           idle day or inside the range band it sits on orange-200 at 2.65:1, and
