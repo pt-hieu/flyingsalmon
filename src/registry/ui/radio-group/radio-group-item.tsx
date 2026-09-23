@@ -10,6 +10,7 @@ import {
 
 import {
   radioGroupDotClassName,
+  radioGroupItemLabelCursorVariants,
   radioGroupItemRowClassName,
   radioGroupItemVariants,
 } from './classnames'
@@ -49,10 +50,13 @@ export function RadioGroupItem({
       {label ? (
         <label
           htmlFor={fieldId}
-          className={fieldLabelVariants({
-            placement: FieldLabelPlacement.Beside,
-            disabled: isDisabled,
-          })}
+          className={cn(
+            fieldLabelVariants({
+              placement: FieldLabelPlacement.Beside,
+              disabled: isDisabled,
+            }),
+            radioGroupItemLabelCursorVariants({ disabled: isDisabled }),
+          )}
         >
           {label}
         </label>

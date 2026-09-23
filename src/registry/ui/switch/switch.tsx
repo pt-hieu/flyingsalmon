@@ -64,7 +64,10 @@ export function Switch({
       {label ? (
         <label
           htmlFor={switchId}
-          className={switchLabelVariants({ disabled: Boolean(disabled) })}
+          className={switchLabelVariants({
+            disabled: Boolean(disabled),
+            loading,
+          })}
         >
           {label}
         </label>

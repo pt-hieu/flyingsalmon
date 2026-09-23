@@ -12,9 +12,21 @@ export const checkboxRowClassName = 'flex items-center gap-2'
 
 export const checkboxMarkClassName = 'size-3.5'
 
+export const checkboxLabelCursorVariants = cva('', {
+  variants: {
+    disabled: {
+      true: '',
+      false: 'cursor-pointer',
+    },
+  },
+  defaultVariants: {
+    disabled: false,
+  },
+})
+
 export const checkboxVariants = cva(
   cn(
-    'text-indicator-foreground grid size-5 shrink-0 place-items-center rounded-sm border',
+    'text-indicator-foreground grid size-5 shrink-0 cursor-pointer place-items-center rounded-sm border',
     'transition-[background-color,border-color,box-shadow] duration-(--motion-fast)',
     offsetFocusRingGeometry,
     disabledInteraction,
