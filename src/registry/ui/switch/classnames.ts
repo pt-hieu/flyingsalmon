@@ -26,7 +26,7 @@ export const switchVariants = cva(
         true: 'cursor-not-allowed',
         false: cn(
           'data-[state=unchecked]:hover:bg-neutral-700',
-          'data-[state=checked]:hover:bg-orange-500',
+          'data-[state=checked]:hover:bg-orange-700',
         ),
       },
     },

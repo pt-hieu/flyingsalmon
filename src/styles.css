@@ -497,7 +497,7 @@ body {
   --primary-foreground: var(--color-white);
   --primary-text: var(--color-orange-700);
   --indicator: var(--color-orange-600);
-  --indicator-foreground: var(--color-neutral-950);
+  --indicator-foreground: var(--color-white);
   --secondary: var(--color-orange-100);
   --secondary-foreground: var(--color-neutral-900);
   --muted: var(--color-orange-100);

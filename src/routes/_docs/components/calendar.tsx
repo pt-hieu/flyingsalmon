@@ -184,12 +184,12 @@ function CalendarPage() {
           18.25:1 on <code>--popover</code> and 17.20:1 on{' '}
           <code>--background</code>, and 13.46:1 on the range band. Muted
           weekday and unavailable text sits at 7.44:1 on <code>--popover</code>{' '}
-          and 7.01:1 on <code>--background</code>. The numeral on a filled day
-          sits at 5.08:1, and 6.31:1 on its hover step. A keyboard-focused
+          and 7.01:1 on <code>--background</code>. The white numeral on a filled day
+          sits at 3.59:1, and 5.23:1 on its hover step. A keyboard-focused
           unavailable day takes the accent pair,{' '}
           <code>--accent-foreground</code> on <code>--accent</code>, at 11.96:1,
-          like every highlighted idle day. Every text pair clears WCAG AA, so no
-          fallback step is taken. The today dash, in <code>--indicator</code>,
+          like every highlighted idle day. Every other text pair clears WCAG AA; the filled numeral is under it by
+          agreement (ADR 0004). The today dash, in <code>--indicator</code>,
           sits at 3.59:1 on <code>--popover</code> and 3.38:1 on{' '}
           <code>--background</code>, clearing the 3:1 non-text bar. On a hovered
           idle day or inside the range band it sits on orange-200 at 2.65:1, and
