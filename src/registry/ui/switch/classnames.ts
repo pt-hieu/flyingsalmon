@@ -16,7 +16,7 @@ export const switchVariants = cva(
     'data-[state=unchecked]:justify-start data-[state=checked]:justify-end',
     'data-[state=unchecked]:bg-muted-foreground data-[state=checked]:bg-indicator',
     'transition-[background-color,box-shadow] duration-(--motion-fast)',
-    'focus-visible:ring-ring',
+    'focus-visible:ring-indicator',
     offsetFocusRingGeometry,
     disabledInteraction,
   ),
@@ -25,8 +25,9 @@ export const switchVariants = cva(
       loading: {
         true: 'cursor-not-allowed',
         false: cn(
+          'cursor-pointer',
           'data-[state=unchecked]:hover:bg-neutral-700',
-          'data-[state=checked]:hover:bg-orange-500',
+          'data-[state=checked]:hover:bg-orange-700',
         ),
       },
     },
@@ -62,9 +63,21 @@ export const switchLabelVariants = cva(
         true: 'opacity-50',
         false: '',
       },
+      loading: {
+        true: 'cursor-not-allowed',
+        false: '',
+      },
     },
+    compoundVariants: [
+      {
+        disabled: false,
+        loading: false,
+        className: 'cursor-pointer',
+      },
+    ],
     defaultVariants: {
       disabled: false,
+      loading: false,
     },
   },
 )

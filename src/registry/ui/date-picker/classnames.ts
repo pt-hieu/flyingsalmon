@@ -27,10 +27,10 @@ export const datePickerFieldColumnClassName = 'flex min-w-0 flex-1 flex-col'
 
 export const datePickerBoxVariants = cva(
   cn(
-    'border-input bg-background text-foreground relative flex w-full items-center rounded-md border',
+    'border-input bg-card text-foreground relative flex w-full items-center rounded-md border',
     'transition-[color,border-color,box-shadow] duration-(--motion-fast)',
     'hover:not-focus-within:border-orange-300',
-    'focus-within:ring-ring',
+    'focus-within:ring-indicator',
     boundaryFocusWithinRingGeometry,
     'aria-invalid:border-destructive aria-invalid:focus-within:ring-destructive',
     invalidBoundaryFocusWithinRingGeometry,

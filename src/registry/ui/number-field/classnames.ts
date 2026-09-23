@@ -18,9 +18,9 @@ export const numberFieldSpinnerErrorClassName = 'text-destructive'
 
 export const numberFieldBoxVariants = cva(
   cn(
-    'border-input bg-background flex w-full items-center overflow-hidden rounded-md border',
+    'border-input bg-card flex w-full items-center overflow-hidden rounded-md border',
     'transition-[background-color,border-color,box-shadow] duration-(--motion-fast)',
-    'focus-within:ring-ring',
+    'focus-within:ring-indicator',
     boundaryFocusWithinRingGeometry,
   ),
   {

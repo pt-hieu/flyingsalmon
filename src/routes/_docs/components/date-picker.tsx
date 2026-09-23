@@ -202,18 +202,17 @@ function DatePickerPage() {
         <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
         <p className="text-muted-foreground">
           Measured against this theme&rsquo;s palette with an OKLCH-to-sRGB
-          contrast check. A filled segment sits at 17.20:1 on{' '}
-          <code>--background</code>; a placeholder segment and the dash at
-          7.01:1; the invalid ring at 4.57:1. The icon buttons sit at 7.01:1 at
-          rest and 11.96:1 on the fill they share between hover and focus.
+          contrast check. A filled segment sits at 18.25:1 on the white box; a
+          placeholder segment and the dash at 7.44:1; the invalid ring at
+          4.57:1. The icon buttons sit at 7.44:1 at rest and 11.96:1 on the fill
+          they share between hover and focus.
         </p>
         <p className="text-muted-foreground">
           <strong className="text-foreground">
             The focused segment paints <code>--primary-text</code>.
           </strong>{' '}
           It is orange-700, the step that carries orange as text, and sits at
-          4.93:1 on <code>--background</code> and 5.23:1 on white, clearing WCAG
-          AA (ADR 0004).
+          5.23:1 on the white box, clearing WCAG AA (ADR 0004).
         </p>
       </section>
     </article>

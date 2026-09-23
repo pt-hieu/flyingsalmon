@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 import {
   calendarCellFillVariants,
   calendarCellVariants,
-  calendarTodayDotVariants,
+  calendarTodayDashVariants,
 } from './classnames'
 import { CalendarAppearanceContext } from './context'
 import { describeDay } from './utils'
@@ -64,7 +64,7 @@ export function CalendarDay({ date }: CalendarDayProps) {
             {today ? (
               <span
                 aria-hidden
-                className={calendarTodayDotVariants({ filled })}
+                className={calendarTodayDashVariants({ filled })}
               />
             ) : null}
           </span>

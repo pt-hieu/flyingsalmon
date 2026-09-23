@@ -17,11 +17,11 @@ export const inputSpinnerErrorClassName = 'text-destructive'
 
 export const inputVariants = cva(
   cn(
-    'border-input bg-background text-foreground w-full rounded-md border',
+    'border-input bg-card text-foreground w-full rounded-md border',
     'placeholder:text-muted-foreground',
     'transition-[color,border-color,box-shadow] duration-(--motion-fast)',
     'enabled:hover:not-focus-visible:border-orange-300',
-    'focus-visible:ring-ring',
+    'focus-visible:ring-indicator',
     boundaryFocusRingGeometry,
     'read-only:bg-muted read-only:focus-visible:border-muted',
     disabledInteraction,
