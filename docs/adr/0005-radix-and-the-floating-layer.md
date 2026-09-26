@@ -14,6 +14,8 @@ Revised a fifth time by issue #142: exhibition mode is gone. The portal rule car
 
 Revised a sixth time by the drawer spec (issue #183). Drawer is a fifth floating kind, fixed modal. Portal, dismiss, focus, scroll lock, stacking, and the scrim apply to it exactly as they apply to dialog, and wherever the text below counts four floating components it now counts five. The motion shapes gain a drawer shape and the `floating` item gains a fourth keyframe pair, both marked inline below.
 
+Revised a seventh time by ADR 0009: the theme item carries the floating keyframes, and there is no `floating` item. Marked inline below.
+
 Batch 2 is dialog, dropdown-menu, select, tooltip, and tabs. The floating-layer grilling (issue #49) fixed one contract that the four floating components quote instead of re-deciding. It also settles the Radix choice recorded in the batch-2 map (issue #48), together with the motion-lifecycle answer that made the choice affordable.
 
 ## Decision
@@ -33,7 +35,7 @@ Batch 2 is dialog, dropdown-menu, select, tooltip, and tabs. The floating-layer 
 - **Stacking is one `z-50` on every floating surface**, dialog overlay included. No per-kind z-index scale. Everything portals to `document.body`, so equal z-values resolve by mount order and the layer opened later wins — the correct answer for a dropdown inside a dialog or a tooltip on a dialog's close button. Escape unwinds innermost-first through Radix's dismissable-layer stack.
 - **A floating surface separates by a surface step plus its border, not by depth.** `--popover` is white against the orange-50 `--background`. This answers the flip condition in ADR 0003. **One exception, from issue #54: tooltip inverts.** It paints `bg-foreground text-background` with no border, so it is orange-50 text on neutral-950, 17.20:1. A tooltip is a label, not a panel, and it takes the largest surface step the palette offers instead of a step plus a border. It does not read the `--popover` token.
 - **The dialog scrim is a solid palette color at element opacity**: `--color-neutral-950` animated from `0` to `0.5`. No color alpha is introduced, so the flip condition in ADR 0004 is answered by declining to flip.
-- **The shared item is CSS only.** A `floating` registry item carries three keyframe pairs — anchored, dialog, overlay — **and a fourth, drawer, from issue #183**, and their `--animate-*` variables with durations and easings baked in. It holds no TypeScript. Components depend on it and write one class per direction.
+- **The shared motion is CSS only.** **The theme item (ADR 0009)** carries three keyframe pairs — anchored, dialog, overlay — **and a fourth, drawer, from issue #183**, and their `--animate-*` variables with durations and easings baked in. Components write one class per direction.
 
 ## Rationale
 
@@ -41,7 +43,7 @@ Batch 2 is dialog, dropdown-menu, select, tooltip, and tabs. The floating-layer 
 - The usual fix is `forceMount` plus `AnimatePresence`. It works, and it costs roughly twenty duplicated lines in each of five components, a hand-written controllable-state hook, a `pointer-events` guard on the exiting layer whose dismiss handlers are still live, and the fussiest force-mount case of all in select's viewport.
 - `spring().toString()` removes that entire cost. The only thing `forceMount` buys over it is interruption fidelity: a JavaScript spring interrupted mid-flight continues from its current position and velocity, where a CSS animation restarts from its fixed start frame. On a 150ms fade-and-scale that is a small price, and it is paid only when a layer is toggled fast.
 - Fixing modality per component kind rather than exposing it keeps dismiss, focus, scroll lock, and stacking from becoming conditional on a prop.
-- `tw-animate-css` was rejected for the keyframes. It is a third-party dependency we would push onto every consumer, and ADR 0001 already requires each registry item to carry its own `animate-*` utility rather than borrow one.
+- `tw-animate-css` was rejected for the keyframes. It is a third-party dependency we would push onto every consumer, and ADR 0001 already requires a custom `animate-*` utility rather than a borrowed one.
 
 ## Consequences
 
@@ -49,7 +51,7 @@ Batch 2 is dialog, dropdown-menu, select, tooltip, and tabs. The floating-layer 
 - **ADR 0004 is widened, not broken.** It lists element opacity as fine for disabled states and motion. The scrim is a third sanctioned use. Color alpha stays banned repo-wide with no exception.
 - **ADR 0003's flip condition is answered** with the surface step named above, not with a shadow.
 - **The theme item sets `--popover` one surface step off `--background`**: white on the orange-50 page.
-- **A new `floating` registry item** joins the registry, and the four floating components declare it as a dependency. Dialog's build creates it with all three keyframe pairs at once (issue #51); the values are fixed above, so writing the anchored pair before its first consumer is transcription, and it keeps three later sessions from editing one shared file.
+- **The floating keyframes live in the theme item (ADR 0009).** Dialog's build wrote all three keyframe pairs at once (issue #51); the values are fixed above, so writing the anchored pair before its first consumer is transcription, and it keeps three later sessions from editing one shared file.
 - **The Escape rule carries one exception** (issue #51). It yields to a pending dialog, because a modal that closes mid-submit leaves a request running with no owner on screen. The exception is the narrowest that solves the problem, and it is not a `modal` prop.
 - **One correction lands from the tooltip build review** (issue #71). Radix's hoverable-content grace area is tracked by a bubble-phase `document` listener that loses to React's root handler, so a pointer path sparse enough to fire two or three events between adjacent triggers strands the first tooltip and opens no second one until the pointer moves again. That is upstream and unfixable here without owning `open` state; it is documented on the tooltip page rather than worked around.
 - **A floating component is never rendered open for documentation** (issue #142). A docs page shows the trigger and the reader opens it. The alternative was a prop that turned off the portal, the focus trap, and the scroll lock so a preview could hold an open copy — a documentation concern shipped to every consumer, and a second rendering path under every dismiss, focus, and stacking rule above. Showing the surface open without a click is not worth that.
@@ -62,6 +64,6 @@ Batch 2 is dialog, dropdown-menu, select, tooltip, and tabs. The floating-layer 
 
 ## Deferred
 
-- **A code-carrying `floating` lib item.** The shared surface is CSS today. Revisit after dialog and one menu component are actually built, per issue #48 — do not guess its shape before two components have used the pattern.
+- **A code-carrying `floating` lib item.** The shared surface is CSS in the theme today. Revisit after dialog and one menu component are actually built, per issue #48 — do not guess its shape before two components have used the pattern.
 - **A `container` prop for the portal target**, and an `initialFocus` prop. Both wait for a real consumer need.
 - **`prefers-reduced-motion`**, still deferred by the standing rule in ADR 0001 and `CLAUDE.md`.

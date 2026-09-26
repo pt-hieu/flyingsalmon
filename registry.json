@@ -156,6 +156,152 @@
           "h1, h2, h3, h4, h5, h6": {
             "@apply font-heading": {}
           }
+        },
+        "@keyframes floating-anchored-enter": {
+          "from": {
+            "opacity": "0",
+            "transform": "scale(0.96)"
+          },
+          "to": {
+            "opacity": "1",
+            "transform": "scale(1)"
+          }
+        },
+        "@keyframes floating-anchored-exit": {
+          "from": {
+            "opacity": "1",
+            "transform": "scale(1)"
+          },
+          "to": {
+            "opacity": "0",
+            "transform": "scale(0.96)"
+          }
+        },
+        "@keyframes floating-dialog-enter": {
+          "from": {
+            "opacity": "0",
+            "transform": "scale(0.98)"
+          },
+          "to": {
+            "opacity": "1",
+            "transform": "scale(1)"
+          }
+        },
+        "@keyframes floating-dialog-exit": {
+          "from": {
+            "opacity": "1",
+            "transform": "scale(1)"
+          },
+          "to": {
+            "opacity": "0",
+            "transform": "scale(0.98)"
+          }
+        },
+        "@keyframes floating-drawer-enter": {
+          "from": {
+            "opacity": "0",
+            "transform": "translateX(24px)"
+          },
+          "to": {
+            "opacity": "1",
+            "transform": "translateX(0)"
+          }
+        },
+        "@keyframes floating-drawer-exit": {
+          "from": {
+            "opacity": "1",
+            "transform": "translateX(0)"
+          },
+          "to": {
+            "opacity": "0",
+            "transform": "translateX(24px)"
+          }
+        },
+        "@keyframes floating-overlay-enter": {
+          "from": {
+            "opacity": "0"
+          },
+          "to": {
+            "opacity": "0.5"
+          }
+        },
+        "@keyframes floating-overlay-exit": {
+          "from": {
+            "opacity": "0.5"
+          },
+          "to": {
+            "opacity": "0"
+          }
+        },
+        "@keyframes spinner-rotate": {
+          "to": {
+            "transform": "rotate(360deg)"
+          }
+        },
+        "@keyframes switch-thumb-pulse": {
+          "50%": {
+            "opacity": "0.7"
+          }
+        },
+        "@keyframes skeleton-pulse": {
+          "0%, 100%": {
+            "opacity": "1"
+          },
+          "50%": {
+            "opacity": "0.5"
+          }
+        },
+        "@keyframes accordion-down": {
+          "from": {
+            "height": "0"
+          },
+          "to": {
+            "height": "var(--radix-accordion-content-height)"
+          }
+        },
+        "@keyframes accordion-up": {
+          "from": {
+            "height": "var(--radix-accordion-content-height)"
+          },
+          "to": {
+            "height": "0"
+          }
+        },
+        "@keyframes calendar-page-forward": {
+          "from": {
+            "opacity": "0",
+            "transform": "translateX(16px)"
+          },
+          "to": {
+            "opacity": "1",
+            "transform": "translateX(0)"
+          }
+        },
+        "@keyframes calendar-page-backward": {
+          "from": {
+            "opacity": "0",
+            "transform": "translateX(-16px)"
+          },
+          "to": {
+            "opacity": "1",
+            "transform": "translateX(0)"
+          }
+        },
+        "@keyframes calendar-heading-enter": {
+          "from": {
+            "opacity": "0"
+          },
+          "to": {
+            "opacity": "1"
+          }
+        },
+        "@keyframes progress-indeterminate": {
+          "from": {
+            "transform": "translateX(-100%)"
+          },
+          "to": {
+            "transform": "translateX(250%)"
+          }
         }
       },
       "cssVars": {
@@ -164,7 +310,28 @@
           "font-heading": "'Bricolage Grotesque Variable', var(--font-sans)",
           "motion-fast": "100ms",
           "motion-base": "150ms",
-          "color-progress-fill": "var(--progress-fill)"
+          "color-progress-fill": "var(--progress-fill)",
+          "animate-floating-anchored-enter": "floating-anchored-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
+          "animate-floating-anchored-exit": "floating-anchored-exit 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
+          "animate-floating-dialog-enter": "floating-dialog-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
+          "animate-floating-dialog-exit": "floating-dialog-exit 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
+          "animate-floating-drawer-enter": "floating-drawer-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
+          "animate-floating-drawer-exit": "floating-drawer-exit 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
+          "animate-floating-overlay-enter": "floating-overlay-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
+          "animate-floating-overlay-exit": "floating-overlay-exit 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
+          "animate-spinner": "spinner-rotate 800ms linear infinite",
+          "animate-switch-thumb-pulse": "switch-thumb-pulse 800ms ease-in-out infinite",
+          "card-spacing": "--spacing(4)",
+          "animate-skeleton-pulse": "skeleton-pulse 2s ease-in-out infinite",
+          "dialog-spacing": "--spacing(6)",
+          "table-header-border": "var(--indicator)",
+          "animate-accordion-down": "accordion-down 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
+          "animate-accordion-up": "accordion-up 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
+          "animate-calendar-page-forward": "calendar-page-forward 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
+          "animate-calendar-page-backward": "calendar-page-backward 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
+          "animate-calendar-heading-enter": "calendar-heading-enter 100ms linear",
+          "animate-progress-indeterminate": "progress-indeterminate 2s ease-in-out infinite",
+          "timeline-spacing": "--spacing(6)"
         },
         "light": {
           "background": "var(--color-orange-50)",
@@ -279,58 +446,6 @@
       "files": [{ "path": "src/registry/lib/menu.ts", "type": "registry:lib" }]
     },
     {
-      "name": "floating",
-      "type": "registry:item",
-      "title": "Floating layer motion",
-      "description": "The enter and exit keyframes and --animate-* variables every floating component shares: anchored content, the dialog panel, the drawer panel, and the scrim. CSS only, per ADR 0005.",
-      "cssVars": {
-        "theme": {
-          "animate-floating-anchored-enter": "floating-anchored-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
-          "animate-floating-anchored-exit": "floating-anchored-exit 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
-          "animate-floating-dialog-enter": "floating-dialog-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
-          "animate-floating-dialog-exit": "floating-dialog-exit 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
-          "animate-floating-drawer-enter": "floating-drawer-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
-          "animate-floating-drawer-exit": "floating-drawer-exit 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
-          "animate-floating-overlay-enter": "floating-overlay-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
-          "animate-floating-overlay-exit": "floating-overlay-exit 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)"
-        }
-      },
-      "css": {
-        "@keyframes floating-anchored-enter": {
-          "from": { "opacity": "0", "transform": "scale(0.96)" },
-          "to": { "opacity": "1", "transform": "scale(1)" }
-        },
-        "@keyframes floating-anchored-exit": {
-          "from": { "opacity": "1", "transform": "scale(1)" },
-          "to": { "opacity": "0", "transform": "scale(0.96)" }
-        },
-        "@keyframes floating-dialog-enter": {
-          "from": { "opacity": "0", "transform": "scale(0.98)" },
-          "to": { "opacity": "1", "transform": "scale(1)" }
-        },
-        "@keyframes floating-dialog-exit": {
-          "from": { "opacity": "1", "transform": "scale(1)" },
-          "to": { "opacity": "0", "transform": "scale(0.98)" }
-        },
-        "@keyframes floating-drawer-enter": {
-          "from": { "opacity": "0", "transform": "translateX(24px)" },
-          "to": { "opacity": "1", "transform": "translateX(0)" }
-        },
-        "@keyframes floating-drawer-exit": {
-          "from": { "opacity": "1", "transform": "translateX(0)" },
-          "to": { "opacity": "0", "transform": "translateX(24px)" }
-        },
-        "@keyframes floating-overlay-enter": {
-          "from": { "opacity": "0" },
-          "to": { "opacity": "0.5" }
-        },
-        "@keyframes floating-overlay-exit": {
-          "from": { "opacity": "0.5" },
-          "to": { "opacity": "0" }
-        }
-      }
-    },
-    {
       "name": "spinner",
       "type": "registry:ui",
       "title": "Spinner",
@@ -347,17 +462,7 @@
           "type": "registry:ui"
         },
         { "path": "src/registry/ui/spinner/types.ts", "type": "registry:ui" }
-      ],
-      "cssVars": {
-        "theme": {
-          "animate-spinner": "spinner-rotate 800ms linear infinite"
-        }
-      },
-      "css": {
-        "@keyframes spinner-rotate": {
-          "to": { "transform": "rotate(360deg)" }
-        }
-      }
+      ]
     },
     {
       "name": "button",
@@ -485,17 +590,7 @@
         { "path": "src/registry/ui/switch/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/switch/switch.tsx", "type": "registry:ui" },
         { "path": "src/registry/ui/switch/types.ts", "type": "registry:ui" }
-      ],
-      "cssVars": {
-        "theme": {
-          "animate-switch-thumb-pulse": "switch-thumb-pulse 800ms ease-in-out infinite"
-        }
-      },
-      "css": {
-        "@keyframes switch-thumb-pulse": {
-          "50%": { "opacity": "0.7" }
-        }
-      }
+      ]
     },
     {
       "name": "checkbox",
@@ -594,12 +689,7 @@
         { "path": "src/registry/ui/card/context.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/card/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/card/types.ts", "type": "registry:ui" }
-      ],
-      "cssVars": {
-        "theme": {
-          "card-spacing": "--spacing(4)"
-        }
-      }
+      ]
     },
     {
       "name": "skeleton",
@@ -618,18 +708,7 @@
           "type": "registry:ui"
         },
         { "path": "src/registry/ui/skeleton/types.ts", "type": "registry:ui" }
-      ],
-      "cssVars": {
-        "theme": {
-          "animate-skeleton-pulse": "skeleton-pulse 2s ease-in-out infinite"
-        }
-      },
-      "css": {
-        "@keyframes skeleton-pulse": {
-          "0%, 100%": { "opacity": "1" },
-          "50%": { "opacity": "0.5" }
-        }
-      }
+      ]
     },
     {
       "name": "dialog",
@@ -637,10 +716,7 @@
       "title": "Dialog",
       "description": "A modal surface over a scrim. It traps focus, locks scroll, and returns focus to its trigger on close.",
       "dependencies": ["radix-ui"],
-      "registryDependencies": [
-        "@flyingsalmon/floating",
-        "@flyingsalmon/button"
-      ],
+      "registryDependencies": ["@flyingsalmon/button"],
       "files": [
         {
           "path": "src/registry/ui/dialog/classnames.ts",
@@ -682,12 +758,7 @@
         { "path": "src/registry/ui/dialog/dialog.tsx", "type": "registry:ui" },
         { "path": "src/registry/ui/dialog/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/dialog/types.ts", "type": "registry:ui" }
-      ],
-      "cssVars": {
-        "theme": {
-          "dialog-spacing": "--spacing(6)"
-        }
-      }
+      ]
     },
     {
       "name": "dropdown-menu",
@@ -695,11 +766,7 @@
       "title": "Dropdown Menu",
       "description": "A modal menu of actions anchored to its trigger. Arrow keys walk the items; choosing one closes the menu.",
       "dependencies": ["radix-ui"],
-      "registryDependencies": [
-        "@flyingsalmon/floating",
-        "@flyingsalmon/menu",
-        "@flyingsalmon/button"
-      ],
+      "registryDependencies": ["@flyingsalmon/menu", "@flyingsalmon/button"],
       "files": [
         {
           "path": "src/registry/ui/dropdown-menu/classnames.ts",
@@ -755,7 +822,6 @@
       "dependencies": ["class-variance-authority", "radix-ui"],
       "registryDependencies": [
         "@flyingsalmon/field",
-        "@flyingsalmon/floating",
         "@flyingsalmon/menu",
         "@flyingsalmon/interaction",
         "@flyingsalmon/spinner"
@@ -800,7 +866,6 @@
       "title": "Tooltip",
       "description": "A non-modal label anchored to its trigger. It never takes focus, and pointer leave, blur, or Escape dismisses it.",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["@flyingsalmon/floating"],
       "files": [
         {
           "path": "src/registry/ui/tooltip/classnames.ts",
@@ -878,22 +943,13 @@
       "dependencies": [],
       "registryDependencies": [],
       "files": [
-        {
-          "path": "src/registry/ui/form/classnames.ts",
-          "type": "registry:ui"
-        },
+        { "path": "src/registry/ui/form/classnames.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/form/form-actions.tsx",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/form/form.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/form/index.ts",
-          "type": "registry:ui"
-        }
+        { "path": "src/registry/ui/form/form.tsx", "type": "registry:ui" },
+        { "path": "src/registry/ui/form/index.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -971,12 +1027,7 @@
         },
         { "path": "src/registry/ui/table/table.tsx", "type": "registry:ui" },
         { "path": "src/registry/ui/table/types.ts", "type": "registry:ui" }
-      ],
-      "cssVars": {
-        "theme": {
-          "table-header-border": "var(--indicator)"
-        }
-      }
+      ]
     },
     {
       "name": "accordion",
@@ -1009,23 +1060,7 @@
         { "path": "src/registry/ui/accordion/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/accordion/types.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/accordion/utils.ts", "type": "registry:ui" }
-      ],
-      "cssVars": {
-        "theme": {
-          "animate-accordion-down": "accordion-down 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
-          "animate-accordion-up": "accordion-up 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)"
-        }
-      },
-      "css": {
-        "@keyframes accordion-down": {
-          "from": { "height": "0" },
-          "to": { "height": "var(--radix-accordion-content-height)" }
-        },
-        "@keyframes accordion-up": {
-          "from": { "height": "var(--radix-accordion-content-height)" },
-          "to": { "height": "0" }
-        }
-      }
+      ]
     },
     {
       "name": "avatar-group",
@@ -1072,18 +1107,12 @@
           "path": "src/registry/ui/separator/classnames.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/separator/index.ts",
-          "type": "registry:ui"
-        },
+        { "path": "src/registry/ui/separator/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/separator/separator.tsx",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/separator/types.ts",
-          "type": "registry:ui"
-        }
+        { "path": "src/registry/ui/separator/types.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -1130,28 +1159,7 @@
           "type": "registry:ui"
         },
         { "path": "src/registry/ui/calendar/utils.ts", "type": "registry:ui" }
-      ],
-      "cssVars": {
-        "theme": {
-          "animate-calendar-page-forward": "calendar-page-forward 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
-          "animate-calendar-page-backward": "calendar-page-backward 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
-          "animate-calendar-heading-enter": "calendar-heading-enter 100ms linear"
-        }
-      },
-      "css": {
-        "@keyframes calendar-page-forward": {
-          "from": { "opacity": "0", "transform": "translateX(16px)" },
-          "to": { "opacity": "1", "transform": "translateX(0)" }
-        },
-        "@keyframes calendar-page-backward": {
-          "from": { "opacity": "0", "transform": "translateX(-16px)" },
-          "to": { "opacity": "1", "transform": "translateX(0)" }
-        },
-        "@keyframes calendar-heading-enter": {
-          "from": { "opacity": "0" },
-          "to": { "opacity": "1" }
-        }
-      }
+      ]
     },
     {
       "name": "date-picker",
@@ -1168,7 +1176,6 @@
       "registryDependencies": [
         "@flyingsalmon/calendar",
         "@flyingsalmon/field",
-        "@flyingsalmon/floating",
         "@flyingsalmon/interaction",
         "@flyingsalmon/spinner",
         "@flyingsalmon/button"
@@ -1237,7 +1244,6 @@
       ],
       "registryDependencies": [
         "@flyingsalmon/field",
-        "@flyingsalmon/floating",
         "@flyingsalmon/menu",
         "@flyingsalmon/interaction",
         "@flyingsalmon/spinner",
@@ -1293,10 +1299,7 @@
           "path": "src/registry/ui/combobox/has-panel-content.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/combobox/index.ts",
-          "type": "registry:ui"
-        },
+        { "path": "src/registry/ui/combobox/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/combobox/spinner-size-by-combobox-size.ts",
           "type": "registry:ui"
@@ -1305,10 +1308,7 @@
           "path": "src/registry/ui/combobox/split-panel-children.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/combobox/types.ts",
-          "type": "registry:ui"
-        },
+        { "path": "src/registry/ui/combobox/types.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/combobox/use-combobox-item-registry.ts",
           "type": "registry:ui"
@@ -1321,10 +1321,7 @@
           "path": "src/registry/ui/combobox/use-highlight-on-arrow-open.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/combobox/utils.ts",
-          "type": "registry:ui"
-        }
+        { "path": "src/registry/ui/combobox/utils.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -1429,40 +1426,19 @@
       "title": "Progress",
       "description": "A bar for an operation of known length, determinate or indeterminate. Spinner covers an action's busyness and skeleton covers a loading region; progress covers measured work.",
       "dependencies": ["motion"],
-      "registryDependencies": ["@flyingsalmon/motion", "@flyingsalmon/theme"],
+      "registryDependencies": ["@flyingsalmon/motion"],
       "files": [
         {
           "path": "src/registry/ui/progress/classnames.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/progress/index.ts",
-          "type": "registry:ui"
-        },
+        { "path": "src/registry/ui/progress/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/progress/progress.tsx",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/progress/types.ts",
-          "type": "registry:ui"
-        }
-      ],
-      "cssVars": {
-        "theme": {
-          "animate-progress-indeterminate": "progress-indeterminate 2s ease-in-out infinite"
-        }
-      },
-      "css": {
-        "@keyframes progress-indeterminate": {
-          "from": {
-            "transform": "translateX(-100%)"
-          },
-          "to": {
-            "transform": "translateX(250%)"
-          }
-        }
-      }
+        { "path": "src/registry/ui/progress/types.ts", "type": "registry:ui" }
+      ]
     },
     {
       "name": "stepper",
@@ -1470,28 +1446,19 @@
       "title": "Stepper",
       "description": "A bar of equal segments filled through the current one, for a position in a sequence of known count. It reads as ticks rather than a fraction; progress covers one operation of known length.",
       "dependencies": ["motion"],
-      "registryDependencies": ["@flyingsalmon/motion", "@flyingsalmon/theme"],
+      "registryDependencies": ["@flyingsalmon/motion"],
       "files": [
         {
           "path": "src/registry/ui/stepper/classnames.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/stepper/index.ts",
-          "type": "registry:ui"
-        },
+        { "path": "src/registry/ui/stepper/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/stepper/stepper.tsx",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/stepper/types.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/stepper/utils.ts",
-          "type": "registry:ui"
-        }
+        { "path": "src/registry/ui/stepper/types.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/stepper/utils.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -1506,10 +1473,7 @@
           "path": "src/registry/ui/notice/classnames.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/notice/index.ts",
-          "type": "registry:ui"
-        },
+        { "path": "src/registry/ui/notice/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/notice/notice-card.tsx",
           "type": "registry:ui"
@@ -1526,10 +1490,7 @@
           "path": "src/registry/ui/notice/read-node-text.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/notice/types.ts",
-          "type": "registry:ui"
-        },
+        { "path": "src/registry/ui/notice/types.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/notice/use-notice-announcer.ts",
           "type": "registry:ui"
@@ -1538,10 +1499,7 @@
           "path": "src/registry/ui/notice/use-notice.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/notice/utils.ts",
-          "type": "registry:ui"
-        }
+        { "path": "src/registry/ui/notice/utils.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -1605,14 +1563,8 @@
           "path": "src/registry/ui/sidebar/classnames.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/sidebar/context.ts",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/sidebar/index.ts",
-          "type": "registry:ui"
-        },
+        { "path": "src/registry/ui/sidebar/context.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/sidebar/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/sidebar/sidebar-content.tsx",
           "type": "registry:ui"
@@ -1669,10 +1621,7 @@
           "path": "src/registry/ui/sidebar/sidebar.tsx",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/sidebar/types.ts",
-          "type": "registry:ui"
-        },
+        { "path": "src/registry/ui/sidebar/types.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/sidebar/use-sidebar.ts",
           "type": "registry:ui"
@@ -1702,10 +1651,7 @@
           "path": "src/registry/ui/timeline/context.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/timeline/index.ts",
-          "type": "registry:ui"
-        },
+        { "path": "src/registry/ui/timeline/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/timeline/timeline-content.tsx",
           "type": "registry:ui"
@@ -1730,16 +1676,8 @@
           "path": "src/registry/ui/timeline/timeline.tsx",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/timeline/types.ts",
-          "type": "registry:ui"
-        }
-      ],
-      "cssVars": {
-        "theme": {
-          "timeline-spacing": "--spacing(6)"
-        }
-      }
+        { "path": "src/registry/ui/timeline/types.ts", "type": "registry:ui" }
+      ]
     },
     {
       "name": "drawer",
@@ -1747,11 +1685,7 @@
       "title": "Drawer",
       "description": "A modal panel inset at the right edge of the viewport for secondary content that accompanies the page still visible beside it: filters for a list, the detail of a selected row. It is dialog's root and parts with one panel of its own, and it is never app navigation and never a confirm.",
       "dependencies": ["class-variance-authority", "radix-ui"],
-      "registryDependencies": [
-        "@flyingsalmon/dialog",
-        "@flyingsalmon/button",
-        "@flyingsalmon/floating"
-      ],
+      "registryDependencies": ["@flyingsalmon/dialog", "@flyingsalmon/button"],
       "files": [
         {
           "path": "src/registry/ui/drawer/classnames.ts",
@@ -1761,14 +1695,8 @@
           "path": "src/registry/ui/drawer/drawer-content.tsx",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/drawer/drawer.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/drawer/index.ts",
-          "type": "registry:ui"
-        }
+        { "path": "src/registry/ui/drawer/drawer.tsx", "type": "registry:ui" },
+        { "path": "src/registry/ui/drawer/index.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -1802,10 +1730,7 @@
           "path": "src/registry/ui/breadcrumb/classnames.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/breadcrumb/index.ts",
-          "type": "registry:ui"
-        }
+        { "path": "src/registry/ui/breadcrumb/index.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -1844,10 +1769,7 @@
           "path": "src/registry/ui/pagination/types.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/pagination/utils.ts",
-          "type": "registry:ui"
-        }
+        { "path": "src/registry/ui/pagination/utils.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -1862,10 +1784,7 @@
           "path": "src/registry/ui/text-link/classnames.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/text-link/index.ts",
-          "type": "registry:ui"
-        },
+        { "path": "src/registry/ui/text-link/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/text-link/text-link.tsx",
           "type": "registry:ui"
