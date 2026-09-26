@@ -44,6 +44,7 @@ export function Button({
     <motion.button
       type="button"
       layout="size"
+      layoutDependency={loading}
       transition={springBounce}
       aria-busy={loading || undefined}
       onClick={(event) => {
@@ -60,6 +61,7 @@ export function Button({
       {leadingContent ? (
         <motion.span
           layout="position"
+          layoutDependency={loading}
           transition={springBounce}
           className={buttonLeadingIconVariants({ size })}
         >
@@ -68,7 +70,11 @@ export function Button({
       ) : null}
 
       {rendersLabel ? (
-        <motion.span layout="position" transition={springBounce}>
+        <motion.span
+          layout="position"
+          layoutDependency={loading}
+          transition={springBounce}
+        >
           {children}
         </motion.span>
       ) : null}
