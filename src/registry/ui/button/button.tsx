@@ -1,4 +1,4 @@
-import { motion } from 'motion/react'
+import { LayoutGroup, motion } from 'motion/react'
 
 import { cn } from '@/lib/utils'
 import { springBounce } from '@/registry/lib/motion'
@@ -40,44 +40,49 @@ export function Button({
     (icon ?? childrenAsIcon)
   )
 
+  // An inherited layout group re-measures every member when any one updates,
+  // which bypasses layoutDependency; a group of its own keeps the loading
+  // morph the only layout change the button animates.
   return (
-    <motion.button
-      type="button"
-      layout="size"
-      layoutDependency={loading}
-      transition={springBounce}
-      aria-busy={loading || undefined}
-      onClick={(event) => {
-        if (loading) {
-          event.preventDefault()
-          event.stopPropagation()
-          return
-        }
-        onClick?.(event)
-      }}
-      className={cn(buttonVariants({ variant, size, loading }), className)}
-      {...props}
-    >
-      {leadingContent ? (
-        <motion.span
-          layout="position"
-          layoutDependency={loading}
-          transition={springBounce}
-          className={buttonLeadingIconVariants({ size })}
-        >
-          {leadingContent}
-        </motion.span>
-      ) : null}
+    <LayoutGroup inherit="id">
+      <motion.button
+        type="button"
+        layout="size"
+        layoutDependency={loading}
+        transition={springBounce}
+        aria-busy={loading || undefined}
+        onClick={(event) => {
+          if (loading) {
+            event.preventDefault()
+            event.stopPropagation()
+            return
+          }
+          onClick?.(event)
+        }}
+        className={cn(buttonVariants({ variant, size, loading }), className)}
+        {...props}
+      >
+        {leadingContent ? (
+          <motion.span
+            layout="position"
+            layoutDependency={loading}
+            transition={springBounce}
+            className={buttonLeadingIconVariants({ size })}
+          >
+            {leadingContent}
+          </motion.span>
+        ) : null}
 
-      {rendersLabel ? (
-        <motion.span
-          layout="position"
-          layoutDependency={loading}
-          transition={springBounce}
-        >
-          {children}
-        </motion.span>
-      ) : null}
-    </motion.button>
+        {rendersLabel ? (
+          <motion.span
+            layout="position"
+            layoutDependency={loading}
+            transition={springBounce}
+          >
+            {children}
+          </motion.span>
+        ) : null}
+      </motion.button>
+    </LayoutGroup>
   )
 }
