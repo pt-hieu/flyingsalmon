@@ -213,7 +213,7 @@ function ComboboxPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Motion</h2>
         <p className="text-muted-foreground">
-          The panel enters and exits on the floating item's anchored keyframe
+          The panel enters and exits on the theme's anchored floating keyframe
           pair — scale from <code>0.96</code> plus fade, 250ms on the bounce
           curve in and 150ms on the settle curve out, growing from the field.
           The chevron rotates 180 degrees at <code>--motion-base</code>, and the
