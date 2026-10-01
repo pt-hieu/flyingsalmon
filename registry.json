@@ -543,10 +543,6 @@
         },
         { "path": "src/registry/ui/input/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/input/input.tsx", "type": "registry:ui" },
-        {
-          "path": "src/registry/ui/input/spinner-size-by-input-size.ts",
-          "type": "registry:ui"
-        },
         { "path": "src/registry/ui/input/types.ts", "type": "registry:ui" }
       ]
     },
@@ -856,10 +852,6 @@
           "type": "registry:ui"
         },
         { "path": "src/registry/ui/select/select.tsx", "type": "registry:ui" },
-        {
-          "path": "src/registry/ui/select/spinner-size-by-select-size.ts",
-          "type": "registry:ui"
-        },
         { "path": "src/registry/ui/select/types.ts", "type": "registry:ui" }
       ]
     },
@@ -1304,10 +1296,6 @@
         },
         { "path": "src/registry/ui/combobox/index.ts", "type": "registry:ui" },
         {
-          "path": "src/registry/ui/combobox/spinner-size-by-combobox-size.ts",
-          "type": "registry:ui"
-        },
-        {
           "path": "src/registry/ui/combobox/split-panel-children.ts",
           "type": "registry:ui"
         },
@@ -1361,10 +1349,6 @@
         },
         {
           "path": "src/registry/ui/number-field/number-field.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/registry/ui/number-field/spinner-size-by-number-field-size.ts",
           "type": "registry:ui"
         },
         {
