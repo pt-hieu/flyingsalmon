@@ -57,6 +57,30 @@ describe('Textarea', () => {
     expect(field).toHaveAccessibleDescription('')
   })
 
+  it('describes the field with its description', () => {
+    render(
+      <Textarea label="Notes" description="Shared with everyone on the trip" />,
+    )
+
+    expect(screen.getByLabelText('Notes')).toHaveAccessibleDescription(
+      'Shared with everyone on the trip',
+    )
+  })
+
+  it('describes the field with the error message, then the description', () => {
+    render(
+      <Textarea
+        label="Notes"
+        description="Shared with everyone on the trip"
+        error="Write at least ten characters"
+      />,
+    )
+
+    expect(screen.getByLabelText('Notes')).toHaveAccessibleDescription(
+      'Write at least ten characters Shared with everyone on the trip',
+    )
+  })
+
   it('exposes a required field as required', () => {
     render(<Textarea label="Notes" required />)
 

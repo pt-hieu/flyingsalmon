@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils'
 import {
+  FieldDescription,
   FieldErrorMessage,
   FieldLabelPlacement,
   fieldLabelVariants,
@@ -21,6 +22,7 @@ import { rowsToHeight } from './utils'
 export interface TextareaProps extends Omit<TextareaElementProps, 'rows'> {
   label?: string
   error?: string
+  description?: string
   loading?: boolean
   minRows?: number
   maxRows?: number
@@ -29,6 +31,7 @@ export interface TextareaProps extends Omit<TextareaElementProps, 'rows'> {
 export function Textarea({
   label,
   error,
+  description,
   loading = false,
   minRows = 3,
   maxRows = 8,
@@ -40,9 +43,10 @@ export function Textarea({
   'aria-describedby': callerDescribedBy,
   ...props
 }: TextareaProps) {
-  const { fieldId, errorMessageId, describedBy } = useFieldIds({
+  const { fieldId, errorMessageId, descriptionId, describedBy } = useFieldIds({
     id,
     error,
+    description,
     describedBy: callerDescribedBy,
   })
 
@@ -89,6 +93,10 @@ export function Textarea({
           </div>
         ) : null}
       </div>
+
+      <FieldDescription id={descriptionId} disabled={Boolean(disabled)}>
+        {description}
+      </FieldDescription>
 
       <FieldErrorMessage id={errorMessageId}>{error}</FieldErrorMessage>
     </div>
