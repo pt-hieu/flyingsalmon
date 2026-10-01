@@ -108,6 +108,10 @@ _Avoid_: mandatory, non-optional, must-fill
 A display-only indicator of position in a sequence with a known count: a horizontal bar of equal segments, filled through the current one, that reads as ticks rather than a fraction. Progress is a fraction of one operation with a known end; timeline is a layout of markers joined by connectors and carries no item states; tabs navigate between peer panels. Stepper has no markers, no connectors, no fraction, and no navigation. The count may grow while mounted. Segment labels and the position text belong to the app.
 _Avoid_: wizard, steps bar, page indicator, dots
 
+**Slider**:
+A control that picks one value from a range of steps by moving a thumb along a track, with a dot for every step and a description of the current step below it. The description is the thumb's value text, so the step is announced by its meaning. Stepper only shows a position and carousel only scrolls; a slider sets a value. It takes the field label variants but has no error state, so it is not a field family member.
+_Avoid_: range, range input, scale, dial
+
 **Empty state**:
 A resting no-content state: a title, an optional description, and optional actions saying why a region holds nothing and what the user can do about it. Not feedback and not loading — an error after an action goes to the acting surface's alert or to a notice (ADR 0008), and a region still fetching shows a skeleton. A dead share link qualifies: the user landed on a page with nothing in it, they did not act and fail.
 _Avoid_: blank state, zero state, placeholder, no-data

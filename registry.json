@@ -354,6 +354,7 @@
           "muted-foreground": "var(--color-neutral-600)",
           "skeleton": "var(--color-orange-200)",
           "progress-track": "var(--color-orange-200)",
+          "slider-fill": "var(--color-orange-300)",
           "accent": "var(--color-orange-200)",
           "accent-foreground": "var(--color-neutral-900)",
           "destructive": "var(--color-red-600)",
@@ -1363,6 +1364,26 @@
           "path": "src/registry/ui/number-field/utils.ts",
           "type": "registry:ui"
         }
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "A stepped track that picks one value: a dot for every step, a fill to the thumb, and the current step described below the track. The description is also what a screen reader announces.",
+      "dependencies": ["class-variance-authority", "radix-ui"],
+      "registryDependencies": [
+        "@flyingsalmon/field",
+        "@flyingsalmon/interaction"
+      ],
+      "files": [
+        {
+          "path": "src/registry/ui/slider/classnames.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/slider/index.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/slider/slider.tsx", "type": "registry:ui" },
+        { "path": "src/registry/ui/slider/utils.ts", "type": "registry:ui" }
       ]
     },
     {
