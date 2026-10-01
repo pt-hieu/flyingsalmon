@@ -138,13 +138,14 @@ function PageHeaderPage() {
           top, one <code>--bar-height</code> tall, with its items in a menu the
           trigger opens. The page header sits directly beneath it with the same
           markup. The strip pads its sides by <code>--page-header-inset</code>,
-          so with the variable set on the sidebar&apos;s provider the trigger
-          starts on the title&apos;s left edge. The strip closes with its own
-          bottom border, so the header stacks between two rules: the
-          strip&apos;s above the title&apos;s band, its own below the last band.
-          In a phone-width pane the title takes the row and the actions wrap
-          under it into their own band. The frame below is 384px wide, so it
-          renders the strip the way a phone does.
+          so with the variable set on the sidebar&apos;s provider its header
+          content starts on the title&apos;s left edge and its trigger ends on
+          the header&apos;s right one. The strip closes with its own bottom
+          border, so the header stacks between two rules: the strip&apos;s above
+          the title&apos;s band, its own below the last band. In a phone-width
+          pane the title takes the row and the actions wrap under it into their
+          own band. The frame below is 384px wide, so it renders the strip the
+          way a phone does.
         </p>
         <Preview>
           <iframe

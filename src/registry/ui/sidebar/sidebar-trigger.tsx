@@ -1,4 +1,8 @@
+import { cn } from '@/lib/utils'
+
 import { Button, ButtonSize, ButtonVariant } from '../button'
+
+import { sidebarTriggerClassName } from './classnames'
 
 import { SidebarLayout } from './types'
 import { useSidebarSharedState } from './use-sidebar'
@@ -14,7 +18,11 @@ function collapseLabel(collapsed: boolean) {
   return collapsed ? 'Expand sidebar' : 'Collapse sidebar'
 }
 
-export function SidebarTrigger({ onClick, ...props }: SidebarTriggerProps) {
+export function SidebarTrigger({
+  className,
+  onClick,
+  ...props
+}: SidebarTriggerProps) {
   const {
     collapsed,
     setCollapsed,
@@ -44,6 +52,8 @@ export function SidebarTrigger({ onClick, ...props }: SidebarTriggerProps) {
 
         onClick?.(event)
       }}
+      data-slot="sidebar-trigger"
+      className={cn(sidebarTriggerClassName, className)}
       {...props}
     />
   )
