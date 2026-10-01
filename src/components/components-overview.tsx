@@ -7,7 +7,6 @@ import {
   groupComponentsByCategory,
   searchComponents,
 } from '@/components/search-components'
-import { Badge, BadgeVariant } from '@/registry/ui/badge'
 import { Button, ButtonVariant } from '@/registry/ui/button'
 import {
   Card,
@@ -100,11 +99,6 @@ export function ComponentsOverview({
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <Link to={component.to}>{component.label}</Link>
-                        {component.docsPending ? (
-                          <Badge variant={BadgeVariant.Secondary}>
-                            Docs pending
-                          </Badge>
-                        ) : null}
                       </CardTitle>
                       <CardDescription className="line-clamp-2">
                         {component.description}
