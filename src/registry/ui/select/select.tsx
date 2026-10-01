@@ -10,7 +10,7 @@ import {
   useFieldIds,
 } from '@/registry/lib/field'
 
-import { Spinner } from '../spinner'
+import { Spinner, SpinnerSize } from '../spinner'
 
 import {
   selectChevronClassName,
@@ -21,7 +21,6 @@ import {
   selectWrapperClassName,
 } from './classnames'
 import { SelectPanel } from './select-panel'
-import { spinnerSizeBySelectSize } from './spinner-size-by-select-size'
 import { SelectPanelAlign, SelectPanelSide, SelectSize } from './types'
 
 export interface SelectProps extends Omit<
@@ -130,7 +129,11 @@ export function Select({
             {loading ? (
               <Spinner
                 aria-hidden
-                size={spinnerSizeBySelectSize[size]}
+                size={
+                  size === SelectSize.Small
+                    ? SpinnerSize.Small
+                    : SpinnerSize.Default
+                }
                 className={hasError ? selectSpinnerErrorClassName : undefined}
               />
             ) : (

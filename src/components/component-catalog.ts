@@ -138,14 +138,6 @@ const catalogEntries = [
     aliases: ['chip', 'tag', 'pill', 'label'],
   },
   {
-    to: '/components/carousel',
-    registryName: 'carousel',
-    label: 'Carousel',
-    category: ComponentCategory.DataDisplay,
-    aliases: ['slider', 'slideshow', 'gallery'],
-    docsPending: true,
-  },
-  {
     to: '/components/icon-tooltip',
     registryName: 'icon-tooltip',
     label: 'Icon Tooltip',
@@ -316,7 +308,6 @@ export interface CatalogComponent {
   category: ComponentCategory
   aliases: readonly string[]
   description: string
-  docsPending?: boolean
 }
 
 const registryDescriptionsByName = new Map(

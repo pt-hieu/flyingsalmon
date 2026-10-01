@@ -1,4 +1,4 @@
-import { screen, within } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { useState } from 'react'
 import { describe, expect, it } from 'vitest'
@@ -73,14 +73,5 @@ describe('ComponentsOverview', () => {
     expect(
       screen.getByRole('searchbox', { name: 'Filter components' }),
     ).toHaveValue('')
-  })
-
-  it('marks components whose docs page is pending', async () => {
-    await renderWithRouter(<StatefulOverview initialQuery="carousel" />)
-
-    const carouselSection = screen.getByRole('region', {
-      name: 'Data display',
-    })
-    expect(within(carouselSection).getByText('Docs pending')).toBeVisible()
   })
 })

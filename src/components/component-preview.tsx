@@ -1,11 +1,4 @@
-import {
-  CalendarClock,
-  Compass,
-  Ellipsis,
-  ImageIcon,
-  Lock,
-  MapPinned,
-} from 'lucide-react'
+import { CalendarClock, Compass, Ellipsis, Lock, MapPinned } from 'lucide-react'
 
 import type { ComponentRoute } from '@/components/component-catalog'
 import {
@@ -249,19 +242,6 @@ const previewByRoute: Record<ComponentRoute, React.ReactNode> = {
       <Badge>Default</Badge>
       <Badge variant={BadgeVariant.Success}>Success</Badge>
       <Badge variant={BadgeVariant.Outline}>Outline</Badge>
-    </div>
-  ),
-
-  '/components/carousel': (
-    <div className="bg-background flex w-40 flex-col items-center gap-2 rounded-lg p-2">
-      <div className="bg-muted flex h-16 w-full items-center justify-center rounded-md">
-        <ImageIcon aria-hidden className="text-muted-foreground size-6" />
-      </div>
-      <div className="flex items-center gap-1">
-        <span className="bg-indicator size-1.5 rounded-full" />
-        <span className="bg-border size-1.5 rounded-full" />
-        <span className="bg-border size-1.5 rounded-full" />
-      </div>
     </div>
   ),
 
