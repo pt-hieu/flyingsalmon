@@ -12,6 +12,6 @@ export function valuePercent(value: number, min: number, max: number) {
   return ((value - min) / (max - min)) * 100
 }
 
-export function thumbCentreOffset(percent: number) {
+export function thumbCenterOffset(percent: number) {
   return `calc(${percent}% + var(--slider-thumb-width) * (50 - ${percent}) / 100)`
 }

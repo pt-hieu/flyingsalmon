@@ -1,10 +1,7 @@
 import { cva } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
-import {
-  FieldLabelPlacement,
-  fieldLabelVariants,
-} from '@/registry/lib/field'
+import { FieldLabelPlacement, fieldLabelVariants } from '@/registry/lib/field'
 import { offsetFocusRingGeometry } from '@/registry/lib/interaction'
 
 export const sliderWrapperClassName = cn(
