@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { act, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -23,15 +23,31 @@ import {
  * state and the stub answers the sidebar's own query against it.
  */
 function reportViewportWidth(width: number) {
+  let viewportWidth = width
+  const listeners = new Set<() => void>()
+
   vi.stubGlobal('matchMedia', (query: string) => {
     const [, breakpoint] = query.match(/min-width:\s*(\d+)px/) ?? []
 
     return {
-      matches: width >= Number(breakpoint),
-      addEventListener() {},
-      removeEventListener() {},
+      get matches() {
+        return viewportWidth >= Number(breakpoint)
+      },
+      addEventListener(_type: string, listener: () => void) {
+        listeners.add(listener)
+      },
+      removeEventListener(_type: string, listener: () => void) {
+        listeners.delete(listener)
+      },
     }
   })
+
+  return function resizeViewport(nextWidth: number) {
+    act(() => {
+      viewportWidth = nextWidth
+      listeners.forEach((listener) => listener())
+    })
+  }
 }
 
 function LayoutReadout() {
@@ -299,6 +315,27 @@ describe('Sidebar', () => {
 
     await user.click(screen.getByRole('button', { name: 'Open navigation' }))
     await user.click(screen.getByRole('button', { name: 'Budget' }))
+
+    expect(screen.queryByRole('dialog')).toBeNull()
+    expect(
+      screen.getByRole('button', { name: 'Open navigation' }),
+    ).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('keeps the menu closed after the viewport widens and narrows again', async () => {
+    const user = userEvent.setup()
+    const resizeViewport = reportViewportWidth(420)
+    render(<TripSidebar />)
+
+    await user.click(screen.getByRole('button', { name: 'Open navigation' }))
+    resizeViewport(1200)
+
+    expect(screen.queryByRole('dialog')).toBeNull()
+    expect(
+      screen.getByRole('button', { name: 'Collapse sidebar' }),
+    ).toBeVisible()
+
+    resizeViewport(420)
 
     expect(screen.queryByRole('dialog')).toBeNull()
     expect(
