@@ -152,6 +152,7 @@ body {
   --timeline-spacing: --spacing(6);
   --bar-height: --spacing(18);
   --page-header-inset: --spacing(0);
+  --page-header-max-width: none;
   --table-header-border: var(--indicator);
   --animate-spinner: spinner-rotate 800ms linear infinite;
   @keyframes spinner-rotate {

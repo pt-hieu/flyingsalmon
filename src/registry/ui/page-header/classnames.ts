@@ -6,7 +6,7 @@ export const pageHeaderContainerClassName = cn(
 )
 
 export const pageHeaderRowClassName =
-  'flex flex-wrap items-start justify-between gap-x-4'
+  'mx-auto flex max-w-(--page-header-max-width) flex-wrap items-start justify-between gap-x-4'
 
 export const pageHeaderTitleClassName = cn(
   'font-heading text-foreground min-w-[min(100%,--spacing(64))] grow basis-0 text-4xl leading-10 font-extrabold tracking-tight text-balance',
