@@ -1,14 +1,13 @@
 import { Minus, Plus } from 'lucide-react'
 
-import { Spinner } from '../spinner'
+import { Spinner, SpinnerSize } from '../spinner'
 
 import {
   numberFieldLoadingSlotVariants,
   numberFieldSpinnerErrorClassName,
 } from './classnames'
 import { NumberFieldSpinButton } from './number-field-spin-button'
-import { spinnerSizeByNumberFieldSize } from './spinner-size-by-number-field-size'
-import type { NumberFieldSize } from './types'
+import { NumberFieldSize } from './types'
 
 export interface NumberFieldControlsProps {
   size: NumberFieldSize
@@ -36,7 +35,11 @@ export function NumberFieldControls({
       <div className={numberFieldLoadingSlotVariants({ size, error })}>
         <Spinner
           aria-hidden
-          size={spinnerSizeByNumberFieldSize[size]}
+          size={
+            size === NumberFieldSize.Small
+              ? SpinnerSize.Small
+              : SpinnerSize.Default
+          }
           className={error ? numberFieldSpinnerErrorClassName : undefined}
         />
       </div>
