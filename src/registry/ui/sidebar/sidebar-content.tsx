@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 
 import { cn } from '@/lib/utils'
 
-import { Dialog, DialogSurface, DialogTitle } from '../dialog'
+import { Drawer, DrawerContent, DrawerTitle } from '../drawer'
 
 import {
   sidebarContentClassName,
@@ -51,8 +51,8 @@ export function SidebarContent({ className, ...props }: SidebarContentProps) {
 
   if (layout === SidebarLayout.Strip) {
     return (
-      <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
-        <DialogSurface
+      <Drawer open={menuOpen} onOpenChange={setMenuOpen}>
+        <DrawerContent
           id={menuId}
           data-collapsed={false}
           aria-describedby={undefined}
@@ -66,17 +66,17 @@ export function SidebarContent({ className, ...props }: SidebarContentProps) {
             }
           }}
         >
-          <DialogTitle className={sidebarMenuTitleClassName}>
+          <DrawerTitle className={sidebarMenuTitleClassName}>
             Navigation
-          </DialogTitle>
+          </DrawerTitle>
           <div
             ref={containerRef}
             data-slot="sidebar-content"
             className={cn(sidebarContentClassName, className)}
             {...props}
           />
-        </DialogSurface>
-      </Dialog>
+        </DrawerContent>
+      </Drawer>
     )
   }
 

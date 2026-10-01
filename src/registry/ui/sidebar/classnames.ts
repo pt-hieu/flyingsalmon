@@ -3,18 +3,16 @@ import { cn } from '@/lib/utils'
 export const sidebarShellClassName =
   'flex h-full w-full flex-col min-[700px]:flex-row'
 
-const sidebarWidthVariables =
-  '[--sidebar-width:18.125rem] [--sidebar-width-collapsed:3.5rem]'
-
 export const sidebarClassName = cn(
   'group/sidebar bg-background border-border sticky top-0 z-10 flex h-(--bar-height) w-full shrink-0 flex-row items-center gap-3 border-b px-[max(--spacing(3),var(--page-header-inset))]',
   'min-[700px]:static min-[700px]:h-full min-[700px]:w-(--sidebar-width) min-[700px]:flex-col min-[700px]:items-stretch min-[700px]:gap-0 min-[700px]:overflow-hidden min-[700px]:border-r min-[700px]:border-b-0 min-[700px]:px-0',
   'min-[700px]:data-[collapsed=true]:w-(--sidebar-width-collapsed)',
-  sidebarWidthVariables,
+  'max-[700px]:[&:not(:has([data-slot=sidebar-footer]))_[data-slot=sidebar-trigger]]:ml-auto',
+  '[--sidebar-width:18.125rem] [--sidebar-width-collapsed:3.5rem]',
 )
 
 export const sidebarHeaderClassName = cn(
-  'flex shrink-0 items-center gap-2',
+  'flex shrink-0 items-center gap-2 max-[700px]:contents',
   'min-[700px]:h-(--bar-height) min-[700px]:px-2.5',
 )
 
@@ -25,20 +23,14 @@ export const sidebarContentClassName = cn(
 
 export const sidebarInlineContentClassName = 'max-[700px]:hidden'
 
-export const sidebarMenuClassName = cn(
-  'group/sidebar bg-popover text-popover-foreground border-border fixed inset-y-2 left-2 z-50 flex w-[min(var(--sidebar-width),calc(100vw-1rem))] flex-col',
-  'overflow-hidden rounded-xl border outline-hidden',
-  'data-[state=open]:animate-floating-drawer-left-enter',
-  'data-[state=closed]:animate-floating-drawer-left-exit',
-  sidebarWidthVariables,
-)
+export const sidebarMenuClassName = 'group/sidebar'
 
 export const sidebarMenuTitleClassName =
-  'font-heading shrink-0 px-5 pt-(--dialog-spacing) pb-2 text-lg font-semibold'
+  'font-heading shrink-0 px-5 pt-(--dialog-spacing) text-lg font-semibold'
 
 export const sidebarFooterClassName = cn(
   'flex shrink-0 items-center gap-2',
-  'max-[700px]:ml-auto',
+  'max-[700px]:ml-auto max-[700px]:order-1',
   'min-[700px]:border-border min-[700px]:mt-auto min-[700px]:border-t min-[700px]:px-2.5 min-[700px]:py-3',
 )
 
@@ -125,3 +117,5 @@ export const sidebarNestChevronClassName = cn(
 
 export const sidebarNestItemsClassName =
   '-mx-2 flex flex-col items-stretch overflow-hidden px-2'
+
+export const sidebarTriggerClassName = 'max-[700px]:order-2'

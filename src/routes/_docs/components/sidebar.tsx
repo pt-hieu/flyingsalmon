@@ -120,22 +120,23 @@ function SidebarPage() {
         <p className="text-muted-foreground">
           Under 700px the aside becomes one sticky <code>top-0</code> row,{' '}
           <code>--bar-height</code> tall, with <code>border-b</code> in place of{' '}
-          <code>border-r</code>: header content leads and footer content trails.{' '}
+          <code>border-r</code>: header content leads, footer content trails,
+          and the trigger moves to the trailing end.{' '}
           <strong className="text-foreground">
             <code>SidebarContent</code> moves into a menu, and the trigger opens
             it instead of collapsing the column.
           </strong>{' '}
-          The menu floats in from the left edge, one{' '}
-          <code>--sidebar-width</code> wide, on <code>--popover</code> over the
-          dialog overlay, and lays the content out as the expanded column: group
+          The menu is the registry <code>drawer</code>, on the right edge beside
+          the trigger, and lays the content out as the expanded column: group
           labels, nests with their chevrons, and the bar on its left edge.
           Choosing an item closes it; so do Escape, the close button, and a
           press outside. The strip pads its sides by{' '}
           <code>--page-header-inset</code>, at least 12px, so set that variable
-          on the provider and the trigger lines up with the page title below it.
-          That is the whole of the app&apos;s top bar — the registry ships no
-          separate header component (#128). Narrow the window below 700px and
-          the demo above becomes this, with no change to its markup.
+          on the provider and the strip&apos;s content lines up with the page
+          title below it. That is the whole of the app&apos;s top bar — the
+          registry ships no separate header component (#128). Narrow the window
+          below 700px and the demo above becomes this, with no change to its
+          markup.
         </p>
       </section>
 
@@ -207,9 +208,9 @@ function SidebarPage() {
             The width morph runs on <code>spring-settle</code>
           </strong>{' '}
           because it displaces the pane beside it (ADR 0001), labels fade on{' '}
-          <code>--motion-fast</code>, the strip&apos;s menu enters and leaves as
-          the drawer does, mirrored to the left edge, and the switch into the
-          strip is a breakpoint and is not animated.
+          <code>--motion-fast</code>, the strip&apos;s menu moves as the drawer
+          does, and the switch into the strip is a breakpoint and is not
+          animated.
         </p>
       </section>
 
