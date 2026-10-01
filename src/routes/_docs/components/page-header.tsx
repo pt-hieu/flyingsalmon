@@ -157,7 +157,7 @@ function PageHeaderPage() {
           <code>banner</code> landmark and competes with the app shell's own.
           Apart from the inset below, the header adds no margin around itself;
           the page's layout gap places it. It closes with a 1px{' '}
-          <code>--border</code> rule, <code>pb-4</code> below the title and
+          <code>--border</code> rule, <code>pb-6</code> below the title and
           actions, which separates the page's name from its body the way every
           surface in the system separates: by a solid line, never a shadow.
         </p>
