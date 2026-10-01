@@ -331,7 +331,10 @@
           "animate-calendar-page-backward": "calendar-page-backward 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
           "animate-calendar-heading-enter": "calendar-heading-enter 100ms linear",
           "animate-progress-indeterminate": "progress-indeterminate 2s ease-in-out infinite",
-          "timeline-spacing": "--spacing(6)"
+          "timeline-spacing": "--spacing(6)",
+          "bar-height": "--spacing(18)",
+          "page-header-inset": "--spacing(0)",
+          "page-header-max-width": "none"
         },
         "light": {
           "background": "var(--color-orange-50)",
@@ -1548,15 +1551,44 @@
       ]
     },
     {
+      "name": "page-header",
+      "type": "registry:ui",
+      "title": "Page Header",
+      "description": "A page's title and the actions that act on the whole page, nothing else. One display-size h1, and an actions group that shares the title's row on a wide header and wraps under it on a narrow one.",
+      "files": [
+        {
+          "path": "src/registry/ui/page-header/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/page-header/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/page-header/page-header-actions.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/page-header/page-header-title.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/page-header/page-header.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "sidebar",
       "type": "registry:ui",
       "title": "Sidebar",
-      "description": "An aside with header, content, and footer slots that morphs between an expanded column and an icon rail, and becomes one sticky horizontal strip under a 700px container. It hosts navigation items or any other rail content.",
+      "description": "An aside with header, content, and footer slots that morphs between an expanded column and an icon rail, and becomes one sticky horizontal strip under a 700px viewport, where its content moves into a menu the trigger opens. It hosts navigation items or any other rail content.",
       "dependencies": ["motion", "lucide-react"],
       "registryDependencies": [
         "@flyingsalmon/motion",
         "@flyingsalmon/tooltip",
-        "@flyingsalmon/button"
+        "@flyingsalmon/button",
+        "@flyingsalmon/drawer"
       ],
       "files": [
         {

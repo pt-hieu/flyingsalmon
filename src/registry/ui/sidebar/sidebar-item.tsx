@@ -23,6 +23,7 @@ import { useSidebarSharedState } from './use-sidebar'
 interface SlottedItemProps {
   children?: React.ReactNode
   className?: string
+  'data-slot'?: string
   'aria-current'?: React.AriaAttributes['aria-current']
 }
 
@@ -99,11 +100,16 @@ export function SidebarItem({
   const item = slottedElement ? (
     cloneElement(
       slottedElement,
-      { ...props, className: itemClassName },
+      { ...props, 'data-slot': 'sidebar-item', className: itemClassName },
       content,
     )
   ) : (
-    <button type="button" className={itemClassName} {...props}>
+    <button
+      type="button"
+      data-slot="sidebar-item"
+      className={itemClassName}
+      {...props}
+    >
       {content}
     </button>
   )

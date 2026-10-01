@@ -2,7 +2,16 @@ import { useEffect, useRef } from 'react'
 
 import { cn } from '@/lib/utils'
 
-import { sidebarContentClassName } from './classnames'
+import { Drawer, DrawerContent, DrawerTitle } from '../drawer'
+
+import {
+  sidebarContentClassName,
+  sidebarInlineContentClassName,
+  sidebarMenuClassName,
+  sidebarMenuTitleClassName,
+} from './classnames'
+import { SidebarLayout } from './types'
+import { useSidebarSharedState } from './use-sidebar'
 
 export type SidebarContentProps = React.ComponentProps<'div'>
 
@@ -24,6 +33,7 @@ function scrollFullyIntoView(container: HTMLElement, item: Element) {
 }
 
 export function SidebarContent({ className, ...props }: SidebarContentProps) {
+  const { layout, menuId, menuOpen, setMenuOpen } = useSidebarSharedState()
   const containerRef = useRef<HTMLDivElement>(null)
   const scrolledItemRef = useRef<Element | null>(null)
 
@@ -39,11 +49,46 @@ export function SidebarContent({ className, ...props }: SidebarContentProps) {
     scrollFullyIntoView(container, activeItem)
   })
 
+  if (layout === SidebarLayout.Strip) {
+    return (
+      <Drawer open={menuOpen} onOpenChange={setMenuOpen}>
+        <DrawerContent
+          id={menuId}
+          data-collapsed={false}
+          aria-describedby={undefined}
+          className={sidebarMenuClassName}
+          onClick={(event) => {
+            if (
+              event.target instanceof Element &&
+              event.target.closest('[data-slot="sidebar-item"]')
+            ) {
+              setMenuOpen(false)
+            }
+          }}
+        >
+          <DrawerTitle className={sidebarMenuTitleClassName}>
+            Navigation
+          </DrawerTitle>
+          <div
+            ref={containerRef}
+            data-slot="sidebar-content"
+            className={cn(sidebarContentClassName, className)}
+            {...props}
+          />
+        </DrawerContent>
+      </Drawer>
+    )
+  }
+
   return (
     <div
       ref={containerRef}
       data-slot="sidebar-content"
-      className={cn(sidebarContentClassName, className)}
+      className={cn(
+        sidebarContentClassName,
+        sidebarInlineContentClassName,
+        className,
+      )}
       {...props}
     />
   )
