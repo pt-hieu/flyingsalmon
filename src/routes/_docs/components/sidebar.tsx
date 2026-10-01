@@ -56,8 +56,9 @@ function SidebarPage() {
         <p className="text-muted-foreground text-lg">
           An <code>aside</code> with header, content, and footer slots that
           morphs between an expanded column and an icon rail, and becomes one
-          sticky horizontal strip under a 700px viewport. The app&apos;s top bar
-          and its sidebar are the same component.
+          sticky horizontal strip under a 700px viewport, with its content in a
+          menu the trigger opens. The app&apos;s top bar and its sidebar are the
+          same component.
         </p>
       </header>
 
@@ -117,17 +118,24 @@ function SidebarPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">The strip</h2>
         <p className="text-muted-foreground">
-          Under 700px the aside becomes one sticky <code>top-0</code> row with{' '}
-          <code>border-b</code> in place of <code>border-r</code>: header
-          content leads, the nav scrolls horizontally with its groups flattened,
-          and footer content trails. The trigger is gone, because there is
-          nothing left to collapse.{' '}
+          Under 700px the aside becomes one sticky <code>top-0</code> row,{' '}
+          <code>--bar-height</code> tall, with <code>border-b</code> in place of{' '}
+          <code>border-r</code>: header content leads and footer content trails.{' '}
           <strong className="text-foreground">
-            That is the whole of the app&apos;s top bar
+            <code>SidebarContent</code> moves into a menu, and the trigger opens
+            it instead of collapsing the column.
           </strong>{' '}
-          — the registry ships no separate header component (#128). Narrow the
-          window below 700px and the demo above becomes this, with no change to
-          its markup.
+          The menu floats in from the left edge, one{' '}
+          <code>--sidebar-width</code> wide, on <code>--popover</code> over the
+          dialog overlay, and lays the content out as the expanded column: group
+          labels, nests with their chevrons, and the bar on its left edge.
+          Choosing an item closes it; so do Escape, the close button, and a
+          press outside. The strip pads its sides by{' '}
+          <code>--page-header-inset</code>, at least 12px, so set that variable
+          on the provider and the trigger lines up with the page title below it.
+          That is the whole of the app&apos;s top bar — the registry ships no
+          separate header component (#128). Narrow the window below 700px and
+          the demo above becomes this, with no change to its markup.
         </p>
       </section>
 
@@ -144,8 +152,7 @@ function SidebarPage() {
           shape, and active is <code>--foreground</code> in medium with its icon
           and a 2px bar both in <code>--indicator</code>. The bar sits outside
           the box, on the aside&apos;s own edge: the left edge in the column and
-          the bottom edge in the strip, over the strip&apos;s border, where the
-          tabs bar sits.{' '}
+          in the strip&apos;s menu.{' '}
           <strong className="text-foreground">
             The bar is one shared <code>motion.span</code> that slides between
             items on <code>spring-bounce</code>, so the sidebar has to stay
@@ -155,7 +162,7 @@ function SidebarPage() {
           navigation is not wrong — it just draws the bar in place instead of
           moving it there. <code>SidebarContent</code> scrolls without a
           scrollbar, nudging the active item fully into view when it sits half
-          outside the visible area, down the column or across the strip.
+          outside the visible area.
         </p>
       </section>
 
@@ -178,12 +185,11 @@ function SidebarPage() {
           </strong>{' '}
           The parent page stays one Tab stop ahead of the toggle. Close the list
           on a current child and the bar springs up to the parent; a nest whose
-          child becomes current opens itself. The strip shows the block flat and
-          open, with no chevron. <code>open</code>, <code>defaultOpen</code>,
-          and <code>onOpenChange</code> control it otherwise, and the toggle
-          carries <code>aria-expanded</code> and <code>aria-controls</code>{' '}
-          pointed at the list. The demo above nests the trip&apos;s days under
-          Days.
+          child becomes current opens itself. The strip&apos;s menu shows nests
+          as the column does. <code>open</code>, <code>defaultOpen</code>, and{' '}
+          <code>onOpenChange</code> control it otherwise, and the toggle carries{' '}
+          <code>aria-expanded</code> and <code>aria-controls</code> pointed at
+          the list. The demo above nests the trip&apos;s days under Days.
         </p>
       </section>
 
@@ -201,8 +207,9 @@ function SidebarPage() {
             The width morph runs on <code>spring-settle</code>
           </strong>{' '}
           because it displaces the pane beside it (ADR 0001), labels fade on{' '}
-          <code>--motion-fast</code>, and the switch into the strip is a
-          breakpoint and is not animated.
+          <code>--motion-fast</code>, the strip&apos;s menu enters and leaves as
+          the drawer does, mirrored to the left edge, and the switch into the
+          strip is a breakpoint and is not animated.
         </p>
       </section>
 
@@ -214,8 +221,13 @@ function SidebarPage() {
           any other nav on the page. <code>SidebarTrigger</code> is an outline
           icon button carrying <code>aria-expanded</code> and{' '}
           <code>aria-controls</code> pointed at the aside, labelled
-          &quot;Collapse sidebar&quot; or &quot;Expand sidebar&quot;; it takes
-          its glyph as children, because the registry ships no icons.{' '}
+          &quot;Collapse sidebar&quot; or &quot;Expand sidebar&quot;. In the
+          strip it is labelled &quot;Open navigation&quot;, carries{' '}
+          <code>aria-haspopup=&quot;dialog&quot;</code>, and its{' '}
+          <code>aria-expanded</code> follows the menu, a modal dialog titled
+          &quot;Navigation&quot; that traps focus and hands it back to the
+          trigger when it closes. The trigger takes its glyph as children,
+          because the registry ships no icons.{' '}
           <strong className="text-foreground">
             Tab reaches every item and the trigger, and there are no arrow keys.
           </strong>{' '}

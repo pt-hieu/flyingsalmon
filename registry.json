@@ -217,6 +217,26 @@
             "transform": "translateX(24px)"
           }
         },
+        "@keyframes floating-drawer-left-enter": {
+          "from": {
+            "opacity": "0",
+            "transform": "translateX(-24px)"
+          },
+          "to": {
+            "opacity": "1",
+            "transform": "translateX(0)"
+          }
+        },
+        "@keyframes floating-drawer-left-exit": {
+          "from": {
+            "opacity": "1",
+            "transform": "translateX(0)"
+          },
+          "to": {
+            "opacity": "0",
+            "transform": "translateX(-24px)"
+          }
+        },
         "@keyframes floating-overlay-enter": {
           "from": {
             "opacity": "0"
@@ -317,6 +337,8 @@
           "animate-floating-dialog-exit": "floating-dialog-exit 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
           "animate-floating-drawer-enter": "floating-drawer-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
           "animate-floating-drawer-exit": "floating-drawer-exit 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
+          "animate-floating-drawer-left-enter": "floating-drawer-left-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
+          "animate-floating-drawer-left-exit": "floating-drawer-left-exit 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
           "animate-floating-overlay-enter": "floating-overlay-enter 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
           "animate-floating-overlay-exit": "floating-overlay-exit 350ms linear(0, 0.3049, 0.6506, 0.8453, 0.936, 0.9746, 0.9902, 0.9963, 0.9986, 0.9995, 1, 1)",
           "animate-spinner": "spinner-rotate 800ms linear infinite",
@@ -1581,12 +1603,13 @@
       "name": "sidebar",
       "type": "registry:ui",
       "title": "Sidebar",
-      "description": "An aside with header, content, and footer slots that morphs between an expanded column and an icon rail, and becomes one sticky horizontal strip under a 700px container. It hosts navigation items or any other rail content.",
+      "description": "An aside with header, content, and footer slots that morphs between an expanded column and an icon rail, and becomes one sticky horizontal strip under a 700px viewport, where its content moves into a menu the trigger opens. It hosts navigation items or any other rail content.",
       "dependencies": ["motion", "lucide-react"],
       "registryDependencies": [
         "@flyingsalmon/motion",
         "@flyingsalmon/tooltip",
-        "@flyingsalmon/button"
+        "@flyingsalmon/button",
+        "@flyingsalmon/dialog"
       ],
       "files": [
         {

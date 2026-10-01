@@ -45,9 +45,11 @@ export function SidebarProvider({
 }: SidebarProviderProps) {
   const layoutGroupId = useId()
   const sidebarId = useId()
+  const menuId = useId()
 
   const [uncontrolledCollapsed, setUncontrolledCollapsed] =
     useState(defaultCollapsed)
+  const [menuRequested, setMenuOpen] = useState(false)
 
   const wideViewport = useSyncExternalStore(
     subscribeToWideViewport,
@@ -73,9 +75,20 @@ export function SidebarProvider({
 
   const layout = wideViewport === false ? SidebarLayout.Strip : wideLayout
 
+  const menuOpen = menuRequested && layout === SidebarLayout.Strip
+
   return (
     <SidebarContext.Provider
-      value={{ collapsed, setCollapsed, layout, sidebarId, measured }}
+      value={{
+        collapsed,
+        setCollapsed,
+        layout,
+        sidebarId,
+        menuId,
+        menuOpen,
+        setMenuOpen,
+        measured,
+      }}
     >
       <TooltipProvider>
         <LayoutGroup id={layoutGroupId}>

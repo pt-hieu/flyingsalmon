@@ -296,6 +296,43 @@ body {
       transform: translateX(24px);
     }
   }
+  --animate-floating-drawer-left-enter: floating-drawer-left-enter 250ms
+    linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1);
+  @keyframes floating-drawer-left-enter {
+    from {
+      opacity: 0;
+      transform: translateX(-24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  --animate-floating-drawer-left-exit: floating-drawer-left-exit 350ms
+    linear(
+      0,
+      0.3049,
+      0.6506,
+      0.8453,
+      0.936,
+      0.9746,
+      0.9902,
+      0.9963,
+      0.9986,
+      0.9995,
+      1,
+      1
+    );
+  @keyframes floating-drawer-left-exit {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-24px);
+    }
+  }
   --animate-floating-overlay-enter: floating-overlay-enter 250ms
     linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1);
   @keyframes floating-overlay-enter {
