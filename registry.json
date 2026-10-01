@@ -1548,6 +1548,34 @@
       ]
     },
     {
+      "name": "page-header",
+      "type": "registry:ui",
+      "title": "Page Header",
+      "description": "A page's title and the actions that act on the whole page, nothing else. One display-size h1, and an actions group that shares the title's row on a wide header and wraps under it on a narrow one.",
+      "files": [
+        {
+          "path": "src/registry/ui/page-header/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/page-header/index.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/page-header/page-header-actions.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/page-header/page-header-title.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/page-header/page-header.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "sidebar",
       "type": "registry:ui",
       "title": "Sidebar",
