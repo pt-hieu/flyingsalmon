@@ -1,7 +1,9 @@
 import { cn } from '@/lib/utils'
 
-export const pageHeaderContainerClassName =
-  '@container/page-header border-border border-b pb-4'
+export const pageHeaderContainerClassName = cn(
+  '@container/page-header border-border border-b pb-4',
+  '-mx-(--page-header-inset) px-(--page-header-inset)',
+)
 
 export const pageHeaderRowClassName = cn(
   'flex flex-col items-start gap-4',

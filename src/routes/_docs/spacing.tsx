@@ -145,6 +145,12 @@ const spacingTokens: SpacingToken[] = [
     usage:
       "The band the sidebar header and the page header's first line share, so the wordmark, the page title, and the title's actions sit on one center line.",
   },
+  {
+    name: '--page-header-inset',
+    value: '--spacing(0)',
+    usage:
+      'The side padding of the pane a page header sits in. The header bleeds out by it and pads back in, so its bottom rule meets both edges of the pane.',
+  },
 ]
 
 function SpacingPage() {
@@ -157,8 +163,9 @@ function SpacingPage() {
         <p className="text-muted-foreground text-lg">
           Every space is a step on Tailwind&rsquo;s 4px scale. Components use a
           handful of those steps for the same jobs everywhere. Three surfaces
-          expose their padding as a variable you can override, and one bar
-          height lines the sidebar up with the page header.
+          expose their padding as a variable you can override, one bar height
+          lines the sidebar up with the page header, and the page header reads
+          its pane's padding to run its rule edge to edge.
         </p>
       </header>
 

@@ -155,11 +155,11 @@ function PageHeaderPage() {
           Put <code>PageHeader</code> inside <code>main</code>. A{' '}
           <code>header</code> outside <code>main</code> becomes a{' '}
           <code>banner</code> landmark and competes with the app shell's own.
-          The header adds no margin around itself; the page's layout gap places
-          it. It closes with a 1px <code>--border</code> rule, <code>pb-4</code>{' '}
-          below the title and actions, which separates the page's name from its
-          body the way every surface in the system separates: by a solid line,
-          never a shadow.
+          Apart from the inset below, the header adds no margin around itself;
+          the page's layout gap places it. It closes with a 1px{' '}
+          <code>--border</code> rule, <code>pb-4</code> below the title and
+          actions, which separates the page's name from its body the way every
+          surface in the system separates: by a solid line, never a shadow.
         </p>
       </section>
 
@@ -249,7 +249,7 @@ function SidebarExample() {
           </SidebarNav>
         </SidebarContent>
       </Sidebar>
-      <div className="min-w-0 flex-1 px-6 pb-6">
+      <div className="min-w-0 flex-1 px-6 pb-6 [--page-header-inset:--spacing(6)]">
         <PageHeader>
           <PageHeaderTitle>{currentPage.label}</PageHeaderTitle>
           <PageHeaderActions>
