@@ -7,11 +7,12 @@ import { springBounce } from '@/registry/lib/motion'
 
 import {
   switchLabelVariants,
-  switchThumbClassName,
+  switchThumbSlotVariants,
   switchThumbVariants,
   switchVariants,
-  switchWrapperClassName,
+  switchWrapperVariants,
 } from './classnames'
+import { SwitchSize } from './types'
 import type { SwitchRootProps } from './types'
 
 export interface SwitchProps extends Omit<
@@ -19,11 +20,13 @@ export interface SwitchProps extends Omit<
   'asChild' | 'children'
 > {
   label?: string
+  size?: SwitchSize
   loading?: boolean
 }
 
 export function Switch({
   label,
+  size = SwitchSize.Default,
   loading = false,
   className,
   id,
@@ -35,7 +38,7 @@ export function Switch({
   const switchId = id ?? generatedId
 
   return (
-    <div className={cn(switchWrapperClassName, className)}>
+    <div className={cn(switchWrapperVariants({ size }), className)}>
       <SwitchPrimitive.Root
         id={switchId}
         disabled={disabled}
@@ -47,14 +50,14 @@ export function Switch({
           }
           onClick?.(event)
         }}
-        className={switchVariants({ loading })}
+        className={switchVariants({ size, loading })}
         {...props}
       >
         <SwitchPrimitive.Thumb asChild>
           <motion.span
             layout
             transition={springBounce}
-            className={switchThumbClassName}
+            className={switchThumbSlotVariants({ size })}
           >
             <span className={switchThumbVariants({ loading })} />
           </motion.span>
