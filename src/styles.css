@@ -150,6 +150,7 @@ body {
   --card-spacing: --spacing(4);
   --dialog-spacing: --spacing(6);
   --timeline-spacing: --spacing(6);
+  --bar-height: --spacing(18);
   --table-header-border: var(--indicator);
   --animate-spinner: spinner-rotate 800ms linear infinite;
   @keyframes spinner-rotate {
