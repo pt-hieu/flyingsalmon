@@ -12,6 +12,9 @@ export interface SidebarState {
 
 export interface SidebarSharedState extends SidebarState {
   sidebarId: string
+  menuId: string
+  menuOpen: boolean
+  setMenuOpen: (open: boolean) => void
   /**
    * The ResizeObserver has not reported on the first render, so the sidebar
    * leaves its width to CSS until the container width is known.

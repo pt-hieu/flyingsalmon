@@ -4,8 +4,6 @@ import { cn } from '@/lib/utils'
 
 import { sidebarNestClassName } from './classnames'
 import { SidebarNestContext, SidebarNestItemsContext } from './context'
-import { SidebarLayout } from './types'
-import { useSidebarSharedState } from './use-sidebar'
 
 export interface SidebarNestProps extends React.ComponentProps<'div'> {
   open?: boolean
@@ -20,7 +18,6 @@ export function SidebarNest({
   className,
   ...props
 }: SidebarNestProps) {
-  const { layout } = useSidebarSharedState()
   const itemsId = useId()
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen)
   const [activeChildCount, setActiveChildCount] = useState(0)
@@ -30,7 +27,7 @@ export function SidebarNest({
     onOpenChangeRef.current = onOpenChange
   })
 
-  const open = layout === SidebarLayout.Strip || (openProp ?? uncontrolledOpen)
+  const open = openProp ?? uncontrolledOpen
 
   const setOpen = useCallback((next: boolean) => {
     setUncontrolledOpen(next)

@@ -1,5 +1,5 @@
 import { LayoutGroup } from 'motion/react'
-import { useId, useState, useSyncExternalStore } from 'react'
+import { useCallback, useId, useState, useSyncExternalStore } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -45,12 +45,21 @@ export function SidebarProvider({
 }: SidebarProviderProps) {
   const layoutGroupId = useId()
   const sidebarId = useId()
+  const menuId = useId()
 
   const [uncontrolledCollapsed, setUncontrolledCollapsed] =
     useState(defaultCollapsed)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  const subscribeAndCloseMenu = useCallback((onChange: () => void) => {
+    return subscribeToWideViewport(() => {
+      setMenuOpen(false)
+      onChange()
+    })
+  }, [])
 
   const wideViewport = useSyncExternalStore(
-    subscribeToWideViewport,
+    subscribeAndCloseMenu,
     readWideViewport,
     readWideViewportOnServer,
   )
@@ -75,7 +84,16 @@ export function SidebarProvider({
 
   return (
     <SidebarContext.Provider
-      value={{ collapsed, setCollapsed, layout, sidebarId, measured }}
+      value={{
+        collapsed,
+        setCollapsed,
+        layout,
+        sidebarId,
+        menuId,
+        menuOpen,
+        setMenuOpen,
+        measured,
+      }}
     >
       <TooltipProvider>
         <LayoutGroup id={layoutGroupId}>
