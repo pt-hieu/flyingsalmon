@@ -25,6 +25,13 @@ function BasicTabs(props: Partial<React.ComponentProps<typeof Tabs>> = {}) {
   )
 }
 
+function panelControlledBy(tabName: string) {
+  const tab = screen.getByRole('tab', { name: tabName })
+  const panelId = tab.getAttribute('aria-controls') ?? ''
+
+  return document.getElementById(panelId)
+}
+
 describe('Tabs', () => {
   it('lands Tab focus on the active trigger', async () => {
     const user = userEvent.setup()
@@ -121,12 +128,25 @@ describe('Tabs', () => {
     expect(onValueChange).toHaveBeenCalledWith('billing')
   })
 
-  it('unmounts inactive panels by default', () => {
+  it('unmounts the content of inactive panels by default', () => {
     render(<BasicTabs />)
 
     expect(screen.getByText('Account settings')).toBeVisible()
     expect(screen.queryByText('Password settings')).not.toBeInTheDocument()
     expect(screen.queryByText('Billing settings')).not.toBeInTheDocument()
+  })
+
+  it('hides every inactive panel by default, including the one just left', async () => {
+    const user = userEvent.setup()
+    render(<BasicTabs />)
+
+    expect(panelControlledBy('Password')).not.toBeVisible()
+    expect(panelControlledBy('Billing')).not.toBeVisible()
+
+    await user.click(screen.getByRole('tab', { name: 'Password' }))
+
+    expect(panelControlledBy('Account')).not.toBeVisible()
+    expect(panelControlledBy('Password')).toBeVisible()
   })
 
   it('keeps a force-mounted inactive panel present but hidden', () => {
