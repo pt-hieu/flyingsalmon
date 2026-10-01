@@ -8,11 +8,11 @@ import {
 
 import { SwitchSize } from './types'
 
-export const switchWrapperVariants = cva('flex items-center', {
+export const switchWrapperVariants = cva('flex items-center gap-3', {
   variants: {
     size: {
-      [SwitchSize.Default]: 'h-9 gap-3',
-      [SwitchSize.Small]: 'h-8 gap-2.5',
+      [SwitchSize.Default]: 'h-9',
+      [SwitchSize.Small]: 'h-8',
     },
   },
   defaultVariants: {
