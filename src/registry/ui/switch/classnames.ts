@@ -6,13 +6,35 @@ import {
   offsetFocusRingGeometry,
 } from '@/registry/lib/interaction'
 
-export const switchWrapperClassName = 'flex items-center gap-3'
+import { SwitchSize } from './types'
 
-export const switchThumbClassName = 'size-4'
+export const switchWrapperVariants = cva('flex items-center', {
+  variants: {
+    size: {
+      [SwitchSize.Default]: 'h-9 gap-3',
+      [SwitchSize.Small]: 'h-8 gap-2.5',
+    },
+  },
+  defaultVariants: {
+    size: SwitchSize.Default,
+  },
+})
+
+export const switchThumbSlotVariants = cva('', {
+  variants: {
+    size: {
+      [SwitchSize.Default]: 'size-4',
+      [SwitchSize.Small]: 'size-3',
+    },
+  },
+  defaultVariants: {
+    size: SwitchSize.Default,
+  },
+})
 
 export const switchVariants = cva(
   cn(
-    'group inline-flex h-6 w-11 shrink-0 items-center rounded-full p-1',
+    'group inline-flex shrink-0 items-center rounded-full p-1',
     'data-[state=unchecked]:justify-start data-[state=checked]:justify-end',
     'data-[state=unchecked]:bg-muted-foreground data-[state=checked]:bg-indicator',
     'transition-[background-color,box-shadow] duration-(--motion-fast)',
@@ -22,6 +44,10 @@ export const switchVariants = cva(
   ),
   {
     variants: {
+      size: {
+        [SwitchSize.Default]: 'h-6 w-11',
+        [SwitchSize.Small]: 'h-5 w-9',
+      },
       loading: {
         true: 'cursor-not-allowed',
         false: cn(
@@ -32,6 +58,7 @@ export const switchVariants = cva(
       },
     },
     defaultVariants: {
+      size: SwitchSize.Default,
       loading: false,
     },
   },
