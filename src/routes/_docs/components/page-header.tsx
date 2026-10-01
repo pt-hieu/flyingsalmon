@@ -89,14 +89,15 @@ function PageHeaderPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Wrapping</h2>
         <p className="text-muted-foreground">
-          The header measures its own width, not the viewport. At{' '}
-          <code>@3xl</code> (768px) and wider, the title and actions share one
-          row. Narrower, the actions move under the title, left-aligned, and the
-          title steps down from <code>text-6xl</code> to <code>text-4xl</code>.
-          Several actions wrap among themselves at <code>gap-2</code>. There is
-          no overflow menu: pass a <code>dropdown-menu</code> as one of the
-          actions when a page has more than fit. The same header is shown in a
-          wide container and a narrow one.
+          The title and actions share one row for as long as they fit. The
+          actions move under the title, left-aligned, only when the title would
+          otherwise get narrower than 256px. The header measures its own width,
+          not the viewport: at <code>@3xl</code> (768px) and wider the title is{' '}
+          <code>text-6xl</code>, narrower it is <code>text-4xl</code>. Several
+          actions wrap among themselves at <code>gap-2</code>. There is no
+          overflow menu: pass a <code>dropdown-menu</code> as one of the actions
+          when a page has more than fit. The same header is shown in a wide
+          container and a narrow one.
         </p>
         <Preview>
           <div className="w-full space-y-10">
@@ -140,9 +141,8 @@ function PageHeaderPage() {
           title pads its first line to the same band, so the wordmark, the
           title, and actions that share its row sit on one center line. Put the
           header at the top of the pane with no padding above it and the line
-          holds at both title sizes. The header measures the pane, not the
-          viewport, so in a pane narrower than 768px the actions sit under the
-          title even on a wide screen.
+          holds at both title sizes. Collapse the sidebar to its rail and the
+          wider pane gives the actions room to join the title's row.
         </p>
         <Preview>
           <SidebarExample />
@@ -155,11 +155,20 @@ function PageHeaderPage() {
           Put <code>PageHeader</code> inside <code>main</code>. A{' '}
           <code>header</code> outside <code>main</code> becomes a{' '}
           <code>banner</code> landmark and competes with the app shell's own.
-          Apart from the inset below, the header adds no margin around itself;
-          the page's layout gap places it. It closes with a 1px{' '}
-          <code>--border</code> rule, <code>pb-6</code> below the title and
-          actions, which separates the page's name from its body the way every
-          surface in the system separates: by a solid line, never a shadow.
+          The header adds no margin around itself unless it is inset; the page's
+          layout gap places it. It closes with a 1px <code>--border</code> rule
+          at the bottom of its last band, which separates the page's name from
+          its body the way every surface in the system separates: by a solid
+          line, never a shadow. The title's band pads its line equally above and
+          below, so the gap from the top of the header to the capitals matches
+          the gap from the baseline to the rule: about 24px at{' '}
+          <code>text-4xl</code> and 16px at <code>text-6xl</code>. To run the
+          rule across a padded pane, set <code>--page-header-inset</code> to the
+          pane's side padding, as the sidebar example does with{' '}
+          <code>[--page-header-inset:--spacing(6)]</code> beside its{' '}
+          <code>px-6</code>. The header bleeds out by that much on each side and
+          pads back in, so the rule meets both edges and the title stays lined
+          up with the body.
         </p>
       </section>
 

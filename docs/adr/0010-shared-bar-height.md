@@ -8,7 +8,8 @@ Placed beside the sidebar, the page header's title sat 16px below the sidebar's 
 
 - **The theme owns `--bar-height`, `--spacing(18)` (72px).** It lives in the theme item with the other component variables (ADR 0009).
 - **The sidebar header is exactly one bar tall** beside the content (700px and wider) and centers its contents in it. The horizontal strip under 700px keeps its own height.
-- **The page title centers its first line in one bar.** Its top padding is half of the bar height minus its own line height, `calc((var(--bar-height) - 1lh) / 2)`, so the band is right at either title size: 16px above a 40px line (`text-4xl`, `leading-10`), none above a 72px line (`text-6xl`, `leading-18`). Actions sharing the title's row are at least one bar tall and center in it, so they sit on the same line however many lines the title wraps to.
+- **The page title centers its first line in one bar.** It pads above and below by half of the bar height minus its own line height, `calc((var(--bar-height) - 1lh) / 2)`, so the band is right at either title size: 16px around a 40px line (`text-4xl`, `leading-10`), none around a 72px line (`text-6xl`, `leading-18`). Actions are at least one bar tall and center in it, so on the title's row they sit on its first line however many lines the title wraps to, and wrapped under it they take a band of their own.
+- **The header's bottom rule closes its last band, with no padding of its own.** Measured on Bricolage Grotesque at weight 800, the capitals start 23.7px below the band's top and the baseline sits 24.5px above its bottom at `text-4xl`; 16.4px and 16px at `text-6xl`. The space above the title's capitals and below its baseline match without further padding.
 - **A page header placed at the top of the pane, with no padding above it, lines up with the sidebar** by center line: wordmark, title, and actions.
 
 ## Rationale
