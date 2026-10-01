@@ -1,14 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
-import {
-  CalendarDays,
-  PanelLeft,
-  PlaneTakeoff,
-  Receipt,
-  Share2,
-  Wallet,
-} from 'lucide-react'
-import { useState } from 'react'
+import { PlaneTakeoff, Share2 } from 'lucide-react'
 
+import { PageHeaderSidebarExample } from '@/components/page-header-sidebar-example'
 import { Preview } from '@/components/preview'
 import { Button, ButtonVariant } from '@/registry/ui/button'
 import {
@@ -16,17 +9,6 @@ import {
   PageHeaderActions,
   PageHeaderTitle,
 } from '@/registry/ui/page-header'
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarHeader,
-  SidebarItem,
-  SidebarLayout,
-  SidebarNav,
-  SidebarProvider,
-  SidebarTrigger,
-  useSidebar,
-} from '@/registry/ui/sidebar'
 
 export const Route = createFileRoute('/_docs/components/page-header')({
   component: PageHeaderPage,
@@ -145,7 +127,27 @@ function PageHeaderPage() {
           wider pane gives the actions room to join the title's row.
         </p>
         <Preview>
-          <SidebarExample />
+          <PageHeaderSidebarExample className="h-96 w-full" />
+        </Preview>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Under the strip</h2>
+        <p className="text-muted-foreground">
+          Under a 700px viewport the sidebar becomes a sticky strip across the
+          top, and the page header sits directly beneath it with the same
+          markup. The strip closes with its own bottom border, so the header
+          stacks between two rules: the strip's above the title's band, its own
+          below the last band. In a phone-width pane the title takes the row and
+          the actions wrap under it into their own band. The frame below is
+          384px wide, so it renders the strip the way a phone does.
+        </p>
+        <Preview>
+          <iframe
+            title="Page header under the sidebar strip"
+            src="/frames/page-header-strip"
+            className="border-border h-144 w-96 rounded-lg border"
+          />
         </Preview>
       </section>
 
@@ -208,67 +210,5 @@ function TripPageHeader() {
         <Button>Book stays</Button>
       </PageHeaderActions>
     </PageHeader>
-  )
-}
-
-const tripPages = [
-  { key: 'itinerary', label: 'Itinerary', icon: <CalendarDays /> },
-  { key: 'wallet', label: 'Wallet', icon: <Wallet /> },
-  { key: 'receipts', label: 'Receipts', icon: <Receipt /> },
-]
-
-function TripSidebarHeader() {
-  const { layout } = useSidebar()
-
-  return (
-    <SidebarHeader>
-      <SidebarTrigger>
-        <PanelLeft />
-      </SidebarTrigger>
-      {layout === SidebarLayout.Collapsed ? null : (
-        <span className="font-heading truncate text-base font-bold">
-          Kyoto, 10 days
-        </span>
-      )}
-    </SidebarHeader>
-  )
-}
-
-function SidebarExample() {
-  const [currentKey, setCurrentKey] = useState('itinerary')
-  const currentPage =
-    tripPages.find((page) => page.key === currentKey) ?? tripPages[0]
-
-  return (
-    <SidebarProvider className="h-96 w-full">
-      <Sidebar>
-        <TripSidebarHeader />
-        <SidebarContent>
-          <SidebarNav aria-label="Trip">
-            {tripPages.map((page) => (
-              <SidebarItem
-                key={page.key}
-                icon={page.icon}
-                aria-current={currentKey === page.key ? 'page' : undefined}
-                onClick={() => setCurrentKey(page.key)}
-              >
-                {page.label}
-              </SidebarItem>
-            ))}
-          </SidebarNav>
-        </SidebarContent>
-      </Sidebar>
-      <div className="min-w-0 flex-1 px-6 pb-6 [--page-header-inset:--spacing(6)]">
-        <PageHeader>
-          <PageHeaderTitle>{currentPage.label}</PageHeaderTitle>
-          <PageHeaderActions>
-            <Button icon={<Share2 />} variant={ButtonVariant.Outline}>
-              Share
-            </Button>
-            <Button>Book stays</Button>
-          </PageHeaderActions>
-        </PageHeader>
-      </div>
-    </SidebarProvider>
   )
 }
