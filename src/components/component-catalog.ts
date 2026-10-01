@@ -258,6 +258,13 @@ const catalogEntries = [
     aliases: ['menu', 'context menu', 'action menu', 'overflow menu'],
   },
   {
+    to: '/components/page-header',
+    registryName: 'page-header',
+    label: 'Page Header',
+    category: ComponentCategory.SurfacesAndOverlays,
+    aliases: ['page title', 'heading'],
+  },
+  {
     to: '/components/breadcrumb',
     registryName: 'breadcrumb',
     label: 'Breadcrumb',

@@ -68,6 +68,11 @@ import { Form, FormActions } from '@/registry/ui/form'
 import { IconTooltip } from '@/registry/ui/icon-tooltip'
 import { Input, InputSize } from '@/registry/ui/input'
 import { NumberField } from '@/registry/ui/number-field'
+import {
+  PageHeader,
+  PageHeaderActions,
+  PageHeaderTitle,
+} from '@/registry/ui/page-header'
 import { Pagination } from '@/registry/ui/pagination'
 import { Progress } from '@/registry/ui/progress'
 import { RadioGroup, RadioGroupItem } from '@/registry/ui/radio-group'
@@ -433,6 +438,17 @@ const previewByRoute: Record<ComponentRoute, React.ReactNode> = {
         <DropdownMenuItem>Duplicate</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  ),
+
+  '/components/page-header': (
+    <div className="w-56">
+      <PageHeader>
+        <PageHeaderTitle>Trips</PageHeaderTitle>
+        <PageHeaderActions>
+          <Button size={ButtonSize.Small}>Plan a trip</Button>
+        </PageHeaderActions>
+      </PageHeader>
+    </div>
   ),
 
   '/components/breadcrumb': (
