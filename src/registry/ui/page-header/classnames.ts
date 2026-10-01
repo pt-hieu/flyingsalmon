@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 
 export const pageHeaderContainerClassName = cn(
-  '@container/page-header border-border border-b pb-4',
+  '@container/page-header border-border border-b pb-6',
   '-mx-(--page-header-inset) px-(--page-header-inset)',
 )
 
