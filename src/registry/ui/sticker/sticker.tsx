@@ -3,13 +3,14 @@ import { cn } from '@/lib/utils'
 import { stickerFrameVariants, stickerVariants } from './classnames'
 import { cutPasses } from './cut-passes'
 import { drawingStrokeWidth } from './drawing-stroke-width'
-import { StickerPaint } from './types'
 import type { StickerArt, StickerRoleClassNames } from './types'
 import {
   boilFrameDelay,
   cutLayers,
   drawingLayers,
   stickerViewBox,
+  unpaintedFill,
+  unpaintedStroke,
 } from './utils'
 
 export interface StickerProps extends React.ComponentProps<'svg'> {
@@ -37,40 +38,44 @@ export function Sticker({
       strokeLinejoin="round"
       className={cn(stickerVariants({ popIn }), className)}
     >
-      {art.frames.map((layers, frameIndex) => (
-        <g
-          key={frameIndex}
-          style={{ animationDelay: boilFrameDelay(frameIndex) }}
-          className={stickerFrameVariants({ leading: frameIndex === 0 })}
-        >
-          {cutPasses.map((pass) => (
-            <g
-              key={pass.name}
-              transform={pass.transform}
-              className={pass.className}
-            >
-              {cutLayers(layers).map((layer, layerIndex) => (
-                <path
-                  key={layerIndex}
-                  d={layer.d}
-                  fill={layer.paint === StickerPaint.Fill ? undefined : 'none'}
-                  strokeWidth={pass.strokeWidth}
-                />
-              ))}
-            </g>
-          ))}
-          {drawingLayers(layers).map((layer, layerIndex) => (
-            <path
-              key={layerIndex}
-              d={layer.d}
-              className={roleClassNames[layer.role]?.[layer.paint]}
-              fill={layer.paint === StickerPaint.Fill ? undefined : 'none'}
-              stroke={layer.paint === StickerPaint.Fill ? 'none' : undefined}
-              strokeWidth={drawingStrokeWidth}
-            />
-          ))}
-        </g>
-      ))}
+      {art.frames.map((layers, frameIndex) => {
+        const silhouette = cutLayers(layers)
+
+        return (
+          <g
+            key={frameIndex}
+            style={{ animationDelay: boilFrameDelay(frameIndex) }}
+            className={stickerFrameVariants({ leading: frameIndex === 0 })}
+          >
+            {cutPasses.map((pass) => (
+              <g
+                key={pass.name}
+                transform={pass.transform}
+                className={pass.className}
+              >
+                {silhouette.map((layer, layerIndex) => (
+                  <path
+                    key={layerIndex}
+                    d={layer.d}
+                    fill={unpaintedFill(layer)}
+                    strokeWidth={pass.strokeWidth}
+                  />
+                ))}
+              </g>
+            ))}
+            {drawingLayers(layers).map((layer, layerIndex) => (
+              <path
+                key={layerIndex}
+                d={layer.d}
+                className={roleClassNames[layer.role]?.[layer.paint]}
+                fill={unpaintedFill(layer)}
+                stroke={unpaintedStroke(layer)}
+                strokeWidth={drawingStrokeWidth}
+              />
+            ))}
+          </g>
+        )
+      })}
     </svg>
   )
 }

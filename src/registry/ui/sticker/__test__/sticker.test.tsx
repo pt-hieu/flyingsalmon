@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-import { Sticker } from '@/registry/ui/sticker'
+import { Sticker, StickerPaint } from '@/registry/ui/sticker'
 import type { StickerArt, StickerRoleClassNames } from '@/registry/ui/sticker'
 
 const windowArt: StickerArt = {
@@ -9,14 +9,38 @@ const windowArt: StickerArt = {
   height: 80,
   frames: [
     [
-      { role: 'cut', paint: 'fill', d: 'M20 20 L60 20 L60 60 L20 60' },
-      { role: 'glass', paint: 'fill', d: 'M21 21 L59 21 L59 59 L21 59' },
-      { role: 'ink', paint: 'stroke', d: 'M21 21 L59 21 L59 59 L21 59 Z' },
+      {
+        role: 'cut',
+        paint: StickerPaint.Fill,
+        d: 'M20 20 L60 20 L60 60 L20 60',
+      },
+      {
+        role: 'glass',
+        paint: StickerPaint.Fill,
+        d: 'M21 21 L59 21 L59 59 L21 59',
+      },
+      {
+        role: 'ink',
+        paint: StickerPaint.Stroke,
+        d: 'M21 21 L59 21 L59 59 L21 59 Z',
+      },
     ],
     [
-      { role: 'cut', paint: 'fill', d: 'M19 21 L61 19 L60 61 L20 60' },
-      { role: 'glass', paint: 'fill', d: 'M22 20 L58 22 L60 58 L20 60' },
-      { role: 'ink', paint: 'stroke', d: 'M22 20 L58 22 L60 58 L20 60 Z' },
+      {
+        role: 'cut',
+        paint: StickerPaint.Fill,
+        d: 'M19 21 L61 19 L60 61 L20 60',
+      },
+      {
+        role: 'glass',
+        paint: StickerPaint.Fill,
+        d: 'M22 20 L58 22 L60 58 L20 60',
+      },
+      {
+        role: 'ink',
+        paint: StickerPaint.Stroke,
+        d: 'M22 20 L58 22 L60 58 L20 60 Z',
+      },
     ],
   ],
 }
