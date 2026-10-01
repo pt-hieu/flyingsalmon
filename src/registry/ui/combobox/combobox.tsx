@@ -10,7 +10,7 @@ import {
   useFieldIds,
 } from '@/registry/lib/field'
 
-import { Spinner } from '../spinner'
+import { Spinner, SpinnerSize } from '../spinner'
 
 import {
   comboboxChevronClassName,
@@ -30,7 +30,6 @@ import { createComboboxStateReducer } from './combobox-state-reducer'
 import { ComboboxSharedStateContext } from './context'
 import { hasPanelContent } from './has-panel-content'
 import { splitPanelChildren } from './split-panel-children'
-import { spinnerSizeByComboboxSize } from './spinner-size-by-combobox-size'
 import {
   type ComboboxItemEntry,
   ComboboxMode,
@@ -384,7 +383,11 @@ export function Combobox(props: ComboboxProps) {
                     <span className={comboboxSpinnerSlotVariants({ size })}>
                       <Spinner
                         aria-hidden
-                        size={spinnerSizeByComboboxSize[size]}
+                        size={
+                          size === ComboboxSize.Small
+                            ? SpinnerSize.Small
+                            : SpinnerSize.Default
+                        }
                         className={
                           hasError ? comboboxSpinnerErrorClassName : undefined
                         }

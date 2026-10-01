@@ -6,7 +6,7 @@ import {
   useFieldIds,
 } from '@/registry/lib/field'
 
-import { Spinner } from '../spinner'
+import { Spinner, SpinnerSize } from '../spinner'
 
 import {
   inputEndSlotVariants,
@@ -15,7 +15,6 @@ import {
   inputVariants,
   inputWrapperClassName,
 } from './classnames'
-import { spinnerSizeByInputSize } from './spinner-size-by-input-size'
 import { InputSize, InputType } from './types'
 
 export interface InputProps extends Omit<
@@ -53,7 +52,7 @@ export function Input({
   const endSlotContent = loading ? (
     <Spinner
       aria-hidden
-      size={spinnerSizeByInputSize[size]}
+      size={size === InputSize.Small ? SpinnerSize.Small : SpinnerSize.Default}
       className={error ? inputSpinnerErrorClassName : undefined}
     />
   ) : (
