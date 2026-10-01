@@ -15,7 +15,7 @@ import {
   sliderWellVariants,
   sliderWrapperClassName,
 } from './classnames'
-import { stepPercents, thumbCentreOffset, valuePercent } from './utils'
+import { stepPercents, thumbCenterOffset, valuePercent } from './utils'
 
 export interface SliderProps {
   label: string
@@ -52,8 +52,8 @@ export function Slider({
   const thumbId = id ?? generatedId
   const labelId = `${thumbId}-label`
 
-  const fillWidth = thumbCentreOffset(valuePercent(value, min, max))
-  const stepDotOffsets = stepPercents(min, max, step).map(thumbCentreOffset)
+  const fillWidth = thumbCenterOffset(valuePercent(value, min, max))
+  const stepDotOffsets = stepPercents(min, max, step).map(thumbCenterOffset)
 
   return (
     <div className={cn(sliderWrapperClassName, className)}>
