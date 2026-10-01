@@ -575,7 +575,7 @@
       "name": "switch",
       "type": "registry:ui",
       "title": "Switch",
-      "description": "An instant-apply on/off control that owns its label and its own busyness. One size, no variants, no error state; a failed toggle is a result the app shows.",
+      "description": "An instant-apply on/off control that owns its label and its own busyness. Two sizes on the field family's heights, so it lines up in a row of fields; no variants, no error state; a failed toggle is a result the app shows.",
       "dependencies": ["radix-ui"],
       "registryDependencies": [
         "@flyingsalmon/interaction",
