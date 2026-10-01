@@ -257,6 +257,29 @@ describe('Sidebar', () => {
     }
   })
 
+  it('shows a long label whole in the rail tooltip', async () => {
+    const user = userEvent.setup()
+    const longLabel =
+      'Ski week in Niseko with the whole Saturday league, plus two onsen days in Sapporo on the way home'
+
+    render(
+      <SidebarProvider defaultCollapsed>
+        <Sidebar>
+          <SidebarContent>
+            <SidebarNav aria-label="Trips">
+              <SidebarItem>{longLabel}</SidebarItem>
+            </SidebarNav>
+          </SidebarContent>
+        </Sidebar>
+      </SidebarProvider>,
+    )
+
+    await user.hover(screen.getByRole('button', { name: longLabel }))
+
+    const tooltip = await screen.findByRole('tooltip', {}, { timeout: 1000 })
+    expect(tooltip).toHaveTextContent(longLabel)
+  })
+
   it('scrolls the content until an item hanging past its bottom edge is whole', () => {
     reportVerticalBounds({
       'sidebar-content': [0, 100],
