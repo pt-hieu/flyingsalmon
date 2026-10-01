@@ -34,6 +34,7 @@ export function SidebarTrigger({
   } = useSidebarSharedState()
 
   const opensMenu = layout === SidebarLayout.Strip
+  const openMenuId = menuOpen ? menuId : undefined
 
   return (
     <Button
@@ -41,7 +42,7 @@ export function SidebarTrigger({
       size={ButtonSize.Icon}
       aria-haspopup={opensMenu ? 'dialog' : undefined}
       aria-expanded={opensMenu ? menuOpen : !collapsed}
-      aria-controls={opensMenu ? (menuOpen ? menuId : undefined) : sidebarId}
+      aria-controls={opensMenu ? openMenuId : sidebarId}
       aria-label={opensMenu ? 'Open navigation' : collapseLabel(collapsed)}
       onClick={(event) => {
         if (opensMenu) {

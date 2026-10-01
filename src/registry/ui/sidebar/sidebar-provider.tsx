@@ -1,5 +1,5 @@
 import { LayoutGroup } from 'motion/react'
-import { useId, useState, useSyncExternalStore } from 'react'
+import { useCallback, useId, useState, useSyncExternalStore } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -49,10 +49,17 @@ export function SidebarProvider({
 
   const [uncontrolledCollapsed, setUncontrolledCollapsed] =
     useState(defaultCollapsed)
-  const [menuRequested, setMenuOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  const subscribeAndCloseMenu = useCallback((onChange: () => void) => {
+    return subscribeToWideViewport(() => {
+      setMenuOpen(false)
+      onChange()
+    })
+  }, [])
 
   const wideViewport = useSyncExternalStore(
-    subscribeToWideViewport,
+    subscribeAndCloseMenu,
     readWideViewport,
     readWideViewportOnServer,
   )
@@ -74,8 +81,6 @@ export function SidebarProvider({
     : SidebarLayout.Expanded
 
   const layout = wideViewport === false ? SidebarLayout.Strip : wideLayout
-
-  const menuOpen = menuRequested && layout === SidebarLayout.Strip
 
   return (
     <SidebarContext.Provider
