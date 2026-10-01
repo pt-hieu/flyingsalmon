@@ -9,14 +9,20 @@ import type { StickerArt } from '@/registry/ui/sticker'
 import { drawSticker, ink, writeSticker } from '../sticker-sketch.ts'
 import type { Pen } from '../sticker-sketch.ts'
 
-const window = 'M 20 20 H 60 V 60 H 20 Z'
+const windowOutline = 'M 20 20 H 60 V 60 H 20 Z'
 
 function drawWindow(
   { generator, draw, drawSilhouette }: Pen,
   frameSeed: number,
 ) {
-  drawSilhouette([window], frameSeed + 10)
-  draw(generator.path(window, { ...ink, fill: 'glass', seed: frameSeed + 21 }))
+  drawSilhouette([windowOutline], frameSeed + 10)
+  draw(
+    generator.path(windowOutline, {
+      ...ink,
+      fill: 'glass',
+      seed: frameSeed + 21,
+    }),
+  )
 }
 
 const windowSticker = { width: 80, height: 80, drawFrame: drawWindow }

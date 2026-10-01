@@ -4,7 +4,7 @@ import { houseStickerArt } from '@/components/house-sticker-art'
 import {
   houseStickerLabel,
   houseStickerRoleClassNames,
-} from '@/components/house-sticker-role-class-names'
+} from '@/components/house-sticker'
 import { Preview } from '@/components/preview'
 import { Sticker } from '@/registry/ui/sticker'
 import {
@@ -108,6 +108,10 @@ function StickerPage() {
           drawing&apos;s silhouette, which the sticker turns into its die-cut
           edge. Every other role is the art&apos;s to name.
         </p>
+        <p className="text-muted-foreground">
+          The boil is built for three frames, so art always has exactly three.
+          The drawing script draws three, each with its own seeds.
+        </p>
       </section>
 
       <section className="space-y-4">
@@ -136,19 +140,21 @@ function StickerPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {Object.entries(houseStickerRoleClassNames).map(([role, classNames]) => (
-              <TableRow key={role}>
-                <TableCell>
-                  <code>{role}</code>
-                </TableCell>
-                <TableCell>
-                  <code>{classNames.fill}</code>
-                </TableCell>
-                <TableCell>
-                  <code>{classNames.stroke}</code>
-                </TableCell>
-              </TableRow>
-            ))}
+            {Object.entries(houseStickerRoleClassNames).map(
+              ([role, classNames]) => (
+                <TableRow key={role}>
+                  <TableCell>
+                    <code>{role}</code>
+                  </TableCell>
+                  <TableCell>
+                    <code>{classNames.fill}</code>
+                  </TableCell>
+                  <TableCell>
+                    <code>{classNames.stroke}</code>
+                  </TableCell>
+                </TableRow>
+              ),
+            )}
           </TableBody>
         </Table>
       </section>
@@ -276,10 +282,10 @@ function StickerPage() {
           The sticker is one image: an <code>svg</code> with{' '}
           <code>role=&quot;img&quot;</code> named by <code>label</code>, and its
           paths are presentational. Keep the label short and describe the
-          picture, not its purpose: &ldquo;{houseStickerLabel}&rdquo;. It takes no
-          focus and has no states. Its colours carry no meaning of their own, so
-          they have no contrast floor; the title beside the sticker carries the
-          meaning.
+          picture, not its purpose: &ldquo;{houseStickerLabel}&rdquo;. It takes
+          no focus and has no states. Its colours carry no meaning of their own,
+          so they have no contrast floor; the title beside the sticker carries
+          the meaning.
         </p>
       </section>
     </article>

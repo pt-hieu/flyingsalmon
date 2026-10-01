@@ -5,7 +5,7 @@ import { houseStickerArt } from '@/components/house-sticker-art'
 import {
   houseStickerLabel,
   houseStickerRoleClassNames,
-} from '@/components/house-sticker-role-class-names'
+} from '@/components/house-sticker'
 import {
   Accordion,
   AccordionContent,

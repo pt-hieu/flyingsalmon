@@ -1,3 +1,4 @@
+import { StickerPaint } from './types'
 import type { StickerArt, StickerLayer } from './types'
 
 const cutRole = 'cut'
@@ -25,4 +26,12 @@ export function stickerViewBox({ width, height }: StickerArt) {
 
 export function boilFrameDelay(frameIndex: number) {
   return `${-frameIndex * boilFrameDuration}ms`
+}
+
+export function unpaintedFill({ paint }: StickerLayer) {
+  return paint === StickerPaint.Fill ? undefined : 'none'
+}
+
+export function unpaintedStroke({ paint }: StickerLayer) {
+  return paint === StickerPaint.Stroke ? undefined : 'none'
 }
