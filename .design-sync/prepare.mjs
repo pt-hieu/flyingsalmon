@@ -41,6 +41,7 @@ const GROUPS = {
     'Select',
     'Combobox',
     'NumberField',
+    'Slider',
     'DatePicker',
     'Calendar',
     'Form',
