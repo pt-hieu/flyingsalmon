@@ -1,5 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { PlaneTakeoff, Share2 } from 'lucide-react'
+import {
+  CalendarDays,
+  PanelLeft,
+  PlaneTakeoff,
+  Receipt,
+  Share2,
+  Wallet,
+} from 'lucide-react'
+import { useState } from 'react'
 
 import { Preview } from '@/components/preview'
 import { Button, ButtonVariant } from '@/registry/ui/button'
@@ -8,6 +16,17 @@ import {
   PageHeaderActions,
   PageHeaderTitle,
 } from '@/registry/ui/page-header'
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarItem,
+  SidebarLayout,
+  SidebarNav,
+  SidebarProvider,
+  SidebarTrigger,
+  useSidebar,
+} from '@/registry/ui/sidebar'
 
 export const Route = createFileRoute('/_docs/components/page-header')({
   component: PageHeaderPage,
@@ -94,6 +113,8 @@ function PageHeaderPage() {
         <p className="text-muted-foreground">
           A title wraps with <code>text-balance</code>, so its lines come out
           close in length, and it never truncates: the title is the page's name.
+          The actions stay centered on the title's first line, so they sit where
+          the eye starts reading.
         </p>
         <Preview>
           <div className="w-full">
@@ -107,6 +128,20 @@ function PageHeaderPage() {
               </PageHeaderActions>
             </PageHeader>
           </div>
+        </Preview>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Beside the sidebar</h2>
+        <p className="text-muted-foreground">
+          The sidebar is the app's top bar and navigation; the page header names
+          the page in the pane beside it. The header measures the pane, not the
+          viewport, so in a pane narrower than 768px the actions sit under the
+          title even on a wide screen, with no code in the page. Pick a page in
+          the sidebar and the title follows it.
+        </p>
+        <Preview>
+          <SidebarExample />
         </Preview>
       </section>
 
@@ -156,5 +191,67 @@ function TripPageHeader() {
         <Button>Book stays</Button>
       </PageHeaderActions>
     </PageHeader>
+  )
+}
+
+const tripPages = [
+  { key: 'itinerary', label: 'Itinerary', icon: <CalendarDays /> },
+  { key: 'wallet', label: 'Wallet', icon: <Wallet /> },
+  { key: 'receipts', label: 'Receipts', icon: <Receipt /> },
+]
+
+function TripSidebarHeader() {
+  const { layout } = useSidebar()
+
+  return (
+    <SidebarHeader>
+      <SidebarTrigger>
+        <PanelLeft />
+      </SidebarTrigger>
+      {layout === SidebarLayout.Collapsed ? null : (
+        <span className="font-heading truncate text-base font-bold">
+          Kyoto, 10 days
+        </span>
+      )}
+    </SidebarHeader>
+  )
+}
+
+function SidebarExample() {
+  const [currentKey, setCurrentKey] = useState('itinerary')
+  const currentPage =
+    tripPages.find((page) => page.key === currentKey) ?? tripPages[0]
+
+  return (
+    <SidebarProvider className="h-96 w-full">
+      <Sidebar>
+        <TripSidebarHeader />
+        <SidebarContent>
+          <SidebarNav aria-label="Trip">
+            {tripPages.map((page) => (
+              <SidebarItem
+                key={page.key}
+                icon={page.icon}
+                aria-current={currentKey === page.key ? 'page' : undefined}
+                onClick={() => setCurrentKey(page.key)}
+              >
+                {page.label}
+              </SidebarItem>
+            ))}
+          </SidebarNav>
+        </SidebarContent>
+      </Sidebar>
+      <div className="min-w-0 flex-1 p-6">
+        <PageHeader>
+          <PageHeaderTitle>{currentPage.label}</PageHeaderTitle>
+          <PageHeaderActions>
+            <Button icon={<Share2 />} variant={ButtonVariant.Outline}>
+              Share
+            </Button>
+            <Button>Book stays</Button>
+          </PageHeaderActions>
+        </PageHeader>
+      </div>
+    </SidebarProvider>
   )
 }
