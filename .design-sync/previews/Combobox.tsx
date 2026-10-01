@@ -172,3 +172,39 @@ export function ErrorAndDisabled() {
     </div>
   )
 }
+
+export function Description() {
+  return (
+    <div className="flex w-72 flex-col gap-6">
+      <Combobox
+        mode={ComboboxMode.Single}
+        label="Departure city"
+        placeholder="Search a city"
+        description="Where the trip starts"
+        value={null}
+        onValueChange={() => {}}
+      >
+        {PLACES.map((place) => (
+          <ComboboxItem key={place.value} value={place.value}>
+            {place.label}
+          </ComboboxItem>
+        ))}
+      </Combobox>
+      <Combobox
+        mode={ComboboxMode.Single}
+        label="Departure city"
+        placeholder="Search a city"
+        description="Where the trip starts"
+        error="Pick a city we fly from"
+        value={null}
+        onValueChange={() => {}}
+      >
+        {PLACES.map((place) => (
+          <ComboboxItem key={place.value} value={place.value}>
+            {place.label}
+          </ComboboxItem>
+        ))}
+      </Combobox>
+    </div>
+  )
+}

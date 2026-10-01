@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils'
 import {
+  FieldDescription,
   FieldErrorMessage,
   FieldLabelPlacement,
   fieldLabelVariants,
@@ -25,6 +26,7 @@ export interface InputProps extends Omit<
   size?: InputSize
   type?: InputType
   error?: string
+  description?: string
   loading?: boolean
   endAdornment?: React.ReactNode
 }
@@ -34,6 +36,7 @@ export function Input({
   size = InputSize.Default,
   type = InputType.Text,
   error,
+  description,
   loading = false,
   endAdornment,
   className,
@@ -43,9 +46,10 @@ export function Input({
   'aria-describedby': callerDescribedBy,
   ...props
 }: InputProps) {
-  const { fieldId, errorMessageId, describedBy } = useFieldIds({
+  const { fieldId, errorMessageId, descriptionId, describedBy } = useFieldIds({
     id,
     error,
+    description,
     describedBy: callerDescribedBy,
   })
 
@@ -95,6 +99,10 @@ export function Input({
           <div className={inputEndSlotVariants({ size })}>{endSlotContent}</div>
         ) : null}
       </div>
+
+      <FieldDescription id={descriptionId} disabled={Boolean(disabled)}>
+        {description}
+      </FieldDescription>
 
       <FieldErrorMessage id={errorMessageId}>{error}</FieldErrorMessage>
     </div>

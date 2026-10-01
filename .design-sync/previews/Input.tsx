@@ -78,3 +78,25 @@ export function DisabledAndReadOnly() {
     </div>
   )
 }
+
+export function Description() {
+  return (
+    <div className="flex flex-col gap-3">
+      <Input
+        className="w-64"
+        label="Email"
+        type={InputType.Email}
+        placeholder="you@example.com"
+        description="We send the itinerary here"
+      />
+      <Input
+        className="w-64"
+        label="Email"
+        type={InputType.Email}
+        defaultValue="not-an-address"
+        description="We send the itinerary here"
+        error="Enter a valid email address"
+      />
+    </div>
+  )
+}

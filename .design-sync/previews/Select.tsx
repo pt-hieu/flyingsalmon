@@ -109,3 +109,31 @@ export function Loading() {
     </Select>
   )
 }
+
+export function Description() {
+  return (
+    <div className="flex flex-wrap items-start gap-3">
+      <Select
+        className="w-64"
+        label="Currency"
+        placeholder="Choose a currency"
+        description="Prices show in this currency"
+      >
+        <SelectItem value="usd">US Dollar</SelectItem>
+        <SelectItem value="eur">Euro</SelectItem>
+        <SelectItem value="vnd">Vietnamese Dong</SelectItem>
+      </Select>
+      <Select
+        className="w-64"
+        label="Currency"
+        placeholder="Choose a currency"
+        description="Prices show in this currency"
+        error="Choose a supported currency"
+      >
+        <SelectItem value="usd">US Dollar</SelectItem>
+        <SelectItem value="eur">Euro</SelectItem>
+        <SelectItem value="vnd">Vietnamese Dong</SelectItem>
+      </Select>
+    </div>
+  )
+}

@@ -4,6 +4,7 @@ import { DismissableLayer, Popper } from 'radix-ui/internal'
 
 import { cn } from '@/lib/utils'
 import {
+  FieldDescription,
   FieldErrorMessage,
   FieldLabelPlacement,
   fieldLabelVariants,
@@ -44,6 +45,7 @@ import { toSelectedValues } from './utils'
 interface ComboboxBaseProps {
   label?: string
   error?: string
+  description?: string
   size?: ComboboxSize
   loading?: boolean
   placeholder?: string
@@ -90,6 +92,7 @@ export function Combobox(props: ComboboxProps) {
   const {
     label,
     error,
+    description,
     size = ComboboxSize.Default,
     loading = false,
     placeholder,
@@ -110,9 +113,10 @@ export function Combobox(props: ComboboxProps) {
     children,
   } = props
 
-  const { fieldId, errorMessageId, describedBy } = useFieldIds({
+  const { fieldId, errorMessageId, descriptionId, describedBy } = useFieldIds({
     id,
     error,
+    description,
     describedBy: callerDescribedBy,
   })
 
@@ -443,6 +447,10 @@ export function Combobox(props: ComboboxProps) {
             />
           ))
         : null}
+
+      <FieldDescription id={descriptionId} disabled={disabled}>
+        {description}
+      </FieldDescription>
 
       <FieldErrorMessage id={errorMessageId}>{error}</FieldErrorMessage>
     </div>

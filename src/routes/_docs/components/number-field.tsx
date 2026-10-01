@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useState } from 'react'
 
 import { Preview } from '@/components/preview'
 import { NumberField, NumberFieldSize } from '@/registry/ui/number-field'
@@ -142,6 +143,21 @@ function NumberFieldPage() {
       </section>
 
       <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Description</h2>
+        <p className="text-muted-foreground">
+          <code>description</code> is helper text in muted type directly under
+          the box, and it joins the input&rsquo;s accessible description, so a
+          screen reader reads it with the field. Here it shows the other view of
+          the amount: the group total for a per-person budget. Step below $100
+          and the error grows in beneath the description, which stays where it
+          is. A screen reader hears the error first, then the description.
+        </p>
+        <Preview>
+          <GroupBudgetExample />
+        </Preview>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Error</h2>
         <p className="text-muted-foreground">
           <code>error</code> turns the border, the dividers, and the label
@@ -280,5 +296,40 @@ function NumberFieldPage() {
         </p>
       </section>
     </article>
+  )
+}
+
+const groupSize = 4
+
+function groupTotalDescription(budgetPerPerson: number | null) {
+  if (budgetPerPerson === null) {
+    return `Set a budget to see the total for the group of ${groupSize}`
+  }
+
+  const groupTotal = (budgetPerPerson * groupSize).toLocaleString('en-US')
+
+  return `$${groupTotal} for the group of ${groupSize}`
+}
+
+function GroupBudgetExample() {
+  const [budgetPerPerson, setBudgetPerPerson] = useState<number | null>(1800)
+
+  const error =
+    budgetPerPerson !== null && budgetPerPerson < 100
+      ? 'Enter at least $100 per person'
+      : undefined
+
+  return (
+    <NumberField
+      className="w-64"
+      label="Budget per person"
+      prefix="$"
+      value={budgetPerPerson}
+      onValueChange={setBudgetPerPerson}
+      min={0}
+      step={50}
+      description={groupTotalDescription(budgetPerPerson)}
+      error={error}
+    />
   )
 }
