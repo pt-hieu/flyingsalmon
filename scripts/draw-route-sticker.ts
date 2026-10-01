@@ -46,12 +46,12 @@ function drawFrame(
       { ...ink, fill: 'water', strokeWidth: 2, seed: frameSeed + 31 },
     ),
   )
-  for (const [index, d] of [
+  for (const [index, pathData] of [
     'M 190 140 Q 206 110 222 140 Z',
     'M 212 140 Q 228 118 244 140 Z',
   ].entries()) {
     draw(
-      generator.path(d, {
+      generator.path(pathData, {
         ...ink,
         fill: 'hill',
         fillStyle: 'hachure',

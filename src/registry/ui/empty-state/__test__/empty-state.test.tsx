@@ -16,7 +16,7 @@ import {
 import { StickerPaint } from '@/registry/ui/sticker'
 import type { StickerArt, StickerRoleClassNames } from '@/registry/ui/sticker'
 
-const snappedPencilArt: StickerArt = {
+const pencilArt: StickerArt = {
   width: 80,
   height: 40,
   frames: [
@@ -40,7 +40,7 @@ const snappedPencilArt: StickerArt = {
   ],
 }
 
-const snappedPencilRoleClassNames: StickerRoleClassNames = {
+const pencilRoleClassNames: StickerRoleClassNames = {
   ink: { stroke: 'stroke-foreground' },
   pencil: { fill: 'fill-group-cyan' },
 }
@@ -154,9 +154,9 @@ describe('EmptyState', () => {
     render(
       <EmptyState>
         <EmptyStateSticker
-          art={snappedPencilArt}
+          art={pencilArt}
           label="A pencil with its tip snapped off"
-          roleClassNames={snappedPencilRoleClassNames}
+          roleClassNames={pencilRoleClassNames}
         />
         <EmptyStateTitle>Your route is on its way</EmptyStateTitle>
       </EmptyState>,
@@ -175,9 +175,9 @@ describe('EmptyState', () => {
     render(
       <EmptyState kind={EmptyStateKind.Error}>
         <EmptyStateSticker
-          art={snappedPencilArt}
+          art={pencilArt}
           label="A pencil with its tip snapped off"
-          roleClassNames={snappedPencilRoleClassNames}
+          roleClassNames={pencilRoleClassNames}
         />
         <EmptyStateTitle>Generation failed</EmptyStateTitle>
         <EmptyStateDescription>
