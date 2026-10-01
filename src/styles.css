@@ -186,6 +186,31 @@ body {
       transform: translateX(250%);
     }
   }
+  --animate-sticker-boil: sticker-boil 450ms step-end infinite;
+  @keyframes sticker-boil {
+    0% {
+      opacity: 1;
+    }
+    33.333%,
+    100% {
+      opacity: 0;
+    }
+  }
+  --animate-sticker-pop: sticker-pop linear both;
+  @keyframes sticker-pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.4) rotate(-20deg);
+    }
+    70% {
+      opacity: 1;
+      transform: scale(1.08) rotate(4deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  }
   --animate-floating-anchored-enter: floating-anchored-enter 250ms
     linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1);
   @keyframes floating-anchored-enter {

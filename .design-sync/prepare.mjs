@@ -56,6 +56,7 @@ const GROUPS = {
     'Stepper',
     'Progress',
     'Separator',
+    'Sticker',
     'Accordion',
   ],
   Feedback: [

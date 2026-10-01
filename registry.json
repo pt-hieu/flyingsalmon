@@ -251,6 +251,28 @@
             "opacity": "0.5"
           }
         },
+        "@keyframes sticker-boil": {
+          "0%": {
+            "opacity": "1"
+          },
+          "33.333%, 100%": {
+            "opacity": "0"
+          }
+        },
+        "@keyframes sticker-pop": {
+          "0%": {
+            "opacity": "0",
+            "transform": "scale(0.4) rotate(-20deg)"
+          },
+          "70%": {
+            "opacity": "1",
+            "transform": "scale(1.08) rotate(4deg)"
+          },
+          "100%": {
+            "opacity": "1",
+            "transform": "scale(1) rotate(0deg)"
+          }
+        },
         "@keyframes accordion-down": {
           "from": {
             "height": "0"
@@ -331,6 +353,8 @@
           "animate-calendar-page-backward": "calendar-page-backward 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
           "animate-calendar-heading-enter": "calendar-heading-enter 100ms linear",
           "animate-progress-indeterminate": "progress-indeterminate 2s ease-in-out infinite",
+          "animate-sticker-boil": "sticker-boil 450ms step-end infinite",
+          "animate-sticker-pop": "sticker-pop linear both",
           "timeline-spacing": "--spacing(6)",
           "bar-height": "--spacing(18)",
           "page-header-inset": "--spacing(0)",
@@ -1817,6 +1841,40 @@
         {
           "path": "src/registry/ui/text-link/text-link.tsx",
           "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sticker",
+      "type": "registry:ui",
+      "title": "Sticker",
+      "description": "Hand-drawn art as a die-cut sticker: role-named paths coloured by theme classes, a cut edge around the drawing, lines that boil, and a pop-in as it scrolls into view. Ships the rough.js drawing script that makes the art.",
+      "dependencies": ["class-variance-authority"],
+      "devDependencies": ["roughjs"],
+      "files": [
+        {
+          "path": "src/registry/ui/sticker/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sticker/cut-passes.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sticker/drawing-stroke-width.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/sticker/index.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/sticker/sticker.tsx",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/sticker/types.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/sticker/utils.ts", "type": "registry:ui" },
+        {
+          "path": "scripts/sticker-sketch.ts",
+          "type": "registry:file",
+          "target": "~/scripts/sticker-sketch.ts"
         }
       ]
     }
