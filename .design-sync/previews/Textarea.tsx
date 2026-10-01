@@ -83,3 +83,23 @@ export function DisabledAndReadOnly() {
     </div>
   )
 }
+
+export function Description() {
+  return (
+    <div className="flex w-72 flex-col gap-3">
+      <Textarea
+        className="w-72"
+        label="Notes"
+        placeholder="Tell us about the trip"
+        description="Everyone on the trip can read these"
+      />
+      <Textarea
+        className="w-72"
+        label="Notes"
+        defaultValue="Too short."
+        description="Everyone on the trip can read these"
+        error="Write at least ten characters"
+      />
+    </div>
+  )
+}

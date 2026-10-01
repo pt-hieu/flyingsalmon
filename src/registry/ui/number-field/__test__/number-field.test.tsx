@@ -27,6 +27,35 @@ describe('NumberField', () => {
     expect(field).toHaveAccessibleDescription('Enter at least one guest')
   })
 
+  it('describes the field with its description', () => {
+    render(
+      <NumberField
+        label="Budget per person"
+        description="$7,200 for the group of 4"
+      />,
+    )
+
+    expect(
+      screen.getByLabelText('Budget per person'),
+    ).toHaveAccessibleDescription('$7,200 for the group of 4')
+  })
+
+  it('describes the field with the error message, then the description', () => {
+    render(
+      <NumberField
+        label="Budget per person"
+        description="$7,200 for the group of 4"
+        error="Enter a budget of at least $100"
+      />,
+    )
+
+    expect(
+      screen.getByLabelText('Budget per person'),
+    ).toHaveAccessibleDescription(
+      'Enter a budget of at least $100 $7,200 for the group of 4',
+    )
+  })
+
   it('reports a number rather than the text that was typed', async () => {
     const user = userEvent.setup()
     const onValueChange = vi.fn()

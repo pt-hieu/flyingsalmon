@@ -4,6 +4,7 @@ import { useRef } from 'react'
 
 import { cn } from '@/lib/utils'
 import {
+  FieldDescription,
   FieldErrorMessage,
   FieldLabelPlacement,
   fieldLabelVariants,
@@ -30,6 +31,7 @@ export interface SelectProps extends Omit<
   label?: string
   size?: SelectSize
   error?: string
+  description?: string
   loading?: boolean
   placeholder?: string
   id?: string
@@ -44,6 +46,7 @@ export function Select({
   label,
   size = SelectSize.Default,
   error,
+  description,
   loading = false,
   placeholder,
   id,
@@ -63,9 +66,10 @@ export function Select({
   children,
   ...props
 }: SelectProps) {
-  const { fieldId, errorMessageId, describedBy } = useFieldIds({
+  const { fieldId, errorMessageId, descriptionId, describedBy } = useFieldIds({
     id,
     error,
+    description,
     describedBy: callerDescribedBy,
   })
 
@@ -148,6 +152,10 @@ export function Select({
           </SelectPanel>
         </SelectPrimitive.Portal>
       </SelectPrimitive.Root>
+
+      <FieldDescription id={descriptionId} disabled={Boolean(disabled)}>
+        {description}
+      </FieldDescription>
 
       <FieldErrorMessage id={errorMessageId}>{error}</FieldErrorMessage>
     </div>

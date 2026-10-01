@@ -375,6 +375,25 @@ describe('Combobox', () => {
     expect(getInput()).toHaveAccessibleDescription('Choose a city on the route')
   })
 
+  it('describes the field with its description', () => {
+    render(<SingleCityCombobox description="Where the trip starts" />)
+
+    expect(getInput()).toHaveAccessibleDescription('Where the trip starts')
+  })
+
+  it('describes the field with the error message, then the description', () => {
+    render(
+      <SingleCityCombobox
+        description="Where the trip starts"
+        error="Choose a city on the route"
+      />,
+    )
+
+    expect(getInput()).toHaveAccessibleDescription(
+      'Choose a city on the route Where the trip starts',
+    )
+  })
+
   it('keeps the panel open and clears the text when a pick arrives with no hover highlight in multiple mode', async () => {
     const user = userEvent.setup()
     render(<MultipleCityCombobox />)

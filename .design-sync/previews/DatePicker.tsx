@@ -54,3 +54,21 @@ export function States() {
     </div>
   )
 }
+
+export function Description() {
+  return (
+    <div className="flex w-64 flex-col gap-6">
+      <DatePicker
+        label="Departure"
+        defaultValue="2026-11-14"
+        description="The day you fly out"
+      />
+      <DatePicker
+        label="Departure"
+        defaultValue="2026-11-14"
+        description="The day you fly out"
+        error="That flight is sold out"
+      />
+    </div>
+  )
+}

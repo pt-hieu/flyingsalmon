@@ -89,6 +89,49 @@ describe('DatePicker', () => {
     expect(hiddenInput('departure')).toHaveValue('')
   })
 
+  it('describes the field with its description', () => {
+    render(<DatePicker label="Departure" description="The day you fly out" />)
+
+    expect(
+      screen.getByRole('group', { name: 'Departure' }),
+    ).toHaveAccessibleDescription('The day you fly out')
+  })
+
+  it('describes the field with the error message, then the description', () => {
+    render(
+      <DatePicker
+        label="Departure"
+        description="The day you fly out"
+        error="Choose a departure date"
+      />,
+    )
+
+    expect(
+      screen.getByRole('group', { name: 'Departure' }),
+    ).toHaveAccessibleDescription('Choose a departure date The day you fly out')
+  })
+
+  it('describes the field with a refused date, then the description', async () => {
+    const user = userEvent.setup()
+    render(
+      <DatePicker
+        label="Departure"
+        description="The day you fly out"
+        isDateDisabled={(date) => date === '2026-03-18'}
+      />,
+    )
+
+    await typeInto(user, segments()[0], '03182026')
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole('group', { name: 'Departure' }),
+      ).toHaveAccessibleDescription(
+        "That date isn't available The day you fly out",
+      )
+    })
+  })
+
   it('shows the consumer unavailableMessage in place of the built-in one', async () => {
     const user = userEvent.setup()
     render(
