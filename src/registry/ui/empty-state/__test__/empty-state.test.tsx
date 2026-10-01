@@ -8,9 +8,42 @@ import {
   EmptyStateActions,
   EmptyStateDescription,
   EmptyStateIcon,
+  EmptyStateKind,
+  EmptyStateSticker,
   EmptyStateTitle,
   EmptyStateTitleElement,
 } from '@/registry/ui/empty-state'
+import { StickerPaint } from '@/registry/ui/sticker'
+import type { StickerArt, StickerRoleClassNames } from '@/registry/ui/sticker'
+
+const snappedPencilArt: StickerArt = {
+  width: 80,
+  height: 40,
+  frames: [
+    [
+      {
+        role: 'cut',
+        paint: StickerPaint.Fill,
+        d: 'M10 10 L70 10 L70 30 L10 30',
+      },
+      {
+        role: 'pencil',
+        paint: StickerPaint.Fill,
+        d: 'M12 12 L68 12 L68 28 L12 28',
+      },
+      {
+        role: 'ink',
+        paint: StickerPaint.Stroke,
+        d: 'M12 12 L68 12 L68 28 L12 28 Z',
+      },
+    ],
+  ],
+}
+
+const snappedPencilRoleClassNames: StickerRoleClassNames = {
+  ink: { stroke: 'stroke-foreground' },
+  pencil: { fill: 'fill-group-cyan' },
+}
 
 describe('EmptyState', () => {
   it('labels its region with the title', () => {
@@ -115,5 +148,50 @@ describe('EmptyState', () => {
     expect(screen.queryByRole('status')).not.toBeInTheDocument()
     expect(screen.queryByRole('alert')).not.toBeInTheDocument()
     expect(container.querySelector('[aria-live]')).toBeNull()
+  })
+
+  it('shows its sticker as one image named by the sticker label', () => {
+    render(
+      <EmptyState>
+        <EmptyStateSticker
+          art={snappedPencilArt}
+          label="A pencil with its tip snapped off"
+          roleClassNames={snappedPencilRoleClassNames}
+        />
+        <EmptyStateTitle>Your route is on its way</EmptyStateTitle>
+      </EmptyState>,
+    )
+
+    expect(screen.getAllByRole('img')).toHaveLength(1)
+    expect(
+      screen.getByRole('img', { name: 'A pencil with its tip snapped off' }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('region', { name: 'Your route is on its way' }),
+    ).toBeInTheDocument()
+  })
+
+  it('is an alert named by its title when it is an error state', () => {
+    render(
+      <EmptyState kind={EmptyStateKind.Error}>
+        <EmptyStateSticker
+          art={snappedPencilArt}
+          label="A pencil with its tip snapped off"
+          roleClassNames={snappedPencilRoleClassNames}
+        />
+        <EmptyStateTitle>Generation failed</EmptyStateTitle>
+        <EmptyStateDescription>
+          It stopped while planning the days for Japan.
+        </EmptyStateDescription>
+        <EmptyStateActions>
+          <Button>Try again</Button>
+        </EmptyStateActions>
+      </EmptyState>,
+    )
+
+    expect(
+      screen.getByRole('alert', { name: 'Generation failed' }),
+    ).toBeInTheDocument()
+    expect(screen.queryByRole('region')).not.toBeInTheDocument()
   })
 })

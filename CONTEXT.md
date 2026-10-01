@@ -113,7 +113,7 @@ A control that picks one value from a range of steps by moving a thumb along a t
 _Avoid_: range, range input, scale, dial
 
 **Empty state**:
-A resting no-content state: a title, an optional description, and optional actions saying why a region holds nothing and what the user can do about it. Not feedback and not loading — an error after an action goes to the acting surface's alert or to a notice (ADR 0008), and a region still fetching shows a skeleton. A dead share link qualifies: the user landed on a page with nothing in it, they did not act and fail.
+A resting no-content state: optional art, a title, an optional description, and optional actions saying why a region holds nothing and what the user can do about it. The art is a sticker by default and an icon where a sticker would be too much. Not loading — a region still fetching shows a skeleton. A dead share link qualifies: the user landed on a page with nothing in it, they did not act and fail. Its error kind, in the same layout, is the failed state of an affected item whose content did not arrive, such as a failed generation, and is announced as an alert named by its title (ADR 0008's first home); a form's error still goes to the acting surface's alert, and a result with no visible home to a notice.
 _Avoid_: blank state, zero state, placeholder, no-data
 
 **Page header**:
