@@ -333,7 +333,8 @@
           "animate-progress-indeterminate": "progress-indeterminate 2s ease-in-out infinite",
           "timeline-spacing": "--spacing(6)",
           "bar-height": "--spacing(18)",
-          "page-header-inset": "--spacing(0)"
+          "page-header-inset": "--spacing(0)",
+          "page-header-max-width": "none"
         },
         "light": {
           "background": "var(--color-orange-50)",

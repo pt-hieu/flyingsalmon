@@ -115,6 +115,28 @@ function PageHeaderPage() {
       </section>
 
       <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Content width</h2>
+        <p className="text-muted-foreground">
+          On a wide screen, set <code>--page-header-max-width</code> to the
+          width of the page body&apos;s column. The title and actions center in
+          a row no wider than that, and the bottom rule still runs the full
+          width of the header. The theme default is <code>none</code>. The title
+          size still follows the header&apos;s own width, not the row&apos;s.
+          The header below caps its row at <code>--spacing(160)</code>.
+        </p>
+        <Preview>
+          <div className="w-full [--page-header-max-width:--spacing(160)]">
+            <PageHeader>
+              <PageHeaderTitle>Trips</PageHeaderTitle>
+              <PageHeaderActions>
+                <Button icon={<PlaneTakeoff />}>Plan a new trip</Button>
+              </PageHeaderActions>
+            </PageHeader>
+          </div>
+        </Preview>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Beside the sidebar</h2>
         <p className="text-muted-foreground">
           The sidebar is the app's top bar and navigation; the page header names

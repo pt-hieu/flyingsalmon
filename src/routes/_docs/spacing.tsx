@@ -151,6 +151,12 @@ const spacingTokens: SpacingToken[] = [
     usage:
       'The side padding of the pane a page header sits in. The header bleeds out by it and pads back in, so its bottom rule meets both edges of the pane.',
   },
+  {
+    name: '--page-header-max-width',
+    value: 'none',
+    usage:
+      'The widest a page header lets its title and actions run. The row centers inside the header while the bottom rule keeps the full width.',
+  },
 ]
 
 function SpacingPage() {
