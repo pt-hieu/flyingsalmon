@@ -96,6 +96,13 @@ const catalogEntries = [
     aliases: ['dropdown', 'picker', 'listbox'],
   },
   {
+    to: '/components/slider',
+    registryName: 'slider',
+    label: 'Slider',
+    category: ComponentCategory.Inputs,
+    aliases: ['range', 'range input', 'stepped slider', 'scale'],
+  },
+  {
     to: '/components/switch',
     registryName: 'switch',
     label: 'Switch',
