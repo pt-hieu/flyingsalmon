@@ -12,7 +12,7 @@ export const sidebarClassName = cn(
 
 export const sidebarHeaderClassName = cn(
   'flex shrink-0 items-center gap-2',
-  'min-[700px]:px-2.5 min-[700px]:py-3',
+  'min-[700px]:h-(--bar-height) min-[700px]:px-2.5',
 )
 
 export const sidebarContentClassName = cn(

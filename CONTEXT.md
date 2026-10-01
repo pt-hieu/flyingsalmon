@@ -112,6 +112,10 @@ _Avoid_: blank state, zero state, placeholder, no-data
 A page's title and the actions that act on the whole page, nothing else. Where the page came from, its description, its status, and any dimming for a superseded page belong to the page body or the app. Not the app's top bar, which the sidebar covers (#128).
 _Avoid_: hero, masthead, title bar, page heading
 
+**Bar height**:
+The one band height the sidebar header and the page header's first line share, so the wordmark, the page title, and the title's actions sit on one center line (ADR 0010).
+_Avoid_: header height, toolbar height
+
 **Carousel**:
 A horizontally scroll-snapping region of items on native CSS scroll-snap. Many items can be visible at once and the user free-scrolls with trackpad, touch, or scrollbar; the browser settles on an item start. Not a slideshow: one item per viewport is the special case where the item width equals the viewport. Horizontal only.
 _Avoid_: slider, slideshow, gallery, reel

@@ -135,10 +135,14 @@ function PageHeaderPage() {
         <h2 className="font-heading text-2xl font-bold">Beside the sidebar</h2>
         <p className="text-muted-foreground">
           The sidebar is the app's top bar and navigation; the page header names
-          the page in the pane beside it. The header measures the pane, not the
+          the page in the pane beside it. Both read the theme's{' '}
+          <code>--bar-height</code>: the sidebar header is that tall, and the
+          title pads its first line to the same band, so the wordmark, the
+          title, and actions that share its row sit on one center line. Put the
+          header at the top of the pane with no padding above it and the line
+          holds at both title sizes. The header measures the pane, not the
           viewport, so in a pane narrower than 768px the actions sit under the
-          title even on a wide screen, with no code in the page. Pick a page in
-          the sidebar and the title follows it.
+          title even on a wide screen.
         </p>
         <Preview>
           <SidebarExample />
@@ -152,7 +156,10 @@ function PageHeaderPage() {
           <code>header</code> outside <code>main</code> becomes a{' '}
           <code>banner</code> landmark and competes with the app shell's own.
           The header adds no margin around itself; the page's layout gap places
-          it.
+          it. It closes with a 1px <code>--border</code> rule, <code>pb-4</code>{' '}
+          below the title and actions, which separates the page's name from its
+          body the way every surface in the system separates: by a solid line,
+          never a shadow.
         </p>
       </section>
 
@@ -160,7 +167,8 @@ function PageHeaderPage() {
         <h2 className="font-heading text-2xl font-bold">Contrast</h2>
         <p className="text-muted-foreground">
           The title is <code>--foreground</code>: 17.20:1 on{' '}
-          <code>--background</code> and 18.25:1 on <code>--card</code>.
+          <code>--background</code> and 18.25:1 on <code>--card</code>. The
+          bottom rule is decorative: the title names the page without it.
         </p>
       </section>
 
@@ -241,7 +249,7 @@ function SidebarExample() {
           </SidebarNav>
         </SidebarContent>
       </Sidebar>
-      <div className="min-w-0 flex-1 p-6">
+      <div className="min-w-0 flex-1 px-6 pb-6">
         <PageHeader>
           <PageHeaderTitle>{currentPage.label}</PageHeaderTitle>
           <PageHeaderActions>

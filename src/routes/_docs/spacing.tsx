@@ -139,6 +139,12 @@ const spacingTokens: SpacingToken[] = [
     usage:
       'The gap between timeline items. The connectors that bridge the gap read the same variable.',
   },
+  {
+    name: '--bar-height',
+    value: '--spacing(18)',
+    usage:
+      "The band the sidebar header and the page header's first line share, so the wordmark, the page title, and the title's actions sit on one center line.",
+  },
 ]
 
 function SpacingPage() {
@@ -150,8 +156,9 @@ function SpacingPage() {
         </h1>
         <p className="text-muted-foreground text-lg">
           Every space is a step on Tailwind&rsquo;s 4px scale. Components use a
-          handful of those steps for the same jobs everywhere, and three
-          surfaces expose their padding as a variable you can override.
+          handful of those steps for the same jobs everywhere. Three surfaces
+          expose their padding as a variable you can override, and one bar
+          height lines the sidebar up with the page header.
         </p>
       </header>
 
@@ -224,8 +231,9 @@ function SpacingPage() {
         <h2 className="font-heading text-2xl font-bold">Surface variables</h2>
         <p className="text-muted-foreground">
           Card, dialog, and timeline read their spacing from a variable instead
-          of a prop. Every slot inside the surface uses the same variable, so
-          overriding it on one instance moves every inset together:{' '}
+          of a prop, and the sidebar and page header share one bar height. Every
+          slot inside the surface uses the same variable, so overriding it on
+          one instance moves every inset together:{' '}
           <code>className=&quot;[--card-spacing:--spacing(6)]&quot;</code>.
           There is no density or size prop on these surfaces.
         </p>
