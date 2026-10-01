@@ -1645,14 +1645,6 @@
       ]
     },
     {
-      "name": "carousel",
-      "type": "registry:ui",
-      "title": "Carousel",
-      "description": "A horizontal scroll-snap track with previous and next controls. Items keep their own width; the carousel owns the snapping and the keyboard path.",
-      "dependencies": [],
-      "registryDependencies": ["@flyingsalmon/button", "@flyingsalmon/motion"]
-    },
-    {
       "name": "timeline",
       "type": "registry:ui",
       "title": "Timeline",
