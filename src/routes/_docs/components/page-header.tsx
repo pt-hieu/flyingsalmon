@@ -135,12 +135,16 @@ function PageHeaderPage() {
         <h2 className="font-heading text-2xl font-bold">Under the strip</h2>
         <p className="text-muted-foreground">
           Under a 700px viewport the sidebar becomes a sticky strip across the
-          top, and the page header sits directly beneath it with the same
-          markup. The strip closes with its own bottom border, so the header
-          stacks between two rules: the strip's above the title's band, its own
-          below the last band. In a phone-width pane the title takes the row and
-          the actions wrap under it into their own band. The frame below is
-          384px wide, so it renders the strip the way a phone does.
+          top, one <code>--bar-height</code> tall, with its items in a menu the
+          trigger opens. The page header sits directly beneath it with the same
+          markup. The strip pads its sides by <code>--page-header-inset</code>,
+          so with the variable set on the sidebar&apos;s provider the trigger
+          starts on the title&apos;s left edge. The strip closes with its own
+          bottom border, so the header stacks between two rules: the
+          strip&apos;s above the title&apos;s band, its own below the last band.
+          In a phone-width pane the title takes the row and the actions wrap
+          under it into their own band. The frame below is 384px wide, so it
+          renders the strip the way a phone does.
         </p>
         <Preview>
           <iframe
@@ -167,10 +171,10 @@ function PageHeaderPage() {
           <code>text-4xl</code> and 16px at <code>text-6xl</code>. To run the
           rule across a padded pane, set <code>--page-header-inset</code> to the
           pane's side padding, as the sidebar example does with{' '}
-          <code>[--page-header-inset:--spacing(6)]</code> beside its{' '}
-          <code>px-6</code>. The header bleeds out by that much on each side and
-          pads back in, so the rule meets both edges and the title stays lined
-          up with the body.
+          <code>[--page-header-inset:--spacing(6)]</code> on its provider beside
+          the pane's <code>px-6</code>. The header bleeds out by that much on
+          each side and pads back in, so the rule meets both edges and the title
+          stays lined up with the body.
         </p>
       </section>
 

@@ -1,8 +1,6 @@
-import { cn } from '@/lib/utils'
-
 import { Button, ButtonSize, ButtonVariant } from '../button'
 
-import { sidebarTriggerClassName } from './classnames'
+import { SidebarLayout } from './types'
 import { useSidebarSharedState } from './use-sidebar'
 
 export interface SidebarTriggerProps extends Omit<
@@ -12,25 +10,40 @@ export interface SidebarTriggerProps extends Omit<
   children: React.ReactNode
 }
 
-export function SidebarTrigger({
-  className,
-  onClick,
-  ...props
-}: SidebarTriggerProps) {
-  const { collapsed, setCollapsed, sidebarId } = useSidebarSharedState()
+function collapseLabel(collapsed: boolean) {
+  return collapsed ? 'Expand sidebar' : 'Collapse sidebar'
+}
+
+export function SidebarTrigger({ onClick, ...props }: SidebarTriggerProps) {
+  const {
+    collapsed,
+    setCollapsed,
+    layout,
+    sidebarId,
+    menuId,
+    menuOpen,
+    setMenuOpen,
+  } = useSidebarSharedState()
+
+  const opensMenu = layout === SidebarLayout.Strip
 
   return (
     <Button
       variant={ButtonVariant.Outline}
       size={ButtonSize.Icon}
-      aria-expanded={!collapsed}
-      aria-controls={sidebarId}
-      aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+      aria-haspopup={opensMenu ? 'dialog' : undefined}
+      aria-expanded={opensMenu ? menuOpen : !collapsed}
+      aria-controls={opensMenu ? (menuOpen ? menuId : undefined) : sidebarId}
+      aria-label={opensMenu ? 'Open navigation' : collapseLabel(collapsed)}
       onClick={(event) => {
-        setCollapsed(!collapsed)
+        if (opensMenu) {
+          setMenuOpen(true)
+        } else {
+          setCollapsed(!collapsed)
+        }
+
         onClick?.(event)
       }}
-      className={cn(sidebarTriggerClassName, className)}
       {...props}
     />
   )

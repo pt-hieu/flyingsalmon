@@ -1,6 +1,8 @@
 import { CalendarDays, PanelLeft, Receipt, Share2, Wallet } from 'lucide-react'
 import { useState } from 'react'
 
+import { cn } from '@/lib/utils'
+
 import { Button, ButtonVariant } from '@/registry/ui/button'
 import {
   PageHeader,
@@ -52,7 +54,9 @@ export function PageHeaderSidebarExample({
     tripPages.find((page) => page.key === currentKey) ?? tripPages[0]
 
   return (
-    <SidebarProvider className={className}>
+    <SidebarProvider
+      className={cn('[--page-header-inset:--spacing(6)]', className)}
+    >
       <Sidebar>
         <TripSidebarHeader />
         <SidebarContent>
@@ -70,7 +74,7 @@ export function PageHeaderSidebarExample({
           </SidebarNav>
         </SidebarContent>
       </Sidebar>
-      <div className="min-w-0 flex-1 px-6 pb-6 [--page-header-inset:--spacing(6)]">
+      <div className="min-w-0 flex-1 px-6 pb-6">
         <PageHeader>
           <PageHeaderTitle>{currentPage.label}</PageHeaderTitle>
           <PageHeaderActions>

@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -72,15 +72,14 @@ function TripSidebar(
 
 /**
  * jsdom does no layout, so the vertical bounds of the content box and of each
- * item are the test's to state. Keys are read from `data-slot` first, then the
- * element's own text.
+ * item are the test's to state. A key matches an element's `data-slot` or
+ * its own text.
  */
 function reportVerticalBounds(bounds: Record<string, [number, number]>) {
   vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(
     function (this: HTMLElement) {
-      const [top, bottom] = bounds[
-        this.dataset.slot ?? this.textContent ?? ''
-      ] ?? [0, 0]
+      const [top, bottom] = bounds[this.dataset.slot ?? ''] ??
+        bounds[this.textContent ?? ''] ?? [0, 0]
 
       return { top, bottom, left: 0, right: 0 } as DOMRect
     },
@@ -279,6 +278,34 @@ describe('Sidebar', () => {
     expect(screen.getByText('Signed in as Brian')).toBeVisible()
   })
 
+  it('keeps the items in a menu the trigger opens in the strip', async () => {
+    const user = userEvent.setup()
+    reportViewportWidth(420)
+    render(<TripSidebar />)
+
+    expect(screen.queryByRole('button', { name: 'Itinerary' })).toBeNull()
+
+    await user.click(screen.getByRole('button', { name: 'Open navigation' }))
+
+    const menu = screen.getByRole('dialog', { name: 'Navigation' })
+    expect(within(menu).getByRole('button', { name: 'Budget' })).toBeVisible()
+    expect(within(menu).getByText('Planning')).toBeVisible()
+  })
+
+  it('closes the menu once an item is chosen', async () => {
+    const user = userEvent.setup()
+    reportViewportWidth(420)
+    render(<TripSidebar />)
+
+    await user.click(screen.getByRole('button', { name: 'Open navigation' }))
+    await user.click(screen.getByRole('button', { name: 'Budget' }))
+
+    expect(screen.queryByRole('dialog')).toBeNull()
+    expect(
+      screen.getByRole('button', { name: 'Open navigation' }),
+    ).toHaveAttribute('aria-expanded', 'false')
+  })
+
   describe('nest', () => {
     it('reveals its children through the parent toggle', async () => {
       const user = userEvent.setup()
@@ -321,13 +348,6 @@ describe('Sidebar', () => {
       await user.click(screen.getByRole('button', { name: 'Days items' }))
 
       expect(currentMarkOwner()).toBe('Days')
-    })
-
-    it('shows its children flat in the strip', () => {
-      reportViewportWidth(600)
-      render(<DaysNest currentLabel="Itinerary" />)
-
-      expect(screen.getByRole('button', { name: 'Sintra' })).toBeInTheDocument()
     })
   })
 })
