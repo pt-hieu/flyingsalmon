@@ -60,6 +60,28 @@ describe('Input', () => {
     expect(field).toHaveAccessibleDescription('')
   })
 
+  it('describes the field with its description', () => {
+    render(<Input label="Email" description="We send the itinerary here" />)
+
+    expect(screen.getByLabelText('Email')).toHaveAccessibleDescription(
+      'We send the itinerary here',
+    )
+  })
+
+  it('describes the field with the error message, then the description', () => {
+    render(
+      <Input
+        label="Email"
+        description="We send the itinerary here"
+        error="Enter a valid email address"
+      />,
+    )
+
+    expect(screen.getByLabelText('Email')).toHaveAccessibleDescription(
+      'Enter a valid email address We send the itinerary here',
+    )
+  })
+
   it('exposes a required field as required', () => {
     render(<Input label="Email" required />)
 

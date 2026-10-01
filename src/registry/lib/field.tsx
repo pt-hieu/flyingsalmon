@@ -7,24 +7,31 @@ import { springSettle } from '@/registry/lib/motion'
 export interface UseFieldIdsOptions {
   id?: string
   error?: string
+  description?: string
   describedBy?: string
 }
 
 export function useFieldIds({
   id,
   error,
+  description,
   describedBy: callerDescribedBy,
 }: UseFieldIdsOptions) {
   const generatedId = useId()
   const fieldId = id ?? generatedId
   const errorMessageId = `${fieldId}-error`
+  const descriptionId = `${fieldId}-description`
 
   const describedBy =
-    [callerDescribedBy, error ? errorMessageId : null]
+    [
+      callerDescribedBy,
+      error ? errorMessageId : null,
+      description ? descriptionId : null,
+    ]
       .filter(Boolean)
       .join(' ') || undefined
 
-  return { fieldId, errorMessageId, describedBy }
+  return { fieldId, errorMessageId, descriptionId, describedBy }
 }
 
 export enum FieldLabelPlacement {
@@ -70,6 +77,40 @@ export interface FieldLabelVariantsOptions {
 
 export function fieldLabelVariants(options: FieldLabelVariantsOptions) {
   return fieldLabelBaseVariants(options)
+}
+
+const fieldDescriptionVariants = cva('text-muted-foreground pt-1 text-xs', {
+  variants: {
+    disabled: {
+      true: 'opacity-50',
+      false: '',
+    },
+  },
+  defaultVariants: {
+    disabled: false,
+  },
+})
+
+export interface FieldDescriptionProps {
+  id: string
+  disabled?: boolean
+  children?: string
+}
+
+export function FieldDescription({
+  id,
+  disabled = false,
+  children,
+}: FieldDescriptionProps) {
+  if (!children) {
+    return null
+  }
+
+  return (
+    <p id={id} className={fieldDescriptionVariants({ disabled })}>
+      {children}
+    </p>
+  )
 }
 
 export interface FieldErrorMessageProps {

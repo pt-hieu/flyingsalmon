@@ -6,6 +6,7 @@ import { I18nProvider } from 'react-aria-components'
 
 import { cn } from '@/lib/utils'
 import {
+  FieldDescription,
   FieldErrorMessage,
   FieldLabelPlacement,
   fieldLabelVariants,
@@ -47,6 +48,7 @@ interface DatePickerBaseProps extends DatePickerLimits {
   label?: string
   labelPlacement?: FieldLabelPlacement
   error?: string
+  description?: string
   disabled?: boolean
   required?: boolean
   readOnly?: boolean
@@ -86,6 +88,7 @@ export function DatePicker(props: DatePickerProps) {
     label,
     labelPlacement = FieldLabelPlacement.Above,
     error,
+    description,
     disabled = false,
     required = false,
     readOnly = false,
@@ -125,9 +128,10 @@ export function DatePicker(props: DatePickerProps) {
   const rejectionMessage = describeRejection(entry, rejectionOptions)
   const errorText = error ?? rejectionMessage
 
-  const { fieldId, errorMessageId, describedBy } = useFieldIds({
+  const { fieldId, errorMessageId, descriptionId, describedBy } = useFieldIds({
     id,
     error: errorText,
+    description,
     describedBy: callerDescribedBy,
   })
   const labelId = `${fieldId}-label`
@@ -388,6 +392,10 @@ export function DatePicker(props: DatePickerProps) {
               onCloseAutoFocus={handleCloseAutoFocus}
             />
           </PopoverPrimitive.Root>
+
+          <FieldDescription id={descriptionId} disabled={disabled}>
+            {description}
+          </FieldDescription>
 
           <FieldErrorMessage id={errorMessageId}>{errorText}</FieldErrorMessage>
         </div>
