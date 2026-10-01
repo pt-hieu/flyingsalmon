@@ -22,13 +22,13 @@ function drawFrame(
       seed: frameSeed + 22,
     }),
   )
-  for (const [index, d] of [
+  for (const [index, pathData] of [
     'M 72 52 C 90 44 102 60 120 50 S 152 58 176 46',
     'M 74 82 C 92 74 104 90 124 80 S 156 88 178 76',
     'M 76 112 C 88 104 98 120 112 110',
   ].entries()) {
     draw(
-      generator.path(d, {
+      generator.path(pathData, {
         ...ink,
         strokeWidth: 2,
         roughness: 1.6,

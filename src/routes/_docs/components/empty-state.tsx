@@ -309,10 +309,10 @@ function EmptyStatePage() {
           <code>role="status"</code> and no live region: a resting state must
           not announce itself on every render. The error kind is an{' '}
           <code>alert</code> labelled by the same title, so it is announced when
-          it replaces the content that failed, and a screen reader tells it
-          apart from an empty state. The title renders <code>h2</code> by
-          default and takes an <code>as</code> prop for the level the
-          surrounding document needs — <code>h3</code> inside a card.
+          it appears, as when it replaces the content that failed, and a screen
+          reader tells it apart from an empty state. The title renders{' '}
+          <code>h2</code> by default and takes an <code>as</code> prop for the
+          level the surrounding document needs — <code>h3</code> inside a card.
         </p>
         <p className="text-muted-foreground">
           The sticker is one image named by its label, which describes the
