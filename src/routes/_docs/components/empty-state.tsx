@@ -2,6 +2,11 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Compass, Link2Off, Route as RouteIcon, Wallet } from 'lucide-react'
 
 import { Preview } from '@/components/preview'
+import { routeStickerArt } from '@/components/route-sticker-art'
+import {
+  routeStickerLabel,
+  routeStickerRoleClassNames,
+} from '@/components/route-sticker'
 import { Button, ButtonVariant } from '@/registry/ui/button'
 import { Card, CardContent } from '@/registry/ui/card'
 import {
@@ -10,6 +15,7 @@ import {
   EmptyStateDescription,
   EmptyStateIcon,
   EmptyStateSize,
+  EmptyStateSticker,
   EmptyStateTitle,
   EmptyStateTitleElement,
 } from '@/registry/ui/empty-state'
@@ -34,32 +40,70 @@ function EmptyStatePage() {
 
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">
-          Not feedback, not loading
+          Empty, failed, or loading
         </h2>
         <p className="text-muted-foreground">
           An empty state is a resting state. Use it when a page, a list, or a
-          card is legitimately empty. An error that follows something the user
-          did is feedback and belongs to the acting surface's <code>alert</code>
-          , or to a <code>notice</code> when the shell owns the result. A region
-          still fetching shows a <code>skeleton</code>: the skeleton holds the
-          shape of content that is coming, the empty state says content is not
-          coming until the user acts. A dead share link is an empty state, not
+          card is legitimately empty. A dead share link is an empty state, not
           an error: the user landed on a page with nothing in it, they did not
-          act and fail.
+          act and fail. A region still fetching shows a <code>skeleton</code>:
+          the skeleton holds the shape of content that is coming, the empty
+          state says content is not coming until the user acts.
         </p>
+        <p className="text-muted-foreground">
+          A region whose content failed to arrive is not empty: it shows an{' '}
+          <code>error-state</code>, which is this block announced as an alert.
+        </p>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Sticker art</h2>
+        <p className="text-muted-foreground">
+          A sticker is the default art. <code>EmptyStateSticker</code> takes the
+          props of a <code>Sticker</code> and sizes and tilts it for the block,
+          so a screen sets neither. The sticker tilts left; an{' '}
+          <code>error-state</code> tilts it right. It pops in as it scrolls into
+          view; <code>popIn={'{false}'}</code> turns that off.
+        </p>
+        <Preview>
+          <EmptyState>
+            <EmptyStateSticker
+              art={routeStickerArt}
+              label={routeStickerLabel}
+              roleClassNames={routeStickerRoleClassNames}
+            />
+            <EmptyStateTitle>Your route is on its way</EmptyStateTitle>
+            <EmptyStateDescription>
+              The AI is choosing cities and nights for Japan. The cities,
+              flights, and trains appear here as soon as the route is drafted,
+              and you approve it before any day is planned. You can leave this
+              page; it keeps going.
+            </EmptyStateDescription>
+            <EmptyStateActions>
+              <Button variant={ButtonVariant.Outline}>
+                Back to your trips
+              </Button>
+            </EmptyStateActions>
+          </EmptyState>
+        </Preview>
       </section>
 
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Slots</h2>
         <p className="text-muted-foreground">
-          Five slots. <code>EmptyState</code> renders a <code>section</code>{' '}
-          labelled by its title. <code>EmptyStateIcon</code> is optional and
+          Six slots. <code>EmptyState</code> renders a <code>section</code>{' '}
+          labelled by its title. The art is optional and is one of two:{' '}
+          <code>EmptyStateSticker</code>, or <code>EmptyStateIcon</code>, which
           holds any node inside a <code>--muted</code> circle.{' '}
           <code>EmptyStateTitle</code> is required and carries the label.{' '}
           <code>EmptyStateDescription</code> and <code>EmptyStateActions</code>{' '}
           are optional. There is no <code>variant</code> prop: one look, and the
           consumer supplies a boundary by wrapping the block in a{' '}
           <code>Card</code>.
+        </p>
+        <p className="text-muted-foreground">
+          The icon is the fallback where a sticker would be too much, such as a
+          small empty state inside a card among other cards.
         </p>
         <Preview>
           <EmptyState>
@@ -127,13 +171,29 @@ function EmptyStatePage() {
           <code>text-lg</code> title above a 48px circle holding a 24px icon.{' '}
           <code>Small</code> is for a block inside a card, where the card
           already carries the heading weight: a <code>text-base</code> title and
-          a 40px circle holding a 20px icon. The description keeps{' '}
-          <code>text-sm</code> in both. Inside the block the gap is{' '}
-          <code>gap-2</code>, and the actions row adds <code>mt-2</code> on top
-          of it, so it sits a full <code>gap-4</code> step below the text.
+          a 40px circle holding a 20px icon. A sticker is at most 240px wide in{' '}
+          <code>Default</code> and 160px in <code>Small</code>, keeping its
+          art&apos;s aspect ratio. The description keeps <code>text-sm</code> in
+          both. Inside the block the gap is <code>gap-2</code>, and the actions
+          row adds <code>mt-2</code> on top of it, so it sits a full{' '}
+          <code>gap-4</code> step below the text.
         </p>
         <Preview>
           <div className="w-full max-w-md space-y-6">
+            <EmptyState size={EmptyStateSize.Small}>
+              <EmptyStateSticker
+                art={routeStickerArt}
+                label={routeStickerLabel}
+                roleClassNames={routeStickerRoleClassNames}
+              />
+              <EmptyStateTitle as={EmptyStateTitleElement.H3}>
+                No trips yet
+              </EmptyStateTitle>
+              <EmptyStateDescription>
+                Tell hottrip where you want to go and it drafts the route.
+              </EmptyStateDescription>
+            </EmptyState>
+
             <Card>
               <CardContent>
                 <EmptyState size={EmptyStateSize.Small}>
@@ -202,14 +262,19 @@ function EmptyStatePage() {
         </h2>
         <p className="text-muted-foreground">
           The block is a region labelled by its title, so a screen reader user
-          can find it and hear what it is. The title renders <code>h2</code> by
-          default and takes an <code>as</code> prop for the level the
-          surrounding document needs — <code>h3</code> inside a card. The icon
-          is <code>aria-hidden</code>. There is no <code>role="status"</code>{' '}
-          and no live region: a resting state must not announce itself on every
-          render. Tab reaches the action buttons and nothing else. There is no
-          animation, because the state an empty state replaces is usually a
-          skeleton and the swap displaces no siblings.
+          can find it and hear what it is. There is no{' '}
+          <code>role="status"</code> and no live region: a resting state must
+          not announce itself on every render. The title renders <code>h2</code>{' '}
+          by default and takes an <code>as</code> prop for the level the
+          surrounding document needs — <code>h3</code> inside a card.
+        </p>
+        <p className="text-muted-foreground">
+          The sticker is one image named by its label, which describes the
+          picture rather than repeating the title. The icon is{' '}
+          <code>aria-hidden</code>. Tab reaches the action buttons and nothing
+          else. The block itself does not animate, because the state it replaces
+          is usually a skeleton and the swap displaces no siblings; the only
+          motion is the sticker&apos;s own pop-in and line boil.
         </p>
       </section>
     </article>

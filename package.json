@@ -9,7 +9,7 @@
     "build": "vite build",
     "prebuild": "pnpm registry:build",
     "registry:build": "shadcn build",
-    "stickers:draw": "node scripts/draw-house-sticker.ts",
+    "stickers:draw": "node scripts/draw-house-sticker.ts && node scripts/draw-route-sticker.ts && node scripts/draw-snapped-pencil-sticker.ts",
     "preview": "vite preview",
     "deploy": "pnpm build && wrangler deploy",
     "lint": "oxlint",
