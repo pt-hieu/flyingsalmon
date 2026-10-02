@@ -1,5 +1,5 @@
-import { ink, writeSticker } from './sticker-sketch.ts'
-import type { Pen } from './sticker-sketch.ts'
+import { ink, writeSticker } from '../src/registry/ui/sticker/sticker-sketch.ts'
+import type { Pen } from '../src/registry/ui/sticker/sticker-sketch.ts'
 
 const page = 'M 30 24 L 190 16 L 198 176 L 38 184 Z'
 const pencil =
