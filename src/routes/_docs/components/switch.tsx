@@ -2,7 +2,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 
 import { Preview } from '@/components/preview'
-import { Switch } from '@/registry/ui/switch'
+import { NumberField, NumberFieldSize } from '@/registry/ui/number-field'
+import { Switch, SwitchSize } from '@/registry/ui/switch'
 
 export const Route = createFileRoute('/_docs/components/switch')({
   component: SwitchPage,
@@ -40,13 +41,13 @@ function SwitchPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">On and off</h2>
         <p className="text-muted-foreground">
-          One size, no variants. Off is <code>--muted-foreground</code> as the
-          track under a <code>--background</code> thumb; on is{' '}
-          <code>--indicator</code> under an <code>--indicator-foreground</code>{' '}
-          thumb. The thumb clears 3:1 against its track in both states — 7.01:1
-          off, 3.59:1 on — so the state is readable without color vision. The
-          off track sits at 7.01:1 on the page and the on track at 3.38:1, both
-          clearing the 3:1 non-text bar (ADR 0004).
+          No variants. Off is <code>--muted-foreground</code> as the track under
+          a <code>--background</code> thumb; on is <code>--indicator</code>{' '}
+          under an <code>--indicator-foreground</code> thumb. The thumb clears
+          3:1 against its track in both states — 7.01:1 off, 3.59:1 on — so the
+          state is readable without color vision. The off track sits at 7.01:1
+          on the page and the on track at 3.38:1, both clearing the 3:1 non-text
+          bar (ADR 0004).
         </p>
         <p className="text-muted-foreground">
           <strong className="text-foreground">
@@ -60,6 +61,67 @@ function SwitchPage() {
         <Preview>
           <Switch label="Wi-Fi" />
           <Switch label="Wi-Fi" defaultChecked />
+        </Preview>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Sizes and states</h2>
+        <p className="text-muted-foreground">
+          <code>size</code> sets the height of the switch&rsquo;s row to the
+          field family&rsquo;s height: <code>SwitchSize.Default</code> is 36px
+          and <code>SwitchSize.Small</code> is 32px, matching Input, Number
+          Field, and Toggle Group. The track is centred in that row: 24px tall
+          at the default size, 20px at the small one, with a thumb to match. The
+          label stays <code>text-sm</code> at both sizes, as Toggle
+          Group&rsquo;s does.
+        </p>
+        <Preview>
+          <div className="flex flex-col gap-4">
+            {[SwitchSize.Default, SwitchSize.Small].map((size) => (
+              <div key={size} className="flex flex-wrap items-center gap-6">
+                <Switch label="Off" size={size} />
+                <Switch label="On" size={size} defaultChecked />
+                <Switch label="Loading" size={size} loading checked />
+                <Switch label="Disabled" size={size} disabled checked />
+              </div>
+            ))}
+          </div>
+        </Preview>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">In a row of fields</h2>
+        <p className="text-muted-foreground">
+          A row of fields aligns its controls to the bottom edge, so each
+          field&rsquo;s label sits above its box.{' '}
+          <strong className="text-foreground">
+            A switch of the same size is exactly one box tall
+          </strong>{' '}
+          and lines up with the boxes beside it with no classes of its own. Pass
+          the row&rsquo;s size to the switch.
+        </p>
+        <Preview>
+          <div className="flex w-full flex-col gap-8">
+            <div className="flex items-end gap-4">
+              <NumberField
+                label="Budget"
+                prefix="$"
+                defaultValue={1200}
+                className="w-48"
+              />
+              <Switch label="For the whole group" />
+            </div>
+            <div className="flex items-end gap-4">
+              <NumberField
+                label="Travellers"
+                size={NumberFieldSize.Small}
+                defaultValue={2}
+                min={1}
+                className="w-40"
+              />
+              <Switch label="Children" size={SwitchSize.Small} />
+            </div>
+          </div>
         </Preview>
       </section>
 
