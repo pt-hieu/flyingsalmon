@@ -1860,10 +1860,6 @@
           "path": "src/registry/ui/sticker/cut-passes.ts",
           "type": "registry:ui"
         },
-        {
-          "path": "src/registry/ui/sticker/drawing-stroke-width.ts",
-          "type": "registry:ui"
-        },
         { "path": "src/registry/ui/sticker/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/sticker/sticker.tsx",

@@ -2,12 +2,12 @@ import { cn } from '@/lib/utils'
 
 import { stickerFrameVariants, stickerVariants } from './classnames'
 import { cutPasses } from './cut-passes'
-import { drawingStrokeWidth } from './drawing-stroke-width'
 import type { StickerArt, StickerRoleClassNames } from './types'
 import {
   boilFrameDelay,
   cutLayers,
   drawingLayers,
+  drawingStrokeWidth,
   stickerViewBox,
   unpaintedFill,
   unpaintedStroke,
@@ -63,6 +63,7 @@ export function Sticker({
                 ))}
               </g>
             ))}
+
             {drawingLayers(layers).map((layer, layerIndex) => (
               <path
                 key={layerIndex}
