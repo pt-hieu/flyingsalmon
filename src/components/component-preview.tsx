@@ -1,6 +1,11 @@
 import { CalendarClock, Compass, Ellipsis, Lock, MapPinned } from 'lucide-react'
 
 import type { ComponentRoute } from '@/components/component-catalog'
+import { houseStickerArt } from '@/components/house-sticker-art'
+import {
+  houseStickerLabel,
+  houseStickerRoleClassNames,
+} from '@/components/house-sticker'
 import {
   Accordion,
   AccordionContent,
@@ -76,6 +81,7 @@ import { Skeleton } from '@/registry/ui/skeleton'
 import { Slider } from '@/registry/ui/slider'
 import { Spinner } from '@/registry/ui/spinner'
 import { Stepper } from '@/registry/ui/stepper'
+import { Sticker } from '@/registry/ui/sticker'
 import { Switch } from '@/registry/ui/switch'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/registry/ui/tabs'
 import {
@@ -276,6 +282,16 @@ const previewByRoute: Record<ComponentRoute, React.ReactNode> = {
       <Separator />
       <span>Hotels</span>
     </div>
+  ),
+
+  '/components/sticker': (
+    <Sticker
+      art={houseStickerArt}
+      label={houseStickerLabel}
+      roleClassNames={houseStickerRoleClassNames}
+      popIn={false}
+      className="w-40 -rotate-2"
+    />
   ),
 
   '/components/table': (

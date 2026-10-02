@@ -159,6 +159,13 @@ const catalogEntries = [
     aliases: ['divider', 'rule', 'hr'],
   },
   {
+    to: '/components/sticker',
+    registryName: 'sticker',
+    label: 'Sticker',
+    category: ComponentCategory.DataDisplay,
+    aliases: ['illustration', 'doodle', 'drawing', 'spot illustration'],
+  },
+  {
     to: '/components/table',
     registryName: 'table',
     label: 'Table',
