@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 
-import { Switch } from '@/registry/ui/switch'
+import { Switch, SwitchSize } from '@/registry/ui/switch'
 
 describe('Switch', () => {
   it('toggles on with Space and back off with Space', async () => {
@@ -30,6 +30,20 @@ describe('Switch', () => {
     await user.keyboard('{Enter}')
 
     expect(control).toBeChecked()
+  })
+
+  it('toggles from the keyboard and from its label at the small size', async () => {
+    const user = userEvent.setup()
+    render(<Switch label="Wi-Fi" size={SwitchSize.Small} />)
+
+    const control = screen.getByRole('switch', { name: 'Wi-Fi' })
+
+    control.focus()
+    await user.keyboard(' ')
+    expect(control).toBeChecked()
+
+    await user.click(screen.getByText('Wi-Fi'))
+    expect(control).not.toBeChecked()
   })
 
   it('toggles when the label is clicked', async () => {
