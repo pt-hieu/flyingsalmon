@@ -46,7 +46,7 @@ export const sidebarGroupLabelClassName = cn(
 )
 
 export const sidebarGroupLabelTextClassName = cn(
-  'text-muted-foreground block text-xs font-medium whitespace-nowrap',
+  'text-muted-foreground block truncate text-xs font-medium',
   'transition-opacity duration-(--motion-fast)',
   'group-data-[collapsed=true]/sidebar:opacity-0',
 )
@@ -71,7 +71,7 @@ export const sidebarItemIconClassName = cn(
 )
 
 export const sidebarItemLabelClassName = cn(
-  'min-w-0 overflow-hidden whitespace-nowrap',
+  'min-w-0 truncate',
   'transition-opacity duration-(--motion-fast)',
   'group-data-[collapsed=true]/sidebar:opacity-0',
 )

@@ -92,18 +92,20 @@ function SidebarPage() {
           groups in the scrolling content, and a footer holding the avatar menu
           and the theme toggle. Every icon sits on one axis, the centre line of
           the rail, in both layouts: the trigger and the avatar button are 36px
-          controls inside a 10px inset, and each item's icon sits 20px in.
-          Collapse it and only the aside's width moves; the labels fade and the
-          narrowing edge clips them, so nothing in the column shifts.{' '}
+          controls inside a 10px inset, and each item's icon sits 20px in. A
+          label too long for the column ends in an ellipsis, as the Sintra day
+          under Days does. Collapse it and only the aside's width moves; the
+          labels fade as the narrowing edge cuts them short, so nothing in the
+          column shifts.{' '}
           <strong className="text-foreground">
             A group label keeps its row and becomes a rule:
           </strong>{' '}
           the text fades out and a 1px <code>--border</code> line fades in
           across the same slot, so the groups still read as groups in the rail
-          and the items below never jump. Each label reappears in a tooltip on
-          hover and on focus. The accessible name never depends on that tooltip:
-          the label stays in the DOM, clipped rather than removed, so a screen
-          reader reads the same nav in either layout. Items are the
+          and the items below never jump. Each label reappears whole in a
+          tooltip on hover and on focus. The accessible name never depends on
+          that tooltip: the label stays in the DOM, clipped rather than removed,
+          so a screen reader reads the same nav in either layout. Items are the
           component&apos;s to reshape; header and footer are slots, and content
           too wide for the rail is the app&apos;s to swap on{' '}
           <code>useSidebar().layout</code> — this demo drops the trip name in
@@ -274,7 +276,11 @@ const planningLinks: TripNavLink[] = [
     children: [
       { key: 'arrival', label: 'Arrival', icon: <PlaneLanding /> },
       { key: 'alfama', label: 'Alfama', icon: <Landmark /> },
-      { key: 'sintra', label: 'Sintra', icon: <Mountain /> },
+      {
+        key: 'sintra',
+        label: 'Sintra, Cabo da Roca, and the coast road back to Cascais',
+        icon: <Mountain />,
+      },
     ],
   },
   { key: 'places', label: 'Places', icon: <Compass /> },
