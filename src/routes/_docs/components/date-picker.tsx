@@ -99,6 +99,21 @@ function DatePickerPage() {
       </section>
 
       <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Description</h2>
+        <p className="text-muted-foreground">
+          <code>description</code> is helper text in muted type directly under
+          the box, and it joins the group&rsquo;s accessible description, so a
+          screen reader reads it with the field. It stays put when an error or a
+          rejected entry arrives: the message renders below it, and a screen
+          reader hears the message first, then the description. A disabled field
+          dims its description with its label.
+        </p>
+        <Preview>
+          <DescriptionExample />
+        </Preview>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Props</h2>
         <p className="text-muted-foreground">
           One export, <code>DatePicker</code>. <code>mode</code> is{' '}
@@ -107,14 +122,15 @@ function DatePickerPage() {
           name props follow it: <code>name</code> in single mode,{' '}
           <code>startName</code> and <code>endName</code> in range mode. The
           field family props are <code>label</code>, <code>labelPlacement</code>
-          , <code>error</code>, <code>disabled</code>, <code>required</code>,{' '}
-          <code>readOnly</code>, <code>id</code>, <code>size</code> (
-          <code>DatePickerSize.Default</code> or <code>Small</code>,
-          Select&rsquo;s trigger geometry), and <code>loading</code>.{' '}
-          <code>min</code>, <code>max</code>, <code>isDateDisabled</code>, and{' '}
-          <code>locale</code> reach the segments and the grid alike.{' '}
-          <code>side</code> and <code>align</code> position the panel and
-          default to <code>bottom</code> and <code>center</code> per ADR 0005.
+          , <code>error</code>, <code>description</code>, <code>disabled</code>,{' '}
+          <code>required</code>, <code>readOnly</code>, <code>id</code>,{' '}
+          <code>size</code> (<code>DatePickerSize.Default</code> or{' '}
+          <code>Small</code>, Select&rsquo;s trigger geometry), and{' '}
+          <code>loading</code>. <code>min</code>, <code>max</code>,{' '}
+          <code>isDateDisabled</code>, and <code>locale</code> reach the
+          segments and the grid alike. <code>side</code> and <code>align</code>{' '}
+          position the panel and default to <code>bottom</code> and{' '}
+          <code>center</code> per ADR 0005.
         </p>
         <p className="text-muted-foreground">
           <strong className="text-foreground">
@@ -268,6 +284,24 @@ function TripDatesExample() {
           ? `${tripDates.start} to ${tripDates.end}.`
           : 'No dates picked.'}
       </p>
+    </div>
+  )
+}
+
+function DescriptionExample() {
+  return (
+    <div className="flex w-full max-w-64 flex-col gap-6">
+      <DatePicker
+        label="Departure"
+        defaultValue={localToday.add({ days: 3 }).toString()}
+        description="The day you fly out"
+      />
+      <DatePicker
+        label="Departure"
+        defaultValue={localToday.add({ days: 3 }).toString()}
+        description="The day you fly out"
+        error="That flight is sold out"
+      />
     </div>
   )
 }

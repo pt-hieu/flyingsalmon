@@ -60,6 +60,10 @@ _Avoid_: compound component, widget
 The components that own a label and an error message: input, textarea, checkbox, select from batch 2, radio-group from batch 3, and date-picker, combobox, number-field and toggle-group from batch 4. All of them take their id linkage, their error message, and their label variants from the `field` registry item. Their props are the contract any form-state library drives; the registry binds to none (ADR 0007). Switch is not a member — it has a label but no error state, because a failed toggle is a result the app shows. That exclusion covers the label too: switch keeps its own label block, which transitions opacity rather than color (ADR 0006).
 _Avoid_: form controls, inputs
 
+**Field description**:
+Helper text in muted type directly under a boxed field — input, textarea, number-field, select, combobox, date-picker — passed as `description` and rendered by the `field` item's `FieldDescription`. It joins the control's `aria-describedby` after the error message, so a screen reader hears the error first and the description second, and it sits above the error so an arriving error never moves it. Not an error and not feedback: it says what the field means, and it stays while the field shows an error.
+_Avoid_: hint
+
 **Motion language**:
 The shared animation vocabulary — animation kinds, duration scale, spring presets — built on the `motion` library. Every component spec quotes its names. Fixed in ADR 0001.
 _Avoid_: animation system, transitions

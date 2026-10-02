@@ -171,6 +171,22 @@ function ComboboxPage() {
       </section>
 
       <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Description</h2>
+        <p className="text-muted-foreground">
+          <code>description</code> is helper text in muted type directly under
+          the field, through the same <code>FieldDescription</code> as Input,
+          and it joins the input&rsquo;s accessible description, so a screen
+          reader reads it with the field. It stays put when an error arrives:
+          the message renders below it, and a screen reader hears the error
+          first, then the description. A disabled field dims its description
+          with its label.
+        </p>
+        <Preview>
+          <DescriptionDemo />
+        </Preview>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Error and disabled</h2>
         <p className="text-muted-foreground">
           <code>error</code> takes the destructive border and ring, turns the
@@ -441,6 +457,48 @@ function TravellerTagsDemo() {
       <ComboboxItem value="me">Me</ComboboxItem>
       <ComboboxItem value="partner">My partner</ComboboxItem>
     </Combobox>
+  )
+}
+
+function DescriptionDemo() {
+  const [departureCity, setDepartureCity] = useState<string | null>(null)
+  const [invalidDepartureCity, setInvalidDepartureCity] = useState<
+    string | null
+  >(null)
+
+  return (
+    <div className="flex w-72 flex-col gap-6">
+      <Combobox
+        mode={ComboboxMode.Single}
+        label="Departure city"
+        placeholder="Search a city"
+        description="Where the trip starts"
+        value={departureCity}
+        onValueChange={setDepartureCity}
+      >
+        {PLACES.map((place) => (
+          <ComboboxItem key={place.value} value={place.value}>
+            {place.label}
+          </ComboboxItem>
+        ))}
+      </Combobox>
+
+      <Combobox
+        mode={ComboboxMode.Single}
+        label="Departure city"
+        placeholder="Search a city"
+        description="Where the trip starts"
+        error="Pick a city we fly from"
+        value={invalidDepartureCity}
+        onValueChange={setInvalidDepartureCity}
+      >
+        {PLACES.map((place) => (
+          <ComboboxItem key={place.value} value={place.value}>
+            {place.label}
+          </ComboboxItem>
+        ))}
+      </Combobox>
+    </div>
   )
 }
 

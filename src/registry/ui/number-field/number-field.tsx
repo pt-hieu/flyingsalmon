@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { cn } from '@/lib/utils'
 import {
+  FieldDescription,
   FieldErrorMessage,
   FieldLabelPlacement,
   fieldLabelVariants,
@@ -37,6 +38,7 @@ export interface NumberFieldProps extends Omit<
   label?: string
   size?: NumberFieldSize
   error?: string
+  description?: string
   loading?: boolean
   value?: number | null
   defaultValue?: number | null
@@ -54,6 +56,7 @@ export function NumberField({
   label,
   size = NumberFieldSize.Default,
   error,
+  description,
   loading = false,
   value,
   defaultValue,
@@ -78,9 +81,10 @@ export function NumberField({
   'aria-describedby': callerDescribedBy,
   ...props
 }: NumberFieldProps) {
-  const { fieldId, errorMessageId, describedBy } = useFieldIds({
+  const { fieldId, errorMessageId, descriptionId, describedBy } = useFieldIds({
     id,
     error,
+    description,
     describedBy: callerDescribedBy,
   })
 
@@ -321,6 +325,10 @@ export function NumberField({
           value={currentValue === null ? '' : String(currentValue)}
         />
       ) : null}
+
+      <FieldDescription id={descriptionId} disabled={Boolean(disabled)}>
+        {description}
+      </FieldDescription>
 
       <FieldErrorMessage id={errorMessageId}>{error}</FieldErrorMessage>
     </div>

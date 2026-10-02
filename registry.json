@@ -434,7 +434,7 @@
       "name": "field",
       "type": "registry:lib",
       "title": "Field primitives",
-      "description": "The wiring every field component shares: the label-to-control id linkage with its aria-describedby merge, the shared label variants, and the animated error message.",
+      "description": "The wiring every field component shares: the label-to-control id linkage with its aria-describedby merge, the shared label variants, the muted description under the field, and the animated error message.",
       "dependencies": ["class-variance-authority"],
       "registryDependencies": ["@flyingsalmon/motion"],
       "files": [

@@ -110,3 +110,29 @@ export function DisabledAndReadOnly() {
     </div>
   )
 }
+
+export function Description() {
+  return (
+    <div className="flex flex-wrap items-start gap-3">
+      <NumberField
+        className="w-56"
+        label="Budget per person"
+        prefix="$"
+        defaultValue={1800}
+        min={0}
+        step={50}
+        description="$7,200 for the group of 4"
+      />
+      <NumberField
+        className="w-56"
+        label="Budget per person"
+        prefix="$"
+        defaultValue={0}
+        min={0}
+        step={50}
+        description="$0 for the group of 4"
+        error="Enter a budget above zero"
+      />
+    </div>
+  )
+}
