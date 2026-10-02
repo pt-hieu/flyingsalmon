@@ -4,17 +4,7 @@ import { fileURLToPath } from 'node:url'
 import rough from 'roughjs'
 import type { Options } from 'roughjs/bin/core'
 
-interface Layer {
-  role: string
-  paint: 'fill' | 'stroke'
-  d: string
-}
-
-interface Art {
-  width: number
-  height: number
-  frames: Layer[][]
-}
+import type { StickerArt, StickerLayer } from './types'
 
 type Drawable = ReturnType<typeof generator.path>
 
@@ -60,7 +50,7 @@ function isClosedPiece(piece: string) {
   return piece.endsWith('Z') || piece.includes(' a ')
 }
 
-function createPen(layers: Layer[]): Pen {
+function createPen(layers: StickerLayer[]): Pen {
   function draw(drawable: Drawable) {
     for (const { d: rawPath, fill, stroke } of generator.toPaths(drawable)) {
       const d = rawPath.replaceAll(/(\.\d)\d+/g, '$1')
@@ -88,9 +78,13 @@ function createPen(layers: Layer[]): Pen {
   return { generator, draw, drawSilhouette }
 }
 
-export function drawSticker({ width, height, drawFrame }: StickerDrawing): Art {
+export function drawSticker({
+  width,
+  height,
+  drawFrame,
+}: StickerDrawing): StickerArt {
   const frames = Array.from({ length: frameCount }, (_, frameIndex) => {
-    const layers: Layer[] = []
+    const layers: StickerLayer[] = []
     drawFrame(createPen(layers), frameIndex * frameSeedStep)
     return layers
   })
@@ -98,7 +92,7 @@ export function drawSticker({ width, height, drawFrame }: StickerDrawing): Art {
   return { width, height, frames }
 }
 
-function formatLayer({ role, paint, d }: Layer) {
+function formatLayer({ role, paint, d }: StickerLayer) {
   return [
     '      {',
     `        role: '${role}',`,
@@ -108,11 +102,14 @@ function formatLayer({ role, paint, d }: Layer) {
   ].join('\n')
 }
 
-function formatFrame(layers: Layer[]) {
+function formatFrame(layers: readonly StickerLayer[]) {
   return ['    [', ...layers.map(formatLayer), '    ],'].join('\n')
 }
 
-function formatArtModule(exportName: string, { width, height, frames }: Art) {
+function formatArtModule(
+  exportName: string,
+  { width, height, frames }: StickerArt,
+) {
   return [
     `export const ${exportName} = {`,
     `  width: ${width},`,
