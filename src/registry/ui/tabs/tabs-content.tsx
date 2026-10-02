@@ -14,14 +14,15 @@ export function TabsContent({
 }: TabsContentProps) {
   const { activeValue } = useTabsSharedState()
   const isSelected = activeValue === value
+  const forceMountedHiddenProps = forceMount ? { hidden: !isSelected } : {}
 
   return (
     <TabsPrimitive.Content
       {...props}
+      {...forceMountedHiddenProps}
       value={value}
       forceMount={forceMount}
       className={className}
-      hidden={Boolean(forceMount) && !isSelected}
     />
   )
 }
