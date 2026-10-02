@@ -63,6 +63,7 @@ const GROUPS = {
     'Alert',
     'NoticeProvider',
     'EmptyState',
+    'ErrorState',
     'Spinner',
     'Skeleton',
     'Tooltip',
@@ -293,7 +294,7 @@ const rootExportFor = (directory) =>
 // that yields nothing. A kebab directory like `avatar-group` doesn't match
 // `AvatarGroup`, so it survives the filter and becomes a section of one. This
 // mirror gives every component a directory named exactly after it, which the
-// filter does drop - so `category` decides the section for all 37 alike.
+// filter does drop - so `category` decides the section for every component alike.
 // Content is copied rather than linked so the converter's source hash still
 // tracks real edits; prepare runs before every build.
 function writeSourceMirror(directoryByRoot) {

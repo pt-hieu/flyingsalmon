@@ -1538,7 +1538,7 @@
       "name": "empty-state",
       "type": "registry:ui",
       "title": "Empty State",
-      "description": "A no-content block: optional sticker or icon art, a required title, an optional description, and one or two actions. An empty kind that rests and an error kind announced as an alert, two sizes, and no border or background of its own.",
+      "description": "A resting no-content block: optional sticker or icon art, a required title, an optional description, and one or two actions. Two sizes, no variants, and no border or background of its own.",
       "dependencies": ["class-variance-authority"],
       "registryDependencies": ["@flyingsalmon/sticker"],
       "files": [
@@ -1580,6 +1580,27 @@
         },
         {
           "path": "src/registry/ui/empty-state/types.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "error-state",
+      "type": "registry:ui",
+      "title": "Error State",
+      "description": "An empty state for content that failed to arrive: the same art, title, description, and actions, announced as an alert named by its title, with its sticker tilted the other way.",
+      "registryDependencies": ["@flyingsalmon/empty-state"],
+      "files": [
+        {
+          "path": "src/registry/ui/error-state/classnames.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/error-state/error-state.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/error-state/index.ts",
           "type": "registry:ui"
         }
       ]

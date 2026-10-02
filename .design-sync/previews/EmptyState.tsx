@@ -9,7 +9,6 @@ import {
   EmptyStateActions,
   EmptyStateDescription,
   EmptyStateIcon,
-  EmptyStateKind,
   EmptyStateSize,
   EmptyStateSticker,
   EmptyStateTitle,
@@ -17,7 +16,6 @@ import {
 import type { StickerRoleClassNames } from 'flyingsalmon'
 
 import { routeStickerArt } from '../../src/components/route-sticker-art'
-import { snappedPencilStickerArt } from '../../src/components/snapped-pencil-sticker-art'
 
 const routeRoleClassNames: StickerRoleClassNames = {
   ink: { fill: 'fill-foreground', stroke: 'stroke-foreground' },
@@ -28,15 +26,6 @@ const routeRoleClassNames: StickerRoleClassNames = {
   hill: { stroke: 'stroke-group-teal' },
   start: { fill: 'fill-group-pink' },
   pin: { fill: 'fill-primary' },
-  pencil: { fill: 'fill-group-cyan' },
-  wood: { fill: 'fill-accent' },
-  eraser: { fill: 'fill-group-pink' },
-}
-
-const snappedPencilRoleClassNames: StickerRoleClassNames = {
-  ink: { fill: 'fill-foreground', stroke: 'stroke-foreground' },
-  paper: { fill: 'fill-card' },
-  margin: { stroke: 'stroke-group-pink' },
   pencil: { fill: 'fill-group-cyan' },
   wood: { fill: 'fill-accent' },
   eraser: { fill: 'fill-group-pink' },
@@ -59,30 +48,6 @@ export function WithSticker() {
         </EmptyStateDescription>
         <EmptyStateActions>
           <Button variant={ButtonVariant.Outline}>Back to your trips</Button>
-        </EmptyStateActions>
-      </EmptyState>
-    </div>
-  )
-}
-
-export function ErrorState() {
-  return (
-    <div className="w-full max-w-sm">
-      <EmptyState kind={EmptyStateKind.Error}>
-        <EmptyStateSticker
-          art={snappedPencilStickerArt}
-          label="A pencil with its tip snapped off, lying on a half-written page"
-          roleClassNames={snappedPencilRoleClassNames}
-          popIn={false}
-        />
-        <EmptyStateTitle>Generation failed</EmptyStateTitle>
-        <EmptyStateDescription>
-          All 12 credits are back in your wallet. Your Brief is saved; try again
-          or change it first.
-        </EmptyStateDescription>
-        <EmptyStateActions>
-          <Button>Try again</Button>
-          <Button variant={ButtonVariant.Outline}>Edit the Brief</Button>
         </EmptyStateActions>
       </EmptyState>
     </div>
