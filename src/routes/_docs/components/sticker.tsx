@@ -20,8 +20,8 @@ export const Route = createFileRoute('/_docs/components/sticker')({
   component: StickerPage,
 })
 
-const drawingScriptExample = `import { ink, writeSticker } from './sticker-sketch.ts'
-import type { Pen } from './sticker-sketch.ts'
+const drawingScriptExample = `import { ink, writeSticker } from '../src/components/ui/sticker/sticker-sketch.ts'
+import type { Pen } from '../src/components/ui/sticker/sticker-sketch.ts'
 
 const door = 'M 20 80 V 30 Q 20 16 40 16 Q 60 16 60 30 V 80 Z'
 
@@ -241,12 +241,13 @@ function StickerPage() {
         <h2 className="font-heading text-2xl font-bold">Drawing new art</h2>
         <p className="text-muted-foreground">
           Art comes from a drawing script built on rough.js. Installing the
-          sticker adds <code>scripts/sticker-sketch.ts</code> and the{' '}
-          <code>roughjs</code> dev dependency. The sketch module holds the pen:
-          the ink&apos;s weight, roughness, and bowing, the silhouette pen, the
-          three frames, and the output shape. A sticker&apos;s own script
-          imports the pen, draws its shapes once per frame, and writes the art
-          module beside the code that renders it.
+          sticker adds <code>sticker-sketch.ts</code> to the sticker&apos;s
+          folder, beside the component, and the <code>roughjs</code> dev
+          dependency. The sketch module holds the pen: the ink&apos;s weight,
+          roughness, and bowing, the silhouette pen, the three frames, and the
+          output shape. A sticker&apos;s own script imports the pen, draws its
+          shapes once per frame, and writes the art module beside the code that
+          renders it.
         </p>
         <p className="text-muted-foreground">
           <code>drawSilhouette</code> takes the outline pieces the edge should

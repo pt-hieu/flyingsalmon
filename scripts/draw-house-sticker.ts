@@ -1,5 +1,5 @@
-import { ink, writeSticker } from './sticker-sketch.ts'
-import type { Pen } from './sticker-sketch.ts'
+import { ink, writeSticker } from '../src/registry/ui/sticker/sticker-sketch.ts'
+import type { Pen } from '../src/registry/ui/sticker/sticker-sketch.ts'
 
 function flowerPetals(centreX: number, centreY: number, radius: number) {
   return Array.from({ length: 5 }, (_, index) => {
