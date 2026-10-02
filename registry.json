@@ -1868,9 +1868,8 @@
         { "path": "src/registry/ui/sticker/types.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/sticker/utils.ts", "type": "registry:ui" },
         {
-          "path": "scripts/sticker-sketch.ts",
-          "type": "registry:file",
-          "target": "~/scripts/sticker-sketch.ts"
+          "path": "src/registry/ui/sticker/sticker-sketch.ts",
+          "type": "registry:ui"
         }
       ]
     }
