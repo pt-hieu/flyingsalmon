@@ -45,7 +45,7 @@ export const sliderWellVariants = cva(
 )
 
 export const sliderRootClassName =
-  'relative flex h-5 w-full touch-none items-center select-none'
+  'relative flex h-5 w-full cursor-pointer touch-none items-center select-none'
 
 export const sliderTrackClassName = 'relative h-5 w-full grow'
 
