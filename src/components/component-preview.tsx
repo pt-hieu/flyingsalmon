@@ -73,6 +73,7 @@ import { Select, SelectItem, SelectSize } from '@/registry/ui/select'
 import { Separator } from '@/registry/ui/separator'
 import { SidebarGroup, SidebarHeader, SidebarNav } from '@/registry/ui/sidebar'
 import { Skeleton } from '@/registry/ui/skeleton'
+import { Slider } from '@/registry/ui/slider'
 import { Spinner } from '@/registry/ui/spinner'
 import { Stepper } from '@/registry/ui/stepper'
 import { Switch } from '@/registry/ui/switch'
@@ -185,6 +186,18 @@ const previewByRoute: Record<ComponentRoute, React.ReactNode> = {
       <SelectItem value="usd">US Dollar</SelectItem>
       <SelectItem value="eur">Euro</SelectItem>
     </Select>
+  ),
+
+  '/components/slider': (
+    <Slider
+      className="w-56"
+      label="Pace"
+      min={0}
+      max={4}
+      value={2}
+      description="Two plans a day"
+      onValueChange={() => {}}
+    />
   ),
 
   '/components/switch': (
