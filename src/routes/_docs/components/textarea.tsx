@@ -78,6 +78,33 @@ function TextareaPage() {
       </section>
 
       <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Description</h2>
+        <p className="text-muted-foreground">
+          <code>description</code> is helper text in muted type directly under
+          the field, and it joins the field&rsquo;s accessible description, so a
+          screen reader reads it with the field. It stays put when an error
+          arrives: the message renders below it, and a screen reader hears the
+          error first, then the description. A disabled field dims its
+          description with its label.
+        </p>
+        <Preview>
+          <Textarea
+            className="w-72"
+            label="Notes"
+            placeholder="Tell us about the trip"
+            description="Everyone on the trip can read these"
+          />
+          <Textarea
+            className="w-72"
+            label="Notes"
+            defaultValue="Too short."
+            description="Everyone on the trip can read these"
+            error="Write at least ten characters"
+          />
+        </Preview>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Error</h2>
         <p className="text-muted-foreground">
           Pass <code>error</code> and the field owns the whole failure: the
@@ -170,16 +197,16 @@ function TextareaPage() {
         <p className="text-muted-foreground">
           Textarea generates the field <code>id</code> and wires the label{' '}
           <code>htmlFor</code> itself, so clicking the label focuses the field.
-          An error sets <code>aria-invalid</code> and links the message through{' '}
-          <code>aria-describedby</code>, keeping any description you passed. A
-          loading field sets <code>aria-busy</code> and hides its spinner from
-          screen readers, so the wait is announced once. The keyboard path is
-          native: Enter inserts a newline, and Tab always moves focus out of the
-          field rather than inserting a tab character. A submit shortcut such as
-          Cmd+Enter belongs to your form, not to this component.{' '}
-          <code>required</code> marks the label and reaches the{' '}
-          <code>&lt;textarea&gt;</code>; the validation itself stays with your
-          app.
+          An error sets <code>aria-invalid</code>, and{' '}
+          <code>aria-describedby</code> lists any ids you passed, then the error
+          message, then the <code>description</code>. A loading field sets{' '}
+          <code>aria-busy</code> and hides its spinner from screen readers, so
+          the wait is announced once. The keyboard path is native: Enter inserts
+          a newline, and Tab always moves focus out of the field rather than
+          inserting a tab character. A submit shortcut such as Cmd+Enter belongs
+          to your form, not to this component. <code>required</code> marks the
+          label and reaches the <code>&lt;textarea&gt;</code>; the validation
+          itself stays with your app.
         </p>
       </section>
     </article>

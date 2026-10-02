@@ -102,6 +102,29 @@ describe('Select', () => {
     expect(trigger).toHaveAccessibleDescription('Pick a fruit to continue')
   })
 
+  it('describes the trigger with its description', () => {
+    render(<FruitSelect description="Picked fresh each morning" />)
+
+    expect(
+      screen.getByRole('combobox', { name: 'Fruit' }),
+    ).toHaveAccessibleDescription('Picked fresh each morning')
+  })
+
+  it('describes the trigger with the error message, then the description', () => {
+    render(
+      <FruitSelect
+        description="Picked fresh each morning"
+        error="Pick a fruit to continue"
+      />,
+    )
+
+    expect(
+      screen.getByRole('combobox', { name: 'Fruit' }),
+    ).toHaveAccessibleDescription(
+      'Pick a fruit to continue Picked fresh each morning',
+    )
+  })
+
   it('keeps the trigger focusable and busy while loading, and opening is a no-op', async () => {
     const user = userEvent.setup()
     render(<FruitSelect loading />)

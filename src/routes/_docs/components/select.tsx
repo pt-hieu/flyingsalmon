@@ -127,6 +127,41 @@ function SelectPage() {
       </section>
 
       <section className="space-y-4">
+        <h2 className="font-heading text-2xl font-bold">Description</h2>
+        <p className="text-muted-foreground">
+          <code>description</code> is helper text in muted type directly under
+          the trigger, and it joins the trigger&rsquo;s accessible description,
+          so a screen reader reads it with the field. It stays put when an error
+          arrives: the message renders below it, and a screen reader hears the
+          error first, then the description. A disabled field dims its
+          description with its label.
+        </p>
+        <Preview>
+          <Select
+            className="w-64"
+            label="Currency"
+            placeholder="Choose a currency"
+            description="Prices show in this currency"
+          >
+            <SelectItem value="usd">US Dollar</SelectItem>
+            <SelectItem value="eur">Euro</SelectItem>
+            <SelectItem value="vnd">Vietnamese Dong</SelectItem>
+          </Select>
+          <Select
+            className="w-64"
+            label="Currency"
+            placeholder="Choose a currency"
+            description="Prices show in this currency"
+            error="Choose a supported currency"
+          >
+            <SelectItem value="usd">US Dollar</SelectItem>
+            <SelectItem value="eur">Euro</SelectItem>
+            <SelectItem value="vnd">Vietnamese Dong</SelectItem>
+          </Select>
+        </Preview>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Error</h2>
         <p className="text-muted-foreground">
           Pass <code>error</code> and the trigger takes the destructive border
@@ -218,12 +253,13 @@ function SelectPage() {
           and typeahead move the highlight, and Enter or Space chooses and
           closes. Escape and an outside click back out with no change, and focus
           always returns to the trigger. An error sets <code>aria-invalid</code>{' '}
-          and links the message through <code>aria-describedby</code>. A loading
-          trigger sets <code>aria-busy</code> and stays in the tab order;
-          disabled removes it. A plain form posts the chosen value through
-          Radix's hidden native <code>&lt;select&gt;</code>, and{' '}
-          <code>required</code> marks the label, sets <code>aria-required</code>
-          , and participates in native validation.
+          and <code>aria-describedby</code> lists any ids you passed, then the
+          error message, then the <code>description</code>. A loading trigger
+          sets <code>aria-busy</code> and stays in the tab order; disabled
+          removes it. A plain form posts the chosen value through Radix's hidden
+          native <code>&lt;select&gt;</code>, and <code>required</code> marks
+          the label, sets <code>aria-required</code>, and participates in native
+          validation.
         </p>
       </section>
     </article>
