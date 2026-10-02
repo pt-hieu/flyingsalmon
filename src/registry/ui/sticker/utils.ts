@@ -7,6 +7,8 @@ const silhouetteMargin = 16
 
 const boilFrameDuration = 150
 
+export const drawingStrokeWidth = 2.2
+
 export function cutLayers(layers: readonly StickerLayer[]) {
   return layers.filter((layer) => layer.role === cutRole)
 }
