@@ -144,22 +144,4 @@ describe('Slider', () => {
 
     expect(new FormData(form as HTMLFormElement).get('budgetLevel')).toBe('2')
   })
-
-  it('renders the action beside the track', () => {
-    render(
-      <Slider
-        label="Budget"
-        min={0}
-        max={6}
-        step={1}
-        value={2}
-        onValueChange={() => {}}
-        action={<button type="button">I have a number</button>}
-      />,
-    )
-
-    expect(
-      screen.getByRole('button', { name: 'I have a number' }),
-    ).toBeVisible()
-  })
 })

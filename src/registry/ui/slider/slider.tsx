@@ -2,10 +2,9 @@ import { Slider as SliderPrimitive } from 'radix-ui'
 import { useId } from 'react'
 
 import { cn } from '@/lib/utils'
+import { FieldDescription } from '@/registry/lib/field'
 
 import {
-  sliderActionClassName,
-  sliderDescriptionVariants,
   sliderFillClassName,
   sliderLabelClassName,
   sliderRootClassName,
@@ -25,7 +24,6 @@ export interface SliderProps {
   max?: number
   step?: number
   description?: string
-  action?: React.ReactNode
   required?: boolean
   disabled?: boolean
   id?: string
@@ -41,7 +39,6 @@ export function Slider({
   max = 100,
   step = 1,
   description,
-  action,
   required = false,
   disabled = false,
   id,
@@ -51,6 +48,7 @@ export function Slider({
   const generatedId = useId()
   const thumbId = id ?? generatedId
   const labelId = `${thumbId}-label`
+  const descriptionId = `${thumbId}-description`
 
   const fillWidth = thumbCenterOffset(valuePercent(value, min, max))
   const stepDotOffsets = stepPercents(min, max, step).map(thumbCenterOffset)
@@ -99,11 +97,9 @@ export function Slider({
         </SliderPrimitive.Root>
       </div>
 
-      {action ? <div className={sliderActionClassName}>{action}</div> : null}
-
-      {description ? (
-        <p className={sliderDescriptionVariants({ disabled })}>{description}</p>
-      ) : null}
+      <FieldDescription id={descriptionId} disabled={disabled}>
+        {description}
+      </FieldDescription>
     </div>
   )
 }

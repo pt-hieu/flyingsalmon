@@ -2,33 +2,17 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
 import { Preview } from '@/components/preview'
-import { Button, ButtonVariant } from '@/registry/ui/button'
-import { NumberField } from '@/registry/ui/number-field'
 import { Slider } from '@/registry/ui/slider'
 
 export const Route = createFileRoute('/_docs/components/slider')({
   component: SliderPage,
 })
 
-const budgetLevels = [
-  'Easy on the wallet, about $400 per person',
-  'Easy on the wallet, about $600 per person',
-  'Comfortable, about $800 per person',
-  'Comfortable, about $1,000 per person',
-  'Comfortable, about $1,200 per person',
-  'Treat ourselves, about $1,500 per person',
-  'Treat ourselves, about $2,000 per person',
-]
-
 const paceLevels = [
   'Slow mornings, one plan a day',
   'Two plans a day, long lunches',
   'Packed days, early starts',
 ]
-
-function describeBudgetLevel(budgetLevel: number) {
-  return `${budgetLevels[budgetLevel]} for 5 days, before flights`
-}
 
 function SliderPage() {
   return (
@@ -64,24 +48,10 @@ function SliderPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">With an action</h2>
-        <p className="text-muted-foreground">
-          <code>action</code> places a node beside the track, centred on it. Use
-          it for a way out of the slider, such as switching to an exact number
-          when the reader has one. The slider only positions the node; what it
-          does is yours.
-        </p>
-        <Preview>
-          <BudgetExample />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Width</h2>
         <p className="text-muted-foreground">
-          The track grows with its container up to 28rem, and the action keeps
-          its own width beside it. Constrain the slider further with{' '}
-          <code>className</code>.
+          The slider grows with its container up to 28rem. Constrain it further
+          with <code>className</code>.
         </p>
       </section>
 
@@ -132,56 +102,6 @@ function PaceExample() {
       value={paceLevel}
       description={paceLevels[paceLevel]}
       onValueChange={setPaceLevel}
-    />
-  )
-}
-
-function BudgetExample() {
-  const [budgetLevel, setBudgetLevel] = useState(3)
-  const [hasExactBudget, setHasExactBudget] = useState(false)
-  const [exactBudget, setExactBudget] = useState<number | null>(1000)
-
-  if (hasExactBudget) {
-    return (
-      <div className="flex w-full flex-wrap items-end gap-x-4 gap-y-3">
-        <NumberField
-          className="w-64"
-          label="Budget per person"
-          prefix="$"
-          min={100}
-          step={100}
-          required
-          value={exactBudget}
-          onValueChange={setExactBudget}
-        />
-        <Button
-          variant={ButtonVariant.Ghost}
-          onClick={() => setHasExactBudget(false)}
-        >
-          Not sure yet
-        </Button>
-      </div>
-    )
-  }
-
-  return (
-    <Slider
-      className="w-full"
-      label="Budget"
-      min={0}
-      max={budgetLevels.length - 1}
-      required
-      value={budgetLevel}
-      description={describeBudgetLevel(budgetLevel)}
-      onValueChange={setBudgetLevel}
-      action={
-        <Button
-          variant={ButtonVariant.Ghost}
-          onClick={() => setHasExactBudget(true)}
-        >
-          I have a number
-        </Button>
-      }
     />
   )
 }
