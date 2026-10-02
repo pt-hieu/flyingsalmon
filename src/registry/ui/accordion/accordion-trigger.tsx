@@ -40,12 +40,21 @@ export function AccordionTrigger({
     </AccordionPrimitive.Trigger>
   )
 
+  if (heading) {
+    return (
+      <AccordionPrimitive.Header asChild>
+        {cloneElement(
+          heading,
+          { className: cn(accordionHeaderClassName, heading.props.className) },
+          trigger,
+        )}
+      </AccordionPrimitive.Header>
+    )
+  }
+
   return (
-    <AccordionPrimitive.Header
-      asChild={Boolean(heading)}
-      className={accordionHeaderClassName}
-    >
-      {heading ? cloneElement(heading, undefined, trigger) : trigger}
+    <AccordionPrimitive.Header className={accordionHeaderClassName}>
+      {trigger}
     </AccordionPrimitive.Header>
   )
 }
