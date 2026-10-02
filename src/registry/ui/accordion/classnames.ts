@@ -13,17 +13,18 @@ export const accordionItemClassName = cn(
   'has-[[data-slot=accordion-trigger]:focus-visible]:border-indicator',
 )
 
-export const accordionHeaderClassName = 'flex'
+export const accordionHeaderClassName =
+  'font-heading flex text-base font-semibold'
 
 export const accordionTriggerClassName = cn(
-  'group font-heading text-foreground flex w-full cursor-pointer items-start gap-4 py-4 text-base font-semibold',
+  'group text-foreground flex w-full cursor-pointer items-start gap-4 py-4',
   'focus-visible:outline-hidden',
   disabledInteraction,
 )
 
 export const accordionTriggerLabelClassName = 'flex-1 text-left'
 
-export const accordionChevronBoxClassName = 'flex h-6 shrink-0 items-center'
+export const accordionChevronBoxClassName = 'flex h-[1lh] shrink-0 items-center'
 
 export const accordionChevronClassName = cn(
   'text-muted-foreground size-4',
