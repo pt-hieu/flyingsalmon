@@ -1,5 +1,5 @@
-import { ink, writeSticker } from './sticker-sketch.ts'
-import type { Pen } from './sticker-sketch.ts'
+import { ink, writeSticker } from '../src/registry/ui/sticker/sticker-sketch.ts'
+import type { Pen } from '../src/registry/ui/sticker/sticker-sketch.ts'
 
 const pin =
   'M 225 96 C 212 80 208 70 208 52 A 17 17 0 1 1 242 52 C 242 70 238 80 225 96 Z'
