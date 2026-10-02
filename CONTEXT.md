@@ -61,7 +61,7 @@ The components that own a label and an error message: input, textarea, checkbox,
 _Avoid_: form controls, inputs
 
 **Field description**:
-Helper text in muted type directly under a boxed field — input, textarea, number-field, select, combobox, date-picker — passed as `description` and rendered by the `field` item's `FieldDescription`. It joins the control's `aria-describedby` after the error message, so a screen reader hears the error first and the description second, and it sits above the error so an arriving error never moves it. Not an error and not feedback: it says what the field means, and it stays while the field shows an error.
+Helper text in muted type directly under a boxed field — input, textarea, number-field, select, combobox, date-picker — passed as `description` and rendered by the `field` item's `FieldDescription`. It joins the control's `aria-describedby` after the error message, so a screen reader hears the error first and the description second, and it sits above the error so an arriving error never moves it. Not an error and not feedback: it says what the field means, and it stays while the field shows an error. Slider renders its description with the same `FieldDescription`, but the thumb takes it as `aria-valuetext` rather than through `aria-describedby`, because it names the current step.
 _Avoid_: hint
 
 **Motion language**:
