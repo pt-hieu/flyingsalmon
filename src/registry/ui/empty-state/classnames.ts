@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
 
-import { EmptyStateKind, EmptyStateSize } from './types'
+import { EmptyStateSize } from './types'
 
 export const emptyStateClassName = cn(
   'flex h-min w-full flex-col items-center justify-center gap-2',
@@ -27,20 +27,15 @@ export const emptyStateIconVariants = cva(
   },
 )
 
-export const emptyStateStickerVariants = cva('shrink-0', {
+export const emptyStateStickerVariants = cva('shrink-0 -rotate-3', {
   variants: {
     size: {
       [EmptyStateSize.Default]: 'max-w-60',
       [EmptyStateSize.Small]: 'max-w-40',
     },
-    kind: {
-      [EmptyStateKind.Empty]: '-rotate-3',
-      [EmptyStateKind.Error]: 'rotate-3',
-    },
   },
   defaultVariants: {
     size: EmptyStateSize.Default,
-    kind: EmptyStateKind.Empty,
   },
 })
 

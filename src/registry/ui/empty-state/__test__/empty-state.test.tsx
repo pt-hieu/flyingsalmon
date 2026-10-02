@@ -8,7 +8,6 @@ import {
   EmptyStateActions,
   EmptyStateDescription,
   EmptyStateIcon,
-  EmptyStateKind,
   EmptyStateSticker,
   EmptyStateTitle,
   EmptyStateTitleElement,
@@ -169,29 +168,5 @@ describe('EmptyState', () => {
     expect(
       screen.getByRole('region', { name: 'Your route is on its way' }),
     ).toBeInTheDocument()
-  })
-
-  it('is an alert named by its title when it is an error state', () => {
-    render(
-      <EmptyState kind={EmptyStateKind.Error}>
-        <EmptyStateSticker
-          art={pencilArt}
-          label="A pencil with its tip snapped off"
-          roleClassNames={pencilRoleClassNames}
-        />
-        <EmptyStateTitle>Generation failed</EmptyStateTitle>
-        <EmptyStateDescription>
-          It stopped while planning the days for Japan.
-        </EmptyStateDescription>
-        <EmptyStateActions>
-          <Button>Try again</Button>
-        </EmptyStateActions>
-      </EmptyState>,
-    )
-
-    expect(
-      screen.getByRole('alert', { name: 'Generation failed' }),
-    ).toBeInTheDocument()
-    expect(screen.queryByRole('region')).not.toBeInTheDocument()
   })
 })

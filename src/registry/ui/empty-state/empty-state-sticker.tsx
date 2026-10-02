@@ -13,12 +13,12 @@ export function EmptyStateSticker({
   className,
   ...props
 }: EmptyStateStickerProps) {
-  const { size, kind } = use(EmptyStateContext)
+  const { size } = use(EmptyStateContext)
 
   return (
     <Sticker
       data-slot="empty-state-sticker"
-      className={cn(emptyStateStickerVariants({ size, kind }), className)}
+      className={cn(emptyStateStickerVariants({ size }), className)}
       {...props}
     />
   )

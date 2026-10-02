@@ -8,7 +8,6 @@ export {
 } from './empty-state-sticker'
 export { EmptyStateTitle, type EmptyStateTitleProps } from './empty-state-title'
 export {
-  EmptyStateKind,
   EmptyStateSize,
   EmptyStateTitleElement,
   type EmptyStateContextValue,

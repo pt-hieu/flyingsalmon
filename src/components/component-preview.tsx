@@ -6,6 +6,11 @@ import {
   houseStickerLabel,
   houseStickerRoleClassNames,
 } from '@/components/house-sticker'
+import { snappedPencilStickerArt } from '@/components/snapped-pencil-sticker-art'
+import {
+  snappedPencilStickerLabel,
+  snappedPencilStickerRoleClassNames,
+} from '@/components/snapped-pencil-sticker'
 import {
   Accordion,
   AccordionContent,
@@ -59,9 +64,11 @@ import {
   EmptyState,
   EmptyStateIcon,
   EmptyStateSize,
+  EmptyStateSticker,
   EmptyStateTitle,
   EmptyStateTitleElement,
 } from '@/registry/ui/empty-state'
+import { ErrorState } from '@/registry/ui/error-state'
 import { Form, FormActions } from '@/registry/ui/form'
 import { IconTooltip } from '@/registry/ui/icon-tooltip'
 import { Input, InputSize } from '@/registry/ui/input'
@@ -361,6 +368,21 @@ const previewByRoute: Record<ComponentRoute, React.ReactNode> = {
         No trips yet
       </EmptyStateTitle>
     </EmptyState>
+  ),
+
+  '/components/error-state': (
+    <ErrorState size={EmptyStateSize.Small}>
+      <EmptyStateSticker
+        art={snappedPencilStickerArt}
+        label={snappedPencilStickerLabel}
+        roleClassNames={snappedPencilStickerRoleClassNames}
+        popIn={false}
+        className="w-28"
+      />
+      <EmptyStateTitle as={EmptyStateTitleElement.H3}>
+        Generation failed
+      </EmptyStateTitle>
+    </ErrorState>
   ),
 
   '/components/notice': (

@@ -7,11 +7,6 @@ import {
   routeStickerLabel,
   routeStickerRoleClassNames,
 } from '@/components/route-sticker'
-import { snappedPencilStickerArt } from '@/components/snapped-pencil-sticker-art'
-import {
-  snappedPencilStickerLabel,
-  snappedPencilStickerRoleClassNames,
-} from '@/components/snapped-pencil-sticker'
 import { Button, ButtonVariant } from '@/registry/ui/button'
 import { Card, CardContent } from '@/registry/ui/card'
 import {
@@ -19,7 +14,6 @@ import {
   EmptyStateActions,
   EmptyStateDescription,
   EmptyStateIcon,
-  EmptyStateKind,
   EmptyStateSize,
   EmptyStateSticker,
   EmptyStateTitle,
@@ -38,10 +32,9 @@ function EmptyStatePage() {
           Empty State
         </h1>
         <p className="text-muted-foreground text-lg">
-          A no-content block. It says why a region holds nothing and what the
-          user can do about it, in one look, with no surface of its own. Its
-          error kind says the same about a region whose content failed to
-          arrive.
+          A resting no-content block. It says why a region holds nothing and
+          what the user can do about it, in one look, with no surface of its
+          own.
         </p>
       </header>
 
@@ -58,24 +51,19 @@ function EmptyStatePage() {
           state says content is not coming until the user acts.
         </p>
         <p className="text-muted-foreground">
-          The error kind is the failed state of the affected item, the first
-          home for a result in the feedback rule: the region that was meant to
-          fill says that it did not, with a retry, where the user is already
-          looking. An error with a closer home does not use it: a form&apos;s
-          error belongs to the acting surface&apos;s <code>alert</code>, and a
-          result with no visible home goes to a <code>notice</code>.
+          A region whose content failed to arrive is not empty: it shows an{' '}
+          <code>error-state</code>, which is this block announced as an alert.
         </p>
       </section>
 
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Sticker art</h2>
         <p className="text-muted-foreground">
-          A sticker is the default art for both kinds.{' '}
-          <code>EmptyStateSticker</code> takes the props of a{' '}
-          <code>Sticker</code> and sizes and tilts it for the block, so a screen
-          sets neither. The empty kind tilts the sticker left and the error kind
-          tilts it right. The sticker pops in as it scrolls into view;{' '}
-          <code>popIn={'{false}'}</code> turns that off.
+          A sticker is the default art. <code>EmptyStateSticker</code> takes the
+          props of a <code>Sticker</code> and sizes and tilts it for the block,
+          so a screen sets neither. The sticker tilts left; an{' '}
+          <code>error-state</code> tilts it right. It pops in as it scrolls into
+          view; <code>popIn={'{false}'}</code> turns that off.
         </p>
         <Preview>
           <EmptyState>
@@ -101,36 +89,6 @@ function EmptyStatePage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Error state</h2>
-        <p className="text-muted-foreground">
-          <code>kind={'{EmptyStateKind.Error}'}</code> marks the block as an
-          error state. The layout stays the same and the art stays a sticker: no
-          red icon and no <code>Alert</code> inside it. The description says
-          what happened and what was kept, and the actions offer the retry and
-          the way back to the input.
-        </p>
-        <Preview>
-          <EmptyState kind={EmptyStateKind.Error}>
-            <EmptyStateSticker
-              art={snappedPencilStickerArt}
-              label={snappedPencilStickerLabel}
-              roleClassNames={snappedPencilStickerRoleClassNames}
-            />
-            <EmptyStateTitle>Generation failed</EmptyStateTitle>
-            <EmptyStateDescription>
-              It stopped while planning the days for Japan. All 12 credits are
-              back in your wallet, and nothing from the failed attempt was kept.
-              Your Brief is saved; try again or change it first.
-            </EmptyStateDescription>
-            <EmptyStateActions>
-              <Button>Try again</Button>
-              <Button variant={ButtonVariant.Outline}>Edit the Brief</Button>
-            </EmptyStateActions>
-          </EmptyState>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Slots</h2>
         <p className="text-muted-foreground">
           Six slots. <code>EmptyState</code> renders a <code>section</code>{' '}
@@ -139,8 +97,8 @@ function EmptyStatePage() {
           holds any node inside a <code>--muted</code> circle.{' '}
           <code>EmptyStateTitle</code> is required and carries the label.{' '}
           <code>EmptyStateDescription</code> and <code>EmptyStateActions</code>{' '}
-          are optional. There is no <code>variant</code> prop: one look for both
-          kinds, and the consumer supplies a boundary by wrapping the block in a{' '}
+          are optional. There is no <code>variant</code> prop: one look, and the
+          consumer supplies a boundary by wrapping the block in a{' '}
           <code>Card</code>.
         </p>
         <p className="text-muted-foreground">
@@ -294,8 +252,7 @@ function EmptyStatePage() {
           7.01:1 and 7.44:1. The only <code>--muted</code> surface inside the
           block is the icon circle, which holds an icon rather than text at
           6.48:1. Placed on <code>--muted</code>, the block keeps its
-          description at 6.48:1. The error kind uses the same colors: its title,
-          its sticker, and its role tell it apart, never red.
+          description at 6.48:1.
         </p>
       </section>
 
@@ -304,15 +261,12 @@ function EmptyStatePage() {
           Accessibility and motion
         </h2>
         <p className="text-muted-foreground">
-          The empty kind is a region labelled by its title, so a screen reader
-          user can find it and hear what it is. There is no{' '}
+          The block is a region labelled by its title, so a screen reader user
+          can find it and hear what it is. There is no{' '}
           <code>role="status"</code> and no live region: a resting state must
-          not announce itself on every render. The error kind is an{' '}
-          <code>alert</code> labelled by the same title, so it is announced when
-          it appears, as when it replaces the content that failed, and a screen
-          reader tells it apart from an empty state. The title renders{' '}
-          <code>h2</code> by default and takes an <code>as</code> prop for the
-          level the surrounding document needs — <code>h3</code> inside a card.
+          not announce itself on every render. The title renders <code>h2</code>{' '}
+          by default and takes an <code>as</code> prop for the level the
+          surrounding document needs — <code>h3</code> inside a card.
         </p>
         <p className="text-muted-foreground">
           The sticker is one image named by its label, which describes the

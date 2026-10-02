@@ -201,6 +201,13 @@ const catalogEntries = [
     aliases: ['blank slate', 'zero state', 'no results'],
   },
   {
+    to: '/components/error-state',
+    registryName: 'error-state',
+    label: 'Error State',
+    category: ComponentCategory.Feedback,
+    aliases: ['failed state', 'error page', 'retry'],
+  },
+  {
     to: '/components/notice',
     registryName: 'notice',
     label: 'Notice',
