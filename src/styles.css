@@ -456,6 +456,7 @@ body {
   --color-skeleton: var(--skeleton);
   --color-progress-fill: var(--progress-fill);
   --color-progress-track: var(--progress-track);
+  --color-slider-fill: var(--slider-fill);
   --color-destructive: var(--destructive);
   --color-error-foreground: var(--error-foreground);
   --color-error: var(--error);
@@ -508,6 +509,7 @@ body {
   --skeleton: var(--color-orange-200);
   --progress-track: var(--color-orange-200);
   --progress-fill: var(--indicator);
+  --slider-fill: var(--color-orange-300);
   --accent: var(--color-orange-200);
   --accent-foreground: var(--color-neutral-900);
   --destructive: var(--color-red-600);
