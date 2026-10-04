@@ -29,7 +29,7 @@ The inline-feedback grilling (issue #93) began as a placement question: where do
 ## Consequences
 
 - ADR 0001 gains a clause: anything whose animated dimension displaces siblings enters with `springSettle`. `Alert` and `FieldErrorMessage` change from `springBounce` to `springSettle` on enter.
-- The feedback-rule wording in `CLAUDE.md` and `CONTEXT.md` changes; `CONTEXT.md` gains the terms **Notice** and **Result slot**.
+- The feedback-rule wording in `CLAUDE.md` and `GLOSSARY.md` changes; `GLOSSARY.md` gains the terms **Notice** and **Result slot**.
 - The alert, button, switch, input, and textarea docs pages drop "no toast" and the bounce enter.
 - The form spec (#84) takes the slot placement and the empty-in-dialog rule from here.
 - Notice and changed-item support (a fresh-item motion preset, a failed state with message and retry on card and table row) are next-batch candidates on the batch-3 map. Neither is enforced; both are optional registry items.

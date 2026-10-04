@@ -19,7 +19,7 @@ The original feedback rule said the acting component owns all feedback for its a
 
 ## Consequences
 
-- The feedback-rule wording in `CLAUDE.md`, `CONTEXT.md`, and the batch-1 map (issue #1) changes to match.
+- The feedback-rule wording in `CLAUDE.md`, `GLOSSARY.md`, and the batch-1 map (issue #1) changes to match.
 - Registry dependencies between atomic components are allowed: button depends on the `spinner` registry item. "Atomic" excludes floating layers and composite widgets, not dependencies.
 - The docs principles page must state the revised boundary when it is written.
 

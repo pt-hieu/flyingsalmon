@@ -40,4 +40,4 @@ The site and registry are public at `https://flyingsalmon.superbrian.dev`. No re
 ---
 
 Issues live in this repo's GitHub Issues (`gh` CLI). See `docs/agents/issue-tracker.md`.
-Single-context: one `CONTEXT.md` at the repo root plus `docs/adr/`. See `docs/agents/domain.md`.
+Single-context: one `GLOSSARY.md` at the repo root plus `docs/adr/`. See `docs/agents/domain.md`.

@@ -9,7 +9,7 @@ The files that move together when the registry changes. `pnpm check` catches the
 3. An entry in `src/components/component-catalog.ts`, and its overview tile in `src/components/component-preview.tsx`. _Checked_ by the type check: `previewByRoute` is typed over every catalog route.
 4. A docs page at `src/routes/_docs/components/<name>.tsx`.
 5. The component's root export in a group of `GROUPS` in `.design-sync/prepare.mjs`, and a preview at `.design-sync/previews/<Name>.tsx`.
-6. A `CONTEXT.md` term when the component names a concept the glossary lacks.
+6. A `GLOSSARY.md` term when the component names a concept the glossary lacks.
 
 ## Rename or remove a component, a component file, or an enum member
 

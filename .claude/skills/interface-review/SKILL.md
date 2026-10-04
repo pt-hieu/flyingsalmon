@@ -27,7 +27,7 @@ This checklist is distilled from Vercel's web interface guidelines. Where the tw
 
 - **Never flag a missing `prefers-reduced-motion` variant.** ADR 0001 defers that support on purpose. Do not add the rule back.
 - **Never suggest a toast.** Toast is banned permanently (ADR 0002). Success and error go inline via the alert component.
-- Source of truth for design rules: `CLAUDE.md`, `CONTEXT.md`, `docs/adr/`. If a finding contradicts an ADR, say so instead of asserting the rule.
+- Source of truth for design rules: `CLAUDE.md`, `GLOSSARY.md`, `docs/adr/`. If a finding contradicts an ADR, say so instead of asserting the rule.
 
 ## Rules
 
@@ -57,7 +57,7 @@ This checklist is distilled from Vercel's web interface guidelines. Where the tw
 
 ### Forms
 
-- A field owns its own error — inline, next to the field (feedback rule, `CONTEXT.md`)
+- A field owns its own error — inline, next to the field (feedback rule, `GLOSSARY.md`)
 - Focus the first error on submit
 - Inputs need `autocomplete` and meaningful `name`
 - Use correct `type` (`email`, `tel`, `url`, `number`) and `inputmode`
