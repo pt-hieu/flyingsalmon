@@ -16,7 +16,7 @@
     "format": "oxfmt && oxlint --fix",
     "test": "vitest run",
     "test:watch": "vitest",
-    "check": "oxfmt --check && oxlint && vitest run"
+    "check": "oxfmt --check && oxlint && tsc --noEmit && vitest run"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",

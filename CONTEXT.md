@@ -17,11 +17,11 @@ Which focus feedback a component draws, per ADR 0003. An offset ring stands clea
 _Avoid_: ring style, ring variant, focus style
 
 **Shared style rule**:
-A rendering rule fixed by an ADR or this glossary and therefore centralised in `src/registry/lib/`, as distinct from a class string that merely repeats. Byte-identity is not the bar (ADR 0006). Today: the disabled state, the three focus ring geometries, the field label variants. The menu item rules join in a third module, `menu`, when dropdown-menu builds (#52).
+A rendering rule fixed by an ADR or this glossary and therefore centralised in `src/registry/lib/`, as distinct from a class string that merely repeats. Byte-identity is not the bar (ADR 0006). Today: the disabled state and the three focus ring geometries (`interaction`), the field label variants (`field`), and the menu item rules (`menu`).
 _Avoid_: shared class, style token, common style
 
 **Batch**:
-A shipping group of components specced and built together. Batch 1 holds the 11 atomic components (alert joined via ADR 0002; label absorbed into the field components via #4). Batch 2 holds the 5 floating and composite components: dialog, dropdown-menu, select, tooltip, tabs. Popover was cut permanently by #50. Batch 3 holds the 6 form and data components: form, radio-group, table, accordion, avatar-group, separator. Batch 4 holds the 12 components hottrip's screens need and the registry lacks — calendar, date-picker, combobox, number-field, toggle-group, progress, stepper, notice, empty-state, sidebar, carousel, timeline — plus the button's amber variant; header (#128) and changed-item (#125) are cut. Its roster gate is that a named hottrip screen needs the component. Batch 5 holds 4 components: drawer, breadcrumb, pagination, text link. Its roster gate is portfolio completeness: a visitor to a design system would expect the component and no standing ban covers it.
+A shipping group of components specced and built together. Batch 1 holds the 11 atomic components (alert joined via ADR 0002; label absorbed into the field components via #4). Batch 2 holds the 5 floating and composite components: dialog, dropdown-menu, select, tooltip, tabs. Popover was cut permanently by #50. Batch 3 holds the 6 form and data components: form, radio-group, table, accordion, avatar-group, separator. Batch 4 holds the 12 components hottrip's screens need and the registry lacks — calendar, date-picker, combobox, number-field, toggle-group, progress, stepper, notice, empty-state, sidebar, carousel, timeline. Carousel is parked. Header (#128), changed-item (#125), and the button's amber variant are cut. Its roster gate is that a named hottrip screen needs the component. Batch 5 holds 4 components: drawer, breadcrumb, pagination, text link. Its roster gate is portfolio completeness: a visitor to a design system would expect the component and no standing ban covers it.
 _Avoid_: milestone, phase, wave
 
 **Floating component**:
@@ -81,7 +81,7 @@ The optional position on `Form`, below the actions row, where the app places its
 _Avoid_: form alert, error summary, message area
 
 **Notice**:
-The shell-owned surface for a result with no visible home: after navigation, from a closed dialog form, for a confirm-only action. One at a time, persistent until dismissed or replaced, fixed top-centre, announced from a live region mounted before content, never takes focus, always links back to its subject (ADR 0008). Not a toast: it auto-dismisses nothing, stacks nothing, and is owned. An anchored mode is deferred (#145); the fixed one builds in batch 4.
+The shell-owned surface for a result with no visible home: after navigation, from a closed dialog form, for a confirm-only action. One at a time, persistent until dismissed or replaced, fixed top-centre, announced from a live region mounted before content, never takes focus, always links back to its subject (ADR 0008). Not a toast: it auto-dismisses nothing, stacks nothing, and is owned. An anchored mode is deferred (#145).
 _Avoid_: toast, snackbar, notification, banner
 
 **Range**:
@@ -141,7 +141,7 @@ A sticker's continuous motion: its frames take turns every 150ms so the hand-dra
 _Avoid_: wobble, jitter, shake
 
 **Carousel**:
-A horizontally scroll-snapping region of items on native CSS scroll-snap. Many items can be visible at once and the user free-scrolls with trackpad, touch, or scrollbar; the browser settles on an item start. Not a slideshow: one item per viewport is the special case where the item width equals the viewport. Horizontal only.
+Parked, so no registry item ships it. A horizontally scroll-snapping region of items on native CSS scroll-snap. Many items can be visible at once and the user free-scrolls with trackpad, touch, or scrollbar; the browser settles on an item start. Not a slideshow: one item per viewport is the special case where the item width equals the viewport. Horizontal only.
 _Avoid_: slider, slideshow, gallery, reel
 
 **Current item**:

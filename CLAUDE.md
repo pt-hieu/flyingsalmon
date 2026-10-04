@@ -1,13 +1,18 @@
 A shadcn registry that doubles as Brian's design system and public design portfolio.
-Namespace: `@flyingsalmon`. Future home: `flyingsalmon.superbrian.dev`. First consumer: hottrip (an AI trip planner, not built yet — this registry dictates its stack).
+Namespace: `@flyingsalmon`. First consumer: hottrip, an AI trip planner in the sibling repo `../hottrip`; this registry dictates its stack.
 
 ## Coding conventions
 
 Every coding rule, for the registry and the docs site alike, is in `CODING_STANDARDS.md`.
 
+## Where to look
+
+- Adding, renaming, or removing a component, a component file, an enum member, or a theme token: `docs/agents/change-recipes.md` lists every file that moves with it.
+- Editing a registry item's `css`, `cssVars`, or imports, or debugging a consumer's `shadcn add`: `GOTCHAS.md`.
+
 ## Structure rules
 
-- `src/registry/` is the single source of truth for everything distributable (components, theme). `registry.json` composes it.
+- `src/registry/` is the single source of truth for every distributable file, including a script a component ships, which lives in that component's folder. `registry.json` composes it. The theme is the exception: its tokens live in `src/styles.css` and in the `theme` item of `registry.json`.
 - Docs pages import components from `@/registry/...` directly. Never copy a registry component into `src/components/` — that folder is for docs-site-only chrome (preview shells, navigation).
 - One import alias: `@/` → `src/`. Do not introduce others.
 - `components.json` aliases must stay consistent with actual import paths; `shadcn build` rewrites imports for consumers, not for this repo.
