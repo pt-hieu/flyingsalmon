@@ -4,7 +4,7 @@ import { offsetFocusRingGeometry } from '@/registry/lib/interaction'
 export const textLinkClassName = cn(
   'text-foreground inline underline decoration-1 underline-offset-4',
   'decoration-indicator hover:decoration-orange-700 active:decoration-orange-700',
-  'hover:decoration-[1.5px] active:decoration-[1.5px]',
+  'hover:decoration-emphasis active:decoration-emphasis',
   'transition-[text-decoration-color,text-decoration-thickness] duration-(--motion-fast)',
   offsetFocusRingGeometry,
   'ring-ring box-decoration-clone rounded-sm',

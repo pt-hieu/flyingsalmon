@@ -65,14 +65,13 @@ const timelineHorizontalConnectorSpanClassNames: Record<
   string
 > = {
   [TimelineMarkerSize.Default]:
-    'left-[calc(50%+0.75rem)] w-[calc(100%+var(--timeline-spacing)-1.5rem)]',
+    'left-[calc(50%+(--spacing(3)))] w-[calc(100%+var(--timeline-spacing)-(--spacing(6)))]',
   [TimelineMarkerSize.Small]:
-    'left-[calc(50%+0.5rem)] w-[calc(100%+var(--timeline-spacing)-1rem)]',
+    'left-[calc(50%+(--spacing(2)))] w-[calc(100%+var(--timeline-spacing)-(--spacing(4)))]',
 }
 
 const timelineConnectorAxisClassNames: Record<TimelineOrientation, string> = {
-  [TimelineOrientation.Vertical]:
-    'w-0.5 flex-1 mb-[calc(var(--timeline-spacing)*-1)]',
+  [TimelineOrientation.Vertical]: 'w-0.5 flex-1 -mb-(--timeline-spacing)',
   [TimelineOrientation.Horizontal]: 'absolute top-1/2 h-0.5 -translate-y-1/2',
 }
 
@@ -96,7 +95,7 @@ export const timelineTitleClassName = cn(
   '[&_a]:decoration-muted-foreground',
   '[&_a]:transition-[text-decoration-color,text-decoration-thickness] [&_a]:duration-(--motion-fast)',
   '[&_a]:hover:decoration-foreground [&_a]:active:decoration-foreground',
-  '[&_a]:hover:decoration-[1.5px] [&_a]:active:decoration-[1.5px]',
+  '[&_a]:hover:decoration-emphasis [&_a]:active:decoration-emphasis',
 )
 
 export const timelineDescriptionClassName = 'text-muted-foreground text-sm'

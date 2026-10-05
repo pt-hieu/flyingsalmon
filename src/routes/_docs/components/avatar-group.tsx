@@ -273,7 +273,7 @@ function AvatarGroupPage() {
           {apiRows.map((apiRow) => (
             <div
               key={apiRow.name}
-              className="grid gap-1 px-4 py-3 sm:grid-cols-[10rem_1fr] sm:gap-4"
+              className="grid gap-1 px-4 py-3 sm:grid-cols-[--spacing(40)_1fr] sm:gap-4"
             >
               <dt className="space-y-1">
                 <code className="text-foreground text-sm font-medium">

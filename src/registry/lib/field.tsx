@@ -56,7 +56,7 @@ const fieldLabelBaseVariants = cva(
         false: '',
       },
       required: {
-        true: "after:text-destructive after:ml-0.5 after:[content:'*'_/_'']",
+        true: "after:text-destructive after:ml-0.5 after:content-['*'_/_'']",
         false: '',
       },
     },

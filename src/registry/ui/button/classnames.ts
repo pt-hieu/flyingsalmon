@@ -43,9 +43,9 @@ export const buttonVariants = cva(
         [ButtonSize.Icon]: 'size-9 rounded-md',
         [ButtonSize.IconSmall]: 'size-8 rounded-md',
         [ButtonSize.FieldIcon]:
-          'size-7 rounded-[calc(var(--radius-md)-4px)] focus-visible:outline-hidden',
+          'size-7 rounded-[calc(var(--radius-md)-(--spacing(1)))] focus-visible:outline-hidden',
         [ButtonSize.FieldIconSmall]:
-          'size-6 rounded-[calc(var(--radius-md)-4px)] focus-visible:outline-hidden',
+          'size-6 rounded-[calc(var(--radius-md)-(--spacing(1)))] focus-visible:outline-hidden',
       },
       loading: {
         true: 'cursor-default',

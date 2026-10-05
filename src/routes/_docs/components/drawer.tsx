@@ -392,7 +392,7 @@ function FitContentDrawerDemo() {
           The panel takes the width the table asks for.
         </DrawerDescription>
         <DrawerBody>
-          <div className="w-[32rem]">
+          <div className="w-128">
             <Table>
               <TableHeader>
                 <TableRow>

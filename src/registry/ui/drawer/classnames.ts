@@ -12,8 +12,8 @@ export const drawerContentVariants = cva(
   {
     variants: {
       fitContent: {
-        true: 'w-fit max-w-[calc(100vw-1rem)] min-w-[min(28rem,calc(100vw-1rem))]',
-        false: 'w-[min(28rem,calc(100vw-1rem))]',
+        true: 'w-fit max-w-[calc(100vw-(--spacing(4)))] min-w-[min(--spacing(112),calc(100vw-(--spacing(4))))]',
+        false: 'w-[min(--spacing(112),calc(100vw-(--spacing(4))))]',
       },
     },
     defaultVariants: {

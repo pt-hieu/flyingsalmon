@@ -17,15 +17,15 @@ const dialogTitleTypeClassName = 'font-heading text-lg font-semibold'
 
 export const dialogCloseSlotVariants = cva(
   cn(
-    'absolute top-(--dialog-spacing) right-4 flex h-[1lh] items-center',
+    'absolute top-(--dialog-spacing) right-4 flex h-lh items-center',
     dialogTitleTypeClassName,
   ),
 )
 
 export const dialogContentVariants = cva(
   cn(
-    'bg-popover text-popover-foreground border-border fixed inset-0 z-50 m-auto flex h-fit w-[calc(100%-2rem)] flex-col gap-4',
-    'max-h-[calc(100dvh-2rem)] overflow-hidden rounded-xl border outline-hidden',
+    'bg-popover text-popover-foreground border-border fixed inset-0 z-50 m-auto flex h-fit w-[calc(100%-(--spacing(8)))] flex-col gap-4',
+    'max-h-[calc(100dvh-(--spacing(8)))] overflow-hidden rounded-xl border outline-hidden',
     'data-[state=open]:animate-floating-dialog-enter',
     'data-[state=closed]:animate-floating-dialog-exit',
   ),

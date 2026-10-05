@@ -358,7 +358,11 @@
           "timeline-spacing": "--spacing(6)",
           "bar-height": "--spacing(18)",
           "page-header-inset": "--spacing(0)",
-          "page-header-max-width": "none"
+          "page-header-max-width": "none",
+          "sidebar-width": "--spacing(72)",
+          "sidebar-width-collapsed": "--spacing(14)",
+          "text-2xs": "0.625rem",
+          "text-decoration-thickness-emphasis": "1.5px"
         },
         "light": {
           "background": "var(--color-orange-50)",

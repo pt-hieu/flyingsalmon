@@ -20,7 +20,7 @@ export const avatarGroupVariants = cva('isolate flex w-max items-center', {
 
 export const avatarGroupItemClassName = cn(
   'ring-background relative z-(--avatar-group-layer) translate-x-(--avatar-group-offset) rounded-full ring-2',
-  '[transition:translate_var(--motion-base)_ease-out]',
+  'transition-[translate] duration-(--motion-base) ease-out',
   'focus-visible:ring-indicator focus-visible:outline-hidden',
 )
 
@@ -33,7 +33,7 @@ export const avatarGroupChipVariants = cva(
     variants: {
       size: {
         [AvatarSize.Default]: 'size-8 text-xs',
-        [AvatarSize.Small]: 'size-6 text-[0.625rem]',
+        [AvatarSize.Small]: 'size-6 text-2xs',
       },
     },
     defaultVariants: {

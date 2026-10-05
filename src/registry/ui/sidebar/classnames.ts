@@ -8,7 +8,6 @@ export const sidebarClassName = cn(
   'min-[700px]:static min-[700px]:h-full min-[700px]:w-(--sidebar-width) min-[700px]:flex-col min-[700px]:items-stretch min-[700px]:gap-0 min-[700px]:overflow-hidden min-[700px]:border-r min-[700px]:border-b-0 min-[700px]:px-0',
   'min-[700px]:data-[collapsed=true]:w-(--sidebar-width-collapsed)',
   'max-[700px]:[&:not(:has([data-slot=sidebar-footer]))_[data-slot=sidebar-trigger]]:ml-auto',
-  '[--sidebar-width:18.125rem] [--sidebar-width-collapsed:3.5rem]',
 )
 
 export const sidebarHeaderClassName = cn(
@@ -18,7 +17,7 @@ export const sidebarHeaderClassName = cn(
 
 export const sidebarContentClassName = cn(
   'min-h-0 flex-1 overflow-x-hidden overflow-y-auto p-2',
-  '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+  'scrollbar-none [&::-webkit-scrollbar]:hidden',
 )
 
 export const sidebarInlineContentClassName = 'max-[700px]:hidden'

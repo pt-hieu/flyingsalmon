@@ -24,7 +24,7 @@ export const accordionTriggerClassName = cn(
 
 export const accordionTriggerLabelClassName = 'flex-1 text-left'
 
-export const accordionChevronBoxClassName = 'flex h-[1lh] shrink-0 items-center'
+export const accordionChevronBoxClassName = 'flex h-lh shrink-0 items-center'
 
 export const accordionChevronClassName = cn(
   'text-muted-foreground size-4',
