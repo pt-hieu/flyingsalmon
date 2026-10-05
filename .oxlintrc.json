@@ -263,6 +263,13 @@
       }
     },
     {
+      "files": ["src/routes/**", "src/components/**"],
+      "rules": {
+        "import/default": "off",
+        "import/no-duplicates": "off"
+      }
+    },
+    {
       "files": ["src/test/setup.ts"],
       "rules": {
         "import/no-unassigned-import": "off"

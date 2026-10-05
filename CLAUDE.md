@@ -19,6 +19,7 @@ Every word a docs-site visitor reads follows these rules:
 
 - Adding, renaming, or removing a component, a component file, an enum member, or a theme token: `docs/agents/change-recipes.md` lists every file that moves with it.
 - Editing a registry item's `css`, `cssVars`, or imports, or debugging a consumer's `shadcn add`, or fixing a `@shadcn/lint` error: `GOTCHAS.md`.
+- Adding or editing a docs page: `docs/agents/docs-page-template.md`.
 
 ## Structure rules
 
