@@ -1,21 +1,15 @@
 import { Link } from '@tanstack/react-router'
 
-import { Badge } from '@/registry/ui/badge'
 import { TextLink } from '@/registry/ui/text-link'
 
 import {
-  guidelineRuleClassName,
-  guidelineRuleListClassName,
-  guidelineRuleStatementClassName,
-  guidelineRuleTextClassName,
   guidelinesClassName,
   guidelinesGroupClassName,
   guidelinesHeadingClassName,
   guidelinesListClassName,
-  guidelineVerdictBadgeClassName,
 } from './classnames'
+import { GuidelineRuleList } from './guideline-rule-list'
 import type { GuidelinesContent } from './types'
-import { verdictBadgeByVerdict } from './verdict-badge-by-verdict'
 
 export interface GuidelinesProps extends GuidelinesContent {}
 
@@ -52,28 +46,7 @@ export function Guidelines({
 
       <div className={guidelinesGroupClassName}>
         <h3 className={guidelinesHeadingClassName}>Do and don&rsquo;t</h3>
-        <ul className={guidelineRuleListClassName}>
-          {rules.map(({ verdict, rule, reason }, index) => {
-            const verdictBadge = verdictBadgeByVerdict[verdict]
-
-            return (
-              <li key={index} className={guidelineRuleClassName}>
-                <Badge
-                  variant={verdictBadge.variant}
-                  className={guidelineVerdictBadgeClassName}
-                >
-                  {verdictBadge.label}
-                </Badge>
-                <div className={guidelineRuleTextClassName}>
-                  <span className={guidelineRuleStatementClassName}>
-                    {rule}
-                  </span>
-                  <span>{reason}</span>
-                </div>
-              </li>
-            )
-          })}
-        </ul>
+        <GuidelineRuleList rules={rules} />
       </div>
     </div>
   )

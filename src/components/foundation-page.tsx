@@ -3,22 +3,16 @@ import {
   docPageHeaderClassName,
   docPageLeadClassName,
   docPageTitleClassName,
-  guidelineRuleClassName,
-  guidelineRuleListClassName,
-  guidelineRuleStatementClassName,
-  guidelineRuleTextClassName,
-  guidelineVerdictBadgeClassName,
   tableCodeCellClassName,
   tableGroupClassName,
   tableTextCellClassName,
   tableTitleClassName,
 } from '@/components/doc-page/classnames'
 import { DocSection } from '@/components/doc-page/doc-section'
+import { GuidelineRuleList } from '@/components/doc-page/guideline-rule-list'
 import { Notes } from '@/components/doc-page/notes'
 import { Related } from '@/components/doc-page/related'
-import type { GuidelineVerdict, RelatedPage } from '@/components/doc-page/types'
-import { verdictBadgeByVerdict } from '@/components/doc-page/verdict-badge-by-verdict'
-import { Badge } from '@/registry/ui/badge'
+import type { GuidelineRule, RelatedPage } from '@/components/doc-page/types'
 import {
   Table,
   TableBody,
@@ -42,12 +36,6 @@ export interface TokenGroup {
   rows: TokenRow[]
 }
 
-export interface FoundationRule {
-  verdict: GuidelineVerdict
-  rule: React.ReactNode
-  reason: React.ReactNode
-}
-
 export interface FoundationPageProps {
   title: string
   principle: React.ReactNode
@@ -55,7 +43,7 @@ export interface FoundationPageProps {
   tokensTitle?: string
   tokenSections: TokenGroup[]
   sections?: { title: string; content: React.ReactNode }[]
-  rules?: FoundationRule[]
+  rules?: GuidelineRule[]
   notes?: React.ReactNode
   related: RelatedPage[]
 }
@@ -100,28 +88,7 @@ export function FoundationPage({
 
       {rules ? (
         <DocSection title="Usage rules">
-          <ul className={guidelineRuleListClassName}>
-            {rules.map(({ verdict, rule, reason }, index) => {
-              const verdictBadge = verdictBadgeByVerdict[verdict]
-
-              return (
-                <li key={index} className={guidelineRuleClassName}>
-                  <Badge
-                    variant={verdictBadge.variant}
-                    className={guidelineVerdictBadgeClassName}
-                  >
-                    {verdictBadge.label}
-                  </Badge>
-                  <div className={guidelineRuleTextClassName}>
-                    <span className={guidelineRuleStatementClassName}>
-                      {rule}
-                    </span>
-                    <span>{reason}</span>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
+          <GuidelineRuleList rules={rules} />
         </DocSection>
       ) : null}
 
