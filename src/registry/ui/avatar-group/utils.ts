@@ -16,21 +16,16 @@ export function revealSteps({
   return Math.sign(childIndex - revealedIndex)
 }
 
-export function itemStyle({
-  layer,
+export function itemOffset({
   childIndex,
   revealedIndex,
 }: {
-  layer: number
   childIndex: number
   revealedIndex: number | null
 }) {
   const steps = revealSteps({ childIndex, revealedIndex })
 
-  return {
-    '--avatar-group-layer': layer,
-    translate: `calc(${steps} * var(--avatar-group-reveal))`,
-  } as React.CSSProperties
+  return `calc(${steps} * var(--avatar-group-reveal))`
 }
 
 export function childIndexContaining(parent: Element, node: Node | null) {

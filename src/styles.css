@@ -186,7 +186,8 @@ body {
       transform: translateX(250%);
     }
   }
-  --animate-sticker-boil: sticker-boil 450ms step-end infinite;
+  --animate-sticker-boil: sticker-boil 450ms step-end
+    var(--sticker-frame-delay, 0ms) infinite;
   @keyframes sticker-boil {
     0% {
       opacity: 1;

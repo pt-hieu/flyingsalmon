@@ -14,7 +14,7 @@ import { resolveRoster } from './resolve-roster'
 import type { AvatarGroupItem } from './types'
 import {
   childIndexContaining,
-  itemStyle,
+  itemOffset,
   stepFocusWithin,
   tabStopChildIndex,
 } from './utils'
@@ -100,11 +100,10 @@ export function AvatarGroup({
           size,
           alt: '',
           className: avatarGroupItemClassName,
-          style: itemStyle({
-            layer: visibleItem.layer,
-            childIndex,
-            revealedIndex,
-          }),
+          style: {
+            '--avatar-group-layer': visibleItem.layer,
+            '--avatar-group-offset': itemOffset({ childIndex, revealedIndex }),
+          } as React.CSSProperties,
         }
 
         if (!visibleItem.name)
@@ -129,11 +128,15 @@ export function AvatarGroup({
             aria-label={`${roster.chip.count} more`}
             tabIndex={roster.visibleItems.length === tabStopIndex ? 0 : -1}
             className={avatarGroupChipVariants({ size })}
-            style={itemStyle({
-              layer: 0,
-              childIndex: roster.visibleItems.length,
-              revealedIndex,
-            })}
+            style={
+              {
+                '--avatar-group-layer': 0,
+                '--avatar-group-offset': itemOffset({
+                  childIndex: roster.visibleItems.length,
+                  revealedIndex,
+                }),
+              } as React.CSSProperties
+            }
           >
             {roster.chip.text}
           </span>
