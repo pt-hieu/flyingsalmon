@@ -234,7 +234,11 @@ function SpacingPage() {
         },
         {
           verdict: GuidelineVerdict.Dont,
-          rule: 'Write a pixel value, such as gap-[10px].',
+          rule: (
+            <>
+              Write a pixel value, such as <code>gap-[10px]</code>.
+            </>
+          ),
           reason:
             'A value off the scale lines up with nothing, and the next person has to guess its job.',
         },

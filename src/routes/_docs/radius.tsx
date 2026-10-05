@@ -102,7 +102,12 @@ function RadiusPage() {
         },
         {
           verdict: GuidelineVerdict.Dont,
-          rule: 'Hardcode a radius, such as rounded-[10px] or a pixel value.',
+          rule: (
+            <>
+              Hardcode a radius, such as <code>rounded-[10px]</code> or a pixel
+              value.
+            </>
+          ),
           reason:
             'A fixed value ignores the base, so it stays behind when the base changes.',
         },

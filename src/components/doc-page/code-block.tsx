@@ -4,6 +4,7 @@ import {
   codeBlockClassName,
   codeBlockCopySlotClassName,
   codeBlockPreClassName,
+  codeTokenClassName,
 } from './classnames'
 import { CopyButton } from './copy-button'
 import { highlightCode } from './highlight-code'
@@ -35,7 +36,13 @@ export function CodeBlock({
             <Fragment key={lineIndex}>
               {lineIndex > 0 ? '\n' : null}
               {tokens.map((token, tokenIndex) => (
-                <span key={tokenIndex} style={{ color: token.color }}>
+                <span
+                  key={tokenIndex}
+                  className={codeTokenClassName}
+                  style={
+                    { '--code-token-color': token.color } as React.CSSProperties
+                  }
+                >
                   {token.content}
                 </span>
               ))}

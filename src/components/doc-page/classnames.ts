@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils'
 
 export const docPageClassName = cn(
   'mx-auto flex max-w-3xl flex-col gap-16 px-6 py-12',
-  '[&_:not(pre)>code]:bg-muted [&_:not(pre)>code]:text-foreground [&_:not(pre)>code]:rounded-sm [&_:not(pre)>code]:px-1 [&_:not(pre)>code]:font-mono [&_:not(pre)>code]:text-[0.875em]',
+  '[&_:not(pre)>code]:bg-muted [&_:not(pre)>code]:text-foreground [&_:not(pre)>code]:rounded-sm [&_:not(pre)>code]:px-1 [&_:not(pre)>code]:font-mono [&_:not(pre)>code]:text-sm',
 )
 
 export const docPageHeaderClassName = 'flex flex-col gap-3'
@@ -37,22 +37,8 @@ export const examplePreviewClassName = cn(
   'flex min-h-40 flex-wrap items-center justify-center gap-6 p-10',
 )
 
-export const codeBlockClassName = cn(
-  'border-border bg-card flex items-start rounded-lg border',
-  '[--shiki-foreground:var(--color-neutral-950)]',
-  '[--shiki-token-keyword:var(--color-orange-700)]',
-  '[--shiki-token-string:var(--color-green-700)]',
-  '[--shiki-token-string-expression:var(--color-green-700)]',
-  '[--shiki-token-function:var(--color-sky-700)]',
-  '[--shiki-token-constant:var(--color-violet-700)]',
-  '[--shiki-token-parameter:var(--color-neutral-800)]',
-  '[--shiki-token-punctuation:var(--color-neutral-600)]',
-  '[--shiki-token-comment:var(--color-neutral-600)]',
-  '[--shiki-token-link:var(--color-sky-700)]',
-  '[--shiki-token-inserted:var(--color-green-700)]',
-  '[--shiki-token-deleted:var(--color-red-700)]',
-  '[--shiki-token-changed:var(--color-amber-700)]',
-)
+export const codeBlockClassName =
+  'border-border bg-card flex items-start rounded-lg border'
 
 export const codeBlockPreClassName = cn(
   'text-foreground min-w-0 flex-1 overflow-x-auto p-4 font-mono text-sm leading-6',
@@ -116,3 +102,5 @@ export const noticeFrameClassName = 'relative w-full transform-gpu'
 
 export const noticeFrameContentClassName =
   'flex flex-col items-center gap-4 pt-40'
+
+export const codeTokenClassName = 'text-(color:--code-token-color)'
