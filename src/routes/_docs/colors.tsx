@@ -388,9 +388,9 @@ function ColorsPage() {
       rules={[
         {
           verdict: GuidelineVerdict.Do,
-          rule: 'Reach for the functional token (--primary, --muted-foreground), never the palette step.',
+          rule: 'Choose a colour by its job: orange for the main action, red for loss, grey for supporting text.',
           reason:
-            'A token names a job, so the colour can change in one place without hunting through components.',
+            'A colour then means the same thing on every screen, so a reader learns it once.',
         },
         {
           verdict: GuidelineVerdict.Do,
@@ -400,14 +400,15 @@ function ColorsPage() {
         },
         {
           verdict: GuidelineVerdict.Do,
-          rule: 'Step along the ramp for hover and press, as orange-200 to orange-300.',
-          reason: 'A stepped colour stays a palette colour and needs no alpha.',
+          rule: 'Deepen a colour one step for hover and another for press.',
+          reason:
+            'The control stays recognisably the same colour, and each state reads as a little more pressed.',
         },
         {
           verdict: GuidelineVerdict.Dont,
-          rule: 'Use colour alpha: no /50 modifiers, no color-mix, no rgba.',
+          rule: 'Make a colour see-through to get a lighter tint.',
           reason:
-            'Alpha makes a colour depend on what is behind it, so the same token looks different on each surface.',
+            'A see-through colour takes on whatever is behind it, so the same tint looks different on each surface.',
         },
         {
           verdict: GuidelineVerdict.Dont,
@@ -417,9 +418,9 @@ function ColorsPage() {
         },
         {
           verdict: GuidelineVerdict.Dont,
-          rule: 'Add a dark theme or a dark: variant.',
+          rule: 'Design a dark version of a screen.',
           reason:
-            'The system is light only, so a dark variant would be styling nothing renders.',
+            'The system is light only: orange on a warm beige page is its identity, and there is no dark theme for a screen to join.',
         },
       ]}
       notes={

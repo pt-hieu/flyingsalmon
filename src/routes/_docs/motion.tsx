@@ -184,39 +184,32 @@ function MotionPage() {
       rules={[
         {
           verdict: GuidelineVerdict.Do,
-          rule: 'Use springBounce for movement that stays inside the element’s own box.',
+          rule: 'Let movement that stays inside an element’s own box bounce a little, such as a check mark or a switch thumb.',
           reason:
             'A little overshoot inside its own bounds reads as playful and disturbs nothing around it.',
         },
         {
           verdict: GuidelineVerdict.Do,
-          rule: 'Use springSettle for exits and for anything whose size pushes its neighbours.',
+          rule: 'Settle without a bounce for exits and for anything whose size pushes its neighbours.',
           reason:
             'A bounce on a height change makes the content below overshoot and snap back, which looks like a glitch. A leaving element should not wobble.',
         },
         {
           verdict: GuidelineVerdict.Do,
-          rule: 'Keep colour and opacity feedback on CSS transitions at --motion-fast.',
+          rule: 'Change colour and opacity with a short fade.',
           reason:
-            'CSS is free and simple for properties that do not move, and a spring adds nothing to a colour change.',
+            'A colour has nowhere to overshoot to, so a quick fade is all the feedback it needs.',
         },
         {
           verdict: GuidelineVerdict.Dont,
-          rule: 'Use Tailwind’s built-in animate-spin or animate-pulse.',
+          rule: 'Bounce a loop that never stops, such as a spinner or a loading pulse.',
           reason:
-            'Their durations belong to a different tempo. The theme ships animate-spinner and animate-skeleton-pulse tuned to this one.',
-        },
-        {
-          verdict: GuidelineVerdict.Dont,
-          rule: 'Animate on a spring for a loop that never stops.',
-          reason:
-            'Springs matter for movement that comes to rest. A loop belongs on CSS keyframes.',
+            'A bounce is for movement that comes to rest. A loop keeps one steady rhythm so it reads as waiting, not as an event.',
         },
         {
           verdict: GuidelineVerdict.Dont,
           rule: 'Let a progress fill overshoot its value.',
-          reason:
-            'The fill animates on springSettle, because a fill that overshoots misreports how much work is done.',
+          reason: 'A fill that overshoots misreports how much work is done.',
         },
       ]}
       notes={

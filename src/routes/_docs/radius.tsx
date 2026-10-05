@@ -102,18 +102,13 @@ function RadiusPage() {
         },
         {
           verdict: GuidelineVerdict.Dont,
-          rule: (
-            <>
-              Hardcode a radius, such as <code>rounded-[10px]</code> or a pixel
-              value.
-            </>
-          ),
+          rule: 'Give two surfaces of the same kind different corners.',
           reason:
-            'A fixed value ignores the base, so it stays behind when the base changes.',
+            'Two cards with different curves read as two different things, so the reader looks for a difference that is not there.',
         },
         {
           verdict: GuidelineVerdict.Do,
-          rule: 'Reserve rounded-full for shapes that are meant to be round.',
+          rule: 'Make a shape fully round only when it is meant to be round, such as an avatar or a switch.',
           reason:
             'A circle says “person” or “toggle”. A fully rounded card says nothing and loses its edge.',
         },

@@ -229,36 +229,33 @@ function SpacingPage() {
       rules={[
         {
           verdict: GuidelineVerdict.Do,
-          rule: 'Write padding, gaps, margins, and sizes as scale steps: gap-2, --spacing(6).',
-          reason: 'One scale means every part lines up with every other part.',
+          rule: 'Give the same job the same space on every screen: a label to its field, one field to the next.',
+          reason:
+            'Repeated distances are what make two screens built apart feel like one product.',
         },
         {
           verdict: GuidelineVerdict.Dont,
-          rule: (
-            <>
-              Write a pixel value, such as <code>gap-[10px]</code>.
-            </>
-          ),
+          rule: 'Space two unrelated things as closely as two related ones.',
           reason:
-            'A value off the scale lines up with nothing, and the next person has to guess its job.',
+            'Equal gaps hide the grouping, so the reader has to work out what goes with what.',
+        },
+        {
+          verdict: GuidelineVerdict.Dont,
+          rule: 'Nudge one gap between steps to make something fit.',
+          reason:
+            'A space between steps lines up with nothing around it, and the eye reads it as a mistake.',
         },
         {
           verdict: GuidelineVerdict.Do,
-          rule: 'Reuse the step a component already uses for the same job.',
+          rule: 'Change a surface’s density as a whole: every edge and every gap between its parts together.',
           reason:
-            'The same job at the same distance is what makes the system feel like one thing.',
-        },
-        {
-          verdict: GuidelineVerdict.Do,
-          rule: 'Override --card-spacing, --dialog-spacing, or --timeline-spacing on one instance when you need a different density.',
-          reason:
-            'Every slot reads the same variable, so the insets move together and stay aligned. There is no density prop to keep in sync.',
+            'The content keeps lining up with the border, so a denser card still looks deliberate.',
         },
         {
           verdict: GuidelineVerdict.Do,
           rule: 'Put a button, a field, and a chip of the same size on one row.',
           reason:
-            'Default and small heights are shared across controls, so a row lines up without adjustment.',
+            'Controls share their default and small heights, so a row lines up without adjustment.',
         },
       ]}
       notes={

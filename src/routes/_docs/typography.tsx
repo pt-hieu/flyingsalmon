@@ -107,7 +107,7 @@ function TypographyPage() {
       rules={[
         {
           verdict: GuidelineVerdict.Do,
-          rule: 'Set display text and titles in --font-heading, and everything else in --font-sans.',
+          rule: 'Set display text and titles in Bricolage Grotesque, and everything else in Onest.',
           reason:
             'The contrast between the two families is what makes a title read as a title without a bigger size.',
         },
@@ -131,7 +131,7 @@ function TypographyPage() {
         },
         {
           verdict: GuidelineVerdict.Do,
-          rule: 'Turn on tabular numbers (tabular-nums) for figures that line up or change in place, such as dates and prices.',
+          rule: 'Use equal-width digits for figures that line up or change in place, such as dates and prices.',
           reason:
             'Equal-width digits keep a column straight and stop a changing value from jittering.',
         },

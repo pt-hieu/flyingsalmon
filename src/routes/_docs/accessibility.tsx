@@ -209,14 +209,15 @@ function AccessibilityPage() {
         },
         {
           verdict: GuidelineVerdict.Do,
-          rule: 'Give an icon-only control an aria-label.',
-          reason: 'A screen reader has nothing else to read.',
+          rule: 'Give every icon-only control a name a screen reader can say.',
+          reason:
+            'The icon is all a sighted user gets, and a screen reader has nothing else to read.',
         },
         {
           verdict: GuidelineVerdict.Do,
-          rule: 'Write the reason down when a component ships below AA.',
+          rule: 'Pair colour with words or a shape wherever colour carries meaning.',
           reason:
-            'An exception with no recorded reason is a defect the next person cannot tell apart from a choice.',
+            'A reader who cannot tell the hues apart still gets the message.',
         },
         {
           verdict: GuidelineVerdict.Dont,
