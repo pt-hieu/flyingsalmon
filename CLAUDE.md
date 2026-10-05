@@ -5,6 +5,16 @@ Namespace: `@flyingsalmon`. First consumer: hottrip, an AI trip planner in the s
 
 Every coding rule, for the registry and the docs site alike, is in `CODING_STANDARDS.md`.
 
+## Docs copy
+
+Every word a docs-site visitor reads follows these rules:
+
+- **British English** in prose: colour, centre, behaviour, organise. Code stays as written (`color`, `text-center`, prop names), including inside `<code>` in prose.
+- **Voice**: declarative, opinionated, plain. Short definite sentences that name who owns what, as in "A link navigates and a button acts" or "You compose what goes inside; the card fixes only the edge, the padding, and the interaction feedback." Sentence case for headings. Second person when giving guidance; every rule carries its reason.
+- **Guide first, spec second.** The page body tells a consumer when and how to use the component. Implementation detail (pixel arithmetic, Radix internals, easing strings, measured contrast ratios) goes in the page's collapsible Notes section.
+- **Current state only, public audience.** Copy describes the component as it ships. Issue numbers, ADR numbers, specs, people's agreements, and build history stay in the repo.
+- **Examples are hottrip.** Demo content is trips, places, and travellers, built from this registry's own components (a date goes in DatePicker). Each example shows one idea, and its caption names it.
+
 ## Where to look
 
 - Adding, renaming, or removing a component, a component file, an enum member, or a theme token: `docs/agents/change-recipes.md` lists every file that moves with it.
