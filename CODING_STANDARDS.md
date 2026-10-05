@@ -33,6 +33,16 @@ Every exported type the folder defines goes in `types.ts`: variant enums, contex
 
 Every `cva()` call and every `cn()` call that builds a reusable class string is declared in `classnames.ts` and imported by the component file. The component file may merge the consumer's `className` at the render site. It may not declare a class string of its own.
 
+## Class strings are linted against the theme
+
+`@shadcn/lint` runs inside `pnpm lint`. It rejects raw palette colors the theme does not declare, classes Tailwind does not know, inline `style` other than CSS custom properties, and bracket values the theme does not name.
+
+- A bracket value holds no raw length. A length inside one is written `--spacing(n)`; besides that, only `var(--*)`, percentages, viewport units, and `lh`, `ch`, and `em` appear. Where a scale class or theme token exists, use it instead of the bracket.
+- A dynamic value reaches a class through a CSS custom property set in `style`: `style={{ '--slider-fill-width': width }}` with `w-(--slider-fill-width)`.
+- The allow list in `.oxlintrc.json` holds kinds with no scale behind them (transition property lists, `content`, scroll timelines), the public spacing tokens a consumer overrides from a class, root variables a component's own children read, and, by exact class, each computed value built from the scale, each size relative to its text, the sticker art strokes in viewBox units, and docs-site chrome. A new entry needs a spec or ADR behind the value, the same bar ADR 0006 sets for a shared class string.
+- The plugin skips cva variant entries keyed by an enum member (shadcn-ui/lint#70), which is how every variant map here is keyed. `scanAllStrings` closes that gap for bracket values everywhere and for raw colors inside `src/registry/`; docs data holds strings such as `"text-link"` that read as classes. `no-unknown-classes` has no such option, so a misspelled class inside an enum-keyed variant still passes.
+- `no-raw-colors` reads `decoration-emphasis`, a thickness token, as a color, so it carries an allow entry.
+
 ## Enums, not string unions
 
 A closed set of string values is a TypeScript enum with string values, declared in `types.ts`. Members are PascalCase. Values are the kebab-case strings the DOM and the class names use.

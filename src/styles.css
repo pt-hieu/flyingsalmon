@@ -4,6 +4,8 @@
 @import '@fontsource-variable/bricolage-grotesque';
 @import '@fontsource-variable/onest';
 
+@source not '../.oxlintrc.json';
+
 * {
   box-sizing: border-box;
 }
