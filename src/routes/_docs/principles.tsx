@@ -99,8 +99,8 @@ function PrinciplesPage() {
       principle="Bold, warm, and social: a flat, light, orange system that tells you what happened where you are already looking."
       introduction={
         <p>
-          The system is built for hottrip, an AI trip planner, so it feels like
-          planning a trip with friends and not like filing a form. Five
+          flyingsalmon is an opinionated design system: an app built from it
+          feels like making plans with friends, not like filing a form. Five
           principles decide everything else. Each one is a choice the components
           make for you so an app built from them agrees without anyone
           coordinating.

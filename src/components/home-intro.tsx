@@ -71,10 +71,10 @@ export function HomeIntro() {
           flyingsalmon
         </h1>
         <p className="text-muted-foreground max-w-2xl text-lg">
-          A design system for hottrip, an AI trip planner. It is bold, warm, and
-          social: flat surfaces, light only, orange throughout, with springy
-          motion that stays out of the way. Every component installs into your
-          own project with the shadcn CLI, so you own the code.
+          An opinionated design system: bold, warm, and social, with flat
+          surfaces, light only, orange throughout, and springy motion that stays
+          out of the way. Every component installs into your own project with
+          the shadcn CLI, so you own the code.
         </p>
       </header>
 

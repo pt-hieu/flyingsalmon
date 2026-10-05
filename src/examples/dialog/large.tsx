@@ -36,7 +36,7 @@ export function DialogLarge() {
   const [traveller, setTraveller] = useState<Traveller>({
     firstName: 'Brian',
     lastName: 'Nguyen',
-    email: 'brian@hottrip.example',
+    email: 'brian@example.com',
     phone: '',
     dateOfBirth: null,
   })

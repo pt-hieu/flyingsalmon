@@ -13,7 +13,8 @@ Every word a docs-site visitor reads follows these rules:
 - **Voice**: declarative, opinionated, plain. Short definite sentences that name who owns what, as in "A link navigates and a button acts" or "You compose what goes inside; the card fixes only the edge, the padding, and the interaction feedback." Sentence case for headings. Second person when giving guidance; every rule carries its reason.
 - **Guide first, spec second.** The page body tells a consumer when and how to use the component. Implementation detail (pixel arithmetic, Radix internals, easing strings, measured contrast ratios) goes in the page's collapsible Notes section.
 - **Current state only, public audience.** Copy describes the component as it ships. Issue numbers, ADR numbers, specs, people's agreements, and build history stay in the repo.
-- **Examples are hottrip.** Demo content is trips, places, and travellers, built from this registry's own components (a date goes in DatePicker). Each example shows one idea, and its caption names it.
+- **Examples are trips.** Demo content is trips, places, and travellers, built from this registry's own components (a date goes in DatePicker). Each example shows one idea, and its caption names it.
+- **No consumer named.** The site presents flyingsalmon as an opinionated design system on its own; hottrip stays in the repo. An email or link in a demo uses `example.com`.
 
 ## Where to look
 

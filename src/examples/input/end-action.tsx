@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import { Input } from '@/registry/ui/input'
 
-const inviteLink = 'https://hottrip.app/join/lisbon-long-weekend'
+const inviteLink = 'https://example.com/join/lisbon-long-weekend'
 
 export function InputEndAction() {
   const [copied, setCopied] = useState(false)

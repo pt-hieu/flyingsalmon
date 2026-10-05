@@ -49,7 +49,7 @@ export function DrawerPending() {
         <DrawerContent>
           <DrawerTitle>Invite a traveller</DrawerTitle>
           <DrawerDescription>
-            The address is looked up before they are added. Try mai@hottrip.dev.
+            The address is looked up before they are added. Try mai@example.com.
           </DrawerDescription>
           <DrawerBody>
             <form id={formId} noValidate onSubmit={inviteTraveller}>
@@ -89,7 +89,7 @@ export function DrawerPending() {
 function findTraveller(email: string): Promise<string | null> {
   return new Promise((resolve) =>
     setTimeout(
-      () => resolve(email === 'mai@hottrip.dev' ? 'Mai Tran' : null),
+      () => resolve(email === 'mai@example.com' ? 'Mai Tran' : null),
       1200,
     ),
   )

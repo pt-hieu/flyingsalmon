@@ -50,7 +50,7 @@ describe('EmptyState', () => {
       <EmptyState>
         <EmptyStateTitle>No trips yet</EmptyStateTitle>
         <EmptyStateDescription>
-          Tell hottrip where you want to go and it drafts the route.
+          Pick where you want to go and the route is drafted for you.
         </EmptyStateDescription>
       </EmptyState>,
     )
@@ -104,7 +104,7 @@ describe('EmptyState', () => {
           </EmptyStateIcon>
           <EmptyStateTitle>No trips yet</EmptyStateTitle>
           <EmptyStateDescription>
-            Tell hottrip where you want to go and it drafts the route.
+            Pick where you want to go and the route is drafted for you.
           </EmptyStateDescription>
           <EmptyStateActions>
             <Button>Plan a trip</Button>

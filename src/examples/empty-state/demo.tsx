@@ -24,7 +24,7 @@ export function EmptyStateDemo() {
       />
       <EmptyStateTitle>No trips yet</EmptyStateTitle>
       <EmptyStateDescription>
-        Tell hottrip where you want to go and it drafts the route.
+        Pick where you want to go and the route is drafted for you.
       </EmptyStateDescription>
       <EmptyStateActions>
         <Button icon={<Plus />}>Plan a trip</Button>
