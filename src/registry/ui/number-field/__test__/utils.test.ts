@@ -75,6 +75,7 @@ describe('fractionDigitsForStep', () => {
 
 describe('committedNumber', () => {
   it('rounds to the allowed fraction digits', () => {
+    // oxlint-disable-next-line sonarjs/no-floating-point-equality -- rounding must land on exactly 2.35
     expect(committedNumber(2.346, undefined, undefined, 2)).toBe(2.35)
     expect(committedNumber(7.4, undefined, undefined, 0)).toBe(7)
   })
@@ -99,6 +100,7 @@ describe('steppedValue', () => {
   })
 
   it('steps without floating-point drift', () => {
+    // oxlint-disable-next-line sonarjs/no-floating-point-equality -- a drifted 0.30000000000000004 must fail
     expect(steppedValue(0.1, 0.2, undefined, undefined, 1)).toBe(0.3)
   })
 
