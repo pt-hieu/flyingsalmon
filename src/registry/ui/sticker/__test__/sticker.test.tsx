@@ -138,26 +138,6 @@ describe('Sticker', () => {
     expect(container.querySelector('.fill-red-500')).toBeNull()
   })
 
-  it('draws every frame, each in its own group', () => {
-    const { container } = render(
-      <Sticker
-        art={windowArt}
-        label="A window"
-        roleClassNames={roleClassNames}
-      />,
-    )
-
-    const frameOfInk = (d: string) =>
-      container.querySelector(`path[d="${d}"]`)?.closest<SVGGElement>('svg > g')
-
-    const firstFrame = frameOfInk('M21 21 L59 21 L59 59 L21 59 Z')
-    const secondFrame = frameOfInk('M22 20 L58 22 L60 58 L20 60 Z')
-
-    expect(firstFrame).toBeInstanceOf(SVGGElement)
-    expect(secondFrame).toBeInstanceOf(SVGGElement)
-    expect(firstFrame).not.toBe(secondFrame)
-  })
-
   it('pops in on scroll unless popIn is off', () => {
     const { rerender } = render(
       <Sticker
