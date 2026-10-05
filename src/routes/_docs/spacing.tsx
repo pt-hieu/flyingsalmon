@@ -1,297 +1,299 @@
 import { createFileRoute } from '@tanstack/react-router'
 
+import { GuidelineVerdict } from '@/components/doc-page'
+import { FoundationPage } from '@/components/foundation-page'
+import type { TokenRow } from '@/components/foundation-page'
+
 export const Route = createFileRoute('/_docs/spacing')({
   component: SpacingPage,
 })
 
-interface SpacingStep {
-  step: string
-  pixels: number
-  barClassName: string
-  usage: string
+function stepSample(barClassName: string) {
+  return (
+    <span
+      aria-hidden
+      className={`${barClassName} bg-indicator block h-4 rounded-sm`}
+    />
+  )
 }
 
-const spacingSteps: SpacingStep[] = [
+function heightSample(barClassName: string) {
+  return (
+    <span
+      aria-hidden
+      className={`${barClassName} bg-indicator block w-2 rounded-sm`}
+    />
+  )
+}
+
+const stepRows: TokenRow[] = [
   {
-    step: '0.5',
-    pixels: 2,
-    barClassName: 'w-0.5',
-    usage:
-      "The gap between a field's icon buttons, the padding around a date-picker segment.",
+    sample: stepSample('w-0.5'),
+    token: '0.5',
+    value: '2px',
+    job: 'The gap between a field’s icon buttons, the padding around a date picker segment.',
   },
   {
-    step: '0.75',
-    pixels: 3,
-    barClassName: 'w-0.75',
-    usage: 'The inset of an icon button inside a field box.',
+    sample: stepSample('w-0.75'),
+    token: '0.75',
+    value: '3px',
+    job: 'The inset of an icon button inside a field box.',
   },
   {
-    step: '1',
-    pixels: 4,
-    barClassName: 'w-1',
-    usage:
-      'A title to its description, the error message under a field, menu padding, the gap between tabs.',
+    sample: stepSample('w-1'),
+    token: '1',
+    value: '4px',
+    job: 'A title to its description, the error message under a field, menu padding, the gap between tabs.',
   },
   {
-    step: '1.5',
-    pixels: 6,
-    barClassName: 'w-1.5',
-    usage: 'The icon-to-label gap in a small button or chip.',
+    sample: stepSample('w-1.5'),
+    token: '1.5',
+    value: '6px',
+    job: 'The icon-to-label gap in a small button or chip.',
   },
   {
-    step: '2',
-    pixels: 8,
-    barClassName: 'w-2',
-    usage:
-      'The icon-to-label gap in a button, a checkbox or radio to its label, a label above its field, buttons in an actions row.',
+    sample: stepSample('w-2'),
+    token: '2',
+    value: '8px',
+    job: 'The icon-to-label gap in a button, a checkbox or radio to its label, a label above its field, buttons in an actions row.',
   },
   {
-    step: '2.5',
-    pixels: 10,
-    barClassName: 'w-2.5',
-    usage: 'Inline padding of a small field and a tooltip.',
+    sample: stepSample('w-2.5'),
+    token: '2.5',
+    value: '10px',
+    job: 'Inline padding of a small field and a tooltip.',
   },
   {
-    step: '3',
-    pixels: 12,
-    barClassName: 'w-3',
-    usage:
-      'Inline padding of a field and a small button, a label beside a date-picker, stacked radio options, a small alert, a timeline marker to its content.',
+    sample: stepSample('w-3'),
+    token: '3',
+    value: '12px',
+    job: 'Inline padding of a field and a small button, a label beside a date picker, stacked radio options, a small alert, a timeline marker to its content.',
   },
   {
-    step: '4',
-    pixels: 16,
-    barClassName: 'w-4',
-    usage:
-      'Inline padding of a button and a table cell, an alert, --card-spacing.',
+    sample: stepSample('w-4'),
+    token: '4',
+    value: '16px',
+    job: 'Inline padding of a button and a table cell, an alert, --card-spacing.',
   },
   {
-    step: '5',
-    pixels: 20,
-    barClassName: 'w-5',
-    usage: 'The gap between fields in a form.',
+    sample: stepSample('w-5'),
+    token: '5',
+    value: '20px',
+    job: 'The gap between fields in a form.',
   },
   {
-    step: '6',
-    pixels: 24,
-    barClassName: 'w-6',
-    usage:
-      '--dialog-spacing, --timeline-spacing, radio options laid out in a row.',
+    sample: stepSample('w-6'),
+    token: '6',
+    value: '24px',
+    job: '--dialog-spacing, --timeline-spacing, radio options laid out in a row.',
   },
 ]
 
-interface ControlHeight {
-  height: string
-  pixels: number
-  barClassName: string
-  usage: string
-}
-
-const controlHeights: ControlHeight[] = [
+const heightRows: TokenRow[] = [
   {
-    height: 'h-10',
-    pixels: 40,
-    barClassName: 'h-10',
-    usage: 'A table header row.',
+    sample: heightSample('h-10'),
+    token: 'h-10',
+    value: '40px',
+    job: 'A table header row.',
   },
   {
-    height: 'h-9',
-    pixels: 36,
-    barClassName: 'h-9',
-    usage: 'Default: button, icon button, field box, toggle-group chip, tab.',
+    sample: heightSample('h-9'),
+    token: 'h-9',
+    value: '36px',
+    job: 'Default size: button, icon button, field box, toggle group chip, tab.',
   },
   {
-    height: 'h-8',
-    pixels: 32,
-    barClassName: 'h-8',
-    usage: 'Small: button, icon button, field box, chip; a menu row.',
+    sample: heightSample('h-8'),
+    token: 'h-8',
+    value: '32px',
+    job: 'Small size: button, icon button, field box, chip, and a menu row.',
   },
   {
-    height: 'h-5',
-    pixels: 20,
-    barClassName: 'h-5',
-    usage: 'A badge, a checkbox, a radio.',
+    sample: heightSample('h-5'),
+    token: 'h-5',
+    value: '20px',
+    job: 'A badge, a checkbox, a radio.',
   },
 ]
 
-interface SpacingToken {
-  name: string
-  value: string
-  usage: string
-}
-
-const spacingTokens: SpacingToken[] = [
+const variableRows: TokenRow[] = [
   {
-    name: '--card-spacing',
+    sample: stepSample('w-4'),
+    token: '--card-spacing',
     value: '--spacing(4)',
-    usage:
-      'Card padding on every edge and the gap between its slots, so the header, content, and footer line up with the border.',
+    job: 'Card padding on every edge and the gap between its slots, so the header, content, and footer line up with the border.',
   },
   {
-    name: '--dialog-spacing',
+    sample: stepSample('w-6'),
+    token: '--dialog-spacing',
     value: '--spacing(6)',
-    usage:
-      'Dialog and drawer padding: the header, body, and footer insets, and where the close button sits.',
+    job: 'Dialog and drawer padding: the header, body, and footer insets, and where the close button sits.',
   },
   {
-    name: '--timeline-spacing',
+    sample: stepSample('w-6'),
+    token: '--timeline-spacing',
     value: '--spacing(6)',
-    usage:
-      'The gap between timeline items. The connectors that bridge the gap read the same variable.',
+    job: 'The gap between timeline items. The connectors that bridge the gap read the same variable.',
   },
   {
-    name: '--bar-height',
+    sample: stepSample('w-18'),
+    token: '--bar-height',
     value: '--spacing(18)',
-    usage:
-      "The band the sidebar header and the page header's first line share, so the wordmark, the page title, and the title's actions sit on one center line.",
+    job: 'The band the sidebar header and the first line of a page header share, so the wordmark, the page title, and the title’s actions sit on one centre line.',
   },
   {
-    name: '--page-header-inset',
+    sample: stepSample('w-0'),
+    token: '--page-header-inset',
     value: '--spacing(0)',
-    usage:
-      'The side padding of the pane a page header sits in. The header bleeds out by it and pads back in, so its bottom rule meets both edges of the pane.',
+    job: 'The side padding of the pane a page header sits in. The header bleeds out by it and pads back in, so its bottom rule meets both edges of the pane.',
   },
   {
-    name: '--page-header-max-width',
+    sample: stepSample('w-0'),
+    token: '--page-header-max-width',
     value: 'none',
-    usage:
-      'The widest a page header lets its title and actions run. The row centers inside the header while the bottom rule keeps the full width.',
+    job: 'The widest a page header lets its title and actions run. The row centres inside the header while the bottom rule keeps the full width.',
   },
   {
-    name: '--sidebar-width',
+    sample: stepSample('w-72'),
+    token: '--sidebar-width',
     value: '--spacing(72)',
-    usage:
-      'The expanded sidebar column. It is set on the root, so a pane beside the sidebar can offset itself by the same width.',
+    job: 'The expanded sidebar column. It is set on the root, so a pane beside the sidebar can offset itself by the same width.',
   },
   {
-    name: '--sidebar-width-collapsed',
+    sample: stepSample('w-14'),
+    token: '--sidebar-width-collapsed',
     value: '--spacing(14)',
-    usage:
-      "The collapsed rail: the content inset, an item's padding, and its icon, so the icons stay put as the sidebar collapses.",
+    job: 'The collapsed rail: the content inset, an item’s padding, and its icon, so the icons stay put as the sidebar collapses.',
   },
 ]
 
 function SpacingPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Spacing
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          Every space is a step on Tailwind&rsquo;s 4px scale. Components use a
-          handful of those steps for the same jobs everywhere. Three surfaces
-          expose their padding as a variable you can override, one bar height
-          lines the sidebar up with the page header, and the page header reads
-          its pane's padding to run its rule edge to edge.
+    <FoundationPage
+      title="Spacing"
+      principle="Every space is a step on Tailwind’s 4px scale, and the gap grows with the distance between ideas."
+      introduction={
+        <p>
+          Components use a handful of steps, the same step for the same job
+          everywhere, so two screens built apart still agree. Three surfaces
+          expose their padding as a variable you can override, and one bar
+          height lines the sidebar up with the page header.
         </p>
-      </header>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">The scale</h2>
-        <p className="text-muted-foreground">
-          One step is <code>--spacing</code>, 0.25rem. Write padding, gaps,
-          margins, and sizes as scale steps (<code>gap-2</code>,{' '}
-          <code>--spacing(6)</code>), never as pixel values. The steps below are
-          the ones the components use, with the job each one does; a new
-          component reuses a step for the same job.
-        </p>
-        <ul className="border-border bg-card divide-border divide-y rounded-lg border">
-          {spacingSteps.map((spacingStep) => (
-            <li
-              key={spacingStep.step}
-              className="grid grid-cols-[--spacing(20)_--spacing(8)_1fr] items-center gap-4 p-4"
-            >
-              <p className="text-sm">
-                <code className="font-medium">{spacingStep.step}</code>
-                <span className="text-muted-foreground">
-                  {' '}
-                  · {spacingStep.pixels}px
-                </span>
-              </p>
-              <span
-                className={`${spacingStep.barClassName} bg-indicator h-6 rounded-sm`}
-              />
-              <p className="text-muted-foreground text-sm">
-                {spacingStep.usage}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Control heights</h2>
-        <p className="text-muted-foreground">
-          Controls come in two heights, so a button, a field, and a chip line up
-          on one row at either size. The default is 36px and the small size
-          32px. A control that sits inside another one, such as the icon button
-          in a field box, is sized to leave a 3px inset inside the border.
-        </p>
-        <ul className="border-border bg-card divide-border divide-y rounded-lg border">
-          {controlHeights.map((controlHeight) => (
-            <li
-              key={controlHeight.height}
-              className="grid grid-cols-[--spacing(20)_--spacing(10)_1fr] items-center gap-4 p-4"
-            >
-              <p className="text-sm">
-                <code className="font-medium">{controlHeight.height}</code>
-                <span className="text-muted-foreground">
-                  {' '}
-                  · {controlHeight.pixels}px
-                </span>
-              </p>
-              <span
-                className={`${controlHeight.barClassName} bg-indicator w-2 rounded-sm`}
-              />
-              <p className="text-muted-foreground text-sm">
-                {controlHeight.usage}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Surface variables</h2>
-        <p className="text-muted-foreground">
-          Card, dialog, and timeline read their spacing from a variable instead
-          of a prop, and the sidebar and page header share one bar height. Every
-          slot inside the surface uses the same variable, so overriding it on
-          one instance moves every inset together:{' '}
-          <code>className=&quot;[--card-spacing:--spacing(6)]&quot;</code>.
-          There is no density or size prop on these surfaces.
-        </p>
-        <ul className="border-border bg-card divide-border divide-y rounded-lg border">
-          {spacingTokens.map((spacingToken) => (
-            <li key={spacingToken.name} className="space-y-1 p-4">
-              <p className="text-sm">
-                <code className="font-medium">{spacingToken.name}</code>
-                <span className="text-muted-foreground">
-                  {' '}
-                  · {spacingToken.value}
-                </span>
-              </p>
-              <p className="text-muted-foreground text-sm">
-                {spacingToken.usage}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Closer means related
-        </h2>
-        <p className="text-muted-foreground">
-          The gap grows with the distance between ideas. Inside a field, the
-          label sits 8px above the box and an error sits 4px below it. Between
-          fields in a form the gap is 20px, and the actions row keeps its
-          buttons 8px apart. A title and its description sit 4px apart; the
-          slots of a card sit <code>--card-spacing</code> apart.
-        </p>
-      </section>
-    </article>
+      }
+      tokenSections={[
+        {
+          title: 'The scale',
+          description: (
+            <>
+              One step is <code>--spacing</code>, 0.25rem. These are the steps
+              the components use, with the job each one does.
+            </>
+          ),
+          rows: stepRows,
+        },
+        {
+          title: 'Control heights',
+          description:
+            'Controls come in two heights, so a button, a field, and a chip line up on one row at either size.',
+          rows: heightRows,
+        },
+        {
+          title: 'Surface variables',
+          description: (
+            <>
+              Card, dialog, and timeline read their spacing from a variable
+              instead of a prop. Every slot inside the surface uses the same
+              variable, so overriding it on one instance moves every inset
+              together:{' '}
+              <code>className=&quot;[--card-spacing:--spacing(6)]&quot;</code>.
+            </>
+          ),
+          rows: variableRows,
+        },
+      ]}
+      sections={[
+        {
+          title: 'Closer means related',
+          content: (
+            <p>
+              Inside a field, the label sits one step above the box and an error
+              sits a step below it. Between fields in a form the gap is larger,
+              and the actions row keeps its buttons close together. A title and
+              its description sit tight; the slots of a card sit{' '}
+              <code>--card-spacing</code> apart. A reader groups what is near,
+              so the distances say what belongs together.
+            </p>
+          ),
+        },
+      ]}
+      rules={[
+        {
+          verdict: GuidelineVerdict.Do,
+          rule: 'Write padding, gaps, margins, and sizes as scale steps: gap-2, --spacing(6).',
+          reason: 'One scale means every part lines up with every other part.',
+        },
+        {
+          verdict: GuidelineVerdict.Dont,
+          rule: 'Write a pixel value, such as gap-[10px].',
+          reason:
+            'A value off the scale lines up with nothing, and the next person has to guess its job.',
+        },
+        {
+          verdict: GuidelineVerdict.Do,
+          rule: 'Reuse the step a component already uses for the same job.',
+          reason:
+            'The same job at the same distance is what makes the system feel like one thing.',
+        },
+        {
+          verdict: GuidelineVerdict.Do,
+          rule: 'Override --card-spacing, --dialog-spacing, or --timeline-spacing on one instance when you need a different density.',
+          reason:
+            'Every slot reads the same variable, so the insets move together and stay aligned. There is no density prop to keep in sync.',
+        },
+        {
+          verdict: GuidelineVerdict.Do,
+          rule: 'Put a button, a field, and a chip of the same size on one row.',
+          reason:
+            'Default and small heights are shared across controls, so a row lines up without adjustment.',
+        },
+      ]}
+      notes={
+        <>
+          <p>
+            A control that sits inside another one, such as the icon button in a
+            field box, is sized to leave a 3px inset inside the border.
+          </p>
+          <p>
+            Inside a field the label sits 8px above the box and an error sits
+            4px below it. Between fields in a form the gap is 20px, and the
+            actions row keeps its buttons 8px apart. A title and its description
+            sit 4px apart.
+          </p>
+          <p>
+            The page header reads <code>--page-header-inset</code> from its
+            pane, so a pane that pads itself 24px sets the variable to 24px and
+            the header&rsquo;s rule still meets both edges.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/radius',
+          label: 'Radius',
+          description:
+            'The corner scale that sits alongside the spacing scale.',
+        },
+        {
+          to: '/components/card',
+          label: 'Card',
+          description: 'Exposes --card-spacing.',
+        },
+        {
+          to: '/components/dialog',
+          label: 'Dialog',
+          description: 'Exposes --dialog-spacing.',
+        },
+      ]}
+    />
   )
 }

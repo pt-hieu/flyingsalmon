@@ -36,14 +36,17 @@ export function ComponentsOverview({
   )
 
   return (
-    <article className="space-y-10 px-6 py-12">
+    <section aria-labelledby="components" className="space-y-10 px-6 py-12">
       <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
+        <h2
+          id="components"
+          className="font-heading text-2xl font-bold tracking-tight"
+        >
           Components
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          Everything the registry ships. Pick one to read its states, its
-          motion, and its accessibility contract.
+        </h2>
+        <p className="text-muted-foreground">
+          Everything the registry ships. Pick one to see its examples, its
+          guidelines, and how to use it from the keyboard.
         </p>
       </header>
 
@@ -78,12 +81,12 @@ export function ComponentsOverview({
             aria-labelledby={`category-${categoryGroup.category}`}
             className="space-y-4"
           >
-            <h2
+            <h3
               id={`category-${categoryGroup.category}`}
-              className="font-heading text-2xl font-semibold tracking-tight"
+              className="font-heading text-lg font-semibold tracking-tight"
             >
               {categoryGroup.label}
-            </h2>
+            </h3>
 
             <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {categoryGroup.components.map((component) => (
@@ -111,6 +114,6 @@ export function ComponentsOverview({
           </section>
         ))
       )}
-    </article>
+    </section>
   )
 }

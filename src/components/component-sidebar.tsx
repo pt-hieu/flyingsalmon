@@ -6,6 +6,17 @@ import { groupComponentsByCategory } from '@/components/search-components'
 const sidebarLinkClassName =
   'text-muted-foreground hover:bg-muted hover:text-foreground rounded-md px-3 py-2 text-sm font-medium transition-colors duration-(--motion-fast)'
 
+const foundationLinks = [
+  { to: '/principles', label: 'Principles' },
+  { to: '/colors', label: 'Colours' },
+  { to: '/typography', label: 'Typography' },
+  { to: '/spacing', label: 'Spacing' },
+  { to: '/radius', label: 'Radius' },
+  { to: '/motion', label: 'Motion' },
+  { to: '/accessibility', label: 'Accessibility' },
+  { to: '/fields', label: 'Fields' },
+] as const
+
 const activeSidebarLinkProps = { className: 'bg-muted text-foreground' }
 
 export function ComponentSidebar() {
@@ -18,7 +29,7 @@ export function ComponentSidebar() {
           activeOptions={{ exact: true, includeSearch: false }}
           activeProps={activeSidebarLinkProps}
         >
-          Overview
+          Home
         </Link>
 
         <div
@@ -32,20 +43,16 @@ export function ComponentSidebar() {
           >
             Foundations
           </span>
-          <Link
-            to="/colors"
-            className={sidebarLinkClassName}
-            activeProps={activeSidebarLinkProps}
-          >
-            Colors
-          </Link>
-          <Link
-            to="/spacing"
-            className={sidebarLinkClassName}
-            activeProps={activeSidebarLinkProps}
-          >
-            Spacing
-          </Link>
+          {foundationLinks.map((foundationLink) => (
+            <Link
+              key={foundationLink.to}
+              to={foundationLink.to}
+              className={sidebarLinkClassName}
+              activeProps={activeSidebarLinkProps}
+            >
+              {foundationLink.label}
+            </Link>
+          ))}
         </div>
 
         {groupComponentsByCategory(componentCatalog).map((categoryGroup) => (

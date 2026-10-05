@@ -1,202 +1,218 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
+
+import { GuidelineVerdict } from '@/components/doc-page'
+import { FoundationPage, Swatch } from '@/components/foundation-page'
+import type { TokenRow } from '@/components/foundation-page'
+import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/colors')({
   component: ColorsPage,
 })
 
-interface ColorToken {
-  name: string
-  step: string
-  swatchClassName: string
-  usage: React.ReactNode
-}
-
-const surfaceTokens: ColorToken[] = [
+const surfaceRows: TokenRow[] = [
   {
-    name: '--background',
-    step: 'orange-50',
-    swatchClassName: 'bg-background',
-    usage: 'The page. Everything else sits on it.',
+    sample: <Swatch className="bg-background" />,
+    token: '--background',
+    value: 'orange-50',
+    job: 'The page. Everything else sits on it.',
   },
   {
-    name: '--card',
-    step: 'white',
-    swatchClassName: 'bg-card',
-    usage:
-      'Cards, alerts, and field boxes: input, textarea, select, combobox, date-picker, number-field.',
+    sample: <Swatch className="bg-card" />,
+    token: '--card',
+    value: 'white',
+    job: 'Cards, alerts, and field boxes: input, textarea, select, combobox, date picker, number field.',
   },
   {
-    name: '--popover',
-    step: 'white',
-    swatchClassName: 'bg-popover',
-    usage:
-      'Floating surfaces: menus, the date-picker popover, dialogs, drawers.',
+    sample: <Swatch className="bg-popover" />,
+    token: '--popover',
+    value: 'white',
+    job: 'Floating surfaces: menus, the date picker popover, dialogs, drawers.',
   },
   {
-    name: '--muted',
-    step: 'orange-100',
-    swatchClassName: 'bg-muted',
-    usage:
-      'A quiet background step: a read-only field, the number-field spin button, the empty-state icon tile.',
+    sample: <Swatch className="bg-muted" />,
+    token: '--muted',
+    value: 'orange-100',
+    job: 'A quiet background step: a read-only field, the number field spin button, the empty state icon tile.',
   },
   {
-    name: '--secondary',
-    step: 'orange-100',
-    swatchClassName: 'bg-secondary',
-    usage:
-      'The secondary button and badge, an unpressed toggle-group chip, the avatar-group overflow count.',
+    sample: <Swatch className="bg-secondary" />,
+    token: '--secondary',
+    value: 'orange-100',
+    job: 'The secondary button and badge, an unpressed toggle group chip, the avatar group overflow count.',
   },
   {
-    name: '--accent',
-    step: 'orange-200',
-    swatchClassName: 'bg-accent',
-    usage:
-      'Hover and highlight: a hovered ghost button, the highlighted menu row, an idle calendar day under the pointer.',
+    sample: <Swatch className="bg-accent" />,
+    token: '--accent',
+    value: 'orange-200',
+    job: 'Hover and highlight: a hovered ghost button, the highlighted menu row, a calendar day under the pointer.',
   },
 ]
 
-const textTokens: ColorToken[] = [
+const textRows: TokenRow[] = [
   {
-    name: '--foreground',
-    step: 'neutral-950',
-    swatchClassName: 'bg-foreground',
-    usage: (
+    sample: <Swatch className="bg-foreground" />,
+    token: '--foreground',
+    value: 'neutral-950',
+    job: (
       <>
-        Body text, headings, values, and the tooltip fill. 17.20:1 on the page,
-        18.25:1 on white.
-        <code> --card-foreground</code> and <code>--popover-foreground</code>{' '}
+        Body text, headings, values, and the tooltip fill.{' '}
+        <code>--card-foreground</code> and <code>--popover-foreground</code>{' '}
         take the same step.
       </>
     ),
   },
   {
-    name: '--muted-foreground',
-    step: 'neutral-600',
-    swatchClassName: 'bg-muted-foreground',
-    usage:
-      'Descriptions, placeholders, helper text, and field icons. 7.01:1 on the page, 7.44:1 on white, 6.48:1 on --muted, 5.48:1 on --accent.',
+    sample: <Swatch className="bg-muted-foreground" />,
+    token: '--muted-foreground',
+    value: 'neutral-600',
+    job: 'Descriptions, placeholders, helper text, and field icons.',
   },
   {
-    name: '--secondary-foreground',
-    step: 'neutral-900',
-    swatchClassName: 'bg-secondary-foreground',
-    usage: 'Text on --secondary. 14.14:1.',
+    sample: <Swatch className="bg-secondary-foreground" />,
+    token: '--secondary-foreground',
+    value: 'neutral-900',
+    job: 'Text on --secondary.',
   },
   {
-    name: '--accent-foreground',
-    step: 'neutral-900',
-    swatchClassName: 'bg-accent-foreground',
-    usage: 'Text on --accent. 11.96:1.',
+    sample: <Swatch className="bg-accent-foreground" />,
+    token: '--accent-foreground',
+    value: 'neutral-900',
+    job: 'Text on --accent.',
   },
   {
-    name: '--primary-text',
-    step: 'orange-700',
-    swatchClassName: 'bg-primary-text',
-    usage:
-      'Orange as text: the date-picker focused segment, the notice subject on hover. 4.93:1 on the page, 5.23:1 on white.',
+    sample: <Swatch className="bg-primary-text" />,
+    token: '--primary-text',
+    value: 'orange-700',
+    job: 'Orange as text: the date picker focused segment, the notice subject on hover.',
   },
 ]
 
-const orangeTokens: ColorToken[] = [
+const orangeRows: TokenRow[] = [
   {
-    name: '--primary',
-    step: 'orange-600',
-    swatchClassName: 'bg-primary',
-    usage:
-      'An orange fill under text: the default button, the default badge, the pressed toggle-group chip.',
+    sample: <Swatch className="bg-primary" />,
+    token: '--primary',
+    value: 'orange-600',
+    job: 'An orange fill under text: the default button, the default badge, the pressed toggle group chip.',
   },
   {
-    name: '--primary-foreground',
-    step: 'white',
-    swatchClassName: 'bg-primary-foreground',
-    usage: 'Text on --primary. 3.59:1, an accepted case below AA.',
+    sample: <Swatch className="bg-primary-foreground" />,
+    token: '--primary-foreground',
+    value: 'white',
+    job: 'Text on --primary.',
   },
   {
-    name: '--indicator',
-    step: 'orange-600',
-    swatchClassName: 'bg-indicator',
-    usage:
-      'Every orange mark on a surface: checked fills, active bars, the field and form-control focus rings, the text-link underline, the progress fill. 3.38:1 on the page, 3.59:1 on white.',
+    sample: <Swatch className="bg-indicator" />,
+    token: '--indicator',
+    value: 'orange-600',
+    job: 'Every orange mark on a surface: checked fills, active bars, field focus rings, the text link underline, the progress fill.',
   },
   {
-    name: '--indicator-foreground',
-    step: 'white',
-    swatchClassName: 'bg-indicator-foreground',
-    usage:
-      'A glyph on --indicator: the checkbox tick, the radio dot, the switch thumb, the selected calendar numeral.',
+    sample: <Swatch className="bg-indicator-foreground" />,
+    token: '--indicator-foreground',
+    value: 'white',
+    job: 'A glyph on --indicator: the checkbox tick, the radio dot, the switch thumb, the selected calendar numeral.',
   },
 ]
 
-const lineTokens: ColorToken[] = [
+const lineRows: TokenRow[] = [
   {
-    name: '--border',
-    step: 'orange-200',
-    swatchClassName: 'bg-border',
-    usage:
-      'Every surface border and divider. It separates surfaces that already differ in background, so it carries no contrast floor.',
+    sample: <Swatch className="bg-border" />,
+    token: '--border',
+    value: 'orange-200',
+    job: 'Every surface border and divider.',
   },
   {
-    name: '--input',
-    step: 'orange-200',
-    swatchClassName: 'bg-input',
-    usage: 'Field box borders at rest. They step to orange-300 on hover.',
+    sample: <Swatch className="bg-input" />,
+    token: '--input',
+    value: 'orange-200',
+    job: 'Field box borders at rest. They step to orange-300 on hover.',
   },
   {
-    name: '--ring',
-    step: 'neutral-950',
-    swatchClassName: 'bg-ring',
-    usage:
-      'The default focus ring, for anything that does not ring in its own hue. 13.46:1 or more against every surface.',
+    sample: <Swatch className="bg-ring" />,
+    token: '--ring',
+    value: 'neutral-950',
+    job: 'The default focus ring, for anything that does not ring in its own hue.',
   },
 ]
 
-const statusTokens: ColorToken[] = [
+const statusRows: TokenRow[] = [
   {
-    name: '--success',
-    step: 'green-100 / green-800',
-    swatchClassName: 'bg-success',
-    usage: 'A success fill with --success-foreground on it. 6.23:1.',
+    sample: <Swatch className="bg-success" />,
+    token: '--success',
+    value: 'green-100, text green-800',
+    job: 'A success fill, with --success-foreground on it.',
   },
   {
-    name: '--warning',
-    step: 'amber-400 / amber-900',
-    swatchClassName: 'bg-warning',
-    usage: 'A solid warning fill with --warning-foreground on it. 5.17:1.',
+    sample: <Swatch className="bg-warning" />,
+    token: '--warning',
+    value: 'amber-400, text amber-900',
+    job: 'A solid warning fill, with --warning-foreground on it.',
   },
   {
-    name: '--error',
-    step: 'red-100 / red-700',
-    swatchClassName: 'bg-error',
-    usage: 'An error fill with --error-foreground on it. 5.36:1.',
+    sample: <Swatch className="bg-error" />,
+    token: '--error',
+    value: 'red-100, text red-700',
+    job: 'An error fill, with --error-foreground on it. The destructive button fills with this.',
   },
   {
-    name: '--destructive',
-    step: 'red-600',
-    swatchClassName: 'bg-destructive',
-    usage:
-      'Invalid fields: error text, the required asterisk, borders, focus rings, and a checked invalid checkbox or radio. Also the destructive menu item text and the destructive button ring; the destructive button itself fills --error.',
+    sample: <Swatch className="bg-destructive" />,
+    token: '--destructive',
+    value: 'red-600',
+    job: 'An invalid field: error text, the required asterisk, borders, focus rings, and a checked invalid checkbox or radio. Also the destructive menu item text.',
   },
 ]
 
-const loadingTokens: ColorToken[] = [
+const loadingRows: TokenRow[] = [
   {
-    name: '--skeleton',
-    step: 'orange-200',
-    swatchClassName: 'bg-skeleton',
-    usage: 'Skeleton blocks.',
+    sample: <Swatch className="bg-skeleton" />,
+    token: '--skeleton',
+    value: 'orange-200',
+    job: 'Skeleton blocks.',
   },
   {
-    name: '--progress-track',
-    step: 'orange-200',
-    swatchClassName: 'bg-progress-track',
-    usage: 'The progress and stepper track.',
+    sample: <Swatch className="bg-progress-track" />,
+    token: '--progress-track',
+    value: 'orange-200',
+    job: 'The progress and stepper track.',
   },
   {
-    name: '--progress-fill',
-    step: 'orange-600',
-    swatchClassName: 'bg-progress-fill',
-    usage:
-      'The progress and stepper fill, an alias of --indicator. 2.65:1 on its track, an accepted case.',
+    sample: <Swatch className="bg-progress-fill" />,
+    token: '--progress-fill',
+    value: 'orange-600',
+    job: 'The progress and stepper fill, an alias of --indicator.',
+  },
+]
+
+const chartRows: TokenRow[] = [
+  {
+    sample: <Swatch className="bg-chart-1" />,
+    token: '--chart-1',
+    value: 'orange-500',
+    job: 'The first series. The brand leads.',
+  },
+  {
+    sample: <Swatch className="bg-chart-2" />,
+    token: '--chart-2',
+    value: 'sky-300',
+    job: 'The second series.',
+  },
+  {
+    sample: <Swatch className="bg-chart-3" />,
+    token: '--chart-3',
+    value: 'violet-300',
+    job: 'The third series.',
+  },
+  {
+    sample: <Swatch className="bg-chart-4" />,
+    token: '--chart-4',
+    value: 'teal-300',
+    job: 'The fourth series.',
+  },
+  {
+    sample: <Swatch className="bg-chart-5" />,
+    token: '--chart-5',
+    value: 'pink-300',
+    job: 'The fifth series.',
   },
 ]
 
@@ -252,233 +268,231 @@ const groupHues: GroupHue[] = [
   },
 ]
 
-const chartTokens: ColorToken[] = [
-  {
-    name: '--chart-1',
-    step: 'orange-500',
-    swatchClassName: 'bg-chart-1',
-    usage: 'The first series. The brand leads.',
-  },
-  {
-    name: '--chart-2',
-    step: 'sky-300',
-    swatchClassName: 'bg-chart-2',
-    usage: 'The second series.',
-  },
-  {
-    name: '--chart-3',
-    step: 'violet-300',
-    swatchClassName: 'bg-chart-3',
-    usage: 'The third series.',
-  },
-  {
-    name: '--chart-4',
-    step: 'teal-300',
-    swatchClassName: 'bg-chart-4',
-    usage: 'The fourth series.',
-  },
-  {
-    name: '--chart-5',
-    step: 'pink-300',
-    swatchClassName: 'bg-chart-5',
-    usage: 'The fifth series.',
-  },
-]
-
 function ColorsPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Colors
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          An orange brand over a beige page, with white cards and fields, orange
-          borders, and neutral-gray text. Components use the functional tokens
-          on this page, never the palette steps behind them.
-        </p>
-      </header>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Two layers</h2>
-        <p className="text-muted-foreground">
-          The palette layer is Tailwind&rsquo;s OKLCH palette: grays from{' '}
-          <code>neutral</code> (chroma 0), the brand from <code>orange</code>,
-          destructive and error from <code>red</code>, success from{' '}
-          <code>green</code>, warning from <code>amber</code>. The functional
-          layer aliases one palette step per token, as{' '}
-          <code>--primary: var(--color-orange-600)</code>, never a literal
-          value. Each row below names the token, the step it aliases, and where
-          it is used.
-        </p>
-        <p className="text-muted-foreground">
-          <strong className="text-foreground">
-            Every color is a palette step.
-          </strong>{' '}
-          There is no color alpha anywhere: no <code>/50</code> modifiers, no
-          alpha channels, no <code>color-mix</code>. A hover or press shade
-          steps the ramp, as orange-200 to orange-300. Element opacity for
-          disabled states and motion fades is allowed, because it fades an
-          element rather than defining a color. Light mode only.
-        </p>
-      </section>
-
-      <TokenSection
-        title="Surfaces"
-        description="Surfaces separate by background steps and solid borders, never shadows (ADR 0003)."
-        tokens={surfaceTokens}
-      />
-
-      <TokenSection
-        title="Text"
-        description="Text is neutral gray on every surface. Every pair here clears WCAG AA."
-        tokens={textTokens}
-      />
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Orange has three jobs
-        </h2>
-        <p className="text-muted-foreground">
-          <code>--primary</code> is an orange fill under text.{' '}
-          <code>--indicator</code> is an orange mark on a surface: a fill, a
-          bar, a ring, or an underline. <code>--primary-text</code> is orange as
-          text. The first two share orange-600 but name different jobs, so a
-          mark and a fill can move apart without touching each other&rsquo;s
-          consumers.
-        </p>
-        <p className="text-muted-foreground">
-          <strong className="text-foreground">
-            Every orange fill carries white.
-          </strong>{' '}
-          White on orange-600 measures 3.59:1, under AA for body text. Brian
-          accepted that because neutral-950 on an orange fill reads muddy: APCA
-          puts it at Lc 49 against white&rsquo;s Lc 68. Hover on an orange fill
-          steps to orange-700, where white holds 5.23:1.
-        </p>
-        <TokenList tokens={orangeTokens} />
-      </section>
-
-      <TokenSection
-        title="Borders and rings"
-        description="Borders are decorative and carry no floor. Rings are how focus shows, so they clear 3:1 against the page unless a case is recorded in ADR 0004."
-        tokens={lineTokens}
-      >
-        <p className="text-muted-foreground">
-          <strong className="text-foreground">
-            A component may ring in its own hue.
-          </strong>{' '}
-          The field family, checkbox, radio-group, switch, the default button,
-          and a pressed toggle-group chip ring in <code>--indicator</code>. The
-          outline, secondary, and ghost buttons and an unpressed toggle-group
-          chip ring in <code>--accent</code>, the color their hover washes to;
-          that ring is 1.28:1 on the page, an accepted case. An invalid field
-          rings in <code>--destructive</code>.
-        </p>
-      </TokenSection>
-
-      <TokenSection
-        title="Status"
-        description="Status colors ship as a fill and a text color that clears AA on it. Error does not reuse --destructive: a tint cannot come from a solid without alpha."
-        tokens={statusTokens}
-      />
-
-      <TokenSection
-        title="Loading"
-        description="Loading placeholders and tracks sit one step above the page on the orange ramp."
-        tokens={loadingTokens}
-      />
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Group colors</h2>
-        <p className="text-muted-foreground">
-          Six hues tell items in a set apart: a trip&rsquo;s stays, avatar
-          fallbacks, labels. Each hue has six aliases:{' '}
-          <code>--group-&lt;hue&gt;</code> is the solid fill with{' '}
-          <code>-foreground</code> text, <code>-soft</code> is a tint with{' '}
-          <code>-soft-foreground</code> text, and <code>-border</code> steps to{' '}
-          <code>-border-hover</code>. Text clears AA on every fill.
-        </p>
-        <p className="text-muted-foreground">
-          <strong className="text-foreground">
-            A group color never works alone.
-          </strong>{' '}
-          The set leaves out every hue near the brand or a status, so a group
-          never reads as an action or a result. Cyan sits close to sky and
-          fuchsia close to pink, so assign by index in this order, which keeps
-          each lookalike pair three apart, and always pair the color with a text
-          label.
-        </p>
-        <div className="border-border bg-card grid gap-3 rounded-lg border p-6 sm:grid-cols-2">
-          {groupHues.map((groupHue) => (
-            <div key={groupHue.name} className="flex items-center gap-2">
-              <span
-                className={`${groupHue.solidClassName} rounded-md px-2.5 py-1 text-sm font-medium`}
-              >
-                {groupHue.name}
-              </span>
-              <span
-                className={`${groupHue.softClassName} rounded-md px-2.5 py-1 text-sm font-medium`}
-              >
-                soft
-              </span>
-              <span
-                className={`${groupHue.borderClassName} rounded-md border-2 px-2.5 py-1 text-sm font-medium transition-colors duration-(--motion-fast)`}
-              >
-                border
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <TokenSection
-        title="Charts"
-        description="The brand leads, then four pale hues. Against a white card slots 2–5 sit under the 3:1 non-text floor, an accepted case, so a series is told apart by its label and position. A chart that needs a status color takes --success directly."
-        tokens={chartTokens}
-      />
-    </article>
-  )
-}
-
-function TokenSection({
-  title,
-  description,
-  tokens,
-  children,
-}: {
-  title: string
-  description: string
-  tokens: ColorToken[]
-  children?: React.ReactNode
-}) {
-  return (
-    <section className="space-y-4">
-      <h2 className="font-heading text-2xl font-bold">{title}</h2>
-      <p className="text-muted-foreground">{description}</p>
-      {children}
-      <TokenList tokens={tokens} />
-    </section>
-  )
-}
-
-function TokenList({ tokens }: { tokens: ColorToken[] }) {
-  return (
-    <ul className="border-border bg-card divide-border divide-y rounded-lg border">
-      {tokens.map((token) => (
-        <li key={token.name} className="flex items-start gap-4 p-4">
-          <span
-            className={`${token.swatchClassName} border-border size-10 shrink-0 rounded-md border`}
-          />
-          <div className="min-w-0 space-y-1">
-            <p className="text-sm">
-              <code className="font-medium">{token.name}</code>
-              <span className="text-muted-foreground"> · {token.step}</span>
-            </p>
-            <p className="text-muted-foreground text-sm">{token.usage}</p>
-          </div>
-        </li>
-      ))}
-    </ul>
+    <FoundationPage
+      title="Colours"
+      principle="An orange brand over a beige page, with white cards and fields, orange borders, and neutral grey text."
+      introduction={
+        <>
+          <p>
+            Colour comes in two layers.{' '}
+            <strong>
+              The palette layer is Tailwind&rsquo;s OKLCH palette:
+            </strong>{' '}
+            greys from <code>neutral</code> (chroma 0), the brand from{' '}
+            <code>orange</code>, destructive and error from <code>red</code>,
+            success from <code>green</code>, warning from <code>amber</code>.{' '}
+            <strong>The functional layer</strong> gives each job a token that
+            points at one palette step, as{' '}
+            <code>--primary: var(--color-orange-600)</code>. Components use the
+            functional tokens and never the palette steps behind them, so a
+            change of step happens in one place.
+          </p>
+          <p>
+            Every colour is a palette step. There is no colour alpha anywhere,
+            so no <code>/50</code> modifiers and no <code>color-mix</code>. A
+            hover or press shade steps along the ramp, as orange-200 to
+            orange-300. Opacity on a whole element, for a disabled state or a
+            fade, is fine because it fades the element and does not define a
+            colour. The system is light only.
+          </p>
+        </>
+      }
+      tokenSections={[
+        {
+          title: 'Surfaces',
+          description:
+            'Surfaces separate by background step and solid border, never by shadow.',
+          rows: surfaceRows,
+        },
+        {
+          title: 'Text',
+          description: 'Text is neutral grey on every surface.',
+          rows: textRows,
+        },
+        {
+          title: 'Orange',
+          description:
+            'Orange has three jobs. --primary is a fill under text, --indicator is a mark on a surface (a fill, a bar, a ring, an underline), and --primary-text is orange as text. The first two share orange-600 but name different jobs, so a mark and a fill can move apart without touching each other’s consumers.',
+          rows: orangeRows,
+        },
+        {
+          title: 'Borders and rings',
+          description:
+            'Borders are decorative. Rings are how focus shows, so a ring has to stand out against the page.',
+          rows: lineRows,
+        },
+        {
+          title: 'Status',
+          description:
+            'Each status ships as a fill and a text colour that reads on it. Error does not reuse --destructive, because a tint cannot come from a solid without alpha.',
+          rows: statusRows,
+        },
+        {
+          title: 'Loading',
+          description:
+            'Placeholders and tracks sit one step above the page on the orange ramp.',
+          rows: loadingRows,
+        },
+        {
+          title: 'Charts',
+          description:
+            'The brand leads, then four pale hues. A chart that needs a status colour takes --success directly.',
+          rows: chartRows,
+        },
+      ]}
+      sections={[
+        {
+          title: 'Group colours',
+          content: (
+            <>
+              <p>
+                Six hues tell items in a set apart: the stays of a trip, avatar
+                fallbacks, labels. Each hue has six tokens.{' '}
+                <code>--group-&lt;hue&gt;</code> is the solid fill with{' '}
+                <code>-foreground</code> text, <code>-soft</code> is a tint with{' '}
+                <code>-soft-foreground</code> text, and <code>-border</code>{' '}
+                steps to <code>-border-hover</code>.
+              </p>
+              <div className="border-border bg-card grid gap-3 rounded-lg border p-6 sm:grid-cols-2">
+                {groupHues.map((groupHue) => (
+                  <div key={groupHue.name} className="flex items-center gap-2">
+                    <span
+                      className={`${groupHue.solidClassName} rounded-md px-2.5 py-1 text-sm font-medium`}
+                    >
+                      {groupHue.name}
+                    </span>
+                    <span
+                      className={`${groupHue.softClassName} rounded-md px-2.5 py-1 text-sm font-medium`}
+                    >
+                      soft
+                    </span>
+                    <span
+                      className={`${groupHue.borderClassName} text-foreground rounded-md border-2 px-2.5 py-1 text-sm font-medium transition-colors duration-(--motion-fast)`}
+                    >
+                      border
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <p>
+                Assign hues by index in this order: cyan sits close to sky and
+                fuchsia close to pink, and this order keeps each lookalike pair
+                three places apart.
+              </p>
+            </>
+          ),
+        },
+      ]}
+      rules={[
+        {
+          verdict: GuidelineVerdict.Do,
+          rule: 'Reach for the functional token (--primary, --muted-foreground), never the palette step.',
+          reason:
+            'A token names a job, so the colour can change in one place without hunting through components.',
+        },
+        {
+          verdict: GuidelineVerdict.Do,
+          rule: 'Put white on every orange fill.',
+          reason:
+            'Dark text on orange reads muddy. White is the one pairing that keeps the brand vivid.',
+        },
+        {
+          verdict: GuidelineVerdict.Do,
+          rule: 'Step along the ramp for hover and press, as orange-200 to orange-300.',
+          reason: 'A stepped colour stays a palette colour and needs no alpha.',
+        },
+        {
+          verdict: GuidelineVerdict.Dont,
+          rule: 'Use colour alpha: no /50 modifiers, no color-mix, no rgba.',
+          reason:
+            'Alpha makes a colour depend on what is behind it, so the same token looks different on each surface.',
+        },
+        {
+          verdict: GuidelineVerdict.Dont,
+          rule: 'Let a group colour work alone.',
+          reason:
+            'The set leaves out every hue near the brand or a status, so a group never reads as an action or a result. Always pair the colour with a text label.',
+        },
+        {
+          verdict: GuidelineVerdict.Dont,
+          rule: 'Add a dark theme or a dark: variant.',
+          reason:
+            'The system is light only, so a dark variant would be styling nothing renders.',
+        },
+      ]}
+      notes={
+        <>
+          <p>
+            Ratios are measured by converting each OKLCH colour to sRGB and
+            applying the WCAG relative luminance formula.
+          </p>
+          <ul className="list-disc space-y-1 pl-6">
+            <li>
+              <code>--foreground</code> is 17.20:1 on the page and 18.25:1 on
+              white. <code>--muted-foreground</code> is 7.01:1 on the page,
+              7.44:1 on white, 6.48:1 on <code>--muted</code>, and 5.48:1 on{' '}
+              <code>--accent</code>.
+            </li>
+            <li>
+              <code>--secondary-foreground</code> on <code>--secondary</code> is
+              14.14:1. <code>--accent-foreground</code> on <code>--accent</code>{' '}
+              is 11.96:1.
+            </li>
+            <li>
+              <code>--primary-text</code> is 4.93:1 on the page and 5.23:1 on
+              white.
+            </li>
+            <li>
+              White on orange-600 is 3.59:1, below AA for body text. On hover an
+              orange fill steps to orange-700, where white holds 5.23:1. Dark
+              text on orange scores worse under APCA (Lc 49 against
+              white&rsquo;s Lc 68), so white stays.
+            </li>
+            <li>
+              <code>--indicator</code> is 3.38:1 on the page and 3.59:1 on
+              white. <code>--progress-fill</code> is 2.65:1 on its track.
+            </li>
+            <li>
+              <code>--ring</code> is 13.46:1 or more against every surface. The
+              outline, secondary, and ghost buttons and an unpressed toggle
+              group chip ring in <code>--accent</code>, the colour their hover
+              washes to, which is 1.28:1 on the page.
+            </li>
+            <li>Status pairs: success 6.23:1, warning 5.17:1, error 5.36:1.</li>
+            <li>
+              Chart slots 2 to 5 sit under 3:1 on a white card, so a series is
+              told apart by its label and position, never by colour alone.
+            </li>
+          </ul>
+          <p>
+            Borders carry no contrast floor because they only separate surfaces
+            that already differ in background. See{' '}
+            <TextLink asChild>
+              <Link to="/accessibility">Accessibility</Link>
+            </TextLink>{' '}
+            for where components ship below AA.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/principles',
+          label: 'Principles',
+          description: 'Why the system is flat, light, and palette only.',
+        },
+        {
+          to: '/accessibility',
+          label: 'Accessibility',
+          description: 'The contrast method and the cases below AA.',
+        },
+        {
+          to: '/components/button',
+          label: 'Button',
+          description: 'The primary fill, white text, and the focus ring.',
+        },
+      ]}
+    />
   )
 }
