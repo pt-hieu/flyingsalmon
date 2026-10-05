@@ -1,333 +1,260 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { useEffect, useRef, useState } from 'react'
+import { Link, createFileRoute } from '@tanstack/react-router'
 
-import { Preview } from '@/components/preview'
 import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-  AlertVariant,
-} from '@/registry/ui/alert'
-import { Button, ButtonVariant } from '@/registry/ui/button'
-import { Form, FormActions } from '@/registry/ui/form'
-import { Input, InputType } from '@/registry/ui/input'
-import { Textarea } from '@/registry/ui/textarea'
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { FormDemo } from '@/examples/form/demo'
+import demoSource from '@/examples/form/demo.tsx?raw'
+import { FormEveryField } from '@/examples/form/every-field'
+import everyFieldSource from '@/examples/form/every-field.tsx?raw'
+import { FormFieldErrors } from '@/examples/form/field-errors'
+import fieldErrorsSource from '@/examples/form/field-errors.tsx?raw'
+import { FormLiveSubmit } from '@/examples/form/live-submit'
+import liveSubmitSource from '@/examples/form/live-submit.tsx?raw'
+import { FormServerError } from '@/examples/form/server-error'
+import serverErrorSource from '@/examples/form/server-error.tsx?raw'
+import usageSource from '@/examples/form/usage.tsx?raw'
+import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/form')({
   component: FormPage,
 })
 
-function preventNavigationOnSubmit(event: React.FormEvent<HTMLFormElement>) {
-  event.preventDefault()
-}
-
 function FormPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">Form</h1>
-        <p className="text-muted-foreground text-lg">
-          A layout shell for a set of fields. It gives them one vertical rhythm,
-          an actions row, and a fixed position where the app puts the submit
-          result. It owns no form state, dictates no form-state library, and
-          paints nothing of its own.
-        </p>
-      </header>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Parts</h2>
-        <p className="text-muted-foreground">
-          Two exports: <code>Form</code> and <code>FormActions</code>.{' '}
-          <strong className="text-foreground">
-            There is no <code>FormField</code>
-          </strong>{' '}
-          — every field family component already owns its own label, id linkage,
-          and error message, so there is nothing left for a wrapper to wrap. Put
-          fields in as plain children.
-        </p>
-        <p className="text-muted-foreground">
-          <code>Form</code> renders a real <code>&lt;form&gt;</code> and spreads
-          native props, so <code>onSubmit</code>, <code>action</code>,{' '}
-          <code>method</code>, and <code>id</code> behave exactly as they do on
-          the element. The result is a <code>result</code> prop rather than a
-          child, because the shell owns where it appears and a child cannot
-          guarantee its own position.
-        </p>
-        <Preview>
-          <Form
-            className="w-full max-w-sm"
-            onSubmit={preventNavigationOnSubmit}
+    <DocPage
+      title="Form"
+      lead="A layout shell for a set of fields: one vertical rhythm, an actions row, and a fixed place for the submit result."
+      preview={{ source: demoSource, demo: <FormDemo /> }}
+      installation="form"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Live submit"
+            description="Press Save trip. The button morphs into its loading state, the fields stay editable while the request runs, and the result lands in the slot below the actions."
+            source={liveSubmitSource}
           >
-            <Input
-              label="Destination"
-              name="destination"
-              placeholder="Lisbon"
-            />
-            <Input label="Dates" name="dates" placeholder="12–19 Oct" />
-            <FormActions>
-              <Button variant={ButtonVariant.Outline}>Cancel</Button>
-              <Button type="submit">Save trip</Button>
-            </FormActions>
-          </Form>
-        </Preview>
-      </section>
+            <FormLiveSubmit />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Rhythm</h2>
-        <p className="text-muted-foreground">
-          One fixed step between children — 20px, on a flex column.{' '}
-          <strong className="text-foreground">
-            There is no <code>spacing</code> or <code>density</code> prop.
-          </strong>{' '}
-          Removing the decision is the point: every form in an app agrees
-          without anyone copying a number. Fields with labels above need visibly
-          more separation than the label-to-input distance inside a field, and
-          error messages grow in on top of that. A heading dropped between two
-          fields is another child and inherits the same step. A genuinely dense
-          form is its own design decision, not a prop retrofitted here.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Actions row</h2>
-        <p className="text-muted-foreground">
-          <code>FormActions</code> stacks its buttons full width with the
-          primary on top below 640px and lays them out in a right-aligned row
-          above it — the same shape as the dialog footer. It sits in the normal
-          flow as another child at the same rhythm step: no top border, no extra
-          separation. It is optional; a one-button form can put the button in
-          directly.
-        </p>
-        <p className="text-muted-foreground">
-          <strong className="text-foreground">
-            Write <code>type=&quot;submit&quot;</code> on the submit button.
-          </strong>{' '}
-          <code>Button</code> defaults to <code>type=&quot;button&quot;</code>,
-          so a Cancel button next to it never submits by accident.{' '}
-          <code>FormActions</code> injects nothing into its children — it would
-          have to inspect and clone them, and that breaks the moment a button is
-          wrapped.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Live submit</h2>
-        <p className="text-muted-foreground">
-          Submit either panel below. The handler waits 1.6 seconds on purpose so
-          the button&apos;s morph is visible.{' '}
-          <strong className="text-foreground">
-            The submit button&apos;s <code>loading</code> is the only busyness a
-            submitting form shows, and the fields stay editable while the
-            request is in flight
-          </strong>{' '}
-          — so a typo can still be fixed. Form exposes no <code>pending</code>{' '}
-          and no form-level <code>disabled</code>; every field already takes its
-          own <code>disabled</code>.
-        </p>
-        <Preview>
-          <LiveSubmitDemo />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Field errors</h2>
-        <p className="text-muted-foreground">
-          Per-field failures belong to the field. Each one takes an{' '}
-          <code>error</code> string and owns the whole failure itself: the
-          label, the border, the ring, and the message below. Form neither
-          collects them nor renders a summary, and it never reads error state
-          from a context.
-        </p>
-        <Preview>
-          <Form
-            className="w-full max-w-sm"
-            onSubmit={preventNavigationOnSubmit}
+          <Example
+            caption="Field errors"
+            description="Each field owns its failure: the label, the border, the ring, and the message. Form neither collects them nor renders a summary."
+            source={fieldErrorsSource}
           >
-            <Input
-              label="Email"
-              name="email"
-              type={InputType.Email}
-              defaultValue="not-an-address"
-              error="Enter a valid email address"
-            />
-            <Textarea
-              label="Notes"
-              name="notes"
-              minRows={2}
-              defaultValue="…"
-              error="Say a little more than that"
-            />
-            <FormActions>
-              <Button variant={ButtonVariant.Outline}>Cancel</Button>
-              <Button type="submit">Save trip</Button>
-            </FormActions>
-          </Form>
-        </Preview>
-      </section>
+            <FormFieldErrors />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">The result slot</h2>
-        <p className="text-muted-foreground">
-          Pass the app&apos;s own <code>Alert</code> to <code>result</code> and
-          it renders below the actions row, as the last child of the column, at
-          the same rhythm step.{' '}
-          <strong className="text-foreground">
-            One position, so the button the user just pressed never moves.
-          </strong>{' '}
-          The slot is a position, not a renderer: the app supplies the alert and
-          picks its variant, because only the app knows what a successful submit
-          means. Form-wide failures — cross-field validation, a server that is
-          the validator — go through the same slot.
-        </p>
-        <p className="text-muted-foreground">
-          The slot reserves no space when it is empty, carries no live region,
-          and Form does no scroll or focus management: the alert announces
-          itself through its own role. A dialog form leaves the slot empty — it
-          closes on submit, so its result belongs on the item that changed.
-        </p>
-        <Preview>
-          <Form
-            className="w-full max-w-sm"
-            onSubmit={preventNavigationOnSubmit}
-            result={
-              <Alert variant={AlertVariant.Error}>
-                <AlertTitle>That card was declined</AlertTitle>
-                <AlertDescription>
-                  Try another card, or pay by bank transfer.
-                </AlertDescription>
-              </Alert>
-            }
+          <Example
+            caption="A server error in the result slot"
+            description="This demo's server is offline. A failure that belongs to the whole form goes through the same slot as a success, and the typed values stay where they are."
+            source={serverErrorSource}
           >
-            <Input
-              label="Card number"
-              name="card"
-              defaultValue="4242 4242 4242 4242"
-            />
-            <FormActions>
-              <Button variant={ButtonVariant.Outline}>Cancel</Button>
-              <Button type="submit">Pay</Button>
-            </FormActions>
-          </Form>
-        </Preview>
-      </section>
+            <FormServerError />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Wiring a form-state library
-        </h2>
-        <p className="text-muted-foreground">
-          <strong className="text-foreground">
-            Form ships no binding and depends on no form-state library.
-          </strong>{' '}
-          A design system is a rendering stack; form state is app logic, and
-          dictating a library narrows who can adopt this one. Every example on
-          this page runs on plain React state.
-        </p>
-        <p className="text-muted-foreground">
-          The field family&apos;s props are the contract any library drives.
-          Each member takes <code>name</code>, <code>error</code> as a single
-          string, <code>disabled</code>, and its own change callback — native{' '}
-          <code>onChange</code> on input and textarea,{' '}
-          <code>onCheckedChange</code> on checkbox, <code>onValueChange</code>{' '}
-          on select and radio-group. Wire a library&apos;s per-field state onto
-          those four and it works; reducing that library&apos;s error shape down
-          to the one string is app code, and so is subscribing to its submitting
-          flag for the button&apos;s <code>loading</code>. No schema library is
-          named here either: a Standard Schema issue, a plain string, and a
-          library&apos;s own error type all reduce to the same string.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Motion</h2>
-        <p className="text-muted-foreground">
-          <strong className="text-foreground">None of Form&apos;s own.</strong>{' '}
-          The two things that move already animate themselves: a field&apos;s
-          error message and the result alert each grow their own height from
-          zero on <code>spring-settle</code>, so the content below them travels
-          continuously rather than snapping. A layout animation on the root
-          would double-animate the same shift. The submit button runs its own
-          morph into <code>loading</code>. The rhythm uses flex <code>gap</code>{' '}
-          rather than sibling margins, whose collapsing fights those height
-          animations.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          Form sets <code>noValidate</code> by default, and it is overridable.
-          The field&apos;s <code>error</code> string is meant to be the only
-          error channel: native constraint validation would add a second one,
-          rendered as a browser bubble positioned by the user agent, unowned and
-          gone on the next click.
-        </p>
-        <p className="text-muted-foreground">
-          Because the root is a real <code>&lt;form&gt;</code>, Enter in a text
-          field submits through native implicit submission and Enter in a
-          textarea inserts a newline. Tab order is DOM order and Form adds
-          nothing to it.{' '}
-          <strong className="text-foreground">
-            There is no Cmd or Ctrl+Enter shortcut
-          </strong>{' '}
-          — a hidden keybinding with no visible affordance only helps people who
-          already guessed it exists, and Tab then Enter on the submit button
-          already works. Form paints no background, border, or text, so it
-          carries no contrast obligation of its own; the fields, the buttons,
-          and the result alert each meet AA on their own.
-        </p>
-      </section>
-    </article>
-  )
-}
-
-function LiveSubmitDemo() {
-  const [submitting, setSubmitting] = useState(false)
-  const [savedDestination, setSavedDestination] = useState<string | null>(null)
-  const submitTimeout = useRef<ReturnType<typeof setTimeout>>(null)
-
-  useEffect(() => {
-    return () => {
-      if (submitTimeout.current) clearTimeout(submitTimeout.current)
-    }
-  }, [])
-
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const destination = String(
-      new FormData(event.currentTarget).get('destination') ?? '',
-    )
-    setSavedDestination(null)
-    setSubmitting(true)
-    submitTimeout.current = setTimeout(() => {
-      setSubmitting(false)
-      setSavedDestination(destination.trim() || 'nowhere in particular')
-    }, 1600)
-  }
-
-  return (
-    <Form
-      className="w-full max-w-sm"
-      onSubmit={handleSubmit}
-      result={
-        savedDestination ? (
-          <Alert variant={AlertVariant.Success}>
-            <AlertTitle>Trip saved</AlertTitle>
-            <AlertDescription>
-              Six days in {savedDestination}, ready to share.
-            </AlertDescription>
-          </Alert>
-        ) : null
+          <Example
+            caption="Every field in one form"
+            description="Input, combobox, date picker, number field, select, radio group, toggle group, slider, textarea, switch, and checkbox share one rhythm, and a plain submit posts them all by name."
+            source={everyFieldSource}
+          >
+            <FormEveryField />
+          </Example>
+        </>
       }
-    >
-      <Input label="Destination" name="destination" defaultValue="Lisbon" />
-      <Textarea label="Notes" name="notes" minRows={2} />
-      <FormActions>
-        <Button variant={ButtonVariant.Outline}>Cancel</Button>
-        <Button type="submit" loading={submitting}>
-          Save trip
-        </Button>
-      </FormActions>
-    </Form>
+      guidelines={{
+        whenToUse: [
+          'To lay out two or more fields with an actions row, on a page or in a card.',
+          'In a dialog body, where the footer submit points at the form with the form attribute.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'for a single field with no submit step, such as a search box. Put the field on the page directly.',
+            alternative: { to: '/components/input', label: 'Input' },
+          },
+          {
+            situation:
+              'when a form lives in a modal and closes on submit, so the dialog owns the footer and the result belongs to the changed item.',
+            alternative: { to: '/components/dialog', label: 'Dialog' },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Write type="submit" on the one button that submits.',
+            reason:
+              'Button defaults to type="button", so a Cancel beside it never posts the form by accident. FormActions injects nothing into its children, so the type stays visible where you write the button.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Show submit busyness with the submit button’s loading.',
+            reason:
+              'It is the only busyness a submitting form shows, and the fields stay editable, so a typo can be fixed while the request runs.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Pass your own Alert to result for a failure or success of the whole form.',
+            reason:
+              'The result appears below the button the traveller just pressed, so their attention is already there and the button never moves.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Wrap each field in a form-field component.',
+            reason:
+              'Every field already owns its label, id linkage, and error message, so there is nothing left for a wrapper to wrap. Put fields in as plain children.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Add a spacing or density prop, or space fields with your own margins.',
+            reason:
+              'One fixed step means every form in an app agrees without anyone copying a number.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Tab'],
+                description:
+                  'Moves through the fields and buttons in document order. Form adds nothing to it.',
+              },
+              {
+                keys: ['Enter'],
+                description:
+                  'In a text field, submits through native implicit submission. In a textarea, inserts a newline.',
+              },
+            ]}
+          />
+          <p>
+            Form sets <code>noValidate</code> by default, and you can override
+            it. The field&rsquo;s <code>error</code> string is the one error
+            channel: native constraint validation would add a second, a browser
+            bubble placed by the user agent, unowned and gone on the next click.
+          </p>
+          <p>
+            Form has no Cmd or Ctrl+Enter shortcut. A hidden keybinding with no
+            visible affordance only helps people who already guess it exists,
+            and Tab then Enter on the submit button already works. The result
+            slot carries no live region of its own: the alert you pass announces
+            itself through its role. For the states every field shares, see{' '}
+            <TextLink asChild>
+              <Link to="/fields">Fields</Link>
+            </TextLink>
+            .
+          </p>
+        </>
+      }
+      api={
+        <>
+          <PropsTable
+            component="Form"
+            description={
+              <>
+                Renders a real <code>&lt;form&gt;</code> and takes its
+                attributes, so <code>onSubmit</code>, <code>action</code>,{' '}
+                <code>method</code>, and <code>id</code> behave as they do on
+                the element.
+              </>
+            }
+            rows={[
+              {
+                name: 'result',
+                type: 'ReactNode',
+                description:
+                  'Renders below the actions row, as the last child. Pass an Alert; the app picks the variant.',
+              },
+              {
+                name: 'noValidate',
+                type: 'boolean',
+                default: 'true',
+                description:
+                  'Turns off native constraint bubbles so a field’s error is the one error channel.',
+              },
+            ]}
+          />
+          <p>
+            <code>FormActions</code> takes the props of a{' '}
+            <code>&lt;div&gt;</code>. It stacks its buttons full width below
+            640px and lays them out in a right-aligned row above it. It is
+            optional: a one-button form can put the button in directly.
+          </p>
+        </>
+      }
+      notes={
+        <>
+          <p>
+            The rhythm is one fixed 20px step between children, on a flex
+            column. It uses flex <code>gap</code> instead of sibling margins,
+            because collapsing margins fight the height animations of an error
+            message or the result alert. A heading dropped between two fields is
+            another child and inherits the same step. The actions row sits in
+            the normal flow at the same step, with no top border.
+          </p>
+          <p>
+            Form ships no form-state binding and depends on no form-state
+            library. Each field takes <code>name</code>, <code>error</code> as a
+            single string, <code>disabled</code>, and its own change callback:
+            native <code>onChange</code> on input and textarea,{' '}
+            <code>onCheckedChange</code> on checkbox, and{' '}
+            <code>onValueChange</code> on select, radio group, number field, and
+            toggle group. Wire a library&rsquo;s per-field state onto those and
+            it works. Reducing the library&rsquo;s error shape to the one
+            string, and subscribing to its submitting flag for the
+            button&rsquo;s <code>loading</code>, is app code.
+          </p>
+          <p>
+            Form paints no background, border, or text, so it has no contrast
+            obligation of its own; the fields, the buttons, and the alert each
+            meet it themselves. A dialog form leaves the result slot empty: it
+            closes on submit, success shows on the item that changed, and a
+            server error becomes a notice whose link reopens the dialog with
+            what the traveller typed.
+          </p>
+          <p>
+            Form has no motion of its own. The error message and the result
+            alert each grow their height from zero on <code>springSettle</code>,
+            so the content below travels continuously, and a layout animation on
+            the root would animate the same shift twice.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/button',
+          label: 'Button',
+          description: 'The submit button and its loading state.',
+        },
+        {
+          to: '/components/alert',
+          label: 'Alert',
+          description: 'What you pass to the result slot.',
+        },
+        {
+          to: '/components/dialog',
+          label: 'Dialog',
+          description: 'Hosts a form in a modal that closes on submit.',
+        },
+        {
+          to: '/fields',
+          label: 'Fields',
+          description:
+            'The label, description, error, loading, and disabled behaviour every field shares.',
+        },
+        {
+          to: '/principles',
+          label: 'Principles',
+          description:
+            'Where a result belongs, and why nothing auto-dismisses.',
+        },
+      ]}
+    />
   )
 }

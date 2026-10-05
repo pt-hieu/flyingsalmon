@@ -1,8 +1,34 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { Search } from 'lucide-react'
+import { Link, createFileRoute } from '@tanstack/react-router'
 
-import { Preview } from '@/components/preview'
-import { Input, InputSize, InputType } from '@/registry/ui/input'
+import {
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { InputDemo } from '@/examples/input/demo'
+import demoSource from '@/examples/input/demo.tsx?raw'
+import { InputDescription } from '@/examples/input/description'
+import descriptionSource from '@/examples/input/description.tsx?raw'
+import { InputDisabled } from '@/examples/input/disabled'
+import disabledSource from '@/examples/input/disabled.tsx?raw'
+import { InputEndAction } from '@/examples/input/end-action'
+import endActionSource from '@/examples/input/end-action.tsx?raw'
+import { InputEndAdornment } from '@/examples/input/end-adornment'
+import endAdornmentSource from '@/examples/input/end-adornment.tsx?raw'
+import { InputError } from '@/examples/input/error'
+import errorSource from '@/examples/input/error.tsx?raw'
+import { InputLoading } from '@/examples/input/loading'
+import loadingSource from '@/examples/input/loading.tsx?raw'
+import { InputReadOnly } from '@/examples/input/read-only'
+import readOnlySource from '@/examples/input/read-only.tsx?raw'
+import { InputSizes } from '@/examples/input/sizes'
+import sizesSource from '@/examples/input/sizes.tsx?raw'
+import { InputTypes } from '@/examples/input/types'
+import typesSource from '@/examples/input/types.tsx?raw'
+import usageSource from '@/examples/input/usage.tsx?raw'
+import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/input')({
   component: InputPage,
@@ -10,241 +36,320 @@ export const Route = createFileRoute('/_docs/components/input')({
 
 function InputPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Input
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          A single-line text field that owns its label, its error message, and
-          its busyness. Text-like types only.
-        </p>
-      </header>
+    <DocPage
+      title="Input"
+      lead="A single-line text field that owns its label, its error message, and its busyness."
+      preview={{ source: demoSource, demo: <InputDemo /> }}
+      installation="input"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Types"
+            description="Pick the type that matches the text. It chooses the mobile keyboard and the browser's autofill. Password hides the characters."
+            source={typesSource}
+          >
+            <InputTypes />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Types</h2>
-        <p className="text-muted-foreground">
-          Seven text-like types cover what a single line of text can be.{' '}
-          <strong className="text-foreground">
-            <code>number</code> is superseded by number-field,
-          </strong>{' '}
-          which formats and parses in the reader's locale, clamps to its bounds,
-          steps from the keyboard and from its own spin buttons, and reports a
-          number rather than a string. Reach for it whenever the value is a
-          quantity; <code>number</code> here stays for a numeric string nothing
-          does arithmetic on.
-        </p>
-      </section>
+          <Example
+            caption="Sizes"
+            description="Default and small match the two button heights, so a field and its submit button line up in a row."
+            source={sizesSource}
+          >
+            <InputSizes />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          className styles the wrapper
-        </h2>
-        <p className="text-muted-foreground">
-          Input renders a wrapper around the <code>&lt;input&gt;</code> so it
-          can hold the label and the error message.{' '}
-          <strong className="text-foreground">
-            <code>className</code> styles that wrapper, not the field.
-          </strong>{' '}
-          Every other native prop passes through to the{' '}
-          <code>&lt;input&gt;</code>. Stock shadcn puts <code>className</code>{' '}
-          on the field itself, so a copied snippet lands somewhere else than you
-          expect. Every example on this page sets <code>w-64</code> on the
-          wrapper.
-        </p>
-      </section>
+          <Example
+            caption="End adornment: icon"
+            description="A plain icon describes the field. Mark it aria-hidden, because the label already says what the field is."
+            source={endAdornmentSource}
+          >
+            <InputEndAdornment />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Sizes</h2>
-        <p className="text-muted-foreground">
-          Two sizes match the button size tiers, so a field and its submit
-          button line up in a row. There is no variant prop — one look.
-        </p>
-        <Preview>
-          <Input
-            className="w-64"
-            label="Email"
-            type={InputType.Email}
-            placeholder="you@example.com"
-          />
-          <Input
-            className="w-64"
-            size={InputSize.Small}
-            label="Email"
-            type={InputType.Email}
-            placeholder="you@example.com"
-          />
-        </Preview>
-      </section>
+          <Example
+            caption="End adornment: action"
+            description="A ghost field-icon button acts on the field. Tab reaches the field first and the button second."
+            source={endActionSource}
+          >
+            <InputEndAction />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">End adornment</h2>
-        <p className="text-muted-foreground">
-          The <code>endAdornment</code> slot sits inside the border on the
-          right, and the field padding grows so text never runs under it. Pass a
-          plain icon with <code>aria-hidden</code> to describe the field, or a
-          ghost icon button to act on it. There is no leading slot.
-        </p>
-        <Preview>
-          <Input
-            className="w-64"
-            label="Search"
-            type={InputType.Search}
-            placeholder="Find a component"
-            endAdornment={
-              <Search className="text-muted-foreground size-4" aria-hidden />
-            }
-          />
-          <Input
-            className="w-64"
-            size={InputSize.Small}
-            label="Search"
-            type={InputType.Search}
-            placeholder="Find a component"
-            endAdornment={
-              <Search className="text-muted-foreground size-3" aria-hidden />
-            }
-          />
-        </Preview>
-      </section>
+          <Example
+            caption="Description"
+            description="Helper text sits under the field and joins its accessible description."
+            source={descriptionSource}
+          >
+            <InputDescription />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Description</h2>
-        <p className="text-muted-foreground">
-          <code>description</code> is helper text in muted type directly under
-          the field, and it joins the field&rsquo;s accessible description, so a
-          screen reader reads it with the field. It stays put when an error
-          arrives: the message renders below it, and a screen reader hears the
-          error first, then the description. A disabled field dims its
-          description with its label.
-        </p>
-        <Preview>
-          <Input
-            className="w-64"
-            label="Email"
-            type={InputType.Email}
-            placeholder="you@example.com"
-            description="We send the itinerary here"
-          />
-          <Input
-            className="w-64"
-            label="Email"
-            type={InputType.Email}
-            defaultValue="not-an-address"
-            description="We send the itinerary here"
-            error="Enter a valid email address"
-          />
-        </Preview>
-      </section>
+          <Example
+            caption="Error"
+            description="The description stays where it is and the message grows in below it."
+            source={errorSource}
+          >
+            <InputError />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Error</h2>
-        <p className="text-muted-foreground">
-          Pass <code>error</code> and the field owns the whole failure: the
-          border, the ring, and the label turn destructive, and the message
-          renders below. The field grows downward only, never sideways. There is
-          no shake, so errors arrive calmly.
-        </p>
-        <Preview>
-          <Input
-            className="w-64"
-            label="Email"
-            type={InputType.Email}
-            defaultValue="not-an-address"
-            error="Enter a valid email address"
-          />
-          <Input
-            className="w-64"
-            size={InputSize.Small}
-            label="Email"
-            type={InputType.Email}
-            defaultValue="not-an-address"
-            error="Enter a valid email address"
-          />
-        </Preview>
-      </section>
+          <Example
+            caption="Loading"
+            description="Tab out of the field after typing. The spinner shows while the check runs, the field stays editable, and the answer lands in the field's own error."
+            source={loadingSource}
+          >
+            <InputLoading />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Loading</h2>
-        <p className="text-muted-foreground">
-          <code>loading</code> puts the spinner in the end slot, replacing any{' '}
-          <code>endAdornment</code>.{' '}
-          <strong className="text-foreground">The field stays editable.</strong>{' '}
-          Input loading means background work — async validation, a search — and
-          the submit button is what locks a flow. With an error alongside it,
-          both show and the spinner turns destructive too: hiding the message
-          during a re-check would flash a validity the field has not earned.
-        </p>
-        <Preview>
-          <Input
-            className="w-64"
-            label="Username"
-            defaultValue="brian"
-            loading
-          />
-          <Input
-            className="w-64"
-            label="Username"
-            defaultValue="brian"
-            loading
-            error="That name is already taken"
-          />
-        </Preview>
-      </section>
+          <Example
+            caption="Disabled"
+            description="The field and its label dim together and take no pointer events."
+            source={disabledSource}
+          >
+            <InputDisabled />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Disabled and read-only
-        </h2>
-        <p className="text-muted-foreground">
-          Disabled dims the field and its label together and takes no pointer
-          events. Read-only keeps full text contrast on a muted background,
-          takes a normal cursor, and stays focusable so the value can still be
-          read and copied.
-        </p>
-        <Preview>
-          <Input
-            className="w-64"
-            label="Email"
-            placeholder="you@example.com"
-            disabled
+          <Example
+            caption="Read-only"
+            description="The value stays readable and copyable on a muted background, and the field stays focusable."
+            source={readOnlySource}
+          >
+            <InputReadOnly />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'For one line of free text: a trip name, an email address, a phone number, a booking link.',
+          'For a value the traveller types rather than picks, where any text is acceptable input.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'when the value is a quantity. It formats for the page’s locale, clamps to its bounds, and reports a number instead of a string.',
+            alternative: {
+              to: '/components/number-field',
+              label: 'Number field',
+            },
+          },
+          {
+            situation:
+              'for notes that run past one line, because it grows with what the traveller types.',
+            alternative: { to: '/components/textarea', label: 'Textarea' },
+          },
+          {
+            situation:
+              'when the traveller picks a place, a person, or any value from a list you control.',
+            alternative: { to: '/components/combobox', label: 'Combobox' },
+          },
+          {
+            situation:
+              'for a calendar day or a range of days, so the segments and the grid refuse impossible dates.',
+            alternative: {
+              to: '/components/date-picker',
+              label: 'Date picker',
+            },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Pass a label to every input.',
+            reason:
+              'The label names the field for everyone, and clicking it focuses the field. A placeholder disappears as soon as the traveller types.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Show a failed check in the field with error.',
+            reason:
+              'The field owns the whole failure: the border, the label, and the message sit next to the text that caused it.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Disable the field while it checks a value.',
+            reason:
+              'Use loading instead. The field stays editable, so a typo can be fixed while the check runs; the submit button is what locks a flow.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Use type="number" for a quantity.',
+            reason:
+              'A text field reports a string and accepts minus three travellers. Number field reports a number and enforces its bounds.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Put the className on the field and expect it to land on the <input>.',
+            reason:
+              'className styles the wrapper that holds the label and the message, so a width set there sizes the whole field. Every other native prop passes to the <input>.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Tab'],
+                description:
+                  'Moves focus into the field, then to an interactive end adornment.',
+              },
+              {
+                keys: ['Shift+Tab'],
+                description: 'Moves focus back the same way.',
+              },
+              {
+                keys: ['Enter'],
+                description:
+                  'Submits the enclosing form through native implicit submission.',
+              },
+            ]}
           />
-          <Input
-            className="w-64"
-            label="Account id"
-            defaultValue="fs_8f252f6"
-            readOnly
-          />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Motion</h2>
-        <p className="text-muted-foreground">
-          Hover border, focus ring, and the destructive color changes are CSS
-          transitions at <code>--motion-fast</code>. The error message is the
-          one enter and exit: height and opacity on <code>spring-settle</code>{' '}
-          both ways at <code>--motion-base</code>, because a bounce on a height
-          change makes the fields below overshoot. The spinner runs its own
-          800ms turn.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          Input generates the field <code>id</code> and wires the label{' '}
-          <code>htmlFor</code> itself, so clicking the label focuses the field.
-          An error sets <code>aria-invalid</code>, and{' '}
-          <code>aria-describedby</code> lists any ids you passed, then the error
-          message, then the <code>description</code>. A loading field sets{' '}
-          <code>aria-busy</code> and hides its spinner from screen readers, so
-          the wait is announced once. Tab reaches the field first and an
-          interactive adornment second. <code>required</code> marks the label
-          and reaches the <code>&lt;input&gt;</code>; the validation itself
-          stays with your app.
-        </p>
-      </section>
-    </article>
+          <p>
+            Input generates the field <code>id</code> and wires the label to it,
+            so clicking the label focuses the field. An error sets{' '}
+            <code>aria-invalid</code>, and <code>aria-describedby</code> lists
+            any ids you passed, then the error message, then the description. A
+            loading field sets <code>aria-busy</code> and hides its spinner from
+            screen readers, so the wait is announced once. <code>required</code>{' '}
+            marks the label and reaches the <code>&lt;input&gt;</code>; the
+            validation itself stays with your app. The states every field shares
+            are described on{' '}
+            <TextLink asChild>
+              <Link to="/fields">Fields</Link>
+            </TextLink>
+            .
+          </p>
+        </>
+      }
+      api={
+        <PropsTable
+          component="Input"
+          description={
+            <>
+              Also takes every <code>&lt;input&gt;</code> attribute except{' '}
+              <code>size</code> and <code>type</code>, which it redefines.{' '}
+              <code>className</code> styles the wrapper.
+            </>
+          }
+          rows={[
+            {
+              name: 'label',
+              type: 'string',
+              description:
+                'The visible label. Renders above the field and is wired to it.',
+            },
+            {
+              name: 'type',
+              type: 'InputType',
+              default: 'InputType.Text',
+              description:
+                'Text, Email, Password, Number, Search, Telephone, or Url.',
+            },
+            {
+              name: 'size',
+              type: 'InputSize',
+              default: 'InputSize.Default',
+              description: 'Default or Small, matching the two button heights.',
+            },
+            {
+              name: 'description',
+              type: 'string',
+              description: 'Helper text under the field.',
+            },
+            {
+              name: 'error',
+              type: 'string',
+              description:
+                'The failure message. Turns the border, the ring, and the label destructive.',
+            },
+            {
+              name: 'loading',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Shows a spinner in the end slot, replacing endAdornment. The field stays editable.',
+            },
+            {
+              name: 'endAdornment',
+              type: 'ReactNode',
+              description:
+                'An icon or a ghost field-icon button inside the border, on the right.',
+            },
+            {
+              name: 'disabled',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Dims the field and its label and removes both from the tab order.',
+            },
+            {
+              name: 'readOnly',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Keeps the value readable on a muted background. The field stays focusable.',
+            },
+            {
+              name: 'required',
+              type: 'boolean',
+              default: 'false',
+              description: 'Marks the label and sets the native attribute.',
+            },
+          ]}
+        />
+      }
+      notes={
+        <>
+          <p>
+            The field is 36px tall at the default size and 32px at small,
+            matching <code>Button</code>. The end slot holds a{' '}
+            <code>field-icon</code> button 4px from the outer edge, which is 3px
+            inside the 1px border, and the field padding grows so text never
+            runs under it.
+          </p>
+          <p>
+            There is no leading slot and no variant prop: a leading icon
+            competes with the label, and one look keeps every field in an app
+            the same. <code>className</code> lands on the wrapper because the
+            wrapper is what holds the label, the field, and the message.
+          </p>
+          <p>
+            Hover border, focus ring, and the destructive colour change are CSS
+            transitions at <code>--motion-fast</code>. The error message is the
+            one enter and exit: height and opacity on <code>springSettle</code>{' '}
+            both ways, because a bounce on a height change makes the fields
+            below overshoot. The error does not shake, so it arrives calmly. The
+            spinner runs its own 800ms turn.
+          </p>
+          <p>
+            With an error and loading together, both show and the spinner turns
+            destructive: hiding the message during a re-check would flash a
+            validity the field has not earned.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/fields',
+          label: 'Fields',
+          description:
+            'The label, description, error, loading, and disabled behaviour every field shares.',
+        },
+        {
+          to: '/components/textarea',
+          label: 'Textarea',
+          description: 'The multiline counterpart for longer notes.',
+        },
+        {
+          to: '/components/number-field',
+          label: 'Number field',
+          description: 'The field for quantities, with steps and bounds.',
+        },
+        {
+          to: '/components/form',
+          label: 'Form',
+          description: 'Lays fields out with an actions row and a result slot.',
+        },
+      ]}
+    />
   )
 }

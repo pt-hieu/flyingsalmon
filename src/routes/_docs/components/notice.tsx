@@ -1,440 +1,301 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
-import { useRef, useState } from 'react'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { Preview } from '@/components/preview'
-import { cn } from '@/lib/utils'
-import { offsetFocusRingGeometry } from '@/registry/lib/interaction'
-import { AlertVariant } from '@/registry/ui/alert'
-import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import {
-  Dialog,
-  DialogBody,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogTitle,
-} from '@/registry/ui/dialog'
-import { Input } from '@/registry/ui/input'
-import { NoticeProvider, useNotice } from '@/registry/ui/notice'
-import type { NoticeHandle, NoticeInput } from '@/registry/ui/notice'
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  NoticeFrame,
+  PropsTable,
+} from '@/components/doc-page'
+import { DialogServerError } from '@/examples/dialog/server-error'
+import dialogServerErrorSource from '@/examples/dialog/server-error.tsx?raw'
+import { NoticeDemo } from '@/examples/notice/demo'
+import demoSource from '@/examples/notice/demo.tsx?raw'
+import { NoticeDismissFromHandle } from '@/examples/notice/dismiss-from-handle'
+import dismissFromHandleSource from '@/examples/notice/dismiss-from-handle.tsx?raw'
+import { NoticeReplacement } from '@/examples/notice/replacement'
+import replacementSource from '@/examples/notice/replacement.tsx?raw'
+import usageSource from '@/examples/notice/usage.tsx?raw'
+import { NoticeVariants } from '@/examples/notice/variants'
+import variantsSource from '@/examples/notice/variants.tsx?raw'
 
 export const Route = createFileRoute('/_docs/components/notice')({
   component: NoticePage,
 })
 
-const subjectFocusClassName = cn(
-  offsetFocusRingGeometry,
-  'ring-ring focus-visible:ring-offset-card rounded-sm',
-)
-
 function NoticePage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Notice
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          The shell's one persistent surface for a result with no visible home:
-          after navigation, from a closed dialog form, for a confirm-only action
-          such as a copied link. One notice at a time, fixed top-centre, staying
-          until the user dismisses it or the app replaces it, announced without
-          moving focus, and always linked back to its subject.
-        </p>
-      </header>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Where a result belongs
-        </h2>
-        <p className="text-muted-foreground">
-          Feedback appears where the user's attention already is and stays until
-          they have seen it (ADR 0008). Homes for a result, in order: the{' '}
-          <strong className="text-foreground">affected item</strong>, which
-          appears, updates, or shows a failed state with a retry; the{' '}
-          <strong className="text-foreground">acting surface</strong>, meaning
-          the form's result slot below its actions row; and the{' '}
-          <strong className="text-foreground">notice</strong>, last, only when
-          neither is on screen. A notice about an item the user can see is a bug
-          — the item state is the right home.
-        </p>
-        <p className="text-muted-foreground">
-          This is not a toast. Nothing auto-dismisses, nothing stacks, there is
-          no action row, and every notice carries a link back to its subject.
-          There is no <code>size</code>, no <code>children</code>, and no timer
-          to configure, because those are the properties the ban is written
-          against. An anchored mode, positioned against the trigger that
-          produced the result, is deferred until a screen needs one (#145);
-          today every notice is fixed top-centre.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Parts</h2>
-        <p className="text-muted-foreground">
-          Two exports. <code>NoticeProvider</code> is mounted once in the app
-          shell: it renders the two live regions, then the notice outlet, then
-          your children, and holds the single notice. <code>useNotice()</code>{' '}
-          hands back <code>show</code>, which takes a variant, a title, an
-          optional description, a required subject element, and an optional{' '}
-          <code>onDismiss</code>, and a bare <code>dismiss</code> that closes
-          whatever is showing with the <code>app</code> reason. It throws
-          outside a provider.
-        </p>
-        <p className="text-muted-foreground">
-          The card is an <code>Alert</code> at <code>role="presentation"</code>,
-          so the variant icon, the title, the description, and the close button
-          all come from alert and the announcement comes only from the
-          provider's regions.{' '}
-          <strong className="text-foreground">
-            The subject is yours: an anchor or a button
-          </strong>{' '}
-          — a router <code>Link</code>, or a button that reopens the dialog with
-          the data the user submitted. The registry places it under the
-          description and paints the link styling; you keep the focus ring, so
-          put <code>offsetFocusRingGeometry</code> from the{' '}
-          <code>interaction</code> lib on it.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Variants</h2>
-        <p className="text-muted-foreground">
-          The four alert variants, unchanged: <code>info</code>,{' '}
-          <code>success</code>, <code>warning</code>, and <code>error</code>.
-          The icon carries the variant on a plain white card, and{' '}
-          <code>error</code> is the one that interrupts a screen reader. Each
-          preview below is a frame of its own, so the card lands inside the
-          panel instead of at the top of this page.
-        </p>
-        <Preview>
+    <DocPage
+      title="Notice"
+      lead="The shell’s one persistent surface for a result with no visible home: one at a time, announced without moving focus, and always linked back to its subject."
+      preview={{
+        source: demoSource,
+        demo: (
           <NoticeFrame>
-            <VariantExamples />
+            <NoticeDemo />
           </NoticeFrame>
-        </Preview>
-      </section>
+        ),
+      }}
+      installation="notice"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Variants"
+            description="The four alert variants. The icon carries the variant on a plain white card, and error is the one that interrupts a screen reader. Each preview is a frame of its own, so the card lands inside the panel and not at the top of this page."
+            source={variantsSource}
+          >
+            <NoticeFrame>
+              <NoticeVariants />
+            </NoticeFrame>
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Replacement</h2>
-        <p className="text-muted-foreground">
-          One notice at a time. A second <code>show</code> swaps the content in
-          place — no exit, no enter, no movement — and calls the previous
-          notice's <code>onDismiss</code> with the <code>replaced</code> reason,
-          so the app that owned it knows it is gone. The new text is announced
-          again even when it reads the same as the old.
-        </p>
-        <Preview>
-          <NoticeFrame>
-            <ReplacementExample />
-          </NoticeFrame>
-        </Preview>
-      </section>
+          <Example
+            caption="Replacement"
+            description="Press both buttons in turn. A second notice swaps the content in place, with no exit and no enter, and the new text is announced again even when it reads the same."
+            source={replacementSource}
+          >
+            <NoticeFrame>
+              <NoticeReplacement />
+            </NoticeFrame>
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Dismissing from the handle
-        </h2>
-        <p className="text-muted-foreground">
-          <code>show</code> returns a handle with one method,{' '}
-          <code>dismiss</code>, so a page can take its own notice down once it
-          renders the subject the notice points at. The handle goes quiet as
-          soon as that notice has been replaced:{' '}
-          <strong className="text-foreground">
-            a stale handle cannot kill a newer, unrelated notice
-          </strong>
-          . Dismissing from the handle reports the <code>app</code> reason;
-          dismissing from the close button reports <code>user</code>.
-        </p>
-        <Preview>
-          <NoticeFrame>
-            <SubjectOnScreenExample />
-          </NoticeFrame>
-        </Preview>
-      </section>
+          <Example
+            caption="Dismissing from the handle"
+            description="Save the trip, then open it from the notice. show returns a handle, and the page uses it to take its own notice down once the trip it points at is on screen."
+            source={dismissFromHandleSource}
+          >
+            <NoticeFrame>
+              <NoticeDismissFromHandle />
+            </NoticeFrame>
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          A result after a closed dialog
-        </h2>
-        <p className="text-muted-foreground">
-          A dialog form closes on submit and leaves its result slot empty, so a
-          server error has nowhere inline to land. It becomes a notice whose
-          subject reopens the dialog with the data the user typed, which is the
-          case ADR 0008 was written around. Save the trip below and the planner
-          fails on purpose.
-        </p>
-        <Preview>
-          <NoticeFrame>
-            <ClosedDialogExample />
-          </NoticeFrame>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Placement and motion
-        </h2>
-        <p className="text-muted-foreground">
-          The card is fixed 16px from the top, centred, at most{' '}
-          <code>max-w-md</code> wide, and full width minus 16px each side on a
-          narrow viewport. It sits on <code>z-50</code>, the floating layer, and
-          overlays the header: a reserved strip would displace content, which
-          ADR 0008 bans.{' '}
-          <strong className="text-foreground">
-            It enters and leaves on opacity and an 8px vertical travel,{' '}
-            <code>spring-settle</code> both ways
-          </strong>{' '}
-          through the notice's own <code>AnimatePresence</code>, so nothing the
-          app renders has to know about motion. The card is an{' '}
-          <code>Alert</code> with <code>animateOpen</code> off, so alert's own
-          height animation stays out of the way and the travel is the only thing
-          moving. Replacement animates nothing, because a card that re-enters on
-          every new result reads as a stack arriving.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          The provider mounts two empty visually hidden live regions before your
-          content: <code>role="status"</code> for <code>info</code>,{' '}
-          <code>success</code>, and <code>warning</code>, and{' '}
-          <code>role="alert"</code> for <code>error</code>. On every{' '}
-          <code>show</code> the matching region is emptied and written on the
-          next frame with the title, the description, and the subject's text, so
-          the same words are read again when the same result happens twice.
-          Dismissal announces nothing.
-        </p>
-        <p className="text-muted-foreground">
-          <strong className="text-foreground">Focus never moves</strong> to the
-          notice: the button the user pressed keeps it. Because the outlet sits
-          before your children in the DOM, Tab reaches the subject and then the
-          dismiss button before page content, which matches where the card
-          visually sits. Escape does nothing — that key stays with dialogs — and
-          a route change clears nothing, because the registry knows no router.
-          Focus return after a dismissal is the app's job, as it is with alert.
-        </p>
-        <p className="text-muted-foreground">
-          Colour comes from alert, so the icon, the title, and the description
-          carry the ratios measured on that page. The subject is underlined in{' '}
-          <code>--card-foreground</code>, 18.25:1, which keeps it apart from the
-          description without relying on colour, and takes{' '}
-          <code>--primary-text</code> on hover and press: 5.23:1 on the card,
-          clearing WCAG AA for text (ADR 0004).
-        </p>
-      </section>
-    </article>
-  )
-}
-
-function NoticeFrame({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="relative w-full transform-gpu">
-      <NoticeProvider>
-        <div className="flex flex-col items-center gap-3 pt-44">{children}</div>
-      </NoticeProvider>
-    </div>
-  )
-}
-
-function ShowNoticeButton({
-  label,
-  variant = ButtonVariant.Outline,
-  notice,
-}: {
-  label: string
-  variant?: ButtonVariant
-  notice: NoticeInput
-}) {
-  const { show } = useNotice()
-
-  return (
-    <Button
-      variant={variant}
-      size={ButtonSize.Small}
-      onClick={() => show(notice)}
-    >
-      {label}
-    </Button>
-  )
-}
-
-const tripLink = (
-  <Link to="/components/notice" className={subjectFocusClassName}>
-    View the trip
-  </Link>
-)
-
-function VariantExamples() {
-  return (
-    <div className="flex flex-wrap justify-center gap-2">
-      <ShowNoticeButton
-        label="Info"
-        notice={{
-          variant: AlertVariant.Info,
-          title: 'Link copied',
-          description: 'Anyone with the link can open this trip.',
-          subject: tripLink,
-        }}
-      />
-
-      <ShowNoticeButton
-        label="Success"
-        notice={{
-          variant: AlertVariant.Success,
-          title: 'Trip saved',
-          description: 'Six days in Da Nang, ready to share.',
-          subject: tripLink,
-        }}
-      />
-
-      <ShowNoticeButton
-        label="Warning"
-        notice={{
-          variant: AlertVariant.Warning,
-          title: 'Two credits left',
-          description: 'Planning another trip uses your last one.',
-          subject: tripLink,
-        }}
-      />
-
-      <ShowNoticeButton
-        label="Error"
-        notice={{
-          variant: AlertVariant.Error,
-          title: 'The trip could not be saved',
-          description: 'Our planner did not answer.',
-          subject: tripLink,
-        }}
-      />
-    </div>
-  )
-}
-
-function ReplacementExample() {
-  return (
-    <div className="flex flex-wrap justify-center gap-2">
-      <ShowNoticeButton
-        label="Save the trip"
-        notice={{
-          variant: AlertVariant.Success,
-          title: 'Trip saved',
-          description: 'Six days in Da Nang, ready to share.',
-          subject: tripLink,
-        }}
-      />
-
-      <ShowNoticeButton
-        label="Pay for the trip"
-        notice={{
-          variant: AlertVariant.Error,
-          title: 'The payment failed',
-          description: 'Your card was declined.',
-          subject: tripLink,
-        }}
-      />
-    </div>
-  )
-}
-
-function SubjectOnScreenExample() {
-  const { show } = useNotice()
-  const noticeHandle = useRef<NoticeHandle | null>(null)
-  const [tripVisible, setTripVisible] = useState(false)
-
-  const openTheTrip = () => {
-    setTripVisible(true)
-    noticeHandle.current?.dismiss()
-  }
-
-  const saveTheTrip = () => {
-    setTripVisible(false)
-    noticeHandle.current = show({
-      variant: AlertVariant.Success,
-      title: 'Trip saved',
-      description: 'Six days in Da Nang, ready to share.',
-      subject: (
-        <button
-          type="button"
-          onClick={openTheTrip}
-          className={subjectFocusClassName}
-        >
-          Open the trip
-        </button>
-      ),
-    })
-  }
-
-  return (
-    <>
-      <Button
-        variant={ButtonVariant.Outline}
-        size={ButtonSize.Small}
-        onClick={saveTheTrip}
-      >
-        Save the trip
-      </Button>
-
-      {tripVisible ? (
-        <p className="border-border bg-card text-card-foreground rounded-lg border px-4 py-3 text-sm">
-          Da Nang, six days
-        </p>
-      ) : null}
-    </>
-  )
-}
-
-function ClosedDialogExample() {
-  const { show } = useNotice()
-  const [formOpen, setFormOpen] = useState(false)
-  const [destination, setDestination] = useState('Da Nang')
-
-  const saveTheTrip = () => {
-    setFormOpen(false)
-    show({
-      variant: AlertVariant.Error,
-      title: 'The trip could not be saved',
-      description: `Our planner did not answer. Your ${destination} details are kept.`,
-      subject: (
-        <button
-          type="button"
-          onClick={() => setFormOpen(true)}
-          className={subjectFocusClassName}
-        >
-          Reopen the form
-        </button>
-      ),
-    })
-  }
-
-  return (
-    <Dialog open={formOpen} onOpenChange={setFormOpen}>
-      <Button
-        variant={ButtonVariant.Outline}
-        size={ButtonSize.Small}
-        onClick={() => setFormOpen(true)}
-      >
-        Plan a trip
-      </Button>
-
-      <DialogContent>
-        <DialogTitle>Plan a trip</DialogTitle>
-        <DialogDescription>Where are you going?</DialogDescription>
-        <DialogBody>
-          <Input
-            aria-label="Destination"
-            value={destination}
-            onChange={(event) => setDestination(event.target.value)}
+          <Example
+            caption="After a closed dialog"
+            description="A dialog form closes on submit, so a server error has no inline home. Add a place and the planner fails on purpose: the error becomes a notice whose button reopens the form with what you typed."
+            source={dialogServerErrorSource}
+          >
+            <NoticeFrame>
+              <DialogServerError />
+            </NoticeFrame>
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'For the result of a dialog form after it has closed and the item it changed is not on screen.',
+          'For a confirm-only action with nothing to update, such as a copied link.',
+          'For a result that arrives after the traveller has navigated away from where they acted.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'when the affected item is on screen. The item appears, updates, or shows a failed state with a retry, and that is the result.',
+            alternative: { to: '/principles', label: 'the feedback rule' },
+          },
+          {
+            situation:
+              'for the result of a form that is still on screen. It goes in the form’s result slot, below the actions row.',
+            alternative: { to: '/components/alert', label: 'Alert' },
+          },
+          {
+            situation:
+              'when a region failed to load. The region says so itself, with a retry.',
+            alternative: {
+              to: '/components/error-state',
+              label: 'Error state',
+            },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Give every notice a subject: a link to the item it is about, or a button that reopens the dialog with what the traveller typed.',
+            reason:
+              'A message with no way back to its subject cannot be acted on, and the traveller has to hunt for what it meant.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Mount NoticeProvider once, in the app shell.',
+            reason:
+              'There is one notice at a time. A second provider would give the page two notices that do not know about each other.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Show a notice about an item the traveller can already see.',
+            reason:
+              'The item’s own state is the right home. A notice beside it says the same thing in a second place.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Expect it to dismiss itself, stack, or take extra buttons.',
+            reason:
+              'It has no timer, no queue, and no action row, so a message stays until it is seen. That is what separates it from a toast.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Tab'],
+                description:
+                  'Reaches the subject, then the Dismiss button. The notice sits before your content in the document, so both come before the page, matching where the card appears.',
+              },
+              {
+                keys: ['Enter', 'Space'],
+                description:
+                  'On the subject, follows the link or runs its button. On Dismiss, closes the notice.',
+              },
+              {
+                keys: ['Escape'],
+                description:
+                  'Does nothing. The key stays with dialogs and menus.',
+              },
+            ]}
           />
-        </DialogBody>
-        <DialogFooter>
-          <DialogClose>
-            <Button variant={ButtonVariant.Outline}>Cancel</Button>
-          </DialogClose>
-          <Button onClick={saveTheTrip}>Save trip</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          <p>
+            The provider mounts two visually hidden live regions:{' '}
+            <code>role="status"</code> for info, success, and warning, and{' '}
+            <code>role="alert"</code> for error. Each <code>show</code> rewrites
+            the matching region with the title, description, and subject text,
+            so the same words are read again when the same result happens twice.
+            Dismissal announces nothing.
+          </p>
+          <p>
+            Focus never moves to the notice: the control the traveller pressed
+            keeps it. A route change clears nothing, because the registry knows
+            no router. Returning focus after a dismissal is the app’s job.
+          </p>
+        </>
+      }
+      api={
+        <>
+          <PropsTable
+            component="NoticeProvider"
+            description="Mount it once in the app shell. It renders the live regions, the notice outlet, then your children."
+            rows={[
+              {
+                name: 'children',
+                type: 'ReactNode',
+                description: 'The app. Anything inside can call useNotice.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="useNotice()"
+            description="Returns show and dismiss. It throws outside a NoticeProvider."
+            rows={[
+              {
+                name: 'show',
+                type: '(notice: NoticeInput) => NoticeHandle',
+                description:
+                  'Shows a notice, replacing any that is showing. The handle’s dismiss closes this notice only.',
+              },
+              {
+                name: 'dismiss',
+                type: '() => void',
+                description: 'Closes whatever is showing, with the App reason.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="NoticeInput"
+            description="The object passed to show."
+            rows={[
+              {
+                name: 'variant',
+                type: 'AlertVariant',
+                required: true,
+                description: 'Info, Success, Warning, or Error.',
+              },
+              {
+                name: 'title',
+                type: 'string',
+                required: true,
+                description: 'What happened.',
+              },
+              {
+                name: 'description',
+                type: 'string',
+                description: 'One sentence of detail.',
+              },
+              {
+                name: 'subject',
+                type: 'ReactElement',
+                required: true,
+                description:
+                  'An anchor or a button the notice places under the description and styles as a link. Put offsetFocusRingGeometry from the interaction lib on it for the focus ring.',
+              },
+              {
+                name: 'onDismiss',
+                type: '(reason: NoticeDismissReason) => void',
+                description:
+                  'Called when the notice goes: User for the Dismiss button, App for dismiss, Replaced when another notice takes over.',
+              },
+            ]}
+          />
+        </>
+      }
+      notes={
+        <>
+          <p>
+            The card is an <code>Alert</code> with{' '}
+            <code>role="presentation"</code> and <code>animateOpen</code> off,
+            so the icon, title, description, and close button come from alert,
+            and the announcement comes only from the provider’s live regions.
+          </p>
+          <p>
+            The card is fixed 16px from the top, centred, at most{' '}
+            <code>max-w-md</code> wide, and the viewport width minus 16px on
+            each side when narrow. It sits on <code>z-50</code> and overlays the
+            header, because a reserved strip would displace content.
+          </p>
+          <p>
+            It enters and leaves on opacity and an 8px vertical travel, on{' '}
+            <code>springSettle</code> both ways, through the notice’s own{' '}
+            <code>AnimatePresence</code>. Replacement animates nothing: a card
+            that re-enters on every new result reads as a stack arriving.
+          </p>
+          <p>
+            The handle from <code>show</code> goes quiet once its notice has
+            been replaced, so a stale handle cannot dismiss a newer, unrelated
+            notice.
+          </p>
+          <p>
+            The subject is underlined in <code>--card-foreground</code>, 18.25:1
+            on the card, which keeps it apart from the description without
+            relying on colour. It takes <code>--primary-text</code> on hover and
+            press, 5.23:1 on the card.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/alert',
+          label: 'Alert',
+          description:
+            'The in-flow message for a result that has a surface on screen.',
+        },
+        {
+          to: '/components/dialog',
+          label: 'Dialog',
+          description:
+            'Closes on submit, which is when a notice carries the error.',
+        },
+        {
+          to: '/components/error-state',
+          label: 'Error state',
+          description: 'The failed state of a region, with a retry.',
+        },
+        {
+          to: '/principles',
+          label: 'Principles',
+          description: 'The feedback rule behind where a result appears.',
+        },
+      ]}
+    />
   )
 }

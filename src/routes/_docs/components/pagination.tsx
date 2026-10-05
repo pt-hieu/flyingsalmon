@@ -1,8 +1,25 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { Preview } from '@/components/preview'
-import { Pagination } from '@/registry/ui/pagination'
+import {
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { PaginationCompact } from '@/examples/pagination/compact'
+import compactSource from '@/examples/pagination/compact.tsx?raw'
+import { PaginationCustomLabel } from '@/examples/pagination/custom-label'
+import customLabelSource from '@/examples/pagination/custom-label.tsx?raw'
+import { PaginationDemo } from '@/examples/pagination/demo'
+import demoSource from '@/examples/pagination/demo.tsx?raw'
+import { PaginationLinks } from '@/examples/pagination/links'
+import linksSource from '@/examples/pagination/links.tsx?raw'
+import { PaginationShortList } from '@/examples/pagination/short-list'
+import shortListSource from '@/examples/pagination/short-list.tsx?raw'
+import { PaginationUnderATable } from '@/examples/pagination/under-a-table'
+import underATableSource from '@/examples/pagination/under-a-table.tsx?raw'
+import usageSource from '@/examples/pagination/usage.tsx?raw'
 
 export const Route = createFileRoute('/_docs/components/pagination')({
   component: PaginationPage,
@@ -17,225 +34,272 @@ export const Route = createFileRoute('/_docs/components/pagination')({
 
 function PaginationPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Pagination
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          The control that moves between the numbered pages of one list or table
-          whose page count is known. It navigates, which stepper never does, and
-          it moves between pages of data rather than by a carousel page.
-          &ldquo;Load more&rdquo;, infinite scroll, the page-size select, and
-          the &ldquo;1 to 20 of 240&rdquo; range line all stay with the app.
-        </p>
-      </header>
+    <DocPage
+      title="Pagination"
+      lead="The control that moves between the numbered pages of one list or table whose page count is known."
+      preview={{ source: demoSource, demo: <PaginationDemo /> }}
+      installation="pagination"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Short list"
+            description="Five pages fit in the seven slots, so every page shows and no ellipsis appears. The component decides from pageCount; there is nothing to configure."
+            source={shortListSource}
+          >
+            <PaginationShortList />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">One component</h2>
-        <p className="text-muted-foreground">
-          <code>Pagination</code> is controlled and takes three props:{' '}
-          <code>page</code>, counting from 1, <code>pageCount</code>, and{' '}
-          <code>onPageChange</code>. There are no parts to assemble &mdash; the
-          window is arithmetic the component owns, and the indicator bar needs
-          one owner to slide between items. A <code>pageCount</code> of 1 or
-          less renders nothing, so a one-page list needs no guard around it.
-        </p>
-        <Preview>
-          <ControlledExample />
-        </Preview>
-      </section>
+          <Example
+            caption="Compact"
+            description="Where the row has no space for numbers (a toolbar, a card footer, a phone-width list) the numbers give way to the position. Previous and next keep their size."
+            source={compactSource}
+          >
+            <PaginationCompact />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">The window</h2>
-        <p className="text-muted-foreground">
-          Up to seven pages, every page shows. Above seven the row always holds
-          seven slots, so its width never changes as the page moves and the
-          numbers never shift under the pointer. The window carries one sibling
-          on each side of the current page and one boundary page at each end,
-          neither of them configurable. An ellipsis stands only for a run of at
-          least two hidden pages, so a gap never hides a single page a number
-          could show; it is plain text with no states, not a menu and not a jump
-          control.
-        </p>
-        <p className="text-muted-foreground">
-          On a list of twenty pages that gives{' '}
-          <code>1 2 3 [4] 5 &hellip; 20</code> for pages 1 to 4,{' '}
-          <code>1 &hellip; 9 [10] 11 &hellip; 20</code> for pages 5 to 16, and{' '}
-          <code>1 &hellip; 16 [17] 18 19 20</code> for pages 17 to 20.{' '}
-          <strong className="text-foreground">
-            Through the middle range the current page sits in slot 4
-          </strong>{' '}
-          &mdash; the numbers change around a still bar, and the bar moves only
-          near the two ends. That is the price of a row that keeps one width.
-        </p>
-        <p className="text-muted-foreground">
-          Previous and next are icon-only and disabled at the ends rather than
-          hidden, for the same reason: a row that loses a control is a row that
-          changes width. There are no first and last buttons, because the
-          boundary pages already go there.
-        </p>
-      </section>
+          <Example
+            caption="Custom position text"
+            description="formatPageLabel writes the compact text yourself, for another wording or another language."
+            source={customLabelSource}
+          >
+            <PaginationCustomLabel />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Short lists</h2>
-        <p className="text-muted-foreground">
-          Five pages fit in the seven slots, so every page shows and no ellipsis
-          appears. Nothing to configure: the same component decides from{' '}
-          <code>pageCount</code>.
-        </p>
-        <Preview>
-          <FewPagesExample />
-        </Preview>
-      </section>
+          <Example
+            caption="Links"
+            description="Each item is a router link and the page it shows comes from this page's own URL. Move it and the address bar moves with it."
+            source={linksSource}
+          >
+            <PaginationLinks />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Compact</h2>
-        <p className="text-muted-foreground">
-          Pass <code>compact</code> where the row has no space for numbers: a
-          toolbar, a card footer, a phone-width list. Previous and next keep
-          their size and the numbers give way to the position,{' '}
-          <code>Page 3 of 12</code>. Pass <code>formatPageLabel</code> to write
-          that text yourself, for another language or another wording. The
-          component never measures width and has no breakpoint behaviour, so the
-          form is the consumer&rsquo;s choice.
-        </p>
-        <Preview>
-          <CompactExample />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Links</h2>
-        <p className="text-muted-foreground">
-          URL-driven paging passes <code>renderPageLink(page, children)</code>.
-          The page items and an enabled previous or next then render as the
-          anchor it returns &mdash; a plain <code>&lt;a&gt;</code> or a
-          router&rsquo;s link &mdash; and pagination applies its own classes,{' '}
-          <code>aria-current</code>, and <code>aria-label</code> onto that
-          anchor. There is no separate link part to place. A disabled previous
-          or next renders as a plain span that takes no focus, because an{' '}
-          <code>&lt;a&gt;</code> cannot be disabled and a tab stop that goes
-          nowhere is worse than none.
-        </p>
-        <p className="text-muted-foreground">
-          The demo below is the real thing: each item is a router link, and the
-          page it shows comes from this page&rsquo;s own URL. Move it and the
-          address bar moves with it.
-        </p>
-        <Preview>
-          <LinkExample />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Composed under a table
-        </h2>
-        <p className="text-muted-foreground">
-          Pagination is the control, not the data. Put it under the table it
-          pages, right-aligned, and keep the row count, the page size, and the
-          fetching in the app &mdash; the{' '}
-          <Link to="/components/table" className="text-foreground underline">
-            table page
-          </Link>{' '}
-          shows the composition.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">States and motion</h2>
-        <p className="text-muted-foreground">
-          An item rests at <code>--muted-foreground</code> and steps to{' '}
-          <code>--foreground</code> on hover and press, colour only, at{' '}
-          <code>--motion-fast</code>. There is no background step and no border:
-          the same rule the tabs trigger follows. The current page takes{' '}
-          <code>--foreground</code>, medium weight, and the bar. It stays a
-          focusable button or link so that activating it leaves focus where the
-          user put it, and activating it changes nothing else.
-        </p>
-        <p className="text-muted-foreground">
-          The bar is one <code>--indicator</code> element shared through a{' '}
-          <code>layoutId</code> on <code>spring-bounce</code>, the marker tabs
-          and sidebar already use, inside a <code>LayoutGroup</code> of its own
-          so two paginations on one page never trade bars. The numbers swap with
-          no animation, and the compact form animates nothing.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          The root is a <code>nav</code> named &ldquo;Pagination&rdquo;, which{' '}
-          <code>aria-label</code> overrides, holding a list of items. Each page
-          item is named &ldquo;Page 5&rdquo; and the current one carries{' '}
-          <code>aria-current=&quot;page&quot;</code>; previous and next are
-          named &ldquo;Previous page&rdquo; and &ldquo;Next page&rdquo;; the
-          ellipsis is hidden from the accessibility tree; the compact text is a
-          polite live region, so a screen reader hears the new position without
-          being interrupted.
-        </p>
-        <p className="text-muted-foreground">
-          Tab moves through previous, the items, and next, and Enter or Space
-          activates. There are no arrow keys: pagination is a navigation region
-          of independent controls, not a composite widget, and APG defines no
-          arrow-key pattern for it. Items are keyed by page number, so{' '}
-          <strong className="text-foreground">
-            focus stays on the page you activated even when the window shifts
-            around it
-          </strong>{' '}
-          and you can keep stepping without hunting for focus. Focus shows as
-          the offset ring in <code>--ring</code>.
-        </p>
-        <p className="text-muted-foreground">
-          Items at rest, the ellipsis, and the compact text are{' '}
-          <code>--muted-foreground</code> on <code>--background</code>, measured
-          at 7.01:1; hover and the current page are <code>--foreground</code>,
-          17.20:1. Every text pair clears WCAG AA. The current-page bar is{' '}
-          <code>--indicator</code> at 3.38:1, clearing the 3:1 non-text bar (ADR
-          0004).
-        </p>
-      </section>
-    </article>
-  )
-}
-
-function ControlledExample() {
-  const [page, setPage] = useState(8)
-
-  return <Pagination page={page} pageCount={20} onPageChange={setPage} />
-}
-
-function FewPagesExample() {
-  const [page, setPage] = useState(1)
-
-  return <Pagination page={page} pageCount={5} onPageChange={setPage} />
-}
-
-function CompactExample() {
-  const [page, setPage] = useState(3)
-
-  return (
-    <Pagination page={page} pageCount={12} onPageChange={setPage} compact />
-  )
-}
-
-function LinkExample() {
-  const { linkPage } = Route.useSearch()
-
-  return (
-    <Pagination
-      page={linkPage ?? 1}
-      pageCount={12}
-      renderPageLink={(targetPage, children) => (
-        <Link
-          to="/components/pagination"
-          search={{ linkPage: targetPage }}
-          resetScroll={false}
-        >
-          {children}
-        </Link>
-      )}
+          <Example
+            caption="Under a table"
+            description="Pagination is the control, not the data. It sits right-aligned under the table it pages; the slicing and the fetching stay in your app."
+            source={underATableSource}
+          >
+            <PaginationUnderATable />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'To page through one list or table whose page count is known, such as the places saved to a trip.',
+          'When the traveller needs to land on a specific page and come back to it, in the URL or in state.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'for a position in a short sequence someone is walking, because stepper only shows where they are and never navigates.',
+            alternative: { to: '/components/stepper', label: 'Stepper' },
+          },
+          {
+            situation:
+              'to climb the levels above the current page, because pagination moves across siblings and never up.',
+            alternative: { to: '/components/breadcrumb', label: 'Breadcrumb' },
+          },
+          {
+            situation:
+              'to move between peer panels of content rather than pages of data.',
+            alternative: { to: '/components/tabs', label: 'Tabs' },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Keep the row count, the page size, and the fetching in your app.',
+            reason:
+              'Pagination is the control. "Load more", infinite scroll, a page-size select, and a "1 to 20 of 240" line all stay yours, because only the app knows the data.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Render it without a guard around a one-page list.',
+            reason:
+              'A pageCount of 1 or less renders nothing, so the call site stays unconditional.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Pass renderPageLink when the page lives in the URL.',
+            reason:
+              'Links open in a new tab, can be bookmarked, and survive a reload; buttons cannot.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Choose compact by measuring width inside the component.',
+            reason:
+              'The component never measures and has no breakpoint behaviour, so the form is your decision for the place it sits in.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Tab'],
+                description:
+                  'Moves through previous, the page items, and next. A disabled previous or next takes no focus.',
+              },
+              {
+                keys: ['Enter', 'Space'],
+                description:
+                  'Activates the focused item. On the current page it changes nothing and focus stays put.',
+              },
+            ]}
+          />
+          <p>
+            The root is a <code>nav</code> named &ldquo;Pagination&rdquo;;{' '}
+            <code>aria-label</code> overrides the name. Each page item is named
+            &ldquo;Page 5&rdquo; and the current one carries{' '}
+            <code>aria-current=&quot;page&quot;</code>. Previous and next are
+            named &ldquo;Previous page&rdquo; and &ldquo;Next page&rdquo;, the
+            ellipsis is hidden from the accessibility tree, and the compact text
+            is a polite live region, so a screen reader hears the new position
+            without being interrupted.
+          </p>
+          <p>
+            There are no arrow keys: pagination is a navigation region of
+            independent controls, not a composite widget. Items are keyed by
+            page number, so focus stays on the page you activated even when the
+            window shifts around it and you can keep stepping without hunting
+            for focus.
+          </p>
+        </>
+      }
+      api={
+        <PropsTable
+          component="Pagination"
+          description={
+            <>
+              Controlled. Also takes every <code>&lt;nav&gt;</code> attribute
+              except <code>children</code>.
+            </>
+          }
+          rows={[
+            {
+              name: 'page',
+              type: 'number',
+              required: true,
+              description: 'The current page, counting from 1.',
+            },
+            {
+              name: 'pageCount',
+              type: 'number',
+              required: true,
+              description:
+                'The number of pages. A value of 1 or less renders nothing.',
+            },
+            {
+              name: 'onPageChange',
+              type: '(page: number) => void',
+              description:
+                'Called with the target page. It is not called for the current page.',
+            },
+            {
+              name: 'compact',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Replaces the page numbers with the position text between previous and next.',
+            },
+            {
+              name: 'formatPageLabel',
+              type: '(page: number, pageCount: number) => string',
+              default: '"Page {page} of {pageCount}"',
+              description: 'Writes the compact position text.',
+            },
+            {
+              name: 'renderPageLink',
+              type: '(page: number, children: ReactNode) => ReactNode',
+              description:
+                'Renders each page item and each enabled previous or next as the anchor you return. A disabled previous or next stays a plain span.',
+            },
+            {
+              name: 'aria-label',
+              type: 'string',
+              default: '"Pagination"',
+              description: 'The name of the nav landmark.',
+            },
+          ]}
+        />
+      }
+      notes={
+        <>
+          <p>
+            Up to seven pages, every page shows. Above seven the row always
+            holds seven slots, so its width never changes as the page moves and
+            the numbers never shift under the pointer. The window carries one
+            sibling on each side of the current page and one boundary page at
+            each end, and neither is configurable. An ellipsis stands only for a
+            run of at least two hidden pages, so a gap never hides a single page
+            a number could show; it is plain text, not a menu and not a jump
+            control.
+          </p>
+          <p>
+            On twenty pages the window reads{' '}
+            <code>1 2 3 [4] 5 &hellip; 20</code> for pages 1 to 4,{' '}
+            <code>1 &hellip; 9 [10] 11 &hellip; 20</code> for pages 5 to 16, and{' '}
+            <code>1 &hellip; 16 [17] 18 19 20</code> for pages 17 to 20. Through
+            the middle range the current page sits in slot 4: the numbers change
+            around a still bar, and the bar moves only near the two ends. That
+            is the price of a row that keeps one width.
+          </p>
+          <p>
+            Previous and next are icon-only and disabled at the ends rather than
+            hidden, for the same reason: a row that loses a control changes
+            width. There are no first and last buttons, because the boundary
+            pages already go there. A disabled previous or next in link mode
+            renders as a span, because an anchor cannot be disabled and a tab
+            stop that goes nowhere is worse than none.
+          </p>
+          <p>
+            An item rests at <code>--muted-foreground</code> and steps to{' '}
+            <code>--foreground</code> on hover and press, colour only, at{' '}
+            <code>--motion-fast</code>; there is no background step and no
+            border. The current page takes <code>--foreground</code>, medium
+            weight, and the bar. It stays a focusable button or link, so
+            activating it leaves focus where the user put it. Focus shows as the
+            offset ring in <code>--ring</code>.
+          </p>
+          <p>
+            The bar is one <code>--indicator</code> element shared through a{' '}
+            <code>layoutId</code> on <code>springBounce</code>, the marker tabs
+            and sidebar use, inside a <code>LayoutGroup</code> of its own so two
+            paginations on one page never trade bars. The numbers swap with no
+            animation and the compact form animates nothing.
+          </p>
+          <p>
+            Items at rest, the ellipsis, and the compact text measure 7.01:1 (
+            <code>--muted-foreground</code> on <code>--background</code>); hover
+            and the current page measure 17.20:1. The current-page bar is{' '}
+            <code>--indicator</code> at 3.38:1, clearing the 3:1 bar for
+            non-text marks.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/table',
+          label: 'Table',
+          description: 'The data most paginations sit under.',
+        },
+        {
+          to: '/components/stepper',
+          label: 'Stepper',
+          description: 'A display-only position in a short sequence.',
+        },
+        {
+          to: '/components/breadcrumb',
+          label: 'Breadcrumb',
+          description: 'The trail of ancestors above the current page.',
+        },
+        {
+          to: '/components/tabs',
+          label: 'Tabs',
+          description: 'Peer panels of content rather than pages of data.',
+        },
+      ]}
     />
   )
 }

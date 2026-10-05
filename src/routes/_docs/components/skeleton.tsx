@@ -1,7 +1,20 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { Preview } from '@/components/preview'
-import { Skeleton, SkeletonVariant } from '@/registry/ui/skeleton'
+import {
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  PropsTable,
+} from '@/components/doc-page'
+import { SkeletonDemo } from '@/examples/skeleton/demo'
+import demoSource from '@/examples/skeleton/demo.tsx?raw'
+import { SkeletonLoadingRegion } from '@/examples/skeleton/loading-region'
+import loadingRegionSource from '@/examples/skeleton/loading-region.tsx?raw'
+import { SkeletonTextFollowsFont } from '@/examples/skeleton/text-follows-font'
+import textFollowsFontSource from '@/examples/skeleton/text-follows-font.tsx?raw'
+import usageSource from '@/examples/skeleton/usage.tsx?raw'
+import { SkeletonVariants } from '@/examples/skeleton/variants'
+import variantsSource from '@/examples/skeleton/variants.tsx?raw'
 
 export const Route = createFileRoute('/_docs/components/skeleton')({
   component: SkeletonPage,
@@ -9,93 +22,156 @@ export const Route = createFileRoute('/_docs/components/skeleton')({
 
 function SkeletonPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Skeleton
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          The region-loading placeholder. A pulsing block holds the shape of
-          content that has not arrived yet.
-        </p>
-      </header>
+    <DocPage
+      title="Skeleton"
+      lead="A pulsing placeholder that holds the shape of content that has not arrived yet."
+      preview={{ source: demoSource, demo: <SkeletonDemo /> }}
+      installation="skeleton"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Variants"
+            description="Text is the default: one line tall and full width. Circle and rectangle carry no size of their own, so you give them one."
+            source={variantsSource}
+          >
+            <SkeletonVariants />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Spinner or skeleton</h2>
-        <p className="text-muted-foreground">
-          A skeleton reports that a region is loading: a list, a card, a page of
-          content on first load. A spinner reports that an action is running: a
-          form submits, a setting saves. Never swap a control the user just
-          clicked for a skeleton, and never show both for one wait.
-        </p>
-      </section>
+          <Example
+            caption="Text follows the font"
+            description="A text block is one line tall in the surrounding font, so stacked lines scale with the type they stand in for."
+            source={textFollowsFontSource}
+          >
+            <SkeletonTextFollowsFont />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Variants</h2>
-        <p className="text-muted-foreground">
-          Three shapes. <code>text</code> is the default: one line tall and full
-          width, so stacked lines scale with the surrounding font.{' '}
-          <code>circle</code> and <code>rectangle</code> carry no size of their
-          own.
-        </p>
-        <Preview>
-          <div className="w-full max-w-xs space-y-3">
-            <Skeleton />
-            <Skeleton className="w-3/4" />
-            <div className="flex items-center gap-3">
-              <Skeleton variant={SkeletonVariant.Circle} className="size-10" />
-              <Skeleton className="w-32" />
-            </div>
-            <Skeleton
-              variant={SkeletonVariant.Rectangle}
-              className="h-24 w-full"
-            />
-          </div>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Sizing</h2>
-        <p className="text-muted-foreground">
-          There are no size props. The consumer sizes every block through{' '}
-          <code>className</code>, because a placeholder must match the content
-          it stands in for. Radii come from the radius scale: the base radius
-          for <code>rectangle</code>, a tighter step for <code>text</code>, full
-          rounding for <code>circle</code>. Every block also carries its shape
-          as <code>data-variant</code>, so a consumer can target one shape from
-          CSS or from a test.
-        </p>
-        <Preview>
-          <div className="w-full max-w-xs space-y-3 text-xs">
-            <Skeleton />
-            <p className="text-muted-foreground">Small text line</p>
-          </div>
-          <div className="w-full max-w-xs space-y-3 text-2xl">
-            <Skeleton />
-            <p className="text-muted-foreground text-xs">Heading line</p>
-          </div>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Motion</h2>
-        <p className="text-muted-foreground">
-          One state: pulsing. The whole block fades from full opacity to half
-          and back on a 2s ease-in-out cycle, on CSS keyframes. There is no
-          enter animation and no exit animation. The skeleton appears at once,
-          and the content replaces it at once.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
+          <Example
+            caption="A loading region"
+            description="Toggle the content. The skeleton matches the shape of the real content, and the container carries aria-busy while it waits. The content replaces it at once."
+            source={loadingRegionSource}
+          >
+            <SkeletonLoadingRegion />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'For a region whose shape is known and whose content has not arrived: a list, a card, a page on first load.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'for an action that is running, such as a form submitting. The control shows its own busyness.',
+            alternative: { to: '/components/spinner', label: 'Spinner' },
+          },
+          {
+            situation:
+              'for a long job with a known end, where the traveller wants to see how far along it is.',
+            alternative: { to: '/components/progress', label: 'Progress' },
+          },
+          {
+            situation:
+              'when the region is legitimately empty. A skeleton says content is coming, and none is.',
+            alternative: {
+              to: '/components/empty-state',
+              label: 'Empty state',
+            },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Size each block to match the content it replaces.',
+            reason:
+              'There are no size props, because a placeholder that differs from the real content makes the page jump when it arrives.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Put aria-busy on the container that will hold the real content.',
+            reason:
+              'The skeleton is hidden from screen readers, so the loading region owns the announcement.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Swap a control the traveller just pressed for a skeleton.',
+            reason:
+              'The control should stay and show its own busyness. A skeleton in its place makes the action vanish.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Show a skeleton and a spinner for the same wait.',
+            reason:
+              'Two indicators for one wait say it twice and compete for attention.',
+          },
+        ],
+      }}
+      accessibility={
+        <p>
           The skeleton is always <code>aria-hidden</code> and never takes a tab
           stop, so a screen reader hears nothing from it. The region that is
           loading owns the announcement: put <code>aria-busy</code> on the
           container that will hold the real content.
         </p>
-      </section>
-    </article>
+      }
+      api={
+        <PropsTable
+          component="Skeleton"
+          description={
+            <>
+              Also takes every <code>&lt;div&gt;</code> attribute except{' '}
+              <code>children</code> and <code>aria-hidden</code>. Size it with{' '}
+              <code>className</code>.
+            </>
+          }
+          rows={[
+            {
+              name: 'variant',
+              type: 'SkeletonVariant',
+              default: 'SkeletonVariant.Text',
+              description: 'Text, Circle, or Rectangle.',
+            },
+          ]}
+        />
+      }
+      notes={
+        <>
+          <p>
+            Radii come from the radius scale: the base radius for rectangle, a
+            tighter step for text, and full rounding for circle. Each block
+            carries its shape as <code>data-variant</code>, so CSS or a test can
+            target one shape.
+          </p>
+          <p>
+            The block fades from full opacity to half and back on a 2s
+            ease-in-out cycle, on CSS keyframes. It has no enter or exit
+            animation: it appears at once and the content replaces it at once.
+            The continuous pulse is exempt from the sub-200ms motion limit.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/spinner',
+          label: 'Spinner',
+          description: 'The mark for an action that is running.',
+        },
+        {
+          to: '/components/progress',
+          label: 'Progress',
+          description: 'A bar for work with a known end.',
+        },
+        {
+          to: '/components/empty-state',
+          label: 'Empty state',
+          description: 'What a region says when it is legitimately empty.',
+        },
+        {
+          to: '/components/error-state',
+          label: 'Error state',
+          description: 'What a region says when its content failed to arrive.',
+        },
+      ]}
+    />
   )
 }

@@ -1,17 +1,30 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { MapPin, Star } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { Link, createFileRoute } from '@tanstack/react-router'
 
-import { Preview } from '@/components/preview'
-import { Alert, AlertVariant } from '@/registry/ui/alert'
 import {
-  Select,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectSeparator,
-  SelectSize,
-} from '@/registry/ui/select'
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { SelectDemo } from '@/examples/select/demo'
+import demoSource from '@/examples/select/demo.tsx?raw'
+import { SelectDescription } from '@/examples/select/description'
+import descriptionSource from '@/examples/select/description.tsx?raw'
+import { SelectDisabled } from '@/examples/select/disabled'
+import disabledSource from '@/examples/select/disabled.tsx?raw'
+import { SelectError } from '@/examples/select/error'
+import errorSource from '@/examples/select/error.tsx?raw'
+import { SelectGroups } from '@/examples/select/groups'
+import groupsSource from '@/examples/select/groups.tsx?raw'
+import { SelectLoading } from '@/examples/select/loading'
+import loadingSource from '@/examples/select/loading.tsx?raw'
+import { SelectLongList } from '@/examples/select/long-list'
+import longListSource from '@/examples/select/long-list.tsx?raw'
+import { SelectSizes } from '@/examples/select/sizes'
+import sizesSource from '@/examples/select/sizes.tsx?raw'
+import usageSource from '@/examples/select/usage.tsx?raw'
+import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/select')({
   component: SelectPage,
@@ -19,334 +32,329 @@ export const Route = createFileRoute('/_docs/components/select')({
 
 function SelectPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Select
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          A form field that opens a list and takes exactly one value. It reads
-          like Input at the call site: a label, an error message, and its own
-          busyness.
-        </p>
-      </header>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          className styles the wrapper
-        </h2>
-        <p className="text-muted-foreground">
-          Select renders a wrapper around the trigger so it can hold the label
-          and the error message, the same as Input.{' '}
-          <strong className="text-foreground">
-            <code>className</code> styles that wrapper, not the trigger.
-          </strong>{' '}
-          Only <code>Select</code>, <code>SelectItem</code>,{' '}
-          <code>SelectGroup</code>, <code>SelectLabel</code>, and{' '}
-          <code>SelectSeparator</code> are exported — the Radix trigger, value,
-          portal, content, and viewport stay internal.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Sizes</h2>
-        <p className="text-muted-foreground">
-          Two trigger sizes match Input and Button. Items inside the panel stay
-          32px at both sizes — a list is dense by nature and does not follow the
-          trigger's height.
-        </p>
-        <Preview>
-          <Select
-            className="w-64"
-            label="Currency"
-            placeholder="Choose a currency"
+    <DocPage
+      title="Select"
+      lead="A form field that opens a short list and takes exactly one value."
+      preview={{ source: demoSource, demo: <SelectDemo /> }}
+      installation="select"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Sizes"
+            description="Two trigger sizes match Input and Button. Items inside the panel stay the same height at both, because a list is dense by nature."
+            source={sizesSource}
           >
-            <SelectItem value="usd">US Dollar</SelectItem>
-            <SelectItem value="eur">Euro</SelectItem>
-            <SelectItem value="vnd">Vietnamese Dong</SelectItem>
-          </Select>
-          <Select
-            className="w-64"
-            size={SelectSize.Small}
-            label="Currency"
-            placeholder="Choose a currency"
+            <SelectSizes />
+          </Example>
+
+          <Example
+            caption="Groups, icons, and a disabled item"
+            description="Open the trigger. Groups take a label and a separator, the checked item shows a mark in a reserved slot, and a disabled item stays in the list so positions never shift."
+            source={groupsSource}
           >
-            <SelectItem value="usd">US Dollar</SelectItem>
-            <SelectItem value="eur">Euro</SelectItem>
-            <SelectItem value="vnd">Vietnamese Dong</SelectItem>
-          </Select>
-        </Preview>
-      </section>
+            <SelectGroups />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Groups, separators, and the checked item
-        </h2>
-        <p className="text-muted-foreground">
-          <code>SelectGroup</code> takes a <code>SelectLabel</code> as its
-          heading and separates from the next group with a{' '}
-          <code>SelectSeparator</code>. The checked item shows a{' '}
-          <code>text-indicator</code> check in a reserved trailing icon slot, so
-          every item label starts at the same left edge. An item's{' '}
-          <code>icon</code> sits ahead of the label, hidden from screen readers
-          so only the label is read, and stays in the list: the trigger shows
-          the label alone. A disabled item stays in the list, dimmed, so its
-          position never shifts. Open the trigger below to see all of it.
-        </p>
-        <Preview>
-          <Select
-            className="w-64"
-            label="Destination"
-            placeholder="Choose a destination"
-            defaultValue="paris"
+          <Example
+            caption="Description"
+            description="Helper text sits under the trigger and joins its accessible description."
+            source={descriptionSource}
           >
-            <SelectGroup>
-              <SelectLabel>Popular</SelectLabel>
-              <SelectItem value="tokyo" icon={<Star />}>
-                Tokyo
-              </SelectItem>
-              <SelectItem value="paris" icon={<Star />}>
-                Paris
-              </SelectItem>
-              <SelectItem value="reykjavik" icon={<Star />} disabled>
-                Reykjavík (sold out)
-              </SelectItem>
-            </SelectGroup>
-            <SelectSeparator />
-            <SelectGroup>
-              <SelectLabel>More</SelectLabel>
-              <SelectItem value="lisbon" icon={<MapPin />}>
-                Lisbon
-              </SelectItem>
-              <SelectItem value="hanoi" icon={<MapPin />}>
-                Hanoi
-              </SelectItem>
-            </SelectGroup>
-          </Select>
-        </Preview>
-      </section>
+            <SelectDescription />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Description</h2>
-        <p className="text-muted-foreground">
-          <code>description</code> is helper text in muted type directly under
-          the trigger, and it joins the trigger&rsquo;s accessible description,
-          so a screen reader reads it with the field. It stays put when an error
-          arrives: the message renders below it, and a screen reader hears the
-          error first, then the description. A disabled field dims its
-          description with its label.
-        </p>
-        <Preview>
-          <Select
-            className="w-64"
-            label="Currency"
-            placeholder="Choose a currency"
-            description="Prices show in this currency"
+          <Example
+            caption="Error"
+            description="The message renders under the trigger. It can be covered while the panel is open and reappears once it closes."
+            source={errorSource}
           >
-            <SelectItem value="usd">US Dollar</SelectItem>
-            <SelectItem value="eur">Euro</SelectItem>
-            <SelectItem value="vnd">Vietnamese Dong</SelectItem>
-          </Select>
-          <Select
-            className="w-64"
-            label="Currency"
-            placeholder="Choose a currency"
-            description="Prices show in this currency"
-            error="Choose a supported currency"
+            <SelectError />
+          </Example>
+
+          <Example
+            caption="Loading"
+            description="Choose who can see the trip. The trigger shows a spinner while the change saves, the card shows the result, and Anyone with the link fails and becomes the field's own error."
+            source={loadingSource}
           >
-            <SelectItem value="usd">US Dollar</SelectItem>
-            <SelectItem value="eur">Euro</SelectItem>
-            <SelectItem value="vnd">Vietnamese Dong</SelectItem>
-          </Select>
-        </Preview>
-      </section>
+            <SelectLoading />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Error</h2>
-        <p className="text-muted-foreground">
-          Pass <code>error</code> and the trigger takes the destructive border
-          and ring, the label turns destructive, and the message renders below
-          the trigger — it may be covered while the panel is open, and reappears
-          once it closes.
-        </p>
-        <Preview>
-          <Select
-            className="w-64"
-            label="Currency"
-            placeholder="Choose a currency"
-            error="Choose a supported currency"
+          <Example
+            caption="Disabled"
+            description="The trigger and its label dim together and leave the tab order. Say why in the description."
+            source={disabledSource}
           >
-            <SelectItem value="usd">US Dollar</SelectItem>
-            <SelectItem value="eur">Euro</SelectItem>
-            <SelectItem value="vnd">Vietnamese Dong</SelectItem>
-          </Select>
-          <Select
-            className="w-64"
-            size={SelectSize.Small}
-            label="Currency"
-            placeholder="Choose a currency"
-            error="Choose a supported currency"
+            <SelectDisabled />
+          </Example>
+
+          <Example
+            caption="Long lists scroll and truncate"
+            description="The panel matches the trigger's width and scrolls inside a maximum height. Long item text ends in an ellipsis, and so does the chosen label in the trigger."
+            source={longListSource}
           >
-            <SelectItem value="usd">US Dollar</SelectItem>
-            <SelectItem value="eur">Euro</SelectItem>
-            <SelectItem value="vnd">Vietnamese Dong</SelectItem>
-          </Select>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Loading</h2>
-        <p className="text-muted-foreground">
-          <code>loading</code> swaps the chevron for a spinner and keeps the
-          trigger focusable with its value visible; opening is a no-op while the
-          request runs.{' '}
-          <strong className="text-foreground">
-            The field shows its own busyness, and the app shows the result.
-          </strong>{' '}
-          Choosing "Urgent" below fails a fake approval check and the field
-          reports it through its own <code>error</code>; every other choice
-          succeeds and the result shows inline through Alert, after the field
-          settles.
-        </p>
-        <Preview>
-          <TicketPriorityDemo />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Long lists scroll and truncate
-        </h2>
-        <p className="text-muted-foreground">
-          The panel matches the trigger's width and scrolls inside a max height
-          with no scroll buttons, so a long list like airports stays inside the
-          viewport. Long item text truncates with an ellipsis, and the trigger
-          truncates the chosen label the same way.
-        </p>
-        <Preview>
-          <AirportSelectDemo />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Motion</h2>
-        <p className="text-muted-foreground">
-          Hover border and focus ring are CSS transitions at{' '}
-          <code>--motion-fast</code>, matching Input. The chevron rotates 180
-          degrees on open, a CSS transition at <code>--motion-base</code> — the
-          one select-specific cue. The panel's enter and exit are the floating
-          item's anchored keyframe pair: scale from <code>0.96</code> plus fade,
-          250ms on the bounce curve in and 150ms on the settle curve out,
-          growing from the trigger. Menu items snap to their highlighted state
-          with no transition, and the check mark shows no animation of its own —
-          the panel closes the moment it appears.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          Select generates the trigger <code>id</code> and wires the label
-          itself, so clicking the label focuses the trigger without opening the
-          panel. Enter, Space, ArrowUp, and ArrowDown open a closed trigger and
-          never change the value on their own; once open, arrow keys, Home, End,
-          and typeahead move the highlight, and Enter or Space chooses and
-          closes. Escape and an outside click back out with no change, and focus
-          always returns to the trigger. An error sets <code>aria-invalid</code>{' '}
-          and <code>aria-describedby</code> lists any ids you passed, then the
-          error message, then the <code>description</code>. A loading trigger
-          sets <code>aria-busy</code> and stays in the tab order; disabled
-          removes it. A plain form posts the chosen value through Radix's hidden
-          native <code>&lt;select&gt;</code>, and <code>required</code> marks
-          the label, sets <code>aria-required</code>, and participates in native
-          validation.
-        </p>
-      </section>
-    </article>
-  )
-}
-
-function TicketPriorityDemo() {
-  const [error, setError] = useState<string | undefined>(undefined)
-  const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState<string | null>(null)
-  const requestTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(
-    undefined,
-  )
-
-  useEffect(() => () => clearTimeout(requestTimeout.current), [])
-
-  function submitPriority(nextPriority: string) {
-    setLoading(true)
-    setError(undefined)
-    setResult(null)
-
-    requestTimeout.current = setTimeout(() => {
-      setLoading(false)
-
-      if (nextPriority === 'urgent') {
-        setError("Urgent tickets need a manager's approval first")
-        return
+            <SelectLongList />
+          </Example>
+        </>
       }
-
-      setResult('Priority updated')
-    }, 1200)
-  }
-
-  return (
-    <div className="flex w-64 flex-col gap-3">
-      <Select
-        label="Priority"
-        placeholder="Choose a priority"
-        error={error}
-        loading={loading}
-        onValueChange={submitPriority}
-      >
-        <SelectItem value="low">Low</SelectItem>
-        <SelectItem value="medium">Medium</SelectItem>
-        <SelectItem value="high">High</SelectItem>
-        <SelectItem value="urgent">Urgent</SelectItem>
-      </Select>
-
-      {result ? <Alert variant={AlertVariant.Success}>{result}</Alert> : null}
-    </div>
-  )
-}
-
-function AirportSelectDemo() {
-  return (
-    <Select
-      className="w-64"
-      label="Departure airport"
-      placeholder="Choose an airport"
-    >
-      <SelectGroup>
-        <SelectLabel>Recent</SelectLabel>
-        <SelectItem value="sgn">
-          Tan Son Nhat International Airport (SGN)
-        </SelectItem>
-        <SelectItem value="nrt">Narita International Airport (NRT)</SelectItem>
-      </SelectGroup>
-      <SelectSeparator />
-      <SelectGroup>
-        <SelectLabel>All airports</SelectLabel>
-        <SelectItem value="lhr">London Heathrow Airport (LHR)</SelectItem>
-        <SelectItem value="cdg">
-          Paris Charles de Gaulle Airport (CDG)
-        </SelectItem>
-        <SelectItem value="dxb">Dubai International Airport (DXB)</SelectItem>
-        <SelectItem value="sin">Singapore Changi Airport (SIN)</SelectItem>
-        <SelectItem value="hnd">Tokyo Haneda Airport (HND)</SelectItem>
-        <SelectItem value="ist">Istanbul Airport (IST)</SelectItem>
-        <SelectItem value="fra">Frankfurt Airport (FRA)</SelectItem>
-        <SelectItem value="ams">Amsterdam Airport Schiphol (AMS)</SelectItem>
-        <SelectItem value="lax">
-          Los Angeles International Airport (LAX)
-        </SelectItem>
-        <SelectItem value="jfk">
-          John F. Kennedy International Airport (JFK)
-        </SelectItem>
-      </SelectGroup>
-    </Select>
+      guidelines={{
+        whenToUse: [
+          'To choose one value from a short, fixed list: a currency, a travel style, who can see a trip.',
+          'When the options need groups, icons, or a disabled entry that stays visible.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'when the list is long enough that the traveller must search, or the options arrive from a server.',
+            alternative: { to: '/components/combobox', label: 'Combobox' },
+          },
+          {
+            situation:
+              'for two to five options that should all stay visible while the traveller decides.',
+            alternative: {
+              to: '/components/radio-group',
+              label: 'Radio group',
+            },
+          },
+          {
+            situation:
+              'when a short set of options changes a view or a filter rather than a field value.',
+            alternative: {
+              to: '/components/toggle-group',
+              label: 'Toggle group',
+            },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Pass plain strings as the item text.',
+            reason:
+              'The trigger shows the checked item’s text and typeahead matches it, so a string is both what the traveller reads and what they search.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Keep a sold-out or unavailable option in the list, disabled.',
+            reason:
+              'The list keeps its shape, and the traveller sees the option exists instead of wondering where it went.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Put an icon in an item to carry meaning on its own.',
+            reason:
+              'The icon is hidden from screen readers and absent from the trigger, so only the label is reliable.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Use select for a list of fifty or more.',
+            reason:
+              'Typeahead only matches the start of an item. A traveller who cannot remember the first letters needs a field they can search.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Tab'],
+                description:
+                  'Moves focus to the trigger. A loading trigger stays in the tab order; a disabled one leaves it.',
+              },
+              {
+                keys: ['Enter', 'Space', 'ArrowDown', 'ArrowUp'],
+                description:
+                  'Opens a closed trigger. Opening never changes the value.',
+              },
+              {
+                keys: ['ArrowDown', 'ArrowUp'],
+                description: 'Moves the highlight through the open list.',
+              },
+              {
+                keys: ['Home', 'End'],
+                description: 'Moves the highlight to the first or last item.',
+              },
+              {
+                keys: ['Enter', 'Space'],
+                description:
+                  'Chooses the highlighted item and closes the list.',
+              },
+              {
+                keys: ['Escape'],
+                description: 'Closes the list with no change.',
+              },
+            ]}
+          />
+          <p>
+            Typing characters moves the highlight to the next matching item.
+            Focus always returns to the trigger when the list closes. Select
+            generates the trigger <code>id</code> and wires the label to it, so
+            clicking the label focuses the trigger without opening the list. An
+            error sets <code>aria-invalid</code>, and{' '}
+            <code>aria-describedby</code> lists any ids you passed, then the
+            error message, then the description. A loading trigger sets{' '}
+            <code>aria-busy</code>. <code>required</code> marks the label, sets{' '}
+            <code>aria-required</code>, and takes part in native validation. The
+            states every field shares are described on{' '}
+            <TextLink asChild>
+              <Link to="/fields">Fields</Link>
+            </TextLink>
+            .
+          </p>
+        </>
+      }
+      api={
+        <>
+          <PropsTable
+            component="Select"
+            description={
+              <>
+                Also takes the props of the Radix select root, including{' '}
+                <code>value</code>, <code>defaultValue</code>,{' '}
+                <code>onValueChange</code>, <code>name</code>,{' '}
+                <code>disabled</code>, and <code>required</code>.{' '}
+                <code>className</code> styles the wrapper.
+              </>
+            }
+            rows={[
+              {
+                name: 'label',
+                type: 'string',
+                description:
+                  'The visible label. Renders above the trigger and is wired to it.',
+              },
+              {
+                name: 'placeholder',
+                type: 'string',
+                description: 'Shown in the trigger while no value is chosen.',
+              },
+              {
+                name: 'size',
+                type: 'SelectSize',
+                default: 'SelectSize.Default',
+                description: 'Default or Small, matching Input and Button.',
+              },
+              {
+                name: 'description',
+                type: 'string',
+                description: 'Helper text under the trigger.',
+              },
+              {
+                name: 'error',
+                type: 'string',
+                description:
+                  'The failure message. Turns the border, the ring, and the label destructive.',
+              },
+              {
+                name: 'loading',
+                type: 'boolean',
+                default: 'false',
+                description:
+                  'Swaps the chevron for a spinner and blocks opening. The trigger keeps focus and shows its value.',
+              },
+              {
+                name: 'side',
+                type: 'SelectPanelSide',
+                default: 'SelectPanelSide.Bottom',
+                description: 'Which side of the trigger the list opens on.',
+              },
+              {
+                name: 'align',
+                type: 'SelectPanelAlign',
+                default: 'SelectPanelAlign.Center',
+                description: 'How the list aligns to the trigger on that side.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="SelectItem"
+            description="Also takes the props of the Radix select item."
+            rows={[
+              {
+                name: 'value',
+                type: 'string',
+                required: true,
+                description:
+                  'The value the select reports when this item is chosen.',
+              },
+              {
+                name: 'children',
+                type: 'string',
+                required: true,
+                description:
+                  'The item text. It is also what the trigger shows and what typeahead matches.',
+              },
+              {
+                name: 'icon',
+                type: 'ReactNode',
+                description:
+                  'An icon ahead of the text. Hidden from screen readers and not shown in the trigger.',
+              },
+              {
+                name: 'disabled',
+                type: 'boolean',
+                default: 'false',
+                description: 'Dims the item and keeps it in the list.',
+              },
+            ]}
+          />
+          <p>
+            <code>SelectGroup</code>, <code>SelectLabel</code>, and{' '}
+            <code>SelectSeparator</code> take their element&rsquo;s props.
+          </p>
+        </>
+      }
+      notes={
+        <>
+          <p>
+            The trigger is 36px tall at the default size and 32px at small.
+            Items stay 32px at both. The checked item shows its mark in a
+            reserved trailing slot, so every label starts at the same left edge.
+            The panel matches the trigger&rsquo;s width and scrolls inside a
+            maximum height with no scroll buttons.
+          </p>
+          <p>
+            Only <code>Select</code>, <code>SelectItem</code>,{' '}
+            <code>SelectGroup</code>, <code>SelectLabel</code>, and{' '}
+            <code>SelectSeparator</code> are exported. The Radix trigger, value,
+            portal, content, and viewport stay internal, so the field owns its
+            label and message. A plain form posts the chosen value through
+            Radix&rsquo;s hidden native <code>&lt;select&gt;</code>.
+          </p>
+          <p>
+            Hover border and focus ring are CSS transitions at{' '}
+            <code>--motion-fast</code>. The chevron rotates 180 degrees on open,
+            a CSS transition at <code>--motion-base</code>. The panel grows from
+            the trigger: scale from <code>0.96</code> plus a fade, 250ms on the
+            bounce curve in and 350ms on the settle curve out. Items snap to
+            their highlighted state with no transition, and the check mark has
+            no animation, because the panel closes the moment it appears.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/fields',
+          label: 'Fields',
+          description:
+            'The label, description, error, loading, and disabled behaviour every field shares.',
+        },
+        {
+          to: '/components/combobox',
+          label: 'Combobox',
+          description: 'The searchable field for long or remote lists.',
+        },
+        {
+          to: '/components/radio-group',
+          label: 'Radio group',
+          description: 'Keeps a few options visible at once.',
+        },
+        {
+          to: '/components/form',
+          label: 'Form',
+          description: 'Lays fields out with an actions row and a result slot.',
+        },
+      ]}
+    />
   )
 }

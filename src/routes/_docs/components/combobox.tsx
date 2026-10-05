@@ -1,579 +1,492 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { History, MapPin } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
 
-import { Preview } from '@/components/preview'
-import { Alert, AlertVariant } from '@/registry/ui/alert'
 import {
-  Combobox,
-  ComboboxEmpty,
-  ComboboxGroup,
-  ComboboxItem,
-  ComboboxLabel,
-  ComboboxMode,
-  ComboboxSeparator,
-  ComboboxSize,
-} from '@/registry/ui/combobox'
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { ComboboxBasic } from '@/examples/combobox/basic'
+import basicSource from '@/examples/combobox/basic.tsx?raw'
+import { ComboboxDemo } from '@/examples/combobox/demo'
+import demoSource from '@/examples/combobox/demo.tsx?raw'
+import { ComboboxDescription } from '@/examples/combobox/description'
+import descriptionSource from '@/examples/combobox/description.tsx?raw'
+import { ComboboxDisabled } from '@/examples/combobox/disabled'
+import disabledSource from '@/examples/combobox/disabled.tsx?raw'
+import { ComboboxError } from '@/examples/combobox/error'
+import errorSource from '@/examples/combobox/error.tsx?raw'
+import { ComboboxFreeText } from '@/examples/combobox/free-text'
+import freeTextSource from '@/examples/combobox/free-text.tsx?raw'
+import { ComboboxGroups } from '@/examples/combobox/groups'
+import groupsSource from '@/examples/combobox/groups.tsx?raw'
+import { ComboboxInAForm } from '@/examples/combobox/in-a-form'
+import inAFormSource from '@/examples/combobox/in-a-form.tsx?raw'
+import { ComboboxMultiple } from '@/examples/combobox/multiple'
+import multipleSource from '@/examples/combobox/multiple.tsx?raw'
+import { ComboboxMultipleFreeText } from '@/examples/combobox/multiple-free-text'
+import multipleFreeTextSource from '@/examples/combobox/multiple-free-text.tsx?raw'
+import { ComboboxRemoteResults } from '@/examples/combobox/remote-results'
+import remoteResultsSource from '@/examples/combobox/remote-results.tsx?raw'
+import { ComboboxSmall } from '@/examples/combobox/small'
+import smallSource from '@/examples/combobox/small.tsx?raw'
+import usageSource from '@/examples/combobox/usage.tsx?raw'
 
 export const Route = createFileRoute('/_docs/components/combobox')({
   component: ComboboxPage,
 })
 
-const PLACES = [
-  { value: 'fsq-1', label: 'Reykjavík', description: 'Iceland' },
-  { value: 'fsq-2', label: 'Reims', description: 'France' },
-  { value: 'fsq-3', label: 'Rennes', description: 'France' },
-  { value: 'fsq-4', label: 'Hanoi', description: 'Vietnam' },
-  { value: 'fsq-5', label: 'Hakone', description: 'Japan' },
-  { value: 'fsq-6', label: 'Halifax', description: 'Canada' },
-]
-
-const INTERESTS = [
-  { value: 'food', label: 'Food and drink' },
-  { value: 'museums', label: 'Museums' },
-  { value: 'hiking', label: 'Hiking' },
-  { value: 'nightlife', label: 'Nightlife' },
-]
-
 function ComboboxPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Combobox
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          A field the user types into, with a panel of the items the app
-          supplies for the current text. It takes one value, several as chips,
-          or whatever was typed. It owns its label, its error message, and its
-          busyness; the app owns the items, the value, and the timing.
-        </p>
-      </header>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          The app owns the list
-        </h2>
-        <p className="text-muted-foreground">
-          Combobox never filters, fetches, or debounces.{' '}
-          <strong className="text-foreground">
-            You pass the items you want shown for the current text, and nothing
-            else is shown.
-          </strong>{' '}
-          That keeps a billed autocomplete call, its debounce, and its
-          cancellation in your code, where you can see them. Read the text
-          through <code>onInputValueChange</code>, fetch how you like, and
-          render the answer as <code>ComboboxItem</code> children.
-        </p>
-        <p className="text-muted-foreground">
-          Six parts are exported: <code>Combobox</code>,{' '}
-          <code>ComboboxItem</code>, <code>ComboboxGroup</code>,{' '}
-          <code>ComboboxLabel</code>, <code>ComboboxSeparator</code>, and{' '}
-          <code>ComboboxEmpty</code>. There is no input, trigger, or content
-          part — the root renders all of them, and <code>className</code> styles
-          the wrapper that holds the label and the error message.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          A strict place field
-        </h2>
-        <p className="text-muted-foreground">
-          <code>mode</code> is required and has no default. In{' '}
-          <code>ComboboxMode.Single</code> without <code>allowFreeText</code>{' '}
-          the field is strict: the value is always an item key, and text that
-          matches no pick reverts on blur. The demo debounces its own fetch,
-          shows <code>loading</code> while the request runs, and renders a{' '}
-          <code>ComboboxEmpty</code> when the source comes back with nothing.
-          Type <em>r</em> or <em>ha</em> to see matches, or <em>zz</em> to see
-          the empty row.
-        </p>
-        <Preview>
-          <PlaceFieldDemo />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Groups, separators, and descriptions
-        </h2>
-        <p className="text-muted-foreground">
-          <code>ComboboxGroup</code> is semantics only and takes a{' '}
-          <code>ComboboxLabel</code> as its heading;{' '}
-          <code>ComboboxSeparator</code> rules a line between groups. An item's
-          <code>description</code> sits after its label on the same line and
-          truncates, and its <code>icon</code> sits ahead of the label, hidden
-          from screen readers so only the label is read. The icon stays in the
-          list: the input and the chips carry the label alone. A disabled item
-          stays in the list so positions never shift. Open the panel below to
-          see all of it.
-        </p>
-        <Preview>
-          <GroupedPlacesDemo />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Free text as the value
-        </h2>
-        <p className="text-muted-foreground">
-          <code>allowFreeText</code> lets the field keep what was typed. A pick
-          reports the item's key; text that matches no pick is reported as
-          itself on blur. This is the shape a Destination field wants — a
-          traveller may be going somewhere your source has never heard of.
-        </p>
-        <p className="text-muted-foreground">
-          <strong className="text-foreground">
-            A typed string that happens to equal a real item key is
-            indistinguishable from a pick.
-          </strong>{' '}
-          Keys like the place ids above make that collision negligible; keys
-          that read like words do not, so key your items with ids rather than
-          labels.
-        </p>
-        <Preview>
-          <DestinationFieldDemo />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Several values as chips
-        </h2>
-        <p className="text-muted-foreground">
-          <code>ComboboxMode.Multiple</code> takes a <code>string[]</code>{' '}
-          value. A pick adds a chip before the caret, keeps the panel open,
-          marks the item with a check, and clears the text so the next query
-          starts fresh; picking a checked item removes it. Backspace on an empty
-          input removes the last chip, ArrowLeft from the start of the caret
-          focuses it, and Backspace or Delete there removes it.
-        </p>
-        <Preview>
-          <InterestsFieldDemo />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Chips from free text
-        </h2>
-        <p className="text-muted-foreground">
-          With <code>allowFreeText</code> in multiple mode, Enter with nothing
-          highlighted turns the typed text into a chip. Comma and blur do not
-          commit: commas occur inside place names, and a blur commit turns an
-          abandoned keystroke into a value.
-        </p>
-        <Preview>
-          <TravellerTagsDemo />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Description</h2>
-        <p className="text-muted-foreground">
-          <code>description</code> is helper text in muted type directly under
-          the field, through the same <code>FieldDescription</code> as Input,
-          and it joins the input&rsquo;s accessible description, so a screen
-          reader reads it with the field. It stays put when an error arrives:
-          the message renders below it, and a screen reader hears the error
-          first, then the description. A disabled field dims its description
-          with its label.
-        </p>
-        <Preview>
-          <DescriptionDemo />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Error and disabled</h2>
-        <p className="text-muted-foreground">
-          <code>error</code> takes the destructive border and ring, turns the
-          label destructive, and renders the message below the field through the
-          same <code>FieldErrorMessage</code> as Input; the panel may cover it
-          while open. <code>disabled</code> dims the whole field and takes it
-          out of the tab order.
-        </p>
-        <Preview>
-          <ErrorAndDisabledDemo />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Sizes</h2>
-        <p className="text-muted-foreground">
-          Two field sizes match Input and Select. Items stay 32px at both sizes,
-          and in multiple mode the field grows by rows as chips wrap.
-        </p>
-        <Preview>
-          <SizesDemo />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Attribution is app content
-        </h2>
-        <p className="text-muted-foreground">
-          A place source usually requires a credit line. Combobox has no footer
-          slot and never will:{' '}
-          <strong className="text-foreground">
-            the "Powered by" line under the strict place field above is rendered
-            by the demo, not by the component.
-          </strong>{' '}
-          Your source, your wording, your placement.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Motion</h2>
-        <p className="text-muted-foreground">
-          The panel enters and exits on the theme's anchored floating keyframe
-          pair — scale from <code>0.96</code> plus fade, 250ms on the bounce
-          curve in and 150ms on the settle curve out, growing from the field.
-          The chevron rotates 180 degrees at <code>--motion-base</code>, and the
-          field's border and focus ring transition at <code>--motion-fast</code>
-          . Chips appear and disappear at once, and their neighbours and the
-          caret reflow without motion. The item highlight, the check, the clear
-          button, and the spinner all snap too.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          The input is the only tab stop. The panel opens on typing, ArrowDown,
-          ArrowUp, or the chevron, and never on focus alone. Escape closes and
-          never clears, because with free text the typed text is the value. Tab
-          and Shift-Tab close without selecting and move on — the panel is
-          non-modal, unlike Select — and focus never leaves the input when the
-          panel opens or closes; the highlighted row is the focus indicator, and
-          the input carries <code>aria-activedescendant</code>. Home and End
-          stay the caret's, so a long query is still editable from either end.
-          The clear and chevron buttons are labelled and out of the tab order,
-          so neither adds a stop between fields.
-        </p>
-        <p className="text-muted-foreground">
-          The panel registers in the same layer stack as Dialog and
-          DropdownMenu, so it opens, positions, and stays clickable inside a
-          modal dialog. <code>name</code> posts a hidden input per value — the
-          key for a pick, the string for free text — and <code>required</code>{' '}
-          sets <code>aria-required</code> on the input.
-        </p>
-      </section>
-    </article>
-  )
-}
-
-function PlaceFieldDemo() {
-  const [text, setText] = useState('')
-  const [placeId, setPlaceId] = useState<string | null>(null)
-  const [matches, setMatches] = useState<typeof PLACES>([])
-  const [loading, setLoading] = useState(false)
-  const requestTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(
-    undefined,
-  )
-
-  useEffect(() => () => clearTimeout(requestTimeout.current), [])
-
-  function searchPlaces(nextText: string) {
-    setText(nextText)
-    clearTimeout(requestTimeout.current)
-
-    if (nextText.trim().length === 0) {
-      setLoading(false)
-      setMatches([])
-      return
-    }
-
-    setLoading(true)
-
-    requestTimeout.current = setTimeout(() => {
-      setMatches(
-        PLACES.filter((place) =>
-          place.label.toLowerCase().startsWith(nextText.trim().toLowerCase()),
-        ),
-      )
-      setLoading(false)
-    }, 500)
-  }
-
-  const chosenPlace = PLACES.find((place) => place.value === placeId)
-
-  return (
-    <div className="flex w-72 flex-col gap-3">
-      <div className="flex flex-col gap-1">
-        <Combobox
-          mode={ComboboxMode.Single}
-          label="Where are you going?"
-          placeholder="Search a place"
-          value={placeId}
-          onValueChange={setPlaceId}
-          inputValue={text}
-          onInputValueChange={searchPlaces}
-          loading={loading}
-        >
-          {matches.map((place) => (
-            <ComboboxItem
-              key={place.value}
-              value={place.value}
-              description={place.description}
-            >
-              {place.label}
-            </ComboboxItem>
-          ))}
-
-          {!loading && text.trim().length > 0 && matches.length === 0 ? (
-            <ComboboxEmpty>No place matches that</ComboboxEmpty>
-          ) : null}
-        </Combobox>
-
-        <p className="text-muted-foreground text-xs">Powered by Foursquare</p>
-      </div>
-
-      {chosenPlace ? (
-        <Alert variant={AlertVariant.Success}>
-          Trip anchored to {chosenPlace.label}
-        </Alert>
-      ) : null}
-    </div>
-  )
-}
-
-function GroupedPlacesDemo() {
-  const [placeId, setPlaceId] = useState<string | null>(null)
-
-  return (
-    <Combobox
-      className="w-72"
-      mode={ComboboxMode.Single}
-      label="Departure city"
-      placeholder="Search a city"
-      value={placeId}
-      onValueChange={setPlaceId}
-    >
-      <ComboboxGroup>
-        <ComboboxLabel>Recent</ComboboxLabel>
-        <ComboboxItem value="fsq-4" description="Vietnam" icon={<History />}>
-          Hanoi
-        </ComboboxItem>
-        <ComboboxItem value="fsq-5" description="Japan" icon={<History />}>
-          Hakone
-        </ComboboxItem>
-      </ComboboxGroup>
-
-      <ComboboxSeparator />
-
-      <ComboboxGroup>
-        <ComboboxLabel>Everywhere else</ComboboxLabel>
-        <ComboboxItem value="fsq-2" description="France" icon={<MapPin />}>
-          Reims
-        </ComboboxItem>
-        <ComboboxItem
-          value="fsq-1"
-          description="Iceland"
-          icon={<MapPin />}
-          disabled
-        >
-          Reykjavík — no flights this season
-        </ComboboxItem>
-      </ComboboxGroup>
-    </Combobox>
-  )
-}
-
-function DestinationFieldDemo() {
-  const [destination, setDestination] = useState<string | null>(null)
-
-  const knownPlace = PLACES.find((place) => place.value === destination)
-
-  return (
-    <div className="flex w-72 flex-col gap-3">
-      <Combobox
-        mode={ComboboxMode.Single}
-        allowFreeText
-        label="Destination"
-        placeholder="Anywhere you like"
-        value={destination}
-        onValueChange={setDestination}
-      >
-        {PLACES.map((place) => (
-          <ComboboxItem
-            key={place.value}
-            value={place.value}
-            description={place.description}
+    <DocPage
+      title="Combobox"
+      lead="A field you type into, with a panel of the items your app supplies for that text: one value, several as chips, or whatever was typed."
+      preview={{ source: demoSource, demo: <ComboboxDemo /> }}
+      installation="combobox"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Filtering the list"
+            description="The combobox shows exactly the items you pass. Read the text through onInputValueChange and pass the matches."
+            source={basicSource}
           >
-            {place.label}
-          </ComboboxItem>
-        ))}
-      </Combobox>
+            <ComboboxBasic />
+          </Example>
 
-      {destination ? (
-        <Alert variant={AlertVariant.Info}>
-          {knownPlace
-            ? `Value is the key ${destination}`
-            : `Value is the text "${destination}"`}
-        </Alert>
-      ) : null}
-    </div>
-  )
-}
+          <Example
+            caption="Remote results"
+            description="Debounce and fetch in your own code, show loading while the request runs, and render ComboboxEmpty when nothing comes back. Type r or ha for matches, zz for none."
+            source={remoteResultsSource}
+          >
+            <ComboboxRemoteResults />
+          </Example>
 
-function InterestsFieldDemo() {
-  const [interests, setInterests] = useState<string[]>(['museums'])
+          <Example
+            caption="Groups, icons, and descriptions"
+            description="Groups take a label and a separator between them. An item's icon sits before its label and its description after; a disabled item keeps its place."
+            source={groupsSource}
+          >
+            <ComboboxGroups />
+          </Example>
 
-  return (
-    <Combobox
-      className="w-72"
-      mode={ComboboxMode.Multiple}
-      label="What do you want to do?"
-      placeholder="Add an interest"
-      value={interests}
-      onValueChange={setInterests}
-    >
-      {INTERESTS.map((interest) => (
-        <ComboboxItem key={interest.value} value={interest.value}>
-          {interest.label}
-        </ComboboxItem>
-      ))}
-    </Combobox>
-  )
-}
+          <Example
+            caption="Free text as the value"
+            description="With allowFreeText, a pick reports the item's key and anything else typed is reported as itself when the field loses focus."
+            source={freeTextSource}
+          >
+            <ComboboxFreeText />
+          </Example>
 
-function TravellerTagsDemo() {
-  const [tags, setTags] = useState<string[]>([])
+          <Example
+            caption="Several values as chips"
+            description="Multiple mode takes a string array. A pick adds a chip, keeps the panel open, and clears the text for the next search; picking a checked item removes it."
+            source={multipleSource}
+          >
+            <ComboboxMultiple />
+          </Example>
 
-  return (
-    <Combobox
-      className="w-72"
-      mode={ComboboxMode.Multiple}
-      allowFreeText
-      label="Who is coming?"
-      placeholder="Type a name and press Enter"
-      value={tags}
-      onValueChange={setTags}
-    >
-      <ComboboxItem value="me">Me</ComboboxItem>
-      <ComboboxItem value="partner">My partner</ComboboxItem>
-    </Combobox>
-  )
-}
+          <Example
+            caption="Chips from free text"
+            description="With allowFreeText in multiple mode, Enter with nothing highlighted turns the typed text into a chip."
+            source={multipleFreeTextSource}
+          >
+            <ComboboxMultipleFreeText />
+          </Example>
 
-function DescriptionDemo() {
-  const [departureCity, setDepartureCity] = useState<string | null>(null)
-  const [invalidDepartureCity, setInvalidDepartureCity] = useState<
-    string | null
-  >(null)
+          <Example
+            caption="Description"
+            description="Helper text under the field. It stays put when an error arrives."
+            source={descriptionSource}
+          >
+            <ComboboxDescription />
+          </Example>
 
-  return (
-    <div className="flex w-72 flex-col gap-6">
-      <Combobox
-        mode={ComboboxMode.Single}
-        label="Departure city"
-        placeholder="Search a city"
-        description="Where the trip starts"
-        value={departureCity}
-        onValueChange={setDepartureCity}
-      >
-        {PLACES.map((place) => (
-          <ComboboxItem key={place.value} value={place.value}>
-            {place.label}
-          </ComboboxItem>
-        ))}
-      </Combobox>
+          <Example
+            caption="Error"
+            description="The field shows its own error under the box until the value is fixed. Pick a city to clear it."
+            source={errorSource}
+          >
+            <ComboboxError />
+          </Example>
 
-      <Combobox
-        mode={ComboboxMode.Single}
-        label="Departure city"
-        placeholder="Search a city"
-        description="Where the trip starts"
-        error="Pick a city we fly from"
-        value={invalidDepartureCity}
-        onValueChange={setInvalidDepartureCity}
-      >
-        {PLACES.map((place) => (
-          <ComboboxItem key={place.value} value={place.value}>
-            {place.label}
-          </ComboboxItem>
-        ))}
-      </Combobox>
-    </div>
-  )
-}
+          <Example
+            caption="Disabled"
+            description="Dims the field and takes it out of the tab order."
+            source={disabledSource}
+          >
+            <ComboboxDisabled />
+          </Example>
 
-function ErrorAndDisabledDemo() {
-  const [invalidValue, setInvalidValue] = useState<string | null>(null)
+          <Example
+            caption="Small size"
+            description="Matches the small Input and Select, for dense filter bars."
+            source={smallSource}
+          >
+            <ComboboxSmall />
+          </Example>
 
-  return (
-    <div className="flex w-72 flex-col gap-6">
-      <Combobox
-        mode={ComboboxMode.Single}
-        label="Departure city"
-        placeholder="Search a city"
-        error="Pick a city we fly from"
-        value={invalidValue}
-        onValueChange={setInvalidValue}
-      >
-        {PLACES.map((place) => (
-          <ComboboxItem key={place.value} value={place.value}>
-            {place.label}
-          </ComboboxItem>
-        ))}
-      </Combobox>
-
-      <Combobox
-        mode={ComboboxMode.Single}
-        disabled
-        label="Return city"
-        placeholder="Same as departure"
-        value={null}
-        onValueChange={() => {}}
-      >
-        {PLACES.map((place) => (
-          <ComboboxItem key={place.value} value={place.value}>
-            {place.label}
-          </ComboboxItem>
-        ))}
-      </Combobox>
-    </div>
-  )
-}
-
-function SizesDemo() {
-  const [defaultValue, setDefaultValue] = useState<string | null>(null)
-  const [smallValue, setSmallValue] = useState<string | null>(null)
-
-  return (
-    <div className="flex w-72 flex-col gap-6">
-      <Combobox
-        mode={ComboboxMode.Single}
-        label="Default"
-        placeholder="Search a city"
-        value={defaultValue}
-        onValueChange={setDefaultValue}
-      >
-        {PLACES.map((place) => (
-          <ComboboxItem key={place.value} value={place.value}>
-            {place.label}
-          </ComboboxItem>
-        ))}
-      </Combobox>
-
-      <Combobox
-        mode={ComboboxMode.Single}
-        size={ComboboxSize.Small}
-        label="Small"
-        placeholder="Search a city"
-        value={smallValue}
-        onValueChange={setSmallValue}
-      >
-        {PLACES.map((place) => (
-          <ComboboxItem key={place.value} value={place.value}>
-            {place.label}
-          </ComboboxItem>
-        ))}
-      </Combobox>
-    </div>
+          <Example
+            caption="In a form"
+            description="name posts the picked key with the form. Submit with no destination to see the field's error; plan the trip and the new trip appears above the form."
+            source={inAFormSource}
+          >
+            <ComboboxInAForm />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'To choose from a list too long to scan, where typing is faster: a destination, a departure city.',
+          'To collect several values as chips: interests, the travellers on a trip.',
+          'When the right answer may not be on the list, with allowFreeText.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'for a short, fixed list such as a cabin class, where scanning beats typing.',
+            alternative: { to: '/components/select', label: 'Select' },
+          },
+          {
+            situation:
+              'for two to five options that should all stay visible while the traveller decides.',
+            alternative: {
+              to: '/components/radio-group',
+              label: 'Radio group',
+            },
+          },
+          {
+            situation: 'for free text that needs no suggestions.',
+            alternative: { to: '/components/input', label: 'Input' },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Filter, fetch, and debounce in your own code.',
+            reason:
+              'The combobox shows exactly the children you pass, so a billed autocomplete call, its debounce, and its cancellation stay where you can see them.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Key items with ids, not with their labels.',
+            reason:
+              'With free text on, typed text that equals an item key reads as a pick. An id never collides with something a traveller types.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Render ComboboxEmpty when a search returns nothing.',
+            reason:
+              'A panel that never opens looks broken; the empty row says the search ran.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: "Put a source's credit line under the field yourself.",
+            reason:
+              'The combobox has no footer slot. The source, the wording, and the placement are yours.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Open the panel on focus.',
+            reason:
+              'Tabbing through a form would throw a panel over the next field. The panel opens on typing, the arrow keys, or the chevron.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['ArrowDown', 'ArrowUp'],
+                description:
+                  'Opens the panel, then moves the highlight through the items.',
+              },
+              {
+                keys: ['Enter'],
+                description:
+                  'Picks the highlighted item. In multiple mode it toggles the item and keeps the panel open; with free text and no highlight, it adds the typed text as a chip.',
+              },
+              {
+                keys: ['Escape'],
+                description: 'Closes the panel and keeps the typed text.',
+              },
+              {
+                keys: ['Tab', 'Shift+Tab'],
+                description:
+                  'Closes the panel without picking and moves to the next field.',
+              },
+              {
+                keys: ['Home', 'End'],
+                description:
+                  'Move the caret to either end of the text, never the highlight.',
+              },
+              {
+                keys: ['Backspace'],
+                description:
+                  'In multiple mode with an empty input, removes the last chip.',
+              },
+              {
+                keys: ['ArrowLeft', 'ArrowRight'],
+                description:
+                  'In multiple mode, ArrowLeft at the start of the input focuses the last chip; both keys then move between chips and back to the input.',
+              },
+              {
+                keys: ['Backspace', 'Delete'],
+                description: 'On a focused chip, removes it.',
+              },
+            ]}
+          />
+          <p>
+            The input is the only tab stop: the clear and chevron buttons are
+            labelled but stay out of the tab order. Focus never leaves the input
+            while the panel is open; the highlighted row is the focus indicator,
+            wired through <code>aria-activedescendant</code>.
+          </p>
+          <p>
+            <code>description</code> and <code>error</code> join the
+            input&rsquo;s accessible description, error first.{' '}
+            <code>required</code> sets <code>aria-required</code>,{' '}
+            <code>loading</code> sets <code>aria-busy</code>, and{' '}
+            <code>ComboboxEmpty</code> is announced politely when it appears. An
+            item&rsquo;s icon is hidden from screen readers, so only its label
+            is read.
+          </p>
+        </>
+      }
+      api={
+        <>
+          <PropsTable
+            component="Combobox"
+            description={
+              <>
+                <code>className</code> styles the wrapper that holds the label,
+                the field, and the messages.
+              </>
+            }
+            rows={[
+              {
+                name: 'mode',
+                type: 'ComboboxMode',
+                required: true,
+                description:
+                  'Single takes one value; Multiple takes several as chips. There is no default.',
+              },
+              {
+                name: 'value',
+                type: 'string | null | string[]',
+                required: true,
+                description:
+                  'The picked key or keys, or typed text when free text is on. A string array in Multiple mode.',
+              },
+              {
+                name: 'onValueChange',
+                type: '(value) => void',
+                required: true,
+                description: 'Called with the next value.',
+              },
+              {
+                name: 'children',
+                type: 'ReactNode',
+                description:
+                  'The items to show for the current text, with any groups, labels, separators, and an empty row.',
+              },
+              {
+                name: 'label',
+                type: 'string',
+                description: 'The visible label above the field.',
+              },
+              {
+                name: 'placeholder',
+                type: 'string',
+                description: 'Shown while the input is empty.',
+              },
+              {
+                name: 'description',
+                type: 'string',
+                description: 'Helper text under the field.',
+              },
+              {
+                name: 'error',
+                type: 'string',
+                description:
+                  'Marks the field invalid and shows the message under it.',
+              },
+              {
+                name: 'allowFreeText',
+                type: 'boolean',
+                default: 'false',
+                description:
+                  'Keeps typed text as the value instead of reverting it on blur.',
+              },
+              {
+                name: 'inputValue',
+                type: 'string',
+                description: 'The controlled text in the input.',
+              },
+              {
+                name: 'onInputValueChange',
+                type: '(inputValue: string) => void',
+                description:
+                  'Called on every keystroke and pick. Filter or fetch from here.',
+              },
+              {
+                name: 'loading',
+                type: 'boolean',
+                default: 'false',
+                description:
+                  'Shows a spinner in the field while your results load.',
+              },
+              {
+                name: 'size',
+                type: 'ComboboxSize',
+                default: 'ComboboxSize.Default',
+                description: 'Default or Small, matching Input and Select.',
+              },
+              {
+                name: 'disabled',
+                type: 'boolean',
+                default: 'false',
+                description:
+                  'Dims the field and removes it from the tab order.',
+              },
+              {
+                name: 'name',
+                type: 'string',
+                description:
+                  'Posts a hidden input per value with the surrounding form.',
+              },
+              {
+                name: 'required',
+                type: 'boolean',
+                default: 'false',
+                description: 'Marks the label and sets aria-required.',
+              },
+              {
+                name: 'open',
+                type: 'boolean',
+                description: 'The controlled open state of the panel.',
+              },
+              {
+                name: 'defaultOpen',
+                type: 'boolean',
+                description: 'The initial open state when uncontrolled.',
+              },
+              {
+                name: 'onOpenChange',
+                type: '(open: boolean) => void',
+                description: 'Called when the panel opens or closes.',
+              },
+              {
+                name: 'side',
+                type: 'ComboboxPanelSide',
+                default: 'ComboboxPanelSide.Bottom',
+                description: 'Which side of the field the panel prefers.',
+              },
+              {
+                name: 'align',
+                type: 'ComboboxPanelAlign',
+                default: 'ComboboxPanelAlign.Start',
+                description: 'How the panel lines up along that side.',
+              },
+              {
+                name: 'id',
+                type: 'string',
+                description: 'The input id. Generated when left out.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="ComboboxItem"
+            rows={[
+              {
+                name: 'value',
+                type: 'string',
+                required: true,
+                description: 'The key reported when the item is picked.',
+              },
+              {
+                name: 'children',
+                type: 'string',
+                required: true,
+                description:
+                  'The label, shown in the list, the input, and the chip.',
+              },
+              {
+                name: 'description',
+                type: 'string',
+                description: 'Muted text after the label, truncated to fit.',
+              },
+              {
+                name: 'icon',
+                type: 'ReactNode',
+                description: 'An icon before the label, in the list only.',
+              },
+              {
+                name: 'disabled',
+                type: 'boolean',
+                default: 'false',
+                description: 'Keeps the item in place but out of reach.',
+              },
+            ]}
+          />
+          <p>
+            <code>ComboboxGroup</code>, <code>ComboboxLabel</code>,{' '}
+            <code>ComboboxSeparator</code>, and <code>ComboboxEmpty</code> take
+            the props of a <code>&lt;div&gt;</code>. There is no input, trigger,
+            or content part: the root renders them.
+          </p>
+        </>
+      }
+      notes={
+        <>
+          <p>
+            The field is 36px tall at the default size and 32px at small,
+            matching Input and Select. Items stay 32px at both sizes. In
+            multiple mode the field grows by rows as chips wrap.
+          </p>
+          <p>
+            Chips commit on Enter only. A comma does not commit, because commas
+            occur inside place names, and blur does not commit, because that
+            would turn an abandoned keystroke into a value.
+          </p>
+          <p>
+            The panel registers in the same layer stack as Dialog and Dropdown
+            menu, so it opens, positions, and stays clickable inside a modal
+            dialog. While open it may cover the error message under the field.
+          </p>
+          <p>
+            The panel grows from the field with a fade and a scale from 0.96 on
+            the bounce curve and leaves on the settle curve. The chevron turns
+            180 degrees at <code>--motion-base</code>; the border and focus ring
+            transition at <code>--motion-fast</code>. Chips, the item highlight,
+            the check, the clear button, and the spinner change without motion.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/select',
+          label: 'Select',
+          description: 'A short, fixed list with no typing.',
+        },
+        {
+          to: '/components/input',
+          label: 'Input',
+          description: 'Free text with no suggestions.',
+        },
+        {
+          to: '/components/date-picker',
+          label: 'Date picker',
+          description: 'The field for a date or a range of dates.',
+        },
+        {
+          to: '/components/form',
+          label: 'Form',
+          description: 'Field layout, the actions row, and validation.',
+        },
+      ]}
+    />
   )
 }

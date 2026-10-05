@@ -1,19 +1,28 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useEffect, useRef, useState } from 'react'
 
-import { Preview } from '@/components/preview'
-import { Button, ButtonVariant } from '@/registry/ui/button'
 import {
-  Dialog,
-  DialogBody,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogTitle,
-  DialogTrigger,
-} from '@/registry/ui/dialog'
-import { Input } from '@/registry/ui/input'
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  NoticeFrame,
+  PropsTable,
+} from '@/components/doc-page'
+import { DialogDemo } from '@/examples/dialog/demo'
+import demoSource from '@/examples/dialog/demo.tsx?raw'
+import { DialogDestructiveConfirm } from '@/examples/dialog/destructive-confirm'
+import destructiveConfirmSource from '@/examples/dialog/destructive-confirm.tsx?raw'
+import { DialogLarge } from '@/examples/dialog/large'
+import largeSource from '@/examples/dialog/large.tsx?raw'
+import { DialogManyTriggers } from '@/examples/dialog/many-triggers'
+import manyTriggersSource from '@/examples/dialog/many-triggers.tsx?raw'
+import { DialogPending } from '@/examples/dialog/pending'
+import pendingSource from '@/examples/dialog/pending.tsx?raw'
+import { DialogScrollingBody } from '@/examples/dialog/scrolling-body'
+import scrollingBodySource from '@/examples/dialog/scrolling-body.tsx?raw'
+import { DialogServerError } from '@/examples/dialog/server-error'
+import serverErrorSource from '@/examples/dialog/server-error.tsx?raw'
+import usageSource from '@/examples/dialog/usage.tsx?raw'
 
 export const Route = createFileRoute('/_docs/components/dialog')({
   component: DialogPage,
@@ -21,247 +30,320 @@ export const Route = createFileRoute('/_docs/components/dialog')({
 
 function DialogPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Dialog
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          A modal surface for a task that stops the page: a form, a choice, a
-          confirmation. The dialog owns the surface, the scrim, the focus trap,
-          the scroll lock, and every exit. The app owns the content, the{' '}
-          <code>open</code> state, and the result of the operation, shown inline
-          via alert after close.
-        </p>
-      </header>
+    <DocPage
+      title="Dialog"
+      lead="A modal surface for a short task that stops the page: a form, a choice, or a confirmation."
+      preview={{ source: demoSource, demo: <DialogDemo /> }}
+      installation="dialog"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Large size"
+            description={
+              <>
+                <code>DialogSize.Large</code> fits a two-column form.
+              </>
+            }
+            source={largeSource}
+          >
+            <DialogLarge />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Parts</h2>
-        <p className="text-muted-foreground">
-          Nine parts: <code>Dialog</code>, <code>DialogTrigger</code>,{' '}
-          <code>DialogContent</code>, <code>DialogTitle</code>,{' '}
-          <code>DialogDescription</code>, <code>DialogBody</code>,{' '}
-          <code>DialogFooter</code>, <code>DialogClose</code>, and the built-in
-          X close button.{' '}
-          <strong className="text-foreground">
-            There is no <code>DialogHeader</code>
-          </strong>{' '}
-          — <code>DialogContent</code> stacks title, description, body, and
-          footer with a fixed gap; the title-to-description gap is tightened by
-          margin on <code>DialogDescription</code>. <code>DialogTitle</code> is
-          required and set in Bricolage Grotesque, because a modal that stops
-          the page must say what it is. <code>DialogDescription</code> is
-          optional. <code>DialogBody</code> is the only scroll region. The X is
-          always rendered, positioned top-right, and last in the DOM.
-        </p>
-        <p className="text-muted-foreground">
-          <strong className="text-foreground">There is no alert-dialog.</strong>{' '}
-          A destructive confirm is a plain <code>Dialog</code> with{' '}
-          <code>dismissible={'{false}'}</code> and a destructive button in the
-          footer — Radix's <code>AlertDialog</code> adds an announcement mode
-          and no keyboard difference, so this system ships one component instead
-          of two.
-        </p>
-      </section>
+          <Example
+            caption="Scrolling body"
+            description="The body scrolls while the title and footer stay put, so Done never leaves reach."
+            source={scrollingBodySource}
+          >
+            <DialogScrollingBody />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Sizes</h2>
-        <p className="text-muted-foreground">
-          Two sizes, both centered and capped to the viewport minus 32px on
-          every side. <code>default</code> is 448px, wide enough for a
-          confirmation or a short form. <code>lg</code> is 672px, a 1.5 ratio
-          that fits a two-column form. There is no bottom sheet.
-        </p>
-      </section>
+          <Example
+            caption="Destructive confirm"
+            description={
+              <>
+                <code>dismissible={'{false}'}</code> ignores a click outside, so
+                the decision ends on a button or Escape. The trip disappearing
+                is the confirmation.
+              </>
+            }
+            source={destructiveConfirmSource}
+          >
+            <DialogDestructiveConfirm />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Scroll and footer</h2>
-        <p className="text-muted-foreground">
-          <code>DialogBody</code> scrolls while the title and footer stay
-          pinned, so a confirm button never scrolls out of reach under a phone
-          keyboard. The footer is <code>justify-end gap-2</code> from 640px and
-          full-width, column-reversed below it, so the primary action sits under
-          the thumb and last in the DOM for the keyboard.
-        </p>
-      </section>
+          <Example
+            caption="Waiting inside the dialog"
+            description={
+              <>
+                <code>pending</code> holds every exit while the code is checked,
+                because the answer decides what happens next. Try any code, then
+                KYOTO-2026.
+              </>
+            }
+            source={pendingSource}
+          >
+            <DialogPending />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Dismissible and pending
-        </h2>
-        <p className="text-muted-foreground">
-          <code>dismissible={'{false}'}</code> blocks an outside click only,
-          permanently — Escape and the X still close. <code>pending</code>{' '}
-          blocks Escape, outside click, and the X all at once, disables the X,
-          and sets <code>aria-busy</code> on the surface. The dialog shows no
-          other busyness of its own; the button inside carries the spinner.
-        </p>
-      </section>
+          <Example
+            caption="One dialog, many triggers"
+            description="Leave out DialogTrigger and drive open from your own state, so a toolbar button and a menu item open the same dialog."
+            source={manyTriggersSource}
+          >
+            <DialogManyTriggers />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Live example</h2>
-        <p className="text-muted-foreground">
-          Open the dialog to see the enter and exit motion, the focus trap, and
-          the disabled X. Save sets <code>pending</code> on the dialog while the
-          button carries its own spinner.
-        </p>
-        <Preview>
-          <ControlledDialogDemo />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          One dialog, many triggers
-        </h2>
-        <p className="text-muted-foreground">
-          An app composes its own <code>TripDialog</code> around{' '}
-          <code>Dialog</code> and <code>DialogContent</code>, taking the trigger
-          as <code>children</code> and forwarding <code>open</code> and{' '}
-          <code>onOpenChange</code> optionally. hottrip reuses one{' '}
-          <code>TripDialog</code> behind a toolbar button and a menu item below
-          by passing no trigger at all —{' '}
-          <strong className="text-foreground">
-            the trigger-less controlled form
-          </strong>{' '}
-          — and driving <code>open</code> from its own state.{' '}
-          <strong className="text-foreground">
-            Only a real <code>DialogTrigger</code> sets{' '}
+          <Example
+            caption="Error after closing"
+            description="This demo's server always fails. The dialog closes on submit, the failure arrives as a notice, and the notice's link reopens the form with the place you typed."
+            source={serverErrorSource}
+          >
+            <NoticeFrame>
+              <DialogServerError />
+            </NoticeFrame>
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'For a short form that creates or edits one thing: plan a trip, add a place, edit a traveller.',
+          'To confirm an action that cannot be undone, such as deleting a trip.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'for content that accompanies the page, such as filters or the detail of a row. A drawer sits at the edge and leaves the page in view; a dialog stops it.',
+            alternative: { to: '/components/drawer', label: 'Drawer' },
+          },
+          {
+            situation:
+              'to report a result. A dialog demands a decision; a result needs only to be seen.',
+            alternative: { to: '/components/notice', label: 'Notice' },
+          },
+          {
+            situation:
+              'for a long task with several stages, which deserves a page of its own and a visible sense of progress.',
+            alternative: { to: '/components/stepper', label: 'Stepper' },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Close a form dialog on submit and show the result on the item that changed.',
+            reason:
+              'The new trip appearing in the list is the clearest success there is, and nobody waits for the server with a modal in their face.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Turn a server error after closing into a notice whose link reopens the dialog with what the traveller typed.',
+            reason:
+              'The dialog is gone, so the notice is the one home that stays until it is seen, and nothing typed is lost.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Hold a dialog open with pending just to wait for a save.',
+            reason:
+              'Pending blocks every exit. Keep it for an answer the next step depends on, such as checking an invite code.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Keep client-side validation inside the dialog, on the field.',
+            reason:
+              'The traveller is still looking at the form, so the error belongs under the field they need to fix.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Name the action on the confirm button: "Delete trip", not "OK".',
+            reason:
+              'The button is the last thing read before the decision, so it says what will happen.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Enter', 'Space'],
+                description:
+                  'On the trigger, opens the dialog and moves focus to its first control.',
+              },
+              {
+                keys: ['Tab', 'Shift+Tab'],
+                description:
+                  'Cycles through the controls inside the dialog. The close button comes last.',
+              },
+              {
+                keys: ['Escape'],
+                description:
+                  'Closes the dialog and returns focus to the trigger. Does nothing while the dialog is pending.',
+              },
+            ]}
+          />
+          <p>
+            The dialog is labelled by its title and described by{' '}
+            <code>DialogDescription</code> when there is one. Focus never lands
+            on the close button on open. Everything outside an open dialog is
+            hidden from assistive technology, and the page behind it does not
+            scroll. A pending dialog sets <code>aria-busy</code> and disables
+            its close button.
+          </p>
+          <p>
+            Only a real <code>DialogTrigger</code> gives its button{' '}
             <code>aria-haspopup</code>, <code>aria-expanded</code>, and{' '}
-            <code>aria-controls</code> on its Button.
-          </strong>{' '}
-          A button driving the trigger-less form, like the two below, gets none
-          of that wiring — it is a plain button that happens to open a dialog.
-        </p>
-        <Preview>
-          <ReusableTripDialogDemo />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Motion</h2>
-        <p className="text-muted-foreground">
-          Enter scales from 0.98 plus a fade over 250ms on the bounce curve;
-          exit runs 150ms on the settle curve. The overlay animates opacity
-          only, from 0 to 0.5 over a solid <code>neutral-950</code>, so no color
-          in the system carries alpha.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          The dialog is labelled by its required title and, when present,
-          described by <code>DialogDescription</code>. Focus lands inside on
-          open — on the first body or footer control, never the X — and returns
-          to the trigger on close. Tab cycles inside and ends on the X. Content
-          outside an open dialog is hidden from the accessibility tree. Every
-          text pair meets WCAG AA — the tightest is the description at 7.44:1
-          against its 4.5:1 floor, measured by converting each OKLCH color to
-          sRGB and computing the WCAG ratio directly, not estimated.
-        </p>
-      </section>
-    </article>
-  )
-}
-
-function TripFormFields() {
-  return (
-    <div className="flex flex-col gap-3">
-      <Input label="Destination" placeholder="Lisbon" />
-      <Input label="Dates" placeholder="12–19 Oct" />
-    </div>
-  )
-}
-
-function ControlledDialogDemo() {
-  const [open, setOpen] = useState(false)
-  const [pending, setPending] = useState(false)
-  const pendingTimeout = useRef<ReturnType<typeof setTimeout>>(null)
-
-  useEffect(() => {
-    return () => {
-      if (pendingTimeout.current) clearTimeout(pendingTimeout.current)
-    }
-  }, [])
-
-  function handleSave() {
-    setPending(true)
-    pendingTimeout.current = setTimeout(() => {
-      setPending(false)
-      setOpen(false)
-    }, 1600)
-  }
-
-  return (
-    <Dialog open={open} onOpenChange={setOpen} pending={pending}>
-      <DialogTrigger>
-        <Button>Plan a trip</Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogTitle>Plan a trip</DialogTitle>
-        <DialogDescription>
-          Choose a destination and travel dates.
-        </DialogDescription>
-        <DialogBody>
-          <TripFormFields />
-        </DialogBody>
-        <DialogFooter>
-          <DialogClose>
-            <Button variant={ButtonVariant.Outline}>Cancel</Button>
-          </DialogClose>
-          <Button loading={pending} onClick={handleSave}>
-            Save trip
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  )
-}
-
-function TripDialog({
-  children,
-  open,
-  defaultOpen,
-  onOpenChange,
-}: {
-  children?: React.ReactElement
-  open?: boolean
-  defaultOpen?: boolean
-  onOpenChange?: (open: boolean) => void
-}) {
-  return (
-    <Dialog open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
-      {children ? <DialogTrigger>{children}</DialogTrigger> : null}
-      <DialogContent>
-        <DialogTitle>Plan a trip</DialogTitle>
-        <DialogDescription>
-          Choose a destination and travel dates.
-        </DialogDescription>
-        <DialogBody>
-          <TripFormFields />
-        </DialogBody>
-        <DialogFooter>
-          <DialogClose>
-            <Button variant={ButtonVariant.Outline}>Cancel</Button>
-          </DialogClose>
-          <Button>Save trip</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  )
-}
-
-function ReusableTripDialogDemo() {
-  const [open, setOpen] = useState(false)
-
-  return (
-    <div className="flex flex-wrap items-center gap-3">
-      <Button onClick={() => setOpen(true)}>Plan from the toolbar</Button>
-      <Button variant={ButtonVariant.Outline} onClick={() => setOpen(true)}>
-        Plan from a menu item
-      </Button>
-      <TripDialog open={open} onOpenChange={setOpen} />
-    </div>
+            <code>aria-controls</code>. A button that opens a trigger-less
+            dialog through state is a plain button.
+          </p>
+        </>
+      }
+      api={
+        <>
+          <PropsTable
+            component="Dialog"
+            description="The root. Holds the open state and the rules for leaving."
+            rows={[
+              {
+                name: 'open',
+                type: 'boolean',
+                description: 'The controlled open state.',
+              },
+              {
+                name: 'defaultOpen',
+                type: 'boolean',
+                default: 'false',
+                description: 'The initial open state when uncontrolled.',
+              },
+              {
+                name: 'onOpenChange',
+                type: '(open: boolean) => void',
+                description: 'Called when the dialog opens or closes.',
+              },
+              {
+                name: 'size',
+                type: 'DialogSize',
+                default: 'DialogSize.Default',
+                description:
+                  'Default for a confirmation or a short form; Large for a two-column form.',
+              },
+              {
+                name: 'dismissible',
+                type: 'boolean',
+                default: 'true',
+                description:
+                  'false ignores a click outside. Escape and the close button still work.',
+              },
+              {
+                name: 'pending',
+                type: 'boolean',
+                default: 'false',
+                description:
+                  'Blocks Escape, a click outside, and the close button, and sets aria-busy.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="DialogTrigger"
+            rows={[
+              {
+                name: 'children',
+                type: 'ReactElement',
+                required: true,
+                description:
+                  'One element, usually a Button, that opens the dialog.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="DialogClose"
+            rows={[
+              {
+                name: 'children',
+                type: 'ReactElement',
+                required: true,
+                description: 'One element, usually a Button, that closes it.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="DialogContent"
+            description="The surface. Renders the overlay and the close button for you."
+            rows={[
+              {
+                name: 'onOpenAutoFocus',
+                type: '(event: Event) => void',
+                description:
+                  'Runs as focus moves in. Prevent the default to place focus yourself.',
+              },
+              {
+                name: 'onCloseAutoFocus',
+                type: '(event: Event) => void',
+                description:
+                  'Runs as focus returns. Prevent the default to send it elsewhere.',
+              },
+            ]}
+          />
+          <p>
+            <code>DialogTitle</code> is required in every dialog.{' '}
+            <code>DialogDescription</code>, <code>DialogBody</code>, and{' '}
+            <code>DialogFooter</code> are optional and take the props of the
+            element they render. <code>DialogBody</code> is the only part that
+            scrolls.
+          </p>
+        </>
+      }
+      notes={
+        <>
+          <p>
+            The default size is 448px wide and the large size 672px, a ratio of
+            1.5. Both are centred and leave 16px of page on every side of a
+            small screen. Spacing inside comes from{' '}
+            <code>--dialog-spacing</code>.
+          </p>
+          <p>
+            There is no <code>DialogHeader</code>: the content stacks title,
+            description, body, and footer with one gap, and the description
+            pulls itself up under the title. There is no alert dialog either:
+            Radix&rsquo;s <code>AlertDialog</code> adds an announcement mode and
+            no keyboard difference, so a destructive confirm is a{' '}
+            <code>Dialog</code> with <code>dismissible={'{false}'}</code>.
+          </p>
+          <p>
+            The footer is a full-width column, reversed, below 640px, so the
+            primary action sits under the thumb and stays last for the keyboard.
+            From 640px it is a right-aligned row with an 8px gap.
+          </p>
+          <p>
+            The dialog enters with a fade and a scale from 0.98, 250ms on the
+            bounce curve, and leaves on the settle curve over 350ms. The overlay
+            is solid <code>neutral-950</code> faded to 0.5 element opacity, so
+            no colour carries alpha. The description measures 7.44:1 against the
+            surface.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/drawer',
+          label: 'Drawer',
+          description: 'The edge panel for content that accompanies the page.',
+        },
+        {
+          to: '/components/notice',
+          label: 'Notice',
+          description: 'Carries a result once the dialog has closed.',
+        },
+        {
+          to: '/components/form',
+          label: 'Form',
+          description: 'Field layout, the actions row, and validation.',
+        },
+        {
+          to: '/components/dropdown-menu',
+          label: 'Dropdown menu',
+          description: 'A second way to open the same dialog.',
+        },
+      ]}
+    />
   )
 }

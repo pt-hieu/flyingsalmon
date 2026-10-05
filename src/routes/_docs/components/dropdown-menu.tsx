@@ -1,36 +1,27 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
-import { Copy, Ellipsis, Pencil, Trash2 } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { Preview } from '@/components/preview'
 import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-  AlertVariant,
-} from '@/registry/ui/alert'
-import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/registry/ui/card'
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogTitle,
-} from '@/registry/ui/dialog'
-import {
-  DropdownMenu,
-  DropdownMenuAlign,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuItemVariant,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-} from '@/registry/ui/dropdown-menu'
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { DropdownMenuDemo } from '@/examples/dropdown-menu/demo'
+import demoSource from '@/examples/dropdown-menu/demo.tsx?raw'
+import { DropdownMenuDisabledItem } from '@/examples/dropdown-menu/disabled-item'
+import disabledItemSource from '@/examples/dropdown-menu/disabled-item.tsx?raw'
+import { DropdownMenuGroups } from '@/examples/dropdown-menu/groups'
+import groupsSource from '@/examples/dropdown-menu/groups.tsx?raw'
+import { DropdownMenuNavigationItem } from '@/examples/dropdown-menu/navigation-item'
+import navigationItemSource from '@/examples/dropdown-menu/navigation-item.tsx?raw'
+import { DropdownMenuPlacement } from '@/examples/dropdown-menu/placement'
+import placementSource from '@/examples/dropdown-menu/placement.tsx?raw'
+import { DropdownMenuTripCardActions } from '@/examples/dropdown-menu/trip-card-actions'
+import tripCardActionsSource from '@/examples/dropdown-menu/trip-card-actions.tsx?raw'
+import usageSource from '@/examples/dropdown-menu/usage.tsx?raw'
+import { DropdownMenuWithoutIcons } from '@/examples/dropdown-menu/without-icons'
+import withoutIconsSource from '@/examples/dropdown-menu/without-icons.tsx?raw'
 
 export const Route = createFileRoute('/_docs/components/dropdown-menu')({
   component: DropdownMenuPage,
@@ -38,288 +29,338 @@ export const Route = createFileRoute('/_docs/components/dropdown-menu')({
 
 function DropdownMenuPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Dropdown Menu
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          A trigger opens a list of actions the user runs once: rename,
-          duplicate, share, delete, or go somewhere. The menu owns the surface,
-          the positioning, and the keyboard path. The app owns what each item
-          does and the result of it, shown inline via alert after the menu
-          closes.
-        </p>
-        <p className="text-muted-foreground text-lg">
-          <strong className="text-foreground">Actions only.</strong> No checkbox
-          items, no radio items, and no submenu — a view-settings menu with
-          toggles is <code>Switch</code> on the page, not a menu that stays
-          open.
-        </p>
-      </header>
+    <DocPage
+      title="Dropdown menu"
+      lead="A trigger opens a list of actions the traveller runs once: rename, duplicate, share, delete, or go somewhere."
+      preview={{ source: demoSource, demo: <DropdownMenuDemo /> }}
+      installation="dropdown-menu"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Without icons"
+            description="An icon-free menu starts flush at the left edge, because the icon slot exists only on an item that gets an icon."
+            source={withoutIconsSource}
+          >
+            <DropdownMenuWithoutIcons />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Parts</h2>
-        <p className="text-muted-foreground">
-          Eight parts: <code>DropdownMenu</code>,{' '}
-          <code>DropdownMenuTrigger</code>, <code>DropdownMenuContent</code>,{' '}
-          <code>DropdownMenuGroup</code>, <code>DropdownMenuLabel</code>,{' '}
-          <code>DropdownMenuItem</code>, <code>DropdownMenuSeparator</code>, and{' '}
-          <code>DropdownMenuShortcut</code>. <code>DropdownMenuTrigger</code>{' '}
-          forces <code>asChild</code> and takes exactly one registry Button, the
-          same rule as dialog. <code>DropdownMenuContent</code> takes only{' '}
-          <code>side</code> and <code>align</code> — everything else about its
-          positioning is fixed by the system. <code>DropdownMenuGroup</code> is
-          semantic only, with no visual of its own; a group with a heading puts
-          a <code>DropdownMenuLabel</code> as its first child.{' '}
-          <code>DropdownMenuShortcut</code> is display only — the menu binds no
-          key, the app owns the shortcut.
-        </p>
-      </section>
+          <Example
+            caption="Labelled groups"
+            description={
+              <>
+                A group with a heading puts a <code>DropdownMenuLabel</code>{' '}
+                first. A separator divides groups; the group itself has no
+                visual of its own.
+              </>
+            }
+            source={groupsSource}
+          >
+            <DropdownMenuGroups />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Item API</h2>
-        <p className="text-muted-foreground">
-          <code>DropdownMenuItem</code> takes <code>variant</code> (
-          <code>default</code> or <code>destructive</code>), an{' '}
-          <code>icon</code>, <code>asChild</code>, <code>onSelect</code>, and{' '}
-          <code>disabled</code>. The icon slot exists only on an item that gets
-          an <code>icon</code>, so an icon-free menu starts flush at the left
-          edge. Give every item in a menu an icon or give none of them one —
-          mixing the two leaves the text ragged.{' '}
-          <strong className="text-foreground">
-            An action item uses <code>onSelect</code>; a navigation item wraps
-            the router's <code>Link</code> with <code>asChild</code>.
-          </strong>{' '}
-          With <code>asChild</code>, an item with an icon renders the slot, then
-          its children inside Radix <code>Slot.Slottable</code>, so the icon
-          lands inside the <code>Link</code> alongside its own text — the link
-          gets a real <code>href</code>, middle-click, and modifier-click, and
-          choosing it with the keyboard follows it.
-        </p>
-      </section>
+          <Example
+            caption="A disabled item"
+            description="The item stays in the list at half opacity and is skipped by the arrow keys, so the menu never shifts between opens."
+            source={disabledItemSource}
+          >
+            <DropdownMenuDisabledItem />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">States</h2>
-        <p className="text-muted-foreground">
-          Radix merges hover and keyboard focus into one{' '}
-          <code>data-highlighted</code> state: a background step to{' '}
-          <code>--accent</code>, or to <code>--error</code> for a destructive
-          item.{' '}
-          <strong className="text-foreground">
-            The highlight snaps, by design
-          </strong>{' '}
-          — no transition, because a fade smears while arrowing quickly and
-          native menus snap. An item draws no press ring and no focus ring: the
-          highlight moves with focus and is the focus indicator. A disabled item
-          still renders, at half opacity, so its position never shifts between
-          opens. The panel itself takes <code>outline-hidden</code> for the
-          pointer-opened case where Radix focuses the panel and not an item.
-        </p>
-      </section>
+          <Example
+            caption="A navigation item"
+            description={
+              <>
+                An action uses <code>onSelect</code>. An item that goes
+                somewhere wraps your router&rsquo;s <code>Link</code> with{' '}
+                <code>asChild</code>, so it has a real <code>href</code> and
+                middle-click works.
+              </>
+            }
+            source={navigationItemSource}
+          >
+            <DropdownMenuNavigationItem />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Panel</h2>
-        <p className="text-muted-foreground">
-          One size: a 32px item and a panel with <code>p-1</code> and a{' '}
-          <code>min-w-32</code> floor. The panel caps its height to Radix's own
-          available-height variable and scrolls internally, so a long list never
-          runs off the viewport. <code>loop</code> stays <code>false</code>:{' '}
-          <code>ArrowDown</code> on the last item stays put, matching macOS
-          menus.
-        </p>
-      </section>
+          <Example
+            caption="Placement"
+            description={
+              <>
+                <code>side</code> and <code>align</code> choose where the panel
+                opens. Aligning to the end keeps a menu on the right edge of the
+                page from running off it.
+              </>
+            }
+            source={placementSource}
+          >
+            <DropdownMenuPlacement />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Icons and shortcuts</h2>
-        <p className="text-muted-foreground">
-          Every item in this menu carries an <code>icon</code>, so the labels
-          line up past a shared slot, and Rename shows a{' '}
-          <code>DropdownMenuShortcut</code> pushed to the trailing edge. Open
-          the trigger to see them.
-        </p>
-        <Preview>
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Button
-                variant={ButtonVariant.Ghost}
-                size={ButtonSize.IconSmall}
-                aria-label="Trip actions"
-              >
-                <Ellipsis />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align={DropdownMenuAlign.Start}>
-              <DropdownMenuLabel>Weekend in Kyoto</DropdownMenuLabel>
-              <DropdownMenuItem icon={<Pencil />}>
-                Rename
-                <DropdownMenuShortcut>⌘R</DropdownMenuShortcut>
-              </DropdownMenuItem>
-              <DropdownMenuItem icon={<Copy />}>Duplicate</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                icon={<Trash2 />}
-                variant={DropdownMenuItemVariant.Destructive}
-              >
-                Delete trip
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Live example</h2>
-        <p className="text-muted-foreground">
-          An overflow menu on a trip card: two labelled groups, a disabled item,
-          action items on <code>onSelect</code>, and one navigation item as a{' '}
-          <code>Link</code> through <code>asChild</code> — both item forms sit
-          side by side. Choosing{' '}
-          <strong className="text-foreground">Delete trip</strong> opens the
-          registry <code>Dialog</code> with no trigger of its own,{' '}
-          <code>dismissible={'{false}'}</code>, and <code>pending</code> while
-          the delete runs. The menu itself never holds open and shows no
-          busyness — the dialog and, after it closes, the alert carry that.
-        </p>
-        <Preview>
-          <TripCardOverflowMenu />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Motion</h2>
-        <p className="text-muted-foreground">
-          Enter scales from 0.96 plus a fade over 250ms on the bounce curve,
-          transform origin at the Radix popper variable so a flipped panel still
-          grows from its trigger. Exit runs 150ms on the settle curve. The
-          highlight itself carries no animation.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          The trigger exposes <code>aria-haspopup="menu"</code> and{' '}
-          <code>aria-expanded</code>. <code>Enter</code>, <code>Space</code>, or{' '}
-          <code>ArrowDown</code> opens the menu with the first item highlighted;
-          a pointer click opens it with no item highlighted.{' '}
-          <code>ArrowUp</code>/<code>ArrowDown</code> move the highlight,{' '}
-          <code>Home</code>/<code>End</code> jump, and typing runs typeahead.{' '}
-          <code>Tab</code> is blocked inside the menu and disabled items are
-          skipped. <code>Escape</code> and an outside click both close the menu
-          and return focus to the trigger, including after a link item navigates
-          within the same route tree. Every text pair meets WCAG AA in both
-          modes.
-        </p>
-      </section>
-    </article>
-  )
-}
-
-function TripCardOverflowMenu() {
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
-  const [deletePending, setDeletePending] = useState(false)
-  const [deleted, setDeleted] = useState(false)
-  const deleteTimeout = useRef<ReturnType<typeof setTimeout>>(null)
-
-  useEffect(() => {
-    return () => {
-      if (deleteTimeout.current) clearTimeout(deleteTimeout.current)
-    }
-  }, [])
-
-  function handleConfirmDelete() {
-    setDeletePending(true)
-    deleteTimeout.current = setTimeout(() => {
-      setDeletePending(false)
-      setDeleteDialogOpen(false)
-      setDeleted(true)
-    }, 1200)
-  }
-
-  return (
-    <div className="flex w-full flex-col items-center gap-4">
-      <Card className="w-72">
-        <CardHeader className="flex-row items-start justify-between gap-2">
-          <CardTitle>Weekend in Kyoto</CardTitle>
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Button
-                variant={ButtonVariant.Ghost}
-                size={ButtonSize.IconSmall}
-                aria-label="Trip actions"
-              >
-                <Ellipsis />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align={DropdownMenuAlign.End}>
-              <DropdownMenuGroup>
-                <DropdownMenuLabel>Manage</DropdownMenuLabel>
-                <DropdownMenuItem onSelect={() => setDeleted(false)}>
-                  Rename
-                </DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => setDeleted(false)}>
-                  Duplicate
-                </DropdownMenuItem>
-                <DropdownMenuItem disabled>Archive</DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <DropdownMenuLabel>Go</DropdownMenuLabel>
-                <DropdownMenuItem asChild>
-                  <Link to="/components/card">View itinerary</Link>
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                variant={DropdownMenuItemVariant.Destructive}
-                onSelect={() => setDeleteDialogOpen(true)}
-              >
-                Delete trip
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </CardHeader>
-        <CardContent className="text-muted-foreground text-sm">
-          Temples in the morning, tea in the afternoon, a river walk at dusk.
-        </CardContent>
-      </Card>
-
-      <Dialog
-        open={deleteDialogOpen}
-        onOpenChange={setDeleteDialogOpen}
-        dismissible={false}
-        pending={deletePending}
-      >
-        <DialogContent>
-          <DialogTitle>Delete this trip?</DialogTitle>
-          <DialogDescription>
-            Weekend in Kyoto and its itinerary are gone for good.
-          </DialogDescription>
-          <DialogFooter>
-            <DialogClose>
-              <Button variant={ButtonVariant.Outline}>Cancel</Button>
-            </DialogClose>
-            <Button
-              variant={ButtonVariant.Destructive}
-              loading={deletePending}
-              onClick={handleConfirmDelete}
-            >
-              Delete trip
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      <Alert
-        variant={AlertVariant.Success}
-        open={deleted}
-        onClose={() => setDeleted(false)}
-        className="w-72"
-      >
-        <AlertTitle>Trip deleted</AlertTitle>
-        <AlertDescription>Weekend in Kyoto was removed.</AlertDescription>
-      </Alert>
-    </div>
+          <Example
+            caption="Actions on a trip card"
+            description="Duplicate adds a card straight away. Delete opens a confirmation, and the card disappears when it closes. Each result shows on the item that changed."
+            source={tripCardActionsSource}
+          >
+            <DropdownMenuTripCardActions />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'For the actions on one item, gathered behind an overflow button: rename, duplicate, share, delete.',
+          'For a short list of places to go from one trigger.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'for settings that stay on or off. A menu closes on every choice, so a toggle belongs on the page.',
+            alternative: { to: '/components/switch', label: 'Switch' },
+          },
+          {
+            situation:
+              'to pick a value for a field. A menu runs an action and a select holds a value.',
+            alternative: { to: '/components/select', label: 'Select' },
+          },
+          {
+            situation:
+              'for one action with no siblings. A menu with a single item is a button with extra steps.',
+            alternative: { to: '/components/button', label: 'Button' },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Show the result on the item the action changed.',
+            reason:
+              'The menu closes on select, so the traveller is looking at the item again. A duplicated trip appearing in the list is the confirmation. When the item has no visible home, a notice carries the result.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Open a confirmation dialog from a destructive item.',
+            reason:
+              'The menu offers the choice and the dialog asks for the decision, so one stray click cannot delete a trip.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Give every item in a menu an icon, or none of them.',
+            reason:
+              'Mixing the two leaves the labels ragged, because only an item with an icon renders the slot.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Label the trigger when it is an icon button.',
+            reason:
+              'The ellipsis alone says nothing to a screen reader. Name what the menu acts on: "Actions for Kyoto in autumn".',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Add checkbox items, radio items, or a submenu.',
+            reason:
+              'The menu is for actions only. A choice that persists belongs on the page as a field.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Enter', 'Space', 'ArrowDown'],
+                description:
+                  'On the trigger, opens the menu with the first item highlighted. A pointer click opens it with no item highlighted.',
+              },
+              {
+                keys: ['ArrowUp', 'ArrowDown'],
+                description:
+                  'Moves the highlight. It stops at the first and last item rather than wrapping.',
+              },
+              {
+                keys: ['Home', 'End'],
+                description: 'Jumps to the first or last item.',
+              },
+              {
+                keys: ['Enter', 'Space'],
+                description: 'On an item, runs it and closes the menu.',
+              },
+              {
+                keys: ['Escape'],
+                description:
+                  'Closes the menu and returns focus to the trigger.',
+              },
+            ]}
+          />
+          <p>
+            Typing a letter jumps to the next item starting with it. Tab does
+            nothing inside the menu, and disabled items are skipped. An outside
+            click closes the menu and returns focus to the trigger, including
+            after a link item navigates.
+          </p>
+          <p>
+            The trigger exposes <code>aria-haspopup=&quot;menu&quot;</code> and{' '}
+            <code>aria-expanded</code>. The highlight moves with focus and is
+            the focus indicator, so an item draws no ring of its own.
+          </p>
+        </>
+      }
+      api={
+        <>
+          <PropsTable
+            component="DropdownMenu"
+            description="The root. It takes the Radix root's props except modal, which is always on."
+            rows={[
+              {
+                name: 'open',
+                type: 'boolean',
+                description: 'The controlled open state.',
+              },
+              {
+                name: 'defaultOpen',
+                type: 'boolean',
+                default: 'false',
+                description: 'The initial open state when uncontrolled.',
+              },
+              {
+                name: 'onOpenChange',
+                type: '(open: boolean) => void',
+                description: 'Called when the menu opens or closes.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="DropdownMenuTrigger"
+            rows={[
+              {
+                name: 'children',
+                type: 'ReactElement',
+                required: true,
+                description:
+                  'One element, a registry Button, that opens the menu.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="DropdownMenuContent"
+            description="The panel. Everything else about its positioning is fixed."
+            rows={[
+              {
+                name: 'side',
+                type: 'DropdownMenuSide',
+                default: 'DropdownMenuSide.Bottom',
+                description:
+                  'Which edge of the trigger the panel opens from. It flips when there is no room.',
+              },
+              {
+                name: 'align',
+                type: 'DropdownMenuAlign',
+                default: 'DropdownMenuAlign.Center',
+                description: 'How the panel lines up along that edge.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="DropdownMenuItem"
+            rows={[
+              {
+                name: 'variant',
+                type: 'DropdownMenuItemVariant',
+                default: 'DropdownMenuItemVariant.Default',
+                description:
+                  'Destructive marks an item that removes something.',
+              },
+              {
+                name: 'icon',
+                type: 'ReactNode',
+                description:
+                  'Fills the slot before the label. Give every item an icon or none.',
+              },
+              {
+                name: 'onSelect',
+                type: '(event: Event) => void',
+                description: 'Runs the action. The menu closes after it.',
+              },
+              {
+                name: 'asChild',
+                type: 'boolean',
+                default: 'false',
+                description:
+                  'Renders your element, such as a router Link, in place of the item.',
+              },
+              {
+                name: 'disabled',
+                type: 'boolean',
+                default: 'false',
+                description:
+                  'Dims the item, skips it in the arrow path, and ignores selection.',
+              },
+            ]}
+          />
+          <p>
+            <code>DropdownMenuGroup</code>, <code>DropdownMenuLabel</code>,{' '}
+            <code>DropdownMenuSeparator</code>, and{' '}
+            <code>DropdownMenuShortcut</code> take the props of the element they
+            render. <code>DropdownMenuShortcut</code> only displays a hint at
+            the trailing edge: the menu binds no key, so your app owns the
+            shortcut.
+          </p>
+        </>
+      }
+      notes={
+        <>
+          <p>
+            The trigger forces <code>asChild</code> and takes exactly one
+            registry Button, the same rule as the dialog. With{' '}
+            <code>asChild</code> on an item that has an icon, the item renders
+            the slot and then its children inside Radix{' '}
+            <code>Slot.Slottable</code>, so the icon lands inside the link
+            beside its own text.
+          </p>
+          <p>
+            Radix merges hover and keyboard focus into one{' '}
+            <code>data-highlighted</code> state: a background step to{' '}
+            <code>--accent</code>, or to <code>--error</code> for a destructive
+            item. The highlight snaps with no transition, because a fade smears
+            while arrowing quickly and native menus snap. The panel itself takes{' '}
+            <code>outline-hidden</code> for the pointer-opened case, where Radix
+            focuses the panel rather than an item.
+          </p>
+          <p>
+            There is one size: a 32px item in a panel with 4px padding and a{' '}
+            <code>min-w-32</code> floor. The panel caps its height to
+            Radix&rsquo;s available-height variable and scrolls internally, so a
+            long list never leaves the viewport. <code>loop</code> is off, so
+            ArrowDown on the last item stays put, as in macOS menus.
+          </p>
+          <p>
+            Enter scales from 0.96 with a fade over 250ms on the bounce curve,
+            from the Radix popper transform origin so a flipped panel still
+            grows from its trigger. Exit runs 350ms on the settle curve. The
+            highlight carries no animation.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/dialog',
+          label: 'Dialog',
+          description: 'Confirms a destructive item before it runs.',
+        },
+        {
+          to: '/components/select',
+          label: 'Select',
+          description:
+            'Picks a value for a field instead of running an action.',
+        },
+        {
+          to: '/components/button',
+          label: 'Button',
+          description: 'The trigger, and the home of a single action.',
+        },
+        {
+          to: '/principles',
+          label: 'Principles',
+          description: 'Where a result belongs once the menu has closed.',
+        },
+      ]}
+    />
   )
 }
