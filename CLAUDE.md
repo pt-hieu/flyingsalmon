@@ -8,7 +8,7 @@ Every coding rule, for the registry and the docs site alike, is in `CODING_STAND
 ## Where to look
 
 - Adding, renaming, or removing a component, a component file, an enum member, or a theme token: `docs/agents/change-recipes.md` lists every file that moves with it.
-- Editing a registry item's `css`, `cssVars`, or imports, or debugging a consumer's `shadcn add`: `GOTCHAS.md`.
+- Editing a registry item's `css`, `cssVars`, or imports, or debugging a consumer's `shadcn add`, or fixing a `@shadcn/lint` error: `GOTCHAS.md`.
 
 ## Structure rules
 

@@ -4,7 +4,7 @@
   "jsPlugins": ["eslint-plugin-sonarjs", "@shadcn/lint"],
   "settings": {
     "shadcn": {
-      "note": "Design rules are in CLAUDE.md. CODING_STANDARDS.md says how a bracket value is written and what the allow list holds."
+      "note": "Design rules are in CLAUDE.md. GOTCHAS.md says how to pass a dynamic value and what a new allow entry needs."
     }
   },
   "categories": {

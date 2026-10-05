@@ -1,5 +1,7 @@
 # Gotchas
 
+## `shadcn add`
+
 How the shadcn CLI transforms a registry item when a consumer runs `shadcn add`.
 
 - The CLI rewrites every `@/` import to the consumer's aliases and resolves a folder import to the `.tsx` file sharing the folder's name, not `index.ts`; relative imports pass through unchanged.
@@ -9,3 +11,11 @@ How the shadcn CLI transforms a registry item when a consumer runs `shadcn add`.
 - On Tailwind v4 the CLI adds `@custom-variant dark (&:is(.dark *))` after the last `@import` of any stylesheet that has no `@custom-variant` yet, before it applies the item; no item field prevents it.
 - The CLI fails with a `proxyOf` error on an empty stylesheet; one that starts with `@import 'tailwindcss';` avoids it.
 - Installing a UI item fetches `https://ui.shadcn.com/r/colors/<baseColor>.json` and needs network access; an item with no files installs offline.
+
+## `@shadcn/lint`
+
+`pnpm lint` runs `@shadcn/lint` against the theme.
+
+- A dynamic value reaches a class through a CSS custom property set in `style`: `style={{ '--slider-fill-width': width }}` with `w-(--slider-fill-width)`.
+- A new allow entry in `.oxlintrc.json` needs a spec or ADR behind the value, the same bar ADR 0006 sets for a shared class string.
+- `no-unknown-classes` skips cva variant entries keyed by an enum member (shadcn-ui/lint#70), so a misspelled class there still passes.
