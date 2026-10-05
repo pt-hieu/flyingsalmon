@@ -53,13 +53,13 @@ describe('ComponentSearch', () => {
     expect(highlightedOption()).toContain('Avatar')
 
     await user.keyboard('{ArrowDown}')
-    expect(highlightedOption()).toContain('Avatar Group')
+    expect(highlightedOption()).toContain('Avatar group')
 
     await user.keyboard('{ArrowDown}')
     expect(highlightedOption()).not.toContain('Group')
 
     await user.keyboard('{ArrowUp}')
-    expect(highlightedOption()).toContain('Avatar Group')
+    expect(highlightedOption()).toContain('Avatar group')
   })
 
   it('navigates to the highlighted component on Enter and closes', async () => {
@@ -76,7 +76,7 @@ describe('ComponentSearch', () => {
   it('navigates to a clicked component', async () => {
     const { user, router } = await openFromTrigger()
 
-    await user.click(screen.getByRole('option', { name: /Toggle Group/ }))
+    await user.click(screen.getByRole('option', { name: /Toggle group/ }))
 
     await waitFor(() =>
       expect(router.state.location.pathname).toBe('/components/toggle-group'),
