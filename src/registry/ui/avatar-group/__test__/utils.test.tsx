@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest'
 import { resolveRoster } from '@/registry/ui/avatar-group/resolve-roster'
 import {
   childIndexContaining,
+  itemOffset,
   resolveItemName,
   stepFocusWithin,
   tabStopChildIndex,
@@ -210,5 +211,36 @@ describe('stepFocusWithin', () => {
 
     expect(notPrevented).toBe(true)
     expect(ada).toHaveFocus()
+  })
+})
+
+describe('itemOffset', () => {
+  it.each([
+    [
+      'stays in place when nothing is revealed',
+      2,
+      null,
+      'calc(0 * var(--avatar-group-reveal))',
+    ],
+    [
+      'stays in place when it is the revealed item',
+      2,
+      2,
+      'calc(0 * var(--avatar-group-reveal))',
+    ],
+    [
+      'slides one step left when it sits before the revealed item',
+      0,
+      2,
+      'calc(-1 * var(--avatar-group-reveal))',
+    ],
+    [
+      'slides one step right when it sits after the revealed item',
+      4,
+      2,
+      'calc(1 * var(--avatar-group-reveal))',
+    ],
+  ])('%s', (_description, childIndex, revealedIndex, expectedOffset) => {
+    expect(itemOffset({ childIndex, revealedIndex })).toBe(expectedOffset)
   })
 })
