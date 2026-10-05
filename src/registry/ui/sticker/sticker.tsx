@@ -44,7 +44,11 @@ export function Sticker({
         return (
           <g
             key={frameIndex}
-            style={{ animationDelay: boilFrameDelay(frameIndex) }}
+            style={
+              {
+                '--sticker-frame-delay': boilFrameDelay(frameIndex),
+              } as React.CSSProperties
+            }
             className={stickerFrameVariants({ leading: frameIndex === 0 })}
           >
             {cutPasses.map((pass) => (

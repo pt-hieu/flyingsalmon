@@ -8,7 +8,7 @@ export const avatarVariants = cva(
     variants: {
       size: {
         [AvatarSize.Default]: 'size-8 text-xs',
-        [AvatarSize.Small]: 'size-6 text-[0.625rem]',
+        [AvatarSize.Small]: 'size-6 text-2xs',
       },
     },
     defaultVariants: {

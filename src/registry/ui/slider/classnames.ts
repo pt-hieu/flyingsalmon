@@ -42,10 +42,10 @@ export const sliderRootClassName =
 export const sliderTrackClassName = 'relative h-5 w-full grow'
 
 export const sliderFillClassName =
-  'bg-slider-fill absolute inset-y-0 left-0 rounded-full transition-[width] duration-(--motion-fast)'
+  'bg-slider-fill absolute inset-y-0 left-0 w-(--slider-fill-width) rounded-full transition-[width] duration-(--motion-fast)'
 
 export const sliderStepDotClassName =
-  'bg-muted-foreground absolute top-1/2 size-1 -translate-1/2 rounded-full'
+  'bg-muted-foreground absolute top-1/2 left-(--slider-step-dot-offset) size-1 -translate-1/2 rounded-full'
 
 export const sliderThumbClassName = cn(
   'border-indicator bg-card block h-5 w-(--slider-thumb-width) cursor-grab rounded-full border-2 active:cursor-grabbing',

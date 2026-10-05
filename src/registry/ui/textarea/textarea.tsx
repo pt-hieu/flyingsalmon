@@ -74,11 +74,13 @@ export function Textarea({
           aria-invalid={error ? true : undefined}
           aria-busy={loading || undefined}
           aria-describedby={describedBy}
-          style={{
-            minHeight: rowsToHeight(minRows),
-            maxHeight: rowsToHeight(maxRows),
-            ...style,
-          }}
+          style={
+            {
+              '--textarea-min-height': rowsToHeight(minRows),
+              '--textarea-max-height': rowsToHeight(maxRows),
+              ...style,
+            } as React.CSSProperties
+          }
           className={textareaVariants({ loading })}
           {...props}
           rows={minRows}

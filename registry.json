@@ -353,12 +353,16 @@
           "animate-calendar-page-backward": "calendar-page-backward 250ms linear(0, 0.4188, 0.869, 1.0326, 1.04, 1.0153, 1.0011, 1)",
           "animate-calendar-heading-enter": "calendar-heading-enter 100ms linear",
           "animate-progress-indeterminate": "progress-indeterminate 2s ease-in-out infinite",
-          "animate-sticker-boil": "sticker-boil 450ms step-end infinite",
+          "animate-sticker-boil": "sticker-boil 450ms step-end var(--sticker-frame-delay, 0ms) infinite",
           "animate-sticker-pop": "sticker-pop linear both",
           "timeline-spacing": "--spacing(6)",
           "bar-height": "--spacing(18)",
           "page-header-inset": "--spacing(0)",
-          "page-header-max-width": "none"
+          "page-header-max-width": "none",
+          "sidebar-width": "--spacing(72)",
+          "sidebar-width-collapsed": "--spacing(14)",
+          "text-2xs": "0.625rem",
+          "text-decoration-thickness-emphasis": "1.5px"
         },
         "light": {
           "background": "var(--color-orange-50)",

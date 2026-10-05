@@ -77,14 +77,20 @@ export function Slider({
             <span
               aria-hidden
               className={sliderFillClassName}
-              style={{ width: fillWidth }}
+              style={
+                { '--slider-fill-width': fillWidth } as React.CSSProperties
+              }
             />
             {stepDotOffsets.map((stepDotOffset) => (
               <span
                 key={stepDotOffset}
                 aria-hidden
                 className={sliderStepDotClassName}
-                style={{ left: stepDotOffset }}
+                style={
+                  {
+                    '--slider-step-dot-offset': stepDotOffset,
+                  } as React.CSSProperties
+                }
               />
             ))}
           </SliderPrimitive.Track>

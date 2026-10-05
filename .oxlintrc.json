@@ -1,7 +1,12 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["typescript", "react", "import", "node", "unicorn"],
-  "jsPlugins": ["eslint-plugin-sonarjs"],
+  "jsPlugins": ["eslint-plugin-sonarjs", "@shadcn/lint"],
+  "settings": {
+    "shadcn": {
+      "note": "Design rules are in CLAUDE.md. GOTCHAS.md says how to pass a dynamic value and what a new allow entry needs."
+    }
+  },
   "categories": {
     "correctness": "error",
     "suspicious": "warn"
@@ -176,9 +181,81 @@
     "sonarjs/no-debug-commands-in-ui-tests": "error",
     "sonarjs/no-mixed-completion-style": "error",
     "sonarjs/no-interpolation-in-inline-snapshots": "error",
-    "sonarjs/explicit-test-skip": "error"
+    "sonarjs/explicit-test-skip": "error",
+    "shadcn/no-raw-colors": ["error", { "allow": ["decoration-emphasis"] }],
+    "shadcn/no-arbitrary-values": [
+      "error",
+      {
+        "scanAllStrings": true,
+        "allow": [
+          "transition-*",
+          "[transition-duration:*]",
+          "content-*",
+          "[animation-timeline:*]",
+          "[animation-range:*]",
+
+          "[--card-spacing:*]",
+          "*:[--card-spacing:*]",
+          "[--dialog-spacing:*]",
+          "*:[--dialog-spacing:*]",
+          "[--timeline-spacing:*]",
+          "*:[--timeline-spacing:*]",
+          "[--page-header-inset:*]",
+          "*:[--page-header-inset:*]",
+          "[--page-header-max-width:*]",
+          "*:[--page-header-max-width:*]",
+          "[--sidebar-width:*]",
+          "*:[--sidebar-width:*]",
+          "[--sidebar-width-collapsed:*]",
+          "*:[--sidebar-width-collapsed:*]",
+
+          "[--avatar-group-reveal:*]",
+          "[--slider-thumb-width:*]",
+
+          "w-[calc(100%-(--spacing(8)))]",
+          "max-h-[calc(100dvh-(--spacing(8)))]",
+          "w-[min(--spacing(112),calc(100vw-(--spacing(4))))]",
+          "min-w-[min(--spacing(112),calc(100vw-(--spacing(4))))]",
+          "max-w-[calc(100vw-(--spacing(4)))]",
+          "min-w-[min(100%,--spacing(64))]",
+          "py-[calc((var(--bar-height)_-_1lh)/2)]",
+          "px-[max(--spacing(3),var(--page-header-inset))]",
+          "left-[calc(50%+(--spacing(3)))]",
+          "left-[calc(50%+(--spacing(2)))]",
+          "w-[calc(100%+var(--timeline-spacing)-(--spacing(6)))]",
+          "w-[calc(100%+var(--timeline-spacing)-(--spacing(4)))]",
+          "rounded-[calc(var(--radius-md)-(--spacing(1)))]",
+
+          "h-[1em]",
+          "size-[1em]",
+          "align-[-0.125em]",
+          "max-w-[20ch]",
+
+          "stroke-[2.4]",
+          "[stroke-dasharray:0.5_7]",
+
+          "max-h-[calc(100dvh-(--spacing(14)))]",
+          "grid-cols-[--spacing(20)_--spacing(8)_1fr]",
+          "grid-cols-[--spacing(20)_--spacing(10)_1fr]",
+          "grid-cols-[--spacing(40)_1fr]",
+          "[zoom:0.42]",
+          "[zoom:0.9]"
+        ]
+      }
+    ],
+    "shadcn/no-inline-styles": "error",
+    "shadcn/no-unknown-classes": "error"
   },
   "overrides": [
+    {
+      "files": ["src/registry/**"],
+      "rules": {
+        "shadcn/no-raw-colors": [
+          "error",
+          { "scanAllStrings": true, "allow": ["decoration-emphasis"] }
+        ]
+      }
+    },
     {
       "files": ["src/registry/**", "src/lib/utils.ts"],
       "rules": {

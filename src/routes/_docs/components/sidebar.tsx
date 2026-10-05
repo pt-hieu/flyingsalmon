@@ -199,10 +199,11 @@ function SidebarPage() {
       <section className="space-y-4">
         <h2 className="font-heading text-2xl font-bold">Widths and tokens</h2>
         <p className="text-muted-foreground">
-          <code>--sidebar-width</code> is 18.125rem and{' '}
-          <code>--sidebar-width-collapsed</code> is 3.5rem, both set on the root
-          and overridable through <code>className</code> rather than through
-          props. The component adds no tokens of its own: it paints{' '}
+          <code>--sidebar-width</code> is 18rem and{' '}
+          <code>--sidebar-width-collapsed</code> is 3.5rem. Both are theme
+          tokens, so a pane beside the sidebar can read them, and an override
+          sets the variable on the sidebar or an ancestor rather than passing a
+          prop. The component adds no color tokens of its own: it paints{' '}
           <code>--background</code>, <code>--border</code>,{' '}
           <code>--accent</code>, <code>--indicator</code>, and{' '}
           <code>--ring</code>.{' '}

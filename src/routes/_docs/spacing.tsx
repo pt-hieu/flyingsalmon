@@ -157,6 +157,18 @@ const spacingTokens: SpacingToken[] = [
     usage:
       'The widest a page header lets its title and actions run. The row centers inside the header while the bottom rule keeps the full width.',
   },
+  {
+    name: '--sidebar-width',
+    value: '--spacing(72)',
+    usage:
+      'The expanded sidebar column. It is set on the root, so a pane beside the sidebar can offset itself by the same width.',
+  },
+  {
+    name: '--sidebar-width-collapsed',
+    value: '--spacing(14)',
+    usage:
+      "The collapsed rail: the content inset, an item's padding, and its icon, so the icons stay put as the sidebar collapses.",
+  },
 ]
 
 function SpacingPage() {
@@ -188,7 +200,7 @@ function SpacingPage() {
           {spacingSteps.map((spacingStep) => (
             <li
               key={spacingStep.step}
-              className="grid grid-cols-[5rem_2rem_1fr] items-center gap-4 p-4"
+              className="grid grid-cols-[--spacing(20)_--spacing(8)_1fr] items-center gap-4 p-4"
             >
               <p className="text-sm">
                 <code className="font-medium">{spacingStep.step}</code>
@@ -220,7 +232,7 @@ function SpacingPage() {
           {controlHeights.map((controlHeight) => (
             <li
               key={controlHeight.height}
-              className="grid grid-cols-[5rem_2.5rem_1fr] items-center gap-4 p-4"
+              className="grid grid-cols-[--spacing(20)_--spacing(10)_1fr] items-center gap-4 p-4"
             >
               <p className="text-sm">
                 <code className="font-medium">{controlHeight.height}</code>
