@@ -1,12 +1,26 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { houseStickerArt } from '@/components/house-sticker-art'
+import {
+  CodeBlock,
+  CodeLanguage,
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  PropsTable,
+} from '@/components/doc-page'
 import {
   houseStickerLabel,
   houseStickerRoleClassNames,
 } from '@/components/house-sticker'
-import { Preview } from '@/components/preview'
-import { Sticker } from '@/registry/ui/sticker'
+import { StickerBesideItsTitle } from '@/examples/sticker/beside-its-title'
+import besideItsTitleSource from '@/examples/sticker/beside-its-title.tsx?raw'
+import { StickerDemo } from '@/examples/sticker/demo'
+import demoSource from '@/examples/sticker/demo.tsx?raw'
+import { StickerPopIn } from '@/examples/sticker/pop-in'
+import popInSource from '@/examples/sticker/pop-in.tsx?raw'
+import { StickerSizeAndTilt } from '@/examples/sticker/size-and-tilt'
+import sizeAndTiltSource from '@/examples/sticker/size-and-tilt.tsx?raw'
+import usageSource from '@/examples/sticker/usage.tsx?raw'
 import {
   Table,
   TableBody,
@@ -41,6 +55,8 @@ writeSticker({
   output: new URL('../src/components/door-sticker-art.ts', import.meta.url),
 })`
 
+const runScriptExample = 'node scripts/draw-door-sticker.ts'
+
 const generatedArtExample = `export const doorStickerArt = {
   width: 80,
   height: 96,
@@ -57,238 +73,274 @@ const generatedArtExample = `export const doorStickerArt = {
 
 function StickerPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Sticker
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          Hand-drawn art cut out like a sticker. The drawing&apos;s lines boil
-          the way a cartoon&apos;s do, and the sticker pops in as it scrolls
-          into view. It marks a moment, such as the end of a trip or a page with
-          nothing on it yet.
-        </p>
-      </header>
+    <DocPage
+      title="Sticker"
+      lead="A sticker is hand-drawn art cut out like a paper sticker, marking a moment such as the end of a trip or a page with nothing on it yet."
+      preview={{ source: demoSource, demo: <StickerDemo /> }}
+      installation="sticker"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Beside its title"
+            description="The sticker sits next to a title that says the same thing in words. A small tilt, two or three degrees either way, keeps it from looking printed."
+            source={besideItsTitleSource}
+          >
+            <StickerBesideItsTitle />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">The sticker</h2>
-        <p className="text-muted-foreground">
-          <code>Sticker</code> takes three things: <code>art</code>, the frames
-          a drawing script generated; <code>roleClassNames</code>, which colours
-          each part of the drawing; and <code>label</code>, which names the
-          picture. Hand-drawn art is decoration with a job: it sits beside a
-          title that says the same thing in words, and it never replaces the
-          words.
-        </p>
-        <Preview>
-          <Sticker
-            art={houseStickerArt}
-            label={houseStickerLabel}
-            roleClassNames={houseStickerRoleClassNames}
-            popIn={false}
-            className="max-w-sm"
-          />
-        </Preview>
-      </section>
+          <Example
+            caption="Pop-in on scroll"
+            description="By default the sticker grows from small and tilted, overshoots, and settles as it scrolls into view. Scroll this one in and out of view; it plays backwards when you scroll back."
+            source={popInSource}
+          >
+            <StickerPopIn />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Art</h2>
-        <p className="text-muted-foreground">
-          The art is generated data, never written by hand. It has a{' '}
-          <code>width</code> and a <code>height</code> in drawing units and
-          three <code>frames</code>. A frame is a list of layers, and a layer is
-          one SVG path: its <code>d</code>, its <code>paint</code> (
-          <code>fill</code> or <code>stroke</code>), and its <code>role</code>.
-          A role names a part of the drawing, <code>roof</code> or{' '}
-          <code>door</code>, never a colour, so the same art follows whatever
-          theme draws it.
-        </p>
-        <p className="text-muted-foreground">
-          One role is the sticker&apos;s own: <code>cut</code> is the
-          drawing&apos;s silhouette, which the sticker turns into its die-cut
-          edge. Every other role is the art&apos;s to name.
-        </p>
-        <p className="text-muted-foreground">
-          The boil is built for three frames, so art always has exactly three.
-          The drawing script draws three, each with its own seeds.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">The role map</h2>
-        <p className="text-muted-foreground">
-          <code>roleClassNames</code> gives each role a Tailwind class per
-          paint. The classes are spelled out in full so Tailwind finds them, and
-          they are split by paint because a fill class on a stroke path would
-          override its <code>fill=&quot;none&quot;</code>. Colours come from the
-          theme&apos;s functional aliases: <code>--foreground</code> for the
-          ink, <code>--card</code> for paper, and the group colours for
-          everything that tells one part from another (ADR 0004). A role the map
-          leaves out draws in <code>--foreground</code>.
-        </p>
-        <p className="text-muted-foreground">
-          A line&apos;s weight and dash belong to the map too. Every line draws
-          at the same weight unless its role&apos;s classes set another, as the
-          dotted <code>trail</code> behind the plane does.
-        </p>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHeadCell>Role</TableHeadCell>
-              <TableHeadCell>Fill</TableHeadCell>
-              <TableHeadCell>Stroke</TableHeadCell>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {Object.entries(houseStickerRoleClassNames).map(
-              ([role, classNames]) => (
-                <TableRow key={role}>
-                  <TableCell>
-                    <code>{role}</code>
-                  </TableCell>
-                  <TableCell>
-                    <code>{classNames.fill}</code>
-                  </TableCell>
-                  <TableCell>
-                    <code>{classNames.stroke}</code>
-                  </TableCell>
-                </TableRow>
-              ),
-            )}
-          </TableBody>
-        </Table>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">The die-cut edge</h2>
-        <p className="text-muted-foreground">
-          The sticker strokes the <code>cut</code> silhouette thick three times:
-          a <code>--border</code> layer offset down and to the right, a{' '}
-          <code>--border</code> line, and a <code>--card</code> edge on top. The
-          strokes merge into one cut around the whole drawing, so the art reads
-          as a sticker on the page. Every pass is a solid palette colour: no
-          shadow and no alpha (ADR 0003, ADR 0004).
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Line boil</h2>
-        <p className="text-muted-foreground">
-          The three frames draw the same picture with a different wobble, and
-          they take turns every 150ms on a 450ms loop (
-          <code>animate-sticker-boil</code>), so the lines jitter like a
-          cartoon&apos;s. The boil is continuous and runs for as long as the
-          sticker is on the page. It is one of the motion language&apos;s
-          documented exceptions to the 200ms limit (ADR 0001).
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Pop-in</h2>
-        <p className="text-muted-foreground">
-          The sticker pops in as it scrolls into view: it grows from small and
-          tilted, overshoots, and settles (<code>animate-sticker-pop</code>).
-          The pop runs on the page&apos;s scroll position rather than a clock,
-          from the moment the sticker is 10% into the viewport until it covers
-          35% of it, so it plays at the speed the reader scrolls and plays
-          backwards when they scroll back. A browser without scroll-driven
-          animations shows the sticker at rest.
-        </p>
-        <p className="text-muted-foreground">
-          Pop-in is on by default. Pass <code>popIn={'{false}'}</code> for a
-          sticker that is already in view when its page opens, such as one at
-          the top of an empty state; the stickers at the top of this page do.
-          Scroll the one below in and out of view.
-        </p>
-        <Preview>
-          <Sticker
-            art={houseStickerArt}
-            label={houseStickerLabel}
-            roleClassNames={houseStickerRoleClassNames}
-            className="max-w-xs"
-          />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Size and tilt</h2>
-        <p className="text-muted-foreground">
-          The sticker fills the width its parent gives it and keeps the
-          art&apos;s aspect ratio. It applies no size and no tilt of its own:
-          set both from outside with <code>className</code>, which reaches the
-          root <code>svg</code> along with every other prop. A small tilt, two
-          or three degrees either way, keeps a sticker from looking printed.
-        </p>
-        <Preview>
-          <Sticker
-            art={houseStickerArt}
-            label={houseStickerLabel}
-            roleClassNames={houseStickerRoleClassNames}
-            popIn={false}
-            className="max-w-52 -rotate-2"
-          />
-          <Sticker
-            art={houseStickerArt}
-            label={houseStickerLabel}
-            roleClassNames={houseStickerRoleClassNames}
-            popIn={false}
-            className="max-w-60 rotate-3"
-          />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Drawing new art</h2>
-        <p className="text-muted-foreground">
-          Art comes from a drawing script built on rough.js. Installing the
-          sticker adds <code>sticker-sketch.ts</code> to the sticker&apos;s
-          folder, beside the component, and the <code>roughjs</code> dev
-          dependency. The sketch module holds the pen: the ink&apos;s weight,
-          roughness, and bowing, the silhouette pen, the three frames, and the
-          output shape. A sticker&apos;s own script imports the pen, draws its
-          shapes once per frame, and writes the art module beside the code that
-          renders it.
-        </p>
-        <p className="text-muted-foreground">
-          <code>drawSilhouette</code> takes the outline pieces the edge should
-          cut around; a closed piece is filled so the edge has no holes.{' '}
-          <code>draw</code> takes any rough.js drawable. A fill or stroke name
-          becomes the layer&apos;s role, and <code>ink</code> strokes in the{' '}
-          <code>ink</code> role. Offset every seed from <code>frameSeed</code>,
-          so each frame wobbles differently and a rerun draws exactly the same
-          frames.
-        </p>
-        <pre className="bg-card border-border overflow-x-auto rounded-lg border p-4 text-sm">
-          <code>{drawingScriptExample}</code>
-        </pre>
-        <p className="text-muted-foreground">
-          Run it with Node, which runs TypeScript directly, and commit the
-          module it writes. Rerun it after every change to the drawing.
-        </p>
-        <pre className="bg-card border-border overflow-x-auto rounded-lg border p-4 text-sm">
-          <code>node scripts/draw-door-sticker.ts</code>
-        </pre>
-        <pre className="bg-card border-border overflow-x-auto rounded-lg border p-4 text-sm">
-          <code>{generatedArtExample}</code>
-        </pre>
-        <p className="text-muted-foreground">
-          In this repo, <code>pnpm stickers:draw</code> regenerates the house on
-          this page from <code>scripts/draw-house-sticker.ts</code>.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
+          <Example
+            caption="Size and tilt"
+            description="The sticker fills the width its parent gives it and keeps the art’s aspect ratio. It sets no size and no tilt of its own, so set both with className."
+            source={sizeAndTiltSource}
+          >
+            <StickerSizeAndTilt />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'To mark a moment: a finished trip, a first visit, a page with nothing on it yet.',
+          'Beside a title that says the same thing in words.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'to label a status or a count, because a badge is small, static, and states the state in words.',
+            alternative: { to: '/components/badge', label: 'Badge' },
+          },
+          {
+            situation:
+              'to tell the traveller a page is empty, with a sticker beside the message rather than in place of it.',
+            alternative: {
+              to: '/components/empty-state',
+              label: 'Empty state',
+            },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Keep a title beside the sticker that says what it says.',
+            reason:
+              'The art is decoration with a job. It never replaces the words.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: (
+              <>
+                Pass <code>popIn={'{false}'}</code> for a sticker already in
+                view when its page opens.
+              </>
+            ),
+            reason:
+              'The pop is tied to scroll position. A sticker at the top of a page would sit part-way through it until the reader scrolled.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Write the art by hand.',
+            reason:
+              'The art is generated data with three frames, each drawn with its own seeds. A hand-edited module is lost the next time the script runs.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Name roles after colours.',
+            reason:
+              'A role names a part of the drawing, such as roof or door, so the same art follows whatever theme draws it.',
+          },
+        ],
+      }}
+      accessibility={
+        <p>
           The sticker is one image: an <code>svg</code> with{' '}
-          <code>role=&quot;img&quot;</code> named by <code>label</code>, and its
-          paths are presentational. Keep the label short and describe the
+          <code>role=&quot;img&quot;</code> named by <code>label</code>, with
+          its paths presentational. Keep the label short and describe the
           picture, not its purpose: &ldquo;{houseStickerLabel}&rdquo;. It takes
           no focus and has no states. Its colours carry no meaning of their own,
           so they have no contrast floor; the title beside the sticker carries
           the meaning.
         </p>
-      </section>
-    </article>
+      }
+      api={
+        <>
+          <PropsTable
+            component="Sticker"
+            description={
+              <>
+                Also takes every <code>&lt;svg&gt;</code> attribute;{' '}
+                <code>className</code> reaches the root <code>svg</code>.
+              </>
+            }
+            rows={[
+              {
+                name: 'art',
+                type: 'StickerArt',
+                required: true,
+                description:
+                  'The frames a drawing script generated: a width and height in drawing units and exactly three frames.',
+              },
+              {
+                name: 'label',
+                type: 'string',
+                required: true,
+                description: 'Names the picture for screen readers.',
+              },
+              {
+                name: 'roleClassNames',
+                type: 'StickerRoleClassNames',
+                required: true,
+                description:
+                  'Maps each role in the art to a Tailwind class per paint. A role the map leaves out draws in the foreground colour.',
+              },
+              {
+                name: 'popIn',
+                type: 'boolean',
+                default: 'true',
+                description: 'Plays the scroll-linked pop-in.',
+              },
+            ]}
+          />
+          <h3 className="font-heading text-lg font-semibold">The role map</h3>
+          <p>
+            <code>roleClassNames</code> gives each role a class per paint. Spell
+            the classes out in full so Tailwind finds them, and split them by
+            paint, because a fill class on a stroke path would override its{' '}
+            <code>fill=&quot;none&quot;</code>. Take colours from the theme’s
+            functional aliases: <code>--foreground</code> for ink,{' '}
+            <code>--card</code> for paper, and the group colours for everything
+            that tells one part from another. Every line draws at the same
+            weight unless its role’s classes set another, as the dotted{' '}
+            <code>trail</code> behind the plane does. This is the house
+            sticker’s map.
+          </p>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHeadCell>Role</TableHeadCell>
+                <TableHeadCell>Fill</TableHeadCell>
+                <TableHeadCell>Stroke</TableHeadCell>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {Object.entries(houseStickerRoleClassNames).map(
+                ([role, classNames]) => (
+                  <TableRow key={role}>
+                    <TableCell>
+                      <code>{role}</code>
+                    </TableCell>
+                    <TableCell>
+                      <code>{classNames.fill}</code>
+                    </TableCell>
+                    <TableCell>
+                      <code>{classNames.stroke}</code>
+                    </TableCell>
+                  </TableRow>
+                ),
+              )}
+            </TableBody>
+          </Table>
+        </>
+      }
+      notes={
+        <>
+          <p>
+            A frame is a list of layers, and a layer is one SVG path: its{' '}
+            <code>d</code>, its <code>paint</code> (<code>fill</code> or{' '}
+            <code>stroke</code>), and its <code>role</code>. One role belongs to
+            the sticker: <code>cut</code> is the drawing’s silhouette, which the
+            sticker turns into its die-cut edge. Every other role is the art’s
+            to name.
+          </p>
+          <p>
+            The die-cut edge strokes the <code>cut</code> silhouette thick three
+            times: a <code>--border</code> layer offset down and to the right, a{' '}
+            <code>--border</code> line, and a <code>--card</code> edge on top.
+            The strokes merge into one cut around the whole drawing. Every pass
+            is a solid palette colour, with no shadow and no alpha.
+          </p>
+          <p>
+            The three frames draw the same picture with a different wobble and
+            take turns every 150ms on a 450ms loop (
+            <code>animate-sticker-boil</code>), so the lines jitter like a
+            cartoon’s. The boil is continuous and runs as long as the sticker is
+            on the page, one of the documented exceptions to the 200ms limit.
+          </p>
+          <p>
+            The pop-in (<code>animate-sticker-pop</code>) runs on scroll
+            position rather than a clock, from the moment the sticker is 10%
+            into the viewport until it covers 35% of it. A browser without
+            scroll-driven animations shows the sticker at rest.
+          </p>
+          <h3 className="font-heading text-lg font-semibold">
+            Drawing new art
+          </h3>
+          <p>
+            Art comes from a drawing script built on rough.js. Installing the
+            sticker adds <code>sticker-sketch.ts</code> to the sticker’s folder,
+            beside the component, and the <code>roughjs</code> dev dependency.
+            The sketch module holds the pen: the ink’s weight, roughness, and
+            bowing, the silhouette pen, the three frames, and the output shape.
+            A sticker’s own script imports the pen, draws its shapes once per
+            frame, and writes the art module beside the code that renders it.
+          </p>
+          <p>
+            <code>drawSilhouette</code> takes the outline pieces the edge cuts
+            around; a closed piece is filled so the edge has no holes.{' '}
+            <code>draw</code> takes any rough.js drawable. A fill or stroke name
+            becomes the layer’s role, and <code>ink</code> strokes in the{' '}
+            <code>ink</code> role. Offset every seed from <code>frameSeed</code>
+            , so each frame wobbles differently and a rerun draws exactly the
+            same frames.
+          </p>
+          <CodeBlock code={drawingScriptExample} label="Drawing script" />
+          <p>
+            Run it with Node, which runs TypeScript directly, and commit the
+            module it writes. Rerun it after every change to the drawing.
+          </p>
+          <CodeBlock
+            code={runScriptExample}
+            language={CodeLanguage.Bash}
+            label="Run the drawing script"
+          />
+          <CodeBlock code={generatedArtExample} label="Generated art module" />
+          <p>
+            This site regenerates its house sticker with{' '}
+            <code>pnpm stickers:draw</code>, which runs{' '}
+            <code>scripts/draw-house-sticker.ts</code>.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/empty-state',
+          label: 'Empty state',
+          description: 'The page a sticker most often decorates.',
+        },
+        {
+          to: '/components/badge',
+          label: 'Badge',
+          description: 'The marker for a status or a count.',
+        },
+        {
+          to: '/motion',
+          label: 'Motion',
+          description:
+            'Where the boil and the pop-in sit in the motion language.',
+        },
+        {
+          to: '/colors',
+          label: 'Colours',
+          description: 'The group colours a role map draws from.',
+        },
+      ]}
+    />
   )
 }

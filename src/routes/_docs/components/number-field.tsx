@@ -1,8 +1,32 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
+import { Link, createFileRoute } from '@tanstack/react-router'
 
-import { Preview } from '@/components/preview'
-import { NumberField, NumberFieldSize } from '@/registry/ui/number-field'
+import {
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { NumberFieldBudget } from '@/examples/number-field/budget'
+import budgetSource from '@/examples/number-field/budget.tsx?raw'
+import { NumberFieldDemo } from '@/examples/number-field/demo'
+import demoSource from '@/examples/number-field/demo.tsx?raw'
+import { NumberFieldDescription } from '@/examples/number-field/description'
+import descriptionSource from '@/examples/number-field/description.tsx?raw'
+import { NumberFieldDisabled } from '@/examples/number-field/disabled'
+import disabledSource from '@/examples/number-field/disabled.tsx?raw'
+import { NumberFieldDuration } from '@/examples/number-field/duration'
+import durationSource from '@/examples/number-field/duration.tsx?raw'
+import { NumberFieldError } from '@/examples/number-field/error'
+import errorSource from '@/examples/number-field/error.tsx?raw'
+import { NumberFieldLoading } from '@/examples/number-field/loading'
+import loadingSource from '@/examples/number-field/loading.tsx?raw'
+import { NumberFieldReadOnly } from '@/examples/number-field/read-only'
+import readOnlySource from '@/examples/number-field/read-only.tsx?raw'
+import { NumberFieldSizes } from '@/examples/number-field/sizes'
+import sizesSource from '@/examples/number-field/sizes.tsx?raw'
+import usageSource from '@/examples/number-field/usage.tsx?raw'
+import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/number-field')({
   component: NumberFieldPage,
@@ -10,326 +34,351 @@ export const Route = createFileRoute('/_docs/components/number-field')({
 
 function NumberFieldPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Number Field
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          A quantity field that formats for the reader's locale, clamps to its
-          bounds, and steps from the keyboard or its own spin buttons. It
-          reports a number or nothing at all, never the text on screen.
-        </p>
-      </header>
+    <DocPage
+      title="Number field"
+      lead="A quantity field that formats for the page’s locale, clamps to its bounds, and steps from the keyboard or its own spin buttons."
+      preview={{ source: demoSource, demo: <NumberFieldDemo /> }}
+      installation="number-field"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Budget with a prefix"
+            description={
+              <>
+                <code>prefix</code> puts a symbol before the value and{' '}
+                <code>step</code> sizes one press of a spin button. The prefix
+                is plain text, so it reads the way your product writes money,
+                and the value still groups for the locale.
+              </>
+            }
+            source={budgetSource}
+          >
+            <NumberFieldBudget />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          It reports a number, never a string
-        </h2>
-        <p className="text-muted-foreground">
-          <code>onValueChange</code> carries <code>number | null</code>. An
-          empty field is <code>null</code> — never <code>NaN</code>, never{' '}
-          <code>0</code>, so nothing downstream has to tell "unanswered" from
-          "zero". While you type, the field reports what the parser reads, in
-          range or not; blur and Enter clamp into <code>[min, max]</code> and
-          reformat. Text the parser cannot read reverts to the last committed
-          value and raises no error: the <code>error</code> prop is the only
-          error channel. Native <code>onChange</code> still reaches the inner
-          input if you want the keystrokes.
-        </p>
-      </section>
+          <Example
+            caption="Duration with a unit"
+            description="With min and max both set, Home and End jump to the ends of the range, and each spin button dims as its end arrives."
+            source={durationSource}
+          >
+            <NumberFieldDuration />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Always set min</h2>
-        <p className="text-muted-foreground">
-          <strong className="text-foreground">
-            Set <code>min</code> on every field that cannot go negative.
-          </strong>{' '}
-          It bounds the clamp, it gives Home somewhere to jump, it disables the
-          decrease button at the floor, and it picks the mobile keyboard:{' '}
-          <code>numeric</code> when <code>min</code> is zero or above,{' '}
-          <code>decimal</code> when the step is fractional, and the full{' '}
-          <code>text</code> keyboard only when negatives are possible. A guest
-          count with no <code>min</code> is a field that accepts minus three
-          people.
-        </p>
-      </section>
+          <Example
+            caption="Sizes"
+            description="Two sizes match Input, so a number field and a text field line up in a row."
+            source={sizesSource}
+          >
+            <NumberFieldSizes />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Group size</h2>
-        <p className="text-muted-foreground">
-          The plainest shape: a floor of one, a step of one, no prefix and no
-          unit. The decrease button dims at the floor and stops there, and so do
-          the arrow keys.
-        </p>
-        <Preview>
-          <NumberField
-            className="w-64"
-            label="Group size"
-            defaultValue={2}
-            min={1}
-            max={12}
+          <Example
+            caption="Description"
+            description="Helper text shows the other view of the amount: the group total for a per-person budget. Step below $100 and the error grows in beneath it."
+            source={descriptionSource}
+          >
+            <NumberFieldDescription />
+          </Example>
+
+          <Example
+            caption="Error"
+            description="The border, the dividers, and the label turn destructive together."
+            source={errorSource}
+          >
+            <NumberFieldError />
+          </Example>
+
+          <Example
+            caption="Loading"
+            description="Change the budget. A spinner replaces the spin buttons in exactly their width while the trips are counted, and the field stays typeable."
+            source={loadingSource}
+          >
+            <NumberFieldLoading />
+          </Example>
+
+          <Example
+            caption="Disabled"
+            description="The spin buttons stay in place and dim with the field, so the control never changes shape as it locks."
+            source={disabledSource}
+          >
+            <NumberFieldDisabled />
+          </Example>
+
+          <Example
+            caption="Read-only"
+            description="The value stays readable and copyable, and the field still posts with its form."
+            source={readOnlySource}
+          >
+            <NumberFieldReadOnly />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'For a quantity the traveller adjusts: travellers, nights, a budget.',
+          'When the value is arithmetic input and the field must report a number, with bounds you can enforce.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'for a numeric string nothing does arithmetic on, such as a booking reference or a phone number.',
+            alternative: { to: '/components/input', label: 'Input' },
+          },
+          {
+            situation:
+              'when the traveller sets an approximate value on a range and the exact figure does not matter.',
+            alternative: { to: '/components/slider', label: 'Slider' },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Set min on every field that cannot go negative.',
+            reason:
+              'It bounds the clamp, gives Home somewhere to jump, disables the decrease button at the floor, and picks the numeric mobile keyboard. A traveller count with no min accepts minus three people.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Treat null as "unanswered" in your handler.',
+            reason:
+              'An empty field reports null, never NaN or 0, so nothing downstream has to tell a blank from a zero.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Read the typed text instead of the reported number.',
+            reason:
+              'The field formats for the page’s locale, so the text may hold a group separator. The reported value is always a plain number.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Lock the field while a background check runs.',
+            reason:
+              'Use loading instead. The field stays typeable and the submit button is what locks a flow.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Tab'],
+                description:
+                  'Moves focus into the field and then out. The spin buttons are outside the tab order, because the arrow keys already do their job.',
+              },
+              {
+                keys: ['ArrowUp', 'ArrowDown'],
+                description: 'Steps the value by step.',
+              },
+              {
+                keys: [
+                  'PageUp',
+                  'PageDown',
+                  'Shift+ArrowUp',
+                  'Shift+ArrowDown',
+                ],
+                description:
+                  'Steps the value by largeStep, ten times step unless you set it.',
+              },
+              {
+                keys: ['Home', 'End'],
+                description:
+                  'Jumps to min or max. Does nothing when that bound is unset.',
+              },
+              {
+                keys: ['Enter'],
+                description: 'Commits the typed text and lets the form submit.',
+              },
+              {
+                keys: ['Escape'],
+                description:
+                  'Does nothing here, so it still closes an enclosing dialog.',
+              },
+            ]}
           />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Budget per person</h2>
-        <p className="text-muted-foreground">
-          <code>prefix</code> puts a symbol before the value and{' '}
-          <code>step</code> sizes one press of a spin button. Both are plain
-          text — no <code>Intl</code> currency formatting — so the prefix reads
-          the way your product writes money. The value still groups for the
-          locale, and the prefix joins it in the announcement:{' '}
-          <code>$1,500</code>.
-        </p>
-        <Preview>
-          <NumberField
-            className="w-64"
-            label="Budget per person"
-            prefix="$"
-            defaultValue={1500}
-            min={0}
-            step={50}
-          />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Duration</h2>
-        <p className="text-muted-foreground">
-          <code>unit</code> puts a word after the value. With <code>min</code>{' '}
-          and <code>max</code> both set, Home and End jump to the ends of the
-          range, Page Up and Page Down move by <code>largeStep</code> — ten
-          times <code>step</code> unless you say otherwise — and each spin
-          button dims as its end arrives.
-        </p>
-        <Preview>
-          <NumberField
-            className="w-64"
-            label="Duration"
-            unit="days"
-            defaultValue={7}
-            min={1}
-            max={30}
-          />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Sizes</h2>
-        <p className="text-muted-foreground">
-          Two sizes match input's, so a number field and a text field line up in
-          a row. The spin buttons are squares the height of the field, so the
-          control keeps its proportions at both sizes. There is no variant prop
-          and no <code>width</code> prop — constrain the wrapper with{' '}
-          <code>className</code>, as every example here does.
-        </p>
-        <Preview>
-          <NumberField
-            className="w-64"
-            label="Group size"
-            defaultValue={2}
-            min={1}
-          />
-          <NumberField
-            className="w-64"
-            size={NumberFieldSize.Small}
-            label="Group size"
-            defaultValue={2}
-            min={1}
-          />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Description</h2>
-        <p className="text-muted-foreground">
-          <code>description</code> is helper text in muted type directly under
-          the box, and it joins the input&rsquo;s accessible description, so a
-          screen reader reads it with the field. Here it shows the other view of
-          the amount: the group total for a per-person budget. Step below $100
-          and the error grows in beneath the description, which stays where it
-          is. A screen reader hears the error first, then the description.
-        </p>
-        <Preview>
-          <GroupBudgetExample />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Error</h2>
-        <p className="text-muted-foreground">
-          <code>error</code> turns the border, the dividers, and the label
-          destructive, sets <code>aria-invalid</code>, and renders the message
-          below. The field grows downward only. Nothing shakes, so errors arrive
-          calmly.
-        </p>
-        <Preview>
-          <NumberField
-            className="w-64"
-            label="Group size"
-            defaultValue={0}
-            min={0}
-            error="Book for at least one guest"
-          />
-          <NumberField
-            className="w-64"
-            size={NumberFieldSize.Small}
-            label="Budget per person"
-            prefix="$"
-            defaultValue={0}
-            min={0}
-            step={50}
-            error="Enter a budget above zero"
-          />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Loading</h2>
-        <p className="text-muted-foreground">
-          <code>loading</code> replaces the spin button pair with a spinner in
-          exactly the pair's width, so nothing moves.{' '}
-          <strong className="text-foreground">The field stays typeable</strong>{' '}
-          — loading here means background work, such as a quote being priced,
-          and the submit button is what locks a flow. With an error alongside,
-          both show and the spinner turns destructive.
-        </p>
-        <Preview>
-          <NumberField
-            className="w-64"
-            label="Budget per person"
-            prefix="$"
-            defaultValue={1500}
-            min={0}
-            step={50}
-            loading
-          />
-          <NumberField
-            className="w-64"
-            label="Budget per person"
-            prefix="$"
-            defaultValue={1500}
-            min={0}
-            step={50}
-            loading
-            error="No trips at this budget"
-          />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Disabled and read-only
-        </h2>
-        <p className="text-muted-foreground">
-          Both keep the spin buttons in place and mark them{' '}
-          <code>aria-disabled</code>, so the control never changes shape as it
-          locks. Disabled dims the field and its label together, takes no
-          pointer events, and posts nothing, exactly like a native disabled
-          control. Read-only keeps full contrast on a muted background, stays
-          focusable so the value can be read and copied, and still posts.
-        </p>
-        <Preview>
-          <NumberField
-            className="w-64"
-            label="Group size"
-            defaultValue={2}
-            min={1}
-            disabled
-          />
-          <NumberField
-            className="w-64"
-            label="Duration"
-            unit="days"
-            defaultValue={7}
-            min={1}
-            max={30}
-            readOnly
-          />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Keyboard</h2>
-        <p className="text-muted-foreground">
-          Up and Down step by <code>step</code>. Page Up, Page Down, and the
-          shifted arrows step by <code>largeStep</code>. Home and End jump to{' '}
-          <code>min</code> and <code>max</code>, and do nothing when that bound
-          is unset. Enter commits and lets the form submit. Escape is left
-          alone, because it belongs to whatever dialog encloses the field, and
-          the wheel never steps, so a scroll through a form cannot change an
-          answer. Tab reaches the field and then leaves: the spin buttons sit
-          outside the tab ring, since the arrow keys already do their job.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Motion</h2>
-        <p className="text-muted-foreground">
-          The border, the field background, and the spin button backgrounds
-          transition at <code>--motion-fast</code>. Holding a spin button
-          repeats after 400ms at 60ms. The error message is the one enter and
-          exit: height and opacity on <code>spring-settle</code>. Digits never
-          tween and the reformat on blur is instant — a number that animates is
-          a number you cannot read.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          The text input is the <code>spinbutton</code>: it carries{' '}
-          <code>aria-valuemin</code>, <code>aria-valuemax</code>,{' '}
-          <code>aria-valuenow</code>, and an <code>aria-valuetext</code> that
-          includes the prefix and the unit, so a screen reader hears "$1,500"
-          rather than "1500". An empty field omits both value attributes rather
-          than announce a number it does not have. The visible prefix and unit
-          are <code>aria-hidden</code>, because the value text already says
-          them. The spin buttons are named Decrease and Increase and point at
-          the input with <code>aria-controls</code>. The whole box draws the
-          focus ring on <code>focus-within</code>, since the input inside it
-          owns no border of its own. <code>required</code> marks the label and
-          sets <code>aria-required</code>; the validation itself stays with your
-          app.
-        </p>
-      </section>
-    </article>
-  )
-}
-
-const groupSize = 4
-
-function groupTotalDescription(budgetPerPerson: number | null) {
-  if (budgetPerPerson === null) {
-    return `Set a budget to see the total for the group of ${groupSize}`
-  }
-
-  const groupTotal = (budgetPerPerson * groupSize).toLocaleString('en-US')
-
-  return `$${groupTotal} for the group of ${groupSize}`
-}
-
-function GroupBudgetExample() {
-  const [budgetPerPerson, setBudgetPerPerson] = useState<number | null>(1800)
-
-  const error =
-    budgetPerPerson !== null && budgetPerPerson < 100
-      ? 'Enter at least $100 per person'
-      : undefined
-
-  return (
-    <NumberField
-      className="w-64"
-      label="Budget per person"
-      prefix="$"
-      value={budgetPerPerson}
-      onValueChange={setBudgetPerPerson}
-      min={0}
-      step={50}
-      description={groupTotalDescription(budgetPerPerson)}
-      error={error}
+          <p>
+            The mouse wheel never steps the value, so scrolling through a form
+            cannot change an answer. The text input is the{' '}
+            <code>spinbutton</code>. Its value text includes the prefix and the
+            unit, so a screen reader hears &ldquo;$1,500&rdquo; rather than
+            &ldquo;1500&rdquo;, and an empty field omits its value attributes
+            instead of announcing a number it does not have. The spin buttons
+            are named Decrease and Increase. <code>required</code> marks the
+            label and sets <code>aria-required</code>; the validation itself
+            stays with your app. The states every field shares are described on{' '}
+            <TextLink asChild>
+              <Link to="/fields">Fields</Link>
+            </TextLink>
+            .
+          </p>
+        </>
+      }
+      api={
+        <PropsTable
+          component="NumberField"
+          description={
+            <>
+              Also takes every <code>&lt;input&gt;</code> attribute except{' '}
+              <code>type</code>, <code>size</code>, and the value props it
+              redefines. <code>className</code> styles the wrapper.
+            </>
+          }
+          rows={[
+            {
+              name: 'label',
+              type: 'string',
+              description: 'The visible label, wired to the input.',
+            },
+            {
+              name: 'value',
+              type: 'number | null',
+              description: 'The controlled value. null is an empty field.',
+            },
+            {
+              name: 'defaultValue',
+              type: 'number | null',
+              description: 'The initial value of an uncontrolled field.',
+            },
+            {
+              name: 'onValueChange',
+              type: '(value: number | null) => void',
+              description:
+                'Reports the parsed number while typing, in range or not. Blur and Enter clamp into [min, max] and reformat.',
+            },
+            {
+              name: 'min',
+              type: 'number',
+              description:
+                'The floor. Also picks the mobile keyboard: numeric when min is zero or above.',
+            },
+            {
+              name: 'max',
+              type: 'number',
+              description: 'The ceiling.',
+            },
+            {
+              name: 'step',
+              type: 'number',
+              default: '1',
+              description:
+                'One arrow key or spin button press. A fractional step picks the decimal keyboard.',
+            },
+            {
+              name: 'largeStep',
+              type: 'number',
+              default: 'step * 10',
+              description: 'One Page Up, Page Down, or shifted arrow press.',
+            },
+            {
+              name: 'prefix',
+              type: 'string',
+              description: 'Plain text before the value, such as "$".',
+            },
+            {
+              name: 'unit',
+              type: 'string',
+              description: 'Plain text after the value, such as "days".',
+            },
+            {
+              name: 'locale',
+              type: 'string',
+              description:
+                'The locale for grouping and the decimal mark. Defaults to the page’s language.',
+            },
+            {
+              name: 'size',
+              type: 'NumberFieldSize',
+              default: 'NumberFieldSize.Default',
+              description: 'Default or Small, matching Input.',
+            },
+            {
+              name: 'description',
+              type: 'string',
+              description: 'Helper text under the field.',
+            },
+            {
+              name: 'error',
+              type: 'string',
+              description:
+                'The failure message. Text the parser cannot read reverts to the last value without raising one.',
+            },
+            {
+              name: 'loading',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Replaces the spin buttons with a spinner. The field stays typeable.',
+            },
+            {
+              name: 'disabled',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Dims the field, takes no pointer events, and posts nothing.',
+            },
+            {
+              name: 'readOnly',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Keeps the value readable and focusable. The field still posts.',
+            },
+          ]}
+        />
+      }
+      notes={
+        <>
+          <p>
+            The field is 36px tall at the default size and 32px at small. The
+            spin buttons are squares the height of the field, so the control
+            keeps its proportions at both sizes. Disabled and read-only mark the
+            spin buttons <code>aria-disabled</code> instead of removing them.
+            There is no width prop: constrain the wrapper with{' '}
+            <code>className</code>.
+          </p>
+          <p>
+            Text the parser cannot read reverts to the last committed value and
+            raises no error, because the <code>error</code> prop is the only
+            error channel. Native <code>onChange</code> still reaches the inner
+            input when you want the keystrokes. The prefix and unit are
+            decoration: they are <code>aria-hidden</code> because the value text
+            already says them.
+          </p>
+          <p>
+            The box draws the focus ring on <code>focus-within</code>, since the
+            input inside owns no border. Holding a spin button repeats after
+            400ms at 60ms intervals. The border, the field background, and the
+            spin button backgrounds transition at <code>--motion-fast</code>,
+            and the error message is the one enter and exit, on{' '}
+            <code>springSettle</code>. Digits never tween and the reformat on
+            blur is instant, because a number that animates cannot be read.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/fields',
+          label: 'Fields',
+          description:
+            'The label, description, error, loading, and disabled behaviour every field shares.',
+        },
+        {
+          to: '/components/input',
+          label: 'Input',
+          description: 'The single-line field for text that is not a quantity.',
+        },
+        {
+          to: '/components/slider',
+          label: 'Slider',
+          description: 'Picks a value on a range by dragging.',
+        },
+        {
+          to: '/components/form',
+          label: 'Form',
+          description: 'Lays fields out with an actions row and a result slot.',
+        },
+      ]}
     />
   )
 }

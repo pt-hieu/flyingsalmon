@@ -1,24 +1,25 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Compass, Link2Off, Route as RouteIcon, Wallet } from 'lucide-react'
 
-import { Preview } from '@/components/preview'
-import { routeStickerArt } from '@/components/route-sticker-art'
 import {
-  routeStickerLabel,
-  routeStickerRoleClassNames,
-} from '@/components/route-sticker'
-import { Button, ButtonVariant } from '@/registry/ui/button'
-import { Card, CardContent } from '@/registry/ui/card'
-import {
-  EmptyState,
-  EmptyStateActions,
-  EmptyStateDescription,
-  EmptyStateIcon,
-  EmptyStateSize,
-  EmptyStateSticker,
-  EmptyStateTitle,
-  EmptyStateTitleElement,
-} from '@/registry/ui/empty-state'
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { EmptyStateDemo } from '@/examples/empty-state/demo'
+import demoSource from '@/examples/empty-state/demo.tsx?raw'
+import { EmptyStateExpiredLink } from '@/examples/empty-state/expired-link'
+import expiredLinkSource from '@/examples/empty-state/expired-link.tsx?raw'
+import { EmptyStateIconArt } from '@/examples/empty-state/icon'
+import iconSource from '@/examples/empty-state/icon.tsx?raw'
+import { EmptyStateNoAction } from '@/examples/empty-state/no-action'
+import noActionSource from '@/examples/empty-state/no-action.tsx?raw'
+import { EmptyStateSmallSticker } from '@/examples/empty-state/small-sticker'
+import smallStickerSource from '@/examples/empty-state/small-sticker.tsx?raw'
+import { EmptyStateTwoActions } from '@/examples/empty-state/two-actions'
+import twoActionsSource from '@/examples/empty-state/two-actions.tsx?raw'
+import usageSource from '@/examples/empty-state/usage.tsx?raw'
 
 export const Route = createFileRoute('/_docs/components/empty-state')({
   component: EmptyStatePage,
@@ -26,257 +27,249 @@ export const Route = createFileRoute('/_docs/components/empty-state')({
 
 function EmptyStatePage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Empty State
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          A resting no-content block. It says why a region holds nothing and
-          what the user can do about it, in one look, with no surface of its
-          own.
-        </p>
-      </header>
+    <DocPage
+      title="Empty state"
+      lead="A resting block that says why a region holds nothing and what the traveller can do about it, with no surface of its own."
+      preview={{ source: demoSource, demo: <EmptyStateDemo /> }}
+      installation="empty-state"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Icon art"
+            description="The icon holds any node in a muted circle. Use it where a sticker would be too much, such as a small block beside other content."
+            source={iconSource}
+          >
+            <EmptyStateIconArt />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Empty, failed, or loading
-        </h2>
-        <p className="text-muted-foreground">
-          An empty state is a resting state. Use it when a page, a list, or a
-          card is legitimately empty. A dead share link is an empty state, not
-          an error: the user landed on a page with nothing in it, they did not
-          act and fail. A region still fetching shows a <code>skeleton</code>:
-          the skeleton holds the shape of content that is coming, the empty
-          state says content is not coming until the user acts.
-        </p>
-        <p className="text-muted-foreground">
-          A region whose content failed to arrive is not empty: it shows an{' '}
-          <code>error-state</code>, which is this block announced as an alert.
-        </p>
-      </section>
+          <Example
+            caption="Two actions"
+            description="One or two buttons, primary first. On narrow widths they stack in the same order, so the primary stays on top."
+            source={twoActionsSource}
+          >
+            <EmptyStateTwoActions />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Sticker art</h2>
-        <p className="text-muted-foreground">
-          A sticker is the default art. <code>EmptyStateSticker</code> takes the
-          props of a <code>Sticker</code> and sizes and tilts it for the block,
-          so a screen sets neither. The sticker tilts left; an{' '}
-          <code>error-state</code> tilts it right. It pops in as it scrolls into
-          view; <code>popIn={'{false}'}</code> turns that off.
-        </p>
-        <Preview>
-          <EmptyState>
-            <EmptyStateSticker
-              art={routeStickerArt}
-              label={routeStickerLabel}
-              roleClassNames={routeStickerRoleClassNames}
-            />
-            <EmptyStateTitle>Your route is on its way</EmptyStateTitle>
-            <EmptyStateDescription>
-              The AI is choosing cities and nights for Japan. The cities,
-              flights, and trains appear here as soon as the route is drafted,
-              and you approve it before any day is planned. You can leave this
-              page; it keeps going.
-            </EmptyStateDescription>
-            <EmptyStateActions>
-              <Button variant={ButtonVariant.Outline}>
-                Back to your trips
-              </Button>
-            </EmptyStateActions>
-          </EmptyState>
-        </Preview>
-      </section>
+          <Example
+            caption="No action"
+            description="An empty state with no action is normal. This card has nothing to show until the traveller approves the route elsewhere on the page, so it explains and stops. Wrapping the block in a card is how you give it a boundary."
+            source={noActionSource}
+          >
+            <EmptyStateNoAction />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Slots</h2>
-        <p className="text-muted-foreground">
-          Six slots. <code>EmptyState</code> renders a <code>section</code>{' '}
-          labelled by its title. The art is optional and is one of two:{' '}
-          <code>EmptyStateSticker</code>, or <code>EmptyStateIcon</code>, which
-          holds any node inside a <code>--muted</code> circle.{' '}
-          <code>EmptyStateTitle</code> is required and carries the label.{' '}
-          <code>EmptyStateDescription</code> and <code>EmptyStateActions</code>{' '}
-          are optional. There is no <code>variant</code> prop: one look, and the
-          consumer supplies a boundary by wrapping the block in a{' '}
-          <code>Card</code>.
-        </p>
-        <p className="text-muted-foreground">
-          The icon is the fallback where a sticker would be too much, such as a
-          small empty state inside a card among other cards.
-        </p>
-        <Preview>
-          <EmptyState>
-            <EmptyStateIcon>
-              <Compass />
-            </EmptyStateIcon>
-            <EmptyStateTitle>No trips yet</EmptyStateTitle>
-            <EmptyStateDescription>
-              Tell hottrip where you want to go and it drafts the route.
-            </EmptyStateDescription>
-            <EmptyStateActions>
-              <Button>Plan a trip</Button>
-            </EmptyStateActions>
-          </EmptyState>
-        </Preview>
-      </section>
+          <Example
+            caption="Small with a sticker"
+            description="Small is for a block inside a surface that already carries heading weight. The title drops to a third-level heading to fit the page outline, and the sticker shrinks."
+            source={smallStickerSource}
+          >
+            <EmptyStateSmallSticker />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Two recipes</h2>
-        <p className="text-muted-foreground">
-          The block is centered and full width with a min-content height, so it
-          takes its boundary from wherever you put it. Centered in the page it
-          reads as the page's own message; wrapped in a <code>Card</code> it
-          reads as one region's message among others. The component paints no
-          border and no background either way.
-        </p>
-        <Preview>
-          <div className="w-full max-w-md space-y-6">
-            <EmptyState>
-              <EmptyStateIcon>
-                <Link2Off />
-              </EmptyStateIcon>
-              <EmptyStateTitle>This trip link has expired</EmptyStateTitle>
-              <EmptyStateDescription>
-                The owner stopped sharing it, or the trip was deleted.
-              </EmptyStateDescription>
-              <EmptyStateActions>
-                <Button>Plan your own trip</Button>
-              </EmptyStateActions>
-            </EmptyState>
-
-            <Card>
-              <CardContent>
-                <EmptyState>
-                  <EmptyStateIcon>
-                    <RouteIcon />
-                  </EmptyStateIcon>
-                  <EmptyStateTitle as={EmptyStateTitleElement.H3}>
-                    Activities come after the route
-                  </EmptyStateTitle>
-                  <EmptyStateDescription>
-                    Approve the route and 10 days of activities generate.
-                  </EmptyStateDescription>
-                </EmptyState>
-              </CardContent>
-            </Card>
-          </div>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Sizes</h2>
-        <p className="text-muted-foreground">
-          Two sizes. <code>Default</code> is for page-level emptiness: a{' '}
-          <code>text-lg</code> title above a 48px circle holding a 24px icon.{' '}
-          <code>Small</code> is for a block inside a card, where the card
-          already carries the heading weight: a <code>text-base</code> title and
-          a 40px circle holding a 20px icon. A sticker is at most 240px wide in{' '}
-          <code>Default</code> and 160px in <code>Small</code>, keeping its
-          art&apos;s aspect ratio. The description keeps <code>text-sm</code> in
-          both. Inside the block the gap is <code>gap-2</code>, and the actions
-          row adds <code>mt-2</code> on top of it, so it sits a full{' '}
-          <code>gap-4</code> step below the text.
-        </p>
-        <Preview>
-          <div className="w-full max-w-md space-y-6">
-            <EmptyState size={EmptyStateSize.Small}>
-              <EmptyStateSticker
-                art={routeStickerArt}
-                label={routeStickerLabel}
-                roleClassNames={routeStickerRoleClassNames}
-              />
-              <EmptyStateTitle as={EmptyStateTitleElement.H3}>
-                No trips yet
-              </EmptyStateTitle>
-              <EmptyStateDescription>
-                Tell hottrip where you want to go and it drafts the route.
-              </EmptyStateDescription>
-            </EmptyState>
-
-            <Card>
-              <CardContent>
-                <EmptyState size={EmptyStateSize.Small}>
-                  <EmptyStateIcon>
-                    <Wallet />
-                  </EmptyStateIcon>
-                  <EmptyStateTitle as={EmptyStateTitleElement.H3}>
-                    No credits yet
-                  </EmptyStateTitle>
-                  <EmptyStateDescription>
-                    Credits pay for route and activity generation.
-                  </EmptyStateDescription>
-                  <EmptyStateActions>
-                    <Button>Buy credits</Button>
-                  </EmptyStateActions>
-                </EmptyState>
-              </CardContent>
-            </Card>
-          </div>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Actions</h2>
-        <p className="text-muted-foreground">
-          One or two buttons, primary first. On narrow widths they stack in that
-          same order, so the primary stays on top. An empty state with no action
-          is normal: the route proposal above has nothing for the user to do
-          until the route is approved, so it explains and stops. The block knows
-          nothing about Button's props — you pass the buttons you want.
-        </p>
-        <Preview>
-          <EmptyState>
-            <EmptyStateIcon>
-              <Compass />
-            </EmptyStateIcon>
-            <EmptyStateTitle>No trips yet</EmptyStateTitle>
-            <EmptyStateDescription>
-              Tell hottrip where you want to go and it drafts the route.
-            </EmptyStateDescription>
-            <EmptyStateActions>
-              <Button>Plan a trip</Button>
-              <Button variant={ButtonVariant.Outline}>Browse ideas</Button>
-            </EmptyStateActions>
-          </EmptyState>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Contrast</h2>
-        <p className="text-muted-foreground">
-          The title is <code>--foreground</code> and the description is{' '}
-          <code>--muted-foreground</code>, both measured on{' '}
-          <code>--background</code> and on <code>--card</code>. The title runs
-          17.20:1 on the background and 18.25:1 on the card; the description
-          7.01:1 and 7.44:1. The only <code>--muted</code> surface inside the
-          block is the icon circle, which holds an icon rather than text at
-          6.48:1. Placed on <code>--muted</code>, the block keeps its
-          description at 6.48:1.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Accessibility and motion
-        </h2>
-        <p className="text-muted-foreground">
-          The block is a region labelled by its title, so a screen reader user
-          can find it and hear what it is. There is no{' '}
-          <code>role="status"</code> and no live region: a resting state must
-          not announce itself on every render. The title renders <code>h2</code>{' '}
-          by default and takes an <code>as</code> prop for the level the
-          surrounding document needs — <code>h3</code> inside a card.
-        </p>
-        <p className="text-muted-foreground">
-          The sticker is one image named by its label, which describes the
-          picture rather than repeating the title. The icon is{' '}
-          <code>aria-hidden</code>. Tab reaches the action buttons and nothing
-          else. The block itself does not animate, because the state it replaces
-          is usually a skeleton and the swap displaces no siblings; the only
-          motion is the sticker&apos;s own pop-in and line boil.
-        </p>
-      </section>
-    </article>
+          <Example
+            caption="An expired link"
+            description="A dead share link is an empty state and not an error: the traveller landed on a page with nothing in it, and did not act and fail."
+            source={expiredLinkSource}
+          >
+            <EmptyStateExpiredLink />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'When a page, a list, or a card is legitimately empty: no trips yet, no places saved, nobody invited.',
+          'When a link leads to a page with nothing in it, such as an expired share link.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'when a region is still fetching. The placeholder holds the shape of what is coming.',
+            alternative: { to: '/components/skeleton', label: 'Skeleton' },
+          },
+          {
+            situation:
+              'when a region’s content failed to arrive. That is a failure, and it is announced.',
+            alternative: {
+              to: '/components/error-state',
+              label: 'Error state',
+            },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Say what is missing and what the traveller can do about it.',
+            reason:
+              'A resting state with no next step leaves the traveller to guess whether something broke.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Use the default size for a page and small for a block inside a card.',
+            reason:
+              'The card already carries the heading weight, so the block inside it steps down.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Use an empty state for work that is in progress.',
+            reason:
+              'In-progress content shows a skeleton. An empty state says content is not coming until the traveller acts.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Add a variant, border, or background to the block.',
+            reason:
+              'It paints none. Put it in a card for a boundary, or leave it on the page as the page’s own message.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Tab'],
+                description:
+                  'Reaches the action buttons in order. Nothing else in the block takes focus.',
+              },
+            ]}
+          />
+          <p>
+            The block is a region labelled by its title, so a screen reader user
+            can find it. It has no live region: a resting state must not
+            announce itself on every render. The title is a second-level heading
+            by default; pass <code>as</code> for the level the surrounding
+            document needs, such as a third-level heading inside a card.
+          </p>
+          <p>
+            A sticker is one image named by its label, which describes the
+            picture and does not repeat the title. The icon is hidden from
+            assistive technology.
+          </p>
+        </>
+      }
+      api={
+        <>
+          <PropsTable
+            component="EmptyState"
+            description={
+              <>
+                Renders a <code>section</code> labelled by its title and takes
+                every <code>&lt;section&gt;</code> attribute. Compose it from{' '}
+                <code>EmptyStateSticker</code> or <code>EmptyStateIcon</code>,{' '}
+                <code>EmptyStateTitle</code>, <code>EmptyStateDescription</code>
+                , and <code>EmptyStateActions</code>.
+              </>
+            }
+            rows={[
+              {
+                name: 'size',
+                type: 'EmptyStateSize',
+                default: 'EmptyStateSize.Default',
+                description:
+                  'Default for a page, Small for a block inside a card.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="EmptyStateTitle"
+            description="Required. It labels the region."
+            rows={[
+              {
+                name: 'as',
+                type: 'EmptyStateTitleElement',
+                default: 'EmptyStateTitleElement.H2',
+                description:
+                  'H2 or H3, to fit the heading outline of the page.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="EmptyStateSticker"
+            description="Takes the props of a Sticker and sizes and tilts it for the block."
+            rows={[
+              {
+                name: 'art',
+                type: 'StickerArt',
+                required: true,
+                description: 'The drawing.',
+              },
+              {
+                name: 'label',
+                type: 'string',
+                required: true,
+                description: 'What the picture shows, for a screen reader.',
+              },
+              {
+                name: 'roleClassNames',
+                type: 'StickerRoleClassNames',
+                required: true,
+                description: 'The colour classes for each role in the art.',
+              },
+              {
+                name: 'popIn',
+                type: 'boolean',
+                default: 'true',
+                description: 'Pops the sticker in as it scrolls into view.',
+              },
+            ]}
+          />
+          <p>
+            <code>EmptyStateIcon</code>, <code>EmptyStateDescription</code>, and{' '}
+            <code>EmptyStateActions</code> take only their element’s props.
+          </p>
+        </>
+      }
+      notes={
+        <>
+          <p>
+            Default sizes the title at <code>text-lg</code> over a 48px icon
+            circle holding a 24px icon, with a sticker up to 240px wide. Small
+            uses <code>text-base</code> over a 40px circle holding a 20px icon,
+            with a sticker up to 160px wide. The description is{' '}
+            <code>text-sm</code> in both.
+          </p>
+          <p>
+            The block is centred and full width with a min-content height. Its
+            gap is <code>gap-2</code> and the actions row adds <code>mt-2</code>
+            , so the actions sit a full <code>gap-4</code> step below the text.
+          </p>
+          <p>
+            The sticker tilts left; an error state tilts it right. The block
+            itself does not animate, because the state it replaces is usually a
+            skeleton and the swap displaces no siblings. The only motion is the
+            sticker’s pop-in and line boil.
+          </p>
+          <p>
+            The title is 17.20:1 on the page and 18.25:1 on the card. The
+            description is 7.01:1 and 7.44:1. The icon sits on{' '}
+            <code>--muted</code> at 6.48:1, and a description placed on{' '}
+            <code>--muted</code> keeps 6.48:1.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/error-state',
+          label: 'Error state',
+          description: 'The same block for content that failed to arrive.',
+        },
+        {
+          to: '/components/skeleton',
+          label: 'Skeleton',
+          description: 'What a region shows while its content is on the way.',
+        },
+        {
+          to: '/components/card',
+          label: 'Card',
+          description: 'Gives the block a boundary among other regions.',
+        },
+        {
+          to: '/components/button',
+          label: 'Button',
+          description: 'The actions the block offers.',
+        },
+      ]}
+    />
   )
 }

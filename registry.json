@@ -454,7 +454,7 @@
       "name": "interaction",
       "type": "registry:lib",
       "title": "Interaction state classes",
-      "description": "The rendering rules every interactive component shares: the disabled state, and the three focus ring geometries ADR 0003 defines. Geometry only \u2014 each component names its own ring color.",
+      "description": "The rendering rules every interactive component shares: the disabled state and the three focus ring geometries. Geometry only \u2014 each component names its own ring color.",
       "files": [
         { "path": "src/registry/lib/interaction.ts", "type": "registry:lib" }
       ]
@@ -474,7 +474,7 @@
       "name": "menu",
       "type": "registry:lib",
       "title": "Menu item classes",
-      "description": "The item, highlight, destructive, icon-slot, label, separator, and panel class strings shared by every floating list of actions or values, fixed in the dropdown-menu spec (#52).",
+      "description": "The item, highlight, destructive, icon-slot, label, separator, and panel class strings shared by every floating list of actions or values.",
       "files": [{ "path": "src/registry/lib/menu.ts", "type": "registry:lib" }]
     },
     {
@@ -668,7 +668,7 @@
       "name": "avatar",
       "type": "registry:ui",
       "title": "Avatar",
-      "description": "The identity mark for a person. Image, then two initials on one of eight step-400 hues, then a plain circle. Static and non-focusable.",
+      "description": "The identity mark for a person. Image, then two initials on one of six group hues, then a plain circle. Static and non-focusable.",
       "dependencies": ["class-variance-authority"],
       "files": [
         { "path": "src/registry/ui/avatar/avatar.tsx", "type": "registry:ui" },

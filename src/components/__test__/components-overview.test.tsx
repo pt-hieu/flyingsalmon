@@ -19,7 +19,7 @@ function outsideInertPreviews(elements: HTMLElement[]) {
 
 function categoryHeadings() {
   return outsideInertPreviews(
-    screen.queryAllByRole('heading', { level: 2 }),
+    screen.queryAllByRole('heading', { level: 3 }),
   ).map((heading) => heading.textContent)
 }
 

@@ -1,214 +1,288 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 
-import { Preview } from '@/components/preview'
-import { Textarea } from '@/registry/ui/textarea'
+import {
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { TextareaAutosize } from '@/examples/textarea/autosize'
+import autosizeSource from '@/examples/textarea/autosize.tsx?raw'
+import { TextareaDemo } from '@/examples/textarea/demo'
+import demoSource from '@/examples/textarea/demo.tsx?raw'
+import { TextareaDescription } from '@/examples/textarea/description'
+import descriptionSource from '@/examples/textarea/description.tsx?raw'
+import { TextareaDisabled } from '@/examples/textarea/disabled'
+import disabledSource from '@/examples/textarea/disabled.tsx?raw'
+import { TextareaError } from '@/examples/textarea/error'
+import errorSource from '@/examples/textarea/error.tsx?raw'
+import { TextareaLoading } from '@/examples/textarea/loading'
+import loadingSource from '@/examples/textarea/loading.tsx?raw'
+import { TextareaReadOnly } from '@/examples/textarea/read-only'
+import readOnlySource from '@/examples/textarea/read-only.tsx?raw'
+import usageSource from '@/examples/textarea/usage.tsx?raw'
+import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/textarea')({
   component: TextareaPage,
 })
 
-const eightLinesOfNotes = [
-  'Day 1 — land at Da Nang, drop bags, walk the beach.',
-  'Day 2 — Marble Mountains in the morning, Hoi An after lunch.',
-  'Day 3 — lantern market, then the tailor for a fitting.',
-  'Day 4 — Ba Na Hills, leave early to beat the queue.',
-  'Day 5 — cooking class, then the river boat at dusk.',
-  'Day 6 — My Son sanctuary, back for a late lunch.',
-  'Day 7 — pick up the tailored jacket, last swim.',
-  'Day 8 — fly home.',
-].join('\n')
-
-const aLineThatWrapsPastTheSpinner =
-  'Saving this draft of the Da Nang itinerary, which runs long enough to wrap onto a second line.'
-
 function TextareaPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Textarea
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          The input's multiline counterpart. It owns its label, its error
-          message, and its busyness, and it grows with what you type.
-        </p>
-      </header>
+    <DocPage
+      title="Textarea"
+      lead="A multiline text field that owns its label, its error message, and its busyness, and grows with what the traveller types."
+      preview={{ source: demoSource, demo: <TextareaDemo /> }}
+      installation="textarea"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Autosize"
+            description="The field grows to maxRows and then scrolls. Type past the fourth line to see the cap."
+            source={autosizeSource}
+          >
+            <TextareaAutosize />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          className styles the wrapper
-        </h2>
-        <p className="text-muted-foreground">
-          Textarea renders a wrapper around the <code>&lt;textarea&gt;</code> so
-          it can hold the label and the error message.{' '}
-          <strong className="text-foreground">
-            <code>className</code> styles that wrapper, not the field.
-          </strong>{' '}
-          Every other native prop passes through to the{' '}
-          <code>&lt;textarea&gt;</code>. Stock shadcn puts{' '}
-          <code>className</code> on the field itself, so a copied snippet lands
-          somewhere else than you expect. Every example on this page sets{' '}
-          <code>w-72</code> on the wrapper.
-        </p>
-      </section>
+          <Example
+            caption="Description"
+            description="Helper text sits under the field and joins its accessible description."
+            source={descriptionSource}
+          >
+            <TextareaDescription />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Autosize</h2>
-        <p className="text-muted-foreground">
-          There is no <code>size</code> prop and no drag handle. One scale
-          matches the input's default size so fields line up, and the height
-          comes from the content instead: <code>minRows</code> (default 3) sets
-          the empty height, <code>maxRows</code> (default 8) caps the growth,
-          and the native scrollbar takes over past the cap. Growth is instant —
-          a spring per keystroke would fight the caret.
-        </p>
-        <Preview>
-          <Textarea
-            className="w-72"
-            label="Notes"
-            placeholder="Tell us about the trip"
-          />
-          <Textarea
-            className="w-72"
-            label="Notes"
-            maxRows={4}
-            defaultValue={eightLinesOfNotes}
-          />
-        </Preview>
-      </section>
+          <Example
+            caption="Error"
+            description="The description stays where it is and the message grows in below it."
+            source={errorSource}
+          >
+            <TextareaError />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Description</h2>
-        <p className="text-muted-foreground">
-          <code>description</code> is helper text in muted type directly under
-          the field, and it joins the field&rsquo;s accessible description, so a
-          screen reader reads it with the field. It stays put when an error
-          arrives: the message renders below it, and a screen reader hears the
-          error first, then the description. A disabled field dims its
-          description with its label.
-        </p>
-        <Preview>
-          <Textarea
-            className="w-72"
-            label="Notes"
-            placeholder="Tell us about the trip"
-            description="Everyone on the trip can read these"
-          />
-          <Textarea
-            className="w-72"
-            label="Notes"
-            defaultValue="Too short."
-            description="Everyone on the trip can read these"
-            error="Write at least ten characters"
-          />
-        </Preview>
-      </section>
+          <Example
+            caption="Loading"
+            description="Tab out to save. The spinner pins to the top-right corner while the save runs, the field stays editable, and a failed save becomes the field's own error."
+            source={loadingSource}
+          >
+            <TextareaLoading />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Error</h2>
-        <p className="text-muted-foreground">
-          Pass <code>error</code> and the field owns the whole failure: the
-          border, the ring, and the label turn destructive, and the message
-          renders below. The field grows downward only, never sideways. There is
-          no shake, so errors arrive calmly.
-        </p>
-        <Preview>
-          <Textarea
-            className="w-72"
-            label="Notes"
-            defaultValue="Too short."
-            error="Write at least ten characters"
-          />
-        </Preview>
-      </section>
+          <Example
+            caption="Disabled"
+            description="The field and its label dim together and take no pointer events."
+            source={disabledSource}
+          >
+            <TextareaDisabled />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Loading</h2>
-        <p className="text-muted-foreground">
-          <code>loading</code> pins the spinner to the top-right corner inside
-          the padding. A textarea has no end slot — text flows across every
-          line, so the spinner overlays the corner instead of sitting beside the
-          content. The field reserves that column while it loads, so no line
-          ever runs under the spinner.{' '}
-          <strong className="text-foreground">The field stays editable.</strong>{' '}
-          Loading here means background work — an autosave, an async check — and
-          the submit button is what locks a flow. With an error alongside it,
-          both show and the spinner turns destructive too.
-        </p>
-        <Preview>
-          <Textarea
-            className="w-72"
-            label="Notes"
-            defaultValue={aLineThatWrapsPastTheSpinner}
-            loading
+          <Example
+            caption="Read-only"
+            description="The text stays readable and copyable on a muted background, and the field stays focusable."
+            source={readOnlySource}
+          >
+            <TextareaReadOnly />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'For text that runs past one line: trip notes, a day-by-day itinerary, a message to the group.',
+          'When the length is up to the traveller and you want the field to grow instead of scrolling inside a fixed box.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'for one line of text such as a trip name or an email address.',
+            alternative: { to: '/components/input', label: 'Input' },
+          },
+          {
+            situation:
+              'when the traveller picks from options you control rather than writing freely.',
+            alternative: { to: '/components/combobox', label: 'Combobox' },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Set minRows to the length you expect.',
+            reason:
+              'An empty field that is already three rows tall tells the traveller how much to write; a one-row field invites a one-word answer.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Keep a submit shortcut such as Cmd+Enter in your form, not in the field.',
+            reason:
+              'Enter must insert a newline here, so a shortcut is an app decision and needs a visible hint.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Disable the field while an autosave runs.',
+            reason:
+              'Use loading instead. The traveller keeps typing, and the next save picks up the new text.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Add a drag handle or a fixed height.',
+            reason:
+              'The height follows the content between minRows and maxRows, so a manual size would fight the autosize.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Tab'],
+                description:
+                  'Moves focus out of the field. It never inserts a tab character.',
+              },
+              {
+                keys: ['Shift+Tab'],
+                description: 'Moves focus to the previous control.',
+              },
+              {
+                keys: ['Enter'],
+                description: 'Inserts a newline. It does not submit the form.',
+              },
+            ]}
           />
-          <Textarea
-            className="w-72"
-            label="Notes"
-            defaultValue={aLineThatWrapsPastTheSpinner}
-            loading
-            error="That draft failed to save"
-          />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Disabled and read-only
-        </h2>
-        <p className="text-muted-foreground">
-          Disabled dims the field and its label together and takes no pointer
-          events. Read-only keeps full text contrast on a muted background,
-          takes a normal cursor, and stays focusable so the value can still be
-          read and copied. It keeps the focus ring: a keyboard user must always
-          see where focus landed, and the muted background is what says the
-          field is not editable.
-        </p>
-        <Preview>
-          <Textarea
-            className="w-72"
-            label="Notes"
-            placeholder="Tell us about the trip"
-            disabled
-          />
-          <Textarea
-            className="w-72"
-            label="Itinerary"
-            defaultValue={'Day 1 — arrive.\nDay 2 — depart.'}
-            readOnly
-          />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Motion</h2>
-        <p className="text-muted-foreground">
-          Hover border, focus ring, and the destructive color changes are CSS
-          transitions at <code>--motion-fast</code>. The error message is the
-          one enter and exit: height and opacity on <code>spring-settle</code>{' '}
-          both ways at <code>--motion-base</code>, because a bounce on a height
-          change makes the fields below overshoot. The spinner runs its own
-          800ms turn. Autosize growth is deliberately unanimated.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          Textarea generates the field <code>id</code> and wires the label{' '}
-          <code>htmlFor</code> itself, so clicking the label focuses the field.
-          An error sets <code>aria-invalid</code>, and{' '}
-          <code>aria-describedby</code> lists any ids you passed, then the error
-          message, then the <code>description</code>. A loading field sets{' '}
-          <code>aria-busy</code> and hides its spinner from screen readers, so
-          the wait is announced once. The keyboard path is native: Enter inserts
-          a newline, and Tab always moves focus out of the field rather than
-          inserting a tab character. A submit shortcut such as Cmd+Enter belongs
-          to your form, not to this component. <code>required</code> marks the
-          label and reaches the <code>&lt;textarea&gt;</code>; the validation
-          itself stays with your app.
-        </p>
-      </section>
-    </article>
+          <p>
+            Textarea generates the field <code>id</code> and wires the label to
+            it, so clicking the label focuses the field. An error sets{' '}
+            <code>aria-invalid</code>, and <code>aria-describedby</code> lists
+            any ids you passed, then the error message, then the description. A
+            loading field sets <code>aria-busy</code> and hides its spinner from
+            screen readers, so the wait is announced once. <code>required</code>{' '}
+            marks the label and reaches the <code>&lt;textarea&gt;</code>; the
+            validation itself stays with your app. The states every field shares
+            are described on{' '}
+            <TextLink asChild>
+              <Link to="/fields">Fields</Link>
+            </TextLink>
+            .
+          </p>
+        </>
+      }
+      api={
+        <PropsTable
+          component="Textarea"
+          description={
+            <>
+              Also takes every <code>&lt;textarea&gt;</code> attribute except{' '}
+              <code>rows</code>. <code>className</code> styles the wrapper.
+            </>
+          }
+          rows={[
+            {
+              name: 'label',
+              type: 'string',
+              description:
+                'The visible label. Renders above the field and is wired to it.',
+            },
+            {
+              name: 'minRows',
+              type: 'number',
+              default: '3',
+              description: 'The height of the empty field, in rows.',
+            },
+            {
+              name: 'maxRows',
+              type: 'number',
+              default: '8',
+              description:
+                'The most rows the field grows to. Past it, the field scrolls.',
+            },
+            {
+              name: 'description',
+              type: 'string',
+              description: 'Helper text under the field.',
+            },
+            {
+              name: 'error',
+              type: 'string',
+              description:
+                'The failure message. Turns the border, the ring, and the label destructive.',
+            },
+            {
+              name: 'loading',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Pins a spinner to the top-right corner. The field stays editable.',
+            },
+            {
+              name: 'disabled',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Dims the field and its label and removes both from the tab order.',
+            },
+            {
+              name: 'readOnly',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Keeps the text readable on a muted background. The field stays focusable.',
+            },
+            {
+              name: 'required',
+              type: 'boolean',
+              default: 'false',
+              description: 'Marks the label and sets the native attribute.',
+            },
+          ]}
+        />
+      }
+      notes={
+        <>
+          <p>
+            There is no size prop. One scale matches the default{' '}
+            <code>Input</code> so fields line up, and the height comes from the
+            content. Growth is instant, because a spring on every keystroke
+            would fight the caret.
+          </p>
+          <p>
+            The spinner overlays the top-right corner inside the padding. A
+            textarea has no end slot, since text flows across every line, so the
+            field reserves that column while it loads and no line runs under the
+            spinner. With an error alongside, both show and the spinner turns
+            destructive.
+          </p>
+          <p>
+            A read-only field keeps its focus ring: a keyboard user must always
+            see where focus landed, and the muted background says the field is
+            not editable.
+          </p>
+          <p>
+            Hover border, focus ring, and the destructive colour change are CSS
+            transitions at <code>--motion-fast</code>. The error message is the
+            one enter and exit: height and opacity on <code>springSettle</code>{' '}
+            both ways. The spinner runs its own 800ms turn.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/fields',
+          label: 'Fields',
+          description:
+            'The label, description, error, loading, and disabled behaviour every field shares.',
+        },
+        {
+          to: '/components/input',
+          label: 'Input',
+          description: 'The single-line counterpart.',
+        },
+        {
+          to: '/components/form',
+          label: 'Form',
+          description: 'Lays fields out with an actions row and a result slot.',
+        },
+      ]}
+    />
   )
 }

@@ -1,15 +1,23 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
-import { ArrowUpRight } from 'lucide-react'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { Preview } from '@/components/preview'
 import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-  AlertVariant,
-} from '@/registry/ui/alert'
-import { Card, CardContent, CardHeader, CardTitle } from '@/registry/ui/card'
-import { TextLink } from '@/registry/ui/text-link'
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { TextLinkDemo } from '@/examples/text-link/demo'
+import demoSource from '@/examples/text-link/demo.tsx?raw'
+import { TextLinkExternalLink } from '@/examples/text-link/external-link'
+import externalLinkSource from '@/examples/text-link/external-link.tsx?raw'
+import { TextLinkInsideMutedText } from '@/examples/text-link/inside-muted-text'
+import insideMutedTextSource from '@/examples/text-link/inside-muted-text.tsx?raw'
+import { TextLinkOnACard } from '@/examples/text-link/on-a-card'
+import onACardSource from '@/examples/text-link/on-a-card.tsx?raw'
+import { TextLinkRouterLink } from '@/examples/text-link/router-link'
+import routerLinkSource from '@/examples/text-link/router-link.tsx?raw'
+import usageSource from '@/examples/text-link/usage.tsx?raw'
 
 export const Route = createFileRoute('/_docs/components/text-link')({
   component: TextLinkPage,
@@ -17,194 +25,199 @@ export const Route = createFileRoute('/_docs/components/text-link')({
 
 function TextLinkPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Text Link
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          An anchor for a sentence or a line of UI copy. It takes its size and
-          weight from the text around it and carries an underline that never
-          leaves; a link navigates and a button acts.
-        </p>
-      </header>
+    <DocPage
+      title="Text link"
+      lead="An anchor for a sentence or a line of UI copy that takes its size and weight from the text around it and keeps its underline."
+      preview={{ source: demoSource, demo: <TextLinkDemo /> }}
+      installation="text-link"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Inside muted text"
+            description="In an alert, a field description, or any muted block, the link keeps the foreground colour while its surroundings stay muted, so it reads one step stronger than the copy around it."
+            source={insideMutedTextSource}
+          >
+            <TextLinkInsideMutedText />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          If it acts, it is a button
-        </h2>
-        <p className="text-muted-foreground">
-          A link navigates: to another page, another site, or a place on the
-          same page. A button acts: it sends, saves, opens, or retries.{' '}
-          <code>TextLink</code> always renders an anchor with an{' '}
-          <code>href</code>, or your router's link through <code>asChild</code>.
-          There is no <code>href</code>-less text link: an anchor that navigates
-          nowhere is an action, and an action is a button. An action inside a
-          sentence — &quot;Didn't get the code? Resend&quot; — is the primary
-          button placed inline, and the registry ships no text-looking button
-          variant.
-        </p>
-        <p className="text-muted-foreground">
-          Navigation items are not text links either. Breadcrumb's levels,
-          sidebar's items, menu items, and pagination's page numbers read as
-          links by their position, so they keep their own classes and draw no
-          underline. Card and table stretched links stay as they are: the
-          surface is the hit target, and an underline inside it would compete
-          with the title.
-        </p>
-      </section>
+          <Example
+            caption="External link"
+            description="Whether a link opens a new tab is your app's policy, so you pass target and rel yourself and place the icon as a child. The icon scales with the sentence."
+            source={externalLinkSource}
+          >
+            <TextLinkExternalLink />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Inside a paragraph</h2>
-        <p className="text-muted-foreground">
-          The link is <code>display: inline</code>, so it breaks across lines
-          with the sentence it sits in and never forces a line of its own. Font
-          size, weight, and line height are inherited — there is no{' '}
-          <code>size</code> prop and no variant. The text is{' '}
-          <code>--foreground</code> in every state; the underline sits at{' '}
-          <code>underline-offset-4</code> and is 1px <code>--indicator</code> at
-          rest, 1.5px orange-700 on hover and press. At rest it sits at 3.38:1
-          on the page and 3.59:1 on white, clearing the 3:1 non-text bar (ADR
-          0004). It thickens downward from the offset, so the line box never
-          moves. Tab to the link below and the focus ring closes around each
-          line fragment separately, which is what{' '}
-          <code>box-decoration-clone</code> is for.
-        </p>
-        <Preview>
-          <p className="max-w-sm text-sm">
-            Every itinerary starts from a template, and the one we reach for
-            most is the{' '}
-            <TextLink href="#three-days-in-kyoto">
-              three days in Kyoto walking route that begins at Fushimi Inari
-            </TextLink>
-            , which fits temples, tea, and a river walk into a weekend.
+          <Example
+            caption="Router link"
+            description="asChild hands the styling to the element you pass, so your router renders the anchor and client-side navigation keeps working."
+            source={routerLinkSource}
+          >
+            <TextLinkRouterLink />
+          </Example>
+
+          <Example
+            caption="On a card"
+            description="Tab to the link. The focus ring's gap paints the page colour, so on a card pass focus-visible:ring-offset-card and the gap matches the surface."
+            source={onACardSource}
+          >
+            <TextLinkOnACard />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'To navigate from inside a sentence or a line of copy: to another page, another site, or a place on the same page.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'to send, save, open, or retry. A link navigates and a button acts. For an action inside a sentence, such as "Didn’t get the code? Resend", place the button inline.',
+            alternative: { to: '/components/button', label: 'Button' },
+          },
+          {
+            situation:
+              'for the levels of a trail, which read as links by position and draw no underline.',
+            alternative: { to: '/components/breadcrumb', label: 'Breadcrumb' },
+          },
+          {
+            situation:
+              'for navigation items, which keep their own classes for the same reason.',
+            alternative: { to: '/components/sidebar', label: 'Sidebar' },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Give every text link an href, or render your router’s link through asChild.',
+            reason:
+              'An anchor that navigates nowhere is an action, and an action is a button.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Let the link inherit the size and weight of its sentence.',
+            reason:
+              'It is inline and breaks across lines with the text around it, so there is no size prop and no variant.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Look for a muted variant or colour inheritance.',
+            reason:
+              'The contrast with the surrounding muted text is the point of the link.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Disable a text link.',
+            reason:
+              'An anchor that cannot navigate is plain text, so render text.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Put a text link inside a card or table link that already covers the surface.',
+            reason:
+              'The surface is the hit target, and an underline inside it competes with the title.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              { keys: ['Tab'], description: 'Moves focus to the link.' },
+              { keys: ['Enter'], description: 'Follows the link.' },
+            ]}
+          />
+          <p>
+            It is a native anchor, so it keeps the browser&rsquo;s behaviour for
+            context menus and new tabs. The underline never leaves, so the link
+            is never told apart by colour alone. Tab to a link that wraps across
+            lines and the focus ring closes around each line fragment
+            separately.
           </p>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Inside muted text</h2>
-        <p className="text-muted-foreground">
-          In an alert description, a field description, or any muted block, the
-          link keeps <code>--foreground</code> while its surroundings stay{' '}
-          <code>--muted-foreground</code>, so it reads one step stronger than
-          the copy around it. That is why there is no muted variant and no{' '}
-          <code>currentColor</code> inheritance: the contrast with the
-          surrounding text is the point.
-        </p>
-        <Preview>
-          <div className="w-full max-w-sm">
-            <Alert variant={AlertVariant.Warning} animateOpen={false}>
-              <AlertTitle>Two travellers have no passport on file</AlertTitle>
-              <AlertDescription>
-                Add their documents on the{' '}
-                <TextLink href="#travellers">travellers page</TextLink> before
-                you book.
-              </AlertDescription>
-            </Alert>
-          </div>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">External links</h2>
-        <p className="text-muted-foreground">
-          There is no <code>external</code> prop. Whether a link opens a new tab
-          is your app's policy, so you pass <code>target</code> and{' '}
-          <code>rel</code> yourself, and you place the icon as a child. An{' '}
-          <code>svg</code> child sits inline at text scale, so it grows and
-          shrinks with the sentence instead of holding a fixed pixel size.
-        </p>
-        <Preview>
-          <p className="max-w-sm text-sm">
-            Japan's rail passes are explained on{' '}
-            <TextLink
-              href="https://www.japan.travel"
-              target="_blank"
-              rel="noreferrer"
-            >
-              japan.travel
-              <ArrowUpRight aria-hidden="true" />
-            </TextLink>
-            , which lists every regional option.
+        </>
+      }
+      api={
+        <PropsTable
+          component="TextLink"
+          description={
+            <>
+              Also takes every <code>&lt;a&gt;</code> attribute. There is no{' '}
+              <code>external</code> prop, no <code>size</code>, and no{' '}
+              <code>variant</code>.
+            </>
+          }
+          rows={[
+            {
+              name: 'href',
+              type: 'string',
+              description:
+                'Where the link goes. Required unless asChild passes an element that supplies its own.',
+            },
+            {
+              name: 'asChild',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Renders its single child, such as your router’s link, with the text link styling.',
+            },
+          ]}
+        />
+      }
+      notes={
+        <>
+          <p>
+            The link is <code>display: inline</code>. The text is{' '}
+            <code>--foreground</code> in every state. The underline sits at{' '}
+            <code>underline-offset-4</code> and is 1px <code>--indicator</code>{' '}
+            at rest and 1.5px orange-700 on hover and press, thickening downward
+            from the offset so the line box never moves. At rest it measures
+            3.38:1 on the page and 3.59:1 on white, clearing the 3:1 bar for
+            non-text marks. Thickness carries the change where colour alone
+            reads faint, because a 1px dark stroke on a light ground loses to
+            antialiasing.
           </p>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Router links</h2>
-        <p className="text-muted-foreground">
-          <code>asChild</code> hands the class names and the props to the
-          element you pass, so your router renders the anchor and client-side
-          navigation keeps working. This is the same slotting{' '}
-          <code>BreadcrumbLink</code> and <code>DropdownMenuItem</code> use. The
-          component is named <code>TextLink</code> rather than <code>Link</code>{' '}
-          precisely because this case nests the two.
-        </p>
-        <Preview>
-          <p className="max-w-sm text-sm">
-            Everything on this page is built from the{' '}
-            <TextLink asChild>
-              <Link to="/">registry components</Link>
-            </TextLink>
-            .
+          <p>
+            Rest, hover, press, and focus are the whole set. There is no visited
+            state: browsers restrict <code>:visited</code> to colour, and
+            &ldquo;visited&rdquo; means nothing for a router link. Only the
+            underline moves, its colour and thickness together at{' '}
+            <code>--motion-fast</code>, and it never draws in because it is
+            never absent.
           </p>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">On another surface</h2>
-        <p className="text-muted-foreground">
-          The focus ring stands 2px off the text, and that gap paints{' '}
-          <code>--background</code>. On a card, or any surface that is not the
-          page, pass <code>focus-visible:ring-offset-card</code> through{' '}
-          <code>className</code> so the gap matches what the link sits on — the
-          same override alert's close button makes.
-        </p>
-        <Preview>
-          <Card className="w-full max-w-sm">
-            <CardHeader>
-              <CardTitle>Weekend in Kyoto</CardTitle>
-            </CardHeader>
-            <CardContent className="text-muted-foreground text-sm">
-              Three days, ten stops, and one very long{' '}
-              <TextLink
-                href="#river-walk"
-                className="focus-visible:ring-offset-card"
-              >
-                river walk at dusk
-              </TextLink>
-              .
-            </CardContent>
-          </Card>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          States, motion, and accessibility
-        </h2>
-        <p className="text-muted-foreground">
-          Rest, hover, press, and focus are the whole set. There is no visited
-          state — browsers restrict <code>:visited</code> to colour, and
-          &quot;visited&quot; means nothing for a router link — and no disabled
-          state, because an anchor that cannot navigate is plain text. The only
-          thing that moves is the underline: its colour and its thickness
-          together, at <code>--motion-fast</code>. Thickness carries the change
-          where colour alone reads faint — a 1px dark stroke on a light ground
-          loses to antialiasing in a way a light stroke on a dark ground does
-          not. The underline never draws in, because it is never absent.
-        </p>
-        <p className="text-muted-foreground">
-          Tab reaches the link and Enter activates it, the native anchor
-          behaviour. Text runs <code>--foreground</code> on{' '}
-          <code>--background</code>, the body-text pair; the resting underline
-          is <code>--muted-foreground</code> at 7.01:1, and the hover underline
-          is <code>--foreground</code> at 1.5px. WCAG 1.4.1 does not apply here:
-          the underline never leaves, so the link is never told apart by colour
-          alone.
-        </p>
-      </section>
-    </article>
+          <p>
+            The focus ring stands 2px off the text, and that gap paints{' '}
+            <code>--background</code>. <code>box-decoration-clone</code> closes
+            the ring around each line fragment of a wrapped link. A child{' '}
+            <code>svg</code> sits inline at <code>1em</code>, so an icon grows
+            and shrinks with the sentence instead of holding a fixed size. The
+            component is named <code>TextLink</code> rather than{' '}
+            <code>Link</code> because the router case nests the two.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/button',
+          label: 'Button',
+          description: 'The control for an action, where a link navigates.',
+        },
+        {
+          to: '/components/breadcrumb',
+          label: 'Breadcrumb',
+          description: 'Links back up the hierarchy.',
+        },
+        {
+          to: '/components/alert',
+          label: 'Alert',
+          description: 'A common home for a link in muted copy.',
+        },
+        {
+          to: '/accessibility',
+          label: 'Accessibility',
+          description: 'Focus and contrast across the registry.',
+        },
+      ]}
+    />
   )
 }

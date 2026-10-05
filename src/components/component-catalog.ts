@@ -56,7 +56,7 @@ const catalogEntries = [
   {
     to: '/components/date-picker',
     registryName: 'date-picker',
-    label: 'Date Picker',
+    label: 'Date picker',
     category: ComponentCategory.Inputs,
     aliases: ['datepicker', 'date input', 'date range picker'],
   },
@@ -77,14 +77,14 @@ const catalogEntries = [
   {
     to: '/components/number-field',
     registryName: 'number-field',
-    label: 'Number Field',
+    label: 'Number field',
     category: ComponentCategory.Inputs,
     aliases: ['number input', 'numeric input', 'spin button'],
   },
   {
     to: '/components/radio-group',
     registryName: 'radio-group',
-    label: 'Radio Group',
+    label: 'Radio group',
     category: ComponentCategory.Inputs,
     aliases: ['radio', 'radio button', 'option group'],
   },
@@ -119,7 +119,7 @@ const catalogEntries = [
   {
     to: '/components/toggle-group',
     registryName: 'toggle-group',
-    label: 'Toggle Group',
+    label: 'Toggle group',
     category: ComponentCategory.Inputs,
     aliases: ['segmented control', 'toggle buttons', 'button group'],
   },
@@ -133,7 +133,7 @@ const catalogEntries = [
   {
     to: '/components/avatar-group',
     registryName: 'avatar-group',
-    label: 'Avatar Group',
+    label: 'Avatar group',
     category: ComponentCategory.DataDisplay,
     aliases: ['avatar stack', 'facepile'],
   },
@@ -143,13 +143,6 @@ const catalogEntries = [
     label: 'Badge',
     category: ComponentCategory.DataDisplay,
     aliases: ['chip', 'tag', 'pill', 'label'],
-  },
-  {
-    to: '/components/icon-tooltip',
-    registryName: 'icon-tooltip',
-    label: 'Icon Tooltip',
-    category: ComponentCategory.DataDisplay,
-    aliases: ['info icon', 'icon hint', 'emoji tooltip'],
   },
   {
     to: '/components/separator',
@@ -180,13 +173,6 @@ const catalogEntries = [
     aliases: ['activity feed', 'history'],
   },
   {
-    to: '/components/tooltip',
-    registryName: 'tooltip',
-    label: 'Tooltip',
-    category: ComponentCategory.DataDisplay,
-    aliases: ['hint', 'hover text', 'info tip'],
-  },
-  {
     to: '/components/alert',
     registryName: 'alert',
     label: 'Alert',
@@ -196,14 +182,14 @@ const catalogEntries = [
   {
     to: '/components/empty-state',
     registryName: 'empty-state',
-    label: 'Empty State',
+    label: 'Empty state',
     category: ComponentCategory.Feedback,
     aliases: ['blank slate', 'zero state', 'no results'],
   },
   {
     to: '/components/error-state',
     registryName: 'error-state',
-    label: 'Error State',
+    label: 'Error state',
     category: ComponentCategory.Feedback,
     aliases: ['failed state', 'error page', 'retry'],
   },
@@ -266,16 +252,23 @@ const catalogEntries = [
   {
     to: '/components/dropdown-menu',
     registryName: 'dropdown-menu',
-    label: 'Dropdown Menu',
+    label: 'Dropdown menu',
     category: ComponentCategory.SurfacesAndOverlays,
     aliases: ['menu', 'context menu', 'action menu', 'overflow menu'],
   },
   {
-    to: '/components/page-header',
-    registryName: 'page-header',
-    label: 'Page Header',
+    to: '/components/icon-tooltip',
+    registryName: 'icon-tooltip',
+    label: 'Icon tooltip',
     category: ComponentCategory.SurfacesAndOverlays,
-    aliases: ['page title', 'heading'],
+    aliases: ['info icon', 'icon hint', 'emoji tooltip'],
+  },
+  {
+    to: '/components/tooltip',
+    registryName: 'tooltip',
+    label: 'Tooltip',
+    category: ComponentCategory.SurfacesAndOverlays,
+    aliases: ['hint', 'hover text', 'info tip'],
   },
   {
     to: '/components/breadcrumb',
@@ -283,6 +276,13 @@ const catalogEntries = [
     label: 'Breadcrumb',
     category: ComponentCategory.Navigation,
     aliases: ['breadcrumbs', 'trail'],
+  },
+  {
+    to: '/components/page-header',
+    registryName: 'page-header',
+    label: 'Page header',
+    category: ComponentCategory.Navigation,
+    aliases: ['page title', 'heading'],
   },
   {
     to: '/components/pagination',
@@ -315,7 +315,7 @@ const catalogEntries = [
   {
     to: '/components/text-link',
     registryName: 'text-link',
-    label: 'Text Link',
+    label: 'Text link',
     category: ComponentCategory.Navigation,
     aliases: ['link', 'anchor', 'hyperlink'],
   },

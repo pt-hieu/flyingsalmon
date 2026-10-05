@@ -1,16 +1,31 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { PartyPopper } from 'lucide-react'
-import { useState } from 'react'
 
-import { Preview } from '@/components/preview'
 import {
-  Alert,
-  AlertDescription,
-  AlertSize,
-  AlertTitle,
-  AlertVariant,
-} from '@/registry/ui/alert'
-import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { AlertCustomIcon } from '@/examples/alert/custom-icon'
+import customIconSource from '@/examples/alert/custom-icon.tsx?raw'
+import { AlertDemo } from '@/examples/alert/demo'
+import demoSource from '@/examples/alert/demo.tsx?raw'
+import { AlertDismissible } from '@/examples/alert/dismissible'
+import dismissibleSource from '@/examples/alert/dismissible.tsx?raw'
+import { AlertInAForm } from '@/examples/alert/in-a-form'
+import inAFormSource from '@/examples/alert/in-a-form.tsx?raw'
+import { AlertOpenAndClose } from '@/examples/alert/open-and-close'
+import openAndCloseSource from '@/examples/alert/open-and-close.tsx?raw'
+import { AlertSizes } from '@/examples/alert/sizes'
+import sizesSource from '@/examples/alert/sizes.tsx?raw'
+import { AlertTitleAndDescription } from '@/examples/alert/title-and-description'
+import titleAndDescriptionSource from '@/examples/alert/title-and-description.tsx?raw'
+import usageSource from '@/examples/alert/usage.tsx?raw'
+import { AlertVariants } from '@/examples/alert/variants'
+import variantsSource from '@/examples/alert/variants.tsx?raw'
+import { AlertWithActions } from '@/examples/alert/with-actions'
+import withActionsSource from '@/examples/alert/with-actions.tsx?raw'
 
 export const Route = createFileRoute('/_docs/components/alert')({
   component: AlertPage,
@@ -18,249 +33,271 @@ export const Route = createFileRoute('/_docs/components/alert')({
 
 function AlertPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Alert
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          The app's in-flow vehicle for the result of an action. The app places
-          it where the user is already looking and owns its lifecycle. It never
-          hides itself: feedback stays until the user has seen it.
-        </p>
-      </header>
+    <DocPage
+      title="Alert"
+      lead="An in-flow message that reports the result of an action where the traveller is already looking, and stays until they have seen it."
+      preview={{ source: demoSource, demo: <AlertDemo /> }}
+      installation="alert"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Variants"
+            description="Info is the default, then success, warning, and error. The card and its border stay plain, and the icon alone carries the variant, so an alert reads as a message on the page and never as a coloured block."
+            source={variantsSource}
+          >
+            <AlertVariants />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Variants</h2>
-        <p className="text-muted-foreground">
-          Four variants: <code>info</code> is the default, then{' '}
-          <code>success</code>, <code>warning</code>, and <code>error</code>.{' '}
-          <strong className="text-foreground">
-            The surface and the border stay plain — <code>card</code> on{' '}
-            <code>border</code>.
-          </strong>{' '}
-          The icon carries the variant on its own, so an alert reads as a
-          message on the page and not as a colored block. No solid fill and no
-          shadow.
-        </p>
-        <Preview>
-          <div className="flex w-72 flex-col gap-3">
-            <Alert>Saved as a draft</Alert>
-            <Alert variant={AlertVariant.Success}>Trip saved</Alert>
-            <Alert variant={AlertVariant.Warning}>
-              Two seats left at this price
-            </Alert>
-            <Alert variant={AlertVariant.Error}>The payment failed</Alert>
-          </div>
-        </Preview>
-      </section>
+          <Example
+            caption="Sizes"
+            description="Small tightens the padding and the icon for an alert inside a dense surface. The text size does not change: a message does not shrink its type."
+            source={sizesSource}
+          >
+            <AlertSizes />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Sizes</h2>
-        <p className="text-muted-foreground">
-          <code>default</code> takes 16px padding and a 20px icon;{' '}
-          <code>sm</code> takes 12px padding and a 16px icon.{' '}
-          <strong className="text-foreground">
-            The text is <code>text-sm</code> in both.
-          </strong>{' '}
-          A message surface does not shrink its type. The close button is{' '}
-          <code>icon-sm</code> in both.
-        </p>
-        <Preview>
-          <div className="flex w-72 flex-col gap-3">
-            <Alert variant={AlertVariant.Success}>Trip saved</Alert>
-            <Alert variant={AlertVariant.Success} size={AlertSize.Small}>
-              Trip saved
-            </Alert>
-          </div>
-        </Preview>
-      </section>
+          <Example
+            caption="Title and description"
+            description="The title is optional; a short message works on its own. When both are present the description steps back to the muted colour, so the title is read first."
+            source={titleAndDescriptionSource}
+          >
+            <AlertTitleAndDescription />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Title and description
-        </h2>
-        <p className="text-muted-foreground">
-          <code>AlertTitle</code> is optional — "Saved." alone is legal. The
-          title uses Onest at medium weight, not Bricolage Grotesque, because an
-          alert is a message and not a heading.{' '}
-          <strong className="text-foreground">
-            The description drops to <code>muted-foreground</code>.
-          </strong>{' '}
-          Weight alone was not enough separation at <code>text-sm</code>, so the
-          title keeps the full foreground color and the description steps back.
-          The status icon aligns with the first line of text.
-        </p>
-        <Preview>
-          <div className="flex w-72 flex-col gap-3">
-            <Alert variant={AlertVariant.Success}>
-              <AlertTitle>Trip saved</AlertTitle>
-              <AlertDescription>
-                Six days in Da Nang, ready to share.
-              </AlertDescription>
-            </Alert>
-            <Alert variant={AlertVariant.Error}>
-              <AlertTitle>The payment failed</AlertTitle>
-              <AlertDescription>
-                Your card was declined. Try another card.
-              </AlertDescription>
-            </Alert>
-          </div>
-        </Preview>
-      </section>
+          <Example
+            caption="Custom icon"
+            description="Pass icon to replace the variant icon, or null to drop it. The alert sizes and colours whatever node you pass."
+            source={customIconSource}
+          >
+            <AlertCustomIcon />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Icon</h2>
-        <p className="text-muted-foreground">
-          Pass <code>icon</code> to replace the variant icon, or{' '}
-          <code>icon={'{null}'}</code> to drop it. The alert owns the icon size,
-          the gap, and the color, so any node you pass lands at the size and the
-          color of the current variant.
-        </p>
-        <Preview>
-          <div className="flex w-72 flex-col gap-3">
-            <Alert variant={AlertVariant.Success} icon={<PartyPopper />}>
-              Trip saved
-            </Alert>
-            <Alert variant={AlertVariant.Success} icon={null}>
-              Trip saved
-            </Alert>
-          </div>
-        </Preview>
-      </section>
+          <Example
+            caption="Dismissible"
+            description="Pass onClose and the alert shows a Dismiss button. The alert never hides itself: it calls onClose and your app decides what happens, so the app can retry or keep the message until the traveller has seen it."
+            source={dismissibleSource}
+          >
+            <AlertDismissible />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Dismissing</h2>
-        <p className="text-muted-foreground">
-          Pass <code>onClose</code> and the alert renders a ghost icon button
-          labelled "Dismiss".{' '}
-          <strong className="text-foreground">
-            The alert never hides itself.
-          </strong>{' '}
-          It calls <code>onClose</code> and the app decides what happens — set{' '}
-          <code>open</code> to <code>false</code>, drop the alert, or retry the
-          action first. Without <code>onClose</code> there is no close button
-          and no tab stop.
-        </p>
-        <Preview>
-          <DismissDemo />
-        </Preview>
-      </section>
+          <Example
+            caption="With actions"
+            description="Put the buttons in the children, under the description. Two at most, one outline and one ghost, both small. A third action means the message belongs somewhere bigger than an alert."
+            source={withActionsSource}
+          >
+            <AlertWithActions />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Actions</h2>
-        <p className="text-muted-foreground">
-          A result often needs a way forward: retry the payment, undo the
-          delete, open the trip. The alert takes no <code>action</code> prop —
-          put the buttons in the children, under the description.{' '}
-          <strong className="text-foreground">Two actions at most</strong>, one{' '}
-          <code>outline</code> and one <code>ghost</code>, both at{' '}
-          <code>sm</code>. A third action means the message belongs somewhere
-          bigger than an alert. The close button stays the last tab stop.
-        </p>
-        <Preview>
-          <div className="flex w-80 flex-col gap-3">
-            <Alert variant={AlertVariant.Error} onClose={() => {}}>
-              <AlertTitle>The payment failed</AlertTitle>
-              <AlertDescription>Your card was declined.</AlertDescription>
-              <div className="mt-2 flex flex-wrap gap-2">
-                <Button variant={ButtonVariant.Outline} size={ButtonSize.Small}>
-                  Try again
-                </Button>
-                <Button variant={ButtonVariant.Ghost} size={ButtonSize.Small}>
-                  Another card
-                </Button>
-              </div>
-            </Alert>
-          </div>
-        </Preview>
-      </section>
+          <Example
+            caption="Open and close"
+            description="open drives the one animation, height and opacity, in both directions. The alert carries its own exit, so you toggle open and write no motion code."
+            source={openAndCloseSource}
+          >
+            <AlertOpenAndClose />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Motion</h2>
-        <p className="text-muted-foreground">
-          <code>open</code> defaults to <code>true</code> and drives the one
-          animation: height and opacity on <code>spring-settle</code> both ways
-          at <code>--motion-base</code>. The enter does not bounce, because a
-          bounce on a height change makes the content below overshoot. The alert
-          carries its own <code>AnimatePresence</code>, so the app needs no
-          motion boilerplate to get the exit.{' '}
-          <strong className="text-foreground">
-            Unmounting <code>&lt;Alert&gt;</code> directly skips the exit
-          </strong>{' '}
-          — <code>AnimatePresence</code> cannot animate its own unmount. That is
-          the documented trade for the boilerplate you save.
-        </p>
-        <Preview>
-          <OpenToggleDemo />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          <code>error</code> renders <code>role="alert"</code>, so a screen
-          reader interrupts with it; the other three render{' '}
-          <code>role="status"</code> and wait their turn. Pass <code>role</code>{' '}
-          yourself to override the mapping. The status icon is{' '}
-          <code>aria-hidden</code>, so the message is announced once.{' '}
-          <strong className="text-foreground">
-            Focus return after a dismissal is the app's job.
-          </strong>{' '}
-          The alert does no focus management: when you remove an alert whose
-          close button holds focus, send focus back to the control that produced
-          the alert. Text meets WCAG AA — the description is the floor at 7.44:1
-          — and the close button's focus ring clears 3:1 on the card surface.
-          The info icon is <code>--indicator</code> at 3.59:1 on the card,
-          clearing the 3:1 non-text bar (ADR 0004).
-        </p>
-      </section>
-    </article>
-  )
-}
-
-function DismissDemo() {
-  const [open, setOpen] = useState(true)
-
-  return (
-    <div className="flex w-72 flex-col gap-3">
-      <Alert
-        variant={AlertVariant.Success}
-        open={open}
-        onClose={() => setOpen(false)}
-      >
-        <AlertTitle>Trip saved</AlertTitle>
-        <AlertDescription>
-          Six days in Da Nang, ready to share.
-        </AlertDescription>
-      </Alert>
-      <Button
-        variant={ButtonVariant.Outline}
-        size={ButtonSize.Small}
-        onClick={() => setOpen(true)}
-      >
-        Save again
-      </Button>
-    </div>
-  )
-}
-
-function OpenToggleDemo() {
-  const [open, setOpen] = useState(false)
-
-  return (
-    <div className="flex w-72 flex-col gap-3">
-      <Alert variant={AlertVariant.Error} open={open}>
-        <AlertTitle>The payment failed</AlertTitle>
-        <AlertDescription>Your card was declined.</AlertDescription>
-      </Alert>
-      <Button
-        variant={ButtonVariant.Outline}
-        size={ButtonSize.Small}
-        onClick={() => setOpen(!open)}
-      >
-        {open ? 'Close the alert' : 'Open the alert'}
-      </Button>
-    </div>
+          <Example
+            caption="In a form's result slot"
+            description="Submit the form. The button shows its own busyness, then the failure appears below the actions row, where the traveller is already looking, with their input kept."
+            source={inAFormSource}
+          >
+            <AlertInAForm />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'To report the result of a form submit, in the form’s result slot below the actions row.',
+          'To show a warning or notice that belongs to a region of the page and should sit in the flow beside it.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'for a result with no visible home, such as the outcome of a dialog form that has already closed. A notice stays on screen and links back to its subject.',
+            alternative: { to: '/components/notice', label: 'Notice' },
+          },
+          {
+            situation:
+              'when a region failed to load. The region itself says so, with a retry.',
+            alternative: {
+              to: '/components/error-state',
+              label: 'Error state',
+            },
+          },
+          {
+            situation:
+              'for the error on a single field. The field shows its own error beside its input.',
+            alternative: { to: '/fields', label: 'Fields' },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Place the alert where the traveller is already looking, and keep it until they have seen it.',
+            reason:
+              'A message that appears elsewhere or disappears on a timer is missed, and a missed failure looks like a success.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Pick the variant by what the traveller must do: error for a failure, warning for something to check, success and info for the rest.',
+            reason:
+              'Error interrupts a screen reader and the others wait their turn, so the variant sets how loudly the message arrives.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Hide the alert from inside the component or on a timer.',
+            reason:
+              'The app owns the lifecycle. A message that removes itself cannot be read at the traveller’s pace.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Stack several alerts for one action.',
+            reason:
+              'Several messages for one result make the traveller work out which one matters. Write one alert that says it.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Tab'],
+                description:
+                  'Moves focus to the Dismiss button when onClose is passed, after any action buttons in the body. Without onClose the alert has no tab stop.',
+              },
+              {
+                keys: ['Enter', 'Space'],
+                description: 'On the Dismiss button, calls onClose.',
+              },
+            ]}
+          />
+          <p>
+            An error alert has <code>role="alert"</code>, so a screen reader
+            interrupts with it. The other three variants have{' '}
+            <code>role="status"</code> and wait their turn. Pass{' '}
+            <code>role</code> to override the mapping. The icon is hidden from
+            assistive technology, so the message is announced once.
+          </p>
+          <p>
+            The alert does no focus management. When you remove an alert whose
+            Dismiss button holds focus, send focus back to the control that
+            produced it.
+          </p>
+        </>
+      }
+      api={
+        <PropsTable
+          component="Alert"
+          description={
+            <>
+              Also takes every <code>&lt;div&gt;</code> attribute.{' '}
+              <code>AlertTitle</code> and <code>AlertDescription</code> take
+              only their element’s props.
+            </>
+          }
+          rows={[
+            {
+              name: 'variant',
+              type: 'AlertVariant',
+              default: 'AlertVariant.Info',
+              description: 'Info, Success, Warning, or Error.',
+            },
+            {
+              name: 'size',
+              type: 'AlertSize',
+              default: 'AlertSize.Default',
+              description:
+                'Default or Small. The text size is the same in both.',
+            },
+            {
+              name: 'icon',
+              type: 'ReactNode',
+              description:
+                'Replaces the variant icon. Pass null to show no icon.',
+            },
+            {
+              name: 'onClose',
+              type: '() => void',
+              description:
+                'Shows a Dismiss button that calls it. The alert does not hide itself.',
+            },
+            {
+              name: 'open',
+              type: 'boolean',
+              default: 'true',
+              description: 'Shows or hides the alert, animating the change.',
+            },
+            {
+              name: 'animateOpen',
+              type: 'boolean',
+              default: 'true',
+              description:
+                'Set false to skip the height animation, as the notice does.',
+            },
+            {
+              name: 'role',
+              type: 'string',
+              description:
+                'Overrides the role the variant sets: alert for error, status for the rest.',
+            },
+          ]}
+        />
+      }
+      notes={
+        <>
+          <p>
+            Default takes 16px of padding and a 20px icon; small takes 12px and
+            a 16px icon. The text is <code>text-sm</code> in both and the close
+            button is <code>icon-sm</code> in both. The title is Onest at medium
+            weight, not Bricolage Grotesque, because an alert is a message and
+            not a heading.
+          </p>
+          <p>
+            Weight alone does not separate the title from the description at{' '}
+            <code>text-sm</code>, so the description uses{' '}
+            <code>muted-foreground</code> and the title keeps the full
+            foreground colour.
+          </p>
+          <p>
+            <code>open</code> animates height and opacity on{' '}
+            <code>springSettle</code> both ways, with no bounce: a bounce on a
+            height change makes the content below overshoot. The exit comes from
+            the alert’s own <code>AnimatePresence</code>, so unmounting{' '}
+            <code>&lt;Alert&gt;</code> directly skips it.
+          </p>
+          <p>
+            The description text is 7.44:1 on the card, the floor for text here.
+            The close button’s focus ring clears 3:1 on the card. The info icon
+            is <code>--indicator</code> at 3.59:1 on the card, which clears the
+            3:1 bar for non-text marks.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/notice',
+          label: 'Notice',
+          description:
+            'The persistent shell surface for a result with no visible home.',
+        },
+        {
+          to: '/components/error-state',
+          label: 'Error state',
+          description: 'The failed state of a region that did not load.',
+        },
+        {
+          to: '/components/form',
+          label: 'Form',
+          description: 'Defines the result slot an alert sits in.',
+        },
+        {
+          to: '/principles',
+          label: 'Principles',
+          description: 'The feedback rule that ranks where a result belongs.',
+        },
+      ]}
+    />
   )
 }

@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 
 import { ComponentsOverview } from '@/components/components-overview'
+import { HomeIntro } from '@/components/home-intro'
 
 interface OverviewSearch {
   q?: string
@@ -36,5 +37,10 @@ function OverviewPage() {
     })
   }
 
-  return <ComponentsOverview query={query} onQueryChange={handleQueryChange} />
+  return (
+    <>
+      <HomeIntro />
+      <ComponentsOverview query={query} onQueryChange={handleQueryChange} />
+    </>
+  )
 }

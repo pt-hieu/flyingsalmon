@@ -188,9 +188,9 @@ const previewByRoute: Record<ComponentRoute, React.ReactNode> = {
   ),
 
   '/components/radio-group': (
-    <RadioGroup className="w-40" label="Speed" defaultValue="standard">
-      <RadioGroupItem value="standard" label="Standard" />
-      <RadioGroupItem value="express" label="Express" />
+    <RadioGroup className="w-40" label="Room" defaultValue="shared">
+      <RadioGroupItem value="shared" label="Shared" />
+      <RadioGroupItem value="private" label="Private" />
     </RadioGroup>
   ),
 
@@ -215,8 +215,8 @@ const previewByRoute: Record<ComponentRoute, React.ReactNode> = {
 
   '/components/switch': (
     <div className="flex flex-col gap-2">
-      <Switch label="Wi-Fi" defaultChecked />
-      <Switch label="Notifications" />
+      <Switch label="Share trip" defaultChecked />
+      <Switch label="Let others edit" />
     </div>
   ),
 
@@ -239,9 +239,9 @@ const previewByRoute: Record<ComponentRoute, React.ReactNode> = {
 
   '/components/avatar': (
     <div className="flex items-center gap-2">
-      <Avatar name="Ada Lovelace" color={AvatarColor.Blue} />
+      <Avatar name="Brian Nguyen" color={AvatarColor.Blue} />
       <Avatar
-        name="Grace Hopper"
+        name="Linh Tran"
         size={AvatarSize.Small}
         color={AvatarColor.Teal}
       />
@@ -252,11 +252,11 @@ const previewByRoute: Record<ComponentRoute, React.ReactNode> = {
     <AvatarGroup
       aria-label="Trip members"
       items={[
-        { id: 'ada', name: 'Ada Lovelace', color: AvatarColor.Sky },
-        { id: 'grace', name: 'Grace Hopper', color: AvatarColor.Teal },
+        { id: 'brian', name: 'Brian Nguyen', color: AvatarColor.Sky },
+        { id: 'linh', name: 'Linh Tran', color: AvatarColor.Teal },
         {
-          id: 'katherine',
-          name: 'Katherine Johnson',
+          id: 'minh',
+          name: 'Minh Pham',
           color: AvatarColor.Fuchsia,
         },
       ]}
@@ -386,8 +386,16 @@ const previewByRoute: Record<ComponentRoute, React.ReactNode> = {
   ),
 
   '/components/notice': (
-    <Alert variant={AlertVariant.Info} size={AlertSize.Small} className="w-56">
+    <Alert
+      variant={AlertVariant.Info}
+      size={AlertSize.Small}
+      className="w-60"
+      onClose={() => {}}
+    >
       <AlertTitle>Link copied</AlertTitle>
+      <span className="text-card-foreground w-fit text-xs underline underline-offset-4">
+        View the trip
+      </span>
     </Alert>
   ),
 
@@ -407,15 +415,13 @@ const previewByRoute: Record<ComponentRoute, React.ReactNode> = {
 
   '/components/accordion': (
     <Accordion className="w-56">
-      <AccordionItem value="shipping">
-        <AccordionTrigger>Shipping</AccordionTrigger>
-        <AccordionContent>
-          Two working days from the warehouse.
-        </AccordionContent>
+      <AccordionItem value="flights">
+        <AccordionTrigger>Flights</AccordionTrigger>
+        <AccordionContent>Haneda to Itami, two seats.</AccordionContent>
       </AccordionItem>
-      <AccordionItem value="returns">
-        <AccordionTrigger>Returns</AccordionTrigger>
-        <AccordionContent>Thirty days, no questions asked.</AccordionContent>
+      <AccordionItem value="stays">
+        <AccordionTrigger>Stays</AccordionTrigger>
+        <AccordionContent>Three nights in a ryokan near Gion.</AccordionContent>
       </AccordionItem>
     </Accordion>
   ),

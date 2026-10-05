@@ -1,19 +1,19 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { Preview } from '@/components/preview'
-import { snappedPencilStickerArt } from '@/components/snapped-pencil-sticker-art'
 import {
-  snappedPencilStickerLabel,
-  snappedPencilStickerRoleClassNames,
-} from '@/components/snapped-pencil-sticker'
-import { Button, ButtonVariant } from '@/registry/ui/button'
-import {
-  EmptyStateActions,
-  EmptyStateDescription,
-  EmptyStateSticker,
-  EmptyStateTitle,
-} from '@/registry/ui/empty-state'
-import { ErrorState } from '@/registry/ui/error-state'
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { ErrorStateDemo } from '@/examples/error-state/demo'
+import demoSource from '@/examples/error-state/demo.tsx?raw'
+import { ErrorStateRetry } from '@/examples/error-state/retry'
+import retrySource from '@/examples/error-state/retry.tsx?raw'
+import { ErrorStateSmallInACard } from '@/examples/error-state/small-in-a-card'
+import smallInACardSource from '@/examples/error-state/small-in-a-card.tsx?raw'
+import usageSource from '@/examples/error-state/usage.tsx?raw'
 
 export const Route = createFileRoute('/_docs/components/error-state')({
   component: ErrorStatePage,
@@ -21,81 +21,152 @@ export const Route = createFileRoute('/_docs/components/error-state')({
 
 function ErrorStatePage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Error State
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          An empty state for content that failed to arrive. It says what
-          happened and what the user can do about it, in the same layout, and is
-          announced when it appears.
-        </p>
-      </header>
+    <DocPage
+      title="Error state"
+      lead="An empty state for content that failed to arrive: it says what happened and what the traveller can do about it, and is announced when it appears."
+      preview={{ source: demoSource, demo: <ErrorStateDemo /> }}
+      installation="error-state"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Small in a card"
+            description="Small is for one region among others. The icon replaces the sticker and the title steps down to a third-level heading, so the card stays in proportion."
+            source={smallInACardSource}
+          >
+            <ErrorStateSmallInACard />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">When to use it</h2>
-        <p className="text-muted-foreground">
-          An error state is the failed state of the affected item, the first
-          home for a result in the feedback rule: the region that was meant to
-          fill says that it did not, with a retry, where the user is already
-          looking. An error with a closer home does not use it: a form&apos;s
-          error belongs to the acting surface&apos;s <code>alert</code>, and a
-          result with no visible home goes to a <code>notice</code>. A region
-          that is legitimately empty is an <code>empty-state</code>.
-        </p>
-        <Preview>
-          <ErrorState>
-            <EmptyStateSticker
-              art={snappedPencilStickerArt}
-              label={snappedPencilStickerLabel}
-              roleClassNames={snappedPencilStickerRoleClassNames}
-            />
-            <EmptyStateTitle>Generation failed</EmptyStateTitle>
-            <EmptyStateDescription>
-              It stopped while planning the days for Japan. All 12 credits are
-              back in your wallet, and nothing from the failed attempt was kept.
-              Your Brief is saved; try again or change it first.
-            </EmptyStateDescription>
-            <EmptyStateActions>
-              <Button>Try again</Button>
-              <Button variant={ButtonVariant.Outline}>Edit the Brief</Button>
-            </EmptyStateActions>
-          </ErrorState>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Slots</h2>
-        <p className="text-muted-foreground">
-          <code>ErrorState</code> replaces <code>EmptyState</code> as the root
-          and takes its <code>size</code>; every other slot is an empty-state
-          part. The layout stays the same and the art stays a sticker, tilted
-          right where an empty state tilts it left: no red icon and no{' '}
-          <code>Alert</code> inside it. The description says what happened and
-          what was kept, and the actions offer the retry and the way back to the
-          input.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Contrast</h2>
-        <p className="text-muted-foreground">
-          The colors are the empty state&apos;s: its title, its sticker, and its
-          role tell it apart, never red.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          The block is an <code>alert</code> labelled by its title, so it is
-          announced when it appears, as when it replaces the content that
-          failed, and a screen reader tells it apart from an empty state. A
-          caller cannot change that role. Everything else, from the heading
-          level to the tab stops, is the empty state&apos;s.
-        </p>
-      </section>
-    </article>
+          <Example
+            caption="Retry"
+            description="Press Try again. The region shows a skeleton while it loads, then fails once more before it succeeds. The retry replaces the error where it stood, so the traveller never leaves the place they were looking."
+            source={retrySource}
+          >
+            <ErrorStateRetry />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'When a region that was meant to fill could not: the places did not load, the trip failed to plan.',
+          'As the failed state of the affected item, with a retry where the traveller is already looking.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'for a form’s error. It belongs to the acting surface, in the form’s result slot.',
+            alternative: { to: '/components/alert', label: 'Alert' },
+          },
+          {
+            situation:
+              'for a result with no visible home, such as a dialog form that has closed.',
+            alternative: { to: '/components/notice', label: 'Notice' },
+          },
+          {
+            situation:
+              'when the region is legitimately empty and nothing went wrong.',
+            alternative: {
+              to: '/components/empty-state',
+              label: 'Empty state',
+            },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Say what happened and what was kept, then offer a retry and a way back to the input.',
+            reason:
+              'The traveller needs to know nothing was lost before they will try again.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Add a red icon or an alert inside the block.',
+            reason:
+              'The title, the sticker, and the role tell it apart from an empty state. The colours are the empty state’s.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Set a role on it.',
+            reason:
+              'It is always an alert, so a screen reader hears it appear.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Tab'],
+                description:
+                  'Reaches the action buttons in order. Nothing else in the block takes focus.',
+              },
+            ]}
+          />
+          <p>
+            The block is an <code>alert</code> labelled by its title, so it is
+            announced when it appears, as when it replaces the content that
+            failed, and a screen reader tells it apart from an empty state. The
+            role cannot be changed. Everything else, from the heading level to
+            the tab stops, is the empty state’s.
+          </p>
+        </>
+      }
+      api={
+        <PropsTable
+          component="ErrorState"
+          description={
+            <>
+              Replaces <code>EmptyState</code> as the root and takes its props
+              except <code>role</code>. Every other part is an empty-state part:{' '}
+              <code>EmptyStateTitle</code>, <code>EmptyStateDescription</code>,{' '}
+              <code>EmptyStateActions</code>, and the sticker or icon.
+            </>
+          }
+          rows={[
+            {
+              name: 'size',
+              type: 'EmptyStateSize',
+              default: 'EmptyStateSize.Default',
+              description:
+                'Default for a page, Small for a block inside a card.',
+            },
+          ]}
+        />
+      }
+      notes={
+        <>
+          <p>
+            The layout and colours are the empty state’s. The only difference in
+            look is the sticker, which tilts right where an empty state tilts it
+            left, and the only difference in behaviour is the{' '}
+            <code>role="alert"</code> on the root.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/empty-state',
+          label: 'Empty state',
+          description:
+            'The same block for a region that is legitimately empty.',
+        },
+        {
+          to: '/components/alert',
+          label: 'Alert',
+          description: 'Where a form’s error appears.',
+        },
+        {
+          to: '/components/notice',
+          label: 'Notice',
+          description: 'Where a result with no visible home appears.',
+        },
+        {
+          to: '/principles',
+          label: 'Principles',
+          description: 'The feedback rule that ranks these homes.',
+        },
+      ]}
+    />
   )
 }

@@ -1,19 +1,25 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
 
-import { Preview } from '@/components/preview'
-import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
-import { Pagination } from '@/registry/ui/pagination'
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableFooter,
-  TableHeadCell,
-  TableHeadCellScope,
-  TableHeader,
-  TableRow,
-} from '@/registry/ui/table'
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { PaginationUnderATable } from '@/examples/pagination/under-a-table'
+import underATableSource from '@/examples/pagination/under-a-table.tsx?raw'
+import { TableDemo } from '@/examples/table/demo'
+import demoSource from '@/examples/table/demo.tsx?raw'
+import { TableEmpty } from '@/examples/table/empty'
+import emptySource from '@/examples/table/empty.tsx?raw'
+import { TableInteractiveRows } from '@/examples/table/interactive-rows'
+import interactiveRowsSource from '@/examples/table/interactive-rows.tsx?raw'
+import { TableNumericColumns } from '@/examples/table/numeric-columns'
+import numericColumnsSource from '@/examples/table/numeric-columns.tsx?raw'
+import { TableRowHeaders } from '@/examples/table/row-headers'
+import rowHeadersSource from '@/examples/table/row-headers.tsx?raw'
+import usageSource from '@/examples/table/usage.tsx?raw'
 
 export const Route = createFileRoute('/_docs/components/table')({
   component: TablePage,
@@ -21,353 +27,292 @@ export const Route = createFileRoute('/_docs/components/table')({
 
 function TablePage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Table
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          A styled primitive for tabular data: plain table elements in seven
-          parts. Horizontal rules only, an indicator-colored header rule,
-          left-aligned column labels, and an interactive row whose single link
-          stretches over the whole row and turns the rules above and below it
-          the same color.
-        </p>
-      </header>
+    <DocPage
+      title="Table"
+      lead="A table lays out rows of comparable data under column labels, with horizontal rules and nothing else."
+      preview={{ source: demoSource, demo: <TableDemo /> }}
+      installation="table"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Numeric columns"
+            description="Right-align a column of numbers so digits line up by place value, which is the only way to compare two amounts by reading down. Column labels stay left, because a label is a word, not a quantity."
+            source={numericColumnsSource}
+          >
+            <TableNumericColumns />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Seven parts</h2>
-        <p className="text-muted-foreground">
-          <code>Table</code>, <code>TableHeader</code>, <code>TableBody</code>,{' '}
-          <code>TableFooter</code>, <code>TableRow</code>,{' '}
-          <code>TableHeadCell</code>, and <code>TableCell</code> &mdash; each
-          one a plain element with the matching tag. <code>Table</code> wraps
-          the table in a full-width scrolling div and sends your{' '}
-          <code>className</code> to the table itself. There is no caption part
-          and no empty-state part: an empty table is a row with a{' '}
-          <code>colSpan</code> cell you write yourself, because only you know
-          the column count.
-        </p>
-        <p className="text-muted-foreground">
-          The sections own the rules. Every body row keeps a{' '}
-          <code>--border</code> line, including the last, so the table
-          terminates on a rule; the header row draws a 1px{' '}
-          <code>--table-header-border</code> line, which is{' '}
-          <code>--indicator</code>; the footer draws none. There are no vertical
-          rules and no outer border &mdash; drop the table inside a{' '}
-          <code>Card</code> if you want it boxed. Only an interactive row
-          responds to hover, stepping its background to <code>--accent</code> at{' '}
-          <code>--motion-fast</code>; a row you cannot click stays still,
-          because a background step that leads nowhere reads as an affordance
-          that is not there. The header and footer never respond to hover.
-        </p>
-        <Preview>
-          <PartsExample />
-        </Preview>
-      </section>
+          <Example
+            caption="Row headers"
+            description="Give the cell that names a row scope row. A screen reader then announces each cell together with the row it belongs to."
+            source={rowHeadersSource}
+          >
+            <TableRowHeaders />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Rows that lead somewhere
-        </h2>
-        <p className="text-muted-foreground">
-          Pass <code>interactive</code> to a <code>TableRow</code>, then mark
-          the cell holding the row&rsquo;s link with <code>rowLink</code>{' '}
-          &mdash; not necessarily the first cell.{' '}
-          <strong className="text-foreground">
-            That link stretches its hit area over the whole row
-          </strong>{' '}
-          through a pseudo-element, so a click anywhere on the row follows it
-          and Enter activates it natively. The row is not a link and holds no
-          key handler of its own. You write the anchor yourself, so a router
-          link works the same as an <code>&lt;a&gt;</code>.
-        </p>
-        <p className="text-muted-foreground">
-          Every other cell keeps its contents above the stretched link, so a
-          second link or a button in the same row clicks, tabs, and shows its
-          own focus ring exactly as it would anywhere else. Nothing to opt into.
-          Mark two cells <code>rowLink</code> and the two overlays fight over
-          the same area &mdash; that one is on you, and it is visible in your
-          markup rather than inferred from the row.
-        </p>
-        <p className="text-muted-foreground">
-          Focus and press build on hover rather than replacing it. The row takes
-          the same <code>--accent</code> background a pointer gives it, and the
-          line above it and the line below it both turn <code>--indicator</code>
-          , in the same weight and color as the header rule. The first body row
-          borrows the header rule as its top line. The background is what tells
-          you which row the two lines belong to, since the upper one is also the
-          previous row&rsquo;s lower one; focus is the louder state because a
-          keyboard user has no pointer to say where they are.
-        </p>
-        <Preview>
-          <InteractiveExample />
-        </Preview>
-      </section>
+          <Example
+            caption="Rows that lead somewhere"
+            description="Mark a row interactive and one cell rowLink. That cell’s link stretches over the whole row, so a click anywhere follows it. Tab to a row and the rules above and below it turn orange. The Share button in each row still clicks and focuses on its own."
+            source={interactiveRowsSource}
+          >
+            <TableInteractiveRows />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Widths and alignment are yours
-        </h2>
-        <p className="text-muted-foreground">
-          One size, no <code>density</code> prop, and no <code>align</code> prop
-          &mdash; <code>align</code> is a real HTML attribute on a cell. Column
-          labels always sit left, whatever the column holds. Body cells are
-          yours: numerics take <code>className=&quot;text-right&quot;</code> so
-          digits line up by place value, which is the only way to compare two
-          amounts by reading down the column. A label is a word, not a quantity,
-          so nothing lines up against it and moving it right buys nothing.
-          Column widths and a tighter row rhythm are <code>className</code> too.
-        </p>
-        <p className="text-muted-foreground">
-          A column that holds only controls takes an empty{' '}
-          <code>TableHeadCell</code>. The button already names the action, so a
-          label above it repeats what is written below and then sits far from
-          it, since the controls are right-aligned to give the row a consistent
-          end. Name an action column only when the label says something the
-          buttons do not.
-        </p>
-        <p className="text-muted-foreground">
-          The wrapper is <code>overflow-x-auto</code> and the table is{' '}
-          <code>w-full</code>, with no minimum width and no{' '}
-          <code>whitespace-nowrap</code>. Cell text wraps by default, so{' '}
-          <strong className="text-foreground">
-            horizontal scroll engages only when you set column widths or opt a
-            column into nowrap
-          </strong>
-          . It is not automatic.
-        </p>
-        <Preview>
-          <AlignmentExample />
-        </Preview>
-      </section>
+          <Example
+            caption="Empty table"
+            description="There is no empty-state part. Write one row with a cell that spans every column, because only you know the column count."
+            source={emptySource}
+          >
+            <TableEmpty />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Row headers</h2>
-        <p className="text-muted-foreground">
-          <code>TableHeadCell</code> defaults to{' '}
-          <code>scope=&quot;col&quot;</code> and exposes the{' '}
-          <code>columnheader</code> role. Put one in a body row with{' '}
-          <code>
-            scope={'{'}TableHeadCellScope.Row{'}'}
-          </code>{' '}
-          and it exposes <code>rowheader</code> instead, so a screen reader
-          announces each cell with the row it belongs to. Styling keys off the
-          scope, not the position: a row header takes body geometry rather than
-          the column label&rsquo;s row height. Every cell in the table is{' '}
-          <code>--foreground</code>; head cells separate from body cells by{' '}
-          <code>font-medium</code> alone.
-        </p>
-        <Preview>
-          <RowHeaderExample />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Paged tables</h2>
-        <p className="text-muted-foreground">
-          A table longer than one screen takes a <code>Pagination</code> under
-          it, right-aligned, where the eye lands after the last row. The table
-          renders the rows the app hands it and the control reports the page the
-          user asked for; slicing the data, the page size, and the range line
-          are the app&rsquo;s. The two components know nothing about each other,
-          so the composition is a wrapper with a flex rule and nothing else.
-        </p>
-        <Preview>
-          <PagedExample />
-        </Preview>
-      </section>
-
-      <p className="text-muted-foreground">
-        Table sorts nothing, selects nothing, and paginates nothing. Those
-        belong to a data table built on top of this one.
-      </p>
-    </article>
-  )
-}
-
-function PartsExample() {
-  return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHeadCell>Stop</TableHeadCell>
-          <TableHeadCell>Nights</TableHeadCell>
-          <TableHeadCell>Lodging</TableHeadCell>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <TableRow>
-          <TableCell>Kyoto</TableCell>
-          <TableCell>3</TableCell>
-          <TableCell>Ryokan Aoi</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>Kanazawa</TableCell>
-          <TableCell>2</TableCell>
-          <TableCell>Hotel Higashi</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>Tokyo</TableCell>
-          <TableCell>4</TableCell>
-          <TableCell>Shibuya Loft</TableCell>
-        </TableRow>
-      </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell>Total</TableCell>
-          <TableCell>9</TableCell>
-          <TableCell>3 stays</TableCell>
-        </TableRow>
-      </TableFooter>
-    </Table>
-  )
-}
-
-function InteractiveExample() {
-  return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHeadCell>Stop</TableHeadCell>
-          <TableHeadCell>Lodging</TableHeadCell>
-          <TableHeadCell />
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <TableRow interactive>
-          <TableCell rowLink>
-            <a href="#kyoto">Kyoto</a>
-          </TableCell>
-          <TableCell>
-            <a href="#ryokan-aoi">Ryokan Aoi</a>
-          </TableCell>
-          <TableCell className="text-right">
-            <Button variant={ButtonVariant.Ghost} size={ButtonSize.Small}>
-              Save
-            </Button>
-          </TableCell>
-        </TableRow>
-        <TableRow interactive>
-          <TableCell rowLink>
-            <a href="#kanazawa">Kanazawa</a>
-          </TableCell>
-          <TableCell>
-            <a href="#hotel-higashi">Hotel Higashi</a>
-          </TableCell>
-          <TableCell className="text-right">
-            <Button variant={ButtonVariant.Ghost} size={ButtonSize.Small}>
-              Save
-            </Button>
-          </TableCell>
-        </TableRow>
-      </TableBody>
-    </Table>
-  )
-}
-
-function AlignmentExample() {
-  return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHeadCell className="w-1/2">Stop</TableHeadCell>
-          <TableHeadCell>Nights</TableHeadCell>
-          <TableHeadCell>Cost</TableHeadCell>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <TableRow>
-          <TableCell>Kyoto</TableCell>
-          <TableCell className="text-right">3</TableCell>
-          <TableCell className="text-right">&yen;48,000</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>Kanazawa</TableCell>
-          <TableCell className="text-right">2</TableCell>
-          <TableCell className="text-right">&yen;26,500</TableCell>
-        </TableRow>
-      </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell>Total</TableCell>
-          <TableCell className="text-right">5</TableCell>
-          <TableCell className="text-right">&yen;74,500</TableCell>
-        </TableRow>
-      </TableFooter>
-    </Table>
-  )
-}
-
-const tripStops = [
-  { stop: 'Kyoto', nights: 3, lodging: 'Ryokan Aoi' },
-  { stop: 'Kanazawa', nights: 2, lodging: 'Hotel Higashi' },
-  { stop: 'Takayama', nights: 2, lodging: 'Minshuku Oku' },
-  { stop: 'Matsumoto', nights: 1, lodging: 'Castle View Inn' },
-  { stop: 'Hakone', nights: 2, lodging: 'Onsen Kaede' },
-  { stop: 'Tokyo', nights: 4, lodging: 'Shibuya Loft' },
-]
-
-const stopsPerPage = 2
-
-function PagedExample() {
-  const [page, setPage] = useState(1)
-
-  const pageCount = Math.ceil(tripStops.length / stopsPerPage)
-  const visibleStops = tripStops.slice(
-    (page - 1) * stopsPerPage,
-    page * stopsPerPage,
-  )
-
-  return (
-    <div className="w-full space-y-4">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHeadCell>Stop</TableHeadCell>
-            <TableHeadCell>Nights</TableHeadCell>
-            <TableHeadCell>Lodging</TableHeadCell>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {visibleStops.map((visibleStop) => (
-            <TableRow key={visibleStop.stop}>
-              <TableCell>{visibleStop.stop}</TableCell>
-              <TableCell className="text-right">{visibleStop.nights}</TableCell>
-              <TableCell>{visibleStop.lodging}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <div className="flex justify-end">
-        <Pagination page={page} pageCount={pageCount} onPageChange={setPage} />
-      </div>
-    </div>
-  )
-}
-
-function RowHeaderExample() {
-  return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHeadCell>Stop</TableHeadCell>
-          <TableHeadCell>Arrive</TableHeadCell>
-          <TableHeadCell>Depart</TableHeadCell>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <TableRow>
-          <TableHeadCell scope={TableHeadCellScope.Row}>Kyoto</TableHeadCell>
-          <TableCell>12 Apr</TableCell>
-          <TableCell>15 Apr</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableHeadCell scope={TableHeadCellScope.Row}>Kanazawa</TableHeadCell>
-          <TableCell>15 Apr</TableCell>
-          <TableCell>17 Apr</TableCell>
-        </TableRow>
-      </TableBody>
-    </Table>
+          <Example
+            caption="With pagination"
+            description="Put a pagination control under a long table, aligned right where the eye lands after the last row. The table renders the rows you hand it; slicing the data is yours."
+            source={underATableSource}
+          >
+            <PaginationUnderATable />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'To compare the same fields across many items: stops on a trip, travellers and their roles, bookings and their costs.',
+          'When a reader scans down a column more than across a row.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'to show one item with several fields, because a card gives each item its own edge and room.',
+            alternative: { to: '/components/card', label: 'Card' },
+          },
+          {
+            situation:
+              'to show events in order with content beside each, because a timeline joins them with a connector.',
+            alternative: { to: '/components/timeline', label: 'Timeline' },
+          },
+          {
+            situation:
+              'to hold form fields in a grid, because a table announces a data relationship that fields do not have.',
+            alternative: { to: '/components/form', label: 'Form' },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Right-align numeric columns and leave labels left.',
+            reason:
+              'Aligned digits are what let a reader compare two amounts by place value.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Leave the header cell empty on a column that holds only controls.',
+            reason:
+              'The button already names the action. A label above it repeats the words and sits far from them, because the controls are right-aligned.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: (
+              <>
+                Mark two cells in one row <code>rowLink</code>.
+              </>
+            ),
+            reason:
+              'The two stretched links cover the same area and fight over it. One row, one destination.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: (
+              <>
+                Mark a row <code>interactive</code> when nothing happens on
+                click.
+              </>
+            ),
+            reason:
+              'The hover step tells a reader the row leads somewhere. A background change that leads nowhere reads as an affordance that is not there.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Expect sorting, selection, or paging from the table.',
+            reason:
+              'It sorts nothing, selects nothing, and paginates nothing. Those belong to a data table built on top of it.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Tab'],
+                description:
+                  'Moves through the links and buttons in the rows. An interactive row has one stop for its row link; a second link or button in the same row is its own stop with its own focus ring.',
+              },
+              {
+                keys: ['Enter'],
+                description:
+                  'Follows the focused link, including the row link of an interactive row.',
+              },
+              {
+                keys: ['Space'],
+                description: 'Presses a focused button in a row.',
+              },
+            ]}
+          />
+          <p>
+            The table is a native <code>table</code>, so screen readers announce
+            its rows, columns, and cell positions with no ARIA.{' '}
+            <code>TableHeadCell</code> defaults to{' '}
+            <code>scope=&quot;col&quot;</code> and is exposed as a column
+            header; with{' '}
+            <code>
+              scope={'{'}TableHeadCellScope.Row{'}'}
+            </code>{' '}
+            in a body row it is exposed as a row header, so each cell is read
+            with the row it belongs to. There is no caption part: label the
+            table with <code>aria-label</code> or <code>aria-labelledby</code>{' '}
+            on <code>Table</code> when the surrounding heading is not enough.
+          </p>
+          <p>
+            An interactive row is not a link and holds no key handler of its
+            own. Its row link is an anchor you write, so a router link works the
+            same as an <code>&lt;a&gt;</code>, and Enter activates it natively.
+            Focus on a row link paints the row’s hover background and turns the
+            rules above and below it orange, in the same weight as the header
+            rule: the louder state is for keyboard users, who have no pointer to
+            say where they are.
+          </p>
+        </>
+      }
+      api={
+        <>
+          <p>
+            <code>Table</code> takes every <code>&lt;table&gt;</code> attribute.
+            It wraps the table in a full-width scrolling container and sends{' '}
+            <code>className</code> to the table itself.
+          </p>
+          <PropsTable
+            component="TableRow"
+            description={
+              <>
+                Also takes every <code>&lt;tr&gt;</code> attribute.
+              </>
+            }
+            rows={[
+              {
+                name: 'interactive',
+                type: 'boolean',
+                default: 'false',
+                description:
+                  'Steps the background to the accent colour on hover and on focus of the row link, and stretches the row link over the row.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="TableCell"
+            description={
+              <>
+                Also takes every <code>&lt;td&gt;</code> attribute.
+              </>
+            }
+            rows={[
+              {
+                name: 'rowLink',
+                type: 'boolean',
+                default: 'false',
+                description:
+                  'Marks the cell whose link stretches over its interactive row. Any cell can hold it, not only the first.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="TableHeadCell"
+            description={
+              <>
+                Also takes every <code>&lt;th&gt;</code> attribute except{' '}
+                <code>scope</code>.
+              </>
+            }
+            rows={[
+              {
+                name: 'scope',
+                type: 'TableHeadCellScope',
+                default: 'TableHeadCellScope.Column',
+                description:
+                  'Column for a column label; Row for a cell in a body row that names that row.',
+              },
+            ]}
+          />
+          <p>
+            <code>TableHeader</code>, <code>TableBody</code>, and{' '}
+            <code>TableFooter</code> take only their element’s props.
+          </p>
+        </>
+      }
+      notes={
+        <>
+          <p>
+            The sections own the rules. Every body row keeps a{' '}
+            <code>--border</code> line, including the last, so the table ends on
+            a rule. The header row draws a 1px{' '}
+            <code>--table-header-border</code> line, which is{' '}
+            <code>--indicator</code>. The footer draws none. There are no
+            vertical rules and no outer border; put the table in a card to box
+            it.
+          </p>
+          <p>
+            Only an interactive row responds to hover, stepping its background
+            to <code>--accent</code> over <code>--motion-fast</code>. The header
+            and footer never respond. The link’s stretch is a pseudo-element, so
+            every other cell keeps its contents above it and a second link or a
+            button clicks as it would anywhere else. The first body row borrows
+            the header rule as its top line.
+          </p>
+          <p>
+            There is one size and no <code>density</code> or <code>align</code>{' '}
+            prop; <code>align</code> is a real HTML attribute on a cell. Head
+            cells are 40px tall with 16px side padding; body cells and row
+            headers take 16px sides and 12px top and bottom. Every cell is{' '}
+            <code>--foreground</code> and head cells differ by{' '}
+            <code>font-medium</code> alone.
+          </p>
+          <p>
+            The wrapper is <code>overflow-x-auto</code> and the table is{' '}
+            <code>w-full</code>, with no minimum width and no{' '}
+            <code>whitespace-nowrap</code>. Cell text wraps, so horizontal
+            scroll engages only when you set column widths or opt a column into
+            nowrap.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/pagination',
+          label: 'Pagination',
+          description: 'The control that pages a long table.',
+        },
+        {
+          to: '/components/badge',
+          label: 'Badge',
+          description: 'The marker for a status column.',
+        },
+        {
+          to: '/components/card',
+          label: 'Card',
+          description: 'Boxes a table, or shows one item instead of many.',
+        },
+        {
+          to: '/components/timeline',
+          label: 'Timeline',
+          description: 'Shows a sequence with content beside each marker.',
+        },
+        {
+          to: '/spacing',
+          label: 'Spacing',
+          description: 'The 4px scale behind the cell padding.',
+        },
+      ]}
+    />
   )
 }

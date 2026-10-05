@@ -1,267 +1,292 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { Preview } from '@/components/preview'
 import {
-  Breadcrumb,
-  BreadcrumbEllipsis,
-  BreadcrumbEllipsisMenuItem,
-  BreadcrumbItem,
-  BreadcrumbSeparator,
-} from '@/registry/ui/breadcrumb'
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { BreadcrumbCollapsed } from '@/examples/breadcrumb/collapsed'
+import collapsedSource from '@/examples/breadcrumb/collapsed.tsx?raw'
+import { BreadcrumbDemo } from '@/examples/breadcrumb/demo'
+import demoSource from '@/examples/breadcrumb/demo.tsx?raw'
+import { BreadcrumbLongPageTitle } from '@/examples/breadcrumb/long-page-title'
+import longPageTitleSource from '@/examples/breadcrumb/long-page-title.tsx?raw'
+import { BreadcrumbRouterLinks } from '@/examples/breadcrumb/router-links'
+import routerLinksSource from '@/examples/breadcrumb/router-links.tsx?raw'
+import usageSource from '@/examples/breadcrumb/usage.tsx?raw'
 
 export const Route = createFileRoute('/_docs/components/breadcrumb')({
-  component: BreadcrumbDocsPage,
+  component: BreadcrumbPage,
 })
 
-function BreadcrumbDocsPage() {
+function BreadcrumbPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Breadcrumb
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          A single-line trail of the current page&apos;s ancestors in a
-          hierarchy. Every level above the current one is a link back up, and
-          the current page ends the trail as plain text.
-        </p>
-        <p className="text-muted-foreground text-lg">
-          <strong className="text-foreground">
-            A trail has at least two levels.
-          </strong>{' '}
-          A page that sits at the top of the hierarchy renders no breadcrumb,
-          because a trail of one says nothing the page title has not already
-          said.
-        </p>
-      </header>
+    <DocPage
+      title="Breadcrumb"
+      lead="A single-line trail of the current page's ancestors, each a link back up, ending in the current page as plain text."
+      preview={{ source: demoSource, demo: <BreadcrumbDemo /> }}
+      installation="breadcrumb"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Collapsing a long trail"
+            description="From four levels, keep the root, the parent, and the current page, and put everything between the root and the parent behind the ellipsis. Open the menu: the hidden levels run from the highest ancestor down."
+            source={collapsedSource}
+          >
+            <BreadcrumbCollapsed />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Breadcrumb, sidebar, stepper, history
-        </h2>
-        <p className="text-muted-foreground">
-          A breadcrumb shows{' '}
-          <strong className="text-foreground">location</strong>: where this page
-          sits and what contains it.{' '}
-          <strong className="text-foreground">Sidebar</strong> moves between
-          sections; breadcrumb moves up within one.{' '}
-          <strong className="text-foreground">Stepper</strong> is a position in
-          a sequence a person is walking, which a hierarchy is not. And a
-          breadcrumb is never{' '}
-          <strong className="text-foreground">history</strong> — it lists the
-          pages above this one, not the pages you came through, so it reads the
-          same however you arrived.
-        </p>
-      </section>
+          <Example
+            caption="A long page title"
+            description="The current page truncates and its title attribute carries the full text. The links never truncate, so the ancestors stay readable."
+            source={longPageTitleSource}
+          >
+            <BreadcrumbLongPageTitle />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Parts</h2>
-        <p className="text-muted-foreground">
-          Four parts: <code>Breadcrumb</code>, <code>BreadcrumbItem</code>,{' '}
-          <code>BreadcrumbSeparator</code>, and <code>BreadcrumbEllipsis</code>,
-          with <code>BreadcrumbEllipsisMenuItem</code> for the levels the
-          ellipsis hides. <code>Breadcrumb</code> is the <code>nav</code> and
-          the <code>ol</code> inside it; every other part is an <code>li</code>.
-        </p>
-        <p className="text-muted-foreground">
-          <strong className="text-foreground">One item, three shapes.</strong>{' '}
-          <code>BreadcrumbItem</code> with <code>link</code> is an ancestor and
-          renders an anchor; with <code>active</code> it is the page you are on
-          and renders plain text; with neither it is a bare list item, which is
-          what the ellipsis sits in. <code>link</code> and <code>active</code>{' '}
-          are mutually exclusive, and the types say so.
-        </p>
-        <p className="text-muted-foreground">
-          <strong className="text-foreground">
-            You place every separator yourself.
-          </strong>{' '}
-          A chevron the list inserted on its own would land in the wrong place
-          the moment a level is conditional or collapses into the ellipsis, so{' '}
-          <code>BreadcrumbSeparator</code> is an item you write between two
-          others. It holds a fixed chevron and there is no slot to change it.
-        </p>
-        <p className="text-muted-foreground">
-          There are no variants and no sizes. A breadcrumb sits in one place,
-          above the page title, at <code>text-sm</code>.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">A trail</h2>
-        <p className="text-muted-foreground">
-          Ancestors carry <code>link</code> and an <code>href</code>; the page
-          you are on carries <code>active</code>, which renders plain text with{' '}
-          <code>aria-current=&quot;page&quot;</code>. It is not a link and takes
-          no focus, because a link to the page you are already on goes nowhere.
-        </p>
-        <Preview>
-          <Breadcrumb>
-            <BreadcrumbItem link href="#">
-              Trips
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem link href="#">
-              Japan
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem active>Kyoto</BreadcrumbItem>
-          </Breadcrumb>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Collapsing a long trail
-        </h2>
-        <p className="text-muted-foreground">
-          <strong className="text-foreground">
-            A trail that does not fit collapses; it never wraps.
-          </strong>{' '}
-          Collapse from four levels: keep the root, the parent, and the current
-          page visible, and hide everything between the root and the parent
-          behind <code>BreadcrumbEllipsis</code>. Which levels collapse is your
-          decision — the component measures nothing and collapses nothing on its
-          own.
-        </p>
-        <p className="text-muted-foreground">
-          The ellipsis owns its menu. It renders the dropdown menu, its trigger,
-          and its content, and its children are{' '}
-          <code>BreadcrumbEllipsisMenuItem</code>, so a hidden level is always
-          one click or one Arrow Down away. It goes in a{' '}
-          <code>BreadcrumbItem</code> with neither <code>link</code> nor{' '}
-          <code>active</code>. List the hidden levels from the highest ancestor
-          down, the order they sit in the trail.
-        </p>
-        <Preview>
-          <Breadcrumb>
-            <BreadcrumbItem link href="#">
-              Trips
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbEllipsis>
-                <BreadcrumbEllipsisMenuItem asChild>
-                  <a href="#">Japan</a>
-                </BreadcrumbEllipsisMenuItem>
-                <BreadcrumbEllipsisMenuItem asChild>
-                  <a href="#">Kansai</a>
-                </BreadcrumbEllipsisMenuItem>
-                <BreadcrumbEllipsisMenuItem asChild>
-                  <a href="#">Kyoto</a>
-                </BreadcrumbEllipsisMenuItem>
-              </BreadcrumbEllipsis>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem link href="#">
-              Day 3
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem active>Kinkaku-ji</BreadcrumbItem>
-          </Breadcrumb>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">A long page title</h2>
-        <p className="text-muted-foreground">
-          The current page is the part that truncates. It caps at 20 characters
-          and shrinks below that cap when the row runs out of room; links never
-          truncate, so the ancestors stay readable. Override the cap with{' '}
-          <code>className</code>, and pass <code>title</code> for the full text.
-        </p>
-        <p className="text-muted-foreground">
-          The list clips nothing. A trail with more room than the container has
-          overflows in view rather than disappearing at the edge, which is both
-          the signal to collapse a level and the reason a focus ring is never
-          cut off.
-        </p>
-        <Preview>
-          <div className="w-full max-w-xs">
-            <Breadcrumb>
-              <BreadcrumbItem link href="#">
-                Trips
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem link href="#">
-                Day 3
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem
-                active
-                title="Fushimi Inari and the thousand torii gates"
-              >
-                Fushimi Inari and the thousand torii gates
-              </BreadcrumbItem>
-            </Breadcrumb>
-          </div>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Router links</h2>
-        <p className="text-muted-foreground">
-          A <code>link</code> item takes <code>asChild</code> and renders your
-          router&apos;s link with breadcrumb&apos;s class names on it, so the
-          trail navigates through the router instead of reloading the page.{' '}
-          <code>BreadcrumbEllipsisMenuItem</code> takes the same{' '}
-          <code>asChild</code> for the hidden levels. The trail below is this
-          page&apos;s own: two real routes, which is the shortest trail worth
-          rendering.
-        </p>
-        <Preview>
-          <Breadcrumb>
-            <BreadcrumbItem link asChild>
-              <Link to="/">Components</Link>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem active>Breadcrumb</BreadcrumbItem>
-          </Breadcrumb>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">States and motion</h2>
-        <p className="text-muted-foreground">
-          Links and the ellipsis trigger sit on <code>--muted-foreground</code>{' '}
-          and step to <code>--foreground</code> on hover and while pressed, with
-          no underline: position in the trail and the chevrons already say these
-          are links, and orange stays reserved for the brand and indicators. The
-          current page is <code>--foreground</code> at normal weight. There is
-          no disabled state.
-        </p>
-        <p className="text-muted-foreground">
-          The colour change is the only motion, on <code>--motion-fast</code>.
-          The chevrons do not move, the trail has no enter animation, and
-          truncation is not animated. The ellipsis menu opens and closes on the
-          dropdown menu&apos;s own keyframes.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          The root is a <code>nav</code> named &ldquo;Breadcrumb&rdquo;, which{' '}
-          <code>aria-label</code> overrides, holding an ordered list. Separators
-          are presentational and hidden, so a screen reader hears the levels and
-          nothing between them. The current page is a span with{' '}
-          <code>aria-current=&quot;page&quot;</code> and no link role, so
-          nothing in the trail announces as a link that goes nowhere.
-        </p>
-        <p className="text-muted-foreground">
-          Tab moves through the links and the ellipsis trigger and skips the
-          current page. The trigger is named &ldquo;Show hidden levels&rdquo;,
-          which its own <code>aria-label</code> overrides; Enter, Space, or
-          Arrow Down opens its menu, arrows move through the hidden levels, and
-          Escape closes it and returns focus to the trigger. Every focus ring
-          stands 5px off the text inside the row&apos;s 6px gap, clear of the
-          chevrons on either side.
-        </p>
-        <p className="text-muted-foreground">
-          Links and chevrons carry <code>--muted-foreground</code> on the page
-          background at 7.01:1; hover and the current page are{' '}
-          <code>--foreground</code>. All pass WCAG AA.
-        </p>
-      </section>
-    </article>
+          <Example
+            caption="Router links"
+            description="A link item takes asChild and renders your router's link with the breadcrumb's styling, so the trail navigates without a page reload."
+            source={routerLinksSource}
+          >
+            <BreadcrumbRouterLinks />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'To show where a page sits in a hierarchy and let the traveller climb back up: Trips, then Kyoto in autumn, then Day 3.',
+          'Above the title of any page at least two levels deep.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'to move between the sections of the app. A breadcrumb moves up within one section; the sidebar holds all of them.',
+            alternative: { to: '/components/sidebar', label: 'Sidebar' },
+          },
+          {
+            situation:
+              'for a position in a sequence someone is walking through, because a hierarchy has no "next".',
+            alternative: { to: '/components/stepper', label: 'Stepper' },
+          },
+          {
+            situation:
+              'to move between the numbered pages of a list, because a breadcrumb never lists siblings.',
+            alternative: { to: '/components/pagination', label: 'Pagination' },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Render a trail only when it has at least two levels.',
+            reason:
+              'A trail of one says nothing the page title has not already said.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Use it as a history of the pages the traveller came through.',
+            reason:
+              'It lists the pages above this one, so it reads the same however they arrived.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Collapse a long trail behind the ellipsis from four levels.',
+            reason:
+              'A trail that does not fit would wrap, and a wrapped trail stops reading as one line. The component measures nothing, so you decide which levels collapse.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Write every separator yourself, between two items.',
+            reason:
+              'A chevron the list inserted on its own would land in the wrong place the moment a level is conditional or collapses.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Make the current page a link.',
+            reason:
+              'A link to the page you are already on goes nowhere, so the current page is plain text and takes no focus.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Tab'],
+                description:
+                  'Moves through the ancestor links and the ellipsis trigger. The current page takes no focus.',
+              },
+              {
+                keys: ['Enter', 'Space', 'ArrowDown'],
+                description:
+                  'On the ellipsis trigger, opens the menu of hidden levels.',
+              },
+              {
+                keys: ['ArrowDown', 'ArrowUp'],
+                description:
+                  'Moves through the hidden levels in the open menu.',
+              },
+              {
+                keys: ['Escape'],
+                description:
+                  'Closes the menu and returns focus to the ellipsis trigger.',
+              },
+            ]}
+          />
+          <p>
+            The root is a <code>nav</code> named &ldquo;Breadcrumb&rdquo; that
+            holds an ordered list; <code>aria-label</code> overrides the name.
+            Separators are presentational and hidden, so a screen reader hears
+            the levels and nothing between them. The current page carries{' '}
+            <code>aria-current=&quot;page&quot;</code> and no link role, so
+            nothing in the trail announces as a link that goes nowhere. The
+            ellipsis trigger is named &ldquo;Show hidden levels&rdquo;, and its{' '}
+            <code>aria-label</code> overrides that.
+          </p>
+        </>
+      }
+      api={
+        <>
+          <PropsTable
+            component="Breadcrumb"
+            description={
+              <>
+                Renders the <code>nav</code> and the <code>ol</code> inside it.
+                Other props go to the <code>ol</code>.
+              </>
+            }
+            rows={[
+              {
+                name: 'aria-label',
+                type: 'string',
+                default: '"Breadcrumb"',
+                description: 'The name of the nav landmark.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="BreadcrumbItem"
+            description={
+              <>
+                One item, three shapes. <code>link</code> and{' '}
+                <code>active</code> are mutually exclusive and the types enforce
+                it. With neither, the item is a bare list item.
+              </>
+            }
+            rows={[
+              {
+                name: 'link',
+                type: 'true',
+                description:
+                  'Makes the item an ancestor and renders an anchor. Takes every anchor attribute, such as href.',
+              },
+              {
+                name: 'asChild',
+                type: 'boolean',
+                default: 'false',
+                description:
+                  'With link, renders your router link with the breadcrumb styling on it.',
+              },
+              {
+                name: 'active',
+                type: 'true',
+                description:
+                  'Makes the item the current page: plain text with aria-current="page".',
+              },
+            ]}
+          />
+          <PropsTable
+            component="BreadcrumbEllipsis"
+            description={
+              <>
+                Owns the dropdown menu, its trigger, and its content. Place it
+                in a <code>BreadcrumbItem</code> with neither <code>link</code>{' '}
+                nor <code>active</code>.
+              </>
+            }
+            rows={[
+              {
+                name: 'children',
+                type: 'ReactNode',
+                required: true,
+                description:
+                  'The hidden levels as BreadcrumbEllipsisMenuItem elements, highest ancestor first.',
+              },
+              {
+                name: 'aria-label',
+                type: 'string',
+                default: '"Show hidden levels"',
+                description: 'The name of the trigger button.',
+              },
+            ]}
+          />
+          <p>
+            <code>BreadcrumbEllipsisMenuItem</code> takes the dropdown menu item
+            props, including <code>asChild</code> for a link.{' '}
+            <code>BreadcrumbSeparator</code> takes only list item props and
+            holds a fixed chevron.
+          </p>
+        </>
+      }
+      notes={
+        <>
+          <p>
+            There are no variants and no sizes. The trail sits above the page
+            title at <code>text-sm</code>.
+          </p>
+          <p>
+            The current page caps at 20 characters and shrinks below that cap
+            when the row runs out of room; override the cap with{' '}
+            <code>className</code>. The list clips nothing, so a trail wider
+            than its container overflows in view, which is the signal to
+            collapse a level and the reason a focus ring is never cut off.
+          </p>
+          <p>
+            Links and the ellipsis trigger sit on{' '}
+            <code>--muted-foreground</code> and step to{' '}
+            <code>--foreground</code> on hover and while pressed, with no
+            underline: position in the trail and the chevrons already say these
+            are links, and orange stays reserved for the brand and indicators.
+            The current page is <code>--foreground</code> at normal weight.
+            There is no disabled state. The colour change on{' '}
+            <code>--motion-fast</code> is the only motion; the chevrons do not
+            move and the ellipsis menu opens on the dropdown menu&rsquo;s own
+            keyframes.
+          </p>
+          <p>
+            Every focus ring stands 5px off the text inside the row&rsquo;s 6px
+            gap, clear of the chevrons on either side. Links and chevrons
+            measure 7.01:1 on the page background; hover and the current page
+            are <code>--foreground</code>.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/sidebar',
+          label: 'Sidebar',
+          description: 'Moves between the sections of the app.',
+        },
+        {
+          to: '/components/page-header',
+          label: 'Page header',
+          description: 'The title the trail sits above.',
+        },
+        {
+          to: '/components/dropdown-menu',
+          label: 'Dropdown menu',
+          description: 'The menu behind the ellipsis.',
+        },
+        {
+          to: '/accessibility',
+          label: 'Accessibility',
+          description: 'Focus, keyboard, and contrast across the registry.',
+        },
+      ]}
+    />
   )
 }

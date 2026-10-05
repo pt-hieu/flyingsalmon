@@ -1,9 +1,31 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { useEffect, useRef, useState } from 'react'
+import { createFileRoute, Link } from '@tanstack/react-router'
 
-import { Preview } from '@/components/preview'
-import { NumberField, NumberFieldSize } from '@/registry/ui/number-field'
-import { Switch, SwitchSize } from '@/registry/ui/switch'
+import {
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { SwitchConfirmFirst } from '@/examples/switch/confirm-first'
+import confirmFirstSource from '@/examples/switch/confirm-first.tsx?raw'
+import { SwitchDemo } from '@/examples/switch/demo'
+import demoSource from '@/examples/switch/demo.tsx?raw'
+import { SwitchDisabled } from '@/examples/switch/disabled'
+import disabledSource from '@/examples/switch/disabled.tsx?raw'
+import { SwitchFailedToggle } from '@/examples/switch/failed-toggle'
+import failedToggleSource from '@/examples/switch/failed-toggle.tsx?raw'
+import { SwitchInARowOfFields } from '@/examples/switch/in-a-row-of-fields'
+import inARowOfFieldsSource from '@/examples/switch/in-a-row-of-fields.tsx?raw'
+import { SwitchLoading } from '@/examples/switch/loading'
+import loadingSource from '@/examples/switch/loading.tsx?raw'
+import { SwitchSizes } from '@/examples/switch/sizes'
+import sizesSource from '@/examples/switch/sizes.tsx?raw'
+import usageSource from '@/examples/switch/usage.tsx?raw'
+import { SwitchWithoutALabel } from '@/examples/switch/without-a-label'
+import withoutALabelSource from '@/examples/switch/without-a-label.tsx?raw'
+
+import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/switch')({
   component: SwitchPage,
@@ -11,243 +33,268 @@ export const Route = createFileRoute('/_docs/components/switch')({
 
 function SwitchPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Switch
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          An instant-apply on/off control that owns its label and its own
-          busyness. A switch applies its effect at once; a checkbox collects a
-          value for a later submit.
-        </p>
-      </header>
+    <DocPage
+      title="Switch"
+      lead="A switch turns a setting on or off the moment the traveller flips it, and it shows its own busyness while the change applies."
+      preview={{ source: demoSource, demo: <SwitchDemo /> }}
+      installation="switch"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Sizes"
+            description="Default and small match the two field heights, so a switch lines up with the input beside it. The label stays the same size at both."
+            source={sizesSource}
+          >
+            <SwitchSizes />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          className styles the wrapper
-        </h2>
-        <p className="text-muted-foreground">
-          Switch renders a wrapper around the control so it can hold the label.{' '}
-          <strong className="text-foreground">
-            <code>className</code> styles that wrapper, not the track.
-          </strong>{' '}
-          Every other Radix prop passes through to the control. This matches
-          Input and diverges from stock shadcn, which puts{' '}
-          <code>className</code> on the track itself.
-        </p>
-      </section>
+          <Example
+            caption="Without a label"
+            description="Drop the label when a row already names the setting, and pass aria-label so the switch keeps an accessible name."
+            source={withoutALabelSource}
+          >
+            <SwitchWithoutALabel />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">On and off</h2>
-        <p className="text-muted-foreground">
-          No variants. Off is <code>--muted-foreground</code> as the track under
-          a <code>--background</code> thumb; on is <code>--indicator</code>{' '}
-          under an <code>--indicator-foreground</code> thumb. The thumb clears
-          3:1 against its track in both states — 7.01:1 off, 3.59:1 on — so the
-          state is readable without color vision. The off track sits at 7.01:1
-          on the page and the on track at 3.38:1, both clearing the 3:1 non-text
-          bar (ADR 0004).
-        </p>
-        <p className="text-muted-foreground">
-          <strong className="text-foreground">
-            The off thumb takes the page color.
-          </strong>{' '}
-          The on thumb takes <code>--indicator-foreground</code>, white, the
-          color that carries content on every indicator fill. Travel is a morph,
-          so the thumb stays one object across the whole journey, and its color
-          swaps with the state.
-        </p>
-        <Preview>
-          <Switch label="Wi-Fi" />
-          <Switch label="Wi-Fi" defaultChecked />
-        </Preview>
-      </section>
+          <Example
+            caption="Loading"
+            description="Loading pulses the thumb and ignores clicks and keys, while focus stays where it is. The thumb sits wherever checked puts it."
+            source={loadingSource}
+          >
+            <SwitchLoading />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Sizes and states</h2>
-        <p className="text-muted-foreground">
-          <code>size</code> sets the height of the switch&rsquo;s row to the
-          field family&rsquo;s height: <code>SwitchSize.Default</code> is 36px
-          and <code>SwitchSize.Small</code> is 32px, matching Input, Number
-          Field, and Toggle Group. The track is centred in that row: 24px tall
-          at the default size, 20px at the small one, with a thumb to match. The
-          label stays <code>text-sm</code> at both sizes, as Toggle
-          Group&rsquo;s does.
-        </p>
-        <Preview>
-          <div className="flex flex-col gap-4">
-            {[SwitchSize.Default, SwitchSize.Small].map((size) => (
-              <div key={size} className="flex flex-wrap items-center gap-6">
-                <Switch label="Off" size={size} />
-                <Switch label="On" size={size} defaultChecked />
-                <Switch label="Loading" size={size} loading checked />
-                <Switch label="Disabled" size={size} disabled checked />
-              </div>
-            ))}
-          </div>
-        </Preview>
-      </section>
+          <Example
+            caption="Disabled"
+            description="Disabled dims the track and the label together. Use it when the setting cannot change at all, and loading when a change is in flight."
+            source={disabledSource}
+          >
+            <SwitchDisabled />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">In a row of fields</h2>
-        <p className="text-muted-foreground">
-          A row of fields aligns its controls to the bottom edge, so each
-          field&rsquo;s label sits above its box.{' '}
-          <strong className="text-foreground">
-            A switch of the same size is exactly one box tall
-          </strong>{' '}
-          and lines up with the boxes beside it with no classes of its own. Pass
-          the row&rsquo;s size to the switch.
-        </p>
-        <Preview>
-          <div className="flex w-full flex-col gap-8">
-            <div className="flex items-end gap-4">
-              <NumberField
-                label="Budget"
-                prefix="$"
-                defaultValue={1200}
-                className="w-48"
-              />
-              <Switch label="For the whole group" />
-            </div>
-            <div className="flex items-end gap-4">
-              <NumberField
-                label="Travellers"
-                size={NumberFieldSize.Small}
-                defaultValue={2}
-                min={1}
-                className="w-40"
-              />
-              <Switch label="Children" size={SwitchSize.Small} />
-            </div>
-          </div>
-        </Preview>
-      </section>
+          <Example
+            caption="Confirm first"
+            description="Flip the switch. It loads and the thumb stays put until the call returns, then moves. The app controls checked and sets loading while the call runs."
+            source={confirmFirstSource}
+          >
+            <SwitchConfirmFirst />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Instant apply</h2>
-        <p className="text-muted-foreground">
-          A switch applies at once, so the app owns the call. Control{' '}
-          <code>checked</code>, set <code>loading</code> while the call runs,
-          and revert <code>checked</code> if it fails. The example below
-          confirms first: the thumb stays put until the call returns.
-        </p>
-        <Preview>
-          <ConfirmFirstDemo />
-        </Preview>
-      </section>
+          <Example
+            caption="A failed toggle"
+            description="The call fails, so the switch stays off and the failure appears beside it with a retry. A failed toggle is an action result, not a field error, so the result lives on the setting itself."
+            source={failedToggleSource}
+          >
+            <SwitchFailedToggle />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Loading</h2>
-        <p className="text-muted-foreground">
-          <code>loading</code> pulses the thumb and locks the toggle. Click,
-          Space, and Enter are ignored, and a label click is ignored too.{' '}
-          <strong className="text-foreground">Focus stays put</strong> — the
-          switch never leaves the tab order mid-action. The thumb sits where{' '}
-          <code>checked</code> puts it, so you choose optimistic flip or
-          confirm-first.
-        </p>
-        <Preview>
-          <Switch label="Wi-Fi" loading />
-          <Switch label="Wi-Fi" loading checked />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Disabled</h2>
-        <p className="text-muted-foreground">
-          Disabled dims the track and the label together and takes no pointer
-          events. Use it when the setting cannot be changed at all; use{' '}
-          <code>loading</code> when a change is in flight.
-        </p>
-        <Preview>
-          <Switch label="Wi-Fi" disabled />
-          <Switch label="Wi-Fi" disabled checked />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Without a label</h2>
-        <p className="text-muted-foreground">
-          Drop <code>label</code> when a table row or a section heading already
-          names the setting. Pass <code>aria-label</code> so the control keeps
-          an accessible name.
-        </p>
-        <Preview>
-          <Switch aria-label="Airplane mode" />
-          <Switch aria-label="Airplane mode" defaultChecked />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          A failed toggle is a result
-        </h2>
-        <p className="text-muted-foreground">
-          There is no <code>error</code> prop. A switch that fails to apply is
-          an action result, not a field error, so the app reverts{' '}
-          <code>checked</code> and shows the reason where the user is looking,
-          on the switch's row or through alert. That is the feedback rule: the
-          acting component shows its own busyness, the app shows the outcome,
-          and the outcome stays until seen.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Motion</h2>
-        <p className="text-muted-foreground">
-          The thumb travels on <code>spring-bounce</code> in both directions
-          through motion&rsquo;s <code>layout</code> prop — travel is a morph,
-          not an exit, so it bounces on the way back too. The track color
-          crossfades under it in CSS at <code>--motion-fast</code>, as do the
-          hover shade and the focus ring. The loading pulse is a continuous
-          animation: the thumb color fades and returns on an 800ms CSS keyframes
-          cycle, matched to the spinner&rsquo;s tempo. The thumb never changes
-          size, so it never reads as travel.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          Switch generates the control <code>id</code> and wires the label{' '}
-          <code>htmlFor</code> itself, so clicking the label toggles the
-          setting. Tab reaches the control and shows a 3px ring on{' '}
-          <code>:focus-visible</code> only. Space and Enter both toggle. A
-          loading switch announces <code>aria-disabled</code> rather than{' '}
-          <code>aria-busy</code>, which screen readers support poorly, and it
-          never sets the <code>disabled</code> attribute, which would drop it
-          from the tab order.
-        </p>
-      </section>
-    </article>
-  )
-}
-
-function ConfirmFirstDemo() {
-  const [enabled, setEnabled] = useState(false)
-  const [applying, setApplying] = useState(false)
-  const applyTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(
-    undefined,
-  )
-
-  useEffect(() => () => clearTimeout(applyTimeout.current), [])
-
-  function apply(next: boolean) {
-    setApplying(true)
-    applyTimeout.current = setTimeout(() => {
-      setEnabled(next)
-      setApplying(false)
-    }, 1200)
-  }
-
-  return (
-    <Switch
-      label="Sync over cellular"
-      checked={enabled}
-      loading={applying}
-      onCheckedChange={apply}
+          <Example
+            caption="In a row of fields"
+            description="A row of fields aligns its controls to the bottom edge. A switch of the same size is exactly one box tall, so it lines up with the fields beside it without extra classes."
+            source={inARowOfFieldsSource}
+          >
+            <SwitchInARowOfFields />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'For a setting that takes effect the moment it flips, such as offline maps or link sharing.',
+          'For an on or off state the traveller will want to see at a glance.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'for a yes or no that a form collects and submits later. A checkbox says the value waits for a submit.',
+            alternative: { to: '/components/checkbox', label: 'Checkbox' },
+          },
+          {
+            situation:
+              'to choose between two named options such as "Day" and "Night". A switch means on or off, not this or that.',
+            alternative: {
+              to: '/components/toggle-group',
+              label: 'Toggle group',
+            },
+          },
+          {
+            situation: 'for an action that runs once and has no state to show.',
+            alternative: { to: '/components/button', label: 'Button' },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Label the switch with the setting, not the state: "Offline maps", not "Turn on offline maps".',
+            reason:
+              'The thumb already shows on or off, so a label that names the state can contradict it.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Control checked, set loading while the call runs, and keep the old value if the call fails.',
+            reason:
+              'The switch then never claims a state the server does not hold.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Show a failed toggle as an error on the switch.',
+            reason:
+              'There is no error prop. The app shows the failure on the setting’s row, with a retry, where the traveller is already looking.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Disable a switch while its change applies.',
+            reason:
+              'Use loading. A disabled switch leaves the tab order and drops keyboard focus mid-action.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Tab'],
+                description:
+                  'Moves focus to the switch. A loading switch stays in the tab order; a disabled one leaves it.',
+              },
+              {
+                keys: ['Space', 'Enter'],
+                description:
+                  'Toggles the switch. A loading switch ignores both.',
+              },
+            ]}
+          />
+          <p>
+            Clicking the label toggles the setting. The focus ring appears on
+            keyboard focus only. A loading switch announces{' '}
+            <code>aria-disabled</code> rather than <code>aria-busy</code>, which
+            screen readers support poorly, and it never sets the{' '}
+            <code>disabled</code> attribute, which would drop it from the tab
+            order. The{' '}
+            <TextLink asChild>
+              <Link to="/accessibility">accessibility page</Link>
+            </TextLink>{' '}
+            covers the rules every component follows.
+          </p>
+        </>
+      }
+      api={
+        <PropsTable
+          component="Switch"
+          description="Every other prop passes through to the Radix switch root."
+          rows={[
+            {
+              name: 'label',
+              type: 'string',
+              description:
+                'The text beside the switch. It is part of the click target. Without it, pass aria-label.',
+            },
+            {
+              name: 'size',
+              type: 'SwitchSize',
+              default: 'SwitchSize.Default',
+              description:
+                'Default and Small match the field heights of the same names.',
+            },
+            {
+              name: 'checked',
+              type: 'boolean',
+              description: 'The on state when the app controls it.',
+            },
+            {
+              name: 'defaultChecked',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'The starting state when the app does not control it.',
+            },
+            {
+              name: 'onCheckedChange',
+              type: '(checked: boolean) => void',
+              description: 'Called with the requested state after each toggle.',
+            },
+            {
+              name: 'loading',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Pulses the thumb and ignores clicks and keys while keeping focus.',
+            },
+            {
+              name: 'disabled',
+              type: 'boolean',
+              default: 'false',
+              description:
+                'Dims the switch and its label and removes it from the tab order.',
+            },
+            {
+              name: 'className',
+              type: 'string',
+              description:
+                'Styles the wrapper that holds the track and the label, not the track itself.',
+            },
+          ]}
+        />
+      }
+      notes={
+        <>
+          <p>
+            <code>SwitchSize.Default</code> sets the row to 36px and{' '}
+            <code>SwitchSize.Small</code> to 32px, matching Input, Number field,
+            and Toggle group. The track is centred in that row: 24px tall at the
+            default size and 20px at the small one, with a thumb to match.
+          </p>
+          <p>
+            Off is <code>--muted-foreground</code> under a{' '}
+            <code>--background</code> thumb. On is <code>--indicator</code>{' '}
+            under an <code>--indicator-foreground</code> thumb, the white that
+            carries content on every indicator fill. The thumb clears 3:1
+            against its track in both states: 7.01:1 off and 3.59:1 on. The off
+            track measures 7.01:1 on the page and the on track 3.38:1, both
+            clearing the 3:1 non-text bar.
+          </p>
+          <p>
+            The thumb travels on <code>springBounce</code> in both directions
+            through motion&rsquo;s <code>layout</code> prop. Travel is a morph,
+            not an exit, so it bounces on the way back too. The thumb stays one
+            object across the journey and its colour swaps with the state. The
+            track colour crossfades under it in CSS at{' '}
+            <code>--motion-fast</code>, as do the hover shade and the focus
+            ring. The loading pulse is a continuous 800ms CSS keyframes cycle
+            that fades the thumb colour, matched to the spinner&rsquo;s tempo.
+            The thumb never changes size, so it never reads as travel. The focus
+            ring is 3px.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/checkbox',
+          label: 'Checkbox',
+          description: 'A yes or no that waits for a form submit.',
+        },
+        {
+          to: '/components/toggle-group',
+          label: 'Toggle group',
+          description: 'Chips for choosing between named options.',
+        },
+        {
+          to: '/components/number-field',
+          label: 'Number field',
+          description: 'The field a switch commonly sits beside.',
+        },
+        {
+          to: '/principles',
+          label: 'Principles',
+          description: 'Where a result belongs: the feedback rule.',
+        },
+        {
+          to: '/motion',
+          label: 'Motion',
+          description: 'The spring presets and timings behind the thumb.',
+        },
+      ]}
     />
   )
 }

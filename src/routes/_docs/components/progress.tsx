@@ -1,9 +1,22 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
 
-import { Preview } from '@/components/preview'
-import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
-import { Progress } from '@/registry/ui/progress'
+import {
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  PropsTable,
+} from '@/components/doc-page'
+import { ProgressCustomMax } from '@/examples/progress/custom-max'
+import customMaxSource from '@/examples/progress/custom-max.tsx?raw'
+import { ProgressDemo } from '@/examples/progress/demo'
+import demoSource from '@/examples/progress/demo.tsx?raw'
+import { ProgressDeterminate } from '@/examples/progress/determinate'
+import determinateSource from '@/examples/progress/determinate.tsx?raw'
+import { ProgressIndeterminate } from '@/examples/progress/indeterminate'
+import indeterminateSource from '@/examples/progress/indeterminate.tsx?raw'
+import { ProgressStates } from '@/examples/progress/states'
+import statesSource from '@/examples/progress/states.tsx?raw'
+import usageSource from '@/examples/progress/usage.tsx?raw'
 
 export const Route = createFileRoute('/_docs/components/progress')({
   component: ProgressPage,
@@ -11,194 +24,192 @@ export const Route = createFileRoute('/_docs/components/progress')({
 
 function ProgressPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Progress
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          A bar for an operation with a known end. It reports how far along the
-          work is when the fraction is computable, and that the work is running
-          when it is not.
-        </p>
-      </header>
+    <DocPage
+      title="Progress"
+      lead="A bar for an operation with a known end: it shows how far along the work is when the fraction is computable, and that the work is running when it is not."
+      preview={{ source: demoSource, demo: <ProgressDemo /> }}
+      installation="progress"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Determinate"
+            description="Press Advance. Each new value retargets the spring from wherever the fill sits, so a stream of small steps reads as one continuous travel and never as jumps."
+            source={determinateSource}
+          >
+            <ProgressDeterminate />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Spinner, skeleton, progress, stepper
-        </h2>
-        <p className="text-muted-foreground">
-          Four ways to report that something is happening, and each owns a
-          different subject. A{' '}
-          <strong className="text-foreground">spinner</strong> is a
-          control&apos;s own busyness: the button the user just clicked is
-          working. A <strong className="text-foreground">skeleton</strong> is a
-          region loading: content whose shape is already known has not arrived
-          yet. A <strong className="text-foreground">progress</strong> bar is an
-          operation with a known end: a long job with nothing to fake and no
-          control to attach to. A{' '}
-          <strong className="text-foreground">stepper</strong> is a position:
-          step 2 of 4 in a flow the user is walking, not work a machine is
-          doing.
-        </p>
-        <p className="text-muted-foreground">
-          Progress is domain-blind. It takes a number and a maximum and draws a
-          bar. The app decides what the number means and writes the phase label
-          beside it.
-        </p>
-      </section>
+          <Example
+            caption="Indeterminate"
+            description="Omit value for work that has started but has no computable fraction yet, such as the wait before the first progress event. Switch to a number as soon as one exists."
+            source={indeterminateSource}
+          >
+            <ProgressIndeterminate />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Determinate</h2>
-        <p className="text-muted-foreground">
-          Pass <code>value</code> and the fill animates to that fraction of{' '}
-          <code>max</code>, which defaults to 100. Each new value retargets the
-          spring from wherever the fill currently sits, so a stream of small
-          steps reads as one continuous travel rather than a series of jumps.
-          The spring never overshoots, because a fill past its value misreports
-          the work.
-        </p>
-        <Preview>
-          <SteppedProgressDemo />
-        </Preview>
-      </section>
+          <Example
+            caption="Custom max"
+            description="max lets you count in your own units. A trip that plans seven days counts to seven, and value is clamped to the range, so an off-by-one from a server never draws a bar past its end."
+            source={customMaxSource}
+          >
+            <ProgressCustomMax />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Indeterminate</h2>
-        <p className="text-muted-foreground">
-          Omit <code>value</code> and the bar goes indeterminate: a segment
-          travels the track on a 2s cycle, the same tempo skeleton pulses on.
-          This is the state for work that has started and will end, but whose
-          fraction is not computable yet — the window before the first progress
-          event arrives. Swap to a number as soon as one exists.
-        </p>
-        <Preview>
-          <div className="w-full max-w-xs">
-            <Progress />
-          </div>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">A custom max</h2>
-        <p className="text-muted-foreground">
-          <code>max</code> lets the app count in its own units instead of
-          converting to a percentage first. A generation that writes seven days
-          counts to seven. <code>value</code> clamps to <code>[0, max]</code>{' '}
-          for both the fill and the announced value, so an off-by-one from a
-          server never draws a bar past its end.
-        </p>
-        <Preview>
-          <div className="w-full max-w-xs space-y-2">
-            <Progress value={5} max={7} label="Writing days" />
-            <p className="text-muted-foreground text-xs">Day 5 of 7</p>
-          </div>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          The app owns the text
-        </h2>
-        <p className="text-muted-foreground">
-          Progress has no text slots. It draws a bar and names itself for a
-          screen reader; the label above it and the value beside it are the
-          app&apos;s, because only the app knows what phase the work is in and
-          how to word it. Compose them around the bar.
-        </p>
-        <Preview>
-          <div className="w-full max-w-xs space-y-2">
-            <div className="flex items-baseline justify-between text-sm">
-              <span className="font-medium">Building your trip</span>
-              <span className="text-muted-foreground tabular-nums">62%</span>
-            </div>
-            <Progress value={62} label="Building your trip" />
-            <p className="text-muted-foreground text-xs">
-              Picking anchors in Kyoto
-            </p>
-          </div>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">States</h2>
-        <p className="text-muted-foreground">
-          The bar is not interactive: no hover, no focus, no press, no disabled,
-          and no tab stop. It carries its phase as <code>data-state</code>,
-          which is <code>indeterminate</code>, <code>loading</code>, or{' '}
-          <code>complete</code> once <code>value</code> reaches <code>max</code>
-          . A full bar keeps the fill color rather than turning green: the
-          result of the operation belongs to the app, in the place the user is
-          already looking. <code>data-state</code> is the hook for an app that
-          wants to react to the end of the work.
-        </p>
-        <Preview>
-          <div className="w-full max-w-xs space-y-3">
-            <Progress value={0} />
-            <Progress value={45} />
-            <Progress value={100} />
-          </div>
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Color</h2>
-        <p className="text-muted-foreground">
-          Two tokens: <code>--progress-track</code> for the groove and{' '}
-          <code>--progress-fill</code>, which aliases <code>--indicator</code>,
-          for the fill. The fill sits at 2.65:1 against the track, under the 3:1
-          non-text bar, by Brian's agreement (ADR 0004); it clears 3.38:1
-          against the page. The track sits at 1.28:1 against the page, so an
-          empty bar is visible without a border.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          The bar is a <code>progressbar</code> with <code>aria-valuemin</code>{' '}
-          at 0 and <code>aria-valuemax</code> at <code>max</code>. When
-          determinate it carries <code>aria-valuenow</code>, and a screen reader
-          reads a percentage. When indeterminate it carries no{' '}
-          <code>aria-valuenow</code> at all, so no percentage is announced
-          before one can be computed.
-        </p>
-        <p className="text-muted-foreground">
-          <code>label</code> becomes <code>aria-label</code> and defaults to
-          &ldquo;Loading&rdquo;. Name the work whenever more than one bar can be
-          on screen. The bar sets no <code>aria-busy</code>: that belongs on the
-          app&apos;s region, which knows which content is waiting.
-        </p>
-      </section>
-    </article>
-  )
-}
-
-function SteppedProgressDemo() {
-  const [value, setValue] = useState(20)
-
-  return (
-    <div className="w-full max-w-xs space-y-3">
-      <Progress value={value} label="Stepped demo" />
-      <div className="flex items-center gap-2">
-        <Button
-          size={ButtonSize.Small}
-          variant={ButtonVariant.Secondary}
-          onClick={() => setValue((current) => Math.min(current + 20, 100))}
-        >
-          Advance
-        </Button>
-        <Button
-          size={ButtonSize.Small}
-          variant={ButtonVariant.Ghost}
-          onClick={() => setValue(0)}
-        >
-          Reset
-        </Button>
-        <span className="text-muted-foreground ml-auto text-xs tabular-nums">
-          {value}%
-        </span>
-      </div>
-    </div>
+          <Example
+            caption="Empty, partial, and full"
+            description="A full bar keeps the fill colour and does not turn green. The result of the work belongs to the app, in the place the traveller is already looking."
+            source={statesSource}
+          >
+            <ProgressStates />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'For a long job with a known end and nothing to attach it to, such as building a trip.',
+          'For work that has started but has no computable fraction yet, as an indeterminate bar.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'for the busyness of a control the traveller just pressed. The control shows it itself.',
+            alternative: { to: '/components/spinner', label: 'Spinner' },
+          },
+          {
+            situation:
+              'for a region whose content has not arrived yet, so the page holds its shape while it loads.',
+            alternative: { to: '/components/skeleton', label: 'Skeleton' },
+          },
+          {
+            situation:
+              'for a position in a flow the traveller is walking, such as step 2 of 4.',
+            alternative: { to: '/components/stepper', label: 'Stepper' },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Write the phase label and the value yourself, beside the bar.',
+            reason:
+              'The bar takes a number and a maximum and draws. Only the app knows what phase the work is in and how to word it.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Name the work with label whenever more than one bar can be on screen.',
+            reason:
+              'The label is the bar’s accessible name. Without it every bar reads as “Loading”.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Fake a fraction.',
+            reason:
+              'A bar that jumps to 90 percent and waits misreports the work. Use the indeterminate bar until a real number exists.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Show success or failure on the bar.',
+            reason:
+              'The outcome belongs to the app. Read data-state to react when the work ends, and report the result where the traveller is looking.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <p>
+            The bar is not interactive: it has no hover, press, or disabled
+            state and takes no tab stop.
+          </p>
+          <p>
+            It is a <code>progressbar</code> with <code>aria-valuemin</code> 0
+            and <code>aria-valuemax</code> set to <code>max</code>. When
+            determinate it carries <code>aria-valuenow</code> and a screen
+            reader reads a percentage. When indeterminate it carries none, so no
+            percentage is announced before one exists.
+          </p>
+          <p>
+            <code>label</code> becomes the accessible name and defaults to
+            “Loading”. The bar does not set <code>aria-busy</code>; put that on
+            the region that is waiting.
+          </p>
+        </>
+      }
+      api={
+        <PropsTable
+          component="Progress"
+          description={
+            <>
+              Also takes every <code>&lt;div&gt;</code> attribute.
+            </>
+          }
+          rows={[
+            {
+              name: 'value',
+              type: 'number',
+              description:
+                'The current amount, clamped to 0 through max. Omit it for an indeterminate bar.',
+            },
+            {
+              name: 'max',
+              type: 'number',
+              default: '100',
+              description: 'The amount at which the work is complete.',
+            },
+            {
+              name: 'label',
+              type: 'string',
+              default: '"Loading"',
+              description: 'The accessible name of the bar.',
+            },
+          ]}
+        />
+      }
+      notes={
+        <>
+          <p>
+            The bar is 8px tall with a fully rounded track. The fill is scaled
+            from its left edge on <code>springSettle</code>, which never
+            overshoots because a fill past its value misreports the work. The
+            indeterminate segment travels the track on a 2s cycle, the tempo
+            skeleton pulses on.
+          </p>
+          <p>
+            <code>data-state</code> is <code>indeterminate</code>,{' '}
+            <code>loading</code>, or <code>complete</code> once{' '}
+            <code>value</code> reaches <code>max</code>.
+          </p>
+          <p>
+            Two tokens colour it: <code>--progress-track</code> for the groove
+            and <code>--progress-fill</code>, which aliases{' '}
+            <code>--indicator</code>. The fill is 2.65:1 against the track,
+            under the 3:1 bar for non-text marks, and 3.38:1 against the page.
+            The track is 1.28:1 against the page, so an empty bar is visible
+            without a border.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/spinner',
+          label: 'Spinner',
+          description: 'A control’s own busyness, such as a loading button.',
+        },
+        {
+          to: '/components/skeleton',
+          label: 'Skeleton',
+          description: 'A region that has not loaded yet.',
+        },
+        {
+          to: '/components/stepper',
+          label: 'Stepper',
+          description: 'A position in a flow, not work being done.',
+        },
+        {
+          to: '/accessibility',
+          label: 'Accessibility',
+          description: 'How the registry treats contrast and focus.',
+        },
+      ]}
+    />
   )
 }

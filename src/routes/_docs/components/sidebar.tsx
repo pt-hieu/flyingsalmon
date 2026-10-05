@@ -1,46 +1,21 @@
 import { createFileRoute } from '@tanstack/react-router'
-import {
-  CalendarDays,
-  Compass,
-  Landmark,
-  MapPinned,
-  Mountain,
-  PanelLeft,
-  PlaneLanding,
-  Receipt,
-  Settings,
-  Users,
-  Wallet,
-} from 'lucide-react'
-import { useState } from 'react'
 
-import { Preview } from '@/components/preview'
-import { Avatar, AvatarSize } from '@/registry/ui/avatar'
-import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/registry/ui/dropdown-menu'
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarItem,
-  SidebarLayout,
-  SidebarNav,
-  SidebarProvider,
-  SidebarNest,
-  SidebarNestItems,
-  SidebarTrigger,
-  useSidebar,
-} from '@/registry/ui/sidebar'
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { SidebarDemo } from '@/examples/sidebar/demo'
+import demoSource from '@/examples/sidebar/demo.tsx?raw'
+import { SidebarGroups } from '@/examples/sidebar/groups'
+import groupsSource from '@/examples/sidebar/groups.tsx?raw'
+import { SidebarNestedItems } from '@/examples/sidebar/nested-items'
+import nestedItemsSource from '@/examples/sidebar/nested-items.tsx?raw'
+import { SidebarStartsCollapsed } from '@/examples/sidebar/starts-collapsed'
+import startsCollapsedSource from '@/examples/sidebar/starts-collapsed.tsx?raw'
+import usageSource from '@/examples/sidebar/usage.tsx?raw'
 
 export const Route = createFileRoute('/_docs/components/sidebar')({
   component: SidebarPage,
@@ -48,365 +23,365 @@ export const Route = createFileRoute('/_docs/components/sidebar')({
 
 function SidebarPage() {
   return (
-    <article className="mx-auto max-w-5xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Sidebar
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          An <code>aside</code> with header, content, and footer slots that
-          morphs between an expanded column and an icon rail, and becomes one
-          sticky horizontal strip under a 700px viewport, with its content in a
-          menu the trigger opens. The app&apos;s top bar and its sidebar are the
-          same component.
-        </p>
-      </header>
+    <DocPage
+      title="Sidebar"
+      lead="The app's navigation and top bar in one component: a column that collapses to an icon rail and becomes a sticky strip on a narrow screen."
+      preview={{ source: demoSource, demo: <SidebarDemo /> }}
+      installation="sidebar"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Groups"
+            description="A group label names a cluster of items. In the rail the label becomes a rule, so the groups still read as groups and the items below never jump. Collapse the sidebar to see it."
+            source={groupsSource}
+          >
+            <SidebarGroups />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Three layouts</h2>
-        <p className="text-muted-foreground">
-          <code>SidebarProvider</code> holds the collapsed state and matches the
-          same 700px media query the class names use, through{' '}
-          <code>matchMedia</code>.{' '}
-          <strong className="text-foreground">
-            One <code>collapsed</code> boolean and one 700px threshold resolve
-            all three layouts.
-          </strong>{' '}
-          Expanded is the full column, collapsed is the icon rail, and strip is
-          forced under the threshold whatever <code>collapsed</code> says. CSS
-          paints the three; <code>useSidebar().layout</code> reports which one
-          is live so a consumer&apos;s header, footer, or rail content can
-          follow without re-deriving the query. <code>matchMedia</code> reads{' '}
-          <code>sidebarStripThreshold</code>; the class names spell the same
-          number as <code>min-[700px]:</code>, because Tailwind scans class
-          names as literals and cannot read a JavaScript constant. The server
-          has no viewport, so <code>layout</code> resolves at hydration and the
-          aside leaves its width to CSS until it does.
-        </p>
-      </section>
+          <Example
+            caption="Nested items"
+            description="A parent is a page like any other, and its chevron opens the list of children. Close the list while Alfama is current and the bar springs up to Days."
+            source={nestedItemsSource}
+          >
+            <SidebarNestedItems />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">App nav</h2>
-        <p className="text-muted-foreground">
-          The whole app shell: header with the trip name and the trigger, nav
-          groups in the scrolling content, and a footer holding the avatar menu
-          and the theme toggle. Every icon sits on one axis, the centre line of
-          the rail, in both layouts: the trigger and the avatar button are 36px
-          controls inside a 10px inset, and each item's icon sits 20px in. A
-          label too long for the column ends in an ellipsis, as the Sintra day
-          under Days does. Collapse it and only the aside's width moves; the
-          labels fade as the narrowing edge cuts them short, so nothing in the
-          column shifts.{' '}
-          <strong className="text-foreground">
-            A group label keeps its row and becomes a rule:
-          </strong>{' '}
-          the text fades out and a 1px <code>--border</code> line fades in
-          across the same slot, so the groups still read as groups in the rail
-          and the items below never jump. Each label reappears whole in a
-          tooltip on hover and on focus. The accessible name never depends on
-          that tooltip: the label stays in the DOM, clipped rather than removed,
-          so a screen reader reads the same nav in either layout. Items are the
-          component&apos;s to reshape; header and footer are slots, and content
-          too wide for the rail is the app&apos;s to swap on{' '}
-          <code>useSidebar().layout</code> — this demo drops the trip name in
-          the rail. The rail tooltip needs a string label; an item whose
-          children are markup keeps its own visible text in the rail instead.
-        </p>
-        <Preview>
-          <AppNavExample />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">The strip</h2>
-        <p className="text-muted-foreground">
-          Under 700px the aside becomes one sticky <code>top-0</code> row,{' '}
-          <code>--bar-height</code> tall, with <code>border-b</code> in place of{' '}
-          <code>border-r</code>: header content leads, footer content trails,
-          and the trigger moves to the trailing end.{' '}
-          <strong className="text-foreground">
-            <code>SidebarContent</code> moves into a menu, and the trigger opens
-            it instead of collapsing the column.
-          </strong>{' '}
-          The menu is the registry <code>drawer</code>, on the right edge beside
-          the trigger, and lays the content out as the expanded column: group
-          labels, nests with their chevrons, and the bar on its left edge.
-          Choosing an item closes it; so do Escape, the close button, and a
-          press outside. The strip pads its sides by{' '}
-          <code>--page-header-inset</code>, at least 12px, so set that variable
-          on the provider and the strip&apos;s content lines up with the page
-          title below it. That is the whole of the app&apos;s top bar — the
-          registry ships no separate header component (#128). Narrow the window
-          below 700px and the demo above becomes this, with no change to its
-          markup.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Items and the bar</h2>
-        <p className="text-muted-foreground">
-          <code>SidebarItem</code> takes an <code>icon</code> slot and its label
-          as children, and reads active from{' '}
-          <code>aria-current=&quot;page&quot;</code> — on the item or on the
-          element <code>asChild</code> renders, so a router link that already
-          sets it needs nothing else. Idle is <code>--muted-foreground</code> at
-          36px, hover steps the background to <code>--accent</code> on the
-          item&apos;s own <code>rounded-md</code> box, the ghost button&apos;s
-          shape, and active is <code>--foreground</code> in medium with its icon
-          and a 2px bar both in <code>--indicator</code>. The bar sits outside
-          the box, on the aside&apos;s own edge: the left edge in the column and
-          in the strip&apos;s menu.{' '}
-          <strong className="text-foreground">
-            The bar is one shared <code>motion.span</code> that slides between
-            items on <code>spring-bounce</code>, so the sidebar has to stay
-            mounted across routes for the slide to happen.
-          </strong>{' '}
-          Put it in a persistent layout route. A sidebar that remounts on every
-          navigation is not wrong — it just draws the bar in place instead of
-          moving it there. <code>SidebarContent</code> scrolls without a
-          scrollbar, nudging the active item fully into view when it sits half
-          outside the visible area.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Nested items</h2>
-        <p className="text-muted-foreground">
-          <code>SidebarNest</code> wraps a parent <code>SidebarItem</code> and a{' '}
-          <code>SidebarNestItems</code> list of more items. The parent is a page
-          like any other; a chevron at its trailing edge opens and closes the
-          list, pointing right when closed and down when open. Children carry
-          the parent&apos;s styling on the same icon axis, with no indent: a 1px{' '}
-          <code>--border</code> line runs under the chevron from the top of the
-          first child to the bottom of the last. Children end 7px short of the
-          line, so a hover fill never crosses it. A current child takes the bar
-          on the aside&apos;s edge like any item.{' '}
-          <strong className="text-foreground">
-            In the rail the line goes: the parent and its children share one{' '}
-            <code>--muted</code> block, and the parent&apos;s icon gives way to
-            the chevron on hover, so the whole cell toggles the list.
-          </strong>{' '}
-          The parent page stays one Tab stop ahead of the toggle. Close the list
-          on a current child and the bar springs up to the parent; a nest whose
-          child becomes current opens itself. The strip&apos;s menu shows nests
-          as the column does. <code>open</code>, <code>defaultOpen</code>, and{' '}
-          <code>onOpenChange</code> control it otherwise, and the toggle carries{' '}
-          <code>aria-expanded</code> and <code>aria-controls</code> pointed at
-          the list. The demo above nests the trip&apos;s days under Days.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Widths and tokens</h2>
-        <p className="text-muted-foreground">
-          <code>--sidebar-width</code> is 18rem and{' '}
-          <code>--sidebar-width-collapsed</code> is 3.5rem. Both are theme
-          tokens, so a pane beside the sidebar can read them, and an override
-          sets the variable on the sidebar or an ancestor rather than passing a
-          prop. The component adds no color tokens of its own: it paints{' '}
-          <code>--background</code>, <code>--border</code>,{' '}
-          <code>--accent</code>, <code>--indicator</code>, and{' '}
-          <code>--ring</code>.{' '}
-          <strong className="text-foreground">
-            The width morph runs on <code>spring-settle</code>
-          </strong>{' '}
-          because it displaces the pane beside it (ADR 0001), labels fade on{' '}
-          <code>--motion-fast</code>, the strip&apos;s menu moves as the drawer
-          does, and the switch into the strip is a breakpoint and is not
-          animated.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          <code>SidebarNav</code> is a <code>nav</code> landmark and requires an{' '}
-          <code>aria-label</code>, so a screen reader can tell the app nav from
-          any other nav on the page. <code>SidebarTrigger</code> is an outline
-          icon button carrying <code>aria-expanded</code> and{' '}
-          <code>aria-controls</code> pointed at the aside, labelled
-          &quot;Collapse sidebar&quot; or &quot;Expand sidebar&quot;. In the
-          strip it is labelled &quot;Open navigation&quot;, carries{' '}
-          <code>aria-haspopup=&quot;dialog&quot;</code>, and its{' '}
-          <code>aria-expanded</code> follows the menu, a modal dialog titled
-          &quot;Navigation&quot; that traps focus and hands it back to the
-          trigger when it closes. The trigger takes its glyph as children,
-          because the registry ships no icons.{' '}
-          <strong className="text-foreground">
-            Tab reaches every item and the trigger, and there are no arrow keys.
-          </strong>{' '}
-          These are links in a landmark, not a menu. A focused item takes the
-          same <code>--accent</code> background as a hovered one and draws no
-          ring: the pointer and the keyboard land on the same mark, and the
-          current page keeps its own — the bar and the <code>--foreground</code>{' '}
-          label — so the two stay distinguishable.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          The docs site still has its own sidebar
-        </h2>
-        <p className="text-muted-foreground">
-          The nav on the left of this page is docs-site chrome, not this
-          component.{' '}
-          <strong className="text-foreground">
-            Rebuilding it on Sidebar is an open dogfooding question on the batch
-            map (#113),
-          </strong>{' '}
-          not a decision this build made.
-        </p>
-      </section>
-    </article>
+          <Example
+            caption="Starting collapsed"
+            description="defaultCollapsed opens the sidebar as a rail. Each icon shows its label in a tooltip on hover and on focus."
+            source={startsCollapsedSource}
+          >
+            <SidebarStartsCollapsed />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'For the primary navigation of the app: a trip’s itinerary, places, budget, and travellers.',
+          'As the app’s top bar. On a narrow screen the sidebar becomes the bar, so there is no separate header component to build.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'to climb back up through a hierarchy within one section, because a sidebar moves between sections.',
+            alternative: { to: '/components/breadcrumb', label: 'Breadcrumb' },
+          },
+          {
+            situation:
+              'to switch between peer panels on one page, because those are views of the same content rather than places.',
+            alternative: { to: '/components/tabs', label: 'Tabs' },
+          },
+          {
+            situation:
+              'for a drawer of actions or a panel that is not navigation.',
+            alternative: { to: '/components/drawer', label: 'Drawer' },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Keep the sidebar mounted across routes by putting it in a persistent layout route.',
+            reason:
+              'The current-page bar slides between items only if the sidebar stays mounted. A sidebar that remounts on every navigation still works; it draws the bar in place instead of moving it there.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Give SidebarNav an aria-label.',
+            reason:
+              'The label tells a screen reader the app nav from any other nav on the page.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Swap header or footer content that is too wide for the rail on useSidebar().layout.',
+            reason:
+              'Header and footer are slots and the app owns them, so the sidebar cannot reshape what it does not know. The demo drops the trip name in the rail.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Pass a plain string as the item label.',
+            reason:
+              'The rail tooltip needs a string. An item whose children are markup keeps its own visible text in the rail instead of gaining a tooltip.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Mark the current page with anything but aria-current="page".',
+            reason:
+              'The item reads its active state from that attribute, on itself or on the element asChild renders, so a router link that already sets it needs nothing else.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Tab', 'Shift+Tab'],
+                description:
+                  'Moves through the trigger, the items, and the footer controls. A nest parent is one stop and its chevron toggle is the next.',
+              },
+              {
+                keys: ['Enter', 'Space'],
+                description:
+                  'Activates the focused item, toggles a nest, or collapses and expands the sidebar from the trigger.',
+              },
+              {
+                keys: ['Escape'],
+                description:
+                  'In the strip, closes the navigation menu and returns focus to the trigger.',
+              },
+            ]}
+          />
+          <p>
+            There are no arrow keys: these are links in a landmark, not a menu.{' '}
+            <code>SidebarNav</code> is a <code>nav</code> and requires an{' '}
+            <code>aria-label</code>. The trigger carries{' '}
+            <code>aria-expanded</code> and <code>aria-controls</code> pointed at
+            the aside, and is named &ldquo;Collapse sidebar&rdquo; or
+            &ldquo;Expand sidebar&rdquo;. In the strip it is named &ldquo;Open
+            navigation&rdquo;, carries{' '}
+            <code>aria-haspopup=&quot;dialog&quot;</code>, and its{' '}
+            <code>aria-expanded</code> follows the menu, a modal dialog titled
+            &ldquo;Navigation&rdquo; that traps focus and hands it back to the
+            trigger when it closes.
+          </p>
+          <p>
+            A rail item&rsquo;s accessible name never depends on its tooltip:
+            the label stays in the DOM, clipped rather than removed, so a screen
+            reader reads the same nav in either layout. A nest toggle carries{' '}
+            <code>aria-expanded</code> and <code>aria-controls</code> pointed at
+            its list. A focused item takes the same <code>--accent</code>{' '}
+            background as a hovered one and draws no ring, so the pointer and
+            the keyboard land on the same mark; the current page keeps its own,
+            the bar and the <code>--foreground</code> label, so the two stay
+            distinguishable.
+          </p>
+        </>
+      }
+      api={
+        <>
+          <PropsTable
+            component="SidebarProvider"
+            description={
+              <>
+                Holds the collapsed state and the layout. Also takes every{' '}
+                <code>&lt;div&gt;</code> attribute; size the sidebar and the
+                pane through <code>className</code>.
+              </>
+            }
+            rows={[
+              {
+                name: 'collapsed',
+                type: 'boolean',
+                description: 'Controls the collapsed state.',
+              },
+              {
+                name: 'defaultCollapsed',
+                type: 'boolean',
+                default: 'false',
+                description: 'The initial collapsed state when uncontrolled.',
+              },
+              {
+                name: 'onCollapsedChange',
+                type: '(collapsed: boolean) => void',
+                description: 'Called when the trigger collapses or expands.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="SidebarItem"
+            description={
+              <>
+                A navigation item. Also takes every <code>&lt;button&gt;</code>{' '}
+                attribute.
+              </>
+            }
+            rows={[
+              {
+                name: 'icon',
+                type: 'ReactNode',
+                description: 'The icon before the label.',
+              },
+              {
+                name: 'asChild',
+                type: 'boolean',
+                default: 'false',
+                description:
+                  'Renders its single child, such as your router’s link, with the item styling and the label slotted into it.',
+              },
+              {
+                name: 'aria-current',
+                type: '"page" | undefined',
+                description: 'Marks the current page and draws the bar.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="SidebarNest"
+            description="Wraps a parent SidebarItem and a SidebarNestItems list."
+            rows={[
+              {
+                name: 'open',
+                type: 'boolean',
+                description: 'Controls whether the list is open.',
+              },
+              {
+                name: 'defaultOpen',
+                type: 'boolean',
+                default: 'false',
+                description: 'The initial state when uncontrolled.',
+              },
+              {
+                name: 'onOpenChange',
+                type: '(open: boolean) => void',
+                description: 'Called when the toggle opens or closes the list.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="SidebarNav"
+            rows={[
+              {
+                name: 'aria-label',
+                type: 'string',
+                required: true,
+                description: 'Names the nav landmark.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="SidebarTrigger"
+            description={
+              <>
+                An outline icon button that collapses and expands the sidebar,
+                or opens the menu in the strip. Also takes every{' '}
+                <code>Button</code> prop except <code>variant</code>,{' '}
+                <code>size</code>, <code>loading</code>, and <code>icon</code>.
+              </>
+            }
+            rows={[
+              {
+                name: 'children',
+                type: 'ReactNode',
+                required: true,
+                description:
+                  'The glyph. The registry ships no icons, so you pass yours.',
+              },
+            ]}
+          />
+          <p>
+            <code>useSidebar()</code> returns <code>collapsed</code>,{' '}
+            <code>setCollapsed</code>, and <code>layout</code>, which is a{' '}
+            <code>SidebarLayout</code>: <code>Expanded</code>,{' '}
+            <code>Collapsed</code>, or <code>Strip</code>. The remaining parts (
+            <code>Sidebar</code>, <code>SidebarHeader</code>,{' '}
+            <code>SidebarContent</code>, <code>SidebarFooter</code>,{' '}
+            <code>SidebarGroup</code>, <code>SidebarGroupLabel</code>,{' '}
+            <code>SidebarNestItems</code>) take only their element&rsquo;s
+            props.
+          </p>
+        </>
+      }
+      notes={
+        <>
+          <p>
+            <code>SidebarProvider</code> matches a 700px media query through{' '}
+            <code>matchMedia</code>. One <code>collapsed</code> boolean and that
+            one threshold resolve all three layouts: expanded is the full
+            column, collapsed is the icon rail, and strip is forced under the
+            threshold whatever <code>collapsed</code> says. CSS paints the
+            three, and <code>useSidebar().layout</code> reports which is live.{' '}
+            <code>matchMedia</code> reads <code>sidebarStripThreshold</code>;
+            the class names spell the same number as <code>min-[700px]:</code>,
+            because Tailwind scans class names as literals and cannot read a
+            JavaScript constant. The server has no viewport, so{' '}
+            <code>layout</code> resolves at hydration and the aside leaves its
+            width to CSS until it does.
+          </p>
+          <p>
+            Every icon sits on one axis, the centre line of the rail, in both
+            layouts: the trigger and the avatar button are 36px controls inside
+            a 10px inset, and each item&rsquo;s icon sits 20px in. A label too
+            long for the column ends in an ellipsis, as the Sintra day does in
+            the demo. Collapsing moves only the aside&rsquo;s width, and the
+            labels fade as the narrowing edge cuts them short, so nothing in the
+            column shifts. A group label keeps its row and becomes a rule: the
+            text fades out and a 1px <code>--border</code> line fades in across
+            the same slot.
+          </p>
+          <p>
+            Under 700px the aside becomes one sticky <code>top-0</code> row,{' '}
+            <code>--bar-height</code> tall, with <code>border-b</code> in place
+            of <code>border-r</code>. Header content leads, footer content
+            trails, and the trigger moves to the trailing end.{' '}
+            <code>SidebarContent</code> moves into the registry drawer on the
+            right edge, laid out as the expanded column, and the trigger opens
+            it instead of collapsing the column. Choosing an item, Escape, the
+            close button, and a press outside all close it. The strip pads its
+            sides by <code>--page-header-inset</code>, at least 12px, so setting
+            that variable on the provider lines the strip&rsquo;s content up
+            with the page title below it. Narrow the window below 700px and the
+            demo above becomes the strip with no change to its markup.
+          </p>
+          <p>
+            Idle items are <code>--muted-foreground</code> at 36px. Hover steps
+            the background to <code>--accent</code> on the item&rsquo;s own{' '}
+            <code>rounded-md</code> box, and the active item is{' '}
+            <code>--foreground</code> in medium with its icon and a 2px bar both
+            in <code>--indicator</code>. The bar sits outside the box, on the
+            aside&rsquo;s own left edge, and is one shared{' '}
+            <code>motion.span</code> that slides between items on{' '}
+            <code>springBounce</code>. <code>SidebarContent</code> scrolls
+            without a scrollbar and nudges the active item fully into view when
+            it sits half outside the visible area.
+          </p>
+          <p>
+            A nest&rsquo;s children carry the parent&rsquo;s styling on the same
+            icon axis with no indent; a 1px <code>--border</code> line runs
+            under the chevron from the top of the first child to the bottom of
+            the last, and children end 7px short of it so a hover fill never
+            crosses it. In the rail the line goes: the parent and its children
+            share one <code>--muted</code> block, and the parent&rsquo;s icon
+            gives way to the chevron on hover, so the whole cell toggles the
+            list. A nest whose child becomes current opens itself.
+          </p>
+          <p>
+            <code>--sidebar-width</code> is 18rem and{' '}
+            <code>--sidebar-width-collapsed</code> is 3.5rem. Both are theme
+            tokens, so a pane beside the sidebar can read them, and an override
+            sets the variable on the sidebar or an ancestor rather than passing
+            a prop. The component adds no colour tokens of its own; it paints{' '}
+            <code>--background</code>, <code>--border</code>,{' '}
+            <code>--accent</code>, <code>--indicator</code>, and{' '}
+            <code>--ring</code>. The width morph runs on{' '}
+            <code>springSettle</code> because it displaces the pane beside it,
+            labels fade on <code>--motion-fast</code>, and the switch into the
+            strip is a breakpoint and does not animate.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/page-header',
+          label: 'Page header',
+          description: 'Names the page in the pane beside the sidebar.',
+        },
+        {
+          to: '/components/breadcrumb',
+          label: 'Breadcrumb',
+          description: 'Moves up within one section.',
+        },
+        {
+          to: '/components/drawer',
+          label: 'Drawer',
+          description: 'The menu the strip opens.',
+        },
+        {
+          to: '/components/tooltip',
+          label: 'Tooltip',
+          description: 'The label an icon shows in the rail.',
+        },
+      ]}
+    />
   )
-}
-
-interface TripNavLink {
-  key: string
-  label: string
-  icon: React.ReactNode
-  children?: TripNavLink[]
-}
-
-const planningLinks: TripNavLink[] = [
-  { key: 'itinerary', label: 'Itinerary', icon: <MapPinned /> },
-  {
-    key: 'days',
-    label: 'Days',
-    icon: <CalendarDays />,
-    children: [
-      { key: 'arrival', label: 'Arrival', icon: <PlaneLanding /> },
-      { key: 'alfama', label: 'Alfama', icon: <Landmark /> },
-      {
-        key: 'sintra',
-        label: 'Sintra, Cabo da Roca, and the coast road back to Cascais',
-        icon: <Mountain />,
-      },
-    ],
-  },
-  { key: 'places', label: 'Places', icon: <Compass /> },
-]
-
-const moneyLinks: TripNavLink[] = [
-  { key: 'budget', label: 'Budget', icon: <Wallet /> },
-  { key: 'receipts', label: 'Receipts', icon: <Receipt /> },
-]
-
-const travellerLinks: TripNavLink[] = [
-  { key: 'travellers', label: 'Travellers', icon: <Users /> },
-  { key: 'settings', label: 'Settings', icon: <Settings /> },
-]
-
-function TripNav({
-  currentKey,
-  onCurrentKeyChange,
-}: {
-  currentKey: string
-  onCurrentKeyChange: (key: string) => void
-}) {
-  const renderLink = (link: TripNavLink) => (
-    <SidebarItem
-      key={link.key}
-      icon={link.icon}
-      aria-current={currentKey === link.key ? 'page' : undefined}
-      onClick={() => onCurrentKeyChange(link.key)}
-    >
-      {link.label}
-    </SidebarItem>
-  )
-
-  const renderGroup = (label: string, links: TripNavLink[]) => (
-    <SidebarGroup>
-      <SidebarGroupLabel>{label}</SidebarGroupLabel>
-      {links.map((link) =>
-        link.children ? (
-          <SidebarNest key={link.key}>
-            {renderLink(link)}
-            <SidebarNestItems>{link.children.map(renderLink)}</SidebarNestItems>
-          </SidebarNest>
-        ) : (
-          renderLink(link)
-        ),
-      )}
-    </SidebarGroup>
-  )
-
-  return (
-    <SidebarNav aria-label="Trip">
-      {renderGroup('Planning', planningLinks)}
-      {renderGroup('Money', moneyLinks)}
-      {renderGroup('People', travellerLinks)}
-    </SidebarNav>
-  )
-}
-
-function TravellerMenu() {
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Button
-          variant={ButtonVariant.Ghost}
-          size={ButtonSize.Icon}
-          aria-label="Brian, account menu"
-        >
-          <Avatar name="Brian Pham" size={AvatarSize.Small} />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>Brian Pham</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>Account</DropdownMenuItem>
-        <DropdownMenuItem>Sign out</DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  )
-}
-
-function TripHeader() {
-  const { layout } = useSidebar()
-
-  return (
-    <SidebarHeader>
-      <SidebarTrigger>
-        <PanelLeft />
-      </SidebarTrigger>
-      {layout === SidebarLayout.Collapsed ? null : (
-        <span className="font-heading truncate text-base font-bold">
-          Lisbon, 6 days
-        </span>
-      )}
-    </SidebarHeader>
-  )
-}
-
-function TripFooter() {
-  return (
-    <SidebarFooter>
-      <TravellerMenu />
-    </SidebarFooter>
-  )
-}
-
-function TripShell({ containerClassName }: { containerClassName: string }) {
-  const [currentKey, setCurrentKey] = useState('itinerary')
-
-  return (
-    <SidebarProvider className={containerClassName}>
-      <Sidebar>
-        <TripHeader />
-        <SidebarContent>
-          <TripNav currentKey={currentKey} onCurrentKeyChange={setCurrentKey} />
-        </SidebarContent>
-        <TripFooter />
-      </Sidebar>
-      <div className="text-muted-foreground min-w-0 flex-1 p-6 text-sm">
-        The pane beside the sidebar. Collapse the sidebar and this pane takes
-        the width back.
-      </div>
-    </SidebarProvider>
-  )
-}
-
-function AppNavExample() {
-  return <TripShell containerClassName="h-96" />
 }

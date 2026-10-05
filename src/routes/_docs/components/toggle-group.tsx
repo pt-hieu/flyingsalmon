@@ -1,14 +1,31 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { Coffee, Landmark, Mountain, Music } from 'lucide-react'
-import { useState } from 'react'
+import { createFileRoute, Link } from '@tanstack/react-router'
 
-import { Preview } from '@/components/preview'
 import {
-  ToggleGroup,
-  ToggleGroupItem,
-  ToggleGroupMode,
-  ToggleGroupSize,
-} from '@/registry/ui/toggle-group'
+  DocPage,
+  Example,
+  GuidelineVerdict,
+  KeyboardTable,
+  PropsTable,
+} from '@/components/doc-page'
+import { ToggleGroupDemo } from '@/examples/toggle-group/demo'
+import demoSource from '@/examples/toggle-group/demo.tsx?raw'
+import { ToggleGroupDisabled } from '@/examples/toggle-group/disabled'
+import disabledSource from '@/examples/toggle-group/disabled.tsx?raw'
+import { ToggleGroupError } from '@/examples/toggle-group/error'
+import errorSource from '@/examples/toggle-group/error.tsx?raw'
+import { ToggleGroupInAForm } from '@/examples/toggle-group/in-a-form'
+import inAFormSource from '@/examples/toggle-group/in-a-form.tsx?raw'
+import { ToggleGroupMax } from '@/examples/toggle-group/max'
+import maxSource from '@/examples/toggle-group/max.tsx?raw'
+import { ToggleGroupRequired } from '@/examples/toggle-group/required'
+import requiredSource from '@/examples/toggle-group/required.tsx?raw'
+import { ToggleGroupSingle } from '@/examples/toggle-group/single'
+import singleSource from '@/examples/toggle-group/single.tsx?raw'
+import { ToggleGroupSizes } from '@/examples/toggle-group/sizes'
+import sizesSource from '@/examples/toggle-group/sizes.tsx?raw'
+import usageSource from '@/examples/toggle-group/usage.tsx?raw'
+
+import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/toggle-group')({
   component: ToggleGroupPage,
@@ -16,301 +33,359 @@ export const Route = createFileRoute('/_docs/components/toggle-group')({
 
 function ToggleGroupPage() {
   return (
-    <article className="mx-auto max-w-3xl space-y-12 px-6 py-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-4xl font-bold tracking-tight">
-          Toggle Group
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          Chips that toggle, in single or multiple mode, wrapping across rows. A
-          member of the field family: it owns its label and its error message,
-          takes <code>required</code>, and posts through <code>name</code>. Two
-          sizes.
-        </p>
-      </header>
+    <DocPage
+      title="Toggle group"
+      lead="A toggle group is a row of chips that answers a question, in single mode or multiple mode, wrapping across lines as needed."
+      preview={{ source: demoSource, demo: <ToggleGroupDemo /> }}
+      installation="toggle-group"
+      usage={usageSource}
+      examples={
+        <>
+          <Example
+            caption="Single choice with icons"
+            description="Single mode is the default. Pressing the pressed chip clears the choice and reports an empty string. Each chip takes an optional leading icon."
+            source={singleSource}
+          >
+            <ToggleGroupSingle />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          className styles the wrapper
-        </h2>
-        <p className="text-muted-foreground">
-          ToggleGroup renders a wrapper around the chip row so it can hold the
-          group label and the error message, the same as Radio Group and Select.{' '}
-          <strong className="text-foreground">
-            <code>className</code> styles that wrapper, not the row.
-          </strong>{' '}
-          On <code>ToggleGroupItem</code> it styles the chip. Every other prop
-          passes through to the matching Radix part.
-        </p>
-      </section>
+          <Example
+            caption="Multiple with a maximum"
+            description="At the cap every unpressed chip dims and stops toggling, while pressed chips stay live so the traveller can always back out. The registry renders no counter, so the label states the limit."
+            source={maxSource}
+          >
+            <ToggleGroupMax />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Single</h2>
-        <p className="text-muted-foreground">
-          <code>mode</code> defaults to <code>ToggleGroupMode.Single</code>:{' '}
-          <code>value</code> is a string and <code>onValueChange</code> hands
-          back a string.{' '}
-          <strong className="text-foreground">
-            Clicking the pressed chip deselects it and reports an empty string.
-          </strong>{' '}
-          That return to empty is the reason toggle-group sits beside Radio
-          Group rather than inside it — a radio group cannot be emptied by the
-          user. Each item takes an optional 16px leading <code>icon</code> on
-          Button&apos;s slot rule.
-        </p>
-        <Preview>
-          <SingleActivityExample />
-        </Preview>
-      </section>
+          <Example
+            caption="Sizes"
+            description="Size sits on the group, not on each chip. Default and small match the two field heights, so a group lines up with an input or a button."
+            source={sizesSource}
+          >
+            <ToggleGroupSizes />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Multiple and max</h2>
-        <p className="text-muted-foreground">
-          <code>ToggleGroupMode.Multiple</code> switches <code>value</code> to
-          an array and adds <code>max</code>. At the cap every unpressed chip
-          takes the disabled look and stops toggling, while pressed chips stay
-          live so the user can always back out of a pick.{' '}
-          <strong className="text-foreground">
-            The registry renders no counter and no hint: the label says the
-            limit.
-          </strong>{' '}
-          A capped chip and a disabled chip are deliberately indistinguishable —
-          both are unavailable right now, and the label already explains why.
-        </p>
-        <Preview>
-          <MultipleInterestsExample />
-        </Preview>
-      </section>
+          <Example
+            caption="Disabled"
+            description="Disable one chip for an option that is unavailable right now, or the whole group to lock it. A capped chip looks the same, because both are unavailable and the label says why."
+            source={disabledSource}
+          >
+            <ToggleGroupDisabled />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Required</h2>
-        <p className="text-muted-foreground">
-          <code>required</code> means the group must hold a value. The component
-          blocks the deselect that would empty it, in both modes, and the field
-          label renders its marker.{' '}
-          <strong className="text-foreground">
-            This is the field family&apos;s meaning of <code>required</code>.
-          </strong>{' '}
-          It is not a submit-time check: a group mounted empty is reachable, and
-          a submit while it is still empty is the app&apos;s validation error,
-          shown through <code>error</code>.
-        </p>
-        <Preview>
-          <div className="flex flex-col gap-8">
-            <ToggleGroup label="Trip pace" required defaultValue="steady">
-              <ToggleGroupItem value="slow">Slow</ToggleGroupItem>
-              <ToggleGroupItem value="steady">Steady</ToggleGroupItem>
-              <ToggleGroupItem value="packed">Packed</ToggleGroupItem>
-            </ToggleGroup>
-            <ToggleGroup
-              label="Trip pace"
-              required
-              error="Pick a pace before generating"
-            >
-              <ToggleGroupItem value="slow">Slow</ToggleGroupItem>
-              <ToggleGroupItem value="steady">Steady</ToggleGroupItem>
-              <ToggleGroupItem value="packed">Packed</ToggleGroupItem>
-            </ToggleGroup>
-          </div>
-        </Preview>
-      </section>
+          <Example
+            caption="Required"
+            description="Required means the group must hold a value, so the deselect that would empty it does nothing. Try pressing the pressed chip."
+            source={requiredSource}
+          >
+            <ToggleGroupRequired />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Sizes and states</h2>
-        <p className="text-muted-foreground">
-          <code>size</code> sits on the group, not on the item:{' '}
-          <code>ToggleGroupSize.Default</code> is 36px and{' '}
-          <code>ToggleGroupSize.Small</code> is 32px, matching Input and Button.
-          Chips are fully rounded and wrap across rows. A chip rests on{' '}
-          <code>--secondary</code> with its border in the same color, so hover
-          shows up as the border stepping to <code>--accent</code>; pressed
-          fills <code>--primary</code> and steps to orange-700 on hover. Rings
-          follow Button: an unpressed chip rings in <code>--accent</code>, the
-          colour its hover border turns, and a pressed chip in{' '}
-          <code>--indicator</code>, its own fill colour.{' '}
-          <strong className="text-foreground">
-            Feedback lives in the border and the fill, never in elevation.
-          </strong>{' '}
-          A held press draws Button&apos;s tight 2px ring with no scale and no
-          translate (ADR 0003).
-        </p>
-        <Preview>
-          <div className="flex flex-col gap-8">
-            <ToggleGroup label="Default, 36px" defaultValue="food">
-              <ToggleGroupItem value="food">Food</ToggleGroupItem>
-              <ToggleGroupItem value="museums">Museums</ToggleGroupItem>
-              <ToggleGroupItem value="hikes">Hikes</ToggleGroupItem>
-            </ToggleGroup>
-            <ToggleGroup
-              label="Small, 32px"
-              size={ToggleGroupSize.Small}
-              defaultValue="food"
-            >
-              <ToggleGroupItem value="food">Food</ToggleGroupItem>
-              <ToggleGroupItem value="museums">Museums</ToggleGroupItem>
-              <ToggleGroupItem value="hikes">Hikes</ToggleGroupItem>
-            </ToggleGroup>
-            <ToggleGroup label="One item disabled" defaultValue="food">
-              <ToggleGroupItem value="food">Food</ToggleGroupItem>
-              <ToggleGroupItem value="museums" disabled>
-                Museums, closed today
-              </ToggleGroupItem>
-              <ToggleGroupItem value="hikes">Hikes</ToggleGroupItem>
-            </ToggleGroup>
-            <ToggleGroup
-              label="Whole group disabled"
-              defaultValue="food"
-              disabled
-            >
-              <ToggleGroupItem value="food">Food</ToggleGroupItem>
-              <ToggleGroupItem value="museums">Museums</ToggleGroupItem>
-            </ToggleGroup>
-          </div>
-        </Preview>
-      </section>
+          <Example
+            caption="Error"
+            description="A group mounted empty is reachable, and a submit while it is empty is your validation error. Pass it as error and the label, the chips, and the message turn red."
+            source={errorSource}
+          >
+            <ToggleGroupError />
+          </Example>
 
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">
-          Not a segmented control, not a badge
-        </h2>
-        <p className="text-muted-foreground">
-          Tabs draw a shared track and switch the panel underneath; a segmented
-          control is that same shape borrowed for a value. Toggle Group has no
-          track, no fixed row, and no panel: the chips wrap, multiple mode
-          exists, and single mode returns to empty.{' '}
-          <strong className="text-foreground">
-            If the choice navigates, it is Tabs. If it answers a question, it is
-            Toggle Group.
-          </strong>{' '}
-          And a chip the user cannot press is a Badge — a read-only summary of
-          activity types, or the chosen values echoed back on a review screen,
-          is Badge and not a disabled group. There is no separate chip
-          primitive.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Forms</h2>
-        <p className="text-muted-foreground">
-          <code>name</code> puts the raw values into the surrounding form&apos;s{' '}
-          <code>FormData</code> through hidden inputs: one in single mode, one
-          per pressed chip in multiple mode, and none at all while the group is
-          empty. <code>value</code> with <code>onValueChange</code> hands the
-          selection to the app and <code>defaultValue</code> leaves it with the
-          component — the props a form-state library drives, and the registry
-          binds to none of them itself (ADR 0007).
-        </p>
-        <Preview>
-          <ControlledInterestsExample />
-        </Preview>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Motion</h2>
-        <p className="text-muted-foreground">
-          The fill and the border swap on a CSS transition at{' '}
-          <code>--motion-fast</code>, and that is the whole of it.{' '}
-          <strong className="text-foreground">
-            Toggle Group has no <code>motion</code> dependency
-          </strong>{' '}
-          — chips added while the group is mounted appear with no enter
-          animation, on Badge&apos;s precedent, and an app that mounts options
-          dynamically wraps them itself. The animated error message below the
-          row comes from the <code>field</code> item.
-        </p>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="font-heading text-2xl font-bold">Accessibility</h2>
-        <p className="text-muted-foreground">
-          Single mode exposes <code>role=&quot;radiogroup&quot;</code> with{' '}
-          <code>role=&quot;radio&quot;</code> chips carrying{' '}
-          <code>aria-checked</code>; multiple mode exposes a group of buttons
-          carrying <code>aria-pressed</code>. The group is named by its label
-          through <code>aria-labelledby</code>, takes <code>aria-required</code>{' '}
-          in single mode, and an <code>error</code> sets{' '}
-          <code>aria-invalid</code> and links the message through{' '}
-          <code>aria-describedby</code>.{' '}
-          <strong className="text-foreground">The row is one tab stop.</strong>{' '}
-          Tab lands on the pressed chip, Left and Right move and wrap at the
-          ends, Home and End reach them directly, Space and Enter toggle, and Up
-          and Down do nothing — a wrapped row has no vertical order to follow.
-          Disabled and capped chips leave the arrow order. The focus ring is
-          Button&apos;s keyboard-only offset ring.
-        </p>
-      </section>
-    </article>
-  )
-}
-
-function SingleActivityExample() {
-  const [selectedActivity, setSelectedActivity] = useState('food')
-
-  return (
-    <div className="flex flex-col gap-4">
-      <ToggleGroup
-        label="Activity type"
-        value={selectedActivity}
-        onValueChange={setSelectedActivity}
-      >
-        <ToggleGroupItem value="food" icon={<Coffee />}>
-          Food
-        </ToggleGroupItem>
-        <ToggleGroupItem value="museums" icon={<Landmark />}>
-          Museums
-        </ToggleGroupItem>
-        <ToggleGroupItem value="hikes" icon={<Mountain />}>
-          Hikes
-        </ToggleGroupItem>
-        <ToggleGroupItem value="nightlife" icon={<Music />}>
-          Nightlife
-        </ToggleGroupItem>
-      </ToggleGroup>
-      <p className="text-muted-foreground text-sm">
-        {selectedActivity ? `Filtering by ${selectedActivity}.` : 'No filter.'}
-      </p>
-    </div>
-  )
-}
-
-function MultipleInterestsExample() {
-  return (
-    <ToggleGroup
-      label="Pick up to 3"
-      mode={ToggleGroupMode.Multiple}
-      max={3}
-      defaultValue={['food', 'museums', 'markets']}
-    >
-      <ToggleGroupItem value="food">Food</ToggleGroupItem>
-      <ToggleGroupItem value="museums">Museums</ToggleGroupItem>
-      <ToggleGroupItem value="markets">Markets</ToggleGroupItem>
-      <ToggleGroupItem value="hikes">Hikes</ToggleGroupItem>
-      <ToggleGroupItem value="nightlife">Nightlife</ToggleGroupItem>
-      <ToggleGroupItem value="beaches">Beaches</ToggleGroupItem>
-    </ToggleGroup>
-  )
-}
-
-function ControlledInterestsExample() {
-  const [selectedInterests, setSelectedInterests] = useState<string[]>(['food'])
-
-  return (
-    <div className="flex flex-col gap-4">
-      <ToggleGroup
-        label="Interests"
-        name="interests"
-        mode={ToggleGroupMode.Multiple}
-        value={selectedInterests}
-        onValueChange={setSelectedInterests}
-      >
-        <ToggleGroupItem value="food">Food</ToggleGroupItem>
-        <ToggleGroupItem value="museums">Museums</ToggleGroupItem>
-        <ToggleGroupItem value="hikes">Hikes</ToggleGroupItem>
-      </ToggleGroup>
-      <p className="text-muted-foreground text-sm">
-        Posting {selectedInterests.length} hidden{' '}
-        {selectedInterests.length === 1 ? 'input' : 'inputs'} named interests.
-      </p>
-    </div>
+          <Example
+            caption="In a form"
+            description="Press a chip and save. name posts each pressed value through hidden inputs, and the card shows what was saved."
+            source={inAFormSource}
+          >
+            <ToggleGroupInAForm />
+          </Example>
+        </>
+      }
+      guidelines={{
+        whenToUse: [
+          'To answer a question with chips that wrap, such as interests or a trip pace.',
+          'When the traveller may choose several options, or may want to clear a single choice.',
+        ],
+        whenNotToUse: [
+          {
+            situation:
+              'when exactly one option must always be chosen and a clear option is not wanted. A radio group cannot be emptied.',
+            alternative: {
+              to: '/components/radio-group',
+              label: 'Radio group',
+            },
+          },
+          {
+            situation:
+              'to switch the panel underneath a heading. A toggle group answers a question; tabs navigate.',
+            alternative: { to: '/components/tabs', label: 'Tabs' },
+          },
+          {
+            situation:
+              'for a read-only summary, such as the activity types of a trip or the values echoed back on a review screen. A chip the traveller cannot press is not a toggle.',
+            alternative: { to: '/components/badge', label: 'Badge' },
+          },
+          {
+            situation: 'for a setting that is only on or off.',
+            alternative: { to: '/components/switch', label: 'Switch' },
+          },
+        ],
+        rules: [
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'State the limit in the label when you set a maximum: "Pick up to 3 interests".',
+            reason:
+              'The group shows no counter or hint, and a chip that dims at the cap needs a reason on screen.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Keep chip labels to a word or two.',
+            reason:
+              'Chips wrap across lines, and short labels keep the rows even and easy to scan.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Use a toggle group as a segmented control that navigates.',
+            reason:
+              'It has no shared track and no panel, and in single mode it returns to empty. Navigation is the job of tabs.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Use disabled chips to display values.',
+            reason:
+              'A disabled chip reads as unavailable, not as a result. A badge shows a value without implying that it can be pressed.',
+          },
+        ],
+      }}
+      accessibility={
+        <>
+          <KeyboardTable
+            rows={[
+              {
+                keys: ['Tab'],
+                description:
+                  'Moves focus into the row once, onto the pressed chip or the first one. A second Tab leaves the row.',
+              },
+              {
+                keys: ['ArrowLeft', 'ArrowRight'],
+                description:
+                  'Moves between chips and wraps at the ends. Disabled and capped chips are skipped.',
+              },
+              {
+                keys: ['Home', 'End'],
+                description: 'Moves to the first or the last chip.',
+              },
+              {
+                keys: ['Space', 'Enter'],
+                description:
+                  'Toggles the focused chip. In required mode the press that would empty the group does nothing.',
+              },
+              {
+                keys: ['ArrowUp', 'ArrowDown'],
+                description:
+                  'Do nothing, because a wrapped row has no vertical order to follow.',
+              },
+            ]}
+          />
+          <p>
+            Single mode exposes <code>role=&quot;radiogroup&quot;</code> with{' '}
+            <code>role=&quot;radio&quot;</code> chips carrying{' '}
+            <code>aria-checked</code>. Multiple mode exposes a group of buttons
+            carrying <code>aria-pressed</code>. The group is named by its label,
+            takes <code>aria-required</code> in single mode, and an error sets{' '}
+            <code>aria-invalid</code> and links the message through{' '}
+            <code>aria-describedby</code>. The focus ring appears on keyboard
+            focus only. The{' '}
+            <TextLink asChild>
+              <Link to="/accessibility">accessibility page</Link>
+            </TextLink>{' '}
+            covers the rules every component follows.
+          </p>
+        </>
+      }
+      api={
+        <>
+          <PropsTable
+            component="ToggleGroup"
+            description={
+              <>
+                The group is a field: the{' '}
+                <TextLink asChild>
+                  <Link to="/fields">fields page</Link>
+                </TextLink>{' '}
+                describes the label, error, and wrapper behaviour it shares. The
+                value types change with <code>mode</code>.
+              </>
+            }
+            rows={[
+              {
+                name: 'mode',
+                type: 'ToggleGroupMode',
+                default: 'ToggleGroupMode.Single',
+                description:
+                  'Single holds a string. Multiple holds an array and adds max.',
+              },
+              {
+                name: 'label',
+                type: 'string',
+                description:
+                  'The question the group answers, shown above the chips.',
+              },
+              {
+                name: 'error',
+                type: 'string',
+                description:
+                  'Turns the group red and shows the message below it.',
+              },
+              {
+                name: 'value',
+                type: 'string | string[]',
+                description:
+                  'The pressed chips when the app controls them: a string in single mode, an array in multiple mode.',
+              },
+              {
+                name: 'defaultValue',
+                type: 'string | string[]',
+                description:
+                  'The starting chips when the app does not control them.',
+              },
+              {
+                name: 'onValueChange',
+                type: '(value: string | string[]) => void',
+                description:
+                  'Called with the next value. Single mode reports an empty string when the chip is cleared.',
+              },
+              {
+                name: 'max',
+                type: 'number',
+                description:
+                  'Multiple mode only. At the cap, unpressed chips stop toggling.',
+              },
+              {
+                name: 'size',
+                type: 'ToggleGroupSize',
+                default: 'ToggleGroupSize.Default',
+                description:
+                  'Default and Small match the field heights of the same names.',
+              },
+              {
+                name: 'required',
+                type: 'boolean',
+                default: 'false',
+                description:
+                  'Blocks the deselect that would empty the group and marks the label. It is not a submit-time check.',
+              },
+              {
+                name: 'name',
+                type: 'string',
+                description:
+                  'Posts the pressed values through hidden inputs: one in single mode, one per chip in multiple mode, none while empty.',
+              },
+              {
+                name: 'disabled',
+                type: 'boolean',
+                default: 'false',
+                description: 'Dims and disables every chip.',
+              },
+              {
+                name: 'className',
+                type: 'string',
+                description:
+                  'Styles the wrapper that holds the label, chips, and message, not the chip row.',
+              },
+            ]}
+          />
+          <PropsTable
+            component="ToggleGroupItem"
+            description="Also takes the Radix toggle group item's own props."
+            rows={[
+              {
+                name: 'value',
+                type: 'string',
+                required: true,
+                description:
+                  'The value the group reports when this chip is pressed.',
+              },
+              {
+                name: 'icon',
+                type: 'ReactNode',
+                description: 'A leading icon, hidden from screen readers.',
+              },
+              {
+                name: 'disabled',
+                type: 'boolean',
+                default: 'false',
+                description: 'Takes this chip out while the rest stay live.',
+              },
+              {
+                name: 'className',
+                type: 'string',
+                description: 'Styles the chip.',
+              },
+            ]}
+          />
+        </>
+      }
+      notes={
+        <>
+          <p>
+            <code>ToggleGroupSize.Default</code> is 36px tall and{' '}
+            <code>ToggleGroupSize.Small</code> is 32px, matching Input and
+            Button. Chips are fully rounded. The icon slot is 16px, on
+            Button&rsquo;s slot rule.
+          </p>
+          <p>
+            A chip rests on <code>--secondary</code> with its border in the same
+            colour, so hover shows as the border stepping to{' '}
+            <code>--accent</code>. A pressed chip fills with{' '}
+            <code>--primary</code> and steps to orange-700 on hover. Rings
+            follow Button: an unpressed chip rings in <code>--accent</code>, the
+            colour its hover border turns, and a pressed chip in{' '}
+            <code>--indicator</code>, its own fill colour. A held press draws
+            Button&rsquo;s tight 2px ring with no scale and no translate.
+          </p>
+          <p>
+            <code>required</code> blocks the deselect in both modes, so a group
+            can never be emptied by the traveller. A group that mounts empty is
+            still reachable, which is why an empty submit is the app&rsquo;s
+            validation error.
+          </p>
+          <p>
+            The fill and the border swap on a CSS transition at{' '}
+            <code>--motion-fast</code>, and that is all the motion. The toggle
+            group has no <code>motion</code> dependency: chips added while the
+            group is mounted appear with no enter animation, and an app that
+            mounts options dynamically animates them itself. The animated error
+            message below the row comes from the shared <code>field</code> item.
+          </p>
+        </>
+      }
+      related={[
+        {
+          to: '/components/radio-group',
+          label: 'Radio group',
+          description: 'One answer that stays chosen, shown as a list.',
+        },
+        {
+          to: '/components/tabs',
+          label: 'Tabs',
+          description:
+            'For switching the panel underneath, not answering a question.',
+        },
+        {
+          to: '/components/badge',
+          label: 'Badge',
+          description: 'A read-only chip that summarises a value.',
+        },
+        {
+          to: '/components/switch',
+          label: 'Switch',
+          description: 'A setting that is only on or off.',
+        },
+        {
+          to: '/fields',
+          label: 'Fields',
+          description:
+            'The label, error, and wrapper behaviour every field shares.',
+        },
+      ]}
+    />
   )
 }
