@@ -200,7 +200,8 @@ function TextareaPage() {
               name: 'minRows',
               type: 'number',
               default: '3',
-              description: 'The height of the empty field, in rows.',
+              description:
+                'The height of the empty field, in rows. Set it to the length of answer you expect: a one-row field invites a one-word answer.',
             },
             {
               name: 'maxRows',

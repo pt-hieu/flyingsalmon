@@ -288,7 +288,7 @@ function SelectPage() {
                 type: 'string',
                 required: true,
                 description:
-                  'The item text. It is also what the trigger shows and what typeahead matches.',
+                  'The item text, as a plain string. It is also what the trigger shows and what typeahead matches.',
               },
               {
                 name: 'icon',

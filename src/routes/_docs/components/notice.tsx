@@ -127,6 +127,12 @@ function NoticePage() {
             reason:
               'One notice at a time keeps each result tied to the action that caused it. A pile has no order and no owner.',
           },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Show a notice about an item the traveller can already see.',
+            reason:
+              'The item’s own state is the right home. A notice beside it says the same thing in a second place.',
+          },
         ],
       }}
       accessibility={
