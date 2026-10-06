@@ -12,10 +12,6 @@ async function advance(milliseconds: number) {
   await act(() => vi.advanceTimersByTimeAsync(milliseconds))
 }
 
-async function openPanel(user: ReturnType<typeof userEvent.setup>) {
-  await user.keyboard('{ArrowDown}')
-}
-
 describe('ComboboxRemoteResults', () => {
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true })
@@ -34,12 +30,10 @@ describe('ComboboxRemoteResults', () => {
     await advance(400)
     await user.type(input, 'i')
     await advance(500)
-    await openPanel(user)
 
     expect(optionNames().join(' ')).not.toMatch(/Reykjavík|Rennes/)
 
     await advance(500)
-    await openPanel(user)
 
     expect(optionNames()).toHaveLength(1)
     expect(optionNames()[0]).toMatch(/^Reims/)
@@ -54,7 +48,6 @@ describe('ComboboxRemoteResults', () => {
       'zz',
     )
     await advance(1000)
-    await openPanel(user)
 
     expect(screen.getByText('No place matches that')).toBeInTheDocument()
   })

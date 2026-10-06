@@ -32,7 +32,7 @@ const scaleRows: TokenRow[] = [
     ),
     token: 'text-4xl, font-extrabold',
     value: 'heading, tight tracking',
-    job: 'The page header title. It grows to text-6xl when the header is wide.',
+    job: 'The page header title, at every header width.',
   },
   {
     sample: (

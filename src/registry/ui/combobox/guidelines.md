@@ -25,4 +25,4 @@ Design guidelines for the flyingsalmon Combobox component. An alternative linked
 - **Do:** Once a field holds chips, change its placeholder to invite another, such as "Add another".
   **Why:** The chips show the answer so far, and the prompt says more is welcome, so a traveller with one destination knows the field takes several.
 - **Don't:** Open the panel on focus.
-  **Why:** Tabbing through a form would throw a panel over the next field. The panel opens on typing, the arrow keys, or the chevron.
+  **Why:** Tabbing through a form would throw a panel over the next field. The panel opens on typing, the arrow keys, or the chevron, and when results land after typing.

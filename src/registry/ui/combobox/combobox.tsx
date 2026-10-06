@@ -40,6 +40,7 @@ import {
 } from './types'
 import { useComboboxItemRegistry } from './use-combobox-item-registry'
 import { useHighlightOnArrowOpen } from './use-highlight-on-arrow-open'
+import { useOpenOnArrival } from './use-open-on-arrival'
 import { toSelectedValues } from './utils'
 
 interface ComboboxBaseProps {
@@ -152,6 +153,7 @@ export function Combobox(props: ComboboxProps) {
     getItemProps,
     getToggleButtonProps,
     closeMenu,
+    openMenu,
     setInputValue,
     setHighlightedIndex,
   } = useCombobox<ComboboxItemEntry>({
@@ -182,6 +184,12 @@ export function Combobox(props: ComboboxProps) {
     itemEntries,
     highlightedIndex,
     setHighlightedIndex,
+  })
+
+  const { awaitContent, stopAwaitingContent } = useOpenOnArrival({
+    isOpen,
+    canOpen,
+    openMenu,
   })
 
   function pickEntry(entry: ComboboxItemEntry) {
@@ -265,6 +273,10 @@ export function Combobox(props: ComboboxProps) {
   function handleInputKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     rememberArrowOpen(event)
 
+    if (event.key === 'Escape') {
+      stopAwaitingContent()
+    }
+
     if (event.key === 'Home' || event.key === 'End') {
       leaveKeyToTheCaret(event)
       return
@@ -280,6 +292,8 @@ export function Combobox(props: ComboboxProps) {
   }
 
   function handleInputBlur() {
+    stopAwaitingContent()
+
     if (props.mode !== ComboboxMode.Single || !allowFreeText) {
       return
     }
@@ -307,6 +321,7 @@ export function Combobox(props: ComboboxProps) {
 
   const inputProps = getInputProps({
     ...multipleSelection.getDropdownProps({ onKeyDown: handleInputKeyDown }),
+    onChange: awaitContent,
     onBlur: handleInputBlur,
     disabled,
     placeholder,

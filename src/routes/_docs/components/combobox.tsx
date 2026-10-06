@@ -57,7 +57,7 @@ function ComboboxPage() {
 
           <Example
             caption="Remote results"
-            description="Debounce and fetch in your own code, show loading while the request runs, and render ComboboxEmpty when nothing comes back. Type r or ha for matches, zz for none."
+            description="Debounce and fetch in your own code, show loading while the request runs, and render ComboboxEmpty when nothing comes back. The panel opens when the results land, unless the traveller has pressed Escape or left the field. Type r or ha for matches, zz for none."
             source={remoteResultsSource}
           >
             <ComboboxRemoteResults />

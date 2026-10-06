@@ -11,7 +11,6 @@ export const pageHeaderRowClassName =
 export const pageHeaderTitleClassName = cn(
   'font-heading text-foreground min-w-[min(100%,--spacing(64))] grow basis-0 text-4xl leading-10 font-extrabold tracking-tight text-balance',
   'py-[calc((var(--bar-height)_-_1lh)/2)]',
-  '@3xl/page-header:text-6xl @3xl/page-header:leading-18',
 )
 
 export const pageHeaderActionsClassName =
