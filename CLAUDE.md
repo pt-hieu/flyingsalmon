@@ -25,7 +25,7 @@ Every word a docs-site visitor reads follows these rules:
 
 ## Structure rules
 
-- `src/registry/` is the single source of truth for every distributable file, including a script a component ships, which lives in that component's folder. `registry.json` composes it. The theme is the exception: its tokens live in `src/styles.css` and in the `theme` item of `registry.json`.
+- `src/registry/` is the single source of truth for every distributable file, including a script a component ships and its `guidelines.md`, which live in that component's folder. `registry.json` composes it. The theme is the exception: its tokens live in `src/styles.css` and in the `theme` item of `registry.json`.
 - Docs pages import components from `@/registry/...` directly. Never copy a registry component into `src/components/` — that folder is for docs-site-only chrome (preview shells, navigation).
 - One import alias: `@/` → `src/`. Do not introduce others.
 - `components.json` aliases must stay consistent with actual import paths; `shadcn build` rewrites imports for consumers, not for this repo.

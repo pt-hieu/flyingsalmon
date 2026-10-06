@@ -19,6 +19,7 @@ Every registry component is a folder under `src/registry/ui/`, named after the c
 - `classnames.ts` holds every `cva()` call and every reusable `cn()` class string the folder uses.
 - `types.ts` holds every type the folder exports, except component props.
 - `utils.ts` holds the folder's utility functions with low cognitive complexity, including every value a component derives from props or state beyond a single expression.
+- `guidelines.md` holds the component's when to use, when not to use, and do and don't rules, in the format `docs/agents/docs-page-template.md` gives, and ships as a `registry:file`.
 - Any other runtime value the folder needs, such as a React context, a hook, a lookup table, or a utility function too involved for `utils.ts`, gets its own file named after what it holds.
 
 Consumers import from the folder, never from a file inside it.
