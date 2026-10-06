@@ -589,4 +589,39 @@ describe('Combobox', () => {
     expect(screen.getByRole('listbox')).toBeInTheDocument()
     expect(getInputByLabel('Cities')).toHaveValue('')
   })
+
+  it('opens the panel when items arrive after the user stops typing', async () => {
+    const user = userEvent.setup()
+    const { rerender } = render(<SingleCityCombobox items={[]} />)
+
+    await user.type(getInput(), 'pa')
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
+
+    rerender(<SingleCityCombobox items={CITIES.slice(0, 1)} />)
+
+    expect(await screen.findByRole('option', { name: 'Paris' })).toBeVisible()
+  })
+
+  it('stays closed when items arrive after Escape', async () => {
+    const user = userEvent.setup()
+    const { rerender } = render(<SingleCityCombobox items={[]} />)
+
+    await user.type(getInput(), 'pa')
+    await user.keyboard('{Escape}')
+    rerender(<SingleCityCombobox items={CITIES.slice(0, 1)} />)
+
+    await waitForClosedPanel()
+    expect(getInput()).toHaveFocus()
+  })
+
+  it('stays closed when items arrive after the input loses focus', async () => {
+    const user = userEvent.setup()
+    const { rerender } = render(<SingleCityCombobox items={[]} />)
+
+    await user.type(getInput(), 'pa')
+    await user.tab()
+    rerender(<SingleCityCombobox items={CITIES.slice(0, 1)} />)
+
+    await waitForClosedPanel()
+  })
 })
