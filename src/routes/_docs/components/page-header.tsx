@@ -198,17 +198,15 @@ function PageHeaderPage() {
         <>
           <p>
             The actions move under the title only when the title would otherwise
-            get narrower than 256px. The header measures its own width: at{' '}
-            <code>@3xl</code> (768px) and wider the title is{' '}
-            <code>text-6xl</code>, narrower it is <code>text-4xl</code>. Several
-            actions wrap among themselves at <code>gap-2</code>. A title uses{' '}
+            get narrower than 256px. The title is <code>text-4xl</code> on a
+            40px line at every header width. Several actions wrap among
+            themselves at <code>gap-2</code>. A title uses{' '}
             <code>text-balance</code> and the actions stay centred on its first
             line, so they sit where the eye starts reading.
           </p>
           <p>
             <code>--page-header-max-width</code> defaults to <code>none</code>.
-            The title size still follows the header&rsquo;s own width, not the
-            row&rsquo;s. The content-width example caps its row at{' '}
+            The content-width example caps its row at{' '}
             <code>--spacing(160)</code>.
           </p>
           <p>
@@ -216,8 +214,8 @@ function PageHeaderPage() {
             <code>--bar-height</code>: the sidebar header is that tall and the
             title pads its first line to the same band. Put the header at the
             top of the pane with no padding above it and the centre line holds
-            at both title sizes. Set <code>--page-header-inset</code> to the
-            pane&rsquo;s side padding, as the sidebar example does with{' '}
+            however wide the pane is. Set <code>--page-header-inset</code> to
+            the pane&rsquo;s side padding, as the sidebar example does with{' '}
             <code>[--page-header-inset:--spacing(6)]</code> on its provider
             beside the pane&rsquo;s <code>px-6</code>.
           </p>
@@ -237,8 +235,7 @@ function PageHeaderPage() {
             <code>--border</code> rule at the bottom of its last band. The
             title&rsquo;s band pads its line equally above and below, so the gap
             from the top of the header to the capitals matches the gap from the
-            baseline to the rule: about 24px at <code>text-4xl</code> and 16px
-            at <code>text-6xl</code>.
+            baseline to the rule: about 24px each.
           </p>
           <p>
             The title is <code>--foreground</code>: 17.20:1 on{' '}
