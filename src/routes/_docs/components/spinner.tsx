@@ -75,15 +75,21 @@ function SpinnerPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Pick a spinner or a skeleton for a given wait, never both.',
+            rule: 'Place a small spinner inline, directly before the words that say what is happening.',
             reason:
-              'They answer different questions: a spinner says an action is running, a skeleton says a region is loading. Both together say it twice.',
+              'The spinner says something is running and only the words say what, so they belong together.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Pass a label that names the work when the spinner stands alone.',
+            rule: 'On a long wait, pair the spinner with a written count, such as “3 of 7 days written”.',
             reason:
-              'A screen reader reads the label. “Checking availability” says more than the default “Loading”.',
+              'A count tells the traveller how far along the work is in their own terms, with no bar beside the heading.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Pick a spinner or a skeleton for a given wait, never both.',
+            reason:
+              'They answer different questions: a spinner says an action is running, a skeleton says a region is loading. Both together say it twice.',
           },
           {
             verdict: GuidelineVerdict.Dont,
@@ -127,7 +133,7 @@ function SpinnerPage() {
               type: 'string',
               default: '"Loading"',
               description:
-                'What a screen reader reads for the standalone spinner.',
+                'What a screen reader reads for the standalone spinner. Name the work, such as “Checking availability”, when the spinner stands alone. When the text beside it already names the work, a short label such as “In progress” is enough.',
             },
           ]}
         />

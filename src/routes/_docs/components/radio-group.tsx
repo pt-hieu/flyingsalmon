@@ -91,27 +91,45 @@ function RadioGroupPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Give the group a label that names the question: "Room", "Cost split".',
+            rule: 'Ask the question once, as the label above the options, and let each option be only an answer: "Who pays for dinners?"',
             reason:
-              'The label is the group’s accessible name, so a screen reader announces the question before the options.',
+              'The traveller reads the question once and then scans the answers. Repeating it in every option buries the difference between them.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Preselect the option most travellers want.',
+            rule: 'Spell out the consequence when an option is a sentence: "Keep it booked: the rest of the day moves around it".',
             reason:
-              'A group with no selection is invalid until the traveller acts, and the default saves them the click.',
+              'The traveller chooses an outcome they can see, not a label they have to decode.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Preselect the option most travellers want when any answer is harmless.',
+            reason:
+              'The default saves the click, and a traveller who wants something else sees every alternative beside it.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Put a single radio item in a group.',
+            rule: 'Preselect an answer the traveller must choose deliberately.',
             reason:
-              'One option offers no choice and cannot be unselected. Use a checkbox for a yes or no.',
+              'A preselected answer gets accepted without being read. Leave the group empty, and a skipped group fails on submit with the message on the group itself.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Put a "Decide for me" option last.',
+            reason:
+              'The real answers come first, so the way out is there for the unsure without tempting everyone else.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Use horizontal for options with long labels.',
+            rule: 'Offer a single option on its own.',
             reason:
-              'Long labels wrap unevenly across the row and the options stop lining up.',
+              'One option offers no choice and cannot be unselected. A yes or no is a checkbox.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Lay options in a row unless each label is a word or two.',
+            reason:
+              'Longer labels wrap unevenly across the row and the options stop lining up. A column of sentences reads top to bottom.',
           },
         ],
       }}

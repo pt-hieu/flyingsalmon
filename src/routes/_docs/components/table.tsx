@@ -107,36 +107,27 @@ function TablePage() {
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Leave the header cell empty on a column that holds only controls.',
+            rule: 'Close a column of amounts with a Total row in the footer.',
+            reason:
+              'The sum lands under the last amount, where the eye arrives after reading down, and the footer’s heavier weight sets it apart from the rows it adds up.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'In a before-and-after table, set the column that holds the outcome in medium weight.',
+            reason:
+              'The reader compares what is with what will be, and the column that will be true is the one to read.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Label a column that holds only controls.',
             reason:
               'The button already names the action. A label above it repeats the words and sits far from them, because the controls are right-aligned.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: (
-              <>
-                Mark two cells in one row <code>rowLink</code>.
-              </>
-            ),
-            reason:
-              'The two stretched links cover the same area and fight over it. One row, one destination.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: (
-              <>
-                Mark a row <code>interactive</code> when nothing happens on
-                click.
-              </>
-            ),
+            rule: 'Let a row react to the pointer when nothing happens on click.',
             reason:
               'The hover step tells a reader the row leads somewhere. A background change that leads nowhere reads as an affordance that is not there.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Expect sorting, selection, or paging from the table.',
-            reason:
-              'It sorts nothing, selects nothing, and paginates nothing. Those belong to a data table built on top of it.',
           },
         ],
       }}
@@ -190,7 +181,9 @@ function TablePage() {
           <p>
             <code>Table</code> takes every <code>&lt;table&gt;</code> attribute.
             It wraps the table in a full-width scrolling container and sends{' '}
-            <code>className</code> to the table itself.
+            <code>className</code> to the table itself. It sorts nothing,
+            selects nothing, and paginates nothing: those belong to a data table
+            built on top of it.
           </p>
           <PropsTable
             component="TableRow"
@@ -205,7 +198,7 @@ function TablePage() {
                 type: 'boolean',
                 default: 'false',
                 description:
-                  'Steps the background to the accent colour on hover and on focus of the row link, and stretches the row link over the row.',
+                  'Steps the background to the accent colour on hover and on focus of the row link, and stretches the row link over the row. Only for a row that leads somewhere.',
               },
             ]}
           />
@@ -222,7 +215,7 @@ function TablePage() {
                 type: 'boolean',
                 default: 'false',
                 description:
-                  'Marks the cell whose link stretches over its interactive row. Any cell can hold it, not only the first.',
+                  'Marks the cell whose link stretches over its interactive row. Any cell can hold it, not only the first, and only one cell per row: two stretched links cover the same area and fight over it.',
               },
             ]}
           />

@@ -99,33 +99,40 @@ function BadgePage() {
         ],
         rules: [
           {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Pair a status colour with words that state the status.',
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Give the normal state a badge.',
             reason:
-              'Colour alone never carries a meaning: a reader who cannot tell orange from green still has to learn the state.',
+              'An exception reads at a glance only against plain rows. When every item wears a badge, none of them stands out.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: (
-              <>
-                Use <code>error</code> for a state that already exists, such as
-                a failed payment.
-              </>
-            ),
+            rule: 'Name the state in the label, such as Booked or Date clash.',
+            reason:
+              'Colour only reinforces the word. A reader who cannot tell orange from green still has to learn the state.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Keep the orange badge for what is live right now, such as today or a trip underway.',
+            reason:
+              'Orange is the loudest colour on the page, so it marks the one thing happening now. A finished state is green, a fact or an absence takes the outline, and quiet metadata takes the grey badge.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Paint a condition that already holds, such as a failed payment, in error red.',
             reason:
               'Error red reports a condition. Destructive red names an action a person can take, such as delete, and belongs to the destructive button.',
           },
           {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put a link, a button, or any interactive element inside a badge.',
+            verdict: GuidelineVerdict.Do,
+            rule: 'Add an icon to a state that needs attention or is done, and leave neutral states as words.',
             reason:
-              'The badge is a plain span with no focus and no role. Anything interactive in it is unreachable by keyboard.',
+              'The icon gives the states that matter a shape the eye catches before it reads, so a warning stands out from a row of quiet labels.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Stack several badges on one row item.',
+            rule: 'Put more than one state badge on an item.',
             reason:
-              'Each one asks to be read. One badge states the state that matters; the rest belong in the item’s details.',
+              'Each badge asks to be read, and a second state means the first is not the one that matters. Put the rest in the item’s details. Category tags are the exception and sit together as a quiet row.',
           },
         ],
       }}
@@ -134,9 +141,10 @@ function BadgePage() {
           The badge renders a plain <code>span</code> with no role and no tab
           stop, so a screen reader reads its text inline with the surrounding
           content. A leading icon is decoration and is hidden, so the label is
-          read once. Every variant meets WCAG AA contrast. When the badge is the
-          only carrier of a meaning, state that meaning in the surrounding text
-          as well.
+          read once. A link or a button inside a badge is unreachable by
+          keyboard, so a badge holds only its label and icon. Every variant
+          meets WCAG AA contrast. When the badge is the only carrier of a
+          meaning, state that meaning in the surrounding text as well.
         </p>
       }
       api={
@@ -154,7 +162,7 @@ function BadgePage() {
               type: 'BadgeVariant',
               default: 'BadgeVariant.Default',
               description:
-                'Default, Secondary, Outline, Success, Warning, or Error.',
+                'Default, Secondary, Outline, Success, Warning, or Error. Error marks a condition that already holds, never an action.',
             },
             {
               name: 'icon',

@@ -99,27 +99,39 @@ function EmptyStatePage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Say what is missing and what the traveller can do about it.',
+            rule: 'Title the block with a plain statement or a short question, and say in the description what the traveller can do next.',
             reason:
               'A resting state with no next step leaves the traveller to guess whether something broke.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Use the default size for a page and small for a block inside a card.',
+            rule: 'Offer one action: filled when it starts something, outline when it only leads out.',
+            reason:
+              'One button is an obvious next step, and its fill tells the traveller whether it begins something or takes them back.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Give a friendly empty a sticker, and a dead end, such as a trip that does not exist, an icon.',
+            reason:
+              'The sticker invites the traveller to begin. The icon says plainly that there is nothing here to begin.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Keep a block inside a card quieter than one that fills a page.',
             reason:
               'The card already carries the heading weight, so the block inside it steps down.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Use an empty state for work that is in progress.',
+            rule: 'Use an empty state while content is loading.',
             reason:
-              'In-progress content shows a skeleton. An empty state says content is not coming until the traveller acts.',
+              'A skeleton holds the shape of what is coming. The one exception is long work that runs in the background with nothing to draw yet: there, an empty state that says the traveller is free to leave tells the truth.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Add a variant, border, or background to the block.',
+            rule: 'Frame the block itself. Place it in a card when it needs a boundary.',
             reason:
-              'It paints none. Put it in a card for a boundary, or leave it on the page as the page’s own message.',
+              'On a page it is the page’s own message, and in a card it is the card’s. A frame of its own would compete with both.',
           },
         ],
       }}
@@ -167,7 +179,7 @@ function EmptyStatePage() {
                 type: 'EmptyStateSize',
                 default: 'EmptyStateSize.Default',
                 description:
-                  'Default for a page, Small for a block inside a card.',
+                  'Default for a page, Small for a block inside a card. The block paints no border or background of its own.',
               },
             ]}
           />

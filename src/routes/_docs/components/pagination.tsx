@@ -108,27 +108,33 @@ function PaginationPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Keep the row count, the page size, and the fetching in your app.',
+            rule: 'Right-align pagination under the list it pages, once per list.',
             reason:
-              'Pagination is the control. "Load more", infinite scroll, a page-size select, and a "1 to 20 of 240" line all stay yours, because only the app knows the data.',
+              'It waits where the traveller finishes reading. A second copy above the list is one more thing to scan and nothing new to do.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Render it without a guard around a one-page list.',
+            rule: 'Keep the page number in the address whenever the traveller can land on a page.',
             reason:
-              'A pageCount of 1 or less renders nothing, so the call site stays unconditional.',
+              'A page in the URL can be bookmarked, shared, opened in a new tab, and reloaded, so the traveller comes back to the page they left rather than to page 1.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Pass renderPageLink when the page lives in the URL.',
+            rule: 'Write a line such as "1 to 20 of 240" beside the list when the traveller needs the total.',
             reason:
-              'Links open in a new tab, can be bookmarked, and survive a reload; buttons cannot.',
+              'Pagination shows where the traveller is, not how much there is. Only the app knows the size of its data.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Choose compact by measuring width inside the component.',
+            rule: 'Show pagination on a list that fits on one page.',
             reason:
-              'The component never measures and has no breakpoint behaviour, so the form is your decision for the place it sits in.',
+              'A row with one number offers a choice that is not there, so a one-page list simply ends.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Page a short list that grouping or filtering would keep on one screen.',
+            reason:
+              'Trips split into upcoming and past stay in view together. A page break hides half of them behind a press.',
           },
         ],
       }}
@@ -172,8 +178,10 @@ function PaginationPage() {
           component="Pagination"
           description={
             <>
-              Controlled. Also takes every <code>&lt;nav&gt;</code> attribute
-              except <code>children</code>.
+              Controlled: the row count, the page size, and the fetching stay in
+              your app, and so do &ldquo;Load more&rdquo;, infinite scroll, a
+              page-size select, and a range line. Also takes every{' '}
+              <code>&lt;nav&gt;</code> attribute except <code>children</code>.
             </>
           }
           rows={[
@@ -201,7 +209,7 @@ function PaginationPage() {
               type: 'boolean',
               default: 'false',
               description:
-                'Replaces the page numbers with the position text between previous and next.',
+                'Replaces the page numbers with the position text between previous and next. The component never measures its width and has no breakpoint, so you choose compact where the row has no room for numbers: a toolbar, a card footer, a phone-width list.',
             },
             {
               name: 'formatPageLabel',
@@ -213,7 +221,7 @@ function PaginationPage() {
               name: 'renderPageLink',
               type: '(page: number, children: ReactNode) => ReactNode',
               description:
-                'Renders each page item and each enabled previous or next as the anchor you return. A disabled previous or next stays a plain span.',
+                'Renders each page item and each enabled previous or next as the anchor you return. Pass it when the page lives in the URL. A disabled previous or next stays a plain span.',
             },
             {
               name: 'aria-label',

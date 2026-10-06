@@ -125,33 +125,33 @@ function DrawerPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Pick a drawer when the traveller benefits from seeing the page while the panel is open.',
-            reason:
-              'A drawer accompanies the page and a dialog interrupts it. If nothing behind the panel matters, use a dialog.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
             rule: 'Close a form drawer on submit and show the result on the item that changed.',
             reason:
               'The item is still on screen beside the panel, so the updated trip is the clearest confirmation.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Show one selected thing at a time. Choosing another row swaps the drawer’s content.',
+            reason:
+              'The drawer is the detail of the current selection. A second panel would cover the list it belongs to.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Put previous and next buttons on the left of the footer and one primary action on the right.',
+            reason:
+              'The traveller walks the list day by day without closing the panel, and the single action sits where the eye finishes.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Turn a detail drawer into an editor. Its action opens a dialog for a change that reshapes the trip.',
+            reason:
+              'Detail is for reading beside the list. A change with consequences needs the full stop of a dialog and its own confirm.',
           },
           {
             verdict: GuidelineVerdict.Dont,
             rule: 'Put the destructive confirmation of a trip in a drawer.',
             reason:
               'A confirmation demands a decision, and a drawer invites the traveller to keep working on the page behind it.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Set pending to wait for a save.',
-            reason:
-              'Pending blocks every exit. Keep it for an answer the next step depends on, such as looking up an invite.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give a body that should widen the panel its own width.',
-            reason:
-              'Loose prose has no widest layout other than one long line, so it pushes a fit-content panel straight to its cap.',
           },
         ],
       }}
@@ -225,7 +225,7 @@ function DrawerPage() {
                 type: 'boolean',
                 default: 'false',
                 description:
-                  'Blocks Escape, a click outside, and the close button, disables the close button, and sets aria-busy.',
+                  'Blocks Escape, a click outside, and the close button, disables the close button, and sets aria-busy. Keep it for an answer the next step depends on, such as looking up an invite; a plain save closes the drawer at once.',
               },
             ]}
           />
@@ -238,7 +238,7 @@ function DrawerPage() {
                 type: 'boolean',
                 default: 'false',
                 description:
-                  'Grows the panel to the width of its body, between the standard width and the viewport.',
+                  'Grows the panel to the width of its body, between the standard width and the viewport. Loose prose has no widest layout but one long line and pushes the panel to its cap, so give a body like that its own width.',
               },
               {
                 name: 'onOpenAutoFocus',

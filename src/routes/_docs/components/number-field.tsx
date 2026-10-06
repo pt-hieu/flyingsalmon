@@ -134,27 +134,33 @@ function NumberFieldPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Set min on every field that cannot go negative.',
+            rule: 'Give every quantity its unit: "$" before a budget, "people" after a group size.',
             reason:
-              'It bounds the clamp, gives Home somewhere to jump, disables the decrease button at the floor, and picks the numeric mobile keyboard. A traveller count with no min accepts minus three people.',
+              'The number reads as a phrase, so nobody wonders whether 4 means nights or travellers.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Treat null as "unanswered" in your handler.',
+            rule: 'Bound the field by the real limits of what it counts, such as 2 to 30 people.',
             reason:
-              'An empty field reports null, never NaN or 0, so nothing downstream has to tell a blank from a zero.',
+              'The field and its spin buttons refuse the impossible as the traveller enters it, so no error has to arrive afterwards.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Read the typed text instead of the reported number.',
+            rule: 'Stretch the field across the form column.',
             reason:
-              'The field formats for the page’s locale, so the text may hold a group separator. The reported value is always a plain number.',
+              'A quantity is a few digits. A field sized to its number reads as a count; a wide one looks like it wants a sentence.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Offer a slider beside the exact entry when "roughly" is a fair answer, and let the traveller swap between them.',
+            reason:
+              'A traveller who knows the figure types it, and one who does not can still answer without guessing a precise number.',
           },
           {
             verdict: GuidelineVerdict.Dont,
             rule: 'Lock the field while a background check runs.',
             reason:
-              'Use loading instead. The field stays typeable and the submit button is what locks a flow.',
+              'A spinner takes the place of the spin buttons and the field stays typeable. Only the submit button locks a flow.',
           },
         ],
       }}
@@ -221,7 +227,8 @@ function NumberFieldPage() {
             <>
               Also takes every <code>&lt;input&gt;</code> attribute except{' '}
               <code>type</code>, <code>size</code>, and the value props it
-              redefines. <code>className</code> styles the wrapper.
+              redefines. <code>className</code> styles the wrapper, so a width
+              set there sizes the whole field.
             </>
           }
           rows={[
@@ -233,7 +240,8 @@ function NumberFieldPage() {
             {
               name: 'value',
               type: 'number | null',
-              description: 'The controlled value. null is an empty field.',
+              description:
+                'The controlled value. null is an empty field, never NaN or 0, so a blank and a zero stay apart.',
             },
             {
               name: 'defaultValue',
@@ -244,13 +252,13 @@ function NumberFieldPage() {
               name: 'onValueChange',
               type: '(value: number | null) => void',
               description:
-                'Reports the parsed number while typing, in range or not. Blur and Enter clamp into [min, max] and reformat.',
+                'Reports the parsed number while typing, in range or not, and null when the field is empty. It is always a plain number, so read it rather than the typed text, which carries the locale’s group separator. Blur and Enter clamp into [min, max] and reformat.',
             },
             {
               name: 'min',
               type: 'number',
               description:
-                'The floor. Also picks the mobile keyboard: numeric when min is zero or above.',
+                'The floor. Set it on every count that cannot go negative: it bounds the clamp, gives Home somewhere to jump, disables Decrease at the floor, and picks the numeric mobile keyboard when it is zero or above.',
             },
             {
               name: 'max',
@@ -308,7 +316,7 @@ function NumberFieldPage() {
               type: 'boolean',
               default: 'false',
               description:
-                'Replaces the spin buttons with a spinner. The field stays typeable.',
+                'Replaces the spin buttons with a spinner. The field stays typeable. Set it, not disabled, while a background check runs.',
             },
             {
               name: 'disabled',

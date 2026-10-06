@@ -81,33 +81,39 @@ function SidebarPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Keep the sidebar mounted across routes by putting it in a persistent layout route.',
+            rule: 'Keep the sidebar on screen across every page, so the current-page bar slides from item to item as the traveller moves.',
             reason:
-              'The current-page bar slides between items only if the sidebar stays mounted. A sidebar that remounts on every navigation still works; it draws the bar in place instead of moving it there.',
+              'The moving bar shows where the traveller went from where they were. A sidebar that redraws on each page draws the bar in place, and the app reads as separate pages.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Give SidebarNav an aria-label.',
+            rule: 'Give every item an icon.',
             reason:
-              'The label tells a screen reader the app nav from any other nav on the page.',
+              'The rail shows icons alone, so an item without one has nothing to show there.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Swap header or footer content that is too wide for the rail on useSidebar().layout.',
+            rule: 'In the rail, drop names from the header and the footer and keep their icons.',
             reason:
-              'Header and footer are slots and the app owns them, so the sidebar cannot reshape what it does not know. The demo drops the trip name in the rail.',
+              'The rail is one icon wide, so a name either clips or forces the column wider. Expanding the sidebar brings the names back.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Pass a plain string as the item label.',
+            rule: 'Keep the top level to a handful of sections, and nest the traveller’s own things, such as their trips or days, under the section they belong to.',
             reason:
-              'The rail tooltip needs a string. An item whose children are markup keeps its own visible text in the rail instead of gaining a tooltip.',
+              'A short top level reads at a glance and fits the rail. A nest grows with the traveller’s content without pushing the sections apart.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Mark the current page with anything but aria-current="page".',
+            rule: 'Make the traveller’s account a navigation item.',
             reason:
-              'The item reads its active state from that attribute, on itself or on the element asChild renders, so a router link that already sets it needs nothing else.',
+              'The nav lists places in the app; the account is the person using it. It goes in the footer as one item that opens a menu, in reach from every page.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'List a place the traveller can no longer use, such as a trip that has ended.',
+            reason:
+              'Leave it out rather than greying it. A dimmed item is a stop the traveller reads and cannot take.',
           },
         ],
       }}
@@ -166,7 +172,10 @@ function SidebarPage() {
               <>
                 Holds the collapsed state and the layout. Also takes every{' '}
                 <code>&lt;div&gt;</code> attribute; size the sidebar and the
-                pane through <code>className</code>.
+                pane through <code>className</code>. Put it in a persistent
+                layout route so it stays mounted across navigation; one that
+                remounts draws the current-page bar in place instead of sliding
+                it.
               </>
             }
             rows={[
@@ -198,6 +207,12 @@ function SidebarPage() {
             }
             rows={[
               {
+                name: 'children',
+                type: 'ReactNode',
+                description:
+                  'The label, or with asChild the one element that wraps it. Pass the label as a plain string: the rail shows it as a tooltip. A label made of markup stays visible in the rail instead.',
+              },
+              {
                 name: 'icon',
                 type: 'ReactNode',
                 description: 'The icon before the label.',
@@ -212,7 +227,8 @@ function SidebarPage() {
               {
                 name: 'aria-current',
                 type: '"page" | undefined',
-                description: 'Marks the current page and draws the bar.',
+                description:
+                  'Marks the current page and draws the bar. The item reads it from itself or from the element asChild renders, so a router link that sets it needs nothing else. Nothing else marks the current page.',
               },
             ]}
           />
@@ -273,8 +289,10 @@ function SidebarPage() {
             <code>useSidebar()</code> returns <code>collapsed</code>,{' '}
             <code>setCollapsed</code>, and <code>layout</code>, which is a{' '}
             <code>SidebarLayout</code>: <code>Expanded</code>,{' '}
-            <code>Collapsed</code>, or <code>Strip</code>. The remaining parts (
-            <code>Sidebar</code>, <code>SidebarHeader</code>,{' '}
+            <code>Collapsed</code>, or <code>Strip</code>. The header and footer
+            are your slots, so branch on <code>layout</code> to drop content too
+            wide for the rail, as the demo does with the trip name. The
+            remaining parts (<code>Sidebar</code>, <code>SidebarHeader</code>,{' '}
             <code>SidebarContent</code>, <code>SidebarFooter</code>,{' '}
             <code>SidebarGroup</code>, <code>SidebarGroupLabel</code>,{' '}
             <code>SidebarNestItems</code>) take only their element&rsquo;s

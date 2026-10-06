@@ -131,21 +131,27 @@ function SwitchPage() {
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Control checked, set loading while the call runs, and keep the old value if the call fails.',
+            rule: 'Put the switch on the row of the thing it changes, such as "For the whole group" beside a budget.',
             reason:
-              'The switch then never claims a state the server does not hold.',
+              'The traveller sees the setting and its effect together, and the figure beside it changes the moment the switch flips.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Move the thumb when a saved change lands, and leave it where it was if the change fails.',
+            reason:
+              'The switch never claims a state the server does not hold, so what the traveller sees is what is saved.',
           },
           {
             verdict: GuidelineVerdict.Dont,
             rule: 'Show a failed toggle as an error on the switch.',
             reason:
-              'There is no error prop. The app shows the failure on the setting’s row, with a retry, where the traveller is already looking.',
+              'A failed toggle is an action result, not a field error. It appears on the setting’s row with a retry, where the traveller is already looking.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Disable a switch while its change applies.',
+            rule: 'Grey out a switch while its change applies.',
             reason:
-              'Use loading. A disabled switch leaves the tab order and drops keyboard focus mid-action.',
+              'The thumb pulses, focus stays put, and repeat presses are ignored. A greyed-out switch drops focus mid-action and looks unavailable.',
           },
         ],
       }}
@@ -182,7 +188,7 @@ function SwitchPage() {
       api={
         <PropsTable
           component="Switch"
-          description="Every other prop passes through to the Radix switch root."
+          description="Every other prop passes through to the Radix switch root. For a setting the server holds, control checked, set loading while the call runs, and keep the old value when the call fails. There is no error prop: a failed toggle shows on the setting’s row."
           rows={[
             {
               name: 'label',
@@ -219,7 +225,7 @@ function SwitchPage() {
               type: 'boolean',
               default: 'false',
               description:
-                'Pulses the thumb and ignores clicks and keys while keeping focus.',
+                'Pulses the thumb and ignores clicks and keys while keeping focus. Set it, not disabled, while the change applies: disabled leaves the tab order and drops focus mid-action.',
             },
             {
               name: 'disabled',

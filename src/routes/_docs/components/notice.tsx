@@ -117,21 +117,15 @@ function NoticePage() {
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Mount NoticeProvider once, in the app shell.',
+            rule: 'Leave the notice on screen until the traveller follows its subject or dismisses it.',
             reason:
-              'There is one notice at a time. A second provider would give the page two notices that do not know about each other.',
+              'It carries a result with no other home, so it stays until it is seen. A timer would take it from someone who looked away. That is what separates it from a toast.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Show a notice about an item the traveller can already see.',
+            rule: 'Stack notices. A new result replaces the one showing.',
             reason:
-              'The item’s own state is the right home. A notice beside it says the same thing in a second place.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Expect it to dismiss itself, stack, or take extra buttons.',
-            reason:
-              'It has no timer, no queue, and no action row, so a message stays until it is seen. That is what separates it from a toast.',
+              'One notice at a time keeps each result tied to the action that caused it. A pile has no order and no owner.',
           },
         ],
       }}
@@ -175,7 +169,7 @@ function NoticePage() {
         <>
           <PropsTable
             component="NoticeProvider"
-            description="Mount it once in the app shell. It renders the live regions, the notice outlet, then your children."
+            description="Mount it once in the app shell: a second provider would give the page two notices that do not know about each other. It renders the live regions, the notice outlet, then your children."
             rows={[
               {
                 name: 'children',

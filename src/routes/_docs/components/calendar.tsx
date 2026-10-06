@@ -95,27 +95,27 @@ function CalendarPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Always pass an aria-label.',
+            rule: 'Strike through the days the traveller cannot pick, and keep them in the grid.',
             reason:
-              'The grid has no visible label of its own, so the label is what a screen reader announces with the visible month.',
+              'The month keeps its shape, so the weekdays still line up, and the traveller sees the day exists but is taken.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Pass dates as ISO YYYY-MM-DD strings.',
+            rule: 'Show two months side by side when a trip can cross a month end.',
             reason:
-              'A trip date is a calendar day, not an instant, so no time zone shifts it, and it posts straight into a hidden native input.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Clear the value from your app with value={null}.',
-            reason:
-              'Pressing the selected day again keeps it selected, so the grid has no way to empty itself.',
+              'Both ends of the trip stay in view. Paging away from the start day to find the end loses the traveller’s place.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Look for an error state on the calendar.',
+            rule: 'Put a failure message on the grid.',
             reason:
-              'It carries no label or message. A failure belongs to the field that hosts it.',
+              'The grid carries no label and no message. A failed date shows on the field or card that hosts the calendar, where the traveller reads the question.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Fix a date in a read-only calendar without saying why.',
+            reason:
+              'A grid that ignores presses looks broken. A line beside it turns the refusal into information.',
           },
         ],
       }}
@@ -184,7 +184,8 @@ function CalendarPage() {
               name: 'aria-label',
               type: 'string',
               required: true,
-              description: 'The grid’s accessible name.',
+              description:
+                'The grid’s accessible name. Required, because the grid has no visible label: a screen reader announces it with the visible month.',
             },
             {
               name: 'mode',
@@ -196,13 +197,13 @@ function CalendarPage() {
               name: 'value',
               type: 'string | CalendarRange | null',
               description:
-                'The controlled value: an ISO day, { start, end }, or null.',
+                'The controlled value: an ISO YYYY-MM-DD day, { start, end }, or null. Pass null to clear it: pressing the selected day again keeps it selected, so the grid never empties itself.',
             },
             {
               name: 'onChange',
               type: '(value) => void',
               description:
-                'Reports the selection. In range mode it fires once, on commit, with start never after end.',
+                'Reports the selection as ISO YYYY-MM-DD days. In range mode it fires once, on commit, with start never after end.',
             },
             {
               name: 'months',
@@ -222,7 +223,7 @@ function CalendarPage() {
               name: 'min, max',
               type: 'string',
               description:
-                'ISO bounds. Days outside them are struck through, and the month buttons disable at the edge.',
+                'ISO YYYY-MM-DD bounds. Days outside them are struck through, and the month buttons disable at the edge.',
             },
             {
               name: 'isDateDisabled',
@@ -253,6 +254,11 @@ function CalendarPage() {
       }
       notes={
         <>
+          <p>
+            Values are ISO <code>YYYY-MM-DD</code> strings because a trip date
+            is a calendar day, not an instant, so no time zone shifts it, and it
+            posts straight into a hidden native input.
+          </p>
           <p>
             The visible month derives from the value, else today, else{' '}
             <code>min</code>. There is no visible-month control, no week-start

@@ -74,20 +74,21 @@ function IconTooltipPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Mark a lucide icon aria-hidden.',
+            rule: 'Use it for a glyph that repeats across rows, such as a lock or an activity type, that would otherwise need a legend.',
             reason:
-              'The content is the accessible name. An icon that also announces itself would be read twice. An emoji needs nothing.',
+              'The traveller learns the glyph once by pointing at it, and the page carries no key.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Keep the icon a sibling of a row link, never inside it.',
-            reason: 'A focusable element nested in a link is invalid HTML.',
+            rule: 'Keep status and category icons small and muted, grouped at the edge of the row with its other details.',
+            reason:
+              'They are a quiet second read beside the content, not something to act on.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Make the tooltip the only place a reason or a result lives.',
+            rule: 'Make the icon the only place a reason lives. The row already says why a day is locked; the icon repeats it.',
             reason:
-              'Like any tooltip, it is not reachable on touch. It adds to what the page already says.',
+              'Like any tooltip, it is out of reach on touch. It adds to what the page already says.',
           },
         ],
       }}
@@ -115,8 +116,9 @@ function IconTooltipPage() {
             The icon is one Tab stop. It renders as{' '}
             <code>role=&quot;img&quot;</code> with <code>aria-label</code> set
             to <code>content</code>, so a screen reader names it by the tooltip
-            text whether or not the tooltip is open. The pointer turns to the
-            help cursor over it.
+            text whether or not the tooltip is open. A lucide icon inside is
+            marked <code>aria-hidden</code>, so the name is not read twice. The
+            pointer turns to the help cursor over it.
           </p>
         </>
       }
@@ -135,7 +137,7 @@ function IconTooltipPage() {
               type: 'ReactNode',
               required: true,
               description:
-                'The icon or emoji. It is decorative, so mark a lucide icon aria-hidden.',
+                'The icon or emoji. It is decorative, so mark a lucide icon aria-hidden; an emoji needs nothing. In a row whose surface is a link, place it beside the link, never inside: a focusable element nested in a link is invalid HTML.',
             },
             {
               name: 'className',

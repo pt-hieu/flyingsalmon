@@ -96,19 +96,25 @@ function TabsPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
+            rule: 'Place the tab row directly under the heading of the thing it switches.',
+            reason:
+              'The tabs read as views of that one thing, and the panel opens right where the reader’s eye leaves the row.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
             rule: 'Keep tab labels to one or two words.',
             reason:
               'The tabs sit in one row with no wrapping, so short labels keep every tab in view.',
           },
           {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Use forceMount on a panel that holds typed input or a scroll position.',
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Let a switch throw away what the traveller typed.',
             reason:
-              'Panels unmount when inactive, so without it the traveller loses a half-typed field on every switch.',
+              'A switch changes the view, not the work. Coming back finds the half-typed note and the scroll position where they were left.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Hide a tab to remove it. Disable it.',
+            rule: 'Hide a tab whose view is unavailable. Leave it in the row, disabled.',
             reason:
               'A tab that disappears shifts the others. A disabled tab says the view exists but is unavailable.',
           },
@@ -204,7 +210,8 @@ function TabsPage() {
                 name: 'disabled',
                 type: 'boolean',
                 default: 'false',
-                description: 'Dims the tab and skips it in the arrow order.',
+                description:
+                  'Dims the tab and skips it in the arrow order. Disable a tab rather than removing it, so the others hold their place.',
               },
             ]}
           />
@@ -222,7 +229,7 @@ function TabsPage() {
                 type: 'boolean',
                 default: 'false',
                 description:
-                  'Keeps the panel in the DOM while inactive, hidden from the accessibility tree and the tab order, so its state survives a switch.',
+                  'Keeps the panel in the DOM while inactive, hidden from the accessibility tree and the tab order, so its state survives a switch. Use it on a panel that holds typed input or a scroll position.',
               },
             ]}
           />

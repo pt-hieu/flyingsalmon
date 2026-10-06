@@ -87,33 +87,33 @@ function FormPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Write type="submit" on the one button that submits.',
+            rule: 'Set a page’s form on a card, and dock its actions row directly below the card.',
             reason:
-              'Button defaults to type="button", so a Cancel beside it never posts the form by accident. FormActions injects nothing into its children, so the type stays visible where you write the button.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Show submit busyness with the submit button’s loading.',
-            reason:
-              'It is the only busyness a submitting form shows, and the fields stay editable, so a typo can be fixed while the request runs.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Pass your own Alert to result for a failure or success of the whole form.',
-            reason:
-              'The result appears below the button the traveller just pressed, so their attention is already there and the button never moves.',
+              'The white surface groups what the traveller fills in. The actions sit outside it as the step that finishes the work, with the result appearing just below them.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Wrap each field in a form-field component.',
+            rule: 'Lock the fields while the form submits.',
             reason:
-              'Every field already owns its label, id linkage, and error message, so there is nothing left for a wrapper to wrap. Put fields in as plain children.',
+              'Only the submit button shows busyness. The fields stay editable, so a typo can be fixed while the request runs.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Show a failure or success of the whole form below the actions row, and a failure of one field on that field.',
+            reason:
+              'The whole-form result appears under the button the traveller just pressed, so their attention is already there and the button never moves. A field failure points at exactly what to fix.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'When the submit cannot run yet, say why in a muted line beside it in the actions row, such as "3 questions left".',
+            reason:
+              'The traveller reads the reason where they reached for the action, and knows what to answer next.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Add a spacing or density prop, or space fields with your own margins.',
+            rule: 'Space one form looser or tighter than another, or push fields apart by hand.',
             reason:
-              'One fixed step means every form in an app agrees without anyone copying a number.',
+              'Every form spaces its fields at the same step, so two forms in one app never look different and a section break is a separator, not a gap.',
           },
         ],
       }}
@@ -161,7 +161,9 @@ function FormPage() {
                 Renders a real <code>&lt;form&gt;</code> and takes its
                 attributes, so <code>onSubmit</code>, <code>action</code>,{' '}
                 <code>method</code>, and <code>id</code> behave as they do on
-                the element.
+                the element. Every field already owns its label, id linkage, and
+                error message, so fields go in as plain children with no
+                wrapper.
               </>
             }
             rows={[
@@ -185,6 +187,11 @@ function FormPage() {
             <code>&lt;div&gt;</code>. It stacks its buttons full width below
             640px and lays them out in a right-aligned row above it. It is
             optional: a one-button form can put the button in directly.
+            FormActions injects nothing into its children, so write{' '}
+            <code>type="submit"</code> on the one button that submits and set
+            its <code>loading</code> while the request runs. Button defaults to{' '}
+            <code>type="button"</code>, so a Cancel beside it never posts the
+            form.
           </p>
         </>
       }

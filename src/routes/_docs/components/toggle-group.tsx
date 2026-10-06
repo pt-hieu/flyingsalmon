@@ -130,27 +130,27 @@ function ToggleGroupPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'State the limit in the label when you set a maximum: "Pick up to 3 interests".',
+            rule: 'State the cap in the label when there is one: "Pick up to 3 interests".',
             reason:
-              'The group shows no counter or hint, and a chip that dims at the cap needs a reason on screen.',
+              'The group shows no counter. When the remaining chips dim at the cap, the label is the reason on screen.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Hide the chips the traveller can no longer pick.',
+            reason:
+              'They dim in place, so the row keeps its shape and the traveller sees what they could swap in by unpressing another.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Keep chip labels to a word or two.',
+            rule: 'Keep each chip to a word or two, with a leading icon where it speeds the scan.',
             reason:
-              'Chips wrap across lines, and short labels keep the rows even and easy to scan.',
+              'Chips wrap across lines, and short labels keep the rows even. An answer that needs a sentence belongs in a radio group.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Use a toggle group as a segmented control that navigates.',
+            rule: 'Let a "Decide for me" chip stay pressed beside other chips.',
             reason:
-              'It has no shared track and no panel, and in single mode it returns to empty. Navigation is the job of tabs.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Use disabled chips to display values.',
-            reason:
-              'A disabled chip reads as unavailable, not as a result. A badge shows a value without implying that it can be pressed.',
+              'Handing the choice over and making it yourself cannot both be true. Pressing it clears the others, and pressing another clears it, so the row never contradicts itself.',
           },
         ],
       }}
@@ -250,7 +250,7 @@ function ToggleGroupPage() {
                 name: 'onValueChange',
                 type: '(value: string | string[]) => void',
                 description:
-                  'Called with the next value. Single mode reports an empty string when the chip is cleared.',
+                  'Called with the next value. Single mode reports an empty string when the chip is cleared. Enforce a chip that stands alone, such as "Decide for me", here: drop the other values when it is pressed, and drop it when another is.',
               },
               {
                 name: 'max',

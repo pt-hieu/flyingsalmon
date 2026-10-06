@@ -74,27 +74,33 @@ function StepperPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Write the position text yourself and place it beside the bar.',
+            rule: 'Name the current step in words with the bar, under it or beside it.',
             reason:
-              'The stepper has no text slots and no segment labels, because only the app knows what a step is called.',
+              'The bar carries no words and paints the current step the same as the ones already done, so the name is what tells the traveller where they are.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Map your own notion of a step onto count and current.',
+            rule: 'Put the bar inside the card that explains the step, one bar per surface.',
             reason:
-              'The stepper knows nothing about your domain; it paints segments through the current one.',
+              'The card’s title says what is happening and the bar says how far along it is. Two bars on one surface make the traveller ask which one is theirs.',
           },
           {
             verdict: GuidelineVerdict.Dont,
             rule: 'Use the bar as a control for going back or skipping ahead.',
             reason:
-              'It has no hover, no focus, and no tab stop. Put Back and Next buttons beside it.',
+              'It has no hover, no focus, and no tab stop. Back and Next buttons beside it move the traveller, or the app advances on its own.',
           },
           {
             verdict: GuidelineVerdict.Dont,
             rule: 'Fill part of a segment to show partial progress.',
             reason:
               'A step is either reached or not. Partial progress inside a step is a progress bar’s job.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Colour the bar to show that a step failed.',
+            reason:
+              'The bar only ever shows position. A failure replaces the card around it with an error state and a retry, where the traveller is already looking.',
           },
         ],
       }}
@@ -116,6 +122,9 @@ function StepperPage() {
           component="Stepper"
           description={
             <>
+              Draws segments only, with no text slots and no segment labels: map
+              your own notion of a step onto <code>count</code> and{' '}
+              <code>current</code>, and write the step&rsquo;s name yourself.
               Also takes every <code>&lt;div&gt;</code> attribute.
             </>
           }

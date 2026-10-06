@@ -108,28 +108,46 @@ function CardPage() {
         ],
         rules: [
           {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Put the link inside CardTitle when the card is interactive.',
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Put a step’s actions inside the card that holds its fields.',
             reason:
-              'The title is the accessible name of the link, so a screen reader hears the trip name and not the whole card.',
+              'The card holds the work and the actions finish it, so they sit directly under the card, outside its edge. The result they produce then appears below them, where the reader is already looking.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Show skeletons in the card’s layout while content is missing.',
+            rule: 'Mark the one card the reader is working on with an orange border, and leave every other card plain.',
             reason:
-              'The card has no loading state of its own, and a skeleton keeps the layout from jumping when the content arrives.',
+              'Emphasis lives in the border on a flat surface. One marked card points the eye; two compete and neither reads as current.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Give sibling cards in a grid the same slots in the same order.',
+            reason:
+              'The reader compares siblings by position. When the price sits in the same place on every card, the difference between them is the only thing that moves.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Set a large figure as the title, under a small label that says what it counts.',
+            reason:
+              'The reader learns what the number means before reading it, and the figure stays the largest thing on the card.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Keep the card on screen while its content is missing, and fill its slots with skeletons of the final shape.',
+            reason:
+              'The card itself never changes: the content shows its own busyness, and the layout does not jump when it arrives.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Make a card interactive when nothing happens on click.',
+            rule: 'Make a card react to the pointer when nothing happens on click.',
             reason:
               'Hover and press feedback promise an action. A dead target must not look almost clickable, which is also why a card has no disabled state.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Add a shadow or a fill to lift a card.',
+            rule: 'Lift a card off the page with a shadow or a fill.',
             reason:
-              'Cards are flat. A solid border and the card surface separate them from the page, and the system ships no shadow tokens.',
+              'Cards are flat. A solid border and the white surface separate them from the page, and the border alone carries emphasis.',
           },
         ],
       }}
@@ -158,6 +176,10 @@ function CardPage() {
             valid HTML. The focus ring surrounds the whole card boundary, and
             the card border is decorative, so the content identifies the card.
           </p>
+          <p>
+            On an interactive card the title link&rsquo;s text is its accessible
+            name, so a screen reader hears the trip name and not the whole card.
+          </p>
         </>
       }
       api={
@@ -170,7 +192,7 @@ function CardPage() {
                 type: 'boolean',
                 default: 'false',
                 description:
-                  'Turns on hover, focus, and press feedback, and stretches the title link over the card.',
+                  'Turns on hover, focus, and press feedback, and stretches the title link over the card. Put the link directly inside CardTitle.',
               },
               {
                 name: 'className',

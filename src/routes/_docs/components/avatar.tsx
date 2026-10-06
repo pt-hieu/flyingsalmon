@@ -103,25 +103,21 @@ function AvatarPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: (
-              <>
-                Pass <code>name</code> even when you pass a photo.
-              </>
-            ),
-            reason:
-              'The name feeds the alt text and the initials fallback, so a failed image still identifies the person.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Derive the colour from a stable key such as a user id.',
+            rule: 'Give a person the same colour on every screen.',
             reason:
               'A person whose colour changes between pages reads as a different person.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Make the avatar itself clickable.',
+            rule: 'Colour an avatar when nobody on the screen needs telling apart.',
             reason:
-              'It has no focus ring and no tab stop. Wrap it in a button or a link so the wrapper owns both.',
+              'Colour exists to separate people. One person beside their name needs none, and the neutral circle keeps the eye on the name.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Use the small avatar beside a name in navigation and list rows, and the default size where the person is the subject.',
+            reason:
+              'In a row the name identifies the person and the face is a glance, so it stays below the height of the text beside it.',
           },
           {
             verdict: GuidelineVerdict.Dont,
@@ -141,6 +137,11 @@ function AvatarPage() {
             <code>name</code>. Pass <code>alt=&quot;&quot;</code> when the name
             is written beside the avatar, and the avatar then drops out of the
             accessibility tree.
+          </p>
+          <p>
+            The avatar is a mark, not a control. When a click must do something,
+            wrap it in a button or a link, and the wrapper owns the focus ring
+            and the tab stop.
           </p>
           <p>
             Contrast on the six colours and the neutral circle passes WCAG AA.
@@ -167,7 +168,7 @@ function AvatarPage() {
               name: 'name',
               type: 'string',
               description:
-                'The person’s name. Feeds the default alt text and the initials: the first letters of the first and last words, one letter for a one-word name.',
+                'The person’s name. Feeds the default alt text and the initials: the first letters of the first and last words, one letter for a one-word name. Pass it even with a photo, so a failed image still identifies the person.',
             },
             {
               name: 'alt',
@@ -180,7 +181,7 @@ function AvatarPage() {
               name: 'color',
               type: 'AvatarColor',
               description:
-                'Sky, Pink, Teal, Fuchsia, Cyan, or Blue. Colours the fallback circle only; with no colour the circle is neutral.',
+                'Sky, Pink, Teal, Fuchsia, Cyan, or Blue. Colours the fallback circle only; with no colour the circle is neutral. Derive it from a stable key, such as a user id, so a person keeps one colour.',
             },
             {
               name: 'size',

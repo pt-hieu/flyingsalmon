@@ -97,27 +97,27 @@ function TooltipPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Keep the content supplementary, so the page still works without it.',
+            rule: 'Keep it to one or two sentences the traveller does not need in order to act. If they must read it, put it on the page.',
             reason:
-              'A tooltip is not reachable on touch, and a screen reader that never focuses the trigger never hears it.',
+              'A tooltip is out of reach on touch, and a screen reader that never focuses the trigger never hears it.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Give an icon-only button an aria-label as well as a tooltip.',
+            rule: 'Mark an inline term that carries a tooltip with a dotted underline and a help cursor.',
             reason:
-              'The tooltip describes the trigger. The trigger keeps its own accessible name.',
+              'Plain text gives no sign that it explains itself. The underline tells the traveller there is more to read.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Wrap a disabled button.',
+            rule: 'Hide why a control is disabled in a tooltip. Write the reason next to the control.',
             reason:
-              'A disabled button fires no pointer or focus events, so the tooltip never opens. The reason a control is disabled is essential, so write it next to the control.',
+              'A disabled control cannot open a tooltip, and the reason is the one thing the traveller needs to move on.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Wrap an element that cannot take focus.',
+            rule: 'Put a tooltip on every row.',
             reason:
-              'The component injects no tabIndex, so a keyboard traveller would never see the tooltip.',
+              'A few explained terms on a screen stand out. One on every row is noise nobody hovers.',
           },
         ],
       }}
@@ -146,7 +146,14 @@ function TooltipPage() {
           <p>
             The tooltip sets <code>aria-describedby</code> on the trigger and
             renders a node with <code>role=&quot;tooltip&quot;</code>, so the
-            trigger keeps its own name and the tooltip only describes it.
+            trigger keeps its own name and the tooltip only describes it. An
+            icon-only button therefore needs an <code>aria-label</code> of its
+            own.
+          </p>
+          <p>
+            A disabled button fires no pointer or focus events, so a tooltip on
+            it never opens. An element that cannot take focus never shows its
+            tooltip to a keyboard traveller.
           </p>
         </>
       }
@@ -165,7 +172,8 @@ function TooltipPage() {
                 name: 'children',
                 type: 'ReactElement',
                 required: true,
-                description: 'One focusable element that anchors the tooltip.',
+                description:
+                  'One focusable element that anchors the tooltip. The component adds no tabIndex, so give a text span tabIndex={0}. An icon-only button keeps its own aria-label as well.',
               },
               {
                 name: 'side',

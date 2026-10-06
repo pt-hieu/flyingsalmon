@@ -101,35 +101,15 @@ function AvatarGroupPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: (
-              <>
-                Give the group an <code>aria-label</code> that names the roster.
-              </>
-            ),
+            rule: 'Show about four faces and let the chip carry the rest.',
             reason:
-              'The group is announced as one unit, and its label says whose faces these are.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: (
-              <>
-                Render <code>TooltipProvider</code> once at your app root.
-              </>
-            ),
-            reason:
-              'The group shares one tooltip delay across the row, so sweeping the pointer over faces never waits out the open delay on each. A provider per group would reset it.',
+              'The group is a glance at who is going, never the full roster. Capping the faces ends every row at the same width, so a list of trips lines up.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Rely on the tooltip to say who is in the group.',
+            rule: 'Leave the tooltip as the only place that says who is going.',
             reason:
-              'Touch screens cannot open it. Write essential names as text beside the group.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put the group inside a container that clips its overflow.',
-            reason:
-              'Hovering a face parts the row 14px past the group’s own box on each side, and a clip cuts the faces off.',
+              'Touch screens cannot open it, and the faces are a glance, not the record. Wherever the reader must know who is going, write the names as text.',
           },
         ],
       }}
@@ -183,7 +163,9 @@ function AvatarGroupPage() {
               <>
                 Also takes every <code>&lt;div&gt;</code> attribute except{' '}
                 <code>children</code>. Render it inside a{' '}
-                <code>TooltipProvider</code>.
+                <code>TooltipProvider</code>, once at your app root. Hovering a
+                face parts the row past the group&rsquo;s own box, so keep it
+                out of any container that clips its overflow.
               </>
             }
             rows={[
@@ -217,7 +199,8 @@ function AvatarGroupPage() {
               {
                 name: 'aria-label',
                 type: 'string',
-                description: 'Names the group.',
+                description:
+                  'Names the group, which is announced as one unit. Say whose faces these are, such as Trip travellers.',
               },
             ]}
           />
@@ -253,6 +236,12 @@ function AvatarGroupPage() {
             Pressing an avatar closes its tooltip, because the floating layer
             closes every tooltip on pointer-down. The name returns when the
             pointer leaves the avatar and comes back.
+          </p>
+          <p>
+            One <code>TooltipProvider</code> at the app root shares a single
+            tooltip delay across the row, so sweeping the pointer over the faces
+            never waits out the open delay on each. A provider per group would
+            reset it.
           </p>
         </>
       }

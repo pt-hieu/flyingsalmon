@@ -153,33 +153,33 @@ function InputPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Pass a label to every input.',
+            rule: 'Give every input a visible label above it, and use the placeholder for an example answer such as linh@example.com.',
             reason:
-              'The label names the field for everyone, and clicking it focuses the field. A placeholder disappears as soon as the traveller types.',
+              'The label asks the question and stays put. A placeholder disappears as soon as the traveller types, so it only ever shows the shape of a good answer.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Show a failed check in the field with error.',
+            rule: 'Show a failed check on the field that caused it, and clear it the moment the traveller edits.',
             reason:
-              'The field owns the whole failure: the border, the label, and the message sit next to the text that caused it.',
+              'The border, the label, and the message sit next to the text that caused the failure. Clearing on the first keystroke shows the field is listening, not scolding.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Disable the field while it checks a value.',
+            rule: 'Lock the field while it checks a value.',
             reason:
-              'Use loading instead. The field stays editable, so a typo can be fixed while the check runs; the submit button is what locks a flow.',
+              'A spinner in the end slot shows the check and the field stays editable, so a typo can be fixed while it runs. Only the submit button locks a flow.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Put the copy action for a read-only value inside the field, as a ghost icon button, and confirm the copy in a muted line under the field.',
+            reason:
+              'The action sits next to the value it acts on, and the confirmation appears where the traveller is already looking.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Use type="number" for a quantity.',
+            rule: 'Stretch a field across the whole column when its answer is short.',
             reason:
-              'A text field reports a string and accepts minus three travellers. Number field reports a number and enforces its bounds.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put the className on the field and expect it to land on the <input>.',
-            reason:
-              'className styles the wrapper that holds the label and the message, so a width set there sizes the whole field. Every other native prop passes to the <input>.',
+              'The width tells the traveller how long an answer you expect. A postcode in a full-width field looks like it wants a paragraph.',
           },
         ],
       }}
@@ -227,7 +227,9 @@ function InputPage() {
             <>
               Also takes every <code>&lt;input&gt;</code> attribute except{' '}
               <code>size</code> and <code>type</code>, which it redefines.{' '}
-              <code>className</code> styles the wrapper.
+              <code>className</code> styles the wrapper that holds the label,
+              the field, and the message, so a width set there sizes the whole
+              field.
             </>
           }
           rows={[
@@ -242,7 +244,7 @@ function InputPage() {
               type: 'InputType',
               default: 'InputType.Text',
               description:
-                'Text, Email, Password, Number, Search, Telephone, or Url.',
+                'Text, Email, Password, Number, Search, Telephone, or Url. A quantity takes Number field instead, which reports a number and enforces its bounds.',
             },
             {
               name: 'size',
@@ -266,7 +268,7 @@ function InputPage() {
               type: 'boolean',
               default: 'false',
               description:
-                'Shows a spinner in the end slot, replacing endAdornment. The field stays editable.',
+                'Shows a spinner in the end slot, replacing endAdornment. The field stays editable. Set it, not disabled, while a check runs.',
             },
             {
               name: 'endAdornment',

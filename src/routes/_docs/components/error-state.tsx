@@ -79,16 +79,22 @@ function ErrorStatePage() {
               'The traveller needs to know nothing was lost before they will try again.',
           },
           {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Add a red icon or an alert inside the block.',
+            verdict: GuidelineVerdict.Do,
+            rule: 'Make retry the filled action, and let it show its own loading while the block stays in place. When a retry costs credits, the button says how many.',
             reason:
-              'The title, the sticker, and the role tell it apart from an empty state. The colours are the empty state’s.',
+              'The traveller sees the attempt running where they pressed, and knows the price before they pay it.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Set a role on it.',
+            rule: 'Add red, an error icon, or an alert inside the block. A failure looks like an empty state with its own sticker and title.',
             reason:
-              'It is always an alert, so a screen reader hears it appear.',
+              'Plain words and a broken-thing sticker say something went wrong. Red on top turns a failure the traveller can recover from into an alarm.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Shrink a failed region to a banner. The block takes the place of the content that failed, at its size.',
+            reason:
+              'The traveller looks for the content where it belongs, and finds the failure and its retry there.',
           },
         ],
       }}

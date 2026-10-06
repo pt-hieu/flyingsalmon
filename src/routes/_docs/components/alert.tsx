@@ -142,19 +142,31 @@ function AlertPage() {
             verdict: GuidelineVerdict.Do,
             rule: 'Pick the variant by what the traveller must do: error for a failure, warning for something to check, success and info for the rest.',
             reason:
-              'Error interrupts a screen reader and the others wait their turn, so the variant sets how loudly the message arrives.',
+              'The colour and icon tell the traveller whether to stop, check, or carry on before they read a word.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Write the title as what happened, in a sentence, and the description as what to do next or what was kept. Put the way forward inside the alert as a link or a button.',
+            reason:
+              'The traveller reads the fact, then finds the next step without leaving the message.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Show a standing condition, such as trips saved only in this browser, as a warning at the top of the page with its action inside.',
+            reason:
+              'It stays true until the traveller acts, so it sits where every visit starts.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Hide the alert from inside the component or on a timer.',
+            rule: 'Let an alert vanish on a timer. It goes when the traveller closes it or the state it reports ends.',
             reason:
-              'The app owns the lifecycle. A message that removes itself cannot be read at the traveller’s pace.',
+              'A message that removes itself cannot be read at the traveller’s pace.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Stack several alerts for one action.',
+            rule: 'Stack several alerts for one result.',
             reason:
-              'Several messages for one result make the traveller work out which one matters. Write one alert that says it.',
+              'Several messages for one result make the traveller work out which one matters. Write one alert that says it. A separate condition, such as each day that clashes, gets its own.',
           },
         ],
       }}
@@ -202,7 +214,8 @@ function AlertPage() {
               name: 'variant',
               type: 'AlertVariant',
               default: 'AlertVariant.Info',
-              description: 'Info, Success, Warning, or Error.',
+              description:
+                'Info, Success, Warning, or Error. Error interrupts a screen reader; the others wait their turn.',
             },
             {
               name: 'size',
@@ -221,7 +234,7 @@ function AlertPage() {
               name: 'onClose',
               type: '() => void',
               description:
-                'Shows a Dismiss button that calls it. The alert does not hide itself.',
+                'Shows a Dismiss button that calls it. The alert does not hide itself: your app owns its lifecycle and sets open or removes it.',
             },
             {
               name: 'open',

@@ -82,27 +82,21 @@ function SkeletonPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Size each block to match the content it replaces.',
+            rule: 'Draw the real layout: the same cards, borders, grid, and number of sections, with lines that vary in width like text.',
             reason:
-              'There are no size props, because a placeholder that differs from the real content makes the page jump when it arrives.',
+              'A placeholder that matches the real content lets it arrive without the page jumping.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Put aria-busy on the container that will hold the real content.',
+            rule: 'Use a rectangle for an image or a bar, and text lines for words.',
             reason:
-              'The skeleton is hidden from screen readers, so the loading region owns the announcement.',
+              'Each placeholder hints at what will fill it, so the traveller reads the page before it arrives.',
           },
           {
             verdict: GuidelineVerdict.Dont,
             rule: 'Swap a control the traveller just pressed for a skeleton.',
             reason:
-              'The control should stay and show its own busyness. A skeleton in its place makes the action vanish.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Show a skeleton and a spinner for the same wait.',
-            reason:
-              'Two indicators for one wait say it twice and compete for attention.',
+              'The control should stay and show its own busyness. A skeleton in its place makes the action vanish. A wait gets a spinner or a skeleton, never both.',
           },
         ],
       }}
@@ -111,7 +105,9 @@ function SkeletonPage() {
           The skeleton is always <code>aria-hidden</code> and never takes a tab
           stop, so a screen reader hears nothing from it. The region that is
           loading owns the announcement: put <code>aria-busy</code> on the
-          container that will hold the real content.
+          container that will hold the real content, and an{' '}
+          <code>aria-label</code> such as &ldquo;Loading trips&rdquo; that names
+          what is coming, not on each block.
         </p>
       }
       api={

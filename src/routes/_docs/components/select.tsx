@@ -128,9 +128,21 @@ function SelectPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Pass plain strings as the item text.',
+            rule: 'Write each item as a phrase that finishes the label’s decision, such as "Move to Day 3 · 12 Oct".',
             reason:
-              'The trigger shows the checked item’s text and typeahead matches it, so a string is both what the traveller reads and what they search.',
+              'The label and the choice read as one sentence, and the trigger shows the same phrase once it is chosen, so the answer explains itself.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Preselect an answer that changes the trip.',
+            reason:
+              'An empty trigger with an instruction such as "Choose where it goes" makes the choice deliberate. Left unanswered, the field fails on submit with a message that names the choice.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'List an opt-out such as "Drop it" first, in plain text like every other item.',
+            reason:
+              'Leaving something out is a fair answer, not a warning. First place makes it easy to find without making it louder than the rest.',
           },
           {
             verdict: GuidelineVerdict.Do,
@@ -140,15 +152,9 @@ function SelectPage() {
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Put an icon in an item to carry meaning on its own.',
+            rule: 'Let an item’s icon say something its text does not.',
             reason:
-              'The icon is hidden from screen readers and absent from the trigger, so only the label is reliable.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Use select for a list of fifty or more.',
-            reason:
-              'Typeahead only matches the start of an item. A traveller who cannot remember the first letters needs a field they can search.',
+              'The icon only decorates. The trigger shows the text alone once the item is chosen, so the words must carry the whole meaning.',
           },
         ],
       }}
@@ -320,6 +326,11 @@ function SelectPage() {
             portal, content, and viewport stay internal, so the field owns its
             label and message. A plain form posts the chosen value through
             Radix&rsquo;s hidden native <code>&lt;select&gt;</code>.
+          </p>
+          <p>
+            Typeahead matches only the start of an item, so a list of fifty or
+            more strands a traveller who cannot remember the first letters. That
+            is the point where a list needs a field they can search.
           </p>
           <p>
             Hover border and focus ring are CSS transitions at{' '}

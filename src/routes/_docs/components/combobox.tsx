@@ -164,27 +164,27 @@ function ComboboxPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Filter, fetch, and debounce in your own code.',
+            rule: 'When a search finds nothing, say so in the panel and say what to try next: "No city or country called Kyto. Check the spelling, or try the country."',
             reason:
-              'The combobox shows exactly the children you pass, so a billed autocomplete call, its debounce, and its cancellation stay where you can see them.',
+              'A panel that never opens looks broken. The empty row shows the search ran and points the traveller at their next attempt.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Key items with ids, not with their labels.',
+            rule: 'Tell look-alike results apart with a muted region after each name, such as "Portland · Oregon".',
             reason:
-              'With free text on, typed text that equals an item key reads as a pick. An id never collides with something a traveller types.',
+              'Many places share a name. The region lets the traveller pick the right one at a glance, without opening a map.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Give every item the same icon.',
+            reason:
+              'An icon earns its place by telling kinds apart, such as a city from a country. The same icon on every row is noise.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Render ComboboxEmpty when a search returns nothing.',
+            rule: 'Once a field holds chips, change its placeholder to invite another, such as "Add another".',
             reason:
-              'A panel that never opens looks broken; the empty row says the search ran.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: "Put a source's credit line under the field yourself.",
-            reason:
-              'The combobox has no footer slot. The source, the wording, and the placement are yours.',
+              'The chips show the answer so far, and the prompt says more is welcome, so a traveller with one destination knows the field takes several.',
           },
           {
             verdict: GuidelineVerdict.Dont,
@@ -290,7 +290,7 @@ function ComboboxPage() {
                 name: 'children',
                 type: 'ReactNode',
                 description:
-                  'The items to show for the current text, with any groups, labels, separators, and an empty row.',
+                  'The items to show for the current text, with any groups, labels, separators, and an empty row. The combobox filters nothing and shows exactly what you pass, so filtering, fetching, debouncing, and cancelling a billed call stay in your code.',
               },
               {
                 name: 'label',
@@ -404,7 +404,8 @@ function ComboboxPage() {
                 name: 'value',
                 type: 'string',
                 required: true,
-                description: 'The key reported when the item is picked.',
+                description:
+                  'The key reported when the item is picked. Use an id, not the label: with free text on, typed text that equals a key reads as a pick.',
               },
               {
                 name: 'children',
@@ -435,7 +436,10 @@ function ComboboxPage() {
             <code>ComboboxGroup</code>, <code>ComboboxLabel</code>,{' '}
             <code>ComboboxSeparator</code>, and <code>ComboboxEmpty</code> take
             the props of a <code>&lt;div&gt;</code>. There is no input, trigger,
-            or content part: the root renders them.
+            or content part: the root renders them. Pass{' '}
+            <code>ComboboxEmpty</code> with your message when a search returns
+            nothing. There is no footer slot, so a source&rsquo;s credit line
+            goes under the field, in your own markup.
           </p>
         </>
       }

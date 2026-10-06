@@ -115,21 +115,33 @@ function AccordionPage() {
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Write each trigger as a heading the reader can scan.',
+            rule: 'Write each trigger as the item’s name, with a muted line that sums up what the panel holds.',
             reason:
-              'A closed accordion is the table of contents. A trigger that needs the panel to make sense hides the point.',
+              'A closed accordion is the table of contents. When every trigger reads on its own, the closed stack is a recap the reader scans without opening anything.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Start every item closed unless the reader needs it on arrival.',
+            reason:
+              'The accordion holds what helps some readers, so the page opens on what every reader needs.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Put a recap of what is settled above the step it leads to, outside that step’s card.',
+            reason:
+              'Earlier answers stay one press away while the current question stays the focus of the screen.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Put a button, a link, or a field inside a trigger.',
+            rule: 'Give a trigger any job but opening its panel.',
             reason:
-              'The trigger is itself a button, and everything you pass lands inside its heading. Keep it to text, badges, and spans.',
+              'A row that opens and also acts makes every press a guess. The controls live in the panel, where the reader has chosen to look.',
           },
           {
             verdict: GuidelineVerdict.Dont,
             rule: 'Box the stack or add a fill to open panels.',
             reason:
-              'The accordion is a flush divider list. Wrap it in card content when you want a box.',
+              'The accordion is a flush divider list, and an open panel is the page continued, not a new surface.',
           },
         ],
       }}
@@ -162,7 +174,9 @@ function AccordionPage() {
             survives, and carries <code>aria-expanded</code>. Its panel is a
             region labelled by the trigger. The trigger renders an{' '}
             <code>h3</code>; pass <code>asChild</code> with your own heading to
-            place the row at another level.
+            place the row at another level. A button, a link, or a field inside
+            a trigger would nest one control inside another, so keep controls in
+            the panel.
           </p>
           <p>
             The trigger draws no focus ring. Keyboard focus paints what hover
@@ -236,6 +250,7 @@ function AccordionPage() {
           />
           <PropsTable
             component="AccordionTrigger"
+            description="The trigger is itself a button, and everything you pass lands inside its heading. Keep it to text, badges, and spans: never a button, a link, or a field."
             rows={[
               {
                 name: 'asChild',
@@ -249,7 +264,8 @@ function AccordionPage() {
           <p>
             <code>AccordionContent</code> takes the props of the element it
             renders. <code>className</code> lands on the padded body inside the
-            panel.
+            panel. The stack draws no box of its own; to box it, wrap it in a
+            card&rsquo;s content.
           </p>
         </>
       }

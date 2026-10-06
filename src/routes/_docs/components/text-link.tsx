@@ -90,21 +90,27 @@ function TextLinkPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Give every text link an href, or render your router’s link through asChild.',
+            rule: 'Put the way out of a problem as a link in the sentence that describes it, such as “Buy a credit pack” inside a warning.',
             reason:
-              'An anchor that navigates nowhere is an action, and an action is a button.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Let the link inherit the size and weight of its sentence.',
-            reason:
-              'It is inline and breaks across lines with the text around it, so there is no size prop and no variant.',
+              'The path forward sits next to the problem, where the reader’s attention already is.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Look for a muted variant or colour inheritance.',
+            rule: 'Write “click here” or “learn more” as the link text.',
             reason:
-              'The contrast with the surrounding muted text is the point of the link.',
+              'The words name where the traveller ends up or the next step, so the link still makes sense when read on its own.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Let the link take the size and weight of the sentence it sits in.',
+            reason:
+              'It is part of the sentence and breaks across lines with the text around it.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Keep the link in the foreground colour inside muted copy.',
+            reason:
+              'It stands one step stronger than the text around it, and that contrast is what marks it as a way to go.',
           },
           {
             verdict: GuidelineVerdict.Dont,
@@ -152,7 +158,7 @@ function TextLinkPage() {
               name: 'href',
               type: 'string',
               description:
-                'Where the link goes. Required unless asChild passes an element that supplies its own.',
+                'Where the link goes. Required unless asChild passes an element that supplies its own: an anchor that navigates nowhere is an action, and an action is a button.',
             },
             {
               name: 'asChild',

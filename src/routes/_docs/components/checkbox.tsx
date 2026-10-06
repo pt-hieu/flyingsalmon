@@ -96,27 +96,33 @@ function CheckboxPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Write the label as a statement the traveller agrees with: "Tell travellers when the itinerary changes".',
+            rule: 'Write the label so a tick reads as yes: "Tell travellers when the itinerary changes".',
             reason:
-              'A ticked box then reads as a yes, and nobody has to work out what an unticked one means.',
+              'A ticked box then means agreement, and nobody has to work out what an unticked one means.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Word a label in the negative, such as "Don’t send me updates".',
+            reason:
+              'A tick on a negative makes the traveller undo a double negative before they know what they agreed to.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Use the indeterminate state only on a parent whose children are mixed.',
+            rule: 'Stack independent options in one column, each naming its own subject: "Repair Day 3 · 12 Oct: museum".',
+            reason:
+              'The list reads as a set of sentences, and each box stands on its own without a heading to decode it.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Put a "Decide for me" box directly under a question the traveller may hand over, and dim the field above while it is ticked.',
+            reason:
+              'The traveller sees what they gave away, and unticking brings their own answer back where they left it.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Show the mixed state only on a parent whose children differ.',
             reason:
               'It tells the traveller that some of the group is selected, and a click resolves it to all or none.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Use a checkbox for a setting that applies immediately.',
-            reason:
-              'A checkbox suggests a later submit. A switch tells the traveller the change is already live.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Leave out the label and rely on nearby text.',
-            reason:
-              'The label is part of the click target and the accessible name. Without it the box is a small target that screen readers cannot name.',
           },
         ],
       }}
@@ -171,7 +177,7 @@ function CheckboxPage() {
               name: 'label',
               type: 'string',
               description:
-                'The text beside the box. It is part of the click target and the accessible name.',
+                'The text beside the box. It is part of the click target and the accessible name, so give every box one: nearby text names nothing.',
             },
             {
               name: 'error',

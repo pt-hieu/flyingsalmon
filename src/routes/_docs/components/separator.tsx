@@ -73,6 +73,24 @@ function SeparatorPage() {
         ],
         rules: [
           {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Use rules to divide one surface into blocks, such as the questions on one card.',
+            reason:
+              'Whole surfaces already separate by their border and a background step. A rule is for the parts inside one surface, which share its edge.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Put a rule only between items, never before the first or after the last.',
+            reason:
+              'A rule divides two things. At either end it divides nothing and reads as a stray border.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Give the rule equal space above and below.',
+            reason:
+              'Centred, it belongs to neither neighbour, and the rows and the rules between them keep one rhythm.',
+          },
+          {
             verdict: GuidelineVerdict.Dont,
             rule: 'Place a separator beside something that already draws a border.',
             reason:
@@ -80,26 +98,9 @@ function SeparatorPage() {
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Put text in the rule, as in an “or” between a sign-in form and its social buttons.',
+            rule: 'Put words in the rule, as in an “or” between a sign-in form and its other options.',
             reason:
-              'A labelled rule is a different DOM shape, and the props omit children so it cannot be faked. Build it in the app that needs it.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Space a separator with the parent’s gap, not its own margin.',
-            reason:
-              'One number sets the rhythm for the rows and the rules between them, and nothing has to be undone at the ends of a list.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: (
-              <>
-                Pass a height through <code>className</code> when a vertical
-                separator sits in a parent that is neither flex nor grid.
-              </>
-            ),
-            reason:
-              'Vertical stretches to its row, so with no row it has no height to take.',
+              'A rule divides and says nothing. Write the “or” as text of its own.',
           },
         ],
       }}
@@ -119,9 +120,12 @@ function SeparatorPage() {
           description={
             <>
               Takes the props of the Radix separator root except{' '}
-              <code>asChild</code> and <code>children</code>. There is no colour
-              prop and no size; pass a colour through <code>className</code> if
-              you must.
+              <code>asChild</code> and <code>children</code>, so a labelled rule
+              is a different shape you build in the app that needs it. There is
+              no colour prop and no size; pass a colour through{' '}
+              <code>className</code> if you must. The separator has no margin:
+              space it with the parent&rsquo;s gap, so one number sets the
+              rhythm for the rows and the rules between them.
             </>
           }
           rows={[
@@ -130,7 +134,7 @@ function SeparatorPage() {
               type: 'SeparatorOrientation',
               default: 'SeparatorOrientation.Horizontal',
               description:
-                'Horizontal fills the width of its parent. Vertical stretches to the height of its flex or grid row.',
+                'Horizontal fills the width of its parent. Vertical stretches to the height of its flex or grid row; in a parent that is neither, pass a height through className.',
             },
             {
               name: 'decorative',

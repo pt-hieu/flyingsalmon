@@ -79,7 +79,7 @@ function TimelinePage() {
 
           <Example
             caption="A moving current marker"
-            description="The timeline owns no animation. To make the current marker travel between days, render a motion element with a shared layoutId inside the current item’s marker. Press Next day."
+            description="The timeline owns no animation. To make the current marker travel between days, render a motion element with a shared layoutId inside the current item’s marker. Mount the timeline in the app shell, because the marker only travels when the one it leaves and the one it enters render together, and wrap it in a LayoutGroup with a unique id so two timelines on one page never trade markers. Press Next day."
             source={movingCurrentMarkerSource}
           >
             <TimelineMovingCurrentMarker />
@@ -106,33 +106,27 @@ function TimelinePage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Paint the current marker yourself.',
+            rule: 'Let the marker say what kind of stop it is, and give every stop of one kind the same marker: an icon for a leg, a dot for a place.',
             reason:
-              'What an item means, done or still ahead, is a claim about your app’s domain. The timeline places markers and joins them, and has no status or active state to set.',
+              'The traveller reads the rhythm of the route from its markers before reading a word.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Mount a timeline with a moving marker in the app shell.',
+            rule: 'Mark the current stop with a marker of your own, and let it travel to the next stop when the traveller moves on.',
             reason:
-              'A shared layout animation only travels when the marker it leaves and the one it enters mount in the same commit. In a route that unmounts on navigation the marker appears in its new place with no travel.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Wrap a moving-marker timeline in a LayoutGroup with a unique id.',
-            reason:
-              'Two timelines on one page would otherwise fly markers into each other.',
+              'The rail gives every stop the same neutral mark, because done, current, and ahead are claims only your app can make. A marker that travels shows the move instead of redrawing the rail.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Mix marker sizes in a horizontal timeline.',
+            rule: 'Put an action on each stop. The action the route leads to, such as approving it, sits below the whole timeline.',
             reason:
-              'A horizontal connector spans from its own marker’s edge using its own size, so it overshoots at one end. Mixing is for vertical rails.',
+              'A route is read top to bottom and then acted on once. Buttons on every stop turn it into a list of chores.',
           },
           {
             verdict: GuidelineVerdict.Dont,
             rule: 'Stretch a link over a whole item.',
             reason:
-              'An item is never a hit target. One linked title costs the keyboard user exactly one stop, however many cities the rail holds.',
+              'An item is never a hit target; only its title links. One linked title costs the keyboard user one stop, however many cities the rail holds.',
           },
         ],
       }}
@@ -187,7 +181,8 @@ function TimelinePage() {
               <>
                 Also takes every <code>&lt;span&gt;</code> attribute. It draws
                 the connector to the next item; the last item and an item with
-                no marker have none.
+                no marker have none. It has no status or active state: paint a
+                current marker through its children.
               </>
             }
             rows={[
@@ -196,7 +191,7 @@ function TimelinePage() {
                 type: 'TimelineMarkerSize',
                 default: 'TimelineMarkerSize.Default',
                 description:
-                  'Default or Small. Both centre on the same line, so a vertical rail can mix them.',
+                  'Default or Small. Both centre on the same line, so a vertical rail can mix them. A horizontal timeline uses one size throughout: each connector spans from its own marker’s edge, so mixed sizes overshoot at one end.',
               },
               {
                 name: 'children',

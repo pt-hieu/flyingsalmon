@@ -143,27 +143,27 @@ function DatePickerPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Pass dates as ISO YYYY-MM-DD strings.',
+            rule: 'Use a range for a trip and a single day for moving one date.',
             reason:
-              'A trip date is a calendar day, not an instant, so no time zone shifts it. It is the same shape Calendar uses and it posts as it is.',
+              'A range picks both ends in one panel across two months, so the trip reads as a span. Moving one booking needs no second end to ignore.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Set min, max, or isDateDisabled instead of validating afterwards.',
+            rule: 'Label the field with the question, such as "When" or "New date", never with the control’s name.',
             reason:
-              'The limits reach the segments and the grid alike, so an earlier day is refused in the panel and rejected when typed.',
+              'The segments already show it is a date. The label says what the date is for.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Type a date into a text input with a placeholder such as "12–19 Oct".',
+            rule: 'Let the traveller pick a day the trip cannot use and refuse it on submit.',
             reason:
-              'Free text has no locale order, no bounds, and no calendar, and your app has to parse whatever arrives.',
+              'Bound the field from the trip itself, such as today onwards. Refused days are struck through in the grid and rejected as they are typed, so no error arrives after the traveller thinks they are done.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Wait for onChange on a partly typed date.',
+            rule: 'Show an error while a date is still being typed.',
             reason:
-              'It fires only when every segment is filled and the limits accept the value, so a half-typed entry never reaches your state.',
+              'A half-typed date is not wrong yet. The field stays silent until every segment is filled, and only then says whether the day is available.',
           },
         ],
       }}
@@ -248,18 +248,19 @@ function DatePickerPage() {
               name: 'value',
               type: 'string | DatePickerRange | null',
               description:
-                'The controlled value: an ISO day in single mode, { start, end } in range mode, or null.',
+                'The controlled value: an ISO YYYY-MM-DD day in single mode, { start, end } in range mode, or null.',
             },
             {
               name: 'defaultValue',
               type: 'string | DatePickerRange | null',
-              description: 'The initial value of an uncontrolled field.',
+              description:
+                'The initial value of an uncontrolled field, in the same shape as value.',
             },
             {
               name: 'onChange',
               type: '(value) => void',
               description:
-                'Fires when the value changes to a complete, accepted entry, or to null when cleared.',
+                'Fires with ISO YYYY-MM-DD days when the value changes to a complete, accepted entry, or with null when cleared. A partly typed entry never reaches it.',
             },
             {
               name: 'name',
@@ -293,7 +294,8 @@ function DatePickerPage() {
             {
               name: 'min, max',
               type: 'string',
-              description: 'ISO bounds for the segments and the grid.',
+              description:
+                'ISO YYYY-MM-DD bounds for the segments and the grid. Set them instead of validating afterwards: an earlier day is refused in the panel and rejected when typed.',
             },
             {
               name: 'isDateDisabled',
@@ -376,6 +378,11 @@ function DatePickerPage() {
       }
       notes={
         <>
+          <p>
+            Values are ISO <code>YYYY-MM-DD</code> strings because a trip date
+            is a calendar day, not an instant, so no time zone shifts it. It is
+            the same shape Calendar uses, and it posts as it is.
+          </p>
           <p>
             One bordered box holds the segments and the end slot, and draws the
             focus ring on <code>focus-within</code>, because the segments take

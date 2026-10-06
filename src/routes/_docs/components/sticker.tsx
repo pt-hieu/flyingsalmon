@@ -135,26 +135,27 @@ function StickerPage() {
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: (
-              <>
-                Pass <code>popIn={'{false}'}</code> for a sticker already in
-                view when its page opens.
-              </>
-            ),
+            rule: 'Use one sticker per screen, tilted a few degrees.',
             reason:
-              'The pop is tied to scroll position. A sticker at the top of a page would sit part-way through it until the reader scrolled.',
+              'The tilt makes it read as stuck on rather than laid out in the grid, and a second sticker would compete for the same moment.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Put a sticker beside the heading of a long wait, such as a trip being planned.',
+            reason:
+              'The spinner says work is under way and the sticker turns the wait into a moment, so the screen never reads as empty.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Write the art by hand.',
+            rule: 'Lay a sticker over text or controls.',
             reason:
-              'The art is generated data with three frames, each drawn with its own seeds. A hand-edited module is lost the next time the script runs.',
+              'A sticker may bleed off the edge of its panel, but it never hides a word or catches a press meant for a control.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Name roles after colours.',
+            rule: 'Use a sticker for a routine state the traveller sees on every visit.',
             reason:
-              'A role names a part of the drawing, such as roof or door, so the same art follows whatever theme draws it.',
+              'Stickers are kept for moments. Seen every time, one stops reading as a moment and becomes wallpaper.',
           },
         ],
       }}
@@ -185,7 +186,7 @@ function StickerPage() {
                 type: 'StickerArt',
                 required: true,
                 description:
-                  'The frames a drawing script generated: a width and height in drawing units and exactly three frames.',
+                  'The frames a drawing script generated: a width and height in drawing units and exactly three frames. Never write or edit it by hand: a hand-edited module is lost the next time the script runs.',
               },
               {
                 name: 'label',
@@ -204,7 +205,8 @@ function StickerPage() {
                 name: 'popIn',
                 type: 'boolean',
                 default: 'true',
-                description: 'Plays the scroll-linked pop-in.',
+                description:
+                  'Plays the scroll-linked pop-in. Pass false for a sticker already in view when its page opens: the pop is tied to scroll position, so a sticker at the top of a page would sit part-way through it until the reader scrolled.',
               },
             ]}
           />
@@ -219,7 +221,9 @@ function StickerPage() {
             that tells one part from another. Every line draws at the same
             weight unless its role’s classes set another, as the dotted{' '}
             <code>trail</code> behind the plane does. This is the house
-            sticker’s map.
+            sticker’s map. Name each role after a part of the drawing, such as{' '}
+            <code>roof</code> or <code>door</code>, never after a colour, so the
+            same art follows whatever theme draws it.
           </p>
           <Table>
             <TableHeader>

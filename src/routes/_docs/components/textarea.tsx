@@ -107,27 +107,39 @@ function TextareaPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Set minRows to the length you expect.',
+            rule: 'Make the empty field as tall as the answer you expect: two or three rows for a sentence, more for notes.',
             reason:
-              'An empty field that is already three rows tall tells the traveller how much to write; a one-row field invites a one-word answer.',
+              'The empty height tells the traveller how much to write. A one-row field invites a one-word answer.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Keep a submit shortcut such as Cmd+Enter in your form, not in the field.',
+            rule: 'Write the placeholder as a full example answer, such as "We land late, so keep the first evening free."',
             reason:
-              'Enter must insert a newline here, so a shortcut is an app decision and needs a visible hint.',
+              'A real sentence shows the kind and length of answer you want, and reads as an invitation rather than a blank to fill.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Word an error as what to write: "Tell us why you are leaving the plan, even in a few words."',
+            reason:
+              'The traveller fixes a free-text field by writing, so the message hands them the start of the answer.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Disable the field while an autosave runs.',
+            rule: 'Offer a submit shortcut without a visible hint beside the submit button.',
             reason:
-              'Use loading instead. The traveller keeps typing, and the next save picks up the new text.',
+              'Enter always makes a new line here, so a shortcut is invisible unless the screen names it. A hidden key only helps people who already guess it exists.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Add a drag handle or a fixed height.',
+            rule: 'Lock the field while an autosave runs.',
             reason:
-              'The height follows the content between minRows and maxRows, so a manual size would fight the autosize.',
+              'A spinner in the corner shows the save and the traveller keeps typing; the next save picks up the new text.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Give the field a drag handle or a fixed height.',
+            reason:
+              'The height follows the content up to a cap and then the field scrolls, so a manual size would fight it.',
           },
         ],
       }}
@@ -158,8 +170,9 @@ function TextareaPage() {
             loading field sets <code>aria-busy</code> and hides its spinner from
             screen readers, so the wait is announced once. <code>required</code>{' '}
             marks the label and reaches the <code>&lt;textarea&gt;</code>; the
-            validation itself stays with your app. The states every field shares
-            are described on{' '}
+            validation itself stays with your app. The field handles no submit
+            shortcut: a key such as Cmd+Enter belongs to your form. The states
+            every field shares are described on{' '}
             <TextLink asChild>
               <Link to="/fields">Fields</Link>
             </TextLink>
@@ -212,7 +225,7 @@ function TextareaPage() {
               type: 'boolean',
               default: 'false',
               description:
-                'Pins a spinner to the top-right corner. The field stays editable.',
+                'Pins a spinner to the top-right corner. The field stays editable. Set it, not disabled, while an autosave runs.',
             },
             {
               name: 'disabled',

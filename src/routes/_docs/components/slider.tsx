@@ -91,21 +91,27 @@ function SliderPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Keep the step count to what a reader can tell apart at a glance.',
+            rule: 'Keep to about seven steps, each a level the traveller could name.',
             reason:
               'A dot marks every step, so a long run turns the track into a dotted line with no meaning.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Write a description that names the current step.',
+            rule: 'Say under the track what the current step means, with its consequence: "$150 a day per person for 7 days, before flights".',
             reason:
-              'The slider has no end labels. The description is the only place that says where the thumb is.',
+              'The description is the only place that says where the thumb is, and a figure the traveller can weigh turns a position into a decision.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Put the value only in the label.',
+            rule: 'Mark the ends of the track with their own figures.',
             reason:
-              'The thumb reads its value text from the description, so a screen reader would announce a bare number.',
+              'End labels make the traveller interpolate. The description already names the step the thumb is on.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Offer an exact entry beside the slider, one ghost button away, when the traveller may already know the figure.',
+            reason:
+              'The slider answers "roughly". A traveller who knows their number should type it, not hunt for it on a track.',
           },
         ],
       }}

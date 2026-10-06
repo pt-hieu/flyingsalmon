@@ -132,15 +132,21 @@ function ButtonPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Give each view one default button.',
+            rule: 'Give each view, card, dialog footer, and alert one default button. The alternative beside it is outline, and a quiet extra action is ghost.',
             reason:
-              'The filled orange button is where the eye lands first; two of them make the traveller choose before they act.',
+              'The filled orange button is where the eye lands first. Two of them make the traveller choose before they act, and the step down to outline and ghost tells them which action matters.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Label with a verb and its object: "Save trip", "Invite travellers".',
+            rule: 'Name the outcome in the label, such as "Replan the rest", and add the cost when the action spends something: "Rewrite 2 days · 1 credit".',
             reason:
-              'The label says what will happen, so nobody has to read the surrounding copy to find out.',
+              'The traveller knows what will happen and what it takes from them before they press, so nobody reads the surrounding copy to find out.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Put the outline Cancel on the left of a dialog or form footer and the one default action on the right.',
+            reason:
+              'The eye reads the row to its end and lands on the action that finishes the task. Cancel always sits in the same place, so leaving never needs reading.',
           },
           {
             verdict: GuidelineVerdict.Dont,
@@ -150,15 +156,21 @@ function ButtonPage() {
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Disable a button while its action runs.',
+            rule: 'Grey out a button while its action runs.',
             reason:
-              'Use loading instead. A disabled button drops keyboard focus mid-action; a loading one keeps it and ignores repeat presses.',
+              'The button shows its own busyness with a spinner beside its label, keeps focus, and ignores repeat presses. A greyed-out button drops focus mid-action and looks broken.',
           },
           {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Write type="submit" on the one button that submits a form.',
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Hide a button whose action cannot run yet. Leave it visible but disabled, with a line beside it that says what is missing.',
             reason:
-              'Every other button defaults to type="button", so a Cancel or Reset beside it never posts the form by accident.',
+              'The traveller sees where the task ends and learns what to do next, instead of hunting for a button that is not there.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Show a destructive button before the traveller has asked to remove something.',
+            reason:
+              'Red belongs to the step that confirms a removal. As the first button on a view it shouts louder than the work and invites a slip.',
           },
         ],
       }}
@@ -223,13 +235,14 @@ function ButtonPage() {
               type: 'boolean',
               default: 'false',
               description:
-                'Swaps the leading slot for a spinner, sets aria-busy, and ignores presses while keeping focus.',
+                'Swaps the leading slot for a spinner, sets aria-busy, and ignores presses while keeping focus. Set it, not disabled, while the action runs: disabled drops keyboard focus mid-action.',
             },
             {
               name: 'type',
               type: '"button" | "submit" | "reset"',
               default: '"button"',
-              description: 'Set "submit" on the button that submits its form.',
+              description:
+                'Set "submit" on the one button that submits its form. Cancel and Reset beside it keep "button", so they never post the form.',
             },
             {
               name: 'disabled',

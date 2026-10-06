@@ -90,15 +90,15 @@ function ProgressPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Write the phase label and the value yourself, beside the bar.',
+            rule: 'Say in words, next to the bar, what phase the work is in.',
             reason:
-              'The bar takes a number and a maximum and draws. Only the app knows what phase the work is in and how to word it.',
+              'A bar shows how much, never what. Only the app knows what phase the work is in and how to word it.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Name the work with label whenever more than one bar can be on screen.',
+            rule: 'When the work already has a heading on the page, write the count there, such as “3 of 7 days written”, and leave the bar out.',
             reason:
-              'The label is the bar’s accessible name. Without it every bar reads as “Loading”.',
+              'The heading is where the traveller is looking, and a bar beside it repeats the count.',
           },
           {
             verdict: GuidelineVerdict.Dont,
@@ -110,7 +110,7 @@ function ProgressPage() {
             verdict: GuidelineVerdict.Dont,
             rule: 'Show success or failure on the bar.',
             reason:
-              'The outcome belongs to the app. Read data-state to react when the work ends, and report the result where the traveller is looking.',
+              'The bar only measures. The result appears where the traveller is looking: on the item that changed, or in the surface that acted.',
           },
         ],
       }}
@@ -135,34 +135,42 @@ function ProgressPage() {
         </>
       }
       api={
-        <PropsTable
-          component="Progress"
-          description={
-            <>
-              Also takes every <code>&lt;div&gt;</code> attribute.
-            </>
-          }
-          rows={[
-            {
-              name: 'value',
-              type: 'number',
-              description:
-                'The current amount, clamped to 0 through max. Omit it for an indeterminate bar.',
-            },
-            {
-              name: 'max',
-              type: 'number',
-              default: '100',
-              description: 'The amount at which the work is complete.',
-            },
-            {
-              name: 'label',
-              type: 'string',
-              default: '"Loading"',
-              description: 'The accessible name of the bar.',
-            },
-          ]}
-        />
+        <>
+          <PropsTable
+            component="Progress"
+            description={
+              <>
+                Also takes every <code>&lt;div&gt;</code> attribute.
+              </>
+            }
+            rows={[
+              {
+                name: 'value',
+                type: 'number',
+                description:
+                  'The current amount, clamped to 0 through max. Omit it for an indeterminate bar. The bar draws only the fraction, so write the phase and value in words beside it.',
+              },
+              {
+                name: 'max',
+                type: 'number',
+                default: '100',
+                description: 'The amount at which the work is complete.',
+              },
+              {
+                name: 'label',
+                type: 'string',
+                default: '"Loading"',
+                description:
+                  'The accessible name of the bar. Name the work whenever more than one bar can be on screen; without it every bar reads as “Loading”.',
+              },
+            ]}
+          />
+          <p>
+            The bar carries no outcome. Read <code>data-state</code>, which
+            becomes <code>complete</code> once <code>value</code> reaches{' '}
+            <code>max</code>, to react when the work ends.
+          </p>
+        </>
       }
       notes={
         <>

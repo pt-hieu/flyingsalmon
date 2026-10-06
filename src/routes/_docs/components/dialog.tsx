@@ -136,27 +136,39 @@ function DialogPage() {
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Turn a server error after closing into a notice whose link reopens the dialog with what the traveller typed.',
+            rule: 'If the save fails after the dialog has closed, keep the error on screen as a notice that reopens the dialog with what the traveller typed.',
             reason:
               'The dialog is gone, so the notice is the one home that stays until it is seen, and nothing typed is lost.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Hold a dialog open with pending just to wait for a save.',
+            rule: 'Make the traveller wait inside a dialog for a plain save.',
             reason:
-              'Pending blocks every exit. Keep it for an answer the next step depends on, such as checking an invite code.',
+              'A dialog waits on the server only when the next screen depends on the answer, such as checking an invite code. Then the confirm button shows its own loading, and Cancel waits disabled until the answer arrives.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Keep client-side validation inside the dialog, on the field.',
+            rule: 'Show a field error under its field and keep the dialog open.',
             reason:
               'The traveller is still looking at the form, so the error belongs under the field they need to fix.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Name the action on the confirm button: "Delete trip", not "OK".',
+            rule: 'Show a blocker no field can fix, such as too few credits, as an error alert above the footer with a link out, and keep the confirm button disabled.',
             reason:
-              'The button is the last thing read before the decision, so it says what will happen.',
+              'The traveller learns why they cannot go on where they are already looking, and the link is the way to fix it.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'End on one outline Cancel beside one filled button that names the action: "Delete trip", not "OK".',
+            reason:
+              'One filled button marks the single way forward, and its label is the last thing read before the decision.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Open a dialog from a dialog. Confirm a step inside it with an inline alert that carries its own buttons.',
+            reason:
+              'Two modals deep, the traveller loses track of which one they are answering. An inline confirmation stays inside the task they started.',
           },
         ],
       }}
@@ -238,7 +250,7 @@ function DialogPage() {
                 type: 'boolean',
                 default: 'false',
                 description:
-                  'Blocks Escape, a click outside, and the close button, and sets aria-busy.',
+                  'Blocks Escape, a click outside, and the close button, and sets aria-busy. Use it for an answer the next step depends on, such as checking an invite code. It leaves your footer alone: set loading on the confirm button and disable Cancel yourself.',
               },
             ]}
           />

@@ -112,37 +112,45 @@ function PageHeaderPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Put the description, the status, and where the page came from in the page body, below the header.',
+            rule: 'Keep the header to the title and the actions on the whole page. Put the description, the status, and where the page came from below it, as muted text in the page body.',
             reason:
-              'The header holds a title and actions only, so every page that uses it gets the same heading.',
+              'Every page then opens with the same heading, and the facts about one page read as its content rather than as chrome.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Pass a dropdown menu as one action when the page has more actions than fit.',
+            rule: 'Give the header one primary action. A second action is a secondary button, and the rest go in a dropdown menu.',
             reason:
-              'There is no overflow menu, so the page decides which actions stay visible.',
+              'One filled orange button says what the page is for. A row of equal buttons makes the traveller choose before they have read the page.',
           },
           {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Place PageHeader inside main.',
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Repeat an empty page’s call to action in the header.',
             reason:
-              'A header outside main becomes a banner landmark and competes with the app shell’s own.',
+              'The empty state owns the one action on an empty page, where the traveller is already looking. Show the header action once the page has content.',
           },
           {
             verdict: GuidelineVerdict.Dont,
             rule: 'Resize the title for one page.',
             reason:
-              'There is no size prop, so every page’s title matches. A page that needs more emphasis gets it from its content.',
+              'Every page title is the same size, so the app speaks in one voice. A page that needs more emphasis gets it from its content.',
           },
         ],
       }}
       accessibility={
-        <p>
-          The header has no states and no keyboard path of its own. The title is
-          the page&rsquo;s one <code>h1</code>, and Tab reaches the actions in
-          the order you write them and nothing else. Nothing animates, including
-          the actions wrapping: a layout change at a breakpoint is not feedback.
-        </p>
+        <>
+          <p>
+            The header has no states and no keyboard path of its own. The title
+            is the page&rsquo;s one <code>h1</code>, and Tab reaches the actions
+            in the order you write them and nothing else. Nothing animates,
+            including the actions wrapping: a layout change at a breakpoint is
+            not feedback.
+          </p>
+          <p>
+            Place <code>PageHeader</code> inside <code>main</code>. A{' '}
+            <code>header</code> outside it becomes a banner landmark and
+            competes with the app shell&rsquo;s own.
+          </p>
+        </>
       }
       api={
         <>
@@ -190,7 +198,9 @@ function PageHeaderPage() {
           />
           <p>
             <code>PageHeaderActions</code> takes every <code>&lt;div&gt;</code>{' '}
-            attribute and holds the buttons that act on the whole page.
+            attribute and holds the buttons that act on the whole page. It has
+            no overflow menu: when the page has more actions than fit, pass a{' '}
+            <code>DropdownMenu</code> as one of its children.
           </p>
         </>
       }

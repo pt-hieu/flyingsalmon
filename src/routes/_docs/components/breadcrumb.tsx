@@ -81,33 +81,39 @@ function BreadcrumbPage() {
         rules: [
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Render a trail only when it has at least two levels.',
+            rule: 'Put the trail above the page title, in muted small text.',
+            reason:
+              'The title stays the loudest thing on the page and the trail reads as its address, quiet until the traveller wants to climb.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Show a trail on a top-level page.',
             reason:
               'A trail of one says nothing the page title has not already said.',
           },
           {
             verdict: GuidelineVerdict.Dont,
-            rule: 'Use it as a history of the pages the traveller came through.',
+            rule: 'Change the trail with the route the traveller took to the page.',
             reason:
-              'It lists the pages above this one, so it reads the same however they arrived.',
+              'The trail shows where the page lives. Arriving from search or a shared link shows the same trail, so each level always leads to the same parent.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Collapse a long trail behind the ellipsis from four levels.',
+            rule: 'Keep the trail on one line. From four levels, show the root, an ellipsis, the parent, and the current page.',
             reason:
-              'A trail that does not fit would wrap, and a wrapped trail stops reading as one line. The component measures nothing, so you decide which levels collapse.',
+              'A wrapped trail stops reading as one path. The hidden levels stay one press away in the ellipsis menu.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Write every separator yourself, between two items.',
+            rule: 'Let the current page truncate and keep every ancestor whole.',
             reason:
-              'A chevron the list inserted on its own would land in the wrong place the moment a level is conditional or collapses.',
+              'The traveller already knows the page they are on from its title; the ancestors are where they might go, so those stay readable.',
           },
           {
             verdict: GuidelineVerdict.Dont,
             rule: 'Make the current page a link.',
             reason:
-              'A link to the page you are already on goes nowhere, so the current page is plain text and takes no focus.',
+              'There is nowhere to go from it. The trail ends in plain text where the traveller already is.',
           },
         ],
       }}
@@ -205,7 +211,8 @@ function BreadcrumbPage() {
               <>
                 Owns the dropdown menu, its trigger, and its content. Place it
                 in a <code>BreadcrumbItem</code> with neither <code>link</code>{' '}
-                nor <code>active</code>.
+                nor <code>active</code>. The trail measures nothing, so you
+                decide which levels move into it.
               </>
             }
             rows={[
@@ -228,7 +235,9 @@ function BreadcrumbPage() {
             <code>BreadcrumbEllipsisMenuItem</code> takes the dropdown menu item
             props, including <code>asChild</code> for a link.{' '}
             <code>BreadcrumbSeparator</code> takes only list item props and
-            holds a fixed chevron.
+            holds a fixed chevron. The trail inserts no separators: place one
+            between each pair of items yourself, so a conditional or collapsed
+            level never leaves a stray chevron.
           </p>
         </>
       }

@@ -142,15 +142,26 @@ function DropdownMenuPage() {
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Give every item in a menu an icon, or none of them.',
+            rule: 'Put an overflow trigger at the trailing edge of its row, as a ghost icon button, and open the menu aligned to its end.',
             reason:
-              'Mixing the two leaves the labels ragged, because only an item with an icon renders the slot.',
+              'The row reads first and its actions trail it. An end-aligned menu opens over the row rather than past the edge of the page.',
+          },
+          {
+            verdict: GuidelineVerdict.Dont,
+            rule: 'Show an overflow trigger on an item with no actions.',
+            reason:
+              'A trigger that opens nothing teaches the traveller to ignore every other one. Leave the trailing edge empty.',
           },
           {
             verdict: GuidelineVerdict.Do,
-            rule: 'Label the trigger when it is an icon button.',
+            rule: 'Give every item in a menu an icon, or none of them.',
+            reason: 'Mixed rows leave the labels ragged.',
+          },
+          {
+            verdict: GuidelineVerdict.Do,
+            rule: 'Head the list with a quiet label for context, such as the signed-in email above the account actions.',
             reason:
-              'The ellipsis alone says nothing to a screen reader. Name what the menu acts on: "Actions for Kyoto in autumn".',
+              'The traveller sees whose account the actions apply to before they choose. Muted text never looks like something to press.',
           },
           {
             verdict: GuidelineVerdict.Dont,
@@ -197,8 +208,10 @@ function DropdownMenuPage() {
           </p>
           <p>
             The trigger exposes <code>aria-haspopup=&quot;menu&quot;</code> and{' '}
-            <code>aria-expanded</code>. The highlight moves with focus and is
-            the focus indicator, so an item draws no ring of its own.
+            <code>aria-expanded</code>. An icon-only trigger has no name of its
+            own, so its <code>aria-label</code> names what the menu acts on. The
+            highlight moves with focus and is the focus indicator, so an item
+            draws no ring of its own.
           </p>
         </>
       }
@@ -234,7 +247,7 @@ function DropdownMenuPage() {
                 type: 'ReactElement',
                 required: true,
                 description:
-                  'One element, a registry Button, that opens the menu.',
+                  'One element, a registry Button, that opens the menu. An icon-only button takes an aria-label that names what the menu acts on, such as "Actions for Kyoto in autumn".',
               },
             ]}
           />
