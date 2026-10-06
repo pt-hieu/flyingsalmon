@@ -1,11 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import {
-  DocPage,
-  Example,
-  GuidelineVerdict,
-  PropsTable,
-} from '@/components/doc-page'
+import { DocPage, Example, PropsTable } from '@/components/doc-page'
 import { ProgressCustomMax } from '@/examples/progress/custom-max'
 import customMaxSource from '@/examples/progress/custom-max.tsx?raw'
 import { ProgressDemo } from '@/examples/progress/demo'
@@ -17,6 +12,7 @@ import indeterminateSource from '@/examples/progress/indeterminate.tsx?raw'
 import { ProgressStates } from '@/examples/progress/states'
 import statesSource from '@/examples/progress/states.tsx?raw'
 import usageSource from '@/examples/progress/usage.tsx?raw'
+import guidelines from '@/registry/ui/progress/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/progress')({
   component: ProgressPage,
@@ -65,55 +61,7 @@ function ProgressPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For a long job with a known end and nothing to attach it to, such as building a trip.',
-          'For work that has started but has no computable fraction yet, as an indeterminate bar.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for the busyness of a control the traveller just pressed. The control shows it itself.',
-            alternative: { to: '/components/spinner', label: 'Spinner' },
-          },
-          {
-            situation:
-              'for a region whose content has not arrived yet, so the page holds its shape while it loads.',
-            alternative: { to: '/components/skeleton', label: 'Skeleton' },
-          },
-          {
-            situation:
-              'for a position in a flow the traveller is walking, such as step 2 of 4.',
-            alternative: { to: '/components/stepper', label: 'Stepper' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Write the phase label and the value yourself, beside the bar.',
-            reason:
-              'The bar takes a number and a maximum and draws. Only the app knows what phase the work is in and how to word it.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Name the work with label whenever more than one bar can be on screen.',
-            reason:
-              'The label is the bar’s accessible name. Without it every bar reads as “Loading”.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Fake a fraction.',
-            reason:
-              'A bar that jumps to 90 percent and waits misreports the work. Use the indeterminate bar until a real number exists.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Show success or failure on the bar.',
-            reason:
-              'The outcome belongs to the app. Read data-state to react when the work ends, and report the result where the traveller is looking.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <p>
@@ -135,34 +83,42 @@ function ProgressPage() {
         </>
       }
       api={
-        <PropsTable
-          component="Progress"
-          description={
-            <>
-              Also takes every <code>&lt;div&gt;</code> attribute.
-            </>
-          }
-          rows={[
-            {
-              name: 'value',
-              type: 'number',
-              description:
-                'The current amount, clamped to 0 through max. Omit it for an indeterminate bar.',
-            },
-            {
-              name: 'max',
-              type: 'number',
-              default: '100',
-              description: 'The amount at which the work is complete.',
-            },
-            {
-              name: 'label',
-              type: 'string',
-              default: '"Loading"',
-              description: 'The accessible name of the bar.',
-            },
-          ]}
-        />
+        <>
+          <PropsTable
+            component="Progress"
+            description={
+              <>
+                Also takes every <code>&lt;div&gt;</code> attribute.
+              </>
+            }
+            rows={[
+              {
+                name: 'value',
+                type: 'number',
+                description:
+                  'The current amount, clamped to 0 through max. Omit it for an indeterminate bar. The bar draws only the fraction, so write the phase and value in words beside it.',
+              },
+              {
+                name: 'max',
+                type: 'number',
+                default: '100',
+                description: 'The amount at which the work is complete.',
+              },
+              {
+                name: 'label',
+                type: 'string',
+                default: '"Loading"',
+                description:
+                  'The accessible name of the bar. Name the work whenever more than one bar can be on screen; without it every bar reads as “Loading”.',
+              },
+            ]}
+          />
+          <p>
+            The bar carries no outcome. Read <code>data-state</code>, which
+            becomes <code>complete</code> once <code>value</code> reaches{' '}
+            <code>max</code>, to react when the work ends.
+          </p>
+        </>
       }
       notes={
         <>

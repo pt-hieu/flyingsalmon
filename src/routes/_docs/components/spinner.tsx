@@ -1,11 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import {
-  DocPage,
-  Example,
-  GuidelineVerdict,
-  PropsTable,
-} from '@/components/doc-page'
+import { DocPage, Example, PropsTable } from '@/components/doc-page'
 import { SpinnerColour } from '@/examples/spinner/colour'
 import colourSource from '@/examples/spinner/colour.tsx?raw'
 import { SpinnerDemo } from '@/examples/spinner/demo'
@@ -15,6 +10,7 @@ import inAButtonSource from '@/examples/spinner/in-a-button.tsx?raw'
 import { SpinnerSizes } from '@/examples/spinner/sizes'
 import sizesSource from '@/examples/spinner/sizes.tsx?raw'
 import usageSource from '@/examples/spinner/usage.tsx?raw'
+import guidelines from '@/registry/ui/spinner/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/spinner')({
   component: SpinnerPage,
@@ -55,44 +51,7 @@ function SpinnerPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For an action that is running: a form submits, a setting saves, a check is under way.',
-          'Inline beside the text that says what is being waited for.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a region that is loading, such as a list, a card, or a page. The placeholder holds the shape of what is coming.',
-            alternative: { to: '/components/skeleton', label: 'Skeleton' },
-          },
-          {
-            situation:
-              'for a long job with a known end, where the traveller wants to see how far along it is.',
-            alternative: { to: '/components/progress', label: 'Progress' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Pick a spinner or a skeleton for a given wait, never both.',
-            reason:
-              'They answer different questions: a spinner says an action is running, a skeleton says a region is loading. Both together say it twice.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Pass a label that names the work when the spinner stands alone.',
-            reason:
-              'A screen reader reads the label. “Checking availability” says more than the default “Loading”.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Replace a control the traveller just pressed with a spinner.',
-            reason:
-              'The control should show its own busyness and keep its place, as the loading button does.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <p>
@@ -127,7 +86,7 @@ function SpinnerPage() {
               type: 'string',
               default: '"Loading"',
               description:
-                'What a screen reader reads for the standalone spinner.',
+                'What a screen reader reads for the standalone spinner. Name the work, such as “Checking availability”, when the spinner stands alone. When the text beside it already names the work, a short label such as “In progress” is enough.',
             },
           ]}
         />

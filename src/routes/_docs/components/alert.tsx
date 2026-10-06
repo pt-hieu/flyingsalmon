@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -26,6 +25,7 @@ import { AlertVariants } from '@/examples/alert/variants'
 import variantsSource from '@/examples/alert/variants.tsx?raw'
 import { AlertWithActions } from '@/examples/alert/with-actions'
 import withActionsSource from '@/examples/alert/with-actions.tsx?raw'
+import guidelines from '@/registry/ui/alert/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/alert')({
   component: AlertPage,
@@ -106,58 +106,7 @@ function AlertPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To report the result of a form submit, in the form’s result slot below the actions row.',
-          'To show a warning or notice that belongs to a region of the page and should sit in the flow beside it.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a result with no visible home, such as the outcome of a dialog form that has already closed. A notice stays on screen and links back to its subject.',
-            alternative: { to: '/components/notice', label: 'Notice' },
-          },
-          {
-            situation:
-              'when a region failed to load. The region itself says so, with a retry.',
-            alternative: {
-              to: '/components/error-state',
-              label: 'Error state',
-            },
-          },
-          {
-            situation:
-              'for the error on a single field. The field shows its own error beside its input.',
-            alternative: { to: '/fields', label: 'Fields' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Place the alert where the traveller is already looking, and keep it until they have seen it.',
-            reason:
-              'A message that appears elsewhere or disappears on a timer is missed, and a missed failure looks like a success.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Pick the variant by what the traveller must do: error for a failure, warning for something to check, success and info for the rest.',
-            reason:
-              'Error interrupts a screen reader and the others wait their turn, so the variant sets how loudly the message arrives.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Hide the alert from inside the component or on a timer.',
-            reason:
-              'The app owns the lifecycle. A message that removes itself cannot be read at the traveller’s pace.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Stack several alerts for one action.',
-            reason:
-              'Several messages for one result make the traveller work out which one matters. Write one alert that says it.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -202,7 +151,8 @@ function AlertPage() {
               name: 'variant',
               type: 'AlertVariant',
               default: 'AlertVariant.Info',
-              description: 'Info, Success, Warning, or Error.',
+              description:
+                'Info, Success, Warning, or Error. Error interrupts a screen reader; the others wait their turn.',
             },
             {
               name: 'size',
@@ -221,7 +171,7 @@ function AlertPage() {
               name: 'onClose',
               type: '() => void',
               description:
-                'Shows a Dismiss button that calls it. The alert does not hide itself.',
+                'Shows a Dismiss button that calls it. The alert does not hide itself: your app owns its lifecycle and sets open or removes it.',
             },
             {
               name: 'open',

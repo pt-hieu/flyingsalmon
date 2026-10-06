@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -20,6 +19,7 @@ import overflowSource from '@/examples/avatar-group/overflow.tsx?raw'
 import { AvatarGroupSizes } from '@/examples/avatar-group/sizes'
 import sizesSource from '@/examples/avatar-group/sizes.tsx?raw'
 import usageSource from '@/examples/avatar-group/usage.tsx?raw'
+import guidelines from '@/registry/ui/avatar-group/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/avatar-group')({
   component: AvatarGroupPage,
@@ -76,63 +76,7 @@ function AvatarGroupPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To show who is on a trip, a plan, or a row at a glance.',
-          'When the roster can grow without a bound, because the group folds the overflow into one chip.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to mark a single person, because the group adds overlap and a tooltip a lone mark does not need.',
-            alternative: { to: '/components/avatar', label: 'Avatar' },
-          },
-          {
-            situation:
-              'for a count with no people behind it, such as places or days.',
-            alternative: { to: '/components/badge', label: 'Badge' },
-          },
-          {
-            situation:
-              'when each person needs an action, such as removing a traveller, because nothing in the group is clickable.',
-            alternative: { to: '/components/table', label: 'Table' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: (
-              <>
-                Give the group an <code>aria-label</code> that names the roster.
-              </>
-            ),
-            reason:
-              'The group is announced as one unit, and its label says whose faces these are.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: (
-              <>
-                Render <code>TooltipProvider</code> once at your app root.
-              </>
-            ),
-            reason:
-              'The group shares one tooltip delay across the row, so sweeping the pointer over faces never waits out the open delay on each. A provider per group would reset it.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Rely on the tooltip to say who is in the group.',
-            reason:
-              'Touch screens cannot open it. Write essential names as text beside the group.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put the group inside a container that clips its overflow.',
-            reason:
-              'Hovering a face parts the row 14px past the group’s own box on each side, and a clip cuts the faces off.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -183,7 +127,9 @@ function AvatarGroupPage() {
               <>
                 Also takes every <code>&lt;div&gt;</code> attribute except{' '}
                 <code>children</code>. Render it inside a{' '}
-                <code>TooltipProvider</code>.
+                <code>TooltipProvider</code>, once at your app root. Hovering a
+                face parts the row past the group&rsquo;s own box, so keep it
+                out of any container that clips its overflow.
               </>
             }
             rows={[
@@ -217,7 +163,8 @@ function AvatarGroupPage() {
               {
                 name: 'aria-label',
                 type: 'string',
-                description: 'Names the group.',
+                description:
+                  'Names the group, which is announced as one unit. Say whose faces these are, such as Trip travellers.',
               },
             ]}
           />
@@ -253,6 +200,12 @@ function AvatarGroupPage() {
             Pressing an avatar closes its tooltip, because the floating layer
             closes every tooltip on pointer-down. The name returns when the
             pointer leaves the avatar and comes back.
+          </p>
+          <p>
+            One <code>TooltipProvider</code> at the app root shares a single
+            tooltip delay across the row, so sweeping the pointer over the faces
+            never waits out the open delay on each. A provider per group would
+            reset it.
           </p>
         </>
       }

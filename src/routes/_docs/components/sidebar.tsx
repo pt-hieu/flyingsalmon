@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -16,6 +15,7 @@ import nestedItemsSource from '@/examples/sidebar/nested-items.tsx?raw'
 import { SidebarStartsCollapsed } from '@/examples/sidebar/starts-collapsed'
 import startsCollapsedSource from '@/examples/sidebar/starts-collapsed.tsx?raw'
 import usageSource from '@/examples/sidebar/usage.tsx?raw'
+import guidelines from '@/registry/ui/sidebar/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/sidebar')({
   component: SidebarPage,
@@ -56,61 +56,7 @@ function SidebarPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For the primary navigation of the app: a trip’s itinerary, places, budget, and travellers.',
-          'As the app’s top bar. On a narrow screen the sidebar becomes the bar, so there is no separate header component to build.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to climb back up through a hierarchy within one section, because a sidebar moves between sections.',
-            alternative: { to: '/components/breadcrumb', label: 'Breadcrumb' },
-          },
-          {
-            situation:
-              'to switch between peer panels on one page, because those are views of the same content rather than places.',
-            alternative: { to: '/components/tabs', label: 'Tabs' },
-          },
-          {
-            situation:
-              'for a drawer of actions or a panel that is not navigation.',
-            alternative: { to: '/components/drawer', label: 'Drawer' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep the sidebar mounted across routes by putting it in a persistent layout route.',
-            reason:
-              'The current-page bar slides between items only if the sidebar stays mounted. A sidebar that remounts on every navigation still works; it draws the bar in place instead of moving it there.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give SidebarNav an aria-label.',
-            reason:
-              'The label tells a screen reader the app nav from any other nav on the page.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Swap header or footer content that is too wide for the rail on useSidebar().layout.',
-            reason:
-              'Header and footer are slots and the app owns them, so the sidebar cannot reshape what it does not know. The demo drops the trip name in the rail.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Pass a plain string as the item label.',
-            reason:
-              'The rail tooltip needs a string. An item whose children are markup keeps its own visible text in the rail instead of gaining a tooltip.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Mark the current page with anything but aria-current="page".',
-            reason:
-              'The item reads its active state from that attribute, on itself or on the element asChild renders, so a router link that already sets it needs nothing else.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -166,7 +112,10 @@ function SidebarPage() {
               <>
                 Holds the collapsed state and the layout. Also takes every{' '}
                 <code>&lt;div&gt;</code> attribute; size the sidebar and the
-                pane through <code>className</code>.
+                pane through <code>className</code>. Put it in a persistent
+                layout route so it stays mounted across navigation; one that
+                remounts draws the current-page bar in place instead of sliding
+                it.
               </>
             }
             rows={[
@@ -198,6 +147,12 @@ function SidebarPage() {
             }
             rows={[
               {
+                name: 'children',
+                type: 'ReactNode',
+                description:
+                  'The label, or with asChild the one element that wraps it. Pass the label as a plain string: the rail shows it as a tooltip. A label made of markup stays visible in the rail instead.',
+              },
+              {
                 name: 'icon',
                 type: 'ReactNode',
                 description: 'The icon before the label.',
@@ -212,7 +167,8 @@ function SidebarPage() {
               {
                 name: 'aria-current',
                 type: '"page" | undefined',
-                description: 'Marks the current page and draws the bar.',
+                description:
+                  'Marks the current page and draws the bar. The item reads it from itself or from the element asChild renders, so a router link that sets it needs nothing else. Nothing else marks the current page.',
               },
             ]}
           />
@@ -273,8 +229,10 @@ function SidebarPage() {
             <code>useSidebar()</code> returns <code>collapsed</code>,{' '}
             <code>setCollapsed</code>, and <code>layout</code>, which is a{' '}
             <code>SidebarLayout</code>: <code>Expanded</code>,{' '}
-            <code>Collapsed</code>, or <code>Strip</code>. The remaining parts (
-            <code>Sidebar</code>, <code>SidebarHeader</code>,{' '}
+            <code>Collapsed</code>, or <code>Strip</code>. The header and footer
+            are your slots, so branch on <code>layout</code> to drop content too
+            wide for the rail, as the demo does with the trip name. The
+            remaining parts (<code>Sidebar</code>, <code>SidebarHeader</code>,{' '}
             <code>SidebarContent</code>, <code>SidebarFooter</code>,{' '}
             <code>SidebarGroup</code>, <code>SidebarGroupLabel</code>,{' '}
             <code>SidebarNestItems</code>) take only their element&rsquo;s

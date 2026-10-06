@@ -1,11 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import {
-  DocPage,
-  Example,
-  GuidelineVerdict,
-  PropsTable,
-} from '@/components/doc-page'
+import { DocPage, Example, PropsTable } from '@/components/doc-page'
 import { SkeletonDemo } from '@/examples/skeleton/demo'
 import demoSource from '@/examples/skeleton/demo.tsx?raw'
 import { SkeletonLoadingRegion } from '@/examples/skeleton/loading-region'
@@ -15,6 +10,7 @@ import textFollowsFontSource from '@/examples/skeleton/text-follows-font.tsx?raw
 import usageSource from '@/examples/skeleton/usage.tsx?raw'
 import { SkeletonVariants } from '@/examples/skeleton/variants'
 import variantsSource from '@/examples/skeleton/variants.tsx?raw'
+import guidelines from '@/registry/ui/skeleton/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/skeleton')({
   component: SkeletonPage,
@@ -55,63 +51,15 @@ function SkeletonPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For a region whose shape is known and whose content has not arrived: a list, a card, a page on first load.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for an action that is running, such as a form submitting. The control shows its own busyness.',
-            alternative: { to: '/components/spinner', label: 'Spinner' },
-          },
-          {
-            situation:
-              'for a long job with a known end, where the traveller wants to see how far along it is.',
-            alternative: { to: '/components/progress', label: 'Progress' },
-          },
-          {
-            situation:
-              'when the region is legitimately empty. A skeleton says content is coming, and none is.',
-            alternative: {
-              to: '/components/empty-state',
-              label: 'Empty state',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Size each block to match the content it replaces.',
-            reason:
-              'There are no size props, because a placeholder that differs from the real content makes the page jump when it arrives.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Put aria-busy on the container that will hold the real content.',
-            reason:
-              'The skeleton is hidden from screen readers, so the loading region owns the announcement.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Swap a control the traveller just pressed for a skeleton.',
-            reason:
-              'The control should stay and show its own busyness. A skeleton in its place makes the action vanish.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Show a skeleton and a spinner for the same wait.',
-            reason:
-              'Two indicators for one wait say it twice and compete for attention.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <p>
           The skeleton is always <code>aria-hidden</code> and never takes a tab
           stop, so a screen reader hears nothing from it. The region that is
           loading owns the announcement: put <code>aria-busy</code> on the
-          container that will hold the real content.
+          container that will hold the real content, and an{' '}
+          <code>aria-label</code> such as &ldquo;Loading trips&rdquo; that names
+          what is coming, not on each block.
         </p>
       }
       api={

@@ -3,7 +3,6 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -20,6 +19,7 @@ import readOnlySource from '@/examples/calendar/read-only.tsx?raw'
 import { CalendarUnavailableDays } from '@/examples/calendar/unavailable-days'
 import unavailableDaysSource from '@/examples/calendar/unavailable-days.tsx?raw'
 import usageSource from '@/examples/calendar/usage.tsx?raw'
+import guidelines from '@/registry/ui/calendar/guidelines.md?raw'
 import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/calendar')({
@@ -77,48 +77,7 @@ function CalendarPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'When the calendar is the interface itself: a page or a card where the traveller scans a month to choose a day.',
-          'To show two months side by side so a trip that crosses a month end is visible at once.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when a date belongs in a form. It adds the label, the typed segments, the error, and the hidden inputs around this grid.',
-            alternative: {
-              to: '/components/date-picker',
-              label: 'Date picker',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Always pass an aria-label.',
-            reason:
-              'The grid has no visible label of its own, so the label is what a screen reader announces with the visible month.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Pass dates as ISO YYYY-MM-DD strings.',
-            reason:
-              'A trip date is a calendar day, not an instant, so no time zone shifts it, and it posts straight into a hidden native input.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Clear the value from your app with value={null}.',
-            reason:
-              'Pressing the selected day again keeps it selected, so the grid has no way to empty itself.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Look for an error state on the calendar.',
-            reason:
-              'It carries no label or message. A failure belongs to the field that hosts it.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -184,7 +143,8 @@ function CalendarPage() {
               name: 'aria-label',
               type: 'string',
               required: true,
-              description: 'The grid’s accessible name.',
+              description:
+                'The grid’s accessible name. Required, because the grid has no visible label: a screen reader announces it with the visible month.',
             },
             {
               name: 'mode',
@@ -196,13 +156,13 @@ function CalendarPage() {
               name: 'value',
               type: 'string | CalendarRange | null',
               description:
-                'The controlled value: an ISO day, { start, end }, or null.',
+                'The controlled value: an ISO YYYY-MM-DD day, { start, end }, or null. Pass null to clear it: pressing the selected day again keeps it selected, so the grid never empties itself.',
             },
             {
               name: 'onChange',
               type: '(value) => void',
               description:
-                'Reports the selection. In range mode it fires once, on commit, with start never after end.',
+                'Reports the selection as ISO YYYY-MM-DD days. In range mode it fires once, on commit, with start never after end.',
             },
             {
               name: 'months',
@@ -222,7 +182,7 @@ function CalendarPage() {
               name: 'min, max',
               type: 'string',
               description:
-                'ISO bounds. Days outside them are struck through, and the month buttons disable at the edge.',
+                'ISO YYYY-MM-DD bounds. Days outside them are struck through, and the month buttons disable at the edge.',
             },
             {
               name: 'isDateDisabled',
@@ -253,6 +213,11 @@ function CalendarPage() {
       }
       notes={
         <>
+          <p>
+            Values are ISO <code>YYYY-MM-DD</code> strings because a trip date
+            is a calendar day, not an instant, so no time zone shifts it, and it
+            posts straight into a hidden native input.
+          </p>
           <p>
             The visible month derives from the value, else today, else{' '}
             <code>min</code>. There is no visible-month control, no week-start

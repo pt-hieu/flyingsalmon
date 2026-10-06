@@ -3,7 +3,6 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -26,6 +25,7 @@ import sizesSource from '@/examples/toggle-group/sizes.tsx?raw'
 import usageSource from '@/examples/toggle-group/usage.tsx?raw'
 
 import { TextLink } from '@/registry/ui/text-link'
+import guidelines from '@/registry/ui/toggle-group/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/toggle-group')({
   component: ToggleGroupPage,
@@ -98,62 +98,7 @@ function ToggleGroupPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To answer a question with chips that wrap, such as interests or a trip pace.',
-          'When the traveller may choose several options, or may want to clear a single choice.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when exactly one option must always be chosen and a clear option is not wanted. A radio group cannot be emptied.',
-            alternative: {
-              to: '/components/radio-group',
-              label: 'Radio group',
-            },
-          },
-          {
-            situation:
-              'to switch the panel underneath a heading. A toggle group answers a question; tabs navigate.',
-            alternative: { to: '/components/tabs', label: 'Tabs' },
-          },
-          {
-            situation:
-              'for a read-only summary, such as the activity types of a trip or the values echoed back on a review screen. A chip the traveller cannot press is not a toggle.',
-            alternative: { to: '/components/badge', label: 'Badge' },
-          },
-          {
-            situation: 'for a setting that is only on or off.',
-            alternative: { to: '/components/switch', label: 'Switch' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'State the limit in the label when you set a maximum: "Pick up to 3 interests".',
-            reason:
-              'The group shows no counter or hint, and a chip that dims at the cap needs a reason on screen.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep chip labels to a word or two.',
-            reason:
-              'Chips wrap across lines, and short labels keep the rows even and easy to scan.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Use a toggle group as a segmented control that navigates.',
-            reason:
-              'It has no shared track and no panel, and in single mode it returns to empty. Navigation is the job of tabs.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Use disabled chips to display values.',
-            reason:
-              'A disabled chip reads as unavailable, not as a result. A badge shows a value without implying that it can be pressed.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -250,7 +195,7 @@ function ToggleGroupPage() {
                 name: 'onValueChange',
                 type: '(value: string | string[]) => void',
                 description:
-                  'Called with the next value. Single mode reports an empty string when the chip is cleared.',
+                  'Called with the next value. Single mode reports an empty string when the chip is cleared. Enforce a chip that stands alone, such as "Decide for me", here: drop the other values when it is pressed, and drop it when another is.',
               },
               {
                 name: 'max',

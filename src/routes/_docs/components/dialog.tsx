@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   NoticeFrame,
   PropsTable,
@@ -23,6 +22,7 @@ import scrollingBodySource from '@/examples/dialog/scrolling-body.tsx?raw'
 import { DialogServerError } from '@/examples/dialog/server-error'
 import serverErrorSource from '@/examples/dialog/server-error.tsx?raw'
 import usageSource from '@/examples/dialog/usage.tsx?raw'
+import guidelines from '@/registry/ui/dialog/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/dialog')({
   component: DialogPage,
@@ -105,61 +105,7 @@ function DialogPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For a short form that creates or edits one thing: plan a trip, add a place, edit a traveller.',
-          'To confirm an action that cannot be undone, such as deleting a trip.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for content that accompanies the page, such as filters or the detail of a row. A drawer sits at the edge and leaves the page in view; a dialog stops it.',
-            alternative: { to: '/components/drawer', label: 'Drawer' },
-          },
-          {
-            situation:
-              'to report a result. A dialog demands a decision; a result needs only to be seen.',
-            alternative: { to: '/components/notice', label: 'Notice' },
-          },
-          {
-            situation:
-              'for a long task with several stages, which deserves a page of its own and a visible sense of progress.',
-            alternative: { to: '/components/stepper', label: 'Stepper' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Close a form dialog on submit and show the result on the item that changed.',
-            reason:
-              'The new trip appearing in the list is the clearest success there is, and nobody waits for the server with a modal in their face.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Turn a server error after closing into a notice whose link reopens the dialog with what the traveller typed.',
-            reason:
-              'The dialog is gone, so the notice is the one home that stays until it is seen, and nothing typed is lost.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Hold a dialog open with pending just to wait for a save.',
-            reason:
-              'Pending blocks every exit. Keep it for an answer the next step depends on, such as checking an invite code.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep client-side validation inside the dialog, on the field.',
-            reason:
-              'The traveller is still looking at the form, so the error belongs under the field they need to fix.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Name the action on the confirm button: "Delete trip", not "OK".',
-            reason:
-              'The button is the last thing read before the decision, so it says what will happen.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -238,7 +184,7 @@ function DialogPage() {
                 type: 'boolean',
                 default: 'false',
                 description:
-                  'Blocks Escape, a click outside, and the close button, and sets aria-busy.',
+                  'Blocks Escape, a click outside, and the close button, and sets aria-busy. Use it for an answer the next step depends on, such as checking an invite code. It leaves your footer alone: set loading on the confirm button and disable Cancel yourself.',
               },
             ]}
           />

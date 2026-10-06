@@ -3,7 +3,6 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -18,6 +17,7 @@ import selectAllSource from '@/examples/checkbox/select-all.tsx?raw'
 import { CheckboxStates } from '@/examples/checkbox/states'
 import statesSource from '@/examples/checkbox/states.tsx?raw'
 import usageSource from '@/examples/checkbox/usage.tsx?raw'
+import guidelines from '@/registry/ui/checkbox/guidelines.md?raw'
 
 import { TextLink } from '@/registry/ui/text-link'
 
@@ -68,58 +68,7 @@ function CheckboxPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To record a yes or no that a form collects and submits later, such as accepting a policy.',
-          'To pick any number of options from a short list, each one independent of the others.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a setting that takes effect the moment it flips. A switch shows that it applies at once and shows its own busyness.',
-            alternative: { to: '/components/switch', label: 'Switch' },
-          },
-          {
-            situation:
-              'when exactly one option must be chosen, because a checkbox cannot enforce a single answer.',
-            alternative: {
-              to: '/components/radio-group',
-              label: 'Radio group',
-            },
-          },
-          {
-            situation:
-              'to pick several options from a long list, where a column of boxes is too tall to scan.',
-            alternative: { to: '/components/combobox', label: 'Combobox' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Write the label as a statement the traveller agrees with: "Tell travellers when the itinerary changes".',
-            reason:
-              'A ticked box then reads as a yes, and nobody has to work out what an unticked one means.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Use the indeterminate state only on a parent whose children are mixed.',
-            reason:
-              'It tells the traveller that some of the group is selected, and a click resolves it to all or none.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Use a checkbox for a setting that applies immediately.',
-            reason:
-              'A checkbox suggests a later submit. A switch tells the traveller the change is already live.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Leave out the label and rely on nearby text.',
-            reason:
-              'The label is part of the click target and the accessible name. Without it the box is a small target that screen readers cannot name.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -171,7 +120,7 @@ function CheckboxPage() {
               name: 'label',
               type: 'string',
               description:
-                'The text beside the box. It is part of the click target and the accessible name.',
+                'The text beside the box. It is part of the click target and the accessible name, so give every box one: nearby text names nothing.',
             },
             {
               name: 'error',

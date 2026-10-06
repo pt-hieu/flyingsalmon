@@ -488,6 +488,11 @@
           "path": "src/registry/ui/spinner/classnames.ts",
           "type": "registry:ui"
         },
+        {
+          "path": "src/registry/ui/spinner/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/spinner/guidelines.md"
+        },
         { "path": "src/registry/ui/spinner/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/spinner/spinner.tsx",
@@ -512,6 +517,11 @@
         {
           "path": "src/registry/ui/button/classnames.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/button/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/button/guidelines.md"
         },
         { "path": "src/registry/ui/button/index.ts", "type": "registry:ui" },
         {
@@ -550,6 +560,11 @@
           "path": "src/registry/ui/alert/classnames.ts",
           "type": "registry:ui"
         },
+        {
+          "path": "src/registry/ui/alert/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/alert/guidelines.md"
+        },
         { "path": "src/registry/ui/alert/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/alert/types.ts", "type": "registry:ui" }
       ]
@@ -569,6 +584,11 @@
         {
           "path": "src/registry/ui/input/classnames.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/input/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/input/guidelines.md"
         },
         { "path": "src/registry/ui/input/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/input/input.tsx", "type": "registry:ui" },
@@ -590,6 +610,11 @@
         {
           "path": "src/registry/ui/textarea/classnames.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/textarea/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/textarea/guidelines.md"
         },
         { "path": "src/registry/ui/textarea/index.ts", "type": "registry:ui" },
         {
@@ -614,6 +639,11 @@
         {
           "path": "src/registry/ui/switch/classnames.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/switch/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/switch/guidelines.md"
         },
         { "path": "src/registry/ui/switch/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/switch/switch.tsx", "type": "registry:ui" },
@@ -640,6 +670,11 @@
           "path": "src/registry/ui/checkbox/classnames.ts",
           "type": "registry:ui"
         },
+        {
+          "path": "src/registry/ui/checkbox/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/checkbox/guidelines.md"
+        },
         { "path": "src/registry/ui/checkbox/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/checkbox/mark-paths.ts",
@@ -660,6 +695,11 @@
           "path": "src/registry/ui/badge/classnames.ts",
           "type": "registry:ui"
         },
+        {
+          "path": "src/registry/ui/badge/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/badge/guidelines.md"
+        },
         { "path": "src/registry/ui/badge/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/badge/types.ts", "type": "registry:ui" }
       ]
@@ -675,6 +715,11 @@
         {
           "path": "src/registry/ui/avatar/classnames.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/avatar/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/avatar/guidelines.md"
         },
         { "path": "src/registry/ui/avatar/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/avatar/types.ts", "type": "registry:ui" },
@@ -715,6 +760,11 @@
         { "path": "src/registry/ui/card/card.tsx", "type": "registry:ui" },
         { "path": "src/registry/ui/card/classnames.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/card/context.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/card/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/card/guidelines.md"
+        },
         { "path": "src/registry/ui/card/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/card/types.ts", "type": "registry:ui" }
       ]
@@ -729,6 +779,11 @@
         {
           "path": "src/registry/ui/skeleton/classnames.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/skeleton/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/skeleton/guidelines.md"
         },
         { "path": "src/registry/ui/skeleton/index.ts", "type": "registry:ui" },
         {
@@ -784,6 +839,11 @@
           "type": "registry:ui"
         },
         { "path": "src/registry/ui/dialog/dialog.tsx", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/dialog/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/dialog/guidelines.md"
+        },
         { "path": "src/registry/ui/dialog/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/dialog/types.ts", "type": "registry:ui" }
       ]
@@ -833,6 +893,11 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/dropdown-menu/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/dropdown-menu/guidelines.md"
+        },
+        {
           "path": "src/registry/ui/dropdown-menu/index.ts",
           "type": "registry:ui"
         },
@@ -858,6 +923,11 @@
         {
           "path": "src/registry/ui/select/classnames.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/select/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/select/guidelines.md"
         },
         { "path": "src/registry/ui/select/index.ts", "type": "registry:ui" },
         {
@@ -895,6 +965,11 @@
           "path": "src/registry/ui/tooltip/classnames.ts",
           "type": "registry:ui"
         },
+        {
+          "path": "src/registry/ui/tooltip/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/tooltip/guidelines.md"
+        },
         { "path": "src/registry/ui/tooltip/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/tooltip/tooltip-provider.tsx",
@@ -922,6 +997,11 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/icon-tooltip/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/icon-tooltip/guidelines.md"
+        },
+        {
           "path": "src/registry/ui/icon-tooltip/icon-tooltip.tsx",
           "type": "registry:ui"
         },
@@ -941,6 +1021,11 @@
       "files": [
         { "path": "src/registry/ui/tabs/classnames.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/tabs/context.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/tabs/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/tabs/guidelines.md"
+        },
         { "path": "src/registry/ui/tabs/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/tabs/tabs-content.tsx",
@@ -973,6 +1058,11 @@
           "type": "registry:ui"
         },
         { "path": "src/registry/ui/form/form.tsx", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/form/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/form/guidelines.md"
+        },
         { "path": "src/registry/ui/form/index.ts", "type": "registry:ui" }
       ]
     },
@@ -994,6 +1084,11 @@
         {
           "path": "src/registry/ui/radio-group/context.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/radio-group/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/radio-group/guidelines.md"
         },
         {
           "path": "src/registry/ui/radio-group/index.ts",
@@ -1023,6 +1118,11 @@
         {
           "path": "src/registry/ui/table/classnames.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/table/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/table/guidelines.md"
         },
         { "path": "src/registry/ui/table/index.ts", "type": "registry:ui" },
         {
@@ -1081,6 +1181,11 @@
           "path": "src/registry/ui/accordion/classnames.ts",
           "type": "registry:ui"
         },
+        {
+          "path": "src/registry/ui/accordion/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/accordion/guidelines.md"
+        },
         { "path": "src/registry/ui/accordion/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/accordion/types.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/accordion/utils.ts", "type": "registry:ui" }
@@ -1101,6 +1206,11 @@
         {
           "path": "src/registry/ui/avatar-group/classnames.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/avatar-group/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/avatar-group/guidelines.md"
         },
         {
           "path": "src/registry/ui/avatar-group/index.ts",
@@ -1130,6 +1240,11 @@
         {
           "path": "src/registry/ui/separator/classnames.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/separator/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/separator/guidelines.md"
         },
         { "path": "src/registry/ui/separator/index.ts", "type": "registry:ui" },
         {
@@ -1175,6 +1290,11 @@
         {
           "path": "src/registry/ui/calendar/context.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/calendar/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/calendar/guidelines.md"
         },
         { "path": "src/registry/ui/calendar/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/calendar/types.ts", "type": "registry:ui" },
@@ -1228,6 +1348,11 @@
         {
           "path": "src/registry/ui/date-picker/describe-rejection.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/date-picker/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/date-picker/guidelines.md"
         },
         {
           "path": "src/registry/ui/date-picker/index.ts",
@@ -1320,6 +1445,11 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/combobox/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/combobox/guidelines.md"
+        },
+        {
           "path": "src/registry/ui/combobox/has-panel-content.ts",
           "type": "registry:ui"
         },
@@ -1369,6 +1499,11 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/number-field/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/number-field/guidelines.md"
+        },
+        {
           "path": "src/registry/ui/number-field/index.ts",
           "type": "registry:ui"
         },
@@ -1413,6 +1548,11 @@
           "path": "src/registry/ui/slider/classnames.ts",
           "type": "registry:ui"
         },
+        {
+          "path": "src/registry/ui/slider/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/slider/guidelines.md"
+        },
         { "path": "src/registry/ui/slider/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/slider/slider.tsx", "type": "registry:ui" },
         { "path": "src/registry/ui/slider/utils.ts", "type": "registry:ui" }
@@ -1437,6 +1577,11 @@
         {
           "path": "src/registry/ui/toggle-group/context.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/toggle-group/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/toggle-group/guidelines.md"
         },
         {
           "path": "src/registry/ui/toggle-group/index.ts",
@@ -1472,6 +1617,11 @@
           "path": "src/registry/ui/progress/classnames.ts",
           "type": "registry:ui"
         },
+        {
+          "path": "src/registry/ui/progress/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/progress/guidelines.md"
+        },
         { "path": "src/registry/ui/progress/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/progress/progress.tsx",
@@ -1491,6 +1641,11 @@
         {
           "path": "src/registry/ui/stepper/classnames.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/stepper/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/stepper/guidelines.md"
         },
         { "path": "src/registry/ui/stepper/index.ts", "type": "registry:ui" },
         {
@@ -1512,6 +1667,11 @@
         {
           "path": "src/registry/ui/notice/classnames.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/notice/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/notice/guidelines.md"
         },
         { "path": "src/registry/ui/notice/index.ts", "type": "registry:ui" },
         {
@@ -1583,6 +1743,11 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/empty-state/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/empty-state/guidelines.md"
+        },
+        {
           "path": "src/registry/ui/empty-state/index.ts",
           "type": "registry:ui"
         },
@@ -1608,6 +1773,11 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/error-state/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/error-state/guidelines.md"
+        },
+        {
           "path": "src/registry/ui/error-state/index.ts",
           "type": "registry:ui"
         }
@@ -1622,6 +1792,11 @@
         {
           "path": "src/registry/ui/page-header/classnames.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/page-header/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/page-header/guidelines.md"
         },
         {
           "path": "src/registry/ui/page-header/index.ts",
@@ -1659,6 +1834,11 @@
           "type": "registry:ui"
         },
         { "path": "src/registry/ui/sidebar/context.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/sidebar/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/sidebar/guidelines.md"
+        },
         { "path": "src/registry/ui/sidebar/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/sidebar/sidebar-content.tsx",
@@ -1738,6 +1918,11 @@
           "path": "src/registry/ui/timeline/context.ts",
           "type": "registry:ui"
         },
+        {
+          "path": "src/registry/ui/timeline/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/timeline/guidelines.md"
+        },
         { "path": "src/registry/ui/timeline/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/timeline/timeline-content.tsx",
@@ -1783,6 +1968,11 @@
           "type": "registry:ui"
         },
         { "path": "src/registry/ui/drawer/drawer.tsx", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/drawer/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/drawer/guidelines.md"
+        },
         { "path": "src/registry/ui/drawer/index.ts", "type": "registry:ui" }
       ]
     },
@@ -1817,6 +2007,11 @@
           "path": "src/registry/ui/breadcrumb/classnames.ts",
           "type": "registry:ui"
         },
+        {
+          "path": "src/registry/ui/breadcrumb/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/breadcrumb/guidelines.md"
+        },
         { "path": "src/registry/ui/breadcrumb/index.ts", "type": "registry:ui" }
       ]
     },
@@ -1839,6 +2034,11 @@
         {
           "path": "src/registry/ui/pagination/classnames.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/pagination/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/pagination/guidelines.md"
         },
         {
           "path": "src/registry/ui/pagination/index.ts",
@@ -1871,6 +2071,11 @@
           "path": "src/registry/ui/text-link/classnames.ts",
           "type": "registry:ui"
         },
+        {
+          "path": "src/registry/ui/text-link/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/text-link/guidelines.md"
+        },
         { "path": "src/registry/ui/text-link/index.ts", "type": "registry:ui" },
         {
           "path": "src/registry/ui/text-link/text-link.tsx",
@@ -1893,6 +2098,11 @@
         {
           "path": "src/registry/ui/sticker/cut-passes.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sticker/guidelines.md",
+          "type": "registry:file",
+          "target": "@ui/sticker/guidelines.md"
         },
         { "path": "src/registry/ui/sticker/index.ts", "type": "registry:ui" },
         {

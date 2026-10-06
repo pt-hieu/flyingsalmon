@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -32,6 +31,7 @@ import remoteResultsSource from '@/examples/combobox/remote-results.tsx?raw'
 import { ComboboxSmall } from '@/examples/combobox/small'
 import smallSource from '@/examples/combobox/small.tsx?raw'
 import usageSource from '@/examples/combobox/usage.tsx?raw'
+import guidelines from '@/registry/ui/combobox/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/combobox')({
   component: ComboboxPage,
@@ -136,64 +136,7 @@ function ComboboxPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To choose from a list too long to scan, where typing is faster: a destination, a departure city.',
-          'To collect several values as chips: interests, the travellers on a trip.',
-          'When the right answer may not be on the list, with allowFreeText.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a short, fixed list such as a cabin class, where scanning beats typing.',
-            alternative: { to: '/components/select', label: 'Select' },
-          },
-          {
-            situation:
-              'for two to five options that should all stay visible while the traveller decides.',
-            alternative: {
-              to: '/components/radio-group',
-              label: 'Radio group',
-            },
-          },
-          {
-            situation: 'for free text that needs no suggestions.',
-            alternative: { to: '/components/input', label: 'Input' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Filter, fetch, and debounce in your own code.',
-            reason:
-              'The combobox shows exactly the children you pass, so a billed autocomplete call, its debounce, and its cancellation stay where you can see them.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Key items with ids, not with their labels.',
-            reason:
-              'With free text on, typed text that equals an item key reads as a pick. An id never collides with something a traveller types.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Render ComboboxEmpty when a search returns nothing.',
-            reason:
-              'A panel that never opens looks broken; the empty row says the search ran.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: "Put a source's credit line under the field yourself.",
-            reason:
-              'The combobox has no footer slot. The source, the wording, and the placement are yours.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Open the panel on focus.',
-            reason:
-              'Tabbing through a form would throw a panel over the next field. The panel opens on typing, the arrow keys, or the chevron, and when results land after typing.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -290,7 +233,7 @@ function ComboboxPage() {
                 name: 'children',
                 type: 'ReactNode',
                 description:
-                  'The items to show for the current text, with any groups, labels, separators, and an empty row.',
+                  'The items to show for the current text, with any groups, labels, separators, and an empty row. The combobox filters nothing and shows exactly what you pass, so filtering, fetching, debouncing, and cancelling a billed call stay in your code.',
               },
               {
                 name: 'label',
@@ -404,7 +347,8 @@ function ComboboxPage() {
                 name: 'value',
                 type: 'string',
                 required: true,
-                description: 'The key reported when the item is picked.',
+                description:
+                  'The key reported when the item is picked. Use an id, not the label: with free text on, typed text that equals a key reads as a pick.',
               },
               {
                 name: 'children',
@@ -435,7 +379,10 @@ function ComboboxPage() {
             <code>ComboboxGroup</code>, <code>ComboboxLabel</code>,{' '}
             <code>ComboboxSeparator</code>, and <code>ComboboxEmpty</code> take
             the props of a <code>&lt;div&gt;</code>. There is no input, trigger,
-            or content part: the root renders them.
+            or content part: the root renders them. Pass{' '}
+            <code>ComboboxEmpty</code> with your message when a search returns
+            nothing. There is no footer slot, so a source&rsquo;s credit line
+            goes under the field, in your own markup.
           </p>
         </>
       }

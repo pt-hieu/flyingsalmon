@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -18,6 +17,7 @@ import onACardSource from '@/examples/text-link/on-a-card.tsx?raw'
 import { TextLinkRouterLink } from '@/examples/text-link/router-link'
 import routerLinkSource from '@/examples/text-link/router-link.tsx?raw'
 import usageSource from '@/examples/text-link/usage.tsx?raw'
+import guidelines from '@/registry/ui/text-link/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/text-link')({
   component: TextLinkPage,
@@ -66,60 +66,7 @@ function TextLinkPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To navigate from inside a sentence or a line of copy: to another page, another site, or a place on the same page.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to send, save, open, or retry. A link navigates and a button acts. For an action inside a sentence, such as "Didn’t get the code? Resend", place the button inline.',
-            alternative: { to: '/components/button', label: 'Button' },
-          },
-          {
-            situation:
-              'for the levels of a trail, which read as links by position and draw no underline.',
-            alternative: { to: '/components/breadcrumb', label: 'Breadcrumb' },
-          },
-          {
-            situation:
-              'for navigation items, which keep their own classes for the same reason.',
-            alternative: { to: '/components/sidebar', label: 'Sidebar' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give every text link an href, or render your router’s link through asChild.',
-            reason:
-              'An anchor that navigates nowhere is an action, and an action is a button.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Let the link inherit the size and weight of its sentence.',
-            reason:
-              'It is inline and breaks across lines with the text around it, so there is no size prop and no variant.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Look for a muted variant or colour inheritance.',
-            reason:
-              'The contrast with the surrounding muted text is the point of the link.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Disable a text link.',
-            reason:
-              'An anchor that cannot navigate is plain text, so render text.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put a text link inside a card or table link that already covers the surface.',
-            reason:
-              'The surface is the hit target, and an underline inside it competes with the title.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -152,7 +99,7 @@ function TextLinkPage() {
               name: 'href',
               type: 'string',
               description:
-                'Where the link goes. Required unless asChild passes an element that supplies its own.',
+                'Where the link goes. Required unless asChild passes an element that supplies its own: an anchor that navigates nowhere is an action, and an action is a button.',
             },
             {
               name: 'asChild',

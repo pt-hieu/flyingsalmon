@@ -1,11 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import {
-  DocPage,
-  Example,
-  GuidelineVerdict,
-  PropsTable,
-} from '@/components/doc-page'
+import { DocPage, Example, PropsTable } from '@/components/doc-page'
 import { StepperDemo } from '@/examples/stepper/demo'
 import demoSource from '@/examples/stepper/demo.tsx?raw'
 import { StepperForwardAndBack } from '@/examples/stepper/forward-and-back'
@@ -13,6 +8,7 @@ import forwardAndBackSource from '@/examples/stepper/forward-and-back.tsx?raw'
 import { StepperGrowingCount } from '@/examples/stepper/growing-count'
 import growingCountSource from '@/examples/stepper/growing-count.tsx?raw'
 import usageSource from '@/examples/stepper/usage.tsx?raw'
+import guidelines from '@/registry/ui/stepper/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/stepper')({
   component: StepperPage,
@@ -45,59 +41,7 @@ function StepperPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To show where someone is in a sequence they are walking: question 2 of 4 while the AI plans a trip.',
-          'When the count is known and every step weighs about the same, so ticks say more than a fraction would.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for how far one operation has got, such as an upload. A bar of a machine working is a fraction, not a position.',
-            alternative: { to: '/components/progress', label: 'Progress' },
-          },
-          {
-            situation:
-              'for a series of events that each carry their own content, because the stepper has no markers and no labels.',
-            alternative: { to: '/components/timeline', label: 'Timeline' },
-          },
-          {
-            situation:
-              'to let the traveller jump between peer panels, because the stepper is never interactive.',
-            alternative: { to: '/components/tabs', label: 'Tabs' },
-          },
-          {
-            situation: 'to move between the numbered pages of a list.',
-            alternative: { to: '/components/pagination', label: 'Pagination' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Write the position text yourself and place it beside the bar.',
-            reason:
-              'The stepper has no text slots and no segment labels, because only the app knows what a step is called.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Map your own notion of a step onto count and current.',
-            reason:
-              'The stepper knows nothing about your domain; it paints segments through the current one.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Use the bar as a control for going back or skipping ahead.',
-            reason:
-              'It has no hover, no focus, and no tab stop. Put Back and Next buttons beside it.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Fill part of a segment to show partial progress.',
-            reason:
-              'A step is either reached or not. Partial progress inside a step is a progress bar’s job.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <p>
@@ -116,6 +60,9 @@ function StepperPage() {
           component="Stepper"
           description={
             <>
+              Draws segments only, with no text slots and no segment labels: map
+              your own notion of a step onto <code>count</code> and{' '}
+              <code>current</code>, and write the step&rsquo;s name yourself.
               Also takes every <code>&lt;div&gt;</code> attribute.
             </>
           }

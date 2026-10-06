@@ -1,11 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import {
-  DocPage,
-  Example,
-  GuidelineVerdict,
-  PropsTable,
-} from '@/components/doc-page'
+import { DocPage, Example, PropsTable } from '@/components/doc-page'
 import { BadgeCount } from '@/examples/badge/count'
 import countSource from '@/examples/badge/count.tsx?raw'
 import { BadgeDemo } from '@/examples/badge/demo'
@@ -19,6 +14,7 @@ import { BadgeVariants } from '@/examples/badge/variants'
 import variantsSource from '@/examples/badge/variants.tsx?raw'
 import { BadgeWithIcon } from '@/examples/badge/with-icon'
 import withIconSource from '@/examples/badge/with-icon.tsx?raw'
+import guidelines from '@/registry/ui/badge/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/badge')({
   component: BadgePage,
@@ -75,68 +71,16 @@ function BadgePage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To label the state of a thing: a trip is booked, a payment failed, a visa is expiring.',
-          'To tag a category or show a small count beside a label.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when the marker must do something on press, because a badge takes no focus and nothing inside it is interactive.',
-            alternative: { to: '/components/button', label: 'Button' },
-          },
-          {
-            situation:
-              'to report the result of an action, because a result belongs on the item that changed or in a notice that links back to it.',
-            alternative: { to: '/components/notice', label: 'Notice' },
-          },
-          {
-            situation:
-              'to mark a person, because a person has a face and a name.',
-            alternative: { to: '/components/avatar', label: 'Avatar' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Pair a status colour with words that state the status.',
-            reason:
-              'Colour alone never carries a meaning: a reader who cannot tell orange from green still has to learn the state.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: (
-              <>
-                Use <code>error</code> for a state that already exists, such as
-                a failed payment.
-              </>
-            ),
-            reason:
-              'Error red reports a condition. Destructive red names an action a person can take, such as delete, and belongs to the destructive button.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put a link, a button, or any interactive element inside a badge.',
-            reason:
-              'The badge is a plain span with no focus and no role. Anything interactive in it is unreachable by keyboard.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Stack several badges on one row item.',
-            reason:
-              'Each one asks to be read. One badge states the state that matters; the rest belong in the item’s details.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <p>
           The badge renders a plain <code>span</code> with no role and no tab
           stop, so a screen reader reads its text inline with the surrounding
           content. A leading icon is decoration and is hidden, so the label is
-          read once. Every variant meets WCAG AA contrast. When the badge is the
-          only carrier of a meaning, state that meaning in the surrounding text
-          as well.
+          read once. A link or a button inside a badge is unreachable by
+          keyboard, so a badge holds only its label and icon. Every variant
+          meets WCAG AA contrast. When the badge is the only carrier of a
+          meaning, state that meaning in the surrounding text as well.
         </p>
       }
       api={
@@ -154,7 +98,7 @@ function BadgePage() {
               type: 'BadgeVariant',
               default: 'BadgeVariant.Default',
               description:
-                'Default, Secondary, Outline, Success, Warning, or Error.',
+                'Default, Secondary, Outline, Success, Warning, or Error. Error marks a condition that already holds, never an action.',
             },
             {
               name: 'icon',

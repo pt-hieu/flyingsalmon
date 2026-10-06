@@ -3,7 +3,6 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -19,6 +18,7 @@ import { RadioGroupHorizontal } from '@/examples/radio-group/horizontal'
 import horizontalSource from '@/examples/radio-group/horizontal.tsx?raw'
 import usageSource from '@/examples/radio-group/usage.tsx?raw'
 
+import guidelines from '@/registry/ui/radio-group/guidelines.md?raw'
 import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/radio-group')({
@@ -68,53 +68,7 @@ function RadioGroupPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To pick exactly one option from two to five choices, where seeing every option helps the decision.',
-          'For an answer a form collects and submits later, such as a room type or a cost split.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when the traveller must be able to clear the choice, because a radio group cannot be emptied once it holds a value.',
-            alternative: {
-              to: '/components/toggle-group',
-              label: 'Toggle group',
-            },
-          },
-          {
-            situation:
-              'for more than about five options, where the list outgrows the form.',
-            alternative: { to: '/components/select', label: 'Select' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give the group a label that names the question: "Room", "Cost split".',
-            reason:
-              'The label is the group’s accessible name, so a screen reader announces the question before the options.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Preselect the option most travellers want.',
-            reason:
-              'A group with no selection is invalid until the traveller acts, and the default saves them the click.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put a single radio item in a group.',
-            reason:
-              'One option offers no choice and cannot be unselected. Use a checkbox for a yes or no.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Use horizontal for options with long labels.',
-            reason:
-              'Long labels wrap unevenly across the row and the options stop lining up.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

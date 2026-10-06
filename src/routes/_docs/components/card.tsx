@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -18,6 +17,7 @@ import statesSource from '@/examples/card/states.tsx?raw'
 import usageSource from '@/examples/card/usage.tsx?raw'
 import { CardWithAction } from '@/examples/card/with-action'
 import withActionSource from '@/examples/card/with-action.tsx?raw'
+import guidelines from '@/registry/ui/card/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/card')({
   component: CardPage,
@@ -85,54 +85,7 @@ function CardPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To group a trip, a place, or a traveller with its description and actions on one surface.',
-          'For a list of items that each lead somewhere, as an interactive card.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to reveal secondary content under a heading. A card is always open.',
-            alternative: { to: '/components/accordion', label: 'Accordion' },
-          },
-          {
-            situation:
-              'for a result or a warning about the page. A card has no status of its own.',
-            alternative: { to: '/components/alert', label: 'Alert' },
-          },
-          {
-            situation: 'for tabular data with comparable columns.',
-            alternative: { to: '/components/table', label: 'Table' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Put the link inside CardTitle when the card is interactive.',
-            reason:
-              'The title is the accessible name of the link, so a screen reader hears the trip name and not the whole card.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Show skeletons in the card’s layout while content is missing.',
-            reason:
-              'The card has no loading state of its own, and a skeleton keeps the layout from jumping when the content arrives.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Make a card interactive when nothing happens on click.',
-            reason:
-              'Hover and press feedback promise an action. A dead target must not look almost clickable, which is also why a card has no disabled state.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Add a shadow or a fill to lift a card.',
-            reason:
-              'Cards are flat. A solid border and the card surface separate them from the page, and the system ships no shadow tokens.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -158,6 +111,10 @@ function CardPage() {
             valid HTML. The focus ring surrounds the whole card boundary, and
             the card border is decorative, so the content identifies the card.
           </p>
+          <p>
+            On an interactive card the title link&rsquo;s text is its accessible
+            name, so a screen reader hears the trip name and not the whole card.
+          </p>
         </>
       }
       api={
@@ -170,7 +127,7 @@ function CardPage() {
                 type: 'boolean',
                 default: 'false',
                 description:
-                  'Turns on hover, focus, and press feedback, and stretches the title link over the card.',
+                  'Turns on hover, focus, and press feedback, and stretches the title link over the card. Put the link directly inside CardTitle.',
               },
               {
                 name: 'className',

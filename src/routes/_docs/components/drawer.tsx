@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -20,6 +19,7 @@ import pendingSource from '@/examples/drawer/pending.tsx?raw'
 import { DrawerRowDetail } from '@/examples/drawer/row-detail'
 import rowDetailSource from '@/examples/drawer/row-detail.tsx?raw'
 import usageSource from '@/examples/drawer/usage.tsx?raw'
+import guidelines from '@/registry/ui/drawer/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/drawer')({
   component: DrawerPage,
@@ -99,62 +99,7 @@ function DrawerPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For filters on a list, so the list stays in view and changes while the traveller adjusts them.',
-          'For the detail of one selected row, with the table still beside it.',
-          'For a short edit form where the item being edited should stay visible.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to confirm an action or stop the page for a decision. A dialog sits in the centre and the page behind it stops mattering.',
-            alternative: { to: '/components/dialog', label: 'Dialog' },
-          },
-          {
-            situation:
-              'to move between sections of the app. Navigation belongs to the sidebar at every width, including the strip it collapses to on a narrow screen.',
-            alternative: { to: '/components/sidebar', label: 'Sidebar' },
-          },
-          {
-            situation:
-              'to show the result of an action. A result needs only to be seen, not answered.',
-            alternative: { to: '/components/notice', label: 'Notice' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Pick a drawer when the traveller benefits from seeing the page while the panel is open.',
-            reason:
-              'A drawer accompanies the page and a dialog interrupts it. If nothing behind the panel matters, use a dialog.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Close a form drawer on submit and show the result on the item that changed.',
-            reason:
-              'The item is still on screen beside the panel, so the updated trip is the clearest confirmation.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put the destructive confirmation of a trip in a drawer.',
-            reason:
-              'A confirmation demands a decision, and a drawer invites the traveller to keep working on the page behind it.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Set pending to wait for a save.',
-            reason:
-              'Pending blocks every exit. Keep it for an answer the next step depends on, such as looking up an invite.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give a body that should widen the panel its own width.',
-            reason:
-              'Loose prose has no widest layout other than one long line, so it pushes a fit-content panel straight to its cap.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -225,7 +170,7 @@ function DrawerPage() {
                 type: 'boolean',
                 default: 'false',
                 description:
-                  'Blocks Escape, a click outside, and the close button, disables the close button, and sets aria-busy.',
+                  'Blocks Escape, a click outside, and the close button, disables the close button, and sets aria-busy. Keep it for an answer the next step depends on, such as looking up an invite; a plain save closes the drawer at once.',
               },
             ]}
           />
@@ -238,7 +183,7 @@ function DrawerPage() {
                 type: 'boolean',
                 default: 'false',
                 description:
-                  'Grows the panel to the width of its body, between the standard width and the viewport.',
+                  'Grows the panel to the width of its body, between the standard width and the viewport. Loose prose has no widest layout but one long line and pushes the panel to its cap, so give a body like that its own width.',
               },
               {
                 name: 'onOpenAutoFocus',

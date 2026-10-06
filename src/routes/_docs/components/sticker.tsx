@@ -5,7 +5,6 @@ import {
   CodeLanguage,
   DocPage,
   Example,
-  GuidelineVerdict,
   PropsTable,
 } from '@/components/doc-page'
 import {
@@ -21,6 +20,7 @@ import popInSource from '@/examples/sticker/pop-in.tsx?raw'
 import { StickerSizeAndTilt } from '@/examples/sticker/size-and-tilt'
 import sizeAndTiltSource from '@/examples/sticker/size-and-tilt.tsx?raw'
 import usageSource from '@/examples/sticker/usage.tsx?raw'
+import guidelines from '@/registry/ui/sticker/guidelines.md?raw'
 import {
   Table,
   TableBody,
@@ -106,58 +106,7 @@ function StickerPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To mark a moment: a finished trip, a first visit, a page with nothing on it yet.',
-          'Beside a title that says the same thing in words.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to label a status or a count, because a badge is small, static, and states the state in words.',
-            alternative: { to: '/components/badge', label: 'Badge' },
-          },
-          {
-            situation:
-              'to tell the traveller a page is empty, with a sticker beside the message rather than in place of it.',
-            alternative: {
-              to: '/components/empty-state',
-              label: 'Empty state',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep a title beside the sticker that says what it says.',
-            reason:
-              'The art is decoration with a job. It never replaces the words.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: (
-              <>
-                Pass <code>popIn={'{false}'}</code> for a sticker already in
-                view when its page opens.
-              </>
-            ),
-            reason:
-              'The pop is tied to scroll position. A sticker at the top of a page would sit part-way through it until the reader scrolled.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Write the art by hand.',
-            reason:
-              'The art is generated data with three frames, each drawn with its own seeds. A hand-edited module is lost the next time the script runs.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Name roles after colours.',
-            reason:
-              'A role names a part of the drawing, such as roof or door, so the same art follows whatever theme draws it.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <p>
           The sticker is one image: an <code>svg</code> with{' '}
@@ -185,7 +134,7 @@ function StickerPage() {
                 type: 'StickerArt',
                 required: true,
                 description:
-                  'The frames a drawing script generated: a width and height in drawing units and exactly three frames.',
+                  'The frames a drawing script generated: a width and height in drawing units and exactly three frames. Never write or edit it by hand: a hand-edited module is lost the next time the script runs.',
               },
               {
                 name: 'label',
@@ -204,7 +153,8 @@ function StickerPage() {
                 name: 'popIn',
                 type: 'boolean',
                 default: 'true',
-                description: 'Plays the scroll-linked pop-in.',
+                description:
+                  'Plays the scroll-linked pop-in. Pass false for a sticker already in view when its page opens: the pop is tied to scroll position, so a sticker at the top of a page would sit part-way through it until the reader scrolled.',
               },
             ]}
           />
@@ -219,7 +169,9 @@ function StickerPage() {
             that tells one part from another. Every line draws at the same
             weight unless its role’s classes set another, as the dotted{' '}
             <code>trail</code> behind the plane does. This is the house
-            sticker’s map.
+            sticker’s map. Name each role after a part of the drawing, such as{' '}
+            <code>roof</code> or <code>door</code>, never after a colour, so the
+            same art follows whatever theme draws it.
           </p>
           <Table>
             <TableHeader>
