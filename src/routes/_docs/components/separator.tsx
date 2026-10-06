@@ -1,11 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import {
-  DocPage,
-  Example,
-  GuidelineVerdict,
-  PropsTable,
-} from '@/components/doc-page'
+import { DocPage, Example, PropsTable } from '@/components/doc-page'
 import { SeparatorAnnounced } from '@/examples/separator/announced'
 import announcedSource from '@/examples/separator/announced.tsx?raw'
 import { SeparatorDemo } from '@/examples/separator/demo'
@@ -15,6 +10,7 @@ import spacingSource from '@/examples/separator/spacing.tsx?raw'
 import usageSource from '@/examples/separator/usage.tsx?raw'
 import { SeparatorVertical } from '@/examples/separator/vertical'
 import verticalSource from '@/examples/separator/vertical.tsx?raw'
+import guidelines from '@/registry/ui/separator/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/separator')({
   component: SeparatorPage,
@@ -55,55 +51,7 @@ function SeparatorPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          "Between siblings that own no border of their own: rows in a list, groups in a toolbar, a panel's heading over its body.",
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to box content, because a card draws its own edge and separates by it.',
-            alternative: { to: '/components/card', label: 'Card' },
-          },
-          {
-            situation:
-              'to divide rows of data, because a table keeps a rule under every row already.',
-            alternative: { to: '/components/table', label: 'Table' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Use rules to divide one surface into blocks, such as the questions on one card.',
-            reason:
-              'Whole surfaces already separate by their border and a background step. A rule is for the parts inside one surface, which share its edge.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Put a rule only between items, never before the first or after the last.',
-            reason:
-              'A rule divides two things. At either end it divides nothing and reads as a stray border.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give the rule equal space above and below.',
-            reason:
-              'Centred, it belongs to neither neighbour, and the rows and the rules between them keep one rhythm.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Place a separator beside something that already draws a border.',
-            reason:
-              'The boundary is already there, and a second line only doubles it.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put words in the rule, as in an “or” between a sign-in form and its other options.',
-            reason:
-              'A rule divides and says nothing. Write the “or” as text of its own.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <p>
           A separator is decorative by default and a screen reader hears

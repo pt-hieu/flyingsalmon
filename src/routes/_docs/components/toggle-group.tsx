@@ -3,7 +3,6 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -26,6 +25,7 @@ import sizesSource from '@/examples/toggle-group/sizes.tsx?raw'
 import usageSource from '@/examples/toggle-group/usage.tsx?raw'
 
 import { TextLink } from '@/registry/ui/text-link'
+import guidelines from '@/registry/ui/toggle-group/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/toggle-group')({
   component: ToggleGroupPage,
@@ -98,62 +98,7 @@ function ToggleGroupPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To answer a question with chips that wrap, such as interests or a trip pace.',
-          'When the traveller may choose several options, or may want to clear a single choice.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when exactly one option must always be chosen and a clear option is not wanted. A radio group cannot be emptied.',
-            alternative: {
-              to: '/components/radio-group',
-              label: 'Radio group',
-            },
-          },
-          {
-            situation:
-              'to switch the panel underneath a heading. A toggle group answers a question; tabs navigate.',
-            alternative: { to: '/components/tabs', label: 'Tabs' },
-          },
-          {
-            situation:
-              'for a read-only summary, such as the activity types of a trip or the values echoed back on a review screen. A chip the traveller cannot press is not a toggle.',
-            alternative: { to: '/components/badge', label: 'Badge' },
-          },
-          {
-            situation: 'for a setting that is only on or off.',
-            alternative: { to: '/components/switch', label: 'Switch' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'State the cap in the label when there is one: "Pick up to 3 interests".',
-            reason:
-              'The group shows no counter. When the remaining chips dim at the cap, the label is the reason on screen.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Hide the chips the traveller can no longer pick.',
-            reason:
-              'They dim in place, so the row keeps its shape and the traveller sees what they could swap in by unpressing another.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep each chip to a word or two, with a leading icon where it speeds the scan.',
-            reason:
-              'Chips wrap across lines, and short labels keep the rows even. An answer that needs a sentence belongs in a radio group.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Let a "Decide for me" chip stay pressed beside other chips.',
-            reason:
-              'Handing the choice over and making it yourself cannot both be true. Pressing it clears the others, and pressing another clears it, so the row never contradicts itself.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

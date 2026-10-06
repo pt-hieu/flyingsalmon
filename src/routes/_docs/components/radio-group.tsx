@@ -3,7 +3,6 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -19,6 +18,7 @@ import { RadioGroupHorizontal } from '@/examples/radio-group/horizontal'
 import horizontalSource from '@/examples/radio-group/horizontal.tsx?raw'
 import usageSource from '@/examples/radio-group/usage.tsx?raw'
 
+import guidelines from '@/registry/ui/radio-group/guidelines.md?raw'
 import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/radio-group')({
@@ -68,71 +68,7 @@ function RadioGroupPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To pick exactly one option from two to five choices, where seeing every option helps the decision.',
-          'For an answer a form collects and submits later, such as a room type or a cost split.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when the traveller must be able to clear the choice, because a radio group cannot be emptied once it holds a value.',
-            alternative: {
-              to: '/components/toggle-group',
-              label: 'Toggle group',
-            },
-          },
-          {
-            situation:
-              'for more than about five options, where the list outgrows the form.',
-            alternative: { to: '/components/select', label: 'Select' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Ask the question once, as the label above the options, and let each option be only an answer: "Who pays for dinners?"',
-            reason:
-              'The traveller reads the question once and then scans the answers. Repeating it in every option buries the difference between them.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Spell out the consequence when an option is a sentence: "Keep it booked: the rest of the day moves around it".',
-            reason:
-              'The traveller chooses an outcome they can see, not a label they have to decode.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Preselect the option most travellers want when any answer is harmless.',
-            reason:
-              'The default saves the click, and a traveller who wants something else sees every alternative beside it.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Preselect an answer the traveller must choose deliberately.',
-            reason:
-              'A preselected answer gets accepted without being read. Leave the group empty, and a skipped group fails on submit with the message on the group itself.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Put a "Decide for me" option last.',
-            reason:
-              'The real answers come first, so the way out is there for the unsure without tempting everyone else.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Offer a single option on its own.',
-            reason:
-              'One option offers no choice and cannot be unselected. A yes or no is a checkbox.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Lay options in a row unless each label is a word or two.',
-            reason:
-              'Longer labels wrap unevenly across the row and the options stop lining up. A column of sentences reads top to bottom.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

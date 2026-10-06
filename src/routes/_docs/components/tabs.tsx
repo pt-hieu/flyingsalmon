@@ -3,7 +3,6 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -19,6 +18,7 @@ import { TabsManualActivation } from '@/examples/tabs/manual-activation'
 import manualActivationSource from '@/examples/tabs/manual-activation.tsx?raw'
 import usageSource from '@/examples/tabs/usage.tsx?raw'
 
+import guidelines from '@/registry/ui/tabs/guidelines.md?raw'
 import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/tabs')({
@@ -68,64 +68,7 @@ function TabsPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To switch between two to five views of the same thing, such as a trip’s itinerary, places, and travellers.',
-          'When the traveller should see one view at a time and move between them without leaving the page.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to move between pages. Tabs switch panels in place and do not change the address.',
-            alternative: { to: '/components/sidebar', label: 'Sidebar' },
-          },
-          {
-            situation:
-              'to answer a question or filter a list. A single-mode toggle group is the control for choosing, and it can return to empty.',
-            alternative: {
-              to: '/components/toggle-group',
-              label: 'Toggle group',
-            },
-          },
-          {
-            situation:
-              'to reveal content under a heading while keeping the others visible, so several sections can be open together.',
-            alternative: { to: '/components/accordion', label: 'Accordion' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Place the tab row directly under the heading of the thing it switches.',
-            reason:
-              'The tabs read as views of that one thing, and the panel opens right where the reader’s eye leaves the row.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep tab labels to one or two words.',
-            reason:
-              'The tabs sit in one row with no wrapping, so short labels keep every tab in view.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Let a switch throw away what the traveller typed.',
-            reason:
-              'A switch changes the view, not the work. Coming back finds the half-typed note and the scroll position where they were left.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Hide a tab whose view is unavailable. Leave it in the row, disabled.',
-            reason:
-              'A tab that disappears shifts the others. A disabled tab says the view exists but is unavailable.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put tabs inside a tab panel.',
-            reason:
-              'Two rows of tabs make the traveller track two places at once. Split the content across pages instead.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

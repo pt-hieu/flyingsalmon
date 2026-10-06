@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -22,6 +21,7 @@ import tripCardActionsSource from '@/examples/dropdown-menu/trip-card-actions.ts
 import usageSource from '@/examples/dropdown-menu/usage.tsx?raw'
 import { DropdownMenuWithoutIcons } from '@/examples/dropdown-menu/without-icons'
 import withoutIconsSource from '@/examples/dropdown-menu/without-icons.tsx?raw'
+import guidelines from '@/registry/ui/dropdown-menu/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/dropdown-menu')({
   component: DropdownMenuPage,
@@ -105,72 +105,7 @@ function DropdownMenuPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For the actions on one item, gathered behind an overflow button: rename, duplicate, share, delete.',
-          'For a short list of places to go from one trigger.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for settings that stay on or off. A menu closes on every choice, so a toggle belongs on the page.',
-            alternative: { to: '/components/switch', label: 'Switch' },
-          },
-          {
-            situation:
-              'to pick a value for a field. A menu runs an action and a select holds a value.',
-            alternative: { to: '/components/select', label: 'Select' },
-          },
-          {
-            situation:
-              'for one action with no siblings. A menu with a single item is a button with extra steps.',
-            alternative: { to: '/components/button', label: 'Button' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Show the result on the item the action changed.',
-            reason:
-              'The menu closes on select, so the traveller is looking at the item again. A duplicated trip appearing in the list is the confirmation. When the item has no visible home, a notice carries the result.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Open a confirmation dialog from a destructive item.',
-            reason:
-              'The menu offers the choice and the dialog asks for the decision, so one stray click cannot delete a trip.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Put an overflow trigger at the trailing edge of its row, as a ghost icon button, and open the menu aligned to its end.',
-            reason:
-              'The row reads first and its actions trail it. An end-aligned menu opens over the row rather than past the edge of the page.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Show an overflow trigger on an item with no actions.',
-            reason:
-              'A trigger that opens nothing teaches the traveller to ignore every other one. Leave the trailing edge empty.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give every item in a menu an icon, or none of them.',
-            reason: 'Mixed rows leave the labels ragged.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Head the list with a quiet label for context, such as the signed-in email above the account actions.',
-            reason:
-              'The traveller sees whose account the actions apply to before they choose. Muted text never looks like something to press.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Add checkbox items, radio items, or a submenu.',
-            reason:
-              'The menu is for actions only. A choice that persists belongs on the page as a field.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

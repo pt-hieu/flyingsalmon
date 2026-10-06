@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -20,6 +19,7 @@ import overflowSource from '@/examples/avatar-group/overflow.tsx?raw'
 import { AvatarGroupSizes } from '@/examples/avatar-group/sizes'
 import sizesSource from '@/examples/avatar-group/sizes.tsx?raw'
 import usageSource from '@/examples/avatar-group/usage.tsx?raw'
+import guidelines from '@/registry/ui/avatar-group/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/avatar-group')({
   component: AvatarGroupPage,
@@ -76,43 +76,7 @@ function AvatarGroupPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To show who is on a trip, a plan, or a row at a glance.',
-          'When the roster can grow without a bound, because the group folds the overflow into one chip.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to mark a single person, because the group adds overlap and a tooltip a lone mark does not need.',
-            alternative: { to: '/components/avatar', label: 'Avatar' },
-          },
-          {
-            situation:
-              'for a count with no people behind it, such as places or days.',
-            alternative: { to: '/components/badge', label: 'Badge' },
-          },
-          {
-            situation:
-              'when each person needs an action, such as removing a traveller, because nothing in the group is clickable.',
-            alternative: { to: '/components/table', label: 'Table' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Show about four faces and let the chip carry the rest.',
-            reason:
-              'The group is a glance at who is going, never the full roster. Capping the faces ends every row at the same width, so a list of trips lines up.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Leave the tooltip as the only place that says who is going.',
-            reason:
-              'Touch screens cannot open it, and the faces are a glance, not the record. Wherever the reader must know who is going, write the names as text.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

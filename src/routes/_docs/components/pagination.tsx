@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -20,6 +19,7 @@ import shortListSource from '@/examples/pagination/short-list.tsx?raw'
 import { PaginationUnderATable } from '@/examples/pagination/under-a-table'
 import underATableSource from '@/examples/pagination/under-a-table.tsx?raw'
 import usageSource from '@/examples/pagination/usage.tsx?raw'
+import guidelines from '@/registry/ui/pagination/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/pagination')({
   component: PaginationPage,
@@ -83,61 +83,7 @@ function PaginationPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To page through one list or table whose page count is known, such as the places saved to a trip.',
-          'When the traveller needs to land on a specific page and come back to it, in the URL or in state.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a position in a short sequence someone is walking, because stepper only shows where they are and never navigates.',
-            alternative: { to: '/components/stepper', label: 'Stepper' },
-          },
-          {
-            situation:
-              'to climb the levels above the current page, because pagination moves across siblings and never up.',
-            alternative: { to: '/components/breadcrumb', label: 'Breadcrumb' },
-          },
-          {
-            situation:
-              'to move between peer panels of content rather than pages of data.',
-            alternative: { to: '/components/tabs', label: 'Tabs' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Right-align pagination under the list it pages, once per list.',
-            reason:
-              'It waits where the traveller finishes reading. A second copy above the list is one more thing to scan and nothing new to do.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep the page number in the address whenever the traveller can land on a page.',
-            reason:
-              'A page in the URL can be bookmarked, shared, opened in a new tab, and reloaded, so the traveller comes back to the page they left rather than to page 1.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Write a line such as "1 to 20 of 240" beside the list when the traveller needs the total.',
-            reason:
-              'Pagination shows where the traveller is, not how much there is. Only the app knows the size of its data.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Show pagination on a list that fits on one page.',
-            reason:
-              'A row with one number offers a choice that is not there, so a one-page list simply ends.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Page a short list that grouping or filtering would keep on one screen.',
-            reason:
-              'Trips split into upcoming and past stay in view together. A page break hides half of them behind a press.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

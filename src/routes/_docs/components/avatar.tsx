@@ -1,11 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import {
-  DocPage,
-  Example,
-  GuidelineVerdict,
-  PropsTable,
-} from '@/components/doc-page'
+import { DocPage, Example, PropsTable } from '@/components/doc-page'
 import { AvatarClickable } from '@/examples/avatar/clickable'
 import clickableSource from '@/examples/avatar/clickable.tsx?raw'
 import { AvatarColors } from '@/examples/avatar/colors'
@@ -19,6 +14,7 @@ import nameBesideAvatarSource from '@/examples/avatar/name-beside-avatar.tsx?raw
 import { AvatarSizes } from '@/examples/avatar/sizes'
 import sizesSource from '@/examples/avatar/sizes.tsx?raw'
 import usageSource from '@/examples/avatar/usage.tsx?raw'
+import guidelines from '@/registry/ui/avatar/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/avatar')({
   component: AvatarPage,
@@ -75,58 +71,7 @@ function AvatarPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To mark one person: the signed-in traveller in the sidebar, an author on a comment, an assignee on a row.',
-          'Beside the person’s name, or alone when the name appears elsewhere on the screen.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to show several people as one cluster, because it overlaps the faces and folds the rest into a count.',
-            alternative: {
-              to: '/components/avatar-group',
-              label: 'Avatar group',
-            },
-          },
-          {
-            situation:
-              'for a status or a count, because an avatar is a person and never reads as a state.',
-            alternative: { to: '/components/badge', label: 'Badge' },
-          },
-          {
-            situation:
-              'when a click must do something, by wrapping the avatar rather than using it bare.',
-            alternative: { to: '/components/button', label: 'Button' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give a person the same colour on every screen.',
-            reason:
-              'A person whose colour changes between pages reads as a different person.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Colour an avatar when nobody on the screen needs telling apart.',
-            reason:
-              'Colour exists to separate people. One person beside their name needs none, and the neutral circle keeps the eye on the name.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Use the small avatar beside a name in navigation and list rows, and the default size where the person is the subject.',
-            reason:
-              'In a row the name identifies the person and the face is a glance, so it stays below the height of the text beside it.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Use an orange or a status colour for a person.',
-            reason:
-              'Orange is the brand and the status hues report state, so the six group colours leave them out and an avatar never reads as an action or a warning.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <p>

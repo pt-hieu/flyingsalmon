@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -20,6 +19,7 @@ import richTriggersSource from '@/examples/accordion/rich-triggers.tsx?raw'
 import { AccordionSingle } from '@/examples/accordion/single'
 import singleSource from '@/examples/accordion/single.tsx?raw'
 import usageSource from '@/examples/accordion/usage.tsx?raw'
+import guidelines from '@/registry/ui/accordion/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/accordion')({
   component: AccordionPage,
@@ -84,67 +84,7 @@ function AccordionPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For secondary information that helps some readers: an FAQ, the detail behind a booking, a packing list.',
-          'When the page should stay clean without the extra content and the panels can stay in document flow.',
-          'For a single collapsible region: a one-item accordion covers it, so there is no separate collapsible.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to switch between co-equal views of the same subject. Tabs swap the content in place, an accordion reveals more of it.',
-            alternative: { to: '/components/tabs', label: 'Tabs' },
-          },
-          {
-            situation:
-              'for content every reader needs. Hiding it behind a click costs them a step.',
-            alternative: { to: '/components/card', label: 'Card' },
-          },
-          {
-            situation: 'for content that stops the page or needs an answer.',
-            alternative: { to: '/components/dialog', label: 'Dialog' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep a result inside the panel that produced it.',
-            reason:
-              'The traveller is looking at that panel, so the result below the actions row is where it will be seen, and it stays until they have.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Write each trigger as the item’s name, with a muted line that sums up what the panel holds.',
-            reason:
-              'A closed accordion is the table of contents. When every trigger reads on its own, the closed stack is a recap the reader scans without opening anything.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Start every item closed unless the reader needs it on arrival.',
-            reason:
-              'The accordion holds what helps some readers, so the page opens on what every reader needs.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Put a recap of what is settled above the step it leads to, outside that step’s card.',
-            reason:
-              'Earlier answers stay one press away while the current question stays the focus of the screen.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Give a trigger any job but opening its panel.',
-            reason:
-              'A row that opens and also acts makes every press a guess. The controls live in the panel, where the reader has chosen to look.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Box the stack or add a fill to open panels.',
-            reason:
-              'The accordion is a flush divider list, and an open panel is the page continued, not a new surface.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

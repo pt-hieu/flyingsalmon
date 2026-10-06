@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -32,6 +31,7 @@ import remoteResultsSource from '@/examples/combobox/remote-results.tsx?raw'
 import { ComboboxSmall } from '@/examples/combobox/small'
 import smallSource from '@/examples/combobox/small.tsx?raw'
 import usageSource from '@/examples/combobox/usage.tsx?raw'
+import guidelines from '@/registry/ui/combobox/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/combobox')({
   component: ComboboxPage,
@@ -136,64 +136,7 @@ function ComboboxPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To choose from a list too long to scan, where typing is faster: a destination, a departure city.',
-          'To collect several values as chips: interests, the travellers on a trip.',
-          'When the right answer may not be on the list, with allowFreeText.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a short, fixed list such as a cabin class, where scanning beats typing.',
-            alternative: { to: '/components/select', label: 'Select' },
-          },
-          {
-            situation:
-              'for two to five options that should all stay visible while the traveller decides.',
-            alternative: {
-              to: '/components/radio-group',
-              label: 'Radio group',
-            },
-          },
-          {
-            situation: 'for free text that needs no suggestions.',
-            alternative: { to: '/components/input', label: 'Input' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'When a search finds nothing, say so in the panel and say what to try next: "No city or country called Kyto. Check the spelling, or try the country."',
-            reason:
-              'A panel that never opens looks broken. The empty row shows the search ran and points the traveller at their next attempt.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Tell look-alike results apart with a muted region after each name, such as "Portland · Oregon".',
-            reason:
-              'Many places share a name. The region lets the traveller pick the right one at a glance, without opening a map.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Give every item the same icon.',
-            reason:
-              'An icon earns its place by telling kinds apart, such as a city from a country. The same icon on every row is noise.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Once a field holds chips, change its placeholder to invite another, such as "Add another".',
-            reason:
-              'The chips show the answer so far, and the prompt says more is welcome, so a traveller with one destination knows the field takes several.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Open the panel on focus.',
-            reason:
-              'Tabbing through a form would throw a panel over the next field. The panel opens on typing, the arrow keys, or the chevron.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

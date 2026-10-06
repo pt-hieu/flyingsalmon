@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -16,6 +15,7 @@ import longPageTitleSource from '@/examples/breadcrumb/long-page-title.tsx?raw'
 import { BreadcrumbRouterLinks } from '@/examples/breadcrumb/router-links'
 import routerLinksSource from '@/examples/breadcrumb/router-links.tsx?raw'
 import usageSource from '@/examples/breadcrumb/usage.tsx?raw'
+import guidelines from '@/registry/ui/breadcrumb/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/breadcrumb')({
   component: BreadcrumbPage,
@@ -56,67 +56,7 @@ function BreadcrumbPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To show where a page sits in a hierarchy and let the traveller climb back up: Trips, then Kyoto in autumn, then Day 3.',
-          'Above the title of any page at least two levels deep.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to move between the sections of the app. A breadcrumb moves up within one section; the sidebar holds all of them.',
-            alternative: { to: '/components/sidebar', label: 'Sidebar' },
-          },
-          {
-            situation:
-              'for a position in a sequence someone is walking through, because a hierarchy has no "next".',
-            alternative: { to: '/components/stepper', label: 'Stepper' },
-          },
-          {
-            situation:
-              'to move between the numbered pages of a list, because a breadcrumb never lists siblings.',
-            alternative: { to: '/components/pagination', label: 'Pagination' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Put the trail above the page title, in muted small text.',
-            reason:
-              'The title stays the loudest thing on the page and the trail reads as its address, quiet until the traveller wants to climb.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Show a trail on a top-level page.',
-            reason:
-              'A trail of one says nothing the page title has not already said.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Change the trail with the route the traveller took to the page.',
-            reason:
-              'The trail shows where the page lives. Arriving from search or a shared link shows the same trail, so each level always leads to the same parent.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep the trail on one line. From four levels, show the root, an ellipsis, the parent, and the current page.',
-            reason:
-              'A wrapped trail stops reading as one path. The hidden levels stay one press away in the ellipsis menu.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Let the current page truncate and keep every ancestor whole.',
-            reason:
-              'The traveller already knows the page they are on from its title; the ancestors are where they might go, so those stay readable.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Make the current page a link.',
-            reason:
-              'There is nowhere to go from it. The trail ends in plain text where the traveller already is.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

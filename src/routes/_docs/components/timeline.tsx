@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -22,6 +21,7 @@ import spacingSource from '@/examples/timeline/spacing.tsx?raw'
 import { TimelineStrip } from '@/examples/timeline/strip'
 import stripSource from '@/examples/timeline/strip.tsx?raw'
 import usageSource from '@/examples/timeline/usage.tsx?raw'
+import guidelines from '@/registry/ui/timeline/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/timeline')({
   component: TimelinePage,
@@ -86,50 +86,7 @@ function TimelinePage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To show a route or an itinerary: cities, legs between them, days of a trip.',
-          'When each item has a title and a line of detail that belong beside its marker.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to show a position in a sequence of known length with no content beside it, because a stepper tracks progress.',
-            alternative: { to: '/components/stepper', label: 'Stepper' },
-          },
-          {
-            situation:
-              'to compare the same fields across items, because columns line up what a rail cannot.',
-            alternative: { to: '/components/table', label: 'Table' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Let the marker say what kind of stop it is, and give every stop of one kind the same marker: an icon for a leg, a dot for a place.',
-            reason:
-              'The traveller reads the rhythm of the route from its markers before reading a word.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Mark the current stop with a marker of your own, and let it travel to the next stop when the traveller moves on.',
-            reason:
-              'The rail gives every stop the same neutral mark, because done, current, and ahead are claims only your app can make. A marker that travels shows the move instead of redrawing the rail.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put an action on each stop. The action the route leads to, such as approving it, sits below the whole timeline.',
-            reason:
-              'A route is read top to bottom and then acted on once. Buttons on every stop turn it into a list of chores.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Stretch a link over a whole item.',
-            reason:
-              'An item is never a hit target; only its title links. One linked title costs the keyboard user one stop, however many cities the rail holds.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

@@ -1,11 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import {
-  DocPage,
-  Example,
-  GuidelineVerdict,
-  PropsTable,
-} from '@/components/doc-page'
+import { DocPage, Example, PropsTable } from '@/components/doc-page'
 import { SpinnerColour } from '@/examples/spinner/colour'
 import colourSource from '@/examples/spinner/colour.tsx?raw'
 import { SpinnerDemo } from '@/examples/spinner/demo'
@@ -15,6 +10,7 @@ import inAButtonSource from '@/examples/spinner/in-a-button.tsx?raw'
 import { SpinnerSizes } from '@/examples/spinner/sizes'
 import sizesSource from '@/examples/spinner/sizes.tsx?raw'
 import usageSource from '@/examples/spinner/usage.tsx?raw'
+import guidelines from '@/registry/ui/spinner/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/spinner')({
   component: SpinnerPage,
@@ -55,50 +51,7 @@ function SpinnerPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For an action that is running: a form submits, a setting saves, a check is under way.',
-          'Inline beside the text that says what is being waited for.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a region that is loading, such as a list, a card, or a page. The placeholder holds the shape of what is coming.',
-            alternative: { to: '/components/skeleton', label: 'Skeleton' },
-          },
-          {
-            situation:
-              'for a long job with a known end, where the traveller wants to see how far along it is.',
-            alternative: { to: '/components/progress', label: 'Progress' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Place a small spinner inline, directly before the words that say what is happening.',
-            reason:
-              'The spinner says something is running and only the words say what, so they belong together.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'On a long wait, pair the spinner with a written count, such as “3 of 7 days written”.',
-            reason:
-              'A count tells the traveller how far along the work is in their own terms, with no bar beside the heading.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Pick a spinner or a skeleton for a given wait, never both.',
-            reason:
-              'They answer different questions: a spinner says an action is running, a skeleton says a region is loading. Both together say it twice.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Replace a control the traveller just pressed with a spinner.',
-            reason:
-              'The control should show its own busyness and keep its place, as the loading button does.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <p>

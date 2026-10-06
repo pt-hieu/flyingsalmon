@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -20,6 +19,7 @@ import smallStickerSource from '@/examples/empty-state/small-sticker.tsx?raw'
 import { EmptyStateTwoActions } from '@/examples/empty-state/two-actions'
 import twoActionsSource from '@/examples/empty-state/two-actions.tsx?raw'
 import usageSource from '@/examples/empty-state/usage.tsx?raw'
+import guidelines from '@/registry/ui/empty-state/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/empty-state')({
   component: EmptyStatePage,
@@ -76,65 +76,7 @@ function EmptyStatePage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'When a page, a list, or a card is legitimately empty: no trips yet, no places saved, nobody invited.',
-          'When a link leads to a page with nothing in it, such as an expired share link.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when a region is still fetching. The placeholder holds the shape of what is coming.',
-            alternative: { to: '/components/skeleton', label: 'Skeleton' },
-          },
-          {
-            situation:
-              'when a region’s content failed to arrive. That is a failure, and it is announced.',
-            alternative: {
-              to: '/components/error-state',
-              label: 'Error state',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Title the block with a plain statement or a short question, and say in the description what the traveller can do next.',
-            reason:
-              'A resting state with no next step leaves the traveller to guess whether something broke.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Offer one action: filled when it starts something, outline when it only leads out.',
-            reason:
-              'One button is an obvious next step, and its fill tells the traveller whether it begins something or takes them back.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give a friendly empty a sticker, and a dead end, such as a trip that does not exist, an icon.',
-            reason:
-              'The sticker invites the traveller to begin. The icon says plainly that there is nothing here to begin.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep a block inside a card quieter than one that fills a page.',
-            reason:
-              'The card already carries the heading weight, so the block inside it steps down.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Use an empty state while content is loading.',
-            reason:
-              'A skeleton holds the shape of what is coming. The one exception is long work that runs in the background with nothing to draw yet: there, an empty state that says the traveller is free to leave tells the truth.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Frame the block itself. Place it in a card when it needs a boundary.',
-            reason:
-              'On a page it is the page’s own message, and in a card it is the card’s. A frame of its own would compete with both.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

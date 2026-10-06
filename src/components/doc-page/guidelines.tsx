@@ -1,13 +1,10 @@
-import { Link } from '@tanstack/react-router'
-
-import { TextLink } from '@/registry/ui/text-link'
-
 import {
   guidelinesClassName,
   guidelinesGroupClassName,
   guidelinesHeadingClassName,
   guidelinesListClassName,
 } from './classnames'
+import { DocTextLink } from './doc-text-link'
 import { GuidelineRuleList } from './guideline-rule-list'
 import type { GuidelinesContent } from './types'
 
@@ -35,9 +32,7 @@ export function Guidelines({
           {whenNotToUse.map(({ situation, alternative }) => (
             <li key={alternative.label}>
               Use{' '}
-              <TextLink asChild>
-                <Link to={alternative.to}>{alternative.label}</Link>
-              </TextLink>{' '}
+              <DocTextLink to={alternative.to}>{alternative.label}</DocTextLink>{' '}
               {situation}
             </li>
           ))}

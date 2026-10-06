@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -20,6 +19,7 @@ import numericColumnsSource from '@/examples/table/numeric-columns.tsx?raw'
 import { TableRowHeaders } from '@/examples/table/row-headers'
 import rowHeadersSource from '@/examples/table/row-headers.tsx?raw'
 import usageSource from '@/examples/table/usage.tsx?raw'
+import guidelines from '@/registry/ui/table/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/table')({
   component: TablePage,
@@ -76,61 +76,7 @@ function TablePage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To compare the same fields across many items: stops on a trip, travellers and their roles, bookings and their costs.',
-          'When a reader scans down a column more than across a row.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to show one item with several fields, because a card gives each item its own edge and room.',
-            alternative: { to: '/components/card', label: 'Card' },
-          },
-          {
-            situation:
-              'to show events in order with content beside each, because a timeline joins them with a connector.',
-            alternative: { to: '/components/timeline', label: 'Timeline' },
-          },
-          {
-            situation:
-              'to hold form fields in a grid, because a table announces a data relationship that fields do not have.',
-            alternative: { to: '/components/form', label: 'Form' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Right-align numeric columns and leave labels left.',
-            reason:
-              'Aligned digits are what let a reader compare two amounts by place value.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Close a column of amounts with a Total row in the footer.',
-            reason:
-              'The sum lands under the last amount, where the eye arrives after reading down, and the footer’s heavier weight sets it apart from the rows it adds up.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'In a before-and-after table, set the column that holds the outcome in medium weight.',
-            reason:
-              'The reader compares what is with what will be, and the column that will be true is the one to read.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Label a column that holds only controls.',
-            reason:
-              'The button already names the action. A label above it repeats the words and sits far from them, because the controls are right-aligned.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Let a row react to the pointer when nothing happens on click.',
-            reason:
-              'The hover step tells a reader the row leads somewhere. A background change that leads nowhere reads as an affordance that is not there.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

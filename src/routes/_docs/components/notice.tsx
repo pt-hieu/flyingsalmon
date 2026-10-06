@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   NoticeFrame,
   PropsTable,
@@ -19,6 +18,7 @@ import replacementSource from '@/examples/notice/replacement.tsx?raw'
 import usageSource from '@/examples/notice/usage.tsx?raw'
 import { NoticeVariants } from '@/examples/notice/variants'
 import variantsSource from '@/examples/notice/variants.tsx?raw'
+import guidelines from '@/registry/ui/notice/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/notice')({
   component: NoticePage,
@@ -82,59 +82,7 @@ function NoticePage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For the result of a dialog form after it has closed and the item it changed is not on screen.',
-          'For a confirm-only action with nothing to update, such as a copied link.',
-          'For a result that arrives after the traveller has navigated away from where they acted.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when the affected item is on screen. The item appears, updates, or shows a failed state with a retry, and that is the result.',
-            alternative: { to: '/principles', label: 'the feedback rule' },
-          },
-          {
-            situation:
-              'for the result of a form that is still on screen. It goes in the form’s result slot, below the actions row.',
-            alternative: { to: '/components/alert', label: 'Alert' },
-          },
-          {
-            situation:
-              'when a region failed to load. The region says so itself, with a retry.',
-            alternative: {
-              to: '/components/error-state',
-              label: 'Error state',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give every notice a subject: a link to the item it is about, or a button that reopens the dialog with what the traveller typed.',
-            reason:
-              'A message with no way back to its subject cannot be acted on, and the traveller has to hunt for what it meant.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Leave the notice on screen until the traveller follows its subject or dismisses it.',
-            reason:
-              'It carries a result with no other home, so it stays until it is seen. A timer would take it from someone who looked away. That is what separates it from a toast.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Stack notices. A new result replaces the one showing.',
-            reason:
-              'One notice at a time keeps each result tied to the action that caused it. A pile has no order and no owner.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Show a notice about an item the traveller can already see.',
-            reason:
-              'The item’s own state is the right home. A notice beside it says the same thing in a second place.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

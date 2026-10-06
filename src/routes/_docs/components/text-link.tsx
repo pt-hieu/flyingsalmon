@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -18,6 +17,7 @@ import onACardSource from '@/examples/text-link/on-a-card.tsx?raw'
 import { TextLinkRouterLink } from '@/examples/text-link/router-link'
 import routerLinkSource from '@/examples/text-link/router-link.tsx?raw'
 import usageSource from '@/examples/text-link/usage.tsx?raw'
+import guidelines from '@/registry/ui/text-link/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/text-link')({
   component: TextLinkPage,
@@ -66,66 +66,7 @@ function TextLinkPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To navigate from inside a sentence or a line of copy: to another page, another site, or a place on the same page.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to send, save, open, or retry. A link navigates and a button acts. For an action inside a sentence, such as "Didn’t get the code? Resend", place the button inline.',
-            alternative: { to: '/components/button', label: 'Button' },
-          },
-          {
-            situation:
-              'for the levels of a trail, which read as links by position and draw no underline.',
-            alternative: { to: '/components/breadcrumb', label: 'Breadcrumb' },
-          },
-          {
-            situation:
-              'for navigation items, which keep their own classes for the same reason.',
-            alternative: { to: '/components/sidebar', label: 'Sidebar' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Put the way out of a problem as a link in the sentence that describes it, such as “Buy a credit pack” inside a warning.',
-            reason:
-              'The path forward sits next to the problem, where the reader’s attention already is.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Write “click here” or “learn more” as the link text.',
-            reason:
-              'The words name where the traveller ends up or the next step, so the link still makes sense when read on its own.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Let the link take the size and weight of the sentence it sits in.',
-            reason:
-              'It is part of the sentence and breaks across lines with the text around it.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep the link in the foreground colour inside muted copy.',
-            reason:
-              'It stands one step stronger than the text around it, and that contrast is what marks it as a way to go.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Disable a text link.',
-            reason:
-              'An anchor that cannot navigate is plain text, so render text.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put a text link inside a card or table link that already covers the surface.',
-            reason:
-              'The surface is the hit target, and an underline inside it competes with the title.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

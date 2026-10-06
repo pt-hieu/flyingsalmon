@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -24,6 +23,7 @@ import submitInAFormSource from '@/examples/button/submit-in-a-form.tsx?raw'
 import usageSource from '@/examples/button/usage.tsx?raw'
 import { ButtonVariants } from '@/examples/button/variants'
 import variantsSource from '@/examples/button/variants.tsx?raw'
+import guidelines from '@/registry/ui/button/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/button')({
   component: ButtonPage,
@@ -96,84 +96,7 @@ function ButtonPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To run an action on the current page: save a trip, send an invite, open a dialog, delete a place.',
-          'To submit a form, as the last control in its actions row.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to take the traveller to another page. A link navigates and a button acts, and browsers give links their own keyboard and context-menu behaviour.',
-            alternative: { to: '/components/text-link', label: 'Text link' },
-          },
-          {
-            situation:
-              'for a setting that is on or off, because the switch shows its state and a button does not.',
-            alternative: { to: '/components/switch', label: 'Switch' },
-          },
-          {
-            situation:
-              'to pick one option from a small set, because the group shows which option is chosen.',
-            alternative: {
-              to: '/components/toggle-group',
-              label: 'Toggle group',
-            },
-          },
-          {
-            situation:
-              'for more than two secondary actions on one item, so the row keeps one visible action and the rest wait in a menu.',
-            alternative: {
-              to: '/components/dropdown-menu',
-              label: 'Dropdown menu',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give each view, card, dialog footer, and alert one default button. The alternative beside it is outline, and a quiet extra action is ghost.',
-            reason:
-              'The filled orange button is where the eye lands first. Two of them make the traveller choose before they act, and the step down to outline and ghost tells them which action matters.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Name the outcome in the label, such as "Replan the rest", and add the cost when the action spends something: "Rewrite 2 days · 1 credit".',
-            reason:
-              'The traveller knows what will happen and what it takes from them before they press, so nobody reads the surrounding copy to find out.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Put the outline Cancel on the left of a dialog or form footer and the one default action on the right.',
-            reason:
-              'The eye reads the row to its end and lands on the action that finishes the task. Cancel always sits in the same place, so leaving never needs reading.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Show success or failure on the button.',
-            reason:
-              'The result belongs to the thing that changed: the trip updates, the field shows its error, or a notice links back when nothing is on screen.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Grey out a button while its action runs.',
-            reason:
-              'The button shows its own busyness with a spinner beside its label, keeps focus, and ignores repeat presses. A greyed-out button drops focus mid-action and looks broken.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Hide a button whose action cannot run yet. Leave it visible but disabled, with a line beside it that says what is missing.',
-            reason:
-              'The traveller sees where the task ends and learns what to do next, instead of hunting for a button that is not there.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Show a destructive button before the traveller has asked to remove something.',
-            reason:
-              'Red belongs to the step that confirms a removal. As the first button on a view it shouts louder than the work and invites a slip.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

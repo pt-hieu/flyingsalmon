@@ -3,7 +3,6 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -23,6 +22,7 @@ import { TextareaReadOnly } from '@/examples/textarea/read-only'
 import readOnlySource from '@/examples/textarea/read-only.tsx?raw'
 import usageSource from '@/examples/textarea/usage.tsx?raw'
 import { TextLink } from '@/registry/ui/text-link'
+import guidelines from '@/registry/ui/textarea/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/textarea')({
   component: TextareaPage,
@@ -87,62 +87,7 @@ function TextareaPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For text that runs past one line: trip notes, a day-by-day itinerary, a message to the group.',
-          'When the length is up to the traveller and you want the field to grow instead of scrolling inside a fixed box.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for one line of text such as a trip name or an email address.',
-            alternative: { to: '/components/input', label: 'Input' },
-          },
-          {
-            situation:
-              'when the traveller picks from options you control rather than writing freely.',
-            alternative: { to: '/components/combobox', label: 'Combobox' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Make the empty field as tall as the answer you expect: two or three rows for a sentence, more for notes.',
-            reason:
-              'The empty height tells the traveller how much to write. A one-row field invites a one-word answer.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Write the placeholder as a full example answer, such as "We land late, so keep the first evening free."',
-            reason:
-              'A real sentence shows the kind and length of answer you want, and reads as an invitation rather than a blank to fill.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Word an error as what to write: "Tell us why you are leaving the plan, even in a few words."',
-            reason:
-              'The traveller fixes a free-text field by writing, so the message hands them the start of the answer.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Offer a submit shortcut without a visible hint beside the submit button.',
-            reason:
-              'Enter always makes a new line here, so a shortcut is invisible unless the screen names it. A hidden key only helps people who already guess it exists.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Lock the field while an autosave runs.',
-            reason:
-              'A spinner in the corner shows the save and the traveller keeps typing; the next save picks up the new text.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Give the field a drag handle or a fixed height.',
-            reason:
-              'The height follows the content up to a cap and then the field scrolls, so a manual size would fight it.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

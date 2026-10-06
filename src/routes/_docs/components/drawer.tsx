@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -20,6 +19,7 @@ import pendingSource from '@/examples/drawer/pending.tsx?raw'
 import { DrawerRowDetail } from '@/examples/drawer/row-detail'
 import rowDetailSource from '@/examples/drawer/row-detail.tsx?raw'
 import usageSource from '@/examples/drawer/usage.tsx?raw'
+import guidelines from '@/registry/ui/drawer/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/drawer')({
   component: DrawerPage,
@@ -99,62 +99,7 @@ function DrawerPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For filters on a list, so the list stays in view and changes while the traveller adjusts them.',
-          'For the detail of one selected row, with the table still beside it.',
-          'For a short edit form where the item being edited should stay visible.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to confirm an action or stop the page for a decision. A dialog sits in the centre and the page behind it stops mattering.',
-            alternative: { to: '/components/dialog', label: 'Dialog' },
-          },
-          {
-            situation:
-              'to move between sections of the app. Navigation belongs to the sidebar at every width, including the strip it collapses to on a narrow screen.',
-            alternative: { to: '/components/sidebar', label: 'Sidebar' },
-          },
-          {
-            situation:
-              'to show the result of an action. A result needs only to be seen, not answered.',
-            alternative: { to: '/components/notice', label: 'Notice' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Close a form drawer on submit and show the result on the item that changed.',
-            reason:
-              'The item is still on screen beside the panel, so the updated trip is the clearest confirmation.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Show one selected thing at a time. Choosing another row swaps the drawer’s content.',
-            reason:
-              'The drawer is the detail of the current selection. A second panel would cover the list it belongs to.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Put previous and next buttons on the left of the footer and one primary action on the right.',
-            reason:
-              'The traveller walks the list day by day without closing the panel, and the single action sits where the eye finishes.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Turn a detail drawer into an editor. Its action opens a dialog for a change that reshapes the trip.',
-            reason:
-              'Detail is for reading beside the list. A change with consequences needs the full stop of a dialog and its own confirm.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put the destructive confirmation of a trip in a drawer.',
-            reason:
-              'A confirmation demands a decision, and a drawer invites the traveller to keep working on the page behind it.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

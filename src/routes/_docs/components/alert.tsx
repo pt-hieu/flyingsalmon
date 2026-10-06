@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -26,6 +25,7 @@ import { AlertVariants } from '@/examples/alert/variants'
 import variantsSource from '@/examples/alert/variants.tsx?raw'
 import { AlertWithActions } from '@/examples/alert/with-actions'
 import withActionsSource from '@/examples/alert/with-actions.tsx?raw'
+import guidelines from '@/registry/ui/alert/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/alert')({
   component: AlertPage,
@@ -106,70 +106,7 @@ function AlertPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To report the result of a form submit, in the form’s result slot below the actions row.',
-          'To show a warning or notice that belongs to a region of the page and should sit in the flow beside it.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a result with no visible home, such as the outcome of a dialog form that has already closed. A notice stays on screen and links back to its subject.',
-            alternative: { to: '/components/notice', label: 'Notice' },
-          },
-          {
-            situation:
-              'when a region failed to load. The region itself says so, with a retry.',
-            alternative: {
-              to: '/components/error-state',
-              label: 'Error state',
-            },
-          },
-          {
-            situation:
-              'for the error on a single field. The field shows its own error beside its input.',
-            alternative: { to: '/fields', label: 'Fields' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Place the alert where the traveller is already looking, and keep it until they have seen it.',
-            reason:
-              'A message that appears elsewhere or disappears on a timer is missed, and a missed failure looks like a success.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Pick the variant by what the traveller must do: error for a failure, warning for something to check, success and info for the rest.',
-            reason:
-              'The colour and icon tell the traveller whether to stop, check, or carry on before they read a word.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Write the title as what happened, in a sentence, and the description as what to do next or what was kept. Put the way forward inside the alert as a link or a button.',
-            reason:
-              'The traveller reads the fact, then finds the next step without leaving the message.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Show a standing condition, such as trips saved only in this browser, as a warning at the top of the page with its action inside.',
-            reason:
-              'It stays true until the traveller acts, so it sits where every visit starts.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Let an alert vanish on a timer. It goes when the traveller closes it or the state it reports ends.',
-            reason:
-              'A message that removes itself cannot be read at the traveller’s pace.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Stack several alerts for one result.',
-            reason:
-              'Several messages for one result make the traveller work out which one matters. Write one alert that says it. A separate condition, such as each day that clashes, gets its own.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

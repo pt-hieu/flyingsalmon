@@ -3,7 +3,6 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -26,6 +25,7 @@ import sizesSource from '@/examples/date-picker/sizes.tsx?raw'
 import { DatePickerUnavailableDays } from '@/examples/date-picker/unavailable-days'
 import unavailableDaysSource from '@/examples/date-picker/unavailable-days.tsx?raw'
 import usageSource from '@/examples/date-picker/usage.tsx?raw'
+import guidelines from '@/registry/ui/date-picker/guidelines.md?raw'
 import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/date-picker')({
@@ -115,58 +115,7 @@ function DatePickerPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To pick a departure day or a trip range, where the traveller may type a date or browse a month.',
-          'In any form that posts a date: the field writes ISO values into hidden native inputs, so a plain form submits them.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when the calendar itself is the interface, on a page or in a card rather than behind a field.',
-            alternative: { to: '/components/calendar', label: 'Calendar' },
-          },
-          {
-            situation:
-              'for a date nobody picks, such as a booking reference that happens to contain digits.',
-            alternative: { to: '/components/input', label: 'Input' },
-          },
-          {
-            situation:
-              'for a count of days rather than a position on the calendar.',
-            alternative: {
-              to: '/components/number-field',
-              label: 'Number field',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Use a range for a trip and a single day for moving one date.',
-            reason:
-              'A range picks both ends in one panel across two months, so the trip reads as a span. Moving one booking needs no second end to ignore.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Label the field with the question, such as "When" or "New date", never with the control’s name.',
-            reason:
-              'The segments already show it is a date. The label says what the date is for.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Let the traveller pick a day the trip cannot use and refuse it on submit.',
-            reason:
-              'Bound the field from the trip itself, such as today onwards. Refused days are struck through in the grid and rejected as they are typed, so no error arrives after the traveller thinks they are done.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Show an error while a date is still being typed.',
-            reason:
-              'A half-typed date is not wrong yet. The field stays silent until every segment is filled, and only then says whether the day is available.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

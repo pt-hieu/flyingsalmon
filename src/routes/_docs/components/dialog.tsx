@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   NoticeFrame,
   PropsTable,
@@ -23,6 +22,7 @@ import scrollingBodySource from '@/examples/dialog/scrolling-body.tsx?raw'
 import { DialogServerError } from '@/examples/dialog/server-error'
 import serverErrorSource from '@/examples/dialog/server-error.tsx?raw'
 import usageSource from '@/examples/dialog/usage.tsx?raw'
+import guidelines from '@/registry/ui/dialog/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/dialog')({
   component: DialogPage,
@@ -105,73 +105,7 @@ function DialogPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For a short form that creates or edits one thing: plan a trip, add a place, edit a traveller.',
-          'To confirm an action that cannot be undone, such as deleting a trip.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for content that accompanies the page, such as filters or the detail of a row. A drawer sits at the edge and leaves the page in view; a dialog stops it.',
-            alternative: { to: '/components/drawer', label: 'Drawer' },
-          },
-          {
-            situation:
-              'to report a result. A dialog demands a decision; a result needs only to be seen.',
-            alternative: { to: '/components/notice', label: 'Notice' },
-          },
-          {
-            situation:
-              'for a long task with several stages, which deserves a page of its own and a visible sense of progress.',
-            alternative: { to: '/components/stepper', label: 'Stepper' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Close a form dialog on submit and show the result on the item that changed.',
-            reason:
-              'The new trip appearing in the list is the clearest success there is, and nobody waits for the server with a modal in their face.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'If the save fails after the dialog has closed, keep the error on screen as a notice that reopens the dialog with what the traveller typed.',
-            reason:
-              'The dialog is gone, so the notice is the one home that stays until it is seen, and nothing typed is lost.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Make the traveller wait inside a dialog for a plain save.',
-            reason:
-              'A dialog waits on the server only when the next screen depends on the answer, such as checking an invite code. Then the confirm button shows its own loading, and Cancel waits disabled until the answer arrives.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Show a field error under its field and keep the dialog open.',
-            reason:
-              'The traveller is still looking at the form, so the error belongs under the field they need to fix.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Show a blocker no field can fix, such as too few credits, as an error alert above the footer with a link out, and keep the confirm button disabled.',
-            reason:
-              'The traveller learns why they cannot go on where they are already looking, and the link is the way to fix it.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'End on one outline Cancel beside one filled button that names the action: "Delete trip", not "OK".',
-            reason:
-              'One filled button marks the single way forward, and its label is the last thing read before the decision.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Open a dialog from a dialog. Confirm a step inside it with an inline alert that carries its own buttons.',
-            reason:
-              'Two modals deep, the traveller loses track of which one they are answering. An inline confirmation stays inside the task they started.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

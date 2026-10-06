@@ -3,7 +3,6 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -24,6 +23,7 @@ import longListSource from '@/examples/select/long-list.tsx?raw'
 import { SelectSizes } from '@/examples/select/sizes'
 import sizesSource from '@/examples/select/sizes.tsx?raw'
 import usageSource from '@/examples/select/usage.tsx?raw'
+import guidelines from '@/registry/ui/select/guidelines.md?raw'
 import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/select')({
@@ -97,67 +97,7 @@ function SelectPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To choose one value from a short, fixed list: a currency, a travel style, who can see a trip.',
-          'When the options need groups, icons, or a disabled entry that stays visible.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when the list is long enough that the traveller must search, or the options arrive from a server.',
-            alternative: { to: '/components/combobox', label: 'Combobox' },
-          },
-          {
-            situation:
-              'for two to five options that should all stay visible while the traveller decides.',
-            alternative: {
-              to: '/components/radio-group',
-              label: 'Radio group',
-            },
-          },
-          {
-            situation:
-              'when a short set of options changes a view or a filter rather than a field value.',
-            alternative: {
-              to: '/components/toggle-group',
-              label: 'Toggle group',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Write each item as a phrase that finishes the label’s decision, such as "Move to Day 3 · 12 Oct".',
-            reason:
-              'The label and the choice read as one sentence, and the trigger shows the same phrase once it is chosen, so the answer explains itself.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Preselect an answer that changes the trip.',
-            reason:
-              'An empty trigger with an instruction such as "Choose where it goes" makes the choice deliberate. Left unanswered, the field fails on submit with a message that names the choice.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'List an opt-out such as "Drop it" first, in plain text like every other item.',
-            reason:
-              'Leaving something out is a fair answer, not a warning. First place makes it easy to find without making it louder than the rest.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep a sold-out or unavailable option in the list, disabled.',
-            reason:
-              'The list keeps its shape, and the traveller sees the option exists instead of wondering where it went.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Let an item’s icon say something its text does not.',
-            reason:
-              'The icon only decorates. The trigger shows the text alone once the item is chosen, so the words must carry the whole meaning.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

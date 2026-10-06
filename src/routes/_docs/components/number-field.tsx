@@ -3,7 +3,6 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -26,6 +25,7 @@ import readOnlySource from '@/examples/number-field/read-only.tsx?raw'
 import { NumberFieldSizes } from '@/examples/number-field/sizes'
 import sizesSource from '@/examples/number-field/sizes.tsx?raw'
 import usageSource from '@/examples/number-field/usage.tsx?raw'
+import guidelines from '@/registry/ui/number-field/guidelines.md?raw'
 import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/number-field')({
@@ -114,56 +114,7 @@ function NumberFieldPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For a quantity the traveller adjusts: travellers, nights, a budget.',
-          'When the value is arithmetic input and the field must report a number, with bounds you can enforce.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a numeric string nothing does arithmetic on, such as a booking reference or a phone number.',
-            alternative: { to: '/components/input', label: 'Input' },
-          },
-          {
-            situation:
-              'when the traveller sets an approximate value on a range and the exact figure does not matter.',
-            alternative: { to: '/components/slider', label: 'Slider' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give every quantity its unit: "$" before a budget, "people" after a group size.',
-            reason:
-              'The number reads as a phrase, so nobody wonders whether 4 means nights or travellers.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Bound the field by the real limits of what it counts, such as 2 to 30 people.',
-            reason:
-              'The field and its spin buttons refuse the impossible as the traveller enters it, so no error has to arrive afterwards.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Stretch the field across the form column.',
-            reason:
-              'A quantity is a few digits. A field sized to its number reads as a count; a wide one looks like it wants a sentence.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Offer a slider beside the exact entry when "roughly" is a fair answer, and let the traveller swap between them.',
-            reason:
-              'A traveller who knows the figure types it, and one who does not can still answer without guessing a precise number.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Lock the field while a background check runs.',
-            reason:
-              'A spinner takes the place of the spin buttons and the field stays typeable. Only the submit button locks a flow.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

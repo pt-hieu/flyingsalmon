@@ -5,7 +5,6 @@ import {
   CodeLanguage,
   DocPage,
   Example,
-  GuidelineVerdict,
   PropsTable,
 } from '@/components/doc-page'
 import {
@@ -21,6 +20,7 @@ import popInSource from '@/examples/sticker/pop-in.tsx?raw'
 import { StickerSizeAndTilt } from '@/examples/sticker/size-and-tilt'
 import sizeAndTiltSource from '@/examples/sticker/size-and-tilt.tsx?raw'
 import usageSource from '@/examples/sticker/usage.tsx?raw'
+import guidelines from '@/registry/ui/sticker/guidelines.md?raw'
 import {
   Table,
   TableBody,
@@ -106,59 +106,7 @@ function StickerPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To mark a moment: a finished trip, a first visit, a page with nothing on it yet.',
-          'Beside a title that says the same thing in words.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to label a status or a count, because a badge is small, static, and states the state in words.',
-            alternative: { to: '/components/badge', label: 'Badge' },
-          },
-          {
-            situation:
-              'to tell the traveller a page is empty, with a sticker beside the message rather than in place of it.',
-            alternative: {
-              to: '/components/empty-state',
-              label: 'Empty state',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep a title beside the sticker that says what it says.',
-            reason:
-              'The art is decoration with a job. It never replaces the words.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Use one sticker per screen, tilted a few degrees.',
-            reason:
-              'The tilt makes it read as stuck on rather than laid out in the grid, and a second sticker would compete for the same moment.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Put a sticker beside the heading of a long wait, such as a trip being planned.',
-            reason:
-              'The spinner says work is under way and the sticker turns the wait into a moment, so the screen never reads as empty.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Lay a sticker over text or controls.',
-            reason:
-              'A sticker may bleed off the edge of its panel, but it never hides a word or catches a press meant for a control.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Use a sticker for a routine state the traveller sees on every visit.',
-            reason:
-              'Stickers are kept for moments. Seen every time, one stops reading as a moment and becomes wallpaper.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <p>
           The sticker is one image: an <code>svg</code> with{' '}

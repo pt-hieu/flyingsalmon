@@ -3,7 +3,6 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -18,6 +17,7 @@ import selectAllSource from '@/examples/checkbox/select-all.tsx?raw'
 import { CheckboxStates } from '@/examples/checkbox/states'
 import statesSource from '@/examples/checkbox/states.tsx?raw'
 import usageSource from '@/examples/checkbox/usage.tsx?raw'
+import guidelines from '@/registry/ui/checkbox/guidelines.md?raw'
 
 import { TextLink } from '@/registry/ui/text-link'
 
@@ -68,64 +68,7 @@ function CheckboxPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To record a yes or no that a form collects and submits later, such as accepting a policy.',
-          'To pick any number of options from a short list, each one independent of the others.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a setting that takes effect the moment it flips. A switch shows that it applies at once and shows its own busyness.',
-            alternative: { to: '/components/switch', label: 'Switch' },
-          },
-          {
-            situation:
-              'when exactly one option must be chosen, because a checkbox cannot enforce a single answer.',
-            alternative: {
-              to: '/components/radio-group',
-              label: 'Radio group',
-            },
-          },
-          {
-            situation:
-              'to pick several options from a long list, where a column of boxes is too tall to scan.',
-            alternative: { to: '/components/combobox', label: 'Combobox' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Write the label so a tick reads as yes: "Tell travellers when the itinerary changes".',
-            reason:
-              'A ticked box then means agreement, and nobody has to work out what an unticked one means.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Word a label in the negative, such as "Don’t send me updates".',
-            reason:
-              'A tick on a negative makes the traveller undo a double negative before they know what they agreed to.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Stack independent options in one column, each naming its own subject: "Repair Day 3 · 12 Oct: museum".',
-            reason:
-              'The list reads as a set of sentences, and each box stands on its own without a heading to decode it.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Put a "Decide for me" box directly under a question the traveller may hand over, and dim the field above while it is ticked.',
-            reason:
-              'The traveller sees what they gave away, and unticking brings their own answer back where they left it.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Show the mixed state only on a parent whose children differ.',
-            reason:
-              'It tells the traveller that some of the group is selected, and a click resolves it to all or none.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

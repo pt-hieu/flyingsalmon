@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -16,6 +15,7 @@ import nestedItemsSource from '@/examples/sidebar/nested-items.tsx?raw'
 import { SidebarStartsCollapsed } from '@/examples/sidebar/starts-collapsed'
 import startsCollapsedSource from '@/examples/sidebar/starts-collapsed.tsx?raw'
 import usageSource from '@/examples/sidebar/usage.tsx?raw'
+import guidelines from '@/registry/ui/sidebar/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/sidebar')({
   component: SidebarPage,
@@ -56,67 +56,7 @@ function SidebarPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For the primary navigation of the app: a trip’s itinerary, places, budget, and travellers.',
-          'As the app’s top bar. On a narrow screen the sidebar becomes the bar, so there is no separate header component to build.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to climb back up through a hierarchy within one section, because a sidebar moves between sections.',
-            alternative: { to: '/components/breadcrumb', label: 'Breadcrumb' },
-          },
-          {
-            situation:
-              'to switch between peer panels on one page, because those are views of the same content rather than places.',
-            alternative: { to: '/components/tabs', label: 'Tabs' },
-          },
-          {
-            situation:
-              'for a drawer of actions or a panel that is not navigation.',
-            alternative: { to: '/components/drawer', label: 'Drawer' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep the sidebar on screen across every page, so the current-page bar slides from item to item as the traveller moves.',
-            reason:
-              'The moving bar shows where the traveller went from where they were. A sidebar that redraws on each page draws the bar in place, and the app reads as separate pages.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give every item an icon.',
-            reason:
-              'The rail shows icons alone, so an item without one has nothing to show there.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'In the rail, drop names from the header and the footer and keep their icons.',
-            reason:
-              'The rail is one icon wide, so a name either clips or forces the column wider. Expanding the sidebar brings the names back.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep the top level to a handful of sections, and nest the traveller’s own things, such as their trips or days, under the section they belong to.',
-            reason:
-              'A short top level reads at a glance and fits the rail. A nest grows with the traveller’s content without pushing the sections apart.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Make the traveller’s account a navigation item.',
-            reason:
-              'The nav lists places in the app; the account is the person using it. It goes in the footer as one item that opens a menu, in reach from every page.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'List a place the traveller can no longer use, such as a trip that has ended.',
-            reason:
-              'Leave it out rather than greying it. A dimmed item is a stop the traveller reads and cannot take.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

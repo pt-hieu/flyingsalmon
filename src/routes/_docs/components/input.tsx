@@ -3,7 +3,6 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -28,6 +27,7 @@ import sizesSource from '@/examples/input/sizes.tsx?raw'
 import { InputTypes } from '@/examples/input/types'
 import typesSource from '@/examples/input/types.tsx?raw'
 import usageSource from '@/examples/input/usage.tsx?raw'
+import guidelines from '@/registry/ui/input/guidelines.md?raw'
 import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/input')({
@@ -117,72 +117,7 @@ function InputPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For one line of free text: a trip name, an email address, a phone number, a booking link.',
-          'For a value the traveller types rather than picks, where any text is acceptable input.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when the value is a quantity. It formats for the page’s locale, clamps to its bounds, and reports a number instead of a string.',
-            alternative: {
-              to: '/components/number-field',
-              label: 'Number field',
-            },
-          },
-          {
-            situation:
-              'for notes that run past one line, because it grows with what the traveller types.',
-            alternative: { to: '/components/textarea', label: 'Textarea' },
-          },
-          {
-            situation:
-              'when the traveller picks a place, a person, or any value from a list you control.',
-            alternative: { to: '/components/combobox', label: 'Combobox' },
-          },
-          {
-            situation:
-              'for a calendar day or a range of days, so the segments and the grid refuse impossible dates.',
-            alternative: {
-              to: '/components/date-picker',
-              label: 'Date picker',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give every input a visible label above it, and use the placeholder for an example answer such as linh@example.com.',
-            reason:
-              'The label asks the question and stays put. A placeholder disappears as soon as the traveller types, so it only ever shows the shape of a good answer.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Show a failed check on the field that caused it, and clear it the moment the traveller edits.',
-            reason:
-              'The border, the label, and the message sit next to the text that caused the failure. Clearing on the first keystroke shows the field is listening, not scolding.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Lock the field while it checks a value.',
-            reason:
-              'A spinner in the end slot shows the check and the field stays editable, so a typo can be fixed while it runs. Only the submit button locks a flow.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Put the copy action for a read-only value inside the field, as a ghost icon button, and confirm the copy in a muted line under the field.',
-            reason:
-              'The action sits next to the value it acts on, and the confirmation appears where the traveller is already looking.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Stretch a field across the whole column when its answer is short.',
-            reason:
-              'The width tells the traveller how long an answer you expect. A postcode in a full-width field looks like it wants a paragraph.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

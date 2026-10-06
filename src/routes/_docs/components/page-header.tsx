@@ -1,11 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import {
-  DocPage,
-  Example,
-  GuidelineVerdict,
-  PropsTable,
-} from '@/components/doc-page'
+import { DocPage, Example, PropsTable } from '@/components/doc-page'
 import { PageHeaderBesideSidebar } from '@/examples/page-header/beside-sidebar'
 import besideSidebarSource from '@/examples/page-header/beside-sidebar.tsx?raw'
 import { PageHeaderContentWidth } from '@/examples/page-header/content-width'
@@ -19,6 +14,7 @@ import titleOnlySource from '@/examples/page-header/title-only.tsx?raw'
 import usageSource from '@/examples/page-header/usage.tsx?raw'
 import { PageHeaderWrapping } from '@/examples/page-header/wrapping'
 import wrappingSource from '@/examples/page-header/wrapping.tsx?raw'
+import guidelines from '@/registry/ui/page-header/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/page-header')({
   component: PageHeaderPage,
@@ -87,55 +83,7 @@ function PageHeaderPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To name a page and hold the actions that act on all of it: the trips list with "Plan a new trip", a trip with "Share" and "Book stays".',
-          'At the top of the pane, inside main, on every page that has a title.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              "for the app's top bar and navigation. The sidebar is both, and the page header only names the page in the pane beside it.",
-            alternative: { to: '/components/sidebar', label: 'Sidebar' },
-          },
-          {
-            situation:
-              'to show where the page sits in a hierarchy, because the header holds no trail.',
-            alternative: { to: '/components/breadcrumb', label: 'Breadcrumb' },
-          },
-          {
-            situation:
-              'for the actions on one card or one row, because the header is for the whole page.',
-            alternative: { to: '/components/button', label: 'Button' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep the header to the title and the actions on the whole page. Put the description, the status, and where the page came from below it, as muted text in the page body.',
-            reason:
-              'Every page then opens with the same heading, and the facts about one page read as its content rather than as chrome.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give the header one primary action. A second action is a secondary button, and the rest go in a dropdown menu.',
-            reason:
-              'One filled orange button says what the page is for. A row of equal buttons makes the traveller choose before they have read the page.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Repeat an empty page’s call to action in the header.',
-            reason:
-              'The empty state owns the one action on an empty page, where the traveller is already looking. Show the header action once the page has content.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Resize the title for one page.',
-            reason:
-              'Every page title is the same size, so the app speaks in one voice. A page that needs more emphasis gets it from its content.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <p>

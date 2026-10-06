@@ -3,7 +3,6 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -16,7 +15,7 @@ import inAFormSource from '@/examples/slider/in-a-form.tsx?raw'
 import { SliderMeaningfulSteps } from '@/examples/slider/meaningful-steps'
 import meaningfulStepsSource from '@/examples/slider/meaningful-steps.tsx?raw'
 import usageSource from '@/examples/slider/usage.tsx?raw'
-
+import guidelines from '@/registry/ui/slider/guidelines.md?raw'
 import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/slider')({
@@ -58,63 +57,7 @@ function SliderPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To pick a level from a short run of steps, such as a pace or a budget band.',
-          'When the steps have a meaning you can write in a sentence.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when the traveller knows the exact number to enter, such as a budget of $1,200. A slider makes them hunt for it.',
-            alternative: {
-              to: '/components/number-field',
-              label: 'Number field',
-            },
-          },
-          {
-            situation:
-              'for a few named options with no order, because a track implies one.',
-            alternative: {
-              to: '/components/toggle-group',
-              label: 'Toggle group',
-            },
-          },
-          {
-            situation: 'to pick a date.',
-            alternative: {
-              to: '/components/date-picker',
-              label: 'Date picker',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep to about seven steps, each a level the traveller could name.',
-            reason:
-              'A dot marks every step, so a long run turns the track into a dotted line with no meaning.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Say under the track what the current step means, with its consequence: "$150 a day per person for 7 days, before flights".',
-            reason:
-              'The description is the only place that says where the thumb is, and a figure the traveller can weigh turns a position into a decision.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Mark the ends of the track with their own figures.',
-            reason:
-              'End labels make the traveller interpolate. The description already names the step the thumb is on.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Offer an exact entry beside the slider, one ghost button away, when the traveller may already know the figure.',
-            reason:
-              'The slider answers "roughly". A traveller who knows their number should type it, not hunt for it on a track.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

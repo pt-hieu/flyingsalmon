@@ -3,7 +3,6 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -20,6 +19,7 @@ import readOnlySource from '@/examples/calendar/read-only.tsx?raw'
 import { CalendarUnavailableDays } from '@/examples/calendar/unavailable-days'
 import unavailableDaysSource from '@/examples/calendar/unavailable-days.tsx?raw'
 import usageSource from '@/examples/calendar/usage.tsx?raw'
+import guidelines from '@/registry/ui/calendar/guidelines.md?raw'
 import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/calendar')({
@@ -77,48 +77,7 @@ function CalendarPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'When the calendar is the interface itself: a page or a card where the traveller scans a month to choose a day.',
-          'To show two months side by side so a trip that crosses a month end is visible at once.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when a date belongs in a form. It adds the label, the typed segments, the error, and the hidden inputs around this grid.',
-            alternative: {
-              to: '/components/date-picker',
-              label: 'Date picker',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Strike through the days the traveller cannot pick, and keep them in the grid.',
-            reason:
-              'The month keeps its shape, so the weekdays still line up, and the traveller sees the day exists but is taken.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Show two months side by side when a trip can cross a month end.',
-            reason:
-              'Both ends of the trip stay in view. Paging away from the start day to find the end loses the traveller’s place.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put a failure message on the grid.',
-            reason:
-              'The grid carries no label and no message. A failed date shows on the field or card that hosts the calendar, where the traveller reads the question.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Fix a date in a read-only calendar without saying why.',
-            reason:
-              'A grid that ignores presses looks broken. A line beside it turns the refusal into information.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

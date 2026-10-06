@@ -1,11 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import {
-  DocPage,
-  Example,
-  GuidelineVerdict,
-  PropsTable,
-} from '@/components/doc-page'
+import { DocPage, Example, PropsTable } from '@/components/doc-page'
 import { SkeletonDemo } from '@/examples/skeleton/demo'
 import demoSource from '@/examples/skeleton/demo.tsx?raw'
 import { SkeletonLoadingRegion } from '@/examples/skeleton/loading-region'
@@ -15,6 +10,7 @@ import textFollowsFontSource from '@/examples/skeleton/text-follows-font.tsx?raw
 import usageSource from '@/examples/skeleton/usage.tsx?raw'
 import { SkeletonVariants } from '@/examples/skeleton/variants'
 import variantsSource from '@/examples/skeleton/variants.tsx?raw'
+import guidelines from '@/registry/ui/skeleton/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/skeleton')({
   component: SkeletonPage,
@@ -55,51 +51,7 @@ function SkeletonPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For a region whose shape is known and whose content has not arrived: a list, a card, a page on first load.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for an action that is running, such as a form submitting. The control shows its own busyness.',
-            alternative: { to: '/components/spinner', label: 'Spinner' },
-          },
-          {
-            situation:
-              'for a long job with a known end, where the traveller wants to see how far along it is.',
-            alternative: { to: '/components/progress', label: 'Progress' },
-          },
-          {
-            situation:
-              'when the region is legitimately empty. A skeleton says content is coming, and none is.',
-            alternative: {
-              to: '/components/empty-state',
-              label: 'Empty state',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Draw the real layout: the same cards, borders, grid, and number of sections, with lines that vary in width like text.',
-            reason:
-              'A placeholder that matches the real content lets it arrive without the page jumping.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Use a rectangle for an image or a bar, and text lines for words.',
-            reason:
-              'Each placeholder hints at what will fill it, so the traveller reads the page before it arrives.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Swap a control the traveller just pressed for a skeleton.',
-            reason:
-              'The control should stay and show its own busyness. A skeleton in its place makes the action vanish. A wait gets a spinner or a skeleton, never both.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <p>
           The skeleton is always <code>aria-hidden</code> and never takes a tab

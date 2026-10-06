@@ -1,11 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import {
-  DocPage,
-  Example,
-  GuidelineVerdict,
-  PropsTable,
-} from '@/components/doc-page'
+import { DocPage, Example, PropsTable } from '@/components/doc-page'
 import { BadgeCount } from '@/examples/badge/count'
 import countSource from '@/examples/badge/count.tsx?raw'
 import { BadgeDemo } from '@/examples/badge/demo'
@@ -19,6 +14,7 @@ import { BadgeVariants } from '@/examples/badge/variants'
 import variantsSource from '@/examples/badge/variants.tsx?raw'
 import { BadgeWithIcon } from '@/examples/badge/with-icon'
 import withIconSource from '@/examples/badge/with-icon.tsx?raw'
+import guidelines from '@/registry/ui/badge/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/badge')({
   component: BadgePage,
@@ -75,67 +71,7 @@ function BadgePage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To label the state of a thing: a trip is booked, a payment failed, a visa is expiring.',
-          'To tag a category or show a small count beside a label.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when the marker must do something on press, because a badge takes no focus and nothing inside it is interactive.',
-            alternative: { to: '/components/button', label: 'Button' },
-          },
-          {
-            situation:
-              'to report the result of an action, because a result belongs on the item that changed or in a notice that links back to it.',
-            alternative: { to: '/components/notice', label: 'Notice' },
-          },
-          {
-            situation:
-              'to mark a person, because a person has a face and a name.',
-            alternative: { to: '/components/avatar', label: 'Avatar' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Give the normal state a badge.',
-            reason:
-              'An exception reads at a glance only against plain rows. When every item wears a badge, none of them stands out.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Name the state in the label, such as Booked or Date clash.',
-            reason:
-              'Colour only reinforces the word. A reader who cannot tell orange from green still has to learn the state.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep the orange badge for what is live right now, such as today or a trip underway.',
-            reason:
-              'Orange is the loudest colour on the page, so it marks the one thing happening now. A finished state is green, a fact or an absence takes the outline, and quiet metadata takes the grey badge.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Paint a condition that already holds, such as a failed payment, in error red.',
-            reason:
-              'Error red reports a condition. Destructive red names an action a person can take, such as delete, and belongs to the destructive button.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Add an icon to a state that needs attention or is done, and leave neutral states as words.',
-            reason:
-              'The icon gives the states that matter a shape the eye catches before it reads, so a warning stands out from a row of quiet labels.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put more than one state badge on an item.',
-            reason:
-              'Each badge asks to be read, and a second state means the first is not the one that matters. Put the rest in the item’s details. Category tags are the exception and sit together as a quiet row.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <p>
           The badge renders a plain <code>span</code> with no role and no tab

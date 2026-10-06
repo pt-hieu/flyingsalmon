@@ -3,7 +3,6 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -18,6 +17,7 @@ import liveSubmitSource from '@/examples/form/live-submit.tsx?raw'
 import { FormServerError } from '@/examples/form/server-error'
 import serverErrorSource from '@/examples/form/server-error.tsx?raw'
 import usageSource from '@/examples/form/usage.tsx?raw'
+import guidelines from '@/registry/ui/form/guidelines.md?raw'
 import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/form')({
@@ -67,56 +67,7 @@ function FormPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To lay out two or more fields with an actions row, on a page or in a card.',
-          'In a dialog body, where the footer submit points at the form with the form attribute.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a single field with no submit step, such as a search box. Put the field on the page directly.',
-            alternative: { to: '/components/input', label: 'Input' },
-          },
-          {
-            situation:
-              'when a form lives in a modal and closes on submit, so the dialog owns the footer and the result belongs to the changed item.',
-            alternative: { to: '/components/dialog', label: 'Dialog' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Set a page’s form on a card, and dock its actions row directly below the card.',
-            reason:
-              'The white surface groups what the traveller fills in. The actions sit outside it as the step that finishes the work, with the result appearing just below them.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Lock the fields while the form submits.',
-            reason:
-              'Only the submit button shows busyness. The fields stay editable, so a typo can be fixed while the request runs.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Show a failure or success of the whole form below the actions row, and a failure of one field on that field.',
-            reason:
-              'The whole-form result appears under the button the traveller just pressed, so their attention is already there and the button never moves. A field failure points at exactly what to fix.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'When the submit cannot run yet, say why in a muted line beside it in the actions row, such as "3 questions left".',
-            reason:
-              'The traveller reads the reason where they reached for the action, and knows what to answer next.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Space one form looser or tighter than another, or push fields apart by hand.',
-            reason:
-              'Every form spaces its fields at the same step, so two forms in one app never look different and a section break is a separator, not a gap.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

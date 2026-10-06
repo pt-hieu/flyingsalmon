@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -18,6 +17,7 @@ import statesSource from '@/examples/card/states.tsx?raw'
 import usageSource from '@/examples/card/usage.tsx?raw'
 import { CardWithAction } from '@/examples/card/with-action'
 import withActionSource from '@/examples/card/with-action.tsx?raw'
+import guidelines from '@/registry/ui/card/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/card')({
   component: CardPage,
@@ -85,72 +85,7 @@ function CardPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To group a trip, a place, or a traveller with its description and actions on one surface.',
-          'For a list of items that each lead somewhere, as an interactive card.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to reveal secondary content under a heading. A card is always open.',
-            alternative: { to: '/components/accordion', label: 'Accordion' },
-          },
-          {
-            situation:
-              'for a result or a warning about the page. A card has no status of its own.',
-            alternative: { to: '/components/alert', label: 'Alert' },
-          },
-          {
-            situation: 'for tabular data with comparable columns.',
-            alternative: { to: '/components/table', label: 'Table' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put a step’s actions inside the card that holds its fields.',
-            reason:
-              'The card holds the work and the actions finish it, so they sit directly under the card, outside its edge. The result they produce then appears below them, where the reader is already looking.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Mark the one card the reader is working on with an orange border, and leave every other card plain.',
-            reason:
-              'Emphasis lives in the border on a flat surface. One marked card points the eye; two compete and neither reads as current.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give sibling cards in a grid the same slots in the same order.',
-            reason:
-              'The reader compares siblings by position. When the price sits in the same place on every card, the difference between them is the only thing that moves.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Set a large figure as the title, under a small label that says what it counts.',
-            reason:
-              'The reader learns what the number means before reading it, and the figure stays the largest thing on the card.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep the card on screen while its content is missing, and fill its slots with skeletons of the final shape.',
-            reason:
-              'The card itself never changes: the content shows its own busyness, and the layout does not jump when it arrives.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Make a card react to the pointer when nothing happens on click.',
-            reason:
-              'Hover and press feedback promise an action. A dead target must not look almost clickable, which is also why a card has no disabled state.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Lift a card off the page with a shadow or a fill.',
-            reason:
-              'Cards are flat. A solid border and the white surface separate them from the page, and the border alone carries emphasis.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -14,6 +13,7 @@ import insideALinkRowSource from '@/examples/icon-tooltip/inside-a-link-row.tsx?
 import { IconTooltipOnACard } from '@/examples/icon-tooltip/on-a-card'
 import onACardSource from '@/examples/icon-tooltip/on-a-card.tsx?raw'
 import usageSource from '@/examples/icon-tooltip/usage.tsx?raw'
+import guidelines from '@/registry/ui/icon-tooltip/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/icon-tooltip')({
   component: IconTooltipPage,
@@ -54,44 +54,7 @@ function IconTooltipPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To name a status icon that sits on its own: locked, tied to a date, a category.',
-          'For an icon inside a row or card whose whole surface is a link.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to label a button or any other control. The control is already focusable, so wrap it directly.',
-            alternative: { to: '/components/tooltip', label: 'Tooltip' },
-          },
-          {
-            situation:
-              'for an icon beside text that already says the same thing. The icon is then decoration.',
-            alternative: { to: '/components/badge', label: 'Badge' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Use it for a glyph that repeats across rows, such as a lock or an activity type, that would otherwise need a legend.',
-            reason:
-              'The traveller learns the glyph once by pointing at it, and the page carries no key.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep status and category icons small and muted, grouped at the edge of the row with its other details.',
-            reason:
-              'They are a quiet second read beside the content, not something to act on.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Make the icon the only place a reason lives. The row already says why a day is locked; the icon repeats it.',
-            reason:
-              'Like any tooltip, it is out of reach on touch. It adds to what the page already says.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

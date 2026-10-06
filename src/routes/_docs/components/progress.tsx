@@ -1,11 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import {
-  DocPage,
-  Example,
-  GuidelineVerdict,
-  PropsTable,
-} from '@/components/doc-page'
+import { DocPage, Example, PropsTable } from '@/components/doc-page'
 import { ProgressCustomMax } from '@/examples/progress/custom-max'
 import customMaxSource from '@/examples/progress/custom-max.tsx?raw'
 import { ProgressDemo } from '@/examples/progress/demo'
@@ -17,6 +12,7 @@ import indeterminateSource from '@/examples/progress/indeterminate.tsx?raw'
 import { ProgressStates } from '@/examples/progress/states'
 import statesSource from '@/examples/progress/states.tsx?raw'
 import usageSource from '@/examples/progress/usage.tsx?raw'
+import guidelines from '@/registry/ui/progress/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/progress')({
   component: ProgressPage,
@@ -65,55 +61,7 @@ function ProgressPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For a long job with a known end and nothing to attach it to, such as building a trip.',
-          'For work that has started but has no computable fraction yet, as an indeterminate bar.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for the busyness of a control the traveller just pressed. The control shows it itself.',
-            alternative: { to: '/components/spinner', label: 'Spinner' },
-          },
-          {
-            situation:
-              'for a region whose content has not arrived yet, so the page holds its shape while it loads.',
-            alternative: { to: '/components/skeleton', label: 'Skeleton' },
-          },
-          {
-            situation:
-              'for a position in a flow the traveller is walking, such as step 2 of 4.',
-            alternative: { to: '/components/stepper', label: 'Stepper' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Say in words, next to the bar, what phase the work is in.',
-            reason:
-              'A bar shows how much, never what. Only the app knows what phase the work is in and how to word it.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'When the work already has a heading on the page, write the count there, such as “3 of 7 days written”, and leave the bar out.',
-            reason:
-              'The heading is where the traveller is looking, and a bar beside it repeats the count.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Fake a fraction.',
-            reason:
-              'A bar that jumps to 90 percent and waits misreports the work. Use the indeterminate bar until a real number exists.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Show success or failure on the bar.',
-            reason:
-              'The bar only measures. The result appears where the traveller is looking: on the item that changed, or in the surface that acted.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <p>

@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -14,6 +13,7 @@ import retrySource from '@/examples/error-state/retry.tsx?raw'
 import { ErrorStateSmallInACard } from '@/examples/error-state/small-in-a-card'
 import smallInACardSource from '@/examples/error-state/small-in-a-card.tsx?raw'
 import usageSource from '@/examples/error-state/usage.tsx?raw'
+import guidelines from '@/registry/ui/error-state/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/error-state')({
   component: ErrorStatePage,
@@ -46,58 +46,7 @@ function ErrorStatePage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'When a region that was meant to fill could not: the places did not load, the trip failed to plan.',
-          'As the failed state of the affected item, with a retry where the traveller is already looking.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a form’s error. It belongs to the acting surface, in the form’s result slot.',
-            alternative: { to: '/components/alert', label: 'Alert' },
-          },
-          {
-            situation:
-              'for a result with no visible home, such as a dialog form that has closed.',
-            alternative: { to: '/components/notice', label: 'Notice' },
-          },
-          {
-            situation:
-              'when the region is legitimately empty and nothing went wrong.',
-            alternative: {
-              to: '/components/empty-state',
-              label: 'Empty state',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Say what happened and what was kept, then offer a retry and a way back to the input.',
-            reason:
-              'The traveller needs to know nothing was lost before they will try again.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Make retry the filled action, and let it show its own loading while the block stays in place. When a retry costs credits, the button says how many.',
-            reason:
-              'The traveller sees the attempt running where they pressed, and knows the price before they pay it.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Add red, an error icon, or an alert inside the block. A failure looks like an empty state with its own sticker and title.',
-            reason:
-              'Plain words and a broken-thing sticker say something went wrong. Red on top turns a failure the traveller can recover from into an alarm.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Shrink a failed region to a banner. The block takes the place of the content that failed, at its size.',
-            reason:
-              'The traveller looks for the content where it belongs, and finds the failure and its retry there.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
