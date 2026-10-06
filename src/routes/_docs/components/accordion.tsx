@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -20,6 +19,7 @@ import richTriggersSource from '@/examples/accordion/rich-triggers.tsx?raw'
 import { AccordionSingle } from '@/examples/accordion/single'
 import singleSource from '@/examples/accordion/single.tsx?raw'
 import usageSource from '@/examples/accordion/usage.tsx?raw'
+import guidelines from '@/registry/ui/accordion/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/accordion')({
   component: AccordionPage,
@@ -84,55 +84,7 @@ function AccordionPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For secondary information that helps some readers: an FAQ, the detail behind a booking, a packing list.',
-          'When the page should stay clean without the extra content and the panels can stay in document flow.',
-          'For a single collapsible region: a one-item accordion covers it, so there is no separate collapsible.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to switch between co-equal views of the same subject. Tabs swap the content in place, an accordion reveals more of it.',
-            alternative: { to: '/components/tabs', label: 'Tabs' },
-          },
-          {
-            situation:
-              'for content every reader needs. Hiding it behind a click costs them a step.',
-            alternative: { to: '/components/card', label: 'Card' },
-          },
-          {
-            situation: 'for content that stops the page or needs an answer.',
-            alternative: { to: '/components/dialog', label: 'Dialog' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep a result inside the panel that produced it.',
-            reason:
-              'The traveller is looking at that panel, so the result below the actions row is where it will be seen, and it stays until they have.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Write each trigger as a heading the reader can scan.',
-            reason:
-              'A closed accordion is the table of contents. A trigger that needs the panel to make sense hides the point.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put a button, a link, or a field inside a trigger.',
-            reason:
-              'The trigger is itself a button, and everything you pass lands inside its heading. Keep it to text, badges, and spans.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Box the stack or add a fill to open panels.',
-            reason:
-              'The accordion is a flush divider list. Wrap it in card content when you want a box.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -162,7 +114,9 @@ function AccordionPage() {
             survives, and carries <code>aria-expanded</code>. Its panel is a
             region labelled by the trigger. The trigger renders an{' '}
             <code>h3</code>; pass <code>asChild</code> with your own heading to
-            place the row at another level.
+            place the row at another level. A button, a link, or a field inside
+            a trigger would nest one control inside another, so keep controls in
+            the panel.
           </p>
           <p>
             The trigger draws no focus ring. Keyboard focus paints what hover
@@ -236,6 +190,7 @@ function AccordionPage() {
           />
           <PropsTable
             component="AccordionTrigger"
+            description="The trigger is itself a button, and everything you pass lands inside its heading. Keep it to text, badges, and spans: never a button, a link, or a field."
             rows={[
               {
                 name: 'asChild',
@@ -249,7 +204,8 @@ function AccordionPage() {
           <p>
             <code>AccordionContent</code> takes the props of the element it
             renders. <code>className</code> lands on the padded body inside the
-            panel.
+            panel. The stack draws no box of its own; to box it, wrap it in a
+            card&rsquo;s content.
           </p>
         </>
       }

@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -20,6 +19,7 @@ import numericColumnsSource from '@/examples/table/numeric-columns.tsx?raw'
 import { TableRowHeaders } from '@/examples/table/row-headers'
 import rowHeadersSource from '@/examples/table/row-headers.tsx?raw'
 import usageSource from '@/examples/table/usage.tsx?raw'
+import guidelines from '@/registry/ui/table/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/table')({
   component: TablePage,
@@ -76,70 +76,7 @@ function TablePage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To compare the same fields across many items: stops on a trip, travellers and their roles, bookings and their costs.',
-          'When a reader scans down a column more than across a row.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to show one item with several fields, because a card gives each item its own edge and room.',
-            alternative: { to: '/components/card', label: 'Card' },
-          },
-          {
-            situation:
-              'to show events in order with content beside each, because a timeline joins them with a connector.',
-            alternative: { to: '/components/timeline', label: 'Timeline' },
-          },
-          {
-            situation:
-              'to hold form fields in a grid, because a table announces a data relationship that fields do not have.',
-            alternative: { to: '/components/form', label: 'Form' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Right-align numeric columns and leave labels left.',
-            reason:
-              'Aligned digits are what let a reader compare two amounts by place value.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Leave the header cell empty on a column that holds only controls.',
-            reason:
-              'The button already names the action. A label above it repeats the words and sits far from them, because the controls are right-aligned.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: (
-              <>
-                Mark two cells in one row <code>rowLink</code>.
-              </>
-            ),
-            reason:
-              'The two stretched links cover the same area and fight over it. One row, one destination.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: (
-              <>
-                Mark a row <code>interactive</code> when nothing happens on
-                click.
-              </>
-            ),
-            reason:
-              'The hover step tells a reader the row leads somewhere. A background change that leads nowhere reads as an affordance that is not there.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Expect sorting, selection, or paging from the table.',
-            reason:
-              'It sorts nothing, selects nothing, and paginates nothing. Those belong to a data table built on top of it.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -190,7 +127,9 @@ function TablePage() {
           <p>
             <code>Table</code> takes every <code>&lt;table&gt;</code> attribute.
             It wraps the table in a full-width scrolling container and sends{' '}
-            <code>className</code> to the table itself.
+            <code>className</code> to the table itself. It sorts nothing,
+            selects nothing, and paginates nothing: those belong to a data table
+            built on top of it.
           </p>
           <PropsTable
             component="TableRow"
@@ -205,7 +144,7 @@ function TablePage() {
                 type: 'boolean',
                 default: 'false',
                 description:
-                  'Steps the background to the accent colour on hover and on focus of the row link, and stretches the row link over the row.',
+                  'Steps the background to the accent colour on hover and on focus of the row link, and stretches the row link over the row. Only for a row that leads somewhere.',
               },
             ]}
           />
@@ -222,7 +161,7 @@ function TablePage() {
                 type: 'boolean',
                 default: 'false',
                 description:
-                  'Marks the cell whose link stretches over its interactive row. Any cell can hold it, not only the first.',
+                  'Marks the cell whose link stretches over its interactive row. Any cell can hold it, not only the first, and only one cell per row: two stretched links cover the same area and fight over it.',
               },
             ]}
           />

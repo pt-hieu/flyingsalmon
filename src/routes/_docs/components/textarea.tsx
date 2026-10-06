@@ -3,7 +3,6 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -23,6 +22,7 @@ import { TextareaReadOnly } from '@/examples/textarea/read-only'
 import readOnlySource from '@/examples/textarea/read-only.tsx?raw'
 import usageSource from '@/examples/textarea/usage.tsx?raw'
 import { TextLink } from '@/registry/ui/text-link'
+import guidelines from '@/registry/ui/textarea/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/textarea')({
   component: TextareaPage,
@@ -87,50 +87,7 @@ function TextareaPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For text that runs past one line: trip notes, a day-by-day itinerary, a message to the group.',
-          'When the length is up to the traveller and you want the field to grow instead of scrolling inside a fixed box.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for one line of text such as a trip name or an email address.',
-            alternative: { to: '/components/input', label: 'Input' },
-          },
-          {
-            situation:
-              'when the traveller picks from options you control rather than writing freely.',
-            alternative: { to: '/components/combobox', label: 'Combobox' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Set minRows to the length you expect.',
-            reason:
-              'An empty field that is already three rows tall tells the traveller how much to write; a one-row field invites a one-word answer.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep a submit shortcut such as Cmd+Enter in your form, not in the field.',
-            reason:
-              'Enter must insert a newline here, so a shortcut is an app decision and needs a visible hint.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Disable the field while an autosave runs.',
-            reason:
-              'Use loading instead. The traveller keeps typing, and the next save picks up the new text.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Add a drag handle or a fixed height.',
-            reason:
-              'The height follows the content between minRows and maxRows, so a manual size would fight the autosize.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -158,8 +115,9 @@ function TextareaPage() {
             loading field sets <code>aria-busy</code> and hides its spinner from
             screen readers, so the wait is announced once. <code>required</code>{' '}
             marks the label and reaches the <code>&lt;textarea&gt;</code>; the
-            validation itself stays with your app. The states every field shares
-            are described on{' '}
+            validation itself stays with your app. The field handles no submit
+            shortcut: a key such as Cmd+Enter belongs to your form. The states
+            every field shares are described on{' '}
             <TextLink asChild>
               <Link to="/fields">Fields</Link>
             </TextLink>
@@ -187,7 +145,8 @@ function TextareaPage() {
               name: 'minRows',
               type: 'number',
               default: '3',
-              description: 'The height of the empty field, in rows.',
+              description:
+                'The height of the empty field, in rows. Set it to the length of answer you expect: a one-row field invites a one-word answer.',
             },
             {
               name: 'maxRows',
@@ -212,7 +171,7 @@ function TextareaPage() {
               type: 'boolean',
               default: 'false',
               description:
-                'Pins a spinner to the top-right corner. The field stays editable.',
+                'Pins a spinner to the top-right corner. The field stays editable. Set it, not disabled, while an autosave runs.',
             },
             {
               name: 'disabled',

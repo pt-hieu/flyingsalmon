@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -14,6 +13,7 @@ import retrySource from '@/examples/error-state/retry.tsx?raw'
 import { ErrorStateSmallInACard } from '@/examples/error-state/small-in-a-card'
 import smallInACardSource from '@/examples/error-state/small-in-a-card.tsx?raw'
 import usageSource from '@/examples/error-state/usage.tsx?raw'
+import guidelines from '@/registry/ui/error-state/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/error-state')({
   component: ErrorStatePage,
@@ -46,52 +46,7 @@ function ErrorStatePage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'When a region that was meant to fill could not: the places did not load, the trip failed to plan.',
-          'As the failed state of the affected item, with a retry where the traveller is already looking.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a form’s error. It belongs to the acting surface, in the form’s result slot.',
-            alternative: { to: '/components/alert', label: 'Alert' },
-          },
-          {
-            situation:
-              'for a result with no visible home, such as a dialog form that has closed.',
-            alternative: { to: '/components/notice', label: 'Notice' },
-          },
-          {
-            situation:
-              'when the region is legitimately empty and nothing went wrong.',
-            alternative: {
-              to: '/components/empty-state',
-              label: 'Empty state',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Say what happened and what was kept, then offer a retry and a way back to the input.',
-            reason:
-              'The traveller needs to know nothing was lost before they will try again.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Add a red icon or an alert inside the block.',
-            reason:
-              'The title, the sticker, and the role tell it apart from an empty state. The colours are the empty state’s.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Set a role on it.',
-            reason:
-              'It is always an alert, so a screen reader hears it appear.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable

@@ -1,11 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import {
-  DocPage,
-  Example,
-  GuidelineVerdict,
-  PropsTable,
-} from '@/components/doc-page'
+import { DocPage, Example, PropsTable } from '@/components/doc-page'
 import { AvatarClickable } from '@/examples/avatar/clickable'
 import clickableSource from '@/examples/avatar/clickable.tsx?raw'
 import { AvatarColors } from '@/examples/avatar/colors'
@@ -19,6 +14,7 @@ import nameBesideAvatarSource from '@/examples/avatar/name-beside-avatar.tsx?raw
 import { AvatarSizes } from '@/examples/avatar/sizes'
 import sizesSource from '@/examples/avatar/sizes.tsx?raw'
 import usageSource from '@/examples/avatar/usage.tsx?raw'
+import guidelines from '@/registry/ui/avatar/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/avatar')({
   component: AvatarPage,
@@ -75,62 +71,7 @@ function AvatarPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To mark one person: the signed-in traveller in the sidebar, an author on a comment, an assignee on a row.',
-          'Beside the person’s name, or alone when the name appears elsewhere on the screen.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to show several people as one cluster, because it overlaps the faces and folds the rest into a count.',
-            alternative: {
-              to: '/components/avatar-group',
-              label: 'Avatar group',
-            },
-          },
-          {
-            situation:
-              'for a status or a count, because an avatar is a person and never reads as a state.',
-            alternative: { to: '/components/badge', label: 'Badge' },
-          },
-          {
-            situation:
-              'when a click must do something, by wrapping the avatar rather than using it bare.',
-            alternative: { to: '/components/button', label: 'Button' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: (
-              <>
-                Pass <code>name</code> even when you pass a photo.
-              </>
-            ),
-            reason:
-              'The name feeds the alt text and the initials fallback, so a failed image still identifies the person.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Derive the colour from a stable key such as a user id.',
-            reason:
-              'A person whose colour changes between pages reads as a different person.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Make the avatar itself clickable.',
-            reason:
-              'It has no focus ring and no tab stop. Wrap it in a button or a link so the wrapper owns both.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Use an orange or a status colour for a person.',
-            reason:
-              'Orange is the brand and the status hues report state, so the six group colours leave them out and an avatar never reads as an action or a warning.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <p>
@@ -141,6 +82,11 @@ function AvatarPage() {
             <code>name</code>. Pass <code>alt=&quot;&quot;</code> when the name
             is written beside the avatar, and the avatar then drops out of the
             accessibility tree.
+          </p>
+          <p>
+            The avatar is a mark, not a control. When a click must do something,
+            wrap it in a button or a link, and the wrapper owns the focus ring
+            and the tab stop.
           </p>
           <p>
             Contrast on the six colours and the neutral circle passes WCAG AA.
@@ -167,7 +113,7 @@ function AvatarPage() {
               name: 'name',
               type: 'string',
               description:
-                'The person’s name. Feeds the default alt text and the initials: the first letters of the first and last words, one letter for a one-word name.',
+                'The person’s name. Feeds the default alt text and the initials: the first letters of the first and last words, one letter for a one-word name. Pass it even with a photo, so a failed image still identifies the person.',
             },
             {
               name: 'alt',
@@ -180,7 +126,7 @@ function AvatarPage() {
               name: 'color',
               type: 'AvatarColor',
               description:
-                'Sky, Pink, Teal, Fuchsia, Cyan, or Blue. Colours the fallback circle only; with no colour the circle is neutral.',
+                'Sky, Pink, Teal, Fuchsia, Cyan, or Blue. Colours the fallback circle only; with no colour the circle is neutral. Derive it from a stable key, such as a user id, so a person keeps one colour.',
             },
             {
               name: 'size',

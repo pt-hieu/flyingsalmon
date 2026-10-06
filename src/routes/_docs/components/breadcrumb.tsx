@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -16,6 +15,7 @@ import longPageTitleSource from '@/examples/breadcrumb/long-page-title.tsx?raw'
 import { BreadcrumbRouterLinks } from '@/examples/breadcrumb/router-links'
 import routerLinksSource from '@/examples/breadcrumb/router-links.tsx?raw'
 import usageSource from '@/examples/breadcrumb/usage.tsx?raw'
+import guidelines from '@/registry/ui/breadcrumb/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/breadcrumb')({
   component: BreadcrumbPage,
@@ -56,61 +56,7 @@ function BreadcrumbPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To show where a page sits in a hierarchy and let the traveller climb back up: Trips, then Kyoto in autumn, then Day 3.',
-          'Above the title of any page at least two levels deep.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to move between the sections of the app. A breadcrumb moves up within one section; the sidebar holds all of them.',
-            alternative: { to: '/components/sidebar', label: 'Sidebar' },
-          },
-          {
-            situation:
-              'for a position in a sequence someone is walking through, because a hierarchy has no "next".',
-            alternative: { to: '/components/stepper', label: 'Stepper' },
-          },
-          {
-            situation:
-              'to move between the numbered pages of a list, because a breadcrumb never lists siblings.',
-            alternative: { to: '/components/pagination', label: 'Pagination' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Render a trail only when it has at least two levels.',
-            reason:
-              'A trail of one says nothing the page title has not already said.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Use it as a history of the pages the traveller came through.',
-            reason:
-              'It lists the pages above this one, so it reads the same however they arrived.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Collapse a long trail behind the ellipsis from four levels.',
-            reason:
-              'A trail that does not fit would wrap, and a wrapped trail stops reading as one line. The component measures nothing, so you decide which levels collapse.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Write every separator yourself, between two items.',
-            reason:
-              'A chevron the list inserted on its own would land in the wrong place the moment a level is conditional or collapses.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Make the current page a link.',
-            reason:
-              'A link to the page you are already on goes nowhere, so the current page is plain text and takes no focus.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -205,7 +151,8 @@ function BreadcrumbPage() {
               <>
                 Owns the dropdown menu, its trigger, and its content. Place it
                 in a <code>BreadcrumbItem</code> with neither <code>link</code>{' '}
-                nor <code>active</code>.
+                nor <code>active</code>. The trail measures nothing, so you
+                decide which levels move into it.
               </>
             }
             rows={[
@@ -228,7 +175,9 @@ function BreadcrumbPage() {
             <code>BreadcrumbEllipsisMenuItem</code> takes the dropdown menu item
             props, including <code>asChild</code> for a link.{' '}
             <code>BreadcrumbSeparator</code> takes only list item props and
-            holds a fixed chevron.
+            holds a fixed chevron. The trail inserts no separators: place one
+            between each pair of items yourself, so a conditional or collapsed
+            level never leaves a stray chevron.
           </p>
         </>
       }

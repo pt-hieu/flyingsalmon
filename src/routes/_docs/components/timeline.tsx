@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -22,6 +21,7 @@ import spacingSource from '@/examples/timeline/spacing.tsx?raw'
 import { TimelineStrip } from '@/examples/timeline/strip'
 import stripSource from '@/examples/timeline/strip.tsx?raw'
 import usageSource from '@/examples/timeline/usage.tsx?raw'
+import guidelines from '@/registry/ui/timeline/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/timeline')({
   component: TimelinePage,
@@ -79,63 +79,14 @@ function TimelinePage() {
 
           <Example
             caption="A moving current marker"
-            description="The timeline owns no animation. To make the current marker travel between days, render a motion element with a shared layoutId inside the current item’s marker. Press Next day."
+            description="The timeline owns no animation. To make the current marker travel between days, render a motion element with a shared layoutId inside the current item’s marker. Mount the timeline in the app shell, because the marker only travels when the one it leaves and the one it enters render together, and wrap it in a LayoutGroup with a unique id so two timelines on one page never trade markers. Press Next day."
             source={movingCurrentMarkerSource}
           >
             <TimelineMovingCurrentMarker />
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To show a route or an itinerary: cities, legs between them, days of a trip.',
-          'When each item has a title and a line of detail that belong beside its marker.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to show a position in a sequence of known length with no content beside it, because a stepper tracks progress.',
-            alternative: { to: '/components/stepper', label: 'Stepper' },
-          },
-          {
-            situation:
-              'to compare the same fields across items, because columns line up what a rail cannot.',
-            alternative: { to: '/components/table', label: 'Table' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Paint the current marker yourself.',
-            reason:
-              'What an item means, done or still ahead, is a claim about your app’s domain. The timeline places markers and joins them, and has no status or active state to set.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Mount a timeline with a moving marker in the app shell.',
-            reason:
-              'A shared layout animation only travels when the marker it leaves and the one it enters mount in the same commit. In a route that unmounts on navigation the marker appears in its new place with no travel.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Wrap a moving-marker timeline in a LayoutGroup with a unique id.',
-            reason:
-              'Two timelines on one page would otherwise fly markers into each other.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Mix marker sizes in a horizontal timeline.',
-            reason:
-              'A horizontal connector spans from its own marker’s edge using its own size, so it overshoots at one end. Mixing is for vertical rails.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Stretch a link over a whole item.',
-            reason:
-              'An item is never a hit target. One linked title costs the keyboard user exactly one stop, however many cities the rail holds.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -187,7 +138,8 @@ function TimelinePage() {
               <>
                 Also takes every <code>&lt;span&gt;</code> attribute. It draws
                 the connector to the next item; the last item and an item with
-                no marker have none.
+                no marker have none. It has no status or active state: paint a
+                current marker through its children.
               </>
             }
             rows={[
@@ -196,7 +148,7 @@ function TimelinePage() {
                 type: 'TimelineMarkerSize',
                 default: 'TimelineMarkerSize.Default',
                 description:
-                  'Default or Small. Both centre on the same line, so a vertical rail can mix them.',
+                  'Default or Small. Both centre on the same line, so a vertical rail can mix them. A horizontal timeline uses one size throughout: each connector spans from its own marker’s edge, so mixed sizes overshoot at one end.',
               },
               {
                 name: 'children',

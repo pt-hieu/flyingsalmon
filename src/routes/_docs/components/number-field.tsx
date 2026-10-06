@@ -3,7 +3,6 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -26,6 +25,7 @@ import readOnlySource from '@/examples/number-field/read-only.tsx?raw'
 import { NumberFieldSizes } from '@/examples/number-field/sizes'
 import sizesSource from '@/examples/number-field/sizes.tsx?raw'
 import usageSource from '@/examples/number-field/usage.tsx?raw'
+import guidelines from '@/registry/ui/number-field/guidelines.md?raw'
 import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/number-field')({
@@ -114,50 +114,7 @@ function NumberFieldPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For a quantity the traveller adjusts: travellers, nights, a budget.',
-          'When the value is arithmetic input and the field must report a number, with bounds you can enforce.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a numeric string nothing does arithmetic on, such as a booking reference or a phone number.',
-            alternative: { to: '/components/input', label: 'Input' },
-          },
-          {
-            situation:
-              'when the traveller sets an approximate value on a range and the exact figure does not matter.',
-            alternative: { to: '/components/slider', label: 'Slider' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Set min on every field that cannot go negative.',
-            reason:
-              'It bounds the clamp, gives Home somewhere to jump, disables the decrease button at the floor, and picks the numeric mobile keyboard. A traveller count with no min accepts minus three people.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Treat null as "unanswered" in your handler.',
-            reason:
-              'An empty field reports null, never NaN or 0, so nothing downstream has to tell a blank from a zero.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Read the typed text instead of the reported number.',
-            reason:
-              'The field formats for the page’s locale, so the text may hold a group separator. The reported value is always a plain number.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Lock the field while a background check runs.',
-            reason:
-              'Use loading instead. The field stays typeable and the submit button is what locks a flow.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -221,7 +178,8 @@ function NumberFieldPage() {
             <>
               Also takes every <code>&lt;input&gt;</code> attribute except{' '}
               <code>type</code>, <code>size</code>, and the value props it
-              redefines. <code>className</code> styles the wrapper.
+              redefines. <code>className</code> styles the wrapper, so a width
+              set there sizes the whole field.
             </>
           }
           rows={[
@@ -233,7 +191,8 @@ function NumberFieldPage() {
             {
               name: 'value',
               type: 'number | null',
-              description: 'The controlled value. null is an empty field.',
+              description:
+                'The controlled value. null is an empty field, never NaN or 0, so a blank and a zero stay apart.',
             },
             {
               name: 'defaultValue',
@@ -244,13 +203,13 @@ function NumberFieldPage() {
               name: 'onValueChange',
               type: '(value: number | null) => void',
               description:
-                'Reports the parsed number while typing, in range or not. Blur and Enter clamp into [min, max] and reformat.',
+                'Reports the parsed number while typing, in range or not, and null when the field is empty. It is always a plain number, so read it rather than the typed text, which carries the locale’s group separator. Blur and Enter clamp into [min, max] and reformat.',
             },
             {
               name: 'min',
               type: 'number',
               description:
-                'The floor. Also picks the mobile keyboard: numeric when min is zero or above.',
+                'The floor. Set it on every count that cannot go negative: it bounds the clamp, gives Home somewhere to jump, disables Decrease at the floor, and picks the numeric mobile keyboard when it is zero or above.',
             },
             {
               name: 'max',
@@ -308,7 +267,7 @@ function NumberFieldPage() {
               type: 'boolean',
               default: 'false',
               description:
-                'Replaces the spin buttons with a spinner. The field stays typeable.',
+                'Replaces the spin buttons with a spinner. The field stays typeable. Set it, not disabled, while a background check runs.',
             },
             {
               name: 'disabled',

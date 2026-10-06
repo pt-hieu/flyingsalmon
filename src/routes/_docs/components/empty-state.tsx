@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -20,6 +19,7 @@ import smallStickerSource from '@/examples/empty-state/small-sticker.tsx?raw'
 import { EmptyStateTwoActions } from '@/examples/empty-state/two-actions'
 import twoActionsSource from '@/examples/empty-state/two-actions.tsx?raw'
 import usageSource from '@/examples/empty-state/usage.tsx?raw'
+import guidelines from '@/registry/ui/empty-state/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/empty-state')({
   component: EmptyStatePage,
@@ -76,53 +76,7 @@ function EmptyStatePage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'When a page, a list, or a card is legitimately empty: no trips yet, no places saved, nobody invited.',
-          'When a link leads to a page with nothing in it, such as an expired share link.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when a region is still fetching. The placeholder holds the shape of what is coming.',
-            alternative: { to: '/components/skeleton', label: 'Skeleton' },
-          },
-          {
-            situation:
-              'when a region’s content failed to arrive. That is a failure, and it is announced.',
-            alternative: {
-              to: '/components/error-state',
-              label: 'Error state',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Say what is missing and what the traveller can do about it.',
-            reason:
-              'A resting state with no next step leaves the traveller to guess whether something broke.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Use the default size for a page and small for a block inside a card.',
-            reason:
-              'The card already carries the heading weight, so the block inside it steps down.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Use an empty state for work that is in progress.',
-            reason:
-              'In-progress content shows a skeleton. An empty state says content is not coming until the traveller acts.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Add a variant, border, or background to the block.',
-            reason:
-              'It paints none. Put it in a card for a boundary, or leave it on the page as the page’s own message.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -167,7 +121,7 @@ function EmptyStatePage() {
                 type: 'EmptyStateSize',
                 default: 'EmptyStateSize.Default',
                 description:
-                  'Default for a page, Small for a block inside a card.',
+                  'Default for a page, Small for a block inside a card. The block paints no border or background of its own.',
               },
             ]}
           />

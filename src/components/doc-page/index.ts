@@ -9,7 +9,6 @@ export { PropsTable, type PropsTableProps } from './props-table'
 export {
   CodeLanguage,
   GuidelineVerdict,
-  type GuidelinesContent,
   type KeyboardRow,
   type PropRow,
   type RelatedPage,

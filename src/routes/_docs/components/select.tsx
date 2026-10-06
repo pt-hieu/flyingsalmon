@@ -3,7 +3,6 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -24,6 +23,7 @@ import longListSource from '@/examples/select/long-list.tsx?raw'
 import { SelectSizes } from '@/examples/select/sizes'
 import sizesSource from '@/examples/select/sizes.tsx?raw'
 import usageSource from '@/examples/select/usage.tsx?raw'
+import guidelines from '@/registry/ui/select/guidelines.md?raw'
 import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/select')({
@@ -97,61 +97,7 @@ function SelectPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To choose one value from a short, fixed list: a currency, a travel style, who can see a trip.',
-          'When the options need groups, icons, or a disabled entry that stays visible.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when the list is long enough that the traveller must search, or the options arrive from a server.',
-            alternative: { to: '/components/combobox', label: 'Combobox' },
-          },
-          {
-            situation:
-              'for two to five options that should all stay visible while the traveller decides.',
-            alternative: {
-              to: '/components/radio-group',
-              label: 'Radio group',
-            },
-          },
-          {
-            situation:
-              'when a short set of options changes a view or a filter rather than a field value.',
-            alternative: {
-              to: '/components/toggle-group',
-              label: 'Toggle group',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Pass plain strings as the item text.',
-            reason:
-              'The trigger shows the checked item’s text and typeahead matches it, so a string is both what the traveller reads and what they search.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep a sold-out or unavailable option in the list, disabled.',
-            reason:
-              'The list keeps its shape, and the traveller sees the option exists instead of wondering where it went.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put an icon in an item to carry meaning on its own.',
-            reason:
-              'The icon is hidden from screen readers and absent from the trigger, so only the label is reliable.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Use select for a list of fifty or more.',
-            reason:
-              'Typeahead only matches the start of an item. A traveller who cannot remember the first letters needs a field they can search.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -282,7 +228,7 @@ function SelectPage() {
                 type: 'string',
                 required: true,
                 description:
-                  'The item text. It is also what the trigger shows and what typeahead matches.',
+                  'The item text, as a plain string. It is also what the trigger shows and what typeahead matches.',
               },
               {
                 name: 'icon',
@@ -320,6 +266,11 @@ function SelectPage() {
             portal, content, and viewport stay internal, so the field owns its
             label and message. A plain form posts the chosen value through
             Radix&rsquo;s hidden native <code>&lt;select&gt;</code>.
+          </p>
+          <p>
+            Typeahead matches only the start of an item, so a list of fifty or
+            more strands a traveller who cannot remember the first letters. That
+            is the point where a list needs a field they can search.
           </p>
           <p>
             Hover border and focus ring are CSS transitions at{' '}

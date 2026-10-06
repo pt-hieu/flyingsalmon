@@ -3,7 +3,6 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -25,6 +24,7 @@ import usageSource from '@/examples/switch/usage.tsx?raw'
 import { SwitchWithoutALabel } from '@/examples/switch/without-a-label'
 import withoutALabelSource from '@/examples/switch/without-a-label.tsx?raw'
 
+import guidelines from '@/registry/ui/switch/guidelines.md?raw'
 import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/switch')({
@@ -98,57 +98,7 @@ function SwitchPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For a setting that takes effect the moment it flips, such as offline maps or link sharing.',
-          'For an on or off state the traveller will want to see at a glance.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a yes or no that a form collects and submits later. A checkbox says the value waits for a submit.',
-            alternative: { to: '/components/checkbox', label: 'Checkbox' },
-          },
-          {
-            situation:
-              'to choose between two named options such as "Day" and "Night". A switch means on or off, not this or that.',
-            alternative: {
-              to: '/components/toggle-group',
-              label: 'Toggle group',
-            },
-          },
-          {
-            situation: 'for an action that runs once and has no state to show.',
-            alternative: { to: '/components/button', label: 'Button' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Label the switch with the setting, not the state: "Offline maps", not "Turn on offline maps".',
-            reason:
-              'The thumb already shows on or off, so a label that names the state can contradict it.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Control checked, set loading while the call runs, and keep the old value if the call fails.',
-            reason:
-              'The switch then never claims a state the server does not hold.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Show a failed toggle as an error on the switch.',
-            reason:
-              'There is no error prop. The app shows the failure on the setting’s row, with a retry, where the traveller is already looking.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Disable a switch while its change applies.',
-            reason:
-              'Use loading. A disabled switch leaves the tab order and drops keyboard focus mid-action.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -182,7 +132,7 @@ function SwitchPage() {
       api={
         <PropsTable
           component="Switch"
-          description="Every other prop passes through to the Radix switch root."
+          description="Every other prop passes through to the Radix switch root. For a setting the server holds, control checked, set loading while the call runs, and keep the old value when the call fails. There is no error prop: a failed toggle shows on the setting’s row."
           rows={[
             {
               name: 'label',
@@ -219,7 +169,7 @@ function SwitchPage() {
               type: 'boolean',
               default: 'false',
               description:
-                'Pulses the thumb and ignores clicks and keys while keeping focus.',
+                'Pulses the thumb and ignores clicks and keys while keeping focus. Set it, not disabled, while the change applies: disabled leaves the tab order and drops focus mid-action.',
             },
             {
               name: 'disabled',

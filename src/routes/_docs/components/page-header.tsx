@@ -1,11 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import {
-  DocPage,
-  Example,
-  GuidelineVerdict,
-  PropsTable,
-} from '@/components/doc-page'
+import { DocPage, Example, PropsTable } from '@/components/doc-page'
 import { PageHeaderBesideSidebar } from '@/examples/page-header/beside-sidebar'
 import besideSidebarSource from '@/examples/page-header/beside-sidebar.tsx?raw'
 import { PageHeaderContentWidth } from '@/examples/page-header/content-width'
@@ -19,6 +14,7 @@ import titleOnlySource from '@/examples/page-header/title-only.tsx?raw'
 import usageSource from '@/examples/page-header/usage.tsx?raw'
 import { PageHeaderWrapping } from '@/examples/page-header/wrapping'
 import wrappingSource from '@/examples/page-header/wrapping.tsx?raw'
+import guidelines from '@/registry/ui/page-header/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/page-header')({
   component: PageHeaderPage,
@@ -87,62 +83,22 @@ function PageHeaderPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To name a page and hold the actions that act on all of it: the trips list with "Plan a new trip", a trip with "Share" and "Book stays".',
-          'At the top of the pane, inside main, on every page that has a title.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              "for the app's top bar and navigation. The sidebar is both, and the page header only names the page in the pane beside it.",
-            alternative: { to: '/components/sidebar', label: 'Sidebar' },
-          },
-          {
-            situation:
-              'to show where the page sits in a hierarchy, because the header holds no trail.',
-            alternative: { to: '/components/breadcrumb', label: 'Breadcrumb' },
-          },
-          {
-            situation:
-              'for the actions on one card or one row, because the header is for the whole page.',
-            alternative: { to: '/components/button', label: 'Button' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Put the description, the status, and where the page came from in the page body, below the header.',
-            reason:
-              'The header holds a title and actions only, so every page that uses it gets the same heading.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Pass a dropdown menu as one action when the page has more actions than fit.',
-            reason:
-              'There is no overflow menu, so the page decides which actions stay visible.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Place PageHeader inside main.',
-            reason:
-              'A header outside main becomes a banner landmark and competes with the app shell’s own.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Resize the title for one page.',
-            reason:
-              'There is no size prop, so every page’s title matches. A page that needs more emphasis gets it from its content.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
-        <p>
-          The header has no states and no keyboard path of its own. The title is
-          the page&rsquo;s one <code>h1</code>, and Tab reaches the actions in
-          the order you write them and nothing else. Nothing animates, including
-          the actions wrapping: a layout change at a breakpoint is not feedback.
-        </p>
+        <>
+          <p>
+            The header has no states and no keyboard path of its own. The title
+            is the page&rsquo;s one <code>h1</code>, and Tab reaches the actions
+            in the order you write them and nothing else. Nothing animates,
+            including the actions wrapping: a layout change at a breakpoint is
+            not feedback.
+          </p>
+          <p>
+            Place <code>PageHeader</code> inside <code>main</code>. A{' '}
+            <code>header</code> outside it becomes a banner landmark and
+            competes with the app shell&rsquo;s own.
+          </p>
+        </>
       }
       api={
         <>
@@ -190,7 +146,9 @@ function PageHeaderPage() {
           />
           <p>
             <code>PageHeaderActions</code> takes every <code>&lt;div&gt;</code>{' '}
-            attribute and holds the buttons that act on the whole page.
+            attribute and holds the buttons that act on the whole page. It has
+            no overflow menu: when the page has more actions than fit, pass a{' '}
+            <code>DropdownMenu</code> as one of its children.
           </p>
         </>
       }

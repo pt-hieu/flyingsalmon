@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -16,6 +15,7 @@ import keyboardShortcutSource from '@/examples/tooltip/keyboard-shortcut.tsx?raw
 import { TooltipPlacement } from '@/examples/tooltip/placement'
 import placementSource from '@/examples/tooltip/placement.tsx?raw'
 import usageSource from '@/examples/tooltip/usage.tsx?raw'
+import guidelines from '@/registry/ui/tooltip/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/tooltip')({
   component: TooltipPage,
@@ -68,59 +68,7 @@ function TooltipPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To name an icon-only control: "Add a place", "Share the trip".',
-          'To add a keyboard shortcut to a label.',
-          'To clarify something with one short sentence that the page can do without.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for an icon that only explains itself and is not a control. Icon tooltip makes it focusable and names it.',
-            alternative: {
-              to: '/components/icon-tooltip',
-              label: 'Icon tooltip',
-            },
-          },
-          {
-            situation:
-              'for a reason, a result, or an error. These must be seen, so they go on the page next to what they describe.',
-            alternative: { to: '/components/notice', label: 'Notice' },
-          },
-          {
-            situation:
-              'for content with links, buttons, or images. A tooltip closes when the pointer leaves, so nothing inside it can be used.',
-            alternative: { to: '/components/dialog', label: 'Dialog' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep the content supplementary, so the page still works without it.',
-            reason:
-              'A tooltip is not reachable on touch, and a screen reader that never focuses the trigger never hears it.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give an icon-only button an aria-label as well as a tooltip.',
-            reason:
-              'The tooltip describes the trigger. The trigger keeps its own accessible name.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Wrap a disabled button.',
-            reason:
-              'A disabled button fires no pointer or focus events, so the tooltip never opens. The reason a control is disabled is essential, so write it next to the control.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Wrap an element that cannot take focus.',
-            reason:
-              'The component injects no tabIndex, so a keyboard traveller would never see the tooltip.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -146,7 +94,14 @@ function TooltipPage() {
           <p>
             The tooltip sets <code>aria-describedby</code> on the trigger and
             renders a node with <code>role=&quot;tooltip&quot;</code>, so the
-            trigger keeps its own name and the tooltip only describes it.
+            trigger keeps its own name and the tooltip only describes it. An
+            icon-only button therefore needs an <code>aria-label</code> of its
+            own.
+          </p>
+          <p>
+            A disabled button fires no pointer or focus events, so a tooltip on
+            it never opens. An element that cannot take focus never shows its
+            tooltip to a keyboard traveller.
           </p>
         </>
       }
@@ -165,7 +120,8 @@ function TooltipPage() {
                 name: 'children',
                 type: 'ReactElement',
                 required: true,
-                description: 'One focusable element that anchors the tooltip.',
+                description:
+                  'One focusable element that anchors the tooltip. The component adds no tabIndex, so give a text span tabIndex={0}. An icon-only button keeps its own aria-label as well.',
               },
               {
                 name: 'side',

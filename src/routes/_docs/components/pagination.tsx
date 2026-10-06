@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -20,6 +19,7 @@ import shortListSource from '@/examples/pagination/short-list.tsx?raw'
 import { PaginationUnderATable } from '@/examples/pagination/under-a-table'
 import underATableSource from '@/examples/pagination/under-a-table.tsx?raw'
 import usageSource from '@/examples/pagination/usage.tsx?raw'
+import guidelines from '@/registry/ui/pagination/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/pagination')({
   component: PaginationPage,
@@ -83,55 +83,7 @@ function PaginationPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To page through one list or table whose page count is known, such as the places saved to a trip.',
-          'When the traveller needs to land on a specific page and come back to it, in the URL or in state.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a position in a short sequence someone is walking, because stepper only shows where they are and never navigates.',
-            alternative: { to: '/components/stepper', label: 'Stepper' },
-          },
-          {
-            situation:
-              'to climb the levels above the current page, because pagination moves across siblings and never up.',
-            alternative: { to: '/components/breadcrumb', label: 'Breadcrumb' },
-          },
-          {
-            situation:
-              'to move between peer panels of content rather than pages of data.',
-            alternative: { to: '/components/tabs', label: 'Tabs' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Keep the row count, the page size, and the fetching in your app.',
-            reason:
-              'Pagination is the control. "Load more", infinite scroll, a page-size select, and a "1 to 20 of 240" line all stay yours, because only the app knows the data.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Render it without a guard around a one-page list.',
-            reason:
-              'A pageCount of 1 or less renders nothing, so the call site stays unconditional.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Pass renderPageLink when the page lives in the URL.',
-            reason:
-              'Links open in a new tab, can be bookmarked, and survive a reload; buttons cannot.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Choose compact by measuring width inside the component.',
-            reason:
-              'The component never measures and has no breakpoint behaviour, so the form is your decision for the place it sits in.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -172,8 +124,10 @@ function PaginationPage() {
           component="Pagination"
           description={
             <>
-              Controlled. Also takes every <code>&lt;nav&gt;</code> attribute
-              except <code>children</code>.
+              Controlled: the row count, the page size, and the fetching stay in
+              your app, and so do &ldquo;Load more&rdquo;, infinite scroll, a
+              page-size select, and a range line. Also takes every{' '}
+              <code>&lt;nav&gt;</code> attribute except <code>children</code>.
             </>
           }
           rows={[
@@ -201,7 +155,7 @@ function PaginationPage() {
               type: 'boolean',
               default: 'false',
               description:
-                'Replaces the page numbers with the position text between previous and next.',
+                'Replaces the page numbers with the position text between previous and next. The component never measures its width and has no breakpoint, so you choose compact where the row has no room for numbers: a toolbar, a card footer, a phone-width list.',
             },
             {
               name: 'formatPageLabel',
@@ -213,7 +167,7 @@ function PaginationPage() {
               name: 'renderPageLink',
               type: '(page: number, children: ReactNode) => ReactNode',
               description:
-                'Renders each page item and each enabled previous or next as the anchor you return. A disabled previous or next stays a plain span.',
+                'Renders each page item and each enabled previous or next as the anchor you return. Pass it when the page lives in the URL. A disabled previous or next stays a plain span.',
             },
             {
               name: 'aria-label',

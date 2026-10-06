@@ -3,7 +3,6 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -18,6 +17,7 @@ import liveSubmitSource from '@/examples/form/live-submit.tsx?raw'
 import { FormServerError } from '@/examples/form/server-error'
 import serverErrorSource from '@/examples/form/server-error.tsx?raw'
 import usageSource from '@/examples/form/usage.tsx?raw'
+import guidelines from '@/registry/ui/form/guidelines.md?raw'
 import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/form')({
@@ -67,56 +67,7 @@ function FormPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To lay out two or more fields with an actions row, on a page or in a card.',
-          'In a dialog body, where the footer submit points at the form with the form attribute.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'for a single field with no submit step, such as a search box. Put the field on the page directly.',
-            alternative: { to: '/components/input', label: 'Input' },
-          },
-          {
-            situation:
-              'when a form lives in a modal and closes on submit, so the dialog owns the footer and the result belongs to the changed item.',
-            alternative: { to: '/components/dialog', label: 'Dialog' },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Write type="submit" on the one button that submits.',
-            reason:
-              'Button defaults to type="button", so a Cancel beside it never posts the form by accident. FormActions injects nothing into its children, so the type stays visible where you write the button.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Show submit busyness with the submit button’s loading.',
-            reason:
-              'It is the only busyness a submitting form shows, and the fields stay editable, so a typo can be fixed while the request runs.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Pass your own Alert to result for a failure or success of the whole form.',
-            reason:
-              'The result appears below the button the traveller just pressed, so their attention is already there and the button never moves.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Wrap each field in a form-field component.',
-            reason:
-              'Every field already owns its label, id linkage, and error message, so there is nothing left for a wrapper to wrap. Put fields in as plain children.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Add a spacing or density prop, or space fields with your own margins.',
-            reason:
-              'One fixed step means every form in an app agrees without anyone copying a number.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -161,7 +112,9 @@ function FormPage() {
                 Renders a real <code>&lt;form&gt;</code> and takes its
                 attributes, so <code>onSubmit</code>, <code>action</code>,{' '}
                 <code>method</code>, and <code>id</code> behave as they do on
-                the element.
+                the element. Every field already owns its label, id linkage, and
+                error message, so fields go in as plain children with no
+                wrapper.
               </>
             }
             rows={[
@@ -185,6 +138,11 @@ function FormPage() {
             <code>&lt;div&gt;</code>. It stacks its buttons full width below
             640px and lays them out in a right-aligned row above it. It is
             optional: a one-button form can put the button in directly.
+            FormActions injects nothing into its children, so write{' '}
+            <code>type="submit"</code> on the one button that submits and set
+            its <code>loading</code> while the request runs. Button defaults to{' '}
+            <code>type="button"</code>, so a Cancel beside it never posts the
+            form.
           </p>
         </>
       }

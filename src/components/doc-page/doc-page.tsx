@@ -11,8 +11,9 @@ import { ExampleFrame } from './example-frame'
 import { Guidelines } from './guidelines'
 import { InstallCommand } from './install-command'
 import { Notes } from './notes'
+import { parseGuidelines } from './parse-guidelines'
 import { Related } from './related'
-import type { ExampleSource, GuidelinesContent, RelatedPage } from './types'
+import type { ExampleSource, RelatedPage } from './types'
 import { toConsumerSource } from './utils'
 
 export interface DocPageProps {
@@ -22,7 +23,7 @@ export interface DocPageProps {
   installation?: string
   usage?: string
   examples?: React.ReactNode
-  guidelines?: GuidelinesContent
+  guidelines?: string
   accessibility?: React.ReactNode
   api?: React.ReactNode
   notes?: React.ReactNode
@@ -42,6 +43,10 @@ export function DocPage({
   notes,
   related,
 }: DocPageProps) {
+  const guidelinesContent = guidelines
+    ? parseGuidelines(guidelines, title)
+    : undefined
+
   return (
     <article className={docPageClassName}>
       <header className={docPageHeaderClassName}>
@@ -77,9 +82,9 @@ export function DocPage({
         </DocSection>
       ) : null}
 
-      {guidelines ? (
+      {guidelinesContent ? (
         <DocSection title="Guidelines">
-          <Guidelines {...guidelines} />
+          <Guidelines {...guidelinesContent} />
         </DocSection>
       ) : null}
 

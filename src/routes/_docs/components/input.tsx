@@ -3,7 +3,6 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -28,6 +27,7 @@ import sizesSource from '@/examples/input/sizes.tsx?raw'
 import { InputTypes } from '@/examples/input/types'
 import typesSource from '@/examples/input/types.tsx?raw'
 import usageSource from '@/examples/input/usage.tsx?raw'
+import guidelines from '@/registry/ui/input/guidelines.md?raw'
 import { TextLink } from '@/registry/ui/text-link'
 
 export const Route = createFileRoute('/_docs/components/input')({
@@ -117,72 +117,7 @@ function InputPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'For one line of free text: a trip name, an email address, a phone number, a booking link.',
-          'For a value the traveller types rather than picks, where any text is acceptable input.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'when the value is a quantity. It formats for the page’s locale, clamps to its bounds, and reports a number instead of a string.',
-            alternative: {
-              to: '/components/number-field',
-              label: 'Number field',
-            },
-          },
-          {
-            situation:
-              'for notes that run past one line, because it grows with what the traveller types.',
-            alternative: { to: '/components/textarea', label: 'Textarea' },
-          },
-          {
-            situation:
-              'when the traveller picks a place, a person, or any value from a list you control.',
-            alternative: { to: '/components/combobox', label: 'Combobox' },
-          },
-          {
-            situation:
-              'for a calendar day or a range of days, so the segments and the grid refuse impossible dates.',
-            alternative: {
-              to: '/components/date-picker',
-              label: 'Date picker',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Pass a label to every input.',
-            reason:
-              'The label names the field for everyone, and clicking it focuses the field. A placeholder disappears as soon as the traveller types.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Show a failed check in the field with error.',
-            reason:
-              'The field owns the whole failure: the border, the label, and the message sit next to the text that caused it.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Disable the field while it checks a value.',
-            reason:
-              'Use loading instead. The field stays editable, so a typo can be fixed while the check runs; the submit button is what locks a flow.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Use type="number" for a quantity.',
-            reason:
-              'A text field reports a string and accepts minus three travellers. Number field reports a number and enforces its bounds.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Put the className on the field and expect it to land on the <input>.',
-            reason:
-              'className styles the wrapper that holds the label and the message, so a width set there sizes the whole field. Every other native prop passes to the <input>.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -227,7 +162,9 @@ function InputPage() {
             <>
               Also takes every <code>&lt;input&gt;</code> attribute except{' '}
               <code>size</code> and <code>type</code>, which it redefines.{' '}
-              <code>className</code> styles the wrapper.
+              <code>className</code> styles the wrapper that holds the label,
+              the field, and the message, so a width set there sizes the whole
+              field.
             </>
           }
           rows={[
@@ -242,7 +179,7 @@ function InputPage() {
               type: 'InputType',
               default: 'InputType.Text',
               description:
-                'Text, Email, Password, Number, Search, Telephone, or Url.',
+                'Text, Email, Password, Number, Search, Telephone, or Url. A quantity takes Number field instead, which reports a number and enforces its bounds.',
             },
             {
               name: 'size',
@@ -266,7 +203,7 @@ function InputPage() {
               type: 'boolean',
               default: 'false',
               description:
-                'Shows a spinner in the end slot, replacing endAdornment. The field stays editable.',
+                'Shows a spinner in the end slot, replacing endAdornment. The field stays editable. Set it, not disabled, while a check runs.',
             },
             {
               name: 'endAdornment',

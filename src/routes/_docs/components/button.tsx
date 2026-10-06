@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   DocPage,
   Example,
-  GuidelineVerdict,
   KeyboardTable,
   PropsTable,
 } from '@/components/doc-page'
@@ -24,6 +23,7 @@ import submitInAFormSource from '@/examples/button/submit-in-a-form.tsx?raw'
 import usageSource from '@/examples/button/usage.tsx?raw'
 import { ButtonVariants } from '@/examples/button/variants'
 import variantsSource from '@/examples/button/variants.tsx?raw'
+import guidelines from '@/registry/ui/button/guidelines.md?raw'
 
 export const Route = createFileRoute('/_docs/components/button')({
   component: ButtonPage,
@@ -96,72 +96,7 @@ function ButtonPage() {
           </Example>
         </>
       }
-      guidelines={{
-        whenToUse: [
-          'To run an action on the current page: save a trip, send an invite, open a dialog, delete a place.',
-          'To submit a form, as the last control in its actions row.',
-        ],
-        whenNotToUse: [
-          {
-            situation:
-              'to take the traveller to another page. A link navigates and a button acts, and browsers give links their own keyboard and context-menu behaviour.',
-            alternative: { to: '/components/text-link', label: 'Text link' },
-          },
-          {
-            situation:
-              'for a setting that is on or off, because the switch shows its state and a button does not.',
-            alternative: { to: '/components/switch', label: 'Switch' },
-          },
-          {
-            situation:
-              'to pick one option from a small set, because the group shows which option is chosen.',
-            alternative: {
-              to: '/components/toggle-group',
-              label: 'Toggle group',
-            },
-          },
-          {
-            situation:
-              'for more than two secondary actions on one item, so the row keeps one visible action and the rest wait in a menu.',
-            alternative: {
-              to: '/components/dropdown-menu',
-              label: 'Dropdown menu',
-            },
-          },
-        ],
-        rules: [
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Give each view one default button.',
-            reason:
-              'The filled orange button is where the eye lands first; two of them make the traveller choose before they act.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Label with a verb and its object: "Save trip", "Invite travellers".',
-            reason:
-              'The label says what will happen, so nobody has to read the surrounding copy to find out.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Show success or failure on the button.',
-            reason:
-              'The result belongs to the thing that changed: the trip updates, the field shows its error, or a notice links back when nothing is on screen.',
-          },
-          {
-            verdict: GuidelineVerdict.Dont,
-            rule: 'Disable a button while its action runs.',
-            reason:
-              'Use loading instead. A disabled button drops keyboard focus mid-action; a loading one keeps it and ignores repeat presses.',
-          },
-          {
-            verdict: GuidelineVerdict.Do,
-            rule: 'Write type="submit" on the one button that submits a form.',
-            reason:
-              'Every other button defaults to type="button", so a Cancel or Reset beside it never posts the form by accident.',
-          },
-        ],
-      }}
+      guidelines={guidelines}
       accessibility={
         <>
           <KeyboardTable
@@ -223,13 +158,14 @@ function ButtonPage() {
               type: 'boolean',
               default: 'false',
               description:
-                'Swaps the leading slot for a spinner, sets aria-busy, and ignores presses while keeping focus.',
+                'Swaps the leading slot for a spinner, sets aria-busy, and ignores presses while keeping focus. Set it, not disabled, while the action runs: disabled drops keyboard focus mid-action.',
             },
             {
               name: 'type',
               type: '"button" | "submit" | "reset"',
               default: '"button"',
-              description: 'Set "submit" on the button that submits its form.',
+              description:
+                'Set "submit" on the one button that submits its form. Cancel and Reset beside it keep "button", so they never post the form.',
             },
             {
               name: 'disabled',
