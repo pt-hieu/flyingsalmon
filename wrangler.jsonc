@@ -1,14 +1,17 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "flyingsalmon",
-  "compatibility_date": "2026-09-18",
-  "assets": {
-    "directory": "./dist/client",
-    // A missing /r/*.json must 404: an HTML fallback breaks the shadcn CLI's JSON parse.
-    "not_found_handling": "none",
-  },
-  "workers_dev": false,
-  "routes": [
-    { "pattern": "flyingsalmon.superbrian.dev", "custom_domain": true },
-  ],
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "flyingsalmon",
+	"compatibility_date": "2026-09-18",
+	"assets": {
+		"directory": "./dist/client",
+		// A missing /r/*.json must 404: an HTML fallback breaks the shadcn CLI's JSON parse.
+		"not_found_handling": "none"
+	},
+	"workers_dev": false,
+	"routes": [
+		{
+			"pattern": "flyingsalmon.superbrian.dev",
+			"custom_domain": true
+		},
+	]
 }
