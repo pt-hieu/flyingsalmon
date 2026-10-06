@@ -348,10 +348,12 @@ function SidebarPage() {
           <p>
             <code>--sidebar-width</code> is 18rem and{' '}
             <code>--sidebar-width-collapsed</code> is 3.5rem. Both are theme
-            tokens, so a pane beside the sidebar can read them, and an override
-            sets the variable on the sidebar or an ancestor rather than passing
-            a prop. The component adds no colour tokens of its own; it paints{' '}
-            <code>--background</code>, <code>--border</code>,{' '}
+            tokens declared on the root, so a pane beside the sidebar or a fixed
+            panel anywhere on the page offsets itself by the same width. An
+            override sets the variable on an element that holds both the sidebar
+            and that pane, never on the sidebar alone, so the two stay in step;
+            there is no width prop. The component adds no colour tokens of its
+            own; it paints <code>--background</code>, <code>--border</code>,{' '}
             <code>--accent</code>, <code>--indicator</code>, and{' '}
             <code>--ring</code>. The width morph runs on{' '}
             <code>springSettle</code> because it displaces the pane beside it,
