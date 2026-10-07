@@ -1,6 +1,6 @@
 # Change recipes
 
-The files that move together when the registry changes. `pnpm check` catches the step marked _checked_; only a search or a reviewer finds the rest.
+The files that move together when the registry changes. `bun run check` catches the step marked _checked_; only a search or a reviewer finds the rest.
 
 ## Add a component
 

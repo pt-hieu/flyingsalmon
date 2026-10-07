@@ -265,7 +265,7 @@ function StickerPage() {
           <CodeBlock code={generatedArtExample} label="Generated art module" />
           <p>
             This site regenerates its house sticker with{' '}
-            <code>pnpm stickers:draw</code>, which runs{' '}
+            <code>bun run stickers:draw</code>, which runs{' '}
             <code>scripts/draw-house-sticker.ts</code>.
           </p>
         </>

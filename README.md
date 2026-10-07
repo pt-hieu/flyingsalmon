@@ -32,11 +32,13 @@ npx shadcn@latest add @flyingsalmon/button @flyingsalmon/card
 
 ## Develop
 
+Requires [Bun](https://bun.com) 1.3.14 or later.
+
 ```sh
-pnpm install
-pnpm dev     # docs site on http://localhost:3000
-pnpm check   # format, lint, type check, tests
-pnpm build   # registry JSON into public/r, then the docs site
+bun install
+bun run dev     # docs site on http://localhost:3000
+bun run check   # format, lint, type check, tests
+bun run build   # registry JSON into public/r, then the docs site
 ```
 
 ## License

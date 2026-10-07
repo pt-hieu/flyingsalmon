@@ -1,7 +1,0 @@
-minimumReleaseAge: 10080
-
-allowBuilds:
-  esbuild: true
-  lightningcss: true
-  unrs-resolver: true
-  workerd: true

@@ -15,7 +15,7 @@ How the shadcn CLI transforms a registry item when a consumer runs `shadcn add`.
 
 ## `@shadcn/lint`
 
-`pnpm lint` runs `@shadcn/lint` against the theme.
+`bun run lint` runs `@shadcn/lint` against the theme.
 
 - A dynamic value reaches a class through a CSS custom property set in `style`: `style={{ '--slider-fill-width': width }}` with `w-(--slider-fill-width)`.
 - A new allow entry in `.oxlintrc.json` needs a spec or ADR behind the value, the same bar ADR 0006 sets for a shared class string.

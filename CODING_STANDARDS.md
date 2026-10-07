@@ -6,6 +6,10 @@
 - Identifiers are spelled out in full. No abbreviations, no single-letter parameters.
 - No Tailwind opacity modifiers on colors, because they produce colors outside the palette (ADR 0004). Opacity applied to a whole element, as for disabled states and motion, is allowed.
 
+## Runtime
+
+Repo-only code may use Bun APIs; code under `src/registry/` ships to consumers on any runtime, so it uses only web and `node:` APIs. `tsc` enforces the split: only `tsconfig.bun.json`, which covers `scripts/` and the Vite and Vitest configs, loads Bun's types.
+
 ## Grouping
 
 Statements inside a function are grouped by goal: the lines that together achieve one thing sit next to each other, and a blank line separates one group from the next. Each branch of a conditional is its own group. The formatter keeps a single blank line and collapses runs of them, so the spacing is the author's responsibility and is reviewed like any other part of the code.
