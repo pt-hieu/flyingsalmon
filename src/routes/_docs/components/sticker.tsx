@@ -23,6 +23,7 @@ import popInSource from '@/examples/sticker/pop-in.tsx?raw'
 import { StickerSizeAndTilt } from '@/examples/sticker/size-and-tilt'
 import sizeAndTiltSource from '@/examples/sticker/size-and-tilt.tsx?raw'
 import usageSource from '@/examples/sticker/usage.tsx?raw'
+import { StickerPaint } from '@/registry/ui/sticker'
 import guidelines from '@/registry/ui/sticker/guidelines.md?raw'
 
 const title = 'Sticker'
@@ -58,14 +59,16 @@ writeSticker({
 
 const runScriptExample = 'node scripts/draw-door-sticker.ts'
 
-const generatedArtExample = `export const doorStickerArt = {
+const generatedArtExample = `import { StickerPaint } from './ui/sticker'
+
+export const doorStickerArt = {
   width: 80,
   height: 96,
   frames: [
     [
-      { role: 'cut', paint: 'fill', d: 'M20.4 79.6 C19.8 ...' },
-      { role: 'door', paint: 'fill', d: 'M21.1 78.2 C20.6 ...' },
-      { role: 'ink', paint: 'stroke', d: 'M19.7 80.3 C20.2 ...' },
+      { role: 'cut', paint: StickerPaint.Fill, d: 'M20.4 79.6 C19.8 ...' },
+      { role: 'door', paint: StickerPaint.Fill, d: 'M21.1 78.2 C20.6 ...' },
+      { role: 'ink', paint: StickerPaint.Stroke, d: 'M19.7 80.3 C20.2 ...' },
     ],
     [ ... ],
     [ ... ],
@@ -185,8 +188,8 @@ function StickerPage() {
                 key: role,
                 cells: [
                   <code key="role">{role}</code>,
-                  <code key="fill">{classNames.fill}</code>,
-                  <code key="stroke">{classNames.stroke}</code>,
+                  <code key="fill">{classNames[StickerPaint.Fill]}</code>,
+                  <code key="stroke">{classNames[StickerPaint.Stroke]}</code>,
                 ],
               }),
             )}
@@ -197,11 +200,11 @@ function StickerPage() {
         <>
           <p>
             A frame is a list of layers, and a layer is one SVG path: its{' '}
-            <code>d</code>, its <code>paint</code> (<code>fill</code> or{' '}
-            <code>stroke</code>), and its <code>role</code>. One role belongs to
-            the sticker: <code>cut</code> is the drawing’s silhouette, which the
-            sticker turns into its die-cut edge. Every other role is the art’s
-            to name.
+            <code>d</code>, its <code>paint</code> (
+            <code>StickerPaint.Fill</code> or <code>StickerPaint.Stroke</code>),
+            and its <code>role</code>. One role belongs to the sticker:{' '}
+            <code>cut</code> is the drawing’s silhouette, which the sticker
+            turns into its die-cut edge. Every other role is the art’s to name.
           </p>
           <p>
             The die-cut edge strokes the <code>cut</code> silhouette thick three

@@ -1,4 +1,5 @@
 import { writeFileSync } from 'node:fs'
+import { dirname, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import rough from 'roughjs'
@@ -10,6 +11,7 @@ import type {
   StickerDrawing,
   StickerLayer,
   StickerOutput,
+  StickerPaint,
 } from './types'
 
 export type { Pen, StickerDrawing, StickerOutput } from './types'
@@ -44,10 +46,20 @@ function createPen(layers: StickerLayer[]): Pen {
     for (const { d: rawPath, fill, stroke } of generator.toPaths(drawable)) {
       const roundedPath = rawPath.replaceAll(/(\.\d)\d+/g, '$1')
 
+      // Node strips types rather than compiling them, so this script cannot
+      // load the StickerPaint enum at runtime and asserts its values instead.
       if (fill && fill !== 'none') {
-        layers.push({ role: fill, paint: 'fill', d: roundedPath })
+        layers.push({
+          role: fill,
+          paint: 'fill' as StickerPaint.Fill,
+          d: roundedPath,
+        })
       } else if (stroke && stroke !== 'none') {
-        layers.push({ role: stroke, paint: 'stroke', d: roundedPath })
+        layers.push({
+          role: stroke,
+          paint: 'stroke' as StickerPaint.Stroke,
+          d: roundedPath,
+        })
       }
     }
   }
@@ -81,11 +93,17 @@ export function drawSticker({
   return { width, height, frames }
 }
 
+// Keyed by value, since this script cannot load the enum to key it by member.
+const paintMembers: Record<StickerPaint, string> = {
+  fill: 'StickerPaint.Fill',
+  stroke: 'StickerPaint.Stroke',
+}
+
 function formatLayer({ role, paint, d }: StickerLayer) {
   return [
     '      {',
     `        role: '${role}',`,
-    `        paint: '${paint}',`,
+    `        paint: ${paintMembers[paint]},`,
     `        d: '${d}',`,
     '      },',
   ].join('\n')
@@ -95,11 +113,23 @@ function formatFrame(layers: readonly StickerLayer[]) {
   return ['    [', ...layers.map(formatLayer), '    ],'].join('\n')
 }
 
+function stickerImportPath(output: URL) {
+  const stickerFolder = dirname(fileURLToPath(import.meta.url))
+  const path = relative(dirname(fileURLToPath(output)), stickerFolder)
+    .split(sep)
+    .join('/')
+
+  return path.startsWith('.') ? path : `./${path}`
+}
+
 function formatArtModule(
   exportName: string,
+  importPath: string,
   { width, height, frames }: StickerArt,
 ) {
   return [
+    `import { StickerPaint } from '${importPath}'`,
+    '',
     `export const ${exportName} = {`,
     `  width: ${width},`,
     `  height: ${height},`,
@@ -118,7 +148,10 @@ export function writeSticker({
 }: StickerOutput) {
   const art = drawSticker(drawing)
 
-  writeFileSync(output, formatArtModule(exportName, art))
+  writeFileSync(
+    output,
+    formatArtModule(exportName, stickerImportPath(output), art),
+  )
   process.stdout.write(
     `Wrote ${art.frames.length} frames to ${fileURLToPath(output)}\n`,
   )
