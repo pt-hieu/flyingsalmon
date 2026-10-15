@@ -8,7 +8,7 @@ export enum StickerPaint {
 
 export interface StickerLayer {
   readonly role: string
-  readonly paint: `${StickerPaint}`
+  readonly paint: StickerPaint
   readonly d: string
 }
 
@@ -19,7 +19,7 @@ export interface StickerArt {
 }
 
 export type StickerRoleClassNames = Readonly<
-  Record<string, Readonly<Partial<Record<`${StickerPaint}`, string>>>>
+  Record<string, Readonly<Partial<Record<StickerPaint, string>>>>
 >
 
 export interface Pen {

@@ -1,12 +1,16 @@
+import { StickerPaint } from '@/registry/ui/sticker'
 import type { StickerRoleClassNames } from '@/registry/ui/sticker'
 
 export const snappedPencilStickerRoleClassNames: StickerRoleClassNames = {
-  ink: { fill: 'fill-foreground', stroke: 'stroke-foreground' },
-  paper: { fill: 'fill-card' },
-  margin: { stroke: 'stroke-group-pink' },
-  pencil: { fill: 'fill-group-cyan' },
-  wood: { fill: 'fill-accent' },
-  eraser: { fill: 'fill-group-pink' },
+  ink: {
+    [StickerPaint.Fill]: 'fill-foreground',
+    [StickerPaint.Stroke]: 'stroke-foreground',
+  },
+  paper: { [StickerPaint.Fill]: 'fill-card' },
+  margin: { [StickerPaint.Stroke]: 'stroke-group-pink' },
+  pencil: { [StickerPaint.Fill]: 'fill-group-cyan' },
+  wood: { [StickerPaint.Fill]: 'fill-accent' },
+  eraser: { [StickerPaint.Fill]: 'fill-group-pink' },
 }
 
 export const snappedPencilStickerLabel =

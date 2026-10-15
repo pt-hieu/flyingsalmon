@@ -46,8 +46,8 @@ const windowArt: StickerArt = {
 }
 
 const roleClassNames: StickerRoleClassNames = {
-  ink: { stroke: 'stroke-foreground' },
-  glass: { fill: 'fill-group-sky' },
+  ink: { [StickerPaint.Stroke]: 'stroke-foreground' },
+  glass: { [StickerPaint.Fill]: 'fill-group-sky' },
 }
 
 describe('Sticker', () => {
@@ -126,7 +126,10 @@ describe('Sticker', () => {
       <Sticker
         art={windowArt}
         label="A window"
-        roleClassNames={{ ...roleClassNames, cut: { fill: 'fill-red-500' } }}
+        roleClassNames={{
+          ...roleClassNames,
+          cut: { [StickerPaint.Fill]: 'fill-red-500' },
+        }}
       />,
     )
 
