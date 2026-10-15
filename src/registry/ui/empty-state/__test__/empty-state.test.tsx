@@ -40,8 +40,8 @@ const pencilArt: StickerArt = {
 }
 
 const pencilRoleClassNames: StickerRoleClassNames = {
-  ink: { stroke: 'stroke-foreground' },
-  pencil: { fill: 'fill-group-cyan' },
+  ink: { [StickerPaint.Stroke]: 'stroke-foreground' },
+  pencil: { [StickerPaint.Fill]: 'fill-group-cyan' },
 }
 
 describe('EmptyState', () => {

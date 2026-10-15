@@ -1,19 +1,24 @@
+import { StickerPaint } from '@/registry/ui/sticker'
 import type { StickerRoleClassNames } from '@/registry/ui/sticker'
 
 export const houseStickerRoleClassNames: StickerRoleClassNames = {
-  ink: { fill: 'fill-foreground', stroke: 'stroke-foreground' },
-  trail: {
-    stroke: 'stroke-foreground stroke-[2.4] [stroke-dasharray:0.5_7]',
+  ink: {
+    [StickerPaint.Fill]: 'fill-foreground',
+    [StickerPaint.Stroke]: 'stroke-foreground',
   },
-  paper: { fill: 'fill-card' },
-  wall: { fill: 'fill-group-sky-soft' },
-  roof: { stroke: 'stroke-group-pink' },
-  brick: { fill: 'fill-group-fuchsia-border' },
-  door: { fill: 'fill-group-teal' },
-  glass: { fill: 'fill-group-sky' },
-  smoke: { fill: 'fill-muted' },
-  plane: { fill: 'fill-card' },
-  petal: { fill: 'fill-group-pink' },
+  trail: {
+    [StickerPaint.Stroke]:
+      'stroke-foreground stroke-[2.4] [stroke-dasharray:0.5_7]',
+  },
+  paper: { [StickerPaint.Fill]: 'fill-card' },
+  wall: { [StickerPaint.Fill]: 'fill-group-sky-soft' },
+  roof: { [StickerPaint.Stroke]: 'stroke-group-pink' },
+  brick: { [StickerPaint.Fill]: 'fill-group-fuchsia-border' },
+  door: { [StickerPaint.Fill]: 'fill-group-teal' },
+  glass: { [StickerPaint.Fill]: 'fill-group-sky' },
+  smoke: { [StickerPaint.Fill]: 'fill-muted' },
+  plane: { [StickerPaint.Fill]: 'fill-card' },
+  petal: { [StickerPaint.Fill]: 'fill-group-pink' },
 }
 
 export const houseStickerLabel = 'A house with a plane flying home'
