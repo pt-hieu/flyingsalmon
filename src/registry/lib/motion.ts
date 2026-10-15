@@ -22,10 +22,3 @@ export const collapsePresence = {
   animate: { height: 'auto', opacity: 1, transition: springSettle },
   exit: { height: 0, opacity: 0, transition: springSettle },
 } satisfies Pick<MotionProps, 'initial' | 'animate' | 'exit'>
-
-export const continuousDurations = {
-  spinnerRotation: 0.8,
-  skeletonPulse: 2,
-  switchThumbPulse: 0.8,
-  progressIndeterminate: 2,
-} as const
