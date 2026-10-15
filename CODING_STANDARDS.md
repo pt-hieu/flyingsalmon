@@ -34,6 +34,10 @@ Every exported type the folder defines goes in `types.ts`: variant enums, contex
 
 Every `cva()` call and every `cn()` call that builds a reusable class string is declared in `classnames.ts` and imported by the component file. The component file may merge the consumer's `className` at the render site. It may not declare a class string of its own.
 
+A class string with no variants is a plain string named after what it styles with a `ClassName` suffix, such as `badgeIconClassName`. A `cva()` call is reserved for a class string that takes variants.
+
+A folder's `index.ts` exports a class string or `cva()` function only when another registry component composes it, as combobox's chips wear `badgeVariants` and the calendar's month navigation buttons wear `buttonVariants`. That export is public surface: a consumer can import it as well, so it is named and kept as carefully as a component. A class string no other component uses stays unexported.
+
 ## Enums, not string unions
 
 A closed set of string values is a TypeScript enum with string values, declared in `types.ts`. Members are PascalCase. Values are the kebab-case strings the DOM and the class names use.
