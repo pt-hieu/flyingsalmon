@@ -223,4 +223,31 @@ describe('Tabs', () => {
     expect(screen.getByText('Billing settings')).toBeVisible()
     expect(screen.queryByText('Account settings')).not.toBeInTheDocument()
   })
+
+  it('stays put when a controlled parent ignores the change', async () => {
+    const user = userEvent.setup()
+    render(
+      <Tabs value="account" onValueChange={() => {}}>
+        <TabsList>
+          <TabsTrigger value="account">Account</TabsTrigger>
+          <TabsTrigger value="password">Password</TabsTrigger>
+        </TabsList>
+        <TabsContent value="account" forceMount>
+          Account settings
+        </TabsContent>
+        <TabsContent value="password" forceMount>
+          Password settings
+        </TabsContent>
+      </Tabs>,
+    )
+
+    await user.click(screen.getByRole('tab', { name: 'Password' }))
+
+    expect(screen.getByRole('tab', { name: 'Account' })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    )
+    expect(screen.getByText('Account settings')).toBeVisible()
+    expect(screen.getByText('Password settings')).not.toBeVisible()
+  })
 })

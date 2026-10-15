@@ -6,12 +6,7 @@ export type TabsContentProps = React.ComponentProps<
   typeof TabsPrimitive.Content
 >
 
-export function TabsContent({
-  value,
-  forceMount,
-  className,
-  ...props
-}: TabsContentProps) {
+export function TabsContent({ value, forceMount, ...props }: TabsContentProps) {
   const { activeValue } = useTabsSharedState()
   const isSelected = activeValue === value
   const forceMountedHiddenProps = forceMount ? { hidden: !isSelected } : {}
@@ -22,7 +17,6 @@ export function TabsContent({
       {...forceMountedHiddenProps}
       value={value}
       forceMount={forceMount}
-      className={className}
     />
   )
 }
