@@ -4,5 +4,6 @@ export {
   type NoticeContextValue,
   type NoticeHandle,
   type NoticeInput,
+  type NoticeSubject,
 } from './types'
 export { useNotice } from './use-notice'

@@ -10,7 +10,6 @@ Design guidelines for the flyingsalmon Notice component. An alternative linked t
 
 ## When not to use
 
-- Use [the feedback rule](https://flyingsalmon.superbrian.dev/principles) when the affected item is on screen. The item appears, updates, or shows a failed state with a retry, and that is the result.
 - Use [Alert](https://flyingsalmon.superbrian.dev/components/alert) for the result of a form that is still on screen. It goes in the form’s result slot, below the actions row.
 - Use [Error state](https://flyingsalmon.superbrian.dev/components/error-state) when a region failed to load. The region says so itself, with a retry.
 
