@@ -25,7 +25,7 @@ Design guidelines for the flyingsalmon Dropdown menu component. An alternative l
   **Why:** A trigger that opens nothing teaches the traveller to ignore every other one. Leave the trailing edge empty.
 - **Do:** Give every item in a menu an icon, or none of them.
   **Why:** Mixed rows leave the labels ragged.
-- **Do:** Head the list with a quiet label for context, such as the signed-in email above the account actions.
-  **Why:** The traveller sees whose account the actions apply to before they choose. Muted text never looks like something to press.
+- **Do:** Head the list with a quiet label for context, such as the trip name above the trip actions.
+  **Why:** The traveller sees which trip the actions apply to before they choose. Muted text never looks like something to press.
 - **Don't:** Add checkbox items, radio items, or a submenu.
   **Why:** The menu is for actions only. A choice that persists belongs on the page as a field.

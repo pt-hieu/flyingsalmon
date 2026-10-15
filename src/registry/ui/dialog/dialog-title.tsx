@@ -4,10 +4,11 @@ import { cn } from '@/lib/utils'
 
 import { dialogTitleClassName } from './classnames'
 
-export function DialogTitle({
-  className,
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Title>) {
+export interface DialogTitleProps extends React.ComponentProps<
+  typeof DialogPrimitive.Title
+> {}
+
+export function DialogTitle({ className, ...props }: DialogTitleProps) {
   return (
     <DialogPrimitive.Title
       className={cn(dialogTitleClassName, className)}

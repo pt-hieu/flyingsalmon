@@ -1,10 +1,9 @@
 import { cn } from '@/lib/utils'
 
-import { dialogFooterVariants } from './classnames'
+import { dialogFooterClassName } from './classnames'
 
-export function DialogFooter({
-  className,
-  ...props
-}: React.ComponentProps<'div'>) {
-  return <div className={cn(dialogFooterVariants(), className)} {...props} />
+export interface DialogFooterProps extends React.ComponentProps<'div'> {}
+
+export function DialogFooter({ className, ...props }: DialogFooterProps) {
+  return <div className={cn(dialogFooterClassName, className)} {...props} />
 }

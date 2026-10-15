@@ -1,15 +1,19 @@
 import { DropdownMenu as DropdownMenuPrimitive } from 'radix-ui'
 
 import { cn } from '@/lib/utils'
-import { dropdownMenuLabel } from './classnames'
+import { menuLabel } from '@/registry/lib/menu'
+
+export interface DropdownMenuLabelProps extends React.ComponentProps<
+  typeof DropdownMenuPrimitive.Label
+> {}
 
 export function DropdownMenuLabel({
   className,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Label>) {
+}: DropdownMenuLabelProps) {
   return (
     <DropdownMenuPrimitive.Label
-      className={cn(dropdownMenuLabel, className)}
+      className={cn(menuLabel, className)}
       {...props}
     />
   )

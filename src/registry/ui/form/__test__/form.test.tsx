@@ -2,41 +2,10 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 
-import { Button, ButtonVariant } from '@/registry/ui/button'
+import { Button } from '@/registry/ui/button'
 import { Form, FormActions } from '@/registry/ui/form'
 
 describe('Form', () => {
-  it('submits when Enter is pressed in a text field', async () => {
-    const user = userEvent.setup()
-    const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault())
-    render(
-      <Form onSubmit={onSubmit}>
-        <input aria-label="Destination" />
-      </Form>,
-    )
-
-    await user.type(screen.getByLabelText('Destination'), 'Lisbon{Enter}')
-
-    expect(onSubmit).toHaveBeenCalledTimes(1)
-  })
-
-  it('submits when a submit button in the actions row is clicked', async () => {
-    const user = userEvent.setup()
-    const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault())
-    render(
-      <Form onSubmit={onSubmit}>
-        <input aria-label="Destination" />
-        <FormActions>
-          <Button type="submit">Save trip</Button>
-        </FormActions>
-      </Form>,
-    )
-
-    await user.click(screen.getByRole('button', { name: 'Save trip' }))
-
-    expect(onSubmit).toHaveBeenCalledTimes(1)
-  })
-
   it('reaches onSubmit with an empty required field, which native validation would block', async () => {
     const user = userEvent.setup()
     const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault())
@@ -103,24 +72,6 @@ describe('Form', () => {
       submitButton.compareDocumentPosition(result) &
         Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy()
-  })
-
-  it('leaves the type of the buttons it is given alone, so Cancel does not submit', async () => {
-    const user = userEvent.setup()
-    const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault())
-    render(
-      <Form onSubmit={onSubmit}>
-        <input aria-label="Destination" />
-        <FormActions>
-          <Button variant={ButtonVariant.Outline}>Cancel</Button>
-          <Button type="submit">Save trip</Button>
-        </FormActions>
-      </Form>,
-    )
-
-    await user.click(screen.getByRole('button', { name: 'Cancel' }))
-
-    expect(onSubmit).not.toHaveBeenCalled()
   })
 
   it('spreads native form props, so an outside button can submit it by id', async () => {

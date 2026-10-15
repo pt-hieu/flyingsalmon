@@ -20,8 +20,6 @@ Design guidelines for the flyingsalmon Drawer component. An alternative linked t
   **Why:** The item is still on screen beside the panel, so the updated trip is the clearest confirmation.
 - **Do:** Show one selected thing at a time. Choosing another row swaps the drawer’s content.
   **Why:** The drawer is the detail of the current selection. A second panel would cover the list it belongs to.
-- **Do:** Put previous and next buttons on the left of the footer and one primary action on the right.
-  **Why:** The traveller walks the list day by day without closing the panel, and the single action sits where the eye finishes.
 - **Don't:** Turn a detail drawer into an editor. Its action opens a dialog for a change that reshapes the trip.
   **Why:** Detail is for reading beside the list. A change with consequences needs the full stop of a dialog and its own confirm.
 - **Don't:** Put the destructive confirmation of a trip in a drawer.
