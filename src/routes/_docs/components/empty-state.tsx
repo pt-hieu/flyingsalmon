@@ -200,10 +200,17 @@ function EmptyStatePage() {
         <>
           <p>
             Default sizes the title at <code>text-lg</code> over a 48px icon
-            circle holding a 24px icon, with a sticker up to 240px wide. Small
+            circle holding a 24px icon, with a sticker up to 112px wide. Small
             uses <code>text-base</code> over a 40px circle holding a 20px icon,
-            with a sticker up to 160px wide. The description is{' '}
+            with a sticker up to 96px wide. The description is{' '}
             <code>text-sm</code> in both.
+          </p>
+          <p>
+            The art is held to the width of a short title. A three-word title
+            such as “No trips yet” sets about 100px wide at <code>text-lg</code>
+            , so a 3:2 sticker at 112px stands 75px tall and reads at the
+            title’s weight. Small steps the sticker down one spacing step, as
+            its title steps down from 18px to 16px.
           </p>
           <p>
             The block is centred and full width with a min-content height. Its
