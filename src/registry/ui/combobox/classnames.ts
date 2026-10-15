@@ -2,6 +2,12 @@ import { cva } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
 import {
+  fieldEndSlotButton,
+  fieldEndSlotSpinnerSlot,
+  fieldEndSlotSpinnerSlotDefaultSize,
+  fieldEndSlotSpinnerSlotSmallSize,
+} from '@/registry/lib/field'
+import {
   boundaryFocusRingGeometry,
   boundaryFocusWithinRingGeometry,
 } from '@/registry/lib/interaction'
@@ -54,9 +60,7 @@ export const comboboxFieldVariants = cva(
 )
 
 export const comboboxInputVariants = cva(
-  cn(
-    'text-foreground placeholder:text-muted-foreground min-w-24 flex-1 bg-transparent outline-hidden',
-  ),
+  'text-foreground placeholder:text-muted-foreground min-w-24 flex-1 bg-transparent outline-hidden',
   {
     variants: {
       size: {
@@ -70,8 +74,6 @@ export const comboboxInputVariants = cva(
   },
 )
 
-// The box wraps chips onto new rows, so the slot is an overlay anchored to the
-// first row rather than a flex sibling that would wrap away from the input.
 export const comboboxEndSlotClassName = cn(
   'pointer-events-none absolute top-0.75 right-0.75 flex items-center',
   '[&_button]:pointer-events-auto',
@@ -85,14 +87,14 @@ export const comboboxEndSlotButtonVariants = cva('group', {
           variant: ButtonVariant.Ghost,
           size: ButtonSize.FieldIcon,
         }),
-        'text-muted-foreground',
+        fieldEndSlotButton,
       ),
       [ComboboxSize.Small]: cn(
         buttonVariants({
           variant: ButtonVariant.Ghost,
           size: ButtonSize.FieldIconSmall,
         }),
-        'text-muted-foreground',
+        fieldEndSlotButton,
       ),
     },
   },
@@ -101,20 +103,17 @@ export const comboboxEndSlotButtonVariants = cva('group', {
   },
 })
 
-export const comboboxSpinnerSlotVariants = cva(
-  'flex shrink-0 items-center justify-center',
-  {
-    variants: {
-      size: {
-        [ComboboxSize.Default]: 'size-7',
-        [ComboboxSize.Small]: 'size-6',
-      },
-    },
-    defaultVariants: {
-      size: ComboboxSize.Default,
+export const comboboxSpinnerSlotVariants = cva(fieldEndSlotSpinnerSlot, {
+  variants: {
+    size: {
+      [ComboboxSize.Default]: fieldEndSlotSpinnerSlotDefaultSize,
+      [ComboboxSize.Small]: fieldEndSlotSpinnerSlotSmallSize,
     },
   },
-)
+  defaultVariants: {
+    size: ComboboxSize.Default,
+  },
+})
 
 export const comboboxChevronClassName = cn(
   'size-4 shrink-0',

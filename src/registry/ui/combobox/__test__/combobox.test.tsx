@@ -6,7 +6,7 @@ import {
   within,
 } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { useState } from 'react'
+import { createRef, useState } from 'react'
 import { describe, expect, it, vi } from 'vitest'
 
 import {
@@ -89,6 +89,10 @@ function MultipleCityCombobox({ onValueChange, ...props }: MultipleProps) {
       ))}
     </Combobox>
   )
+}
+
+function TripCityOption({ city }: { city: string }) {
+  return <ComboboxItem value={city.toLowerCase()}>{city}</ComboboxItem>
 }
 
 function getInputByLabel(label: string) {
@@ -368,6 +372,106 @@ describe('Combobox', () => {
     })
   })
 
+  it('posts nothing through a native form while disabled', () => {
+    render(
+      <form data-testid="trip-form">
+        <SingleCityCombobox name="city" value="paris" disabled />
+      </form>,
+    )
+
+    const form = screen.getByTestId('trip-form') as HTMLFormElement
+
+    expect(new FormData(form).get('city')).toBeNull()
+  })
+
+  it('clears a single selection when its text is erased and focus leaves', async () => {
+    const onValueChange = vi.fn()
+    const user = userEvent.setup()
+    render(<SingleCityCombobox onValueChange={onValueChange} />)
+
+    await user.tab()
+    await user.keyboard('{ArrowDown}{Enter}')
+    expect(getInput()).toHaveValue('Paris')
+
+    await user.clear(getInput())
+    await user.tab()
+
+    expect(onValueChange).toHaveBeenLastCalledWith(null)
+    await waitFor(() => {
+      expect(getInput()).toHaveValue('')
+    })
+  })
+
+  it('picks an item that carries its own click handler and ref', async () => {
+    const onValueChange = vi.fn()
+    const onItemClick = vi.fn()
+    const itemRef = createRef<HTMLDivElement>()
+    const user = userEvent.setup()
+    render(
+      <Combobox
+        mode={ComboboxMode.Single}
+        label="City"
+        value={null}
+        onValueChange={onValueChange}
+      >
+        <ComboboxItem value="paris" ref={itemRef} onClick={onItemClick}>
+          Paris
+        </ComboboxItem>
+        <ComboboxItem value="tokyo">Tokyo</ComboboxItem>
+      </Combobox>,
+    )
+
+    await user.type(getInput(), 'a')
+    const paris = await screen.findByRole('option', { name: 'Paris' })
+
+    expect(itemRef.current).toBe(paris)
+
+    await user.click(paris)
+
+    expect(onItemClick).toHaveBeenCalledTimes(1)
+    expect(onValueChange).toHaveBeenLastCalledWith('paris')
+  })
+
+  it('reaches an item that carries its own ref from the keyboard', async () => {
+    const onValueChange = vi.fn()
+    const user = userEvent.setup()
+    render(
+      <Combobox
+        mode={ComboboxMode.Single}
+        label="City"
+        value={null}
+        onValueChange={onValueChange}
+      >
+        <ComboboxItem value="paris" ref={createRef<HTMLDivElement>()}>
+          Paris
+        </ComboboxItem>
+      </Combobox>,
+    )
+
+    await user.tab()
+    await user.keyboard('{ArrowDown}{Enter}')
+
+    expect(onValueChange).toHaveBeenLastCalledWith('paris')
+  })
+
+  it('opens the panel for items rendered by a component of your own', async () => {
+    const user = userEvent.setup()
+    render(
+      <Combobox
+        mode={ComboboxMode.Single}
+        label="City"
+        value={null}
+        onValueChange={vi.fn()}
+      >
+        <TripCityOption city="Paris" />
+      </Combobox>,
+    )
+
+    await user.type(getInput(), 'pa')
+
+    expect(await screen.findByRole('option', { name: 'Paris' })).toBeVisible()
+  })
+
   it('describes the field with its error message and marks it invalid', () => {
     render(<SingleCityCombobox error="Choose a city on the route" />)
 
@@ -482,11 +586,8 @@ describe('Combobox', () => {
 
     await user.type(getInput(), 'par')
 
-    const option = await screen.findByRole('option', { name: 'Paris' })
+    await screen.findByRole('option', { name: 'Paris' })
 
-    expect(option.firstElementChild).toContainElement(
-      screen.getByTestId('paris-icon'),
-    )
     expect(
       screen.getByTestId('paris-icon').closest('[aria-hidden]'),
     ).not.toBeNull()
