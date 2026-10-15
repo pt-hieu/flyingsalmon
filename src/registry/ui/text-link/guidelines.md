@@ -10,11 +10,11 @@ Design guidelines for the flyingsalmon Text link component. An alternative linke
 
 - Use [Button](https://flyingsalmon.superbrian.dev/components/button) to send, save, open, or retry. A link navigates and a button acts. For an action inside a sentence, such as "Didn’t get the code? Resend", place the button inline.
 - Use [Breadcrumb](https://flyingsalmon.superbrian.dev/components/breadcrumb) for the levels of a trail, which read as links by position and draw no underline.
-- Use [Sidebar](https://flyingsalmon.superbrian.dev/components/sidebar) for navigation items, which keep their own classes for the same reason.
+- Use [Sidebar](https://flyingsalmon.superbrian.dev/components/sidebar) for navigation items, which read as links by position and draw no underline.
 
 ## Do and don't
 
-- **Do:** Put the way out of a problem as a link in the sentence that describes it, such as “Buy a credit pack” inside a warning.
+- **Do:** Put the way out of a problem as a link in the sentence that describes it, such as “Add their passport details” inside a warning.
   **Why:** The path forward sits next to the problem, where the reader’s attention already is.
 - **Don't:** Write “click here” or “learn more” as the link text.
   **Why:** The words name where the traveller ends up or the next step, so the link still makes sense when read on its own.

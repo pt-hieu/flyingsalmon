@@ -95,7 +95,7 @@ export const timelineTitleClassName = cn(
   '[&_a]:decoration-muted-foreground',
   '[&_a]:transition-[text-decoration-color,text-decoration-thickness] [&_a]:duration-(--motion-fast)',
   '[&_a]:hover:decoration-foreground [&_a]:active:decoration-foreground',
-  '[&_a]:hover:decoration-emphasis [&_a]:active:decoration-emphasis',
+  '[&_a]:hover:decoration-(length:--text-decoration-thickness-emphasis) [&_a]:active:decoration-(length:--text-decoration-thickness-emphasis)',
 )
 
 export const timelineDescriptionClassName = 'text-muted-foreground text-sm'
