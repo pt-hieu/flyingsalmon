@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { TextLinkDemo } from '@/examples/text-link/demo'
 import demoSource from '@/examples/text-link/demo.tsx?raw'
@@ -19,15 +20,21 @@ import routerLinkSource from '@/examples/text-link/router-link.tsx?raw'
 import usageSource from '@/examples/text-link/usage.tsx?raw'
 import guidelines from '@/registry/ui/text-link/guidelines.md?raw'
 
+const title = 'Text link'
+
+const lead =
+  'An anchor for a sentence or a line of UI copy that takes its size and weight from the text around it and keeps its underline.'
+
 export const Route = createFileRoute('/_docs/components/text-link')({
+  head: () => docPageHead(title, lead),
   component: TextLinkPage,
 })
 
 function TextLinkPage() {
   return (
     <DocPage
-      title="Text link"
-      lead="An anchor for a sentence or a line of UI copy that takes its size and weight from the text around it and keeps its underline."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <TextLinkDemo /> }}
       installation="text-link"
       usage={usageSource}

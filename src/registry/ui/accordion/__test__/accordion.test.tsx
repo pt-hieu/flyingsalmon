@@ -329,7 +329,7 @@ describe('Accordion', () => {
     expect(screen.getByRole('button', { name: 'Warranty' })).toBeDisabled()
   })
 
-  it('opens the panels named by a controlled value', () => {
+  it('opens the panels named by a controlled value', async () => {
     const { rerender } = render(
       <Accordion value={['shipping']}>
         <ThreeItems />
@@ -345,6 +345,9 @@ describe('Accordion', () => {
     )
 
     expect(screen.getByText('Two years of cover.')).toBeVisible()
+    await waitFor(() => {
+      expect(screen.queryByText('Ships in two days.')).not.toBeInTheDocument()
+    })
   })
 
   it('opens the panels named by defaultValue', () => {

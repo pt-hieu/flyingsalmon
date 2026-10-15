@@ -5,7 +5,6 @@ Design guidelines for the flyingsalmon Calendar component. An alternative linked
 ## When to use
 
 - When the calendar is the interface itself: a page or a card where the traveller scans a month to choose a day.
-- To show two months side by side so a trip that crosses a month end is visible at once.
 
 ## When not to use
 

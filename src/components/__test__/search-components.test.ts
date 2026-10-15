@@ -64,7 +64,7 @@ describe('searchComponents', () => {
   })
 
   it('matches the category label', () => {
-    expect(labelsOf(searchComponents(components, 'overlays'))).toEqual([
+    expect(labelsOf(searchComponents(components, 'floating'))).toEqual([
       'Dialog',
       'Drawer',
     ])
@@ -108,7 +108,7 @@ describe('groupComponentsByCategory', () => {
     ).toEqual([
       { label: 'Inputs', names: ['Button'] },
       { label: 'Feedback', names: ['Notice'] },
-      { label: 'Surfaces & overlays', names: ['Dialog', 'Drawer'] },
+      { label: 'Surfaces & floating components', names: ['Dialog', 'Drawer'] },
     ])
   })
 })

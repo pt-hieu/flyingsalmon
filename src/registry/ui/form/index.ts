@@ -1,2 +1,2 @@
 export { Form, type FormProps } from './form'
-export { FormActions } from './form-actions'
+export { FormActions, type FormActionsProps } from './form-actions'

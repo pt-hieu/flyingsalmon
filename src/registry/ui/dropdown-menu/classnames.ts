@@ -7,8 +7,6 @@ import {
   menuItemDestructive,
   menuItemHighlighted,
   menuItemIconSlot,
-  menuLabel,
-  menuSeparator,
 } from '@/registry/lib/menu'
 import { DropdownMenuItemVariant } from './types'
 
@@ -20,10 +18,6 @@ export const dropdownMenuContent = cn(
   'data-[state=open]:animate-floating-anchored-enter',
   'data-[state=closed]:animate-floating-anchored-exit',
 )
-
-export const dropdownMenuLabel = menuLabel
-
-export const dropdownMenuSeparator = menuSeparator
 
 export const dropdownMenuShortcut =
   'text-muted-foreground group-data-highlighted:text-inherit ml-auto text-xs tracking-widest'

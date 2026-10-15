@@ -5,7 +5,7 @@ export function TextareaDisabled() {
     <Textarea
       className="w-80"
       label="Trip notes"
-      placeholder="Anything the group should know"
+      placeholder="We land late, so keep the first evening free."
       disabled
     />
   )

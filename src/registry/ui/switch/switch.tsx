@@ -1,8 +1,8 @@
 import { motion } from 'motion/react'
 import { Switch as SwitchPrimitive } from 'radix-ui'
-import { useId } from 'react'
 
 import { cn } from '@/lib/utils'
+import { useFieldIds } from '@/registry/lib/field'
 import { springBounce } from '@/registry/lib/motion'
 
 import {
@@ -34,8 +34,7 @@ export function Switch({
   onClick,
   ...props
 }: SwitchProps) {
-  const generatedId = useId()
-  const switchId = id ?? generatedId
+  const { fieldId: switchId } = useFieldIds({ id })
 
   return (
     <div className={cn(switchWrapperVariants({ size }), className)}>

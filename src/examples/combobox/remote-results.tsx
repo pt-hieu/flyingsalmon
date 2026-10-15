@@ -36,12 +36,13 @@ export function ComboboxRemoteResults() {
 
     setLoading(true)
     debounceTimeout.current = setTimeout(async () => {
-      const places = await fetchPlaces(nextQuery)
+      try {
+        const places = await fetchPlaces(nextQuery)
 
-      if (latestQuery.current !== nextQuery) return
-
-      setResults(places)
-      setLoading(false)
+        if (latestQuery.current === nextQuery) setResults(places)
+      } finally {
+        if (latestQuery.current === nextQuery) setLoading(false)
+      }
     }, 300)
   }
 
@@ -74,19 +75,17 @@ export function ComboboxRemoteResults() {
           <ComboboxEmpty>No place matches that</ComboboxEmpty>
         ) : null}
       </Combobox>
-
-      <p className="text-muted-foreground text-xs">Powered by Foursquare</p>
     </div>
   )
 }
 
 const knownPlaces: Place[] = [
-  { id: 'fsq-reykjavik', name: 'Reykjavík', country: 'Iceland' },
-  { id: 'fsq-reims', name: 'Reims', country: 'France' },
-  { id: 'fsq-rennes', name: 'Rennes', country: 'France' },
-  { id: 'fsq-hanoi', name: 'Hanoi', country: 'Vietnam' },
-  { id: 'fsq-hakone', name: 'Hakone', country: 'Japan' },
-  { id: 'fsq-halifax', name: 'Halifax', country: 'Canada' },
+  { id: 'place-reykjavik', name: 'Reykjavík', country: 'Iceland' },
+  { id: 'place-reims', name: 'Reims', country: 'France' },
+  { id: 'place-rennes', name: 'Rennes', country: 'France' },
+  { id: 'place-hanoi', name: 'Hanoi', country: 'Vietnam' },
+  { id: 'place-hakone', name: 'Hakone', country: 'Japan' },
+  { id: 'place-halifax', name: 'Halifax', country: 'Canada' },
 ]
 
 function fetchPlaces(query: string): Promise<Place[]> {

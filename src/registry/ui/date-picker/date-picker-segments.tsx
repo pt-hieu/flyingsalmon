@@ -1,14 +1,12 @@
-import {
-  parseDate,
-  toCalendarDate,
-  type CalendarDate,
-} from '@internationalized/date'
+import { toCalendarDate, type CalendarDate } from '@internationalized/date'
 import {
   DateField,
   DateInput,
   DateSegment,
   type DateValue,
 } from 'react-aria-components'
+
+import { formatIsoDate, parseOptionalIsoDate } from '@/registry/lib/iso-date'
 
 import {
   datePickerSegmentClassName,
@@ -42,12 +40,12 @@ export function DatePickerSegments({
       granularity="day"
       value={value}
       onChange={(next) => onChange(next === null ? null : toCalendarDate(next))}
-      minValue={min === undefined ? undefined : parseDate(min)}
-      maxValue={max === undefined ? undefined : parseDate(max)}
+      minValue={parseOptionalIsoDate(min)}
+      maxValue={parseOptionalIsoDate(max)}
       isDateUnavailable={
         isDateDisabled === undefined
           ? undefined
-          : (date: DateValue) => isDateDisabled(toCalendarDate(date).toString())
+          : (date: DateValue) => isDateDisabled(formatIsoDate(date))
       }
       isDisabled={disabled}
       isReadOnly={readOnly}

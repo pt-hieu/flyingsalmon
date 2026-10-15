@@ -1,10 +1,21 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { GuidelineVerdict, KeyboardTable } from '@/components/doc-page'
-import { FoundationPage } from '@/components/foundation-page'
-import type { TokenRow } from '@/components/foundation-page'
+import { apcaLightness, contrastRatios } from '@/components/contrast-ratios'
+import {
+  FoundationPage,
+  GuidelineVerdict,
+  KeyboardTable,
+  docPageHead,
+} from '@/components/doc-page'
+import type { FoundationTableRow } from '@/components/doc-page'
+
+const title = 'Accessibility'
+
+const principle =
+  'Everything is reachable from the keyboard, focus is always visible, and contrast is measured and recorded.'
 
 export const Route = createFileRoute('/_docs/accessibility')({
+  head: () => docPageHead(title, principle),
   component: AccessibilityPage,
 })
 
@@ -12,88 +23,90 @@ function ratioSample(ratio: string) {
   return <span className="text-foreground font-medium">{ratio}</span>
 }
 
-const textRows: TokenRow[] = [
+const textRows: FoundationTableRow[] = [
   {
-    sample: ratioSample('17.20:1'),
-    token: '--foreground on --background',
-    value: 'Body text and headings on the page (18.25:1 on white)',
+    sample: ratioSample(contrastRatios.foregroundOnBackground),
+    name: '--foreground on --background',
+    detail: `Body text and headings on the page (${contrastRatios.foregroundOnWhite} on white)`,
     job: 'Clears AA and AAA.',
   },
   {
-    sample: ratioSample('7.01:1'),
-    token: '--muted-foreground on --background',
-    value: 'Descriptions, placeholders, helper text (7.44:1 on white)',
+    sample: ratioSample(contrastRatios.mutedForegroundOnBackground),
+    name: '--muted-foreground on --background',
+    detail: `Descriptions, placeholders, helper text (${contrastRatios.mutedForegroundOnWhite} on white)`,
     job: 'Clears AA and AAA.',
   },
   {
-    sample: ratioSample('5.48:1'),
-    token: '--muted-foreground on --accent',
-    value: 'Muted text on a hovered row',
+    sample: ratioSample(contrastRatios.mutedForegroundOnAccent),
+    name: '--muted-foreground on --accent',
+    detail: 'Muted text on a row under the pointer',
     job: 'Clears AA.',
   },
   {
-    sample: ratioSample('14.14:1'),
-    token: '--secondary-foreground on --secondary',
-    value: 'Secondary button and badge text',
+    sample: ratioSample(contrastRatios.secondaryForegroundOnSecondary),
+    name: '--secondary-foreground on --secondary',
+    detail: 'Secondary button and badge text',
     job: 'Clears AA and AAA.',
   },
   {
-    sample: ratioSample('11.96:1'),
-    token: '--accent-foreground on --accent',
-    value: 'Highlighted menu rows, hovered ghost buttons',
+    sample: ratioSample(contrastRatios.accentForegroundOnAccent),
+    name: '--accent-foreground on --accent',
+    detail: 'Highlighted menu rows, ghost buttons under the pointer',
     job: 'Clears AA and AAA.',
   },
   {
-    sample: ratioSample('4.93:1'),
-    token: '--primary-text on --background',
-    value: 'Orange as text (5.23:1 on white)',
+    sample: ratioSample(contrastRatios.primaryTextOnBackground),
+    name: '--primary-text on --background',
+    detail: `Orange as text (${contrastRatios.primaryTextOnWhite} on white)`,
     job: 'Clears AA.',
   },
   {
-    sample: ratioSample('5.17:1 to 6.23:1'),
-    token: 'Status fills and their text',
-    value: 'Success, warning, error',
+    sample: ratioSample(
+      `${contrastRatios.warningPair} to ${contrastRatios.successPair}`,
+    ),
+    name: 'Status fills and their text',
+    detail: 'Success, warning, error',
     job: 'Each pair clears AA.',
   },
 ]
 
-const belowAaRows: TokenRow[] = [
+const belowAaRows: FoundationTableRow[] = [
   {
-    sample: ratioSample('3.59:1'),
-    token: '--primary-foreground on --primary',
-    value: 'White on orange-600',
-    job: 'Every orange fill carries white: the default button, the badge, the pressed chip, and the selected calendar numeral. Dark text on orange reads muddy, and white scores higher under APCA (Lc 68 against Lc 49). Hover steps to orange-700, where white holds 5.23:1.',
+    sample: ratioSample(contrastRatios.whiteOnPrimary),
+    name: '--primary-foreground on --primary',
+    detail: 'White on orange-600',
+    job: `Every orange fill carries white: the default button, the badge, the pressed chip, and the selected calendar numeral. Dark text on orange reads muddy, and white scores higher under APCA (${apcaLightness.whiteOnPrimary} against ${apcaLightness.darkTextOnPrimary}). Hover steps to orange-700, where white holds ${contrastRatios.whiteOnPrimaryHover}.`,
   },
   {
-    sample: ratioSample('2.65:1'),
-    token: '--progress-fill on --progress-track',
-    value: 'Progress and stepper fill',
-    job: 'The fill is under the 3:1 bar for non-text against its track, and clears it at 3.38:1 against the page. The track is 1.28:1 on the page, so an empty bar stays visible without a border.',
+    sample: ratioSample(contrastRatios.progressFillOnTrack),
+    name: '--progress-fill on --progress-track',
+    detail: 'Progress and stepper fill',
+    job: `The fill is under the 3:1 bar for non-text against its track, and clears it at ${contrastRatios.indicatorOnBackground} against the page. The track is 1.28:1 on the page, so an empty bar stays visible without a border.`,
   },
   {
     sample: ratioSample('2.65:1 and 2.11:1'),
-    token: '--indicator on orange-200 and its hover step',
-    value:
-      'An indicator mark on a highlighted row, a hovered calendar day, or the range band',
+    name: '--indicator on orange-200 and its hover step',
+    detail:
+      'An indicator mark on a highlighted row, a calendar day under the pointer, or the range band',
     job: 'Orange-600 lands on the same orange-200 the highlight uses. The mark is a small accent next to text that holds full contrast.',
   },
   {
-    sample: ratioSample('1.28:1'),
-    token: '--accent ring on --background (1.36:1 on white)',
-    value:
+    sample: ratioSample(contrastRatios.accentRingOnBackground),
+    name: '--accent ring on --background (1.36:1 on white)',
+    detail:
       'Focus and press ring of outline, secondary, and ghost buttons and an unpressed toggle group chip',
     job: 'These ring in the colour their hover washes to, so the ring and the hover read as one family. The label inside stays at full text contrast.',
   },
   {
     sample: ratioSample('1.47:1 to 2.89:1'),
-    token: '--chart-1 to --chart-5 on white',
-    value: 'Chart series',
+    name: '--chart-1 to --chart-5 on white',
+    detail: 'Chart series',
     job: 'The pale hues are told apart by their label and position, never by their edge against the card. Near-black text on slots two to five holds 9.20:1 or more.',
   },
   {
     sample: ratioSample('1.48:1'),
-    token: '--slider-fill on the slider well',
-    value: 'Slider fill',
+    name: '--slider-fill on the slider well',
+    detail: 'Slider fill',
     job: 'The fill repeats what the thumb and the description already say. The thumb border clears 3:1 at 3.13:1 on the well, and the description names the current step.',
   },
 ]
@@ -101,8 +114,8 @@ const belowAaRows: TokenRow[] = [
 function AccessibilityPage() {
   return (
     <FoundationPage
-      title="Accessibility"
-      principle="Everything is reachable from the keyboard, focus is always visible, and contrast is measured and recorded."
+      title={title}
+      principle={principle}
       introduction={
         <p>
           Two requirements are fixed. Every component has a visible focus state
@@ -111,8 +124,8 @@ function AccessibilityPage() {
           below AA only in a case listed on this page.
         </p>
       }
-      tokensTitle="Contrast"
-      tokenSections={[
+      tablesTitle="Contrast"
+      tables={[
         {
           title: 'Text pairs',
           description:
@@ -158,7 +171,7 @@ function AccessibilityPage() {
                   {
                     keys: ['Escape'],
                     description:
-                      'Close the top floating surface: a menu, popover, dialog, or drawer. A notice never takes Escape, because that key belongs to dialogs.',
+                      'Close the top floating surface: a menu, select list, date picker panel, dialog, or drawer. A notice never takes Escape, because that key belongs to dialogs.',
                   },
                 ]}
               />
@@ -246,9 +259,11 @@ function AccessibilityPage() {
             above.
           </p>
           <p>
-            Focus ring ratios: <code>--indicator</code> is 3.38:1 on the page
-            and 3.59:1 on white. <code>--ring</code> is 13.46:1 or more on every
-            surface. The destructive ring is 4.57:1 on a white field.
+            Focus ring ratios: <code>--indicator</code> is{' '}
+            {contrastRatios.indicatorOnBackground} on the page and{' '}
+            {contrastRatios.indicatorOnWhite} on white. <code>--ring</code> is{' '}
+            {contrastRatios.ringOnAnySurface} or more on every surface. The
+            destructive ring is 4.57:1 on a white field.
           </p>
           <p>
             The system does not implement <code>prefers-reduced-motion</code>.

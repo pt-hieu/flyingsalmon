@@ -17,7 +17,7 @@ export function AccordionPanelsThatDoWork() {
   const [note, setNote] = useState('')
   const [noteError, setNoteError] = useState<string>()
   const [sending, setSending] = useState(false)
-  const [sentNote, setSentNote] = useState<string | null>(null)
+  const [noteSent, setNoteSent] = useState(false)
 
   async function sendNote() {
     if (!note.trim()) {
@@ -25,11 +25,15 @@ export function AccordionPanelsThatDoWork() {
       return
     }
 
-    setSentNote(null)
+    setNoteSent(false)
     setSending(true)
-    await waitForServer()
-    setSending(false)
-    setSentNote(note)
+
+    try {
+      await waitForServer()
+      setNoteSent(true)
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -60,7 +64,7 @@ export function AccordionPanelsThatDoWork() {
             <Alert
               size={AlertSize.Small}
               variant={AlertVariant.Success}
-              open={sentNote !== null}
+              open={noteSent}
             >
               The host has your note.
             </Alert>

@@ -2,8 +2,6 @@ import type { CalendarDate } from '@internationalized/date'
 import { useContext } from 'react'
 import { CalendarCell } from 'react-aria-components'
 
-import { cn } from '@/lib/utils'
-
 import {
   calendarCellFillVariants,
   calendarCellVariants,
@@ -22,49 +20,22 @@ export function CalendarDay({ date }: CalendarDayProps) {
   return (
     <CalendarCell
       date={date}
-      className={(cell) => {
-        const {
-          hidden,
-          unavailable,
-          filled,
-          interior,
-          bandStart,
-          bandEnd,
-          highlighted,
-        } = describeDay(cell, mode, calendarDisabled)
-        return cn(
-          calendarCellVariants({
-            hidden,
-            unavailable,
-            filled,
-            interior,
-            bandStart,
-            bandEnd,
-            highlighted,
-          }),
-        )
-      }}
+      className={(cell) =>
+        calendarCellVariants(describeDay(cell, mode, calendarDisabled))
+      }
     >
       {(cell) => {
-        const { filled, interior, bandStart, bandEnd, highlighted, today } =
-          describeDay(cell, mode, calendarDisabled)
+        const appearance = describeDay(cell, mode, calendarDisabled)
+
         return (
-          <span
-            className={cn(
-              calendarCellFillVariants({
-                filled,
-                interior,
-                bandStart,
-                bandEnd,
-                highlighted,
-              }),
-            )}
-          >
+          <span className={calendarCellFillVariants(appearance)}>
             {cell.formattedDate}
-            {today ? (
+            {appearance.today ? (
               <span
                 aria-hidden
-                className={calendarTodayDashVariants({ filled })}
+                className={calendarTodayDashVariants({
+                  filled: appearance.filled,
+                })}
               />
             ) : null}
           </span>

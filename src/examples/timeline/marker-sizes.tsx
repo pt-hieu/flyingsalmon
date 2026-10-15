@@ -29,9 +29,7 @@ export function TimelineMarkerSizes() {
           </TimelineMarker>
           <TimelineContent>
             <TimelineTitle>Train to Ninh Binh</TimelineTitle>
-            <TimelineDescription>
-              2h 20m from Ha Noi station
-            </TimelineDescription>
+            <TimelineDescription>2h 20m from Hanoi station</TimelineDescription>
           </TimelineContent>
         </TimelineItem>
         <TimelineItem>

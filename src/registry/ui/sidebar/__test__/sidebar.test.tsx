@@ -18,10 +18,6 @@ import {
   useSidebar,
 } from '@/registry/ui/sidebar'
 
-/**
- * jsdom evaluates no media queries, so the viewport width is the test's to
- * state and the stub answers the sidebar's own query against it.
- */
 function reportViewportWidth(width: number) {
   let viewportWidth = width
   const listeners = new Set<() => void>()
@@ -86,11 +82,6 @@ function TripSidebar(
   )
 }
 
-/**
- * jsdom does no layout, so the vertical bounds of the content box and of each
- * item are the test's to state. A key matches an element's `data-slot` or
- * its own text.
- */
 function reportVerticalBounds(bounds: Record<string, [number, number]>) {
   vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(
     function (this: HTMLElement) {

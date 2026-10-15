@@ -1,4 +1,5 @@
 import { AlertVariant } from '@/registry/ui/alert'
+import { Button } from '@/registry/ui/button'
 import { NoticeProvider, useNotice } from '@/registry/ui/notice'
 
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -16,9 +17,5 @@ export function SaveTripButton() {
     })
   }
 
-  return (
-    <button type="button" onClick={saveTrip}>
-      Save
-    </button>
-  )
+  return <Button onClick={saveTrip}>Save</Button>
 }

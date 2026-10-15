@@ -1,6 +1,6 @@
 import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { ComponentSearch } from '@/components/component-search'
 import { componentCatalog } from '@/components/component-catalog'
@@ -24,7 +24,15 @@ async function openFromTrigger() {
   return { user, router }
 }
 
+function useUserAgent(userAgent: string) {
+  vi.spyOn(navigator, 'userAgent', 'get').mockReturnValue(userAgent)
+}
+
 describe('ComponentSearch', () => {
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
   it('opens from the trigger with focus in the field and every component listed by category', async () => {
     await openFromTrigger()
 
@@ -38,7 +46,7 @@ describe('ComponentSearch', () => {
       'Inputs',
       'Data display',
       'Feedback',
-      'Surfaces & overlays',
+      'Surfaces & floating components',
       'Navigation',
     ])
     expect(within(listbox).getAllByRole('option')).toHaveLength(
@@ -113,5 +121,27 @@ describe('ComponentSearch', () => {
 
     await user.keyboard('/')
     expect(searchField()).toHaveValue('')
+  })
+
+  it('shows the Command shortcut on Apple platforms', async () => {
+    useUserAgent(
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15',
+    )
+    await renderWithRouter(<ComponentSearch />)
+
+    expect(
+      screen.getByRole('button', { name: /Search components/ }),
+    ).toHaveTextContent('⌘K')
+  })
+
+  it('shows the Control shortcut on other platforms', async () => {
+    useUserAgent(
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    )
+    await renderWithRouter(<ComponentSearch />)
+
+    expect(
+      screen.getByRole('button', { name: /Search components/ }),
+    ).toHaveTextContent('Ctrl K')
   })
 })

@@ -26,7 +26,7 @@ function TripPageHeader() {
         <Button icon={<Share2 />} variant={ButtonVariant.Outline}>
           Share
         </Button>
-        <Button variant={ButtonVariant.Outline}>Replan</Button>
+        <Button variant={ButtonVariant.Outline}>Edit trip</Button>
         <Button>Book stays</Button>
       </PageHeaderActions>
     </PageHeader>

@@ -17,6 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/registry/ui/dialog'
+import { Form } from '@/registry/ui/form'
 import { Input } from '@/registry/ui/input'
 
 export function DialogPending() {
@@ -31,17 +32,19 @@ export function DialogPending() {
     event.preventDefault()
     setChecking(true)
 
-    const tripName = await checkInviteCode(inviteCode)
+    try {
+      const tripName = await checkInviteCode(inviteCode)
 
-    setChecking(false)
+      if (!tripName) {
+        setCodeError('That code has expired. Ask the organiser for a new one.')
+        return
+      }
 
-    if (!tripName) {
-      setCodeError('That code has expired. Ask the organiser for a new one.')
-      return
+      setJoinedTrip(tripName)
+      setOpen(false)
+    } finally {
+      setChecking(false)
     }
-
-    setJoinedTrip(tripName)
-    setOpen(false)
   }
 
   return (
@@ -56,7 +59,7 @@ export function DialogPending() {
             Enter the invite code the organiser sent you.
           </DialogDescription>
           <DialogBody>
-            <form id={formId} noValidate onSubmit={joinTrip}>
+            <Form id={formId} onSubmit={joinTrip}>
               <Input
                 label="Invite code"
                 placeholder="KYOTO-2026"
@@ -67,7 +70,7 @@ export function DialogPending() {
                   setCodeError(undefined)
                 }}
               />
-            </form>
+            </Form>
           </DialogBody>
           <DialogFooter>
             <DialogClose>

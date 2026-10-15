@@ -31,7 +31,7 @@ export function DropdownMenuItem({
       {...props}
     >
       {icon ? (
-        <span key="icon" aria-hidden className={dropdownMenuItemIconSlot}>
+        <span aria-hidden className={dropdownMenuItemIconSlot}>
           {icon}
         </span>
       ) : null}

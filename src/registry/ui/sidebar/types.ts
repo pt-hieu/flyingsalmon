@@ -15,10 +15,6 @@ export interface SidebarSharedState extends SidebarState {
   menuId: string
   menuOpen: boolean
   setMenuOpen: (open: boolean) => void
-  /**
-   * The ResizeObserver has not reported on the first render, so the sidebar
-   * leaves its width to CSS until the container width is known.
-   */
   measured: boolean
 }
 
@@ -28,4 +24,11 @@ export interface SidebarNestState {
   itemsId: string
   hasActiveChild: boolean
   registerActiveChild: () => () => void
+}
+
+export interface SlottedItemProps {
+  children?: React.ReactNode
+  className?: string
+  'data-slot'?: string
+  'aria-current'?: React.AriaAttributes['aria-current']
 }

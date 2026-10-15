@@ -1,10 +1,12 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import {
   DocPage,
+  DocTextLink,
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { CalendarDemo } from '@/examples/calendar/demo'
 import demoSource from '@/examples/calendar/demo.tsx?raw'
@@ -20,17 +22,21 @@ import { CalendarUnavailableDays } from '@/examples/calendar/unavailable-days'
 import unavailableDaysSource from '@/examples/calendar/unavailable-days.tsx?raw'
 import usageSource from '@/examples/calendar/usage.tsx?raw'
 import guidelines from '@/registry/ui/calendar/guidelines.md?raw'
-import { TextLink } from '@/registry/ui/text-link'
+
+const title = 'Calendar'
+
+const lead = 'A month grid the traveller picks one day or a range from.'
 
 export const Route = createFileRoute('/_docs/components/calendar')({
+  head: () => docPageHead(title, lead),
   component: CalendarPage,
 })
 
 function CalendarPage() {
   return (
     <DocPage
-      title="Calendar"
-      lead="A month grid the traveller picks one day or a range from."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <CalendarDemo /> }}
       installation="calendar"
       usage={usageSource}
@@ -122,10 +128,7 @@ function CalendarPage() {
             status, and the range announcements the underlying library provides.
             Focus is the highlight: a focused day steps one shade deeper on its
             own tint, with no ring. For the field that wraps this grid, see{' '}
-            <TextLink asChild>
-              <Link to="/components/date-picker">Date picker</Link>
-            </TextLink>
-            .
+            <DocTextLink to="/components/date-picker">Date picker</DocTextLink>.
           </p>
         </>
       }
@@ -208,6 +211,11 @@ function CalendarPage() {
               default: 'false',
               description: 'Focuses the grid on mount.',
             },
+            {
+              name: 'className',
+              type: 'string',
+              description: 'Styles the calendar root.',
+            },
           ]}
         />
       }
@@ -265,8 +273,9 @@ function CalendarPage() {
             unavailable day takes <code>--accent-foreground</code> on{' '}
             <code>--accent</code> at 11.96:1. The today dash sits at 3.59:1 on{' '}
             <code>--popover</code> and 3.38:1 on <code>--background</code>,
-            clearing the 3:1 non-text bar, and drops to 2.65:1 on a hovered idle
-            day or inside the band and 2.11:1 on the band&rsquo;s hover step.
+            clearing the 3:1 non-text bar, and drops to 2.65:1 on an idle day
+            under the pointer or inside the band and 2.11:1 on the band&rsquo;s
+            hover step.
           </p>
         </>
       }

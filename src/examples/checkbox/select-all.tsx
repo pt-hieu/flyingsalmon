@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { Checkbox } from '@/registry/ui/checkbox'
+import type { CheckboxCheckedState } from '@/registry/ui/checkbox'
 
 const places = ['Alfama', 'Belém', 'Sintra'] as const
 
@@ -8,10 +9,7 @@ export function CheckboxSelectAll() {
   const [selectedPlaces, setSelectedPlaces] = useState<string[]>(['Belém'])
 
   const allSelected = selectedPlaces.length === places.length
-  const noneSelected = selectedPlaces.length === 0
-  let allPlacesState: boolean | 'indeterminate' = 'indeterminate'
-  if (allSelected) allPlacesState = true
-  else if (noneSelected) allPlacesState = false
+  const allPlacesState = selectAllState(selectedPlaces.length)
 
   function togglePlace(place: string, isChecked: boolean) {
     setSelectedPlaces((previouslySelected) =>
@@ -44,4 +42,12 @@ export function CheckboxSelectAll() {
       </div>
     </div>
   )
+}
+
+function selectAllState(selectedCount: number): CheckboxCheckedState {
+  if (selectedCount === places.length) return true
+
+  if (selectedCount === 0) return false
+
+  return 'indeterminate'
 }

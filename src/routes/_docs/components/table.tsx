@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { PaginationUnderATable } from '@/examples/pagination/under-a-table'
 import underATableSource from '@/examples/pagination/under-a-table.tsx?raw'
@@ -21,15 +22,21 @@ import rowHeadersSource from '@/examples/table/row-headers.tsx?raw'
 import usageSource from '@/examples/table/usage.tsx?raw'
 import guidelines from '@/registry/ui/table/guidelines.md?raw'
 
+const title = 'Table'
+
+const lead =
+  'A table lays out rows of comparable data under column labels, with horizontal rules and nothing else.'
+
 export const Route = createFileRoute('/_docs/components/table')({
+  head: () => docPageHead(title, lead),
   component: TablePage,
 })
 
 function TablePage() {
   return (
     <DocPage
-      title="Table"
-      lead="A table lays out rows of comparable data under column labels, with horizontal rules and nothing else."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <TableDemo /> }}
       installation="table"
       usage={usageSource}
@@ -95,6 +102,11 @@ function TablePage() {
                 keys: ['Space'],
                 description: 'Presses a focused button in a row.',
               },
+              {
+                keys: ['ArrowLeft', 'ArrowRight'],
+                description:
+                  'On a table wider than its container, scrolls it once the scroll region has focus.',
+              },
             ]}
           />
           <p>
@@ -112,6 +124,13 @@ function TablePage() {
             on <code>Table</code> when the surrounding heading is not enough.
           </p>
           <p>
+            A table wider than its container sits in a focusable region with a
+            focus ring, so a keyboard user can Tab to it and scroll it. The
+            region is named by <code>scrollRegionLabel</code>, then by the
+            table&rsquo;s <code>aria-label</code>, then &ldquo;Scrollable
+            table&rdquo;. A table that fits its container adds no tab stop.
+          </p>
+          <p>
             An interactive row is not a link and holds no key handler of its
             own. Its row link is an anchor you write, so a router link works the
             same as an <code>&lt;a&gt;</code>, and Enter activates it natively.
@@ -124,13 +143,26 @@ function TablePage() {
       }
       api={
         <>
-          <p>
-            <code>Table</code> takes every <code>&lt;table&gt;</code> attribute.
-            It wraps the table in a full-width scrolling container and sends{' '}
-            <code>className</code> to the table itself. It sorts nothing,
-            selects nothing, and paginates nothing: those belong to a data table
-            built on top of it.
-          </p>
+          <PropsTable
+            component="Table"
+            description={
+              <>
+                Also takes every <code>&lt;table&gt;</code> attribute, typed as{' '}
+                <code>TableProps</code>. It wraps the table in a full-width
+                scrolling container and sends <code>className</code> to the
+                table itself. It sorts nothing, selects nothing, and paginates
+                nothing: those belong to a data table built on top of it.
+              </>
+            }
+            rows={[
+              {
+                name: 'scrollRegionLabel',
+                type: 'string',
+                description:
+                  'Names the scroll region a table wider than its container sits in. Falls back to the table’s aria-label, then to "Scrollable table".',
+              },
+            ]}
+          />
           <PropsTable
             component="TableRow"
             description={

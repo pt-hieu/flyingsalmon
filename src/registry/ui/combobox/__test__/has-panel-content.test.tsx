@@ -9,6 +9,10 @@ import {
 } from '@/registry/ui/combobox'
 import { hasPanelContent } from '@/registry/ui/combobox/has-panel-content'
 
+function TripCityOption() {
+  return <ComboboxItem value="paris">Paris</ComboboxItem>
+}
+
 describe('hasPanelContent', () => {
   it('counts an item as panel content', () => {
     expect(
@@ -33,6 +37,10 @@ describe('hasPanelContent', () => {
         </ComboboxGroup>,
       ),
     ).toBe(true)
+  })
+
+  it('counts a component of your own as panel content, since it may render items', () => {
+    expect(hasPanelContent(<TripCityOption />)).toBe(true)
   })
 
   it('does not count labels, separators, or plain markup', () => {

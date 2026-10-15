@@ -266,6 +266,27 @@ describe('AvatarGroup', () => {
     )
   })
 
+  it('opens no tooltip on the chip when every hidden person is nameless', async () => {
+    const user = userEvent.setup()
+    renderAvatarGroupBetweenButtons({
+      items: [
+        { name: 'Ada Lovelace' },
+        { src: '/anonymous.png' },
+        { src: '/unknown.png' },
+      ],
+      max: 1,
+    })
+
+    await user.tab()
+    await user.tab()
+    await user.keyboard('{End}')
+
+    expect(screen.getByRole('img', { name: '2 more' })).toHaveFocus()
+    await expect(
+      screen.findByRole('tooltip', {}, { timeout: 1000 }),
+    ).rejects.toThrow()
+  })
+
   it('prefers the person name over alt in the tooltip', async () => {
     const user = userEvent.setup()
     renderAvatarGroupBetweenButtons({

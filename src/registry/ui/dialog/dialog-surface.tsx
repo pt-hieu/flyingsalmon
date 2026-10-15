@@ -4,7 +4,7 @@ import { use } from 'react'
 
 import { Button, ButtonSize, ButtonVariant } from '../button'
 
-import { dialogCloseSlotVariants, dialogOverlayVariants } from './classnames'
+import { dialogCloseSlotClassName, dialogOverlayClassName } from './classnames'
 import { DialogContext } from './context'
 
 export interface DialogSurfaceProps extends Omit<
@@ -17,15 +17,12 @@ export function DialogSurface({ children, ...props }: DialogSurfaceProps) {
 
   return (
     <DialogPrimitive.Portal>
-      <DialogPrimitive.Overlay className={dialogOverlayVariants()} />
+      <DialogPrimitive.Overlay className={dialogOverlayClassName} />
 
       <DialogPrimitive.Content
         aria-busy={pending || undefined}
         onEscapeKeyDown={(event) => {
           if (pending) event.preventDefault()
-        }}
-        onPointerDownOutside={(event) => {
-          if (pending || !dismissible) event.preventDefault()
         }}
         onInteractOutside={(event) => {
           if (pending || !dismissible) event.preventDefault()
@@ -34,7 +31,7 @@ export function DialogSurface({ children, ...props }: DialogSurfaceProps) {
       >
         {children}
 
-        <div className={dialogCloseSlotVariants()}>
+        <div className={dialogCloseSlotClassName}>
           <DialogPrimitive.Close asChild>
             <Button
               variant={ButtonVariant.Ghost}

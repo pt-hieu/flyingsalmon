@@ -1,10 +1,8 @@
 import { cn } from '@/lib/utils'
+import { actionsRow } from '@/registry/lib/actions-row'
 
-import { formActionsClassName } from './classnames'
+export interface FormActionsProps extends React.ComponentProps<'div'> {}
 
-export function FormActions({
-  className,
-  ...props
-}: React.ComponentProps<'div'>) {
-  return <div className={cn(formActionsClassName, className)} {...props} />
+export function FormActions({ className, ...props }: FormActionsProps) {
+  return <div className={cn(actionsRow, className)} {...props} />
 }

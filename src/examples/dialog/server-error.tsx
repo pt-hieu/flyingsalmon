@@ -1,8 +1,6 @@
 import { MapPinPlus } from 'lucide-react'
 import { useId, useState } from 'react'
 
-import { cn } from '@/lib/utils'
-import { offsetFocusRingGeometry } from '@/registry/lib/interaction'
 import { AlertVariant } from '@/registry/ui/alert'
 import { Button, ButtonVariant } from '@/registry/ui/button'
 import {
@@ -15,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/registry/ui/dialog'
+import { Form } from '@/registry/ui/form'
 import { Input } from '@/registry/ui/input'
 import { useNotice } from '@/registry/ui/notice'
 
@@ -36,14 +35,7 @@ export function DialogServerError() {
         title: `${placeName} was not added`,
         description: 'The planner did not answer. What you typed is kept.',
         subject: (
-          <button
-            type="button"
-            onClick={() => setOpen(true)}
-            className={cn(
-              offsetFocusRingGeometry,
-              'ring-ring focus-visible:ring-offset-card rounded-sm',
-            )}
-          >
+          <button type="button" onClick={() => setOpen(true)}>
             Reopen the form
           </button>
         ),
@@ -60,13 +52,13 @@ export function DialogServerError() {
         <DialogTitle>Add a place to Lisbon</DialogTitle>
         <DialogDescription>It goes on the first free day.</DialogDescription>
         <DialogBody>
-          <form id={formId} noValidate onSubmit={addPlace}>
+          <Form id={formId} onSubmit={addPlace}>
             <Input
               label="Place"
               value={placeName}
               onChange={(event) => setPlaceName(event.target.value)}
             />
-          </form>
+          </Form>
         </DialogBody>
         <DialogFooter>
           <DialogClose>

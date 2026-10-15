@@ -1,5 +1,5 @@
 import { motion } from 'motion/react'
-import { useContext } from 'react'
+import { use } from 'react'
 
 import { cn } from '@/lib/utils'
 import { springSettle } from '@/registry/lib/motion'
@@ -16,7 +16,7 @@ export function SidebarNestItems({
   className,
   ...props
 }: SidebarNestItemsProps) {
-  const nest = useContext(SidebarNestContext)
+  const nest = use(SidebarNestContext)
 
   if (!nest) {
     throw new Error('SidebarNestItems only renders inside <SidebarNest>')

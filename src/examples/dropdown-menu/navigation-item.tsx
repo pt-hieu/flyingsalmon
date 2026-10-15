@@ -16,9 +16,7 @@ export function DropdownMenuNavigationItem() {
         <Button variant={ButtonVariant.Outline}>Kyoto in autumn</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem icon={<Pencil />} onSelect={() => undefined}>
-          Rename
-        </DropdownMenuItem>
+        <DropdownMenuItem icon={<Pencil />}>Rename</DropdownMenuItem>
         <DropdownMenuItem icon={<MapPin />} asChild>
           <Link to="/components/card">View itinerary</Link>
         </DropdownMenuItem>

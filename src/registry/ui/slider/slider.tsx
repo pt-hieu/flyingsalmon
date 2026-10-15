@@ -1,8 +1,7 @@
 import { Slider as SliderPrimitive } from 'radix-ui'
-import { useId } from 'react'
 
 import { cn } from '@/lib/utils'
-import { FieldDescription } from '@/registry/lib/field'
+import { FieldDescription, useFieldIds } from '@/registry/lib/field'
 
 import {
   sliderFillClassName,
@@ -45,10 +44,11 @@ export function Slider({
   name,
   className,
 }: SliderProps) {
-  const generatedId = useId()
-  const thumbId = id ?? generatedId
-  const labelId = `${thumbId}-label`
-  const descriptionId = `${thumbId}-description`
+  const {
+    fieldId: thumbId,
+    labelId,
+    descriptionId,
+  } = useFieldIds({ id, description })
 
   const fillWidth = thumbCenterOffset(valuePercent(value, min, max))
   const stepDotOffsets = stepPercents(min, max, step).map(thumbCenterOffset)

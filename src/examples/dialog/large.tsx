@@ -20,6 +20,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/registry/ui/dialog'
+import { Form } from '@/registry/ui/form'
 import { Input, InputType } from '@/registry/ui/input'
 
 interface Traveller {
@@ -48,6 +49,13 @@ export function DialogLarge() {
     setOpen(false)
   }
 
+  function updateDraft<Field extends keyof Traveller>(
+    field: Field,
+    value: Traveller[Field],
+  ) {
+    setDraft((currentDraft) => ({ ...currentDraft, [field]: value }))
+  }
+
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
@@ -74,9 +82,8 @@ export function DialogLarge() {
               Airlines need these exactly as they appear on the passport.
             </DialogDescription>
             <DialogBody>
-              <form
+              <Form
                 id={formId}
-                noValidate
                 onSubmit={saveTraveller}
                 className="grid gap-4 sm:grid-cols-2"
               >
@@ -84,40 +91,36 @@ export function DialogLarge() {
                   label="First name"
                   value={draft.firstName}
                   onChange={(event) =>
-                    setDraft({ ...draft, firstName: event.target.value })
+                    updateDraft('firstName', event.target.value)
                   }
                 />
                 <Input
                   label="Last name"
                   value={draft.lastName}
                   onChange={(event) =>
-                    setDraft({ ...draft, lastName: event.target.value })
+                    updateDraft('lastName', event.target.value)
                   }
                 />
                 <Input
                   label="Email"
                   type={InputType.Email}
                   value={draft.email}
-                  onChange={(event) =>
-                    setDraft({ ...draft, email: event.target.value })
-                  }
+                  onChange={(event) => updateDraft('email', event.target.value)}
                 />
                 <Input
                   label="Phone"
                   type={InputType.Telephone}
                   value={draft.phone}
-                  onChange={(event) =>
-                    setDraft({ ...draft, phone: event.target.value })
-                  }
+                  onChange={(event) => updateDraft('phone', event.target.value)}
                 />
                 <DatePicker
                   label="Date of birth"
                   value={draft.dateOfBirth}
                   onChange={(dateOfBirth) =>
-                    setDraft({ ...draft, dateOfBirth })
+                    updateDraft('dateOfBirth', dateOfBirth)
                   }
                 />
-              </form>
+              </Form>
             </DialogBody>
             <DialogFooter>
               <DialogClose>

@@ -24,10 +24,10 @@ importers:
         specifier: ^4.1.18
         version: 4.3.3(vite@8.2.2(@types/node@22.20.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))
       '@tanstack/react-router':
-        specifier: latest
+        specifier: ^1.170.40
         version: 1.170.40(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@tanstack/react-start':
-        specifier: latest
+        specifier: ^1.168.59
         version: 1.168.59(esbuild@0.28.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.5)(supports-color@10.2.2)(vite@8.2.2(@types/node@22.20.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))
       class-variance-authority:
         specifier: ^0.7.1
@@ -76,7 +76,7 @@ importers:
         specifier: ^0.2.0
         version: 0.2.0(eslint@10.9.0(jiti@2.7.0)(supports-color@10.2.2))
       '@tanstack/router-cli':
-        specifier: ^1.132.0
+        specifier: ^1.167.33
         version: 1.167.33(supports-color@10.2.2)
       '@testing-library/dom':
         specifier: ^10.4.1

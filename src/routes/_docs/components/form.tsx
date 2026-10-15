@@ -1,10 +1,12 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import {
   DocPage,
+  DocTextLink,
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { FormDemo } from '@/examples/form/demo'
 import demoSource from '@/examples/form/demo.tsx?raw'
@@ -18,17 +20,22 @@ import { FormServerError } from '@/examples/form/server-error'
 import serverErrorSource from '@/examples/form/server-error.tsx?raw'
 import usageSource from '@/examples/form/usage.tsx?raw'
 import guidelines from '@/registry/ui/form/guidelines.md?raw'
-import { TextLink } from '@/registry/ui/text-link'
+
+const title = 'Form'
+
+const lead =
+  'A layout shell for a set of fields: one vertical rhythm, an actions row, and a fixed place for the submit result.'
 
 export const Route = createFileRoute('/_docs/components/form')({
+  head: () => docPageHead(title, lead),
   component: FormPage,
 })
 
 function FormPage() {
   return (
     <DocPage
-      title="Form"
-      lead="A layout shell for a set of fields: one vertical rhythm, an actions row, and a fixed place for the submit result."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <FormDemo /> }}
       installation="form"
       usage={usageSource}
@@ -96,10 +103,7 @@ function FormPage() {
             and Tab then Enter on the submit button already works. The result
             slot carries no live region of its own: the alert you pass announces
             itself through its role. For the states every field shares, see{' '}
-            <TextLink asChild>
-              <Link to="/fields">Fields</Link>
-            </TextLink>
-            .
+            <DocTextLink to="/fields">Fields</DocTextLink>.
           </p>
         </>
       }
@@ -135,14 +139,14 @@ function FormPage() {
           />
           <p>
             <code>FormActions</code> takes the props of a{' '}
-            <code>&lt;div&gt;</code>. It stacks its buttons full width below
-            640px and lays them out in a right-aligned row above it. It is
-            optional: a one-button form can put the button in directly.
-            FormActions injects nothing into its children, so write{' '}
-            <code>type="submit"</code> on the one button that submits and set
-            its <code>loading</code> while the request runs. Button defaults to{' '}
-            <code>type="button"</code>, so a Cancel beside it never posts the
-            form.
+            <code>&lt;div&gt;</code>, typed as <code>FormActionsProps</code>. It
+            stacks its buttons full width on a narrow screen and lays them out
+            in a right-aligned row on a wider one. It is optional: a one-button
+            form can put the button in directly. FormActions injects nothing
+            into its children, so write <code>type="submit"</code> on the one
+            button that submits and set its <code>loading</code> while the
+            request runs. Button defaults to <code>type="button"</code>, so a
+            Cancel beside it never posts the form.
           </p>
         </>
       }
@@ -154,7 +158,8 @@ function FormPage() {
             because collapsing margins fight the height animations of an error
             message or the result alert. A heading dropped between two fields is
             another child and inherits the same step. The actions row sits in
-            the normal flow at the same step, with no top border.
+            the normal flow at the same step, with no top border, and switches
+            from a full-width column to a right-aligned row at 640px.
           </p>
           <p>
             Form ships no form-state binding and depends on no form-state

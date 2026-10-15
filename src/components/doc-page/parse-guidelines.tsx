@@ -1,5 +1,7 @@
 import { createElement, Fragment } from 'react'
 
+import { isDocRoute } from '@/components/doc-routes'
+
 import { DocTextLink } from './doc-text-link'
 import { GuidelineVerdict } from './types'
 import type {
@@ -25,6 +27,7 @@ const reasonSeparator = ' **Why:** '
 
 const alternativePattern = /^Use \[([^\]]+)\]\(([^)\s]+)\) (.+)$/
 const codeSpanPattern = /(`[^`]+`)/
+const linkPattern = /\[([^[\]]+)\]\(([^()\s]+)\)/g
 
 type Fail = (problem: string) => never
 
@@ -165,33 +168,28 @@ function parseInline(text: string, fail: Fail): React.ReactNode {
 
 function parseLinks(text: string, fail: Fail) {
   const parts: React.ReactNode[] = []
-  let remaining = text
-  let labelStart = remaining.indexOf('[')
+  let linkEnd = 0
 
-  while (labelStart !== -1) {
-    const hrefStart = remaining.indexOf('](', labelStart)
-    const hrefEnd = hrefStart === -1 ? -1 : remaining.indexOf(')', hrefStart)
-    if (hrefEnd === -1) {
-      break
-    }
-
-    const label = remaining.slice(labelStart + 1, hrefStart)
-    const href = remaining.slice(hrefStart + 2, hrefEnd)
-    parts.push(remaining.slice(0, labelStart))
+  for (const link of text.matchAll(linkPattern)) {
+    const [linkText, label, href] = link
+    parts.push(text.slice(linkEnd, link.index))
     parts.push(<DocTextLink to={toDocRoute(href, fail)}>{label}</DocTextLink>)
-
-    remaining = remaining.slice(hrefEnd + 1)
-    labelStart = remaining.indexOf('[')
+    linkEnd = link.index + linkText.length
   }
-  parts.push(remaining)
+  parts.push(text.slice(linkEnd))
 
   return parts
 }
 
-function toDocRoute(href: string, fail: Fail) {
+function toDocRoute(href: string, fail: Fail): DocRoute {
   if (!href.startsWith(`${siteOrigin}/`)) {
     fail(`expected a link to a page on ${siteOrigin}, found "${href}"`)
   }
 
-  return href.slice(siteOrigin.length) as DocRoute
+  const path = href.slice(siteOrigin.length)
+  if (!isDocRoute(path)) {
+    fail(`expected a link to a page the site has, found "${href}"`)
+  }
+
+  return path
 }

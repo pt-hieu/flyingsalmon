@@ -18,6 +18,7 @@ export function readEntryValue(
     ) {
       return null
     }
+
     return { start: entry.start.toString(), end: entry.end.toString() }
   }
 

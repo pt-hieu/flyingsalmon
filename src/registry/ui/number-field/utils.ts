@@ -1,5 +1,9 @@
 import { NumberFormatter, NumberParser } from '@internationalized/number'
 
+import { SpinnerSize } from '../spinner'
+
+import { NumberFieldSize } from './types'
+
 const fallbackLocale = 'en-US'
 
 export function resolveLocale(locale: string | undefined): string {
@@ -33,6 +37,21 @@ export function parseNumber(text: string, locale: string): number | null {
   const parsed = new NumberParser(locale).parse(text)
 
   return Number.isNaN(parsed) ? null : parsed
+}
+
+export const unparseableNumber = Symbol('unparseable number')
+
+export function typedNumber(
+  text: string,
+  locale: string,
+): number | null | typeof unparseableNumber {
+  const trimmedText = text.trim()
+
+  if (trimmedText === '') {
+    return null
+  }
+
+  return parseNumber(trimmedText, locale) ?? unparseableNumber
 }
 
 export function fractionDigitsForStep(step: number): number {
@@ -134,4 +153,10 @@ export function valueTextWithAffixes(
   const prefixed = prefix ? `${prefix}${formattedValue}` : formattedValue
 
   return unit ? `${prefixed} ${unit}` : prefixed
+}
+
+export function spinnerSizeFor(size: NumberFieldSize): SpinnerSize {
+  return size === NumberFieldSize.Small
+    ? SpinnerSize.Small
+    : SpinnerSize.Default
 }

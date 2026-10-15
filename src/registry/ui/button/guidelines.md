@@ -18,7 +18,7 @@ Design guidelines for the flyingsalmon Button component. An alternative linked t
 
 - **Do:** Give each view, card, dialog footer, and alert one default button. The alternative beside it is outline, and a quiet extra action is ghost.
   **Why:** The filled orange button is where the eye lands first. Two of them make the traveller choose before they act, and the step down to outline and ghost tells them which action matters.
-- **Do:** Name the outcome in the label, such as "Replan the rest", and add the cost when the action spends something: "Rewrite 2 days · 1 credit".
+- **Do:** Name the outcome in the label, such as "Book both flights", and add the cost when the action spends something: "Book both flights · 240 euros".
   **Why:** The traveller knows what will happen and what it takes from them before they press, so nobody reads the surrounding copy to find out.
 - **Do:** Put the outline Cancel on the left of a dialog or form footer and the one default action on the right.
   **Why:** The eye reads the row to its end and lands on the action that finishes the task. Cancel always sits in the same place, so leaving never needs reading.

@@ -1,15 +1,16 @@
 import { ink, writeSticker } from '../src/registry/ui/sticker/sticker-sketch.ts'
 import type { Pen } from '../src/registry/ui/sticker/sticker-sketch.ts'
 
+import { drawPencilEraser } from './draw-pencil-eraser.ts'
+
 const page = 'M 30 24 L 190 16 L 198 176 L 38 184 Z'
 const pencil =
   'M 205.8 195 L 201.8 188.1 L 207.6 180.1 L 282 137.1 L 290 150.9 L 215.6 193.9 Z'
 const snappedTip = 'M 176 190 L 186 184 L 186 196 Z'
 
-function drawFrame(
-  { generator, draw, drawSilhouette }: Pen,
-  frameSeed: number,
-) {
+function drawFrame(pen: Pen, frameSeed: number) {
+  const { generator, draw, drawSilhouette } = pen
+
   drawSilhouette([page, pencil, snappedTip], frameSeed + 10)
 
   draw(generator.path(page, { ...ink, fill: 'paper', seed: frameSeed + 21 }))
@@ -50,14 +51,7 @@ function drawFrame(
       { ...ink, fill: 'wood', strokeWidth: 2, seed: frameSeed + 42 },
     ),
   )
-  draw(
-    generator.path('M 269.9 144.1 L 282 137.1 L 290 150.9 L 277.9 157.9 Z', {
-      ...ink,
-      fill: 'eraser',
-      strokeWidth: 2,
-      seed: frameSeed + 43,
-    }),
-  )
+  drawPencilEraser(pen, frameSeed + 43)
   draw(
     generator.path(snappedTip, {
       ...ink,

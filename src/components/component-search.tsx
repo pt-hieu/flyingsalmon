@@ -7,12 +7,15 @@ import {
   componentCatalog,
   componentCategoryLabels,
 } from '@/components/component-catalog'
-import type { ComponentCategoryGroup } from '@/components/search-components'
 import {
   groupComponentsByCategory,
   searchComponents,
 } from '@/components/search-components'
-import { isApplePlatform, isSearchShortcut } from '@/components/search-shortcut'
+import {
+  isSearchShortcut,
+  searchShortcutHint,
+  useApplePlatform,
+} from '@/components/search-shortcut'
 import { cn } from '@/lib/utils'
 import { menuItem, menuItemHighlighted, menuLabel } from '@/registry/lib/menu'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
@@ -29,6 +32,10 @@ function wrapIndex(index: number, count: number) {
   return (index + count) % count
 }
 
+function toOptionId(listboxId: string, index: number) {
+  return `${listboxId}-option-${index}`
+}
+
 export function ComponentSearch() {
   const navigate = useNavigate()
   const triggerRef = useRef<HTMLButtonElement>(null)
@@ -36,14 +43,19 @@ export function ComponentSearch() {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [highlightedIndex, setHighlightedIndex] = useState(0)
+  const applePlatform = useApplePlatform()
 
-  const resultGroups: ComponentCategoryGroup[] | undefined = query.trim()
-    ? undefined
-    : groupComponentsByCategory(componentCatalog)
-  const results = resultGroups
+  const grouped = query.trim() === ''
+  const resultGroups = grouped
+    ? groupComponentsByCategory(componentCatalog)
+    : []
+  const results = grouped
     ? resultGroups.flatMap((categoryGroup) => categoryGroup.components)
     : searchComponents(componentCatalog, query)
-  const optionId = (index: number) => `${listboxId}-option-${index}`
+  const indexedResults = results.map((component, index) => ({
+    component,
+    index,
+  }))
 
   function handleOpenChange(nextOpen: boolean) {
     setOpen(nextOpen)
@@ -80,8 +92,6 @@ export function ComponentSearch() {
   }
 
   useEffect(() => {
-    const applePlatform = isApplePlatform()
-
     function handleShortcut(event: KeyboardEvent) {
       if (!isSearchShortcut(event, applePlatform)) return
 
@@ -91,13 +101,13 @@ export function ComponentSearch() {
 
     document.addEventListener('keydown', handleShortcut)
     return () => document.removeEventListener('keydown', handleShortcut)
-  }, [])
+  }, [applePlatform])
 
   useEffect(() => {
     if (!open) return
 
     document
-      .getElementById(`${listboxId}-option-${highlightedIndex}`)
+      .getElementById(toOptionId(listboxId, highlightedIndex))
       ?.scrollIntoView({ block: 'nearest' })
   }, [open, highlightedIndex, listboxId])
 
@@ -107,7 +117,7 @@ export function ComponentSearch() {
     return (
       <div
         key={component.to}
-        id={optionId(index)}
+        id={toOptionId(listboxId, index)}
         role="option"
         aria-selected={highlighted}
         data-highlighted={highlighted || undefined}
@@ -116,7 +126,7 @@ export function ComponentSearch() {
         className={cn(menuItem, menuItemHighlighted, 'justify-between')}
       >
         <span>{component.label}</span>
-        {resultGroups ? null : (
+        {grouped ? null : (
           <span className="text-muted-foreground text-xs">
             {componentCategoryLabels[component.category]}
           </span>
@@ -126,7 +136,7 @@ export function ComponentSearch() {
   }
 
   function renderResults() {
-    if (!resultGroups) return results.map(renderOption)
+    if (!grouped) return results.map(renderOption)
 
     return resultGroups.map((categoryGroup) => (
       <div
@@ -137,9 +147,11 @@ export function ComponentSearch() {
         <div aria-hidden className={menuLabel}>
           {categoryGroup.label}
         </div>
-        {categoryGroup.components.map((component) =>
-          renderOption(component, results.indexOf(component)),
-        )}
+        {indexedResults
+          .filter(
+            ({ component }) => component.category === categoryGroup.category,
+          )
+          .map(({ component, index }) => renderOption(component, index))}
       </div>
     ))
   }
@@ -155,7 +167,9 @@ export function ComponentSearch() {
           icon={<Search />}
         >
           Search components
-          <kbd className="text-muted-foreground ml-3 font-sans text-xs">⌘K</kbd>
+          <kbd className="text-muted-foreground ml-3 font-sans text-xs">
+            {searchShortcutHint(applePlatform)}
+          </kbd>
         </Button>
       </DialogTrigger>
 
@@ -177,7 +191,9 @@ export function ComponentSearch() {
             aria-expanded={results.length > 0}
             aria-controls={listboxId}
             aria-activedescendant={
-              results.length > 0 ? optionId(highlightedIndex) : undefined
+              results.length > 0
+                ? toOptionId(listboxId, highlightedIndex)
+                : undefined
             }
             placeholder="Name, alias, or category"
             value={query}

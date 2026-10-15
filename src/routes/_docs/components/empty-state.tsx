@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { EmptyStateDemo } from '@/examples/empty-state/demo'
 import demoSource from '@/examples/empty-state/demo.tsx?raw'
@@ -21,15 +22,21 @@ import twoActionsSource from '@/examples/empty-state/two-actions.tsx?raw'
 import usageSource from '@/examples/empty-state/usage.tsx?raw'
 import guidelines from '@/registry/ui/empty-state/guidelines.md?raw'
 
+const title = 'Empty state'
+
+const lead =
+  'A resting block that says why a region holds nothing and what the traveller can do about it, with no surface of its own.'
+
 export const Route = createFileRoute('/_docs/components/empty-state')({
+  head: () => docPageHead(title, lead),
   component: EmptyStatePage,
 })
 
 function EmptyStatePage() {
   return (
     <DocPage
-      title="Empty state"
-      lead="A resting block that says why a region holds nothing and what the traveller can do about it, with no surface of its own."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <EmptyStateDemo /> }}
       installation="empty-state"
       usage={usageSource}
@@ -61,7 +68,13 @@ function EmptyStatePage() {
 
           <Example
             caption="Small with a sticker"
-            description="Small is for a block inside a surface that already carries heading weight. The title drops to a third-level heading to fit the page outline, and the sticker shrinks."
+            description={
+              <>
+                Small is for a block inside a surface that already carries
+                heading weight, and the sticker shrinks with it. Pass{' '}
+                <code>as</code> on the title for an H3 inside a section.
+              </>
+            }
             source={smallStickerSource}
           >
             <EmptyStateSmallSticker />
@@ -127,7 +140,13 @@ function EmptyStatePage() {
           />
           <PropsTable
             component="EmptyStateTitle"
-            description="Required. It labels the region."
+            description={
+              <>
+                Labels the region, through your own <code>id</code> when you
+                pass one. Give every empty state a title: without one the
+                section has no name.
+              </>
+            }
             rows={[
               {
                 name: 'as',
@@ -170,7 +189,10 @@ function EmptyStatePage() {
           />
           <p>
             <code>EmptyStateIcon</code>, <code>EmptyStateDescription</code>, and{' '}
-            <code>EmptyStateActions</code> take only their element’s props.
+            <code>EmptyStateActions</code> take only their element’s props; the
+            description and actions types are{' '}
+            <code>EmptyStateDescriptionProps</code> and{' '}
+            <code>EmptyStateActionsProps</code>.
           </p>
         </>
       }

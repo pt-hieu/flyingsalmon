@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { CardDemo } from '@/examples/card/demo'
 import demoSource from '@/examples/card/demo.tsx?raw'
@@ -19,15 +20,20 @@ import { CardWithAction } from '@/examples/card/with-action'
 import withActionSource from '@/examples/card/with-action.tsx?raw'
 import guidelines from '@/registry/ui/card/guidelines.md?raw'
 
+const title = 'Card'
+
+const lead = 'A flat container that groups related content on one surface.'
+
 export const Route = createFileRoute('/_docs/components/card')({
+  head: () => docPageHead(title, lead),
   component: CardPage,
 })
 
 function CardPage() {
   return (
     <DocPage
-      title="Card"
-      lead="A flat container that groups related content on one surface, fixing only the edge, the padding, and the interaction feedback while you compose what goes inside."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <CardDemo /> }}
       installation="card"
       usage={usageSource}
@@ -39,8 +45,9 @@ function CardPage() {
               <>
                 Pass <code>interactive</code> and put the link directly inside{' '}
                 <code>CardTitle</code>. The link stretches over the whole card,
-                so a click anywhere follows it, while the Save button stays
-                independently clickable.
+                so a click anywhere follows it. Buttons, fields, and labels
+                inside the card stay clickable on their own, like the Save
+                button here.
               </>
             }
             source={interactiveSource}
@@ -63,7 +70,7 @@ function CardPage() {
           </Example>
 
           <Example
-            caption="Static, interactive, and loading"
+            caption="States"
             description="A static card has one state and an interactive card responds to hover, focus, and press. A card whose content is missing shows skeletons in the same layout. Neither kind has a disabled state."
             source={statesSource}
           >
@@ -114,6 +121,9 @@ function CardPage() {
           <p>
             On an interactive card the title link&rsquo;s text is its accessible
             name, so a screen reader hears the trip name and not the whole card.
+            Pass <code>as</code> on <code>CardTitle</code> to make the title a
+            heading, so a screen reader user can jump from card to card by
+            heading.
           </p>
         </>
       }
@@ -127,7 +137,7 @@ function CardPage() {
                 type: 'boolean',
                 default: 'false',
                 description:
-                  'Turns on hover, focus, and press feedback, and stretches the title link over the card. Put the link directly inside CardTitle.',
+                  'Turns on hover, focus, and press feedback, and stretches the title link over the card. Put the link directly inside CardTitle. Buttons, links, fields, labels, and any element with a tabindex in the description, content, action, or footer stay above the stretched link.',
               },
               {
                 name: 'className',
@@ -137,12 +147,30 @@ function CardPage() {
               },
             ]}
           />
+          <PropsTable
+            component="CardTitle"
+            description={
+              <>
+                Takes every <code>&lt;div&gt;</code> attribute, typed as{' '}
+                <code>CardTitleProps</code>.
+              </>
+            }
+            rows={[
+              {
+                name: 'as',
+                type: 'CardTitleElement',
+                default: 'CardTitleElement.Div',
+                description:
+                  'Renders the title as a heading, H2 through H6, so the card is reachable by heading navigation. Pick the level that fits the page outline.',
+              },
+            ]}
+          />
           <p>
-            <code>CardHeader</code>, <code>CardTitle</code>,{' '}
-            <code>CardDescription</code>, <code>CardAction</code>,{' '}
-            <code>CardContent</code>, and <code>CardFooter</code> each render a
-            div and take its props. Use the ones you need. There is no variant
-            and no size: width comes from your layout.
+            <code>CardHeader</code>, <code>CardDescription</code>,{' '}
+            <code>CardAction</code>, <code>CardContent</code>, and{' '}
+            <code>CardFooter</code> each render a div and take its props. Use
+            the ones you need. There is no variant and no size: width comes from
+            your layout.
           </p>
         </>
       }
@@ -159,9 +187,10 @@ function CardPage() {
             draws a 2px ring around the whole card boundary. All three are CSS
             transitions at the fast motion duration. The stretched link is a
             pseudo-element on the title anchor, and descriptions, content,
-            footers, and actions lift their links and buttons above it. The card
-            owns no other motion: list enter, exit, and reorder belong to your
-            app through motion&rsquo;s <code>layout</code> prop.
+            footers, and actions lift their links, buttons, fields, labels, and
+            tabindex elements above it. The card owns no other motion: list
+            enter, exit, and reorder belong to your app through motion&rsquo;s{' '}
+            <code>layout</code> prop.
           </p>
           <p>The focus ring meets 3:1 against both the card and the page.</p>
         </>

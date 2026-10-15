@@ -33,7 +33,36 @@ function EmailField({ id, hint, error, description }: EmailFieldProps) {
   )
 }
 
+interface LabelledGroupProps {
+  label: string
+}
+
+function LabelledGroup({ label }: LabelledGroupProps) {
+  const { fieldId, labelId } = useFieldIds({})
+
+  return (
+    <>
+      <span id={labelId}>{label}</span>
+      <div id={fieldId} role="group" aria-labelledby={labelId} />
+    </>
+  )
+}
+
 describe('useFieldIds with FieldErrorMessage', () => {
+  it('gives each field a label id that names only that field', () => {
+    render(
+      <>
+        <LabelledGroup label="Travellers" />
+        <LabelledGroup label="Rooms" />
+      </>,
+    )
+
+    const [travellers, rooms] = screen.getAllByRole('group')
+
+    expect(travellers).toHaveAccessibleName('Travellers')
+    expect(rooms).toHaveAccessibleName('Rooms')
+  })
+
   it('labels the field through a generated id when the caller gives none', () => {
     render(<EmailField />)
 

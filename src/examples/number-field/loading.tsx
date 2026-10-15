@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { NumberField } from '@/registry/ui/number-field'
 
@@ -6,15 +6,28 @@ export function NumberFieldLoading() {
   const [budgetPerPerson, setBudgetPerPerson] = useState<number | null>(1500)
   const [tripCount, setTripCount] = useState<number>()
   const [pricing, setPricing] = useState(false)
+  const latestPricing = useRef(0)
 
   async function priceBudget(nextBudget: number | null) {
+    latestPricing.current += 1
+    const pricingNumber = latestPricing.current
+
     setBudgetPerPerson(nextBudget)
 
-    if (nextBudget === null) return
+    if (nextBudget === null) {
+      setPricing(false)
+      return
+    }
 
     setPricing(true)
-    setTripCount(await countTripsWithin(nextBudget))
-    setPricing(false)
+
+    try {
+      const nextTripCount = await countTripsWithin(nextBudget)
+
+      if (pricingNumber === latestPricing.current) setTripCount(nextTripCount)
+    } finally {
+      if (pricingNumber === latestPricing.current) setPricing(false)
+    }
   }
 
   return (

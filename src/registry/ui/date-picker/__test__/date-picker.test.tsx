@@ -89,6 +89,38 @@ describe('DatePicker', () => {
     expect(hiddenInput('departure')).toHaveValue('')
   })
 
+  it('drops a refused typed date when the committed date is picked again in the panel', async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+    render(
+      <DatePicker
+        label="Departure"
+        name="departure"
+        defaultValue="2026-03-18"
+        isDateDisabled={(date) => date === '2026-03-05'}
+        onChange={onChange}
+      />,
+    )
+
+    await typeInto(user, segments()[1], '5')
+    expect(
+      await screen.findByText("That date isn't available"),
+    ).toBeInTheDocument()
+
+    await user.click(calendarButton())
+    await user.click(
+      await screen.findByRole('button', { name: /March 18, 2026/ }),
+    )
+
+    await waitFor(() =>
+      expect(
+        screen.queryByText("That date isn't available"),
+      ).not.toBeInTheDocument(),
+    )
+    expect(hiddenInput('departure')).toHaveValue('2026-03-18')
+    expect(onChange).not.toHaveBeenCalled()
+  })
+
   it('describes the field with its description', () => {
     render(<DatePicker label="Departure" description="The day you fly out" />)
 

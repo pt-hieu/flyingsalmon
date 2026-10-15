@@ -1,6 +1,6 @@
 # Docs page template
 
-Every component page is one `DocPage` from `src/components/doc-page`. The template fixes the section order and headings; the page supplies content. The three reference pages are `src/routes/_docs/components/button.tsx` (simple), `dialog.tsx` (composed parts, a notice-backed example), and `combobox.tsx` (a long example ladder). Copy their shape.
+Every component page is one `DocPage` from `src/components/doc-page`. The template fixes the section order and headings; the page supplies content. The route's `head` is `docPageHead(title, lead)`, and a link to another docs page in prose is a `DocTextLink`. The three reference pages are `src/routes/_docs/components/button.tsx` (simple), `dialog.tsx` (composed parts, a notice-backed example), and `combobox.tsx` (a long example ladder). Copy their shape.
 
 ## Sections
 
@@ -91,4 +91,4 @@ The caption is a short noun phrase naming the one idea: "Loading", "Destructive 
 
 `KeyboardTable` takes `rows: { keys: string[]; description }[]`. Each string in `keys` is one key, shown as its own key cap; write a combination as one string (`'Shift+Tab'`). Describe what the key does in this component, including when it does nothing.
 
-`PropsTable` takes `component`, an optional `description`, and `rows: { name, type, default?, required?, description }[]`. Read the props from the component's source in `src/registry/ui/`, never from memory. Write types and defaults as a consumer writes them (`ButtonVariant.Default`, `"button"`). Mark a prop with no default that the consumer must pass as `required`.
+`PropsTable` takes `component`, an optional `description`, and `rows: { name, type, default?, required?, description }[]`. Read the props from the component's source in `src/registry/ui/`, never from memory. Write types and defaults as a consumer writes them (`ButtonVariant.Default`, `"button"`). Mark a prop with no default that the consumer must pass as `required`. A field component takes its shared rows (label, description, size, error, disabled, readOnly, required) from the `field*Row` builders in `src/components/doc-page`, and its related cards from `fieldsRelatedPage`, `choiceFieldsRelatedPage`, and `formRelatedPage`, so every field page words them the same.

@@ -97,8 +97,11 @@ describe('Avatar', () => {
 
   it('falls back to a plain circle when a nameless image breaks', () => {
     const { container } = render(<Avatar src="/missing.png" />)
+    const image = container.querySelector('img')
 
-    fireEvent.error(container.querySelector('img')!)
+    if (!image) throw new Error('The avatar rendered no image')
+
+    fireEvent.error(image)
 
     expect(container.querySelector('img')).toBeNull()
     expect(screen.queryByRole('img')).not.toBeInTheDocument()

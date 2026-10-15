@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { ButtonDemo } from '@/examples/button/demo'
 import demoSource from '@/examples/button/demo.tsx?raw'
@@ -25,15 +26,21 @@ import { ButtonVariants } from '@/examples/button/variants'
 import variantsSource from '@/examples/button/variants.tsx?raw'
 import guidelines from '@/registry/ui/button/guidelines.md?raw'
 
+const title = 'Button'
+
+const lead =
+  "A button triggers one action on the current page and shows that action's busyness itself."
+
 export const Route = createFileRoute('/_docs/components/button')({
+  head: () => docPageHead(title, lead),
   component: ButtonPage,
 })
 
 function ButtonPage() {
   return (
     <DocPage
-      title="Button"
-      lead="A button triggers one action on the current page and shows that action's busyness itself."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <ButtonDemo /> }}
       installation="button"
       usage={usageSource}

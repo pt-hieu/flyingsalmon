@@ -32,16 +32,14 @@ export function CodeBlock({
         className={codeBlockPreClassName}
       >
         <code>
-          {lines.map((tokens, lineIndex) => (
-            <Fragment key={lineIndex}>
-              {lineIndex > 0 ? '\n' : null}
-              {tokens.map((token, tokenIndex) => (
+          {lines.map((line) => (
+            <Fragment key={line.offset}>
+              {line.offset > 0 ? '\n' : null}
+              {line.tokens.map((token) => (
                 <span
-                  key={tokenIndex}
+                  key={token.offset}
                   className={codeTokenClassName}
-                  style={
-                    { '--code-token-color': token.color } as React.CSSProperties
-                  }
+                  style={{ '--code-token-color': token.color }}
                 >
                   {token.content}
                 </span>

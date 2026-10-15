@@ -6,6 +6,7 @@ import {
   KeyboardTable,
   NoticeFrame,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { DialogServerError } from '@/examples/dialog/server-error'
 import dialogServerErrorSource from '@/examples/dialog/server-error.tsx?raw'
@@ -20,15 +21,21 @@ import { NoticeVariants } from '@/examples/notice/variants'
 import variantsSource from '@/examples/notice/variants.tsx?raw'
 import guidelines from '@/registry/ui/notice/guidelines.md?raw'
 
+const title = 'Notice'
+
+const lead =
+  'The shell’s one persistent surface for a result with no visible home: one at a time, announced without moving focus, and always linked back to its subject.'
+
 export const Route = createFileRoute('/_docs/components/notice')({
+  head: () => docPageHead(title, lead),
   component: NoticePage,
 })
 
 function NoticePage() {
   return (
     <DocPage
-      title="Notice"
-      lead="The shell’s one persistent surface for a result with no visible home: one at a time, announced without moving focus, and always linked back to its subject."
+      title={title}
+      lead={lead}
       preview={{
         source: demoSource,
         demo: (
@@ -43,7 +50,7 @@ function NoticePage() {
         <>
           <Example
             caption="Variants"
-            description="The four alert variants. The icon carries the variant on a plain white card, and error is the one that interrupts a screen reader. Each preview is a frame of its own, so the card lands inside the panel and not at the top of this page."
+            description="The four alert variants. The icon carries the variant on a plain white card, and error is the one that interrupts a screen reader."
             source={variantsSource}
           >
             <NoticeFrame>
@@ -172,10 +179,10 @@ function NoticePage() {
               },
               {
                 name: 'subject',
-                type: 'ReactElement',
+                type: 'NoticeSubject',
                 required: true,
                 description:
-                  'An anchor or a button the notice places under the description and styles as a link. Put offsetFocusRingGeometry from the interaction lib on it for the focus ring.',
+                  'A bare anchor or button. The notice places it under the description and styles it as a link with its focus ring.',
               },
               {
                 name: 'onDismiss',

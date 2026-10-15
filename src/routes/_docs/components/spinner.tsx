@@ -1,6 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { DocPage, Example, PropsTable } from '@/components/doc-page'
+import {
+  DocPage,
+  Example,
+  PropsTable,
+  docPageHead,
+} from '@/components/doc-page'
 import { SpinnerColour } from '@/examples/spinner/colour'
 import colourSource from '@/examples/spinner/colour.tsx?raw'
 import { SpinnerDemo } from '@/examples/spinner/demo'
@@ -12,15 +17,21 @@ import sizesSource from '@/examples/spinner/sizes.tsx?raw'
 import usageSource from '@/examples/spinner/usage.tsx?raw'
 import guidelines from '@/registry/ui/spinner/guidelines.md?raw'
 
+const title = 'Spinner'
+
+const lead =
+  'The loading mark for a running action, embedded in the button and standing alone for an inline working moment.'
+
 export const Route = createFileRoute('/_docs/components/spinner')({
+  head: () => docPageHead(title, lead),
   component: SpinnerPage,
 })
 
 function SpinnerPage() {
   return (
     <DocPage
-      title="Spinner"
-      lead="The loading mark for a running action, embedded in the button and standing alone for an inline working moment."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <SpinnerDemo /> }}
       installation="spinner"
       usage={usageSource}

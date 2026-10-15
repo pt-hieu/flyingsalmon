@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { ErrorStateDemo } from '@/examples/error-state/demo'
 import demoSource from '@/examples/error-state/demo.tsx?raw'
@@ -15,15 +16,21 @@ import smallInACardSource from '@/examples/error-state/small-in-a-card.tsx?raw'
 import usageSource from '@/examples/error-state/usage.tsx?raw'
 import guidelines from '@/registry/ui/error-state/guidelines.md?raw'
 
+const title = 'Error state'
+
+const lead =
+  'An empty state for content that failed to arrive: it says what happened and what the traveller can do about it, and is announced when it appears.'
+
 export const Route = createFileRoute('/_docs/components/error-state')({
+  head: () => docPageHead(title, lead),
   component: ErrorStatePage,
 })
 
 function ErrorStatePage() {
   return (
     <DocPage
-      title="Error state"
-      lead="An empty state for content that failed to arrive: it says what happened and what the traveller can do about it, and is announced when it appears."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <ErrorStateDemo /> }}
       installation="error-state"
       usage={usageSource}
@@ -31,7 +38,13 @@ function ErrorStatePage() {
         <>
           <Example
             caption="Small in a card"
-            description="Small is for one region among others. The icon replaces the sticker and the title steps down to a third-level heading, so the card stays in proportion."
+            description={
+              <>
+                Small is for one region among others: an icon replaces the
+                sticker and the type shrinks, so the card stays in proportion.
+                Pass <code>as</code> on the title for an H3 inside a section.
+              </>
+            }
             source={smallInACardSource}
           >
             <ErrorStateSmallInACard />

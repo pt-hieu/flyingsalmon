@@ -1,7 +1,5 @@
 import { Link } from '@tanstack/react-router'
 
-import { cn } from '@/lib/utils'
-import { offsetFocusRingGeometry } from '@/registry/lib/interaction'
 import { AlertVariant } from '@/registry/ui/alert'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import { useNotice } from '@/registry/ui/notice'
@@ -9,17 +7,7 @@ import { useNotice } from '@/registry/ui/notice'
 export function NoticeReplacement() {
   const { show } = useNotice()
 
-  const tripLink = (
-    <Link
-      to="/components/notice"
-      className={cn(
-        offsetFocusRingGeometry,
-        'ring-ring focus-visible:ring-offset-card rounded-sm',
-      )}
-    >
-      View the trip
-    </Link>
-  )
+  const tripLink = <Link to="/components/notice">View the trip</Link>
 
   return (
     <div className="flex flex-wrap justify-center gap-2">

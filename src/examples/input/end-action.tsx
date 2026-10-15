@@ -8,10 +8,16 @@ const inviteLink = 'https://example.com/join/lisbon-long-weekend'
 
 export function InputEndAction() {
   const [copied, setCopied] = useState(false)
+  const [copyFailed, setCopyFailed] = useState(false)
 
   async function copyInviteLink() {
-    await navigator.clipboard.writeText(inviteLink)
-    setCopied(true)
+    try {
+      await navigator.clipboard.writeText(inviteLink)
+      setCopied(true)
+      setCopyFailed(false)
+    } catch {
+      setCopyFailed(true)
+    }
   }
 
   return (
@@ -20,6 +26,11 @@ export function InputEndAction() {
       label="Invite link"
       value={inviteLink}
       readOnly
+      error={
+        copyFailed
+          ? 'The link was not copied. Select it and copy it.'
+          : undefined
+      }
       onBlur={() => setCopied(false)}
       endAdornment={
         <Button

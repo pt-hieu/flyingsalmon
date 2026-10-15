@@ -9,21 +9,30 @@ import {
 import { ErrorState } from '@/registry/ui/error-state'
 import { Skeleton } from '@/registry/ui/skeleton'
 
+enum PlacesStatus {
+  Loading = 'loading',
+  Failed = 'failed',
+  Loaded = 'loaded',
+}
+
 export function ErrorStateRetry() {
-  const [loading, setLoading] = useState(false)
-  const [failed, setFailed] = useState(true)
+  const [status, setStatus] = useState(PlacesStatus.Failed)
   const [attempts, setAttempts] = useState(0)
 
   async function loadPlaces() {
-    setFailed(false)
-    setLoading(true)
-    const loaded = await fetchPlaces(attempts)
-    setAttempts(attempts + 1)
-    setLoading(false)
-    setFailed(!loaded)
+    setStatus(PlacesStatus.Loading)
+
+    try {
+      const loaded = await fetchPlaces(attempts)
+      setStatus(loaded ? PlacesStatus.Loaded : PlacesStatus.Failed)
+    } catch {
+      setStatus(PlacesStatus.Failed)
+    } finally {
+      setAttempts((currentAttempts) => currentAttempts + 1)
+    }
   }
 
-  if (loading) {
+  if (status === PlacesStatus.Loading) {
     return (
       <div aria-busy="true" className="w-full max-w-sm space-y-3">
         <Skeleton />
@@ -33,7 +42,7 @@ export function ErrorStateRetry() {
     )
   }
 
-  if (failed) {
+  if (status === PlacesStatus.Failed) {
     return (
       <ErrorState>
         <EmptyStateTitle>The places did not load</EmptyStateTitle>

@@ -1,86 +1,72 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { GuidelineVerdict } from '@/components/doc-page'
-import { FoundationPage } from '@/components/foundation-page'
-import type { TokenRow } from '@/components/foundation-page'
+import {
+  FoundationPage,
+  GuidelineVerdict,
+  TokenSample,
+  docPageHead,
+} from '@/components/doc-page'
+import type { FoundationTableRow } from '@/components/doc-page'
+import { cn } from '@/lib/utils'
+
+const title = 'Fields'
+
+const principle =
+  'A field owns its label, its error, and its busyness, so a form is only fields in a column.'
 
 export const Route = createFileRoute('/_docs/fields')({
+  head: () => docPageHead(title, principle),
   component: FieldsPage,
 })
 
-function boxSample(heightClassName: string) {
-  return (
-    <span
-      aria-hidden
-      className={`${heightClassName} border-input bg-card block w-20 rounded-md border`}
-    />
-  )
-}
+const boxSampleClassName = 'border-input bg-card h-8 w-20 rounded-md border'
 
-const sizeRows: TokenRow[] = [
+const sizeRows: FoundationTableRow[] = [
   {
-    sample: boxSample('h-9'),
-    token: 'Default',
-    value: 'h-9, px-3',
+    sample: <TokenSample className={cn(boxSampleClassName, 'h-9')} />,
+    name: 'Default',
+    detail: 'h-9, px-3',
     job: 'The standard field. It matches the default button, so a field and its submit button line up in a row.',
   },
   {
-    sample: boxSample('h-8'),
-    token: 'Small',
-    value: 'h-8, px-2.5',
+    sample: <TokenSample className={boxSampleClassName} />,
+    name: 'Small',
+    detail: 'h-8, px-2.5',
     job: 'A dense field. It matches the small button and the small chip.',
   },
 ]
 
-const stateRows: TokenRow[] = [
+const stateRows: FoundationTableRow[] = [
   {
-    sample: boxSample('h-8'),
-    token: 'description',
-    value: 'Muted text under the box',
+    sample: <TokenSample className={boxSampleClassName} />,
+    name: 'description',
+    detail: 'Muted text under the box',
     job: 'Helper text that a screen reader reads with the field. It stays when an error arrives.',
   },
   {
     sample: (
-      <span
-        aria-hidden
-        className="border-destructive bg-card block h-8 w-20 rounded-md border"
-      />
+      <TokenSample className={cn(boxSampleClassName, 'border-destructive')} />
     ),
-    token: 'error',
-    value: 'Destructive border, ring, label, and message',
+    name: 'error',
+    detail: 'Destructive border, ring, label, and message',
     job: 'The field owns the whole failure. The message renders below the box and the field grows downward only.',
   },
   {
-    sample: (
-      <span
-        aria-hidden
-        className="border-input bg-card block h-8 w-20 rounded-md border"
-      />
-    ),
-    token: 'loading',
-    value: 'A spinner in the end slot',
+    sample: <TokenSample className={boxSampleClassName} />,
+    name: 'loading',
+    detail: 'A spinner in the end slot',
     job: 'Background work such as a search or a name check. The field stays editable.',
   },
   {
-    sample: (
-      <span
-        aria-hidden
-        className="border-input bg-card block h-8 w-20 rounded-md border opacity-50"
-      />
-    ),
-    token: 'disabled',
-    value: 'Dimmed field and label',
+    sample: <TokenSample className={cn(boxSampleClassName, 'opacity-50')} />,
+    name: 'disabled',
+    detail: 'Dimmed field and label',
     job: 'No pointer events, and nothing posts, like a native disabled control.',
   },
   {
-    sample: (
-      <span
-        aria-hidden
-        className="border-input bg-muted block h-8 w-20 rounded-md border"
-      />
-    ),
-    token: 'readOnly',
-    value: 'Muted background, full contrast',
+    sample: <TokenSample className={cn(boxSampleClassName, 'bg-muted')} />,
+    name: 'readOnly',
+    detail: 'Muted background, full contrast',
     job: 'The value stays readable, focusable, and selectable.',
   },
 ]
@@ -88,8 +74,8 @@ const stateRows: TokenRow[] = [
 function FieldsPage() {
   return (
     <FoundationPage
-      title="Fields"
-      principle="A field owns its label, its error, and its busyness, so a form is only fields in a column."
+      title={title}
+      principle={principle}
       introduction={
         <p>
           Input, textarea, select, number field, date picker, and combobox share
@@ -98,8 +84,8 @@ function FieldsPage() {
           panel.
         </p>
       }
-      tokensTitle="Anatomy and states"
-      tokenSections={[
+      tablesTitle="Anatomy and states"
+      tables={[
         {
           title: 'Sizes',
           description:
@@ -208,15 +194,15 @@ function FieldsPage() {
       rules={[
         {
           verdict: GuidelineVerdict.Do,
-          rule: 'Pass label, description, and error to the field.',
+          rule: 'Keep a field’s label, description, and error inside the field.',
           reason:
-            'The field wires the label to the control and the message to its accessible description, so you never have to.',
+            'The field wires the label to the control and the message to its accessible description, so a screen reader hears them with the control.',
         },
         {
           verdict: GuidelineVerdict.Do,
-          rule: 'Put width on the field with className.',
+          rule: 'Give a field’s label, message, and box one width.',
           reason:
-            'The wrapper holds the label and the message, so they all take the same width as the box.',
+            'The wrapper holds all three, so a width set on the field with className sizes them together.',
         },
         {
           verdict: GuidelineVerdict.Do,

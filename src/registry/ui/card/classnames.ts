@@ -3,7 +3,19 @@ import { cva } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const aboveStretchedLinkClasses =
-  '[&_a]:relative [&_a]:z-10 [&_button]:relative [&_button]:z-10'
+  '[&_:is(a,button,input,select,textarea,label,[tabindex]):not([aria-hidden=true],[type=hidden])]:relative [&_:is(a,button,input,select,textarea,label,[tabindex]):not([aria-hidden=true],[type=hidden])]:z-10'
+
+const aboveStretchedLinkVariants = {
+  variants: {
+    interactive: {
+      true: aboveStretchedLinkClasses,
+      false: '',
+    },
+  },
+  defaultVariants: {
+    interactive: false,
+  },
+}
 
 export const cardVariants = cva(
   cn(
@@ -26,7 +38,7 @@ export const cardVariants = cva(
   },
 )
 
-export const cardHeaderVariants = cva('flex flex-col gap-1 px-(--card-spacing)')
+export const cardHeaderClassName = 'flex flex-col gap-1 px-(--card-spacing)'
 
 export const cardTitleVariants = cva(
   'font-heading leading-none font-semibold',
@@ -50,56 +62,22 @@ export const cardTitleVariants = cva(
   },
 )
 
-export const cardDescriptionVariants = cva('text-muted-foreground text-sm', {
-  variants: {
-    interactive: {
-      true: aboveStretchedLinkClasses,
-      false: '',
-    },
-  },
-  defaultVariants: {
-    interactive: false,
-  },
-})
+export const cardDescriptionVariants = cva(
+  'text-muted-foreground text-sm',
+  aboveStretchedLinkVariants,
+)
 
 export const cardActionVariants = cva(
   'mt-auto flex items-center justify-end gap-2 px-(--card-spacing)',
-  {
-    variants: {
-      interactive: {
-        true: aboveStretchedLinkClasses,
-        false: '',
-      },
-    },
-    defaultVariants: {
-      interactive: false,
-    },
-  },
+  aboveStretchedLinkVariants,
 )
 
-export const cardContentVariants = cva('px-(--card-spacing)', {
-  variants: {
-    interactive: {
-      true: aboveStretchedLinkClasses,
-      false: '',
-    },
-  },
-  defaultVariants: {
-    interactive: false,
-  },
-})
+export const cardContentVariants = cva(
+  'px-(--card-spacing)',
+  aboveStretchedLinkVariants,
+)
 
 export const cardFooterVariants = cva(
   'flex items-center gap-2 px-(--card-spacing)',
-  {
-    variants: {
-      interactive: {
-        true: aboveStretchedLinkClasses,
-        false: '',
-      },
-    },
-    defaultVariants: {
-      interactive: false,
-    },
-  },
+  aboveStretchedLinkVariants,
 )

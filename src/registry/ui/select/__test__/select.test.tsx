@@ -143,6 +143,42 @@ describe('Select', () => {
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
   })
 
+  it('lets Tab and Shift+Tab move focus off a loading trigger', async () => {
+    const user = userEvent.setup()
+    render(
+      <>
+        <button type="button">Before</button>
+        <FruitSelect loading />
+        <button type="button">After</button>
+      </>,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'Before' }))
+    await user.tab()
+    expect(screen.getByRole('combobox', { name: 'Fruit' })).toHaveFocus()
+
+    await user.tab()
+    expect(screen.getByRole('button', { name: 'After' })).toHaveFocus()
+
+    await user.tab({ shift: true })
+    await user.tab({ shift: true })
+    expect(screen.getByRole('button', { name: 'Before' })).toHaveFocus()
+  })
+
+  it('keeps its value when an item is typed on a loading trigger', async () => {
+    const onValueChange = vi.fn()
+    const user = userEvent.setup()
+    render(<FruitSelect loading onValueChange={onValueChange} />)
+
+    await user.tab()
+    await user.keyboard('banana')
+
+    expect(onValueChange).not.toHaveBeenCalled()
+    expect(screen.getByRole('combobox', { name: 'Fruit' })).toHaveTextContent(
+      'Choose a fruit',
+    )
+  })
+
   it('blocks opening while disabled', async () => {
     const user = userEvent.setup()
     render(<FruitSelect disabled />)
@@ -161,14 +197,11 @@ describe('Select', () => {
       </form>,
     )
 
-    const hiddenSelect = document.querySelector(
-      'select[name="fruit"]',
-    ) as HTMLSelectElement
+    const form = document.querySelector('form')
 
-    expect(hiddenSelect).not.toBeNull()
-    expect(new FormData(hiddenSelect.closest('form')!).get('fruit')).toBe(
-      'cherry',
-    )
+    if (!form) throw new Error('No form rendered')
+
+    expect(new FormData(form).get('fruit')).toBe('cherry')
   })
 
   it('fails native required validation with no value chosen', () => {

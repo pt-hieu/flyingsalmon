@@ -4,10 +4,14 @@ import { cn } from '@/lib/utils'
 
 import { dialogDescriptionClassName } from './classnames'
 
+export interface DialogDescriptionProps extends React.ComponentProps<
+  typeof DialogPrimitive.Description
+> {}
+
 export function DialogDescription({
   className,
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Description>) {
+}: DialogDescriptionProps) {
   return (
     <DialogPrimitive.Description
       className={cn(dialogDescriptionClassName, className)}

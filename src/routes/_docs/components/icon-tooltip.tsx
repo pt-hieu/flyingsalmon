@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { IconTooltipDemo } from '@/examples/icon-tooltip/demo'
 import demoSource from '@/examples/icon-tooltip/demo.tsx?raw'
@@ -15,15 +16,21 @@ import onACardSource from '@/examples/icon-tooltip/on-a-card.tsx?raw'
 import usageSource from '@/examples/icon-tooltip/usage.tsx?raw'
 import guidelines from '@/registry/ui/icon-tooltip/guidelines.md?raw'
 
+const title = 'Icon tooltip'
+
+const lead =
+  'A focusable icon or emoji named by its tooltip text, so every standalone icon explains itself.'
+
 export const Route = createFileRoute('/_docs/components/icon-tooltip')({
+  head: () => docPageHead(title, lead),
   component: IconTooltipPage,
 })
 
 function IconTooltipPage() {
   return (
     <DocPage
-      title="Icon tooltip"
-      lead="A focusable icon or emoji named by its tooltip text, so every standalone icon explains itself."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <IconTooltipDemo /> }}
       installation="icon-tooltip"
       usage={usageSource}

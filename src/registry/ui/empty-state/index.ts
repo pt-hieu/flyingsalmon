@@ -1,6 +1,12 @@
 export { EmptyState, type EmptyStateProps } from './empty-state'
-export { EmptyStateActions } from './empty-state-actions'
-export { EmptyStateDescription } from './empty-state-description'
+export {
+  EmptyStateActions,
+  type EmptyStateActionsProps,
+} from './empty-state-actions'
+export {
+  EmptyStateDescription,
+  type EmptyStateDescriptionProps,
+} from './empty-state-description'
 export { EmptyStateIcon, type EmptyStateIconProps } from './empty-state-icon'
 export {
   EmptyStateSticker,

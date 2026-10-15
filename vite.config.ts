@@ -5,6 +5,10 @@ import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
+function isBarePath({ path }: { path: string }) {
+  return !path.includes('?')
+}
+
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
   plugins: [
@@ -14,8 +18,7 @@ const config = defineConfig({
         enabled: true,
         crawlLinks: true,
         autoSubfolderIndex: false,
-        // A search-param variant writes to the same .html file as its bare path.
-        filter: ({ path }) => !path.includes('?'),
+        filter: isBarePath,
       },
     }),
     viteReact(),

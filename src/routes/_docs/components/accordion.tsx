@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { AccordionControlled } from '@/examples/accordion/controlled'
 import controlledSource from '@/examples/accordion/controlled.tsx?raw'
@@ -21,15 +22,21 @@ import singleSource from '@/examples/accordion/single.tsx?raw'
 import usageSource from '@/examples/accordion/usage.tsx?raw'
 import guidelines from '@/registry/ui/accordion/guidelines.md?raw'
 
+const title = 'Accordion'
+
+const lead =
+  'A vertical stack of headings that each reveal a panel, for secondary content that helps some readers and should not crowd the rest.'
+
 export const Route = createFileRoute('/_docs/components/accordion')({
+  head: () => docPageHead(title, lead),
   component: AccordionPage,
 })
 
 function AccordionPage() {
   return (
     <DocPage
-      title="Accordion"
-      lead="A vertical stack of headings that each reveal a panel, for secondary content that helps some readers and should not crowd the rest."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <AccordionDemo /> }}
       installation="accordion"
       usage={usageSource}
@@ -52,7 +59,7 @@ function AccordionPage() {
           </Example>
 
           <Example
-            caption="A disabled item"
+            caption="Disabled item"
             description="Disabling dims the trigger and drops it from the arrow path, but an open panel stays readable, because disabling never hides content."
             source={disabledSource}
           >
@@ -60,7 +67,7 @@ function AccordionPage() {
           </Example>
 
           <Example
-            caption="Triggers that carry more than a label"
+            caption="Rich triggers"
             description="A trigger takes any phrasing content: a status badge with a summary line, a title long enough to wrap, a count. The chevron stays on the first line, where the eye starts reading."
             source={richTriggersSource}
           >
@@ -68,7 +75,7 @@ function AccordionPage() {
           </Example>
 
           <Example
-            caption="Panels that do work"
+            caption="Forms in panels"
             description="A panel is a plain container for fields, choices, and actions. Send a note with nothing typed to see a field error, then with text to see the result appear under the actions row, inside the panel that produced it."
             source={panelsThatDoWorkSource}
           >
@@ -76,7 +83,7 @@ function AccordionPage() {
           </Example>
 
           <Example
-            caption="Driven from outside"
+            caption="Controlled"
             description="Pair value with onValueChange and the open set becomes the app's state: expand all, collapse all, or open the item a search matched."
             source={controlledSource}
           >
@@ -222,8 +229,8 @@ function AccordionPage() {
           <p>
             The divider answers to the trigger, not the panel: the item watches
             its own <code>[data-slot=&quot;accordion-trigger&quot;]</code> for
-            hover and <code>:focus-visible</code>, so a hovered or focused
-            control inside an open panel leaves the divider at rest.
+            hover and <code>:focus-visible</code>, so a control under the
+            pointer or focused inside an open panel leaves the divider at rest.
           </p>
           <p>
             The panel animates height only, from 0 to the Radix content height,

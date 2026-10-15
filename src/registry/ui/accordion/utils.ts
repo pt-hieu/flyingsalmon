@@ -1,6 +1,6 @@
 import { isValidElement } from 'react'
 
-export function onlyHeadingElement(children: React.ReactNode) {
+export function onlySingleElement(children: React.ReactNode) {
   if (
     !isValidElement<{
       children?: React.ReactNode

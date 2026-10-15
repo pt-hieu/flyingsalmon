@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react'
 
-const holdRepeatDelayMs = 400
-const holdRepeatIntervalMs = 60
+const holdRepeatDelayMilliseconds = 400
+const holdRepeatIntervalMilliseconds = 60
 
 export function useHoldRepeat(action: () => void) {
   const actionRef = useRef(action)
@@ -31,8 +31,8 @@ export function useHoldRepeat(action: () => void) {
     delayTimeoutRef.current = setTimeout(() => {
       repeatIntervalRef.current = setInterval(() => {
         actionRef.current()
-      }, holdRepeatIntervalMs)
-    }, holdRepeatDelayMs)
+      }, holdRepeatIntervalMilliseconds)
+    }, holdRepeatDelayMilliseconds)
   }, [stopHoldRepeat])
 
   useEffect(() => stopHoldRepeat, [stopHoldRepeat])

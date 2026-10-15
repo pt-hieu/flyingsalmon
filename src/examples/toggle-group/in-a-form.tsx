@@ -23,23 +23,27 @@ export function ToggleGroupInAForm() {
   async function saveInterests(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setSaving(true)
-    await waitForServer()
-    setSavedInterests(draftInterests)
-    setSaving(false)
+
+    try {
+      await waitForServer()
+      setSavedInterests(draftInterests)
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>Brian Nguyen&rsquo;s interests</CardTitle>
-        <CardDescription>
-          {savedInterests.length > 0
-            ? `Saved: ${savedInterests.join(', ')}`
-            : 'Nothing saved yet'}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form onSubmit={saveInterests}>
+    <Form className="w-full max-w-md" onSubmit={saveInterests}>
+      <Card>
+        <CardHeader>
+          <CardTitle>Brian Nguyen&rsquo;s interests</CardTitle>
+          <CardDescription>
+            {savedInterests.length > 0
+              ? `Saved: ${savedInterests.join(', ')}`
+              : 'Nothing saved yet'}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
           <ToggleGroup
             label="Interests"
             name="interests"
@@ -51,14 +55,14 @@ export function ToggleGroupInAForm() {
             <ToggleGroupItem value="museums">Museums</ToggleGroupItem>
             <ToggleGroupItem value="hikes">Hikes</ToggleGroupItem>
           </ToggleGroup>
-          <FormActions>
-            <Button type="submit" loading={saving}>
-              Save interests
-            </Button>
-          </FormActions>
-        </Form>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+      <FormActions>
+        <Button type="submit" loading={saving}>
+          Save interests
+        </Button>
+      </FormActions>
+    </Form>
   )
 }
 

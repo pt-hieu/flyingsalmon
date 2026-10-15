@@ -1,10 +1,10 @@
 import { createCssVariablesTheme, createHighlighterCoreSync } from 'shiki/core'
-import type { HighlighterCore, ThemedToken } from 'shiki/core'
+import type { HighlighterCore } from 'shiki/core'
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript'
 import bash from 'shiki/langs/bash.mjs'
 import tsx from 'shiki/langs/tsx.mjs'
 
-import type { CodeLanguage } from './types'
+import type { CodeLanguage, HighlightedLine } from './types'
 
 const themeName = 'flyingsalmon'
 
@@ -45,9 +45,20 @@ function getHighlighter() {
 export function highlightCode(
   code: string,
   language: CodeLanguage,
-): ThemedToken[][] {
-  return getHighlighter().codeToTokens(code, {
+): HighlightedLine[] {
+  const lineTokens = getHighlighter().codeToTokens(code, {
     lang: language,
     theme: themeName,
   }).tokens
+
+  const lines: HighlightedLine[] = []
+  let offset = 0
+
+  for (const tokens of lineTokens) {
+    lines.push({ offset, tokens })
+    offset += tokens.reduce((length, token) => length + token.content.length, 0)
+    offset += 1
+  }
+
+  return lines
 }

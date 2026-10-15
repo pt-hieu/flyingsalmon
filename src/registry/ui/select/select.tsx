@@ -6,12 +6,12 @@ import { cn } from '@/lib/utils'
 import {
   FieldDescription,
   FieldErrorMessage,
-  FieldLabelPlacement,
   fieldLabelVariants,
+  FieldLabelPlacement,
   useFieldIds,
 } from '@/registry/lib/field'
 
-import { Spinner, SpinnerSize } from '../spinner'
+import { Spinner } from '../spinner'
 
 import {
   selectChevronClassName,
@@ -23,6 +23,7 @@ import {
 } from './classnames'
 import { SelectPanel } from './select-panel'
 import { SelectPanelAlign, SelectPanelSide, SelectSize } from './types'
+import { spinnerSizeFor } from './utils'
 
 export interface SelectProps extends Omit<
   React.ComponentProps<typeof SelectPrimitive.Root>,
@@ -53,13 +54,6 @@ export function Select({
   'aria-describedby': callerDescribedBy,
   disabled,
   required,
-  name,
-  value,
-  defaultValue,
-  onValueChange,
-  open,
-  defaultOpen,
-  onOpenChange,
   side = SelectPanelSide.Bottom,
   align = SelectPanelAlign.Center,
   className,
@@ -79,6 +73,12 @@ export function Select({
   function guardOpeningWhileLoading(event: { preventDefault: () => void }) {
     if (loading) {
       event.preventDefault()
+    }
+  }
+
+  function guardKeyWhileLoading(event: React.KeyboardEvent) {
+    if (event.key !== 'Tab') {
+      guardOpeningWhileLoading(event)
     }
   }
 
@@ -102,18 +102,7 @@ export function Select({
         </label>
       ) : null}
 
-      <SelectPrimitive.Root
-        value={value}
-        defaultValue={defaultValue}
-        onValueChange={onValueChange}
-        open={open}
-        defaultOpen={defaultOpen}
-        onOpenChange={onOpenChange}
-        disabled={disabled}
-        required={required}
-        name={name}
-        {...props}
-      >
+      <SelectPrimitive.Root disabled={disabled} required={required} {...props}>
         <SelectPrimitive.Trigger
           ref={triggerRef}
           id={fieldId}
@@ -121,7 +110,7 @@ export function Select({
           aria-busy={loading || undefined}
           aria-describedby={describedBy}
           onPointerDown={guardOpeningWhileLoading}
-          onKeyDown={guardOpeningWhileLoading}
+          onKeyDown={guardKeyWhileLoading}
           onClick={guardOpeningWhileLoading}
           className={selectTriggerVariants({ size })}
         >
@@ -133,11 +122,7 @@ export function Select({
             {loading ? (
               <Spinner
                 aria-hidden
-                size={
-                  size === SelectSize.Small
-                    ? SpinnerSize.Small
-                    : SpinnerSize.Default
-                }
+                size={spinnerSizeFor(size)}
                 className={hasError ? selectSpinnerErrorClassName : undefined}
               />
             ) : (

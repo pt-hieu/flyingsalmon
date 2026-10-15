@@ -6,7 +6,7 @@ Design guidelines for the flyingsalmon Combobox component. An alternative linked
 
 - To choose from a list too long to scan, where typing is faster: a destination, a departure city.
 - To collect several values as chips: interests, the travellers on a trip.
-- When the right answer may not be on the list, with allowFreeText.
+- To accept an answer that may not be on the list, such as a place nobody has added yet.
 
 ## When not to use
 

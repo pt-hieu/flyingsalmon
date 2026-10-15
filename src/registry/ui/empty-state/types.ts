@@ -11,4 +11,5 @@ export enum EmptyStateTitleElement {
 export interface EmptyStateContextValue {
   size: EmptyStateSize
   titleId?: string
+  registerTitleId?: (titleId: string | undefined) => void
 }

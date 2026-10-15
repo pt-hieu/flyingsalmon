@@ -1,4 +1,4 @@
-import type { Transition } from 'motion/react'
+import type { MotionProps, Transition } from 'motion/react'
 
 export const motionDurations = {
   fast: 0.1,
@@ -16,6 +16,12 @@ export const springSettle: Transition = {
   visualDuration: motionDurations.base,
   bounce: 0,
 }
+
+export const collapsePresence = {
+  initial: { height: 0, opacity: 0 },
+  animate: { height: 'auto', opacity: 1, transition: springSettle },
+  exit: { height: 0, opacity: 0, transition: springSettle },
+} satisfies Pick<MotionProps, 'initial' | 'animate' | 'exit'>
 
 export const continuousDurations = {
   spinnerRotation: 0.8,

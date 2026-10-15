@@ -1,8 +1,5 @@
-import {
-  exampleCaptionClassName,
-  exampleClassName,
-  exampleDescriptionClassName,
-} from './classnames'
+import { exampleClassName, exampleDescriptionClassName } from './classnames'
+import { DocSubheading } from './doc-subheading'
 import { ExampleFrame } from './example-frame'
 import { toAnchorId } from './utils'
 
@@ -23,7 +20,7 @@ export function Example({
 
   return (
     <div id={anchorId} className={exampleClassName}>
-      <h3 className={exampleCaptionClassName}>{caption}</h3>
+      <DocSubheading>{caption}</DocSubheading>
 
       {description ? (
         <p className={exampleDescriptionClassName}>{description}</p>

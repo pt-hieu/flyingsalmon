@@ -22,7 +22,7 @@ Design guidelines for the flyingsalmon Input component. An alternative linked to
   **Why:** The border, the label, and the message sit next to the text that caused the failure. Clearing on the first keystroke shows the field is listening, not scolding.
 - **Don't:** Lock the field while it checks a value.
   **Why:** A spinner in the end slot shows the check and the field stays editable, so a typo can be fixed while it runs. Only the submit button locks a flow.
-- **Do:** Put the copy action for a read-only value inside the field, as a ghost icon button, and confirm the copy in a muted line under the field.
-  **Why:** The action sits next to the value it acts on, and the confirmation appears where the traveller is already looking.
+- **Do:** Put the copy action for a read-only value inside the field, as a ghost icon button, and confirm the copy by turning its icon to a check.
+  **Why:** The action sits next to the value it acts on, and the confirmation appears on the button the traveller just pressed.
 - **Don't:** Stretch a field across the whole column when its answer is short.
   **Why:** The width tells the traveller how long an answer you expect. A postcode in a full-width field looks like it wants a paragraph.

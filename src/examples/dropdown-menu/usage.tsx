@@ -6,19 +6,23 @@ import {
   DropdownMenuTrigger,
 } from '@/registry/ui/dropdown-menu'
 
-export function DropdownMenuUsage() {
+interface DropdownMenuUsageProps {
+  onRename: () => void
+  onDuplicate: () => void
+}
+
+export function DropdownMenuUsage({
+  onRename,
+  onDuplicate,
+}: DropdownMenuUsageProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Button variant={ButtonVariant.Outline}>Trip actions</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem onSelect={() => console.log('Rename')}>
-          Rename
-        </DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => console.log('Duplicate')}>
-          Duplicate
-        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={onRename}>Rename</DropdownMenuItem>
+        <DropdownMenuItem onSelect={onDuplicate}>Duplicate</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

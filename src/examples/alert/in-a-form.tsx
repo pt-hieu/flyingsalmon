@@ -1,4 +1,4 @@
-import { useId, useState } from 'react'
+import { useState } from 'react'
 
 import {
   Alert,
@@ -7,10 +7,10 @@ import {
   AlertVariant,
 } from '@/registry/ui/alert'
 import { Button, ButtonVariant } from '@/registry/ui/button'
+import { Form } from '@/registry/ui/form'
 import { Input, InputType } from '@/registry/ui/input'
 
 export function AlertInAForm() {
-  const formId = useId()
   const [loading, setLoading] = useState(false)
   const [failed, setFailed] = useState(false)
 
@@ -18,17 +18,28 @@ export function AlertInAForm() {
     event.preventDefault()
     setFailed(false)
     setLoading(true)
-    await waitForServer()
-    setLoading(false)
-    setFailed(true)
+
+    try {
+      await waitForServer()
+      setFailed(true)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
-    <form
-      id={formId}
-      noValidate
+    <Form
       onSubmit={inviteTraveller}
-      className="flex w-80 flex-col gap-4"
+      onReset={() => setFailed(false)}
+      className="w-80 gap-4"
+      result={
+        <Alert variant={AlertVariant.Error} open={failed}>
+          <AlertTitle>The invite was not sent</AlertTitle>
+          <AlertDescription>
+            The server did not answer. Your details are kept; try again.
+          </AlertDescription>
+        </Alert>
+      }
     >
       <Input
         label="Email"
@@ -43,13 +54,7 @@ export function AlertInAForm() {
           Invite traveller
         </Button>
       </div>
-      <Alert variant={AlertVariant.Error} open={failed}>
-        <AlertTitle>The invite was not sent</AlertTitle>
-        <AlertDescription>
-          The server did not answer. Your details are kept; try again.
-        </AlertDescription>
-      </Alert>
-    </form>
+    </Form>
   )
 }
 

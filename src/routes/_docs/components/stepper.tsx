@@ -1,6 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { DocPage, Example, PropsTable } from '@/components/doc-page'
+import {
+  DocPage,
+  Example,
+  PropsTable,
+  docPageHead,
+} from '@/components/doc-page'
 import { StepperDemo } from '@/examples/stepper/demo'
 import demoSource from '@/examples/stepper/demo.tsx?raw'
 import { StepperForwardAndBack } from '@/examples/stepper/forward-and-back'
@@ -10,15 +15,21 @@ import growingCountSource from '@/examples/stepper/growing-count.tsx?raw'
 import usageSource from '@/examples/stepper/usage.tsx?raw'
 import guidelines from '@/registry/ui/stepper/guidelines.md?raw'
 
+const title = 'Stepper'
+
+const lead =
+  'A display-only bar of equal segments, filled through the current one, for a position in a sequence whose length is known.'
+
 export const Route = createFileRoute('/_docs/components/stepper')({
+  head: () => docPageHead(title, lead),
   component: StepperPage,
 })
 
 function StepperPage() {
   return (
     <DocPage
-      title="Stepper"
-      lead="A display-only bar of equal segments, filled through the current one, for a position in a sequence whose length is known."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <StepperDemo /> }}
       installation="stepper"
       usage={usageSource}
@@ -26,7 +37,7 @@ function StepperPage() {
         <>
           <Example
             caption="Forward and back"
-            description="Advancing fills the reached segment from its left edge with a spring that overshoots inside the segment. Going back un-fills it without a wobble."
+            description="Press Next and Back. Advancing fills the reached segment from its left edge, and going back empties it."
             source={forwardAndBackSource}
           >
             <StepperForwardAndBack />

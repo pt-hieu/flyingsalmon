@@ -2,10 +2,12 @@ import { cn } from '@/lib/utils'
 
 import { emptyStateDescriptionClassName } from './classnames'
 
+export interface EmptyStateDescriptionProps extends React.ComponentProps<'p'> {}
+
 export function EmptyStateDescription({
   className,
   ...props
-}: React.ComponentProps<'p'>) {
+}: EmptyStateDescriptionProps) {
   return (
     <p
       data-slot="empty-state-description"

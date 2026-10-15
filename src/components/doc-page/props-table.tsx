@@ -12,8 +12,8 @@ import {
   tableCodeCellClassName,
   tableGroupClassName,
   tableTextCellClassName,
-  tableTitleClassName,
 } from './classnames'
+import { DocSubheading } from './doc-subheading'
 import type { PropRow } from './types'
 
 export interface PropsTableProps {
@@ -25,9 +25,9 @@ export interface PropsTableProps {
 export function PropsTable({ component, description, rows }: PropsTableProps) {
   return (
     <div className={tableGroupClassName}>
-      <h3 className={tableTitleClassName}>
+      <DocSubheading>
         <code>{component}</code>
-      </h3>
+      </DocSubheading>
 
       {description ? <p>{description}</p> : null}
 

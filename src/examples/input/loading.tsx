@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { Input, InputType } from '@/registry/ui/input'
 
@@ -6,14 +6,31 @@ export function InputLoading() {
   const [email, setEmail] = useState('')
   const [checking, setChecking] = useState(false)
   const [error, setError] = useState<string>()
+  const latestCheck = useRef(0)
+
+  function changeEmail(nextEmail: string) {
+    latestCheck.current += 1
+    setEmail(nextEmail)
+    setChecking(false)
+    setError(undefined)
+  }
 
   async function checkEmail() {
     if (!email) return
 
+    latestCheck.current += 1
+    const checkNumber = latestCheck.current
     setChecking(true)
-    const isOnTrip = await isAlreadyOnTrip(email)
-    setError(isOnTrip ? 'Linh is already on this trip' : undefined)
-    setChecking(false)
+
+    try {
+      const isOnTrip = await isAlreadyOnTrip(email)
+
+      if (checkNumber === latestCheck.current) {
+        setError(isOnTrip ? 'Linh is already on this trip' : undefined)
+      }
+    } finally {
+      if (checkNumber === latestCheck.current) setChecking(false)
+    }
   }
 
   return (
@@ -24,7 +41,7 @@ export function InputLoading() {
       placeholder="linh@example.com"
       description="Type linh@example.com, then tab out to check"
       value={email}
-      onChange={(event) => setEmail(event.target.value)}
+      onChange={(event) => changeEmail(event.target.value)}
       onBlur={checkEmail}
       loading={checking}
       error={error}

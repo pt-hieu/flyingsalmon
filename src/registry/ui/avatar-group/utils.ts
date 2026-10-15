@@ -4,18 +4,6 @@ export function resolveItemName(item: AvatarGroupItem) {
   return item.name || item.alt || ''
 }
 
-export function revealSteps({
-  childIndex,
-  revealedIndex,
-}: {
-  childIndex: number
-  revealedIndex: number | null
-}) {
-  if (revealedIndex === null) return 0
-
-  return Math.sign(childIndex - revealedIndex)
-}
-
 export function itemOffset({
   childIndex,
   revealedIndex,
@@ -23,16 +11,20 @@ export function itemOffset({
   childIndex: number
   revealedIndex: number | null
 }) {
-  const steps = revealSteps({ childIndex, revealedIndex })
+  const revealSteps =
+    revealedIndex === null ? 0 : Math.sign(childIndex - revealedIndex)
 
-  return `calc(${steps} * var(--avatar-group-reveal))`
+  return `calc(${revealSteps} * var(--avatar-group-reveal))`
 }
 
-export function childIndexContaining(parent: Element, node: Node | null) {
-  if (!node) return null
+export function childIndexContaining(
+  parent: Element,
+  target: EventTarget | null,
+) {
+  if (!(target instanceof Node)) return null
 
   const childIndex = Array.from(parent.children).findIndex((child) =>
-    child.contains(node),
+    child.contains(target),
   )
 
   return childIndex === -1 ? null : childIndex
@@ -66,8 +58,9 @@ export function stepFocusWithin(event: React.KeyboardEvent<HTMLElement>) {
     (child): child is HTMLElement =>
       child instanceof HTMLElement && child.hasAttribute('tabindex'),
   )
-  const currentPosition = focusableChildren.indexOf(
-    document.activeElement as HTMLElement,
+  const { activeElement } = event.currentTarget.ownerDocument
+  const currentPosition = focusableChildren.findIndex(
+    (child) => child === activeElement,
   )
 
   if (currentPosition === -1) return

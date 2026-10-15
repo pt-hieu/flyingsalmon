@@ -12,14 +12,12 @@ import {
   DialogFooter,
   DialogTitle,
   DialogTrigger,
+  type DialogProps,
 } from '@/registry/ui/dialog'
 
-function ControlledDialog({
-  onOpenChange,
-  ...dialogProps
-}: Partial<React.ComponentProps<typeof Dialog>>) {
+function TripFormDialog(props: DialogProps) {
   return (
-    <Dialog onOpenChange={onOpenChange} {...dialogProps}>
+    <Dialog {...props}>
       <DialogTrigger>
         <Button>Open trip form</Button>
       </DialogTrigger>
@@ -43,7 +41,7 @@ function ControlledDialog({
 describe('Dialog', () => {
   it('opens from the trigger on click', async () => {
     const user = userEvent.setup()
-    render(<ControlledDialog />)
+    render(<TripFormDialog />)
 
     await user.click(screen.getByRole('button', { name: 'Open trip form' }))
 
@@ -54,7 +52,7 @@ describe('Dialog', () => {
 
   it('opens from the trigger on Enter', async () => {
     const user = userEvent.setup()
-    render(<ControlledDialog />)
+    render(<TripFormDialog />)
 
     screen.getByRole('button', { name: 'Open trip form' }).focus()
     await user.keyboard('{Enter}')
@@ -66,7 +64,7 @@ describe('Dialog', () => {
 
   it('opens from the trigger on Space', async () => {
     const user = userEvent.setup()
-    render(<ControlledDialog />)
+    render(<TripFormDialog />)
 
     screen.getByRole('button', { name: 'Open trip form' }).focus()
     await user.keyboard(' ')
@@ -77,7 +75,7 @@ describe('Dialog', () => {
   })
 
   it('names the dialog by its required title', async () => {
-    render(<ControlledDialog defaultOpen />)
+    render(<TripFormDialog defaultOpen />)
 
     expect(
       await screen.findByRole('dialog', { name: 'Plan a trip' }),
@@ -86,7 +84,7 @@ describe('Dialog', () => {
 
   it('closes on Escape', async () => {
     const user = userEvent.setup()
-    render(<ControlledDialog defaultOpen />)
+    render(<TripFormDialog defaultOpen />)
 
     await screen.findByRole('dialog')
     await user.keyboard('{Escape}')
@@ -101,7 +99,7 @@ describe('Dialog', () => {
     render(
       <>
         <div data-testid="outside">Outside</div>
-        <ControlledDialog defaultOpen />
+        <TripFormDialog defaultOpen />
       </>,
     )
 
@@ -118,7 +116,7 @@ describe('Dialog', () => {
     render(
       <>
         <div data-testid="outside">Outside</div>
-        <ControlledDialog defaultOpen dismissible={false} />
+        <TripFormDialog defaultOpen dismissible={false} />
       </>,
     )
 
@@ -139,7 +137,7 @@ describe('Dialog', () => {
     render(
       <>
         <div data-testid="outside">Outside</div>
-        <ControlledDialog defaultOpen pending />
+        <TripFormDialog defaultOpen pending />
       </>,
     )
 
@@ -161,7 +159,7 @@ describe('Dialog', () => {
 
   it('lands focus inside on open, not on the close button, and ends the tab order on it', async () => {
     const user = userEvent.setup()
-    render(<ControlledDialog />)
+    render(<TripFormDialog />)
 
     await user.click(screen.getByRole('button', { name: 'Open trip form' }))
     await screen.findByRole('dialog')
@@ -185,7 +183,7 @@ describe('Dialog', () => {
 
   it('returns focus to the trigger on close', async () => {
     const user = userEvent.setup()
-    render(<ControlledDialog />)
+    render(<TripFormDialog />)
 
     const trigger = screen.getByRole('button', { name: 'Open trip form' })
     await user.click(trigger)
@@ -199,25 +197,24 @@ describe('Dialog', () => {
   it('hides page content outside an open dialog from the accessibility tree', async () => {
     render(
       <>
-        <div data-testid="outside">Outside</div>
-        <ControlledDialog defaultOpen />
+        <button type="button">Outside</button>
+        <TripFormDialog defaultOpen />
       </>,
     )
 
     await screen.findByRole('dialog')
 
     await waitFor(() => {
-      expect(screen.getByTestId('outside').parentElement).toHaveAttribute(
-        'aria-hidden',
-        'true',
-      )
+      expect(
+        screen.queryByRole('button', { name: 'Outside' }),
+      ).not.toBeInTheDocument()
     })
   })
 
   it('reports open state changes to onOpenChange', async () => {
     const user = userEvent.setup()
     const onOpenChange = vi.fn()
-    render(<ControlledDialog onOpenChange={onOpenChange} />)
+    render(<TripFormDialog onOpenChange={onOpenChange} />)
 
     await user.click(screen.getByRole('button', { name: 'Open trip form' }))
     expect(onOpenChange).toHaveBeenCalledWith(true)

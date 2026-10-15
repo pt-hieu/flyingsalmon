@@ -6,6 +6,7 @@ import {
   KeyboardTable,
   NoticeFrame,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { DialogDemo } from '@/examples/dialog/demo'
 import demoSource from '@/examples/dialog/demo.tsx?raw'
@@ -24,15 +25,21 @@ import serverErrorSource from '@/examples/dialog/server-error.tsx?raw'
 import usageSource from '@/examples/dialog/usage.tsx?raw'
 import guidelines from '@/registry/ui/dialog/guidelines.md?raw'
 
+const title = 'Dialog'
+
+const lead =
+  'A modal surface for a short task that stops the page: a form, a choice, or a confirmation.'
+
 export const Route = createFileRoute('/_docs/components/dialog')({
+  head: () => docPageHead(title, lead),
   component: DialogPage,
 })
 
 function DialogPage() {
   return (
     <DocPage
-      title="Dialog"
-      lead="A modal surface for a short task that stops the page: a form, a choice, or a confirmation."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <DialogDemo /> }}
       installation="dialog"
       usage={usageSource}
@@ -213,7 +220,7 @@ function DialogPage() {
           />
           <PropsTable
             component="DialogContent"
-            description="The surface. Renders the overlay and the close button for you."
+            description="The surface. Renders the scrim and the close button for you."
             rows={[
               {
                 name: 'onOpenAutoFocus',
@@ -233,8 +240,10 @@ function DialogPage() {
             <code>DialogTitle</code> is required in every dialog.{' '}
             <code>DialogDescription</code>, <code>DialogBody</code>, and{' '}
             <code>DialogFooter</code> are optional and take the props of the
-            element they render. <code>DialogBody</code> is the only part that
-            scrolls.
+            element they render, typed as <code>DialogTitleProps</code>,{' '}
+            <code>DialogDescriptionProps</code>, <code>DialogBodyProps</code>,
+            and <code>DialogFooterProps</code>. <code>DialogBody</code> is the
+            only part that scrolls.
           </p>
         </>
       }
@@ -261,7 +270,7 @@ function DialogPage() {
           </p>
           <p>
             The dialog enters with a fade and a scale from 0.98, 250ms on the
-            bounce curve, and leaves on the settle curve over 350ms. The overlay
+            bounce curve, and leaves on the settle curve over 350ms. The scrim
             is solid <code>neutral-950</code> faded to 0.5 element opacity, so
             no colour carries alpha. The description measures 7.44:1 against the
             surface.

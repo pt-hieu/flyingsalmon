@@ -14,7 +14,7 @@ Design guidelines for the flyingsalmon Spinner component. An alternative linked 
 
 ## Do and don't
 
-- **Do:** Place a small spinner inline, directly before the words that say what is happening.
+- **Do:** Place a spinner inline, directly before the words that say what is happening.
   **Why:** The spinner says something is running and only the words say what, so they belong together.
 - **Do:** On a long wait, pair the spinner with a written count, such as “3 of 7 days written”.
   **Why:** A count tells the traveller how far along the work is in their own terms, with no bar beside the heading.

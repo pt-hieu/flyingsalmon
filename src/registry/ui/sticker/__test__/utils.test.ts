@@ -5,9 +5,11 @@ import type { StickerLayer } from '../types'
 import {
   cutLayers,
   drawingLayers,
+  layerContent,
   stickerViewBox,
   unpaintedFill,
   unpaintedStroke,
+  withContentKeys,
 } from '../utils'
 
 const layers: StickerLayer[] = [
@@ -54,5 +56,35 @@ describe('unpaintedStroke', () => {
   it('leaves a line to its class and turns stroke off for a fill layer', () => {
     expect(unpaintedStroke(layers[3])).toBeUndefined()
     expect(unpaintedStroke(layers[1])).toBe('none')
+  })
+})
+
+describe('withContentKeys', () => {
+  it('keeps every item in order and gives repeated content distinct keys', () => {
+    const keyed = withContentKeys(['cut', 'roof', 'roof'], (role) => role)
+
+    expect(keyed.map(({ item }) => item)).toEqual(['cut', 'roof', 'roof'])
+    expect(new Set(keyed.map(({ key }) => key)).size).toBe(3)
+  })
+
+  it('keeps an item on the same key when an earlier, different item goes away', () => {
+    const before = withContentKeys(layers, layerContent)
+    const after = withContentKeys(layers.slice(1), layerContent)
+
+    expect(after.map(({ key }) => key)).toEqual(
+      before.slice(1).map(({ key }) => key),
+    )
+  })
+
+  it('gives layers that differ only in paint different keys', () => {
+    const keyed = withContentKeys(
+      [
+        { role: 'cut', paint: StickerPaint.Fill, d: 'M0 0 L10 0' },
+        { role: 'cut', paint: StickerPaint.Stroke, d: 'M0 0 L10 0' },
+      ],
+      layerContent,
+    )
+
+    expect(keyed[0].key).not.toBe(keyed[1].key)
   })
 })

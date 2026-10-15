@@ -20,7 +20,7 @@ Design guidelines for the flyingsalmon Textarea component. An alternative linked
   **Why:** A real sentence shows the kind and length of answer you want, and reads as an invitation rather than a blank to fill.
 - **Do:** Word an error as what to write: "Tell us why you are leaving the plan, even in a few words."
   **Why:** The traveller fixes a free-text field by writing, so the message hands them the start of the answer.
-- **Don't:** Offer a submit shortcut without a visible hint beside the submit button.
+- **Don't:** Offer a submit shortcut without naming it beside the submit button.
   **Why:** Enter always makes a new line here, so a shortcut is invisible unless the screen names it. A hidden key only helps people who already guess it exists.
 - **Don't:** Lock the field while an autosave runs.
   **Why:** A spinner in the corner shows the save and the traveller keeps typing; the next save picks up the new text.

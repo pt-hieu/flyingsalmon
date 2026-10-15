@@ -35,10 +35,10 @@ export function DialogScrollingBody() {
   const [packed, setPacked] = useState<string[]>([])
 
   function togglePacked(item: string, checked: boolean) {
-    setPacked(
+    setPacked((currentPacked) =>
       checked
-        ? [...packed, item]
-        : packed.filter((packedItem) => packedItem !== item),
+        ? [...currentPacked, item]
+        : currentPacked.filter((packedItem) => packedItem !== item),
     )
   }
 

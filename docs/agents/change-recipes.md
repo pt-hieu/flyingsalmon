@@ -19,7 +19,7 @@ Search the whole repo, dot folders included: `.design-sync/previews/*.tsx` impor
 
 1. `src/styles.css`: a color or alias in `:root`, a size, font, motion, or animation in `@theme inline`.
 2. The same token and value in the `theme` item of `registry.json`, under `cssVars.light` or `cssVars.theme` to match.
-3. A spacing-shaped token (`--card-spacing`, `--bar-height`) also gets a row in `spacingTokens` in `src/routes/_docs/spacing.tsx`.
+3. A spacing-shaped token (`--card-spacing`, `--bar-height`) also gets a row in `variableRows` in `src/routes/_docs/spacing.tsx`.
 4. A palette or color change also sweeps the ADR that owns the color, the docs pages that name it, and `.design-sync/previews`.
 
 ## Edit `registry.json`
@@ -29,5 +29,6 @@ Edit it as text. A JSON round-trip (`json.dump`, `JSON.stringify`) escapes non-A
 ## Docs site layout
 
 - `src/routes/__root.tsx` renders the HTML document; `src/routes/_docs/route.tsx` is the docs layout with the site header.
+- A foundation page (principles, colours, spacing) is a `FoundationPage` from `src/components/doc-page` at `src/routes/_docs/<name>.tsx`, with an entry in `src/components/foundation-pages.ts`, which feeds the sidebar, the home page, and the docs route list.
 - `src/routes/frames/` holds routes outside the docs layout, embedded in a docs page as an iframe to demo a component at a viewport width the page cannot have (`page-header-strip`).
 - Every route prerenders by crawling links (`vite.config.ts`); a link with a search param is skipped.

@@ -18,7 +18,7 @@ In a project already set up with Tailwind CSS v4 and `shadcn init`, register the
 }
 ```
 
-Install the theme first, because every component reads its color, radius, and motion tokens:
+Install the theme first, because every component reads its colour, radius, and motion tokens:
 
 ```sh
 npx shadcn@latest add @flyingsalmon/theme

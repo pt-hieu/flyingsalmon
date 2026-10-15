@@ -1,14 +1,12 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, it } from 'vitest'
+import { act } from 'react'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { Tooltip, TooltipProvider } from '@/registry/ui/tooltip'
 
 const tooltipWithText = (text: string) =>
   screen.queryAllByRole('tooltip').find((node) => node.textContent === text)
-
-const waitPastTheSkipWindow = () =>
-  new Promise((resolve) => setTimeout(resolve, 1200))
 
 function renderTooltip() {
   return render(
@@ -22,6 +20,10 @@ function renderTooltip() {
 }
 
 describe('Tooltip', () => {
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
   it('opens on keyboard focus and closes on blur', async () => {
     const user = userEvent.setup()
     renderTooltip()
@@ -85,8 +87,8 @@ describe('Tooltip', () => {
     expect(trigger).toHaveAttribute('aria-describedby', tooltip.id)
   })
 
-  it('opens the next tooltip instantly inside the shared skip window', async () => {
-    const user = userEvent.setup()
+  it('opens the next tooltip without the open delay inside the shared skip window', () => {
+    vi.useFakeTimers()
     render(
       <TooltipProvider>
         <Tooltip content="Add item">
@@ -98,23 +100,21 @@ describe('Tooltip', () => {
       </TooltipProvider>,
     )
 
-    await user.hover(screen.getByRole('button', { name: 'Add' }))
-    await waitFor(() => expect(tooltipWithText('Add item')).toBeDefined(), {
-      timeout: 1500,
-    })
+    const addButton = screen.getByRole('button', { name: 'Add' })
+    const shareButton = screen.getByRole('button', { name: 'Share' })
 
-    await waitPastTheSkipWindow()
-    await user.click(screen.getByRole('button', { name: 'Add' }))
-    await waitFor(() => expect(tooltipWithText('Add item')).toBeUndefined())
+    fireEvent.pointerMove(addButton, { pointerType: 'mouse' })
+    act(() => vi.advanceTimersByTime(100))
+    expect(tooltipWithText('Add item')).toBeUndefined()
 
-    await user.hover(screen.getByRole('button', { name: 'Share' }))
-    await waitFor(() => expect(tooltipWithText('Share')).toBeDefined(), {
-      timeout: 1500,
-    })
+    act(() => vi.advanceTimersByTime(400))
+    expect(tooltipWithText('Add item')).toBeDefined()
 
-    expect(tooltipWithText('Share')).toHaveAttribute(
-      'data-state',
-      'instant-open',
-    )
+    fireEvent.pointerDown(addButton, { pointerType: 'mouse' })
+    expect(tooltipWithText('Add item')).toBeUndefined()
+
+    fireEvent.pointerMove(shareButton, { pointerType: 'mouse' })
+    act(() => vi.advanceTimersByTime(100))
+    expect(tooltipWithText('Share')).toBeDefined()
   })
 })

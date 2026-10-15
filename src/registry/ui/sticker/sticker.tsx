@@ -8,9 +8,12 @@ import {
   cutLayers,
   drawingLayers,
   drawingStrokeWidth,
+  frameContent,
+  layerContent,
   stickerViewBox,
   unpaintedFill,
   unpaintedStroke,
+  withContentKeys,
 } from './utils'
 
 export interface StickerProps extends React.ComponentProps<'svg'> {
@@ -38,49 +41,56 @@ export function Sticker({
       strokeLinejoin="round"
       className={cn(stickerVariants({ popIn }), className)}
     >
-      {art.frames.map((layers, frameIndex) => {
-        const silhouette = cutLayers(layers)
+      {withContentKeys(art.frames, frameContent).map(
+        ({ key: frameKey, item: layers }, frameIndex) => {
+          const keyedSilhouette = withContentKeys(
+            cutLayers(layers),
+            layerContent,
+          )
 
-        return (
-          <g
-            key={frameIndex}
-            style={
-              {
-                '--sticker-frame-delay': boilFrameDelay(frameIndex),
-              } as React.CSSProperties
-            }
-            className={stickerFrameVariants({ leading: frameIndex === 0 })}
-          >
-            {cutPasses.map((pass) => (
-              <g
-                key={pass.name}
-                transform={pass.transform}
-                className={pass.className}
-              >
-                {silhouette.map((layer, layerIndex) => (
+          return (
+            <g
+              key={frameKey}
+              style={
+                {
+                  '--sticker-frame-delay': boilFrameDelay(frameIndex),
+                } as React.CSSProperties
+              }
+              className={stickerFrameVariants({ leading: frameIndex === 0 })}
+            >
+              {cutPasses.map((pass) => (
+                <g
+                  key={pass.name}
+                  transform={pass.transform}
+                  className={pass.className}
+                >
+                  {keyedSilhouette.map(({ key: layerKey, item: layer }) => (
+                    <path
+                      key={layerKey}
+                      d={layer.d}
+                      fill={unpaintedFill(layer)}
+                      strokeWidth={pass.strokeWidth}
+                    />
+                  ))}
+                </g>
+              ))}
+
+              {withContentKeys(drawingLayers(layers), layerContent).map(
+                ({ key: layerKey, item: layer }) => (
                   <path
-                    key={layerIndex}
+                    key={layerKey}
                     d={layer.d}
+                    className={roleClassNames[layer.role]?.[layer.paint]}
                     fill={unpaintedFill(layer)}
-                    strokeWidth={pass.strokeWidth}
+                    stroke={unpaintedStroke(layer)}
+                    strokeWidth={drawingStrokeWidth}
                   />
-                ))}
-              </g>
-            ))}
-
-            {drawingLayers(layers).map((layer, layerIndex) => (
-              <path
-                key={layerIndex}
-                d={layer.d}
-                className={roleClassNames[layer.role]?.[layer.paint]}
-                fill={unpaintedFill(layer)}
-                stroke={unpaintedStroke(layer)}
-                strokeWidth={drawingStrokeWidth}
-              />
-            ))}
-          </g>
-        )
-      })}
+                ),
+              )}
+            </g>
+          )
+        },
+      )}
     </svg>
   )
 }

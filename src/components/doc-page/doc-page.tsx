@@ -20,7 +20,7 @@ export interface DocPageProps {
   title: string
   lead: React.ReactNode
   preview?: ExampleSource
-  installation?: string
+  installation: string
   usage?: string
   examples?: React.ReactNode
   guidelines?: string
@@ -64,11 +64,9 @@ export function DocPage({
         </section>
       ) : null}
 
-      {installation ? (
-        <DocSection title="Installation">
-          <InstallCommand name={installation} />
-        </DocSection>
-      ) : null}
+      <DocSection title="Installation">
+        <InstallCommand name={installation} />
+      </DocSection>
 
       {usage ? (
         <DocSection title="Usage">

@@ -10,27 +10,11 @@ import {
   sidebarMenuClassName,
   sidebarMenuTitleClassName,
 } from './classnames'
+import { scrollFullyIntoView } from './scroll-fully-into-view'
 import { SidebarLayout } from './types'
 import { useSidebarSharedState } from './use-sidebar'
 
 export type SidebarContentProps = React.ComponentProps<'div'>
-
-function scrollFullyIntoView(container: HTMLElement, item: Element) {
-  const containerBounds = container.getBoundingClientRect()
-  const itemBounds = item.getBoundingClientRect()
-
-  if (itemBounds.top < containerBounds.top) {
-    container.scrollTop -= containerBounds.top - itemBounds.top
-  } else if (itemBounds.bottom > containerBounds.bottom) {
-    container.scrollTop += itemBounds.bottom - containerBounds.bottom
-  }
-
-  if (itemBounds.left < containerBounds.left) {
-    container.scrollLeft -= containerBounds.left - itemBounds.left
-  } else if (itemBounds.right > containerBounds.right) {
-    container.scrollLeft += itemBounds.right - containerBounds.right
-  }
-}
 
 export function SidebarContent({ className, ...props }: SidebarContentProps) {
   const { layout, menuId, menuOpen, setMenuOpen } = useSidebarSharedState()

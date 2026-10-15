@@ -2,34 +2,32 @@ import { CalendarClock, Camera, Lock, UtensilsCrossed } from 'lucide-react'
 
 import { IconTooltip } from '@/registry/ui/icon-tooltip'
 
+const food = { name: 'Food', icon: <UtensilsCrossed aria-hidden /> }
+const sights = { name: 'Sights', icon: <Camera aria-hidden /> }
+
 const days = [
   {
     number: 1,
     weekday: 'Fri 12',
     locked: true,
     dateBound: false,
-    activities: ['Food', 'Sights'],
+    activities: [food, sights],
   },
   {
     number: 2,
     weekday: 'Sat 13',
     locked: false,
     dateBound: true,
-    activities: ['Sights'],
+    activities: [sights],
   },
   {
     number: 3,
     weekday: 'Sun 14',
     locked: false,
     dateBound: false,
-    activities: ['Food'],
+    activities: [food],
   },
 ]
-
-const activityIcons: Record<string, React.ReactNode> = {
-  Food: <UtensilsCrossed aria-hidden />,
-  Sights: <Camera aria-hidden />,
-}
 
 export function IconTooltipInsideALinkRow() {
   return (
@@ -63,8 +61,11 @@ export function IconTooltipInsideALinkRow() {
           <span className="flex-1" />
           <span className="text-muted-foreground flex gap-2 [&_svg]:size-4">
             {day.activities.map((activity) => (
-              <IconTooltip key={activity} content={`${activity} activities`}>
-                {activityIcons[activity]}
+              <IconTooltip
+                key={activity.name}
+                content={`${activity.name} activities`}
+              >
+                {activity.icon}
               </IconTooltip>
             ))}
           </span>

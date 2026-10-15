@@ -2,28 +2,17 @@ import { writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
 import rough from 'roughjs'
-import type { Options } from 'roughjs/bin/core'
+import type { Drawable, Options } from 'roughjs/bin/core'
 
-import type { StickerArt, StickerLayer } from './types'
+import type {
+  Pen,
+  StickerArt,
+  StickerDrawing,
+  StickerLayer,
+  StickerOutput,
+} from './types'
 
-type Drawable = ReturnType<typeof generator.path>
-
-export interface Pen {
-  generator: typeof generator
-  draw: (drawable: Drawable) => void
-  drawSilhouette: (pieces: string[], seed: number) => void
-}
-
-export interface StickerDrawing {
-  width: number
-  height: number
-  drawFrame: (pen: Pen, frameSeed: number) => void
-}
-
-export interface StickerOutput extends StickerDrawing {
-  exportName: string
-  output: URL
-}
+export type { Pen, StickerDrawing, StickerOutput } from './types'
 
 const generator = rough.generator()
 const frameCount = 3
@@ -53,12 +42,12 @@ function isClosedPiece(piece: string) {
 function createPen(layers: StickerLayer[]): Pen {
   function draw(drawable: Drawable) {
     for (const { d: rawPath, fill, stroke } of generator.toPaths(drawable)) {
-      const d = rawPath.replaceAll(/(\.\d)\d+/g, '$1')
+      const roundedPath = rawPath.replaceAll(/(\.\d)\d+/g, '$1')
 
       if (fill && fill !== 'none') {
-        layers.push({ role: fill, paint: 'fill', d })
+        layers.push({ role: fill, paint: 'fill', d: roundedPath })
       } else if (stroke && stroke !== 'none') {
-        layers.push({ role: stroke, paint: 'stroke', d })
+        layers.push({ role: stroke, paint: 'stroke', d: roundedPath })
       }
     }
   }
@@ -130,5 +119,7 @@ export function writeSticker({
   const art = drawSticker(drawing)
 
   writeFileSync(output, formatArtModule(exportName, art))
-  console.log(`Wrote ${art.frames.length} frames to ${fileURLToPath(output)}`)
+  process.stdout.write(
+    `Wrote ${art.frames.length} frames to ${fileURLToPath(output)}\n`,
+  )
 }

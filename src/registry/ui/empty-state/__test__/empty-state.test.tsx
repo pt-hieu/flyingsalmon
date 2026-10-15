@@ -77,6 +77,32 @@ describe('EmptyState', () => {
     ).toBeInTheDocument()
   })
 
+  it('labels its region with the title when the title carries its own id', () => {
+    render(
+      <EmptyState>
+        <EmptyStateTitle id="no-trips-title">No trips yet</EmptyStateTitle>
+      </EmptyState>,
+    )
+
+    expect(
+      screen.getByRole('region', { name: 'No trips yet' }),
+    ).toBeInTheDocument()
+  })
+
+  it('points its label at nothing when it has no title', () => {
+    const { container } = render(
+      <EmptyState>
+        <EmptyStateDescription>
+          Pick where you want to go and the route is drafted for you.
+        </EmptyStateDescription>
+      </EmptyState>,
+    )
+
+    expect(container.querySelector('section')).not.toHaveAttribute(
+      'aria-labelledby',
+    )
+  })
+
   it('keeps the icon out of the accessible tree', () => {
     render(
       <EmptyState>

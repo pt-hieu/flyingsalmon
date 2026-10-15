@@ -35,7 +35,7 @@ describe('ComponentsOverview', () => {
       'Inputs',
       'Data display',
       'Feedback',
-      'Surfaces & overlays',
+      'Surfaces & floating components',
       'Navigation',
     ])
     expect(screen.getByRole('link', { name: 'Dialog' })).toHaveAttribute(

@@ -2,8 +2,8 @@ import { cn } from '@/lib/utils'
 import {
   FieldDescription,
   FieldErrorMessage,
-  FieldLabelPlacement,
   fieldLabelVariants,
+  FieldLabelPlacement,
   useFieldIds,
 } from '@/registry/lib/field'
 

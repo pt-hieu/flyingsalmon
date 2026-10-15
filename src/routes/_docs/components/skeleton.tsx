@@ -1,6 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { DocPage, Example, PropsTable } from '@/components/doc-page'
+import {
+  DocPage,
+  Example,
+  PropsTable,
+  docPageHead,
+} from '@/components/doc-page'
 import { SkeletonDemo } from '@/examples/skeleton/demo'
 import demoSource from '@/examples/skeleton/demo.tsx?raw'
 import { SkeletonLoadingRegion } from '@/examples/skeleton/loading-region'
@@ -12,15 +17,21 @@ import { SkeletonVariants } from '@/examples/skeleton/variants'
 import variantsSource from '@/examples/skeleton/variants.tsx?raw'
 import guidelines from '@/registry/ui/skeleton/guidelines.md?raw'
 
+const title = 'Skeleton'
+
+const lead =
+  'A pulsing placeholder that holds the shape of content that has not arrived yet.'
+
 export const Route = createFileRoute('/_docs/components/skeleton')({
+  head: () => docPageHead(title, lead),
   component: SkeletonPage,
 })
 
 function SkeletonPage() {
   return (
     <DocPage
-      title="Skeleton"
-      lead="A pulsing placeholder that holds the shape of content that has not arrived yet."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <SkeletonDemo /> }}
       installation="skeleton"
       usage={usageSource}

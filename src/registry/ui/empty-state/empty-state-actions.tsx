@@ -2,10 +2,12 @@ import { cn } from '@/lib/utils'
 
 import { emptyStateActionsClassName } from './classnames'
 
+export interface EmptyStateActionsProps extends React.ComponentProps<'div'> {}
+
 export function EmptyStateActions({
   className,
   ...props
-}: React.ComponentProps<'div'>) {
+}: EmptyStateActionsProps) {
   return (
     <div
       data-slot="empty-state-actions"

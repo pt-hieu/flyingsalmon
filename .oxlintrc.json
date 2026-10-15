@@ -12,11 +12,23 @@
     "suspicious": "warn"
   },
   "rules": {
+    "eslint/id-length": [
+      "error",
+      { "min": 2, "properties": "never", "exceptions": ["_"] }
+    ],
+    "eslint/no-console": "error",
     "eslint/no-shadow": "warn",
     "eslint/no-unused-vars": ["error", { "ignoreRestSiblings": true }],
+    "react/exhaustive-deps": "error",
+    "react/no-array-index-key": "error",
     "react/react-in-jsx-scope": "off",
+    "react/rules-of-hooks": "error",
     "react/set-state-in-render": "error",
     "typescript/consistent-type-imports": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/no-non-null-assertion": "error",
+    "typescript/prefer-enum-initializers": "error",
+    "typescript/prefer-literal-enum-member": "error",
     "import/first": "error",
     "import/no-duplicates": "error",
     "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
@@ -182,7 +194,7 @@
     "sonarjs/no-mixed-completion-style": "error",
     "sonarjs/no-interpolation-in-inline-snapshots": "error",
     "sonarjs/explicit-test-skip": "error",
-    "shadcn/no-raw-colors": ["error", { "allow": ["decoration-emphasis"] }],
+    "shadcn/no-raw-colors": "error",
     "shadcn/no-arbitrary-values": [
       "error",
       {
@@ -250,10 +262,7 @@
     {
       "files": ["src/registry/**"],
       "rules": {
-        "shadcn/no-raw-colors": [
-          "error",
-          { "scanAllStrings": true, "allow": ["decoration-emphasis"] }
-        ]
+        "shadcn/no-raw-colors": ["error", { "scanAllStrings": true }]
       }
     },
     {
@@ -263,7 +272,7 @@
       }
     },
     {
-      "files": ["src/routes/**", "src/components/**"],
+      "files": ["src/routes/**"],
       "rules": {
         "import/default": "off",
         "import/no-duplicates": "off"

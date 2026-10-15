@@ -14,7 +14,7 @@ export function PageHeaderLongTitle() {
           Brian Nguyen and the whole family
         </PageHeaderTitle>
         <PageHeaderActions>
-          <Button variant={ButtonVariant.Outline}>Replan</Button>
+          <Button variant={ButtonVariant.Outline}>Edit trip</Button>
         </PageHeaderActions>
       </PageHeader>
     </div>

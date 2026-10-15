@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useCallback, useId, useMemo, useState } from 'react'
 
 import { cn } from '@/lib/utils'
+import { useControllableState } from '@/registry/lib/use-controllable-state'
 
 import { sidebarNestClassName } from './classnames'
 import { SidebarNestContext, SidebarNestItemsContext } from './context'
@@ -19,20 +20,12 @@ export function SidebarNest({
   ...props
 }: SidebarNestProps) {
   const itemsId = useId()
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen)
-  const [activeChildCount, setActiveChildCount] = useState(0)
-  const onOpenChangeRef = useRef(onOpenChange)
-
-  useEffect(() => {
-    onOpenChangeRef.current = onOpenChange
+  const [open, setOpen] = useControllableState({
+    value: openProp,
+    defaultValue: defaultOpen,
+    onChange: onOpenChange,
   })
-
-  const open = openProp ?? uncontrolledOpen
-
-  const setOpen = useCallback((next: boolean) => {
-    setUncontrolledOpen(next)
-    onOpenChangeRef.current?.(next)
-  }, [])
+  const [activeChildCount, setActiveChildCount] = useState(0)
 
   const registerActiveChild = useCallback(() => {
     setActiveChildCount((count) => count + 1)

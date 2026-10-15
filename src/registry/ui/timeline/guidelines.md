@@ -9,7 +9,7 @@ Design guidelines for the flyingsalmon Timeline component. An alternative linked
 
 ## When not to use
 
-- Use [Stepper](https://flyingsalmon.superbrian.dev/components/stepper) to show a position in a sequence of known length with no content beside it, because a stepper tracks progress.
+- Use [Stepper](https://flyingsalmon.superbrian.dev/components/stepper) to show a position in a sequence of known length with no content beside it, because a stepper shows only where the traveller is.
 - Use [Table](https://flyingsalmon.superbrian.dev/components/table) to compare the same fields across items, because columns line up what a rail cannot.
 
 ## Do and don't

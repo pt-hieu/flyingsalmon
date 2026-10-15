@@ -10,6 +10,8 @@ import {
   resolveLocale,
   stepDeltaForKey,
   steppedValue,
+  typedNumber,
+  unparseableNumber,
   valueTextWithAffixes,
 } from '@/registry/ui/number-field/utils'
 
@@ -56,6 +58,20 @@ describe('formatNumber', () => {
 describe('parseNumber', () => {
   it.each([['abc'], ['']])('reads %j as no number', (text) => {
     expect(parseNumber(text, 'en-US')).toBeNull()
+  })
+})
+
+describe('typedNumber', () => {
+  it.each([[''], ['   ']])('reads %j as an empty field', (text) => {
+    expect(typedNumber(text, 'en-US')).toBeNull()
+  })
+
+  it('reads text around surrounding spaces in the locale', () => {
+    expect(typedNumber(' 1.500 ', 'de-DE')).toBe(1500)
+  })
+
+  it('reads text that is no number as unparseable', () => {
+    expect(typedNumber('abc', 'en-US')).toBe(unparseableNumber)
   })
 })
 

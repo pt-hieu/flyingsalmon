@@ -1,7 +1,20 @@
 import { Children, isValidElement } from 'react'
 
-import { ComboboxEmpty } from './combobox-empty'
-import { ComboboxItem } from './combobox-item'
+import { ComboboxGroup } from './combobox-group'
+import { ComboboxLabel } from './combobox-label'
+import { ComboboxSeparator } from './combobox-separator'
+
+const panelStructureParts = new Set<unknown>([
+  ComboboxGroup,
+  ComboboxLabel,
+  ComboboxSeparator,
+])
+
+function isContentComponent(type: unknown) {
+  const isComponent = typeof type === 'function' || typeof type === 'object'
+
+  return isComponent && !panelStructureParts.has(type)
+}
 
 export function hasPanelContent(children: React.ReactNode): boolean {
   return Children.toArray(children).some((child) => {
@@ -9,7 +22,7 @@ export function hasPanelContent(children: React.ReactNode): boolean {
       return false
     }
 
-    if (child.type === ComboboxItem || child.type === ComboboxEmpty) {
+    if (isContentComponent(child.type)) {
       return true
     }
 

@@ -40,9 +40,6 @@ export function Button({
     (icon ?? childrenAsIcon)
   )
 
-  // An inherited layout group re-measures every member when any one updates,
-  // which bypasses layoutDependency; a group of its own keeps the loading
-  // morph the only layout change the button animates.
   return (
     <LayoutGroup inherit="id">
       <motion.button

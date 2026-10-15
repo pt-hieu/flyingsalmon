@@ -6,12 +6,12 @@ import { cn } from '@/lib/utils'
 import {
   FieldDescription,
   FieldErrorMessage,
-  FieldLabelPlacement,
   fieldLabelVariants,
+  FieldLabelPlacement,
   useFieldIds,
 } from '@/registry/lib/field'
 
-import { Spinner, SpinnerSize } from '../spinner'
+import { Spinner } from '../spinner'
 
 import {
   comboboxChevronClassName,
@@ -30,6 +30,7 @@ import { ComboboxPanel } from './combobox-panel'
 import { createComboboxStateReducer } from './combobox-state-reducer'
 import { ComboboxSharedStateContext } from './context'
 import { hasPanelContent } from './has-panel-content'
+import { spinnerSizeByComboboxSize } from './spinner-size-by-combobox-size'
 import { splitPanelChildren } from './split-panel-children'
 import {
   type ComboboxItemEntry,
@@ -81,8 +82,6 @@ export interface ComboboxMultipleProps extends ComboboxBaseProps {
 
 export type ComboboxProps = ComboboxSingleProps | ComboboxMultipleProps
 
-// Downshift's own key handler runs after the caller's and only stands down when
-// this flag is set on the native event; it is absent from downshift's typings.
 function leaveKeyToTheCaret(event: React.KeyboardEvent) {
   ;(
     event.nativeEvent as KeyboardEvent & { preventDownshiftDefault?: boolean }
@@ -114,14 +113,14 @@ export function Combobox(props: ComboboxProps) {
     children,
   } = props
 
-  const { fieldId, errorMessageId, descriptionId, describedBy } = useFieldIds({
-    id,
-    error,
-    description,
-    describedBy: callerDescribedBy,
-  })
+  const { fieldId, labelId, errorMessageId, descriptionId, describedBy } =
+    useFieldIds({
+      id,
+      error,
+      description,
+      describedBy: callerDescribedBy,
+    })
 
-  const labelId = `${fieldId}-label`
   const hasError = Boolean(error)
   const isMultiple = props.mode === ComboboxMode.Multiple
 
@@ -294,7 +293,7 @@ export function Combobox(props: ComboboxProps) {
   function handleInputBlur() {
     stopAwaitingContent()
 
-    if (props.mode !== ComboboxMode.Single || !allowFreeText) {
+    if (props.mode !== ComboboxMode.Single) {
       return
     }
 
@@ -302,7 +301,16 @@ export function Combobox(props: ComboboxProps) {
       return
     }
 
-    props.onValueChange(currentInputValue.length > 0 ? currentInputValue : null)
+    if (allowFreeText) {
+      props.onValueChange(
+        currentInputValue.length > 0 ? currentInputValue : null,
+      )
+      return
+    }
+
+    if (currentInputValue.length === 0) {
+      props.onValueChange(null)
+    }
   }
 
   function handleChipKeyDown(
@@ -402,11 +410,7 @@ export function Combobox(props: ComboboxProps) {
                     <span className={comboboxSpinnerSlotVariants({ size })}>
                       <Spinner
                         aria-hidden
-                        size={
-                          size === ComboboxSize.Small
-                            ? SpinnerSize.Small
-                            : SpinnerSize.Default
-                        }
+                        size={spinnerSizeByComboboxSize[size]}
                         className={
                           hasError ? comboboxSpinnerErrorClassName : undefined
                         }
@@ -459,6 +463,7 @@ export function Combobox(props: ComboboxProps) {
               type="hidden"
               name={name}
               value={selectedValue}
+              disabled={disabled}
             />
           ))
         : null}

@@ -1,58 +1,70 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { GuidelineVerdict } from '@/components/doc-page'
-import { FoundationPage, Swatch } from '@/components/foundation-page'
-import type { TokenRow } from '@/components/foundation-page'
-import { TextLink } from '@/registry/ui/text-link'
+import { apcaLightness, contrastRatios } from '@/components/contrast-ratios'
+import {
+  DocTextLink,
+  FoundationPage,
+  GroupHueSwatch,
+  GuidelineVerdict,
+  Swatch,
+  docPageHead,
+} from '@/components/doc-page'
+import type { FoundationTableRow, GroupHue } from '@/components/doc-page'
+
+const title = 'Colours'
+
+const principle =
+  'An orange brand over a beige page, with white cards and fields, orange borders, and neutral grey text.'
 
 export const Route = createFileRoute('/_docs/colors')({
+  head: () => docPageHead(title, principle),
   component: ColorsPage,
 })
 
-const surfaceRows: TokenRow[] = [
+const surfaceRows: FoundationTableRow[] = [
   {
     sample: <Swatch className="bg-background" />,
-    token: '--background',
-    value: 'orange-50',
+    name: '--background',
+    detail: 'orange-50',
     job: 'The page. Everything else sits on it.',
   },
   {
     sample: <Swatch className="bg-card" />,
-    token: '--card',
-    value: 'white',
+    name: '--card',
+    detail: 'white',
     job: 'Cards, alerts, and field boxes: input, textarea, select, combobox, date picker, number field.',
   },
   {
     sample: <Swatch className="bg-popover" />,
-    token: '--popover',
-    value: 'white',
-    job: 'Floating surfaces: menus, the date picker popover, dialogs, drawers.',
+    name: '--popover',
+    detail: 'white',
+    job: 'Floating surfaces: menus, select lists, the date picker panel, dialogs, drawers.',
   },
   {
     sample: <Swatch className="bg-muted" />,
-    token: '--muted',
-    value: 'orange-100',
+    name: '--muted',
+    detail: 'orange-100',
     job: 'A quiet background step: a read-only field, the number field spin button, the empty state icon tile.',
   },
   {
     sample: <Swatch className="bg-secondary" />,
-    token: '--secondary',
-    value: 'orange-100',
+    name: '--secondary',
+    detail: 'orange-100',
     job: 'The secondary button and badge, an unpressed toggle group chip, the avatar group overflow count.',
   },
   {
     sample: <Swatch className="bg-accent" />,
-    token: '--accent',
-    value: 'orange-200',
-    job: 'Hover and highlight: a hovered ghost button, the highlighted menu row, a calendar day under the pointer.',
+    name: '--accent',
+    detail: 'orange-200',
+    job: 'Hover and highlight: a ghost button under the pointer, the highlighted menu row, a calendar day under the pointer.',
   },
 ]
 
-const textRows: TokenRow[] = [
+const textRows: FoundationTableRow[] = [
   {
     sample: <Swatch className="bg-foreground" />,
-    token: '--foreground',
-    value: 'neutral-950',
+    name: '--foreground',
+    detail: 'neutral-950',
     job: (
       <>
         Body text, headings, values, and the tooltip fill.{' '}
@@ -63,165 +75,158 @@ const textRows: TokenRow[] = [
   },
   {
     sample: <Swatch className="bg-muted-foreground" />,
-    token: '--muted-foreground',
-    value: 'neutral-600',
+    name: '--muted-foreground',
+    detail: 'neutral-600',
     job: 'Descriptions, placeholders, helper text, and field icons.',
   },
   {
     sample: <Swatch className="bg-secondary-foreground" />,
-    token: '--secondary-foreground',
-    value: 'neutral-900',
+    name: '--secondary-foreground',
+    detail: 'neutral-900',
     job: 'Text on --secondary.',
   },
   {
     sample: <Swatch className="bg-accent-foreground" />,
-    token: '--accent-foreground',
-    value: 'neutral-900',
+    name: '--accent-foreground',
+    detail: 'neutral-900',
     job: 'Text on --accent.',
   },
   {
     sample: <Swatch className="bg-primary-text" />,
-    token: '--primary-text',
-    value: 'orange-700',
+    name: '--primary-text',
+    detail: 'orange-700',
     job: 'Orange as text: the date picker focused segment, the notice subject on hover.',
   },
 ]
 
-const orangeRows: TokenRow[] = [
+const orangeRows: FoundationTableRow[] = [
   {
     sample: <Swatch className="bg-primary" />,
-    token: '--primary',
-    value: 'orange-600',
+    name: '--primary',
+    detail: 'orange-600',
     job: 'An orange fill under text: the default button, the default badge, the pressed toggle group chip.',
   },
   {
     sample: <Swatch className="bg-primary-foreground" />,
-    token: '--primary-foreground',
-    value: 'white',
+    name: '--primary-foreground',
+    detail: 'white',
     job: 'Text on --primary.',
   },
   {
     sample: <Swatch className="bg-indicator" />,
-    token: '--indicator',
-    value: 'orange-600',
+    name: '--indicator',
+    detail: 'orange-600',
     job: 'Every orange mark on a surface: checked fills, active bars, field focus rings, the text link underline, the progress fill.',
   },
   {
     sample: <Swatch className="bg-indicator-foreground" />,
-    token: '--indicator-foreground',
-    value: 'white',
+    name: '--indicator-foreground',
+    detail: 'white',
     job: 'A glyph on --indicator: the checkbox tick, the radio dot, the switch thumb, the selected calendar numeral.',
   },
 ]
 
-const lineRows: TokenRow[] = [
+const lineRows: FoundationTableRow[] = [
   {
     sample: <Swatch className="bg-border" />,
-    token: '--border',
-    value: 'orange-200',
+    name: '--border',
+    detail: 'orange-200',
     job: 'Every surface border and divider.',
   },
   {
     sample: <Swatch className="bg-input" />,
-    token: '--input',
-    value: 'orange-200',
+    name: '--input',
+    detail: 'orange-200',
     job: 'Field box borders at rest. They step to orange-300 on hover.',
   },
   {
     sample: <Swatch className="bg-ring" />,
-    token: '--ring',
-    value: 'neutral-950',
+    name: '--ring',
+    detail: 'neutral-950',
     job: 'The default focus ring, for anything that does not ring in its own hue.',
   },
 ]
 
-const statusRows: TokenRow[] = [
+const statusRows: FoundationTableRow[] = [
   {
     sample: <Swatch className="bg-success" />,
-    token: '--success',
-    value: 'green-100, text green-800',
+    name: '--success',
+    detail: 'green-100, text green-800',
     job: 'A success fill, with --success-foreground on it.',
   },
   {
     sample: <Swatch className="bg-warning" />,
-    token: '--warning',
-    value: 'amber-400, text amber-900',
+    name: '--warning',
+    detail: 'amber-400, text amber-900',
     job: 'A solid warning fill, with --warning-foreground on it.',
   },
   {
     sample: <Swatch className="bg-error" />,
-    token: '--error',
-    value: 'red-100, text red-700',
+    name: '--error',
+    detail: 'red-100, text red-700',
     job: 'An error fill, with --error-foreground on it. The destructive button fills with this.',
   },
   {
     sample: <Swatch className="bg-destructive" />,
-    token: '--destructive',
-    value: 'red-600',
+    name: '--destructive',
+    detail: 'red-600',
     job: 'An invalid field: error text, the required asterisk, borders, focus rings, and a checked invalid checkbox or radio. Also the destructive menu item text.',
   },
 ]
 
-const loadingRows: TokenRow[] = [
+const loadingRows: FoundationTableRow[] = [
   {
     sample: <Swatch className="bg-skeleton" />,
-    token: '--skeleton',
-    value: 'orange-200',
+    name: '--skeleton',
+    detail: 'orange-200',
     job: 'Skeleton blocks.',
   },
   {
     sample: <Swatch className="bg-progress-track" />,
-    token: '--progress-track',
-    value: 'orange-200',
+    name: '--progress-track',
+    detail: 'orange-200',
     job: 'The progress and stepper track.',
   },
   {
     sample: <Swatch className="bg-progress-fill" />,
-    token: '--progress-fill',
-    value: 'orange-600',
+    name: '--progress-fill',
+    detail: 'orange-600',
     job: 'The progress and stepper fill, an alias of --indicator.',
   },
 ]
 
-const chartRows: TokenRow[] = [
+const chartRows: FoundationTableRow[] = [
   {
     sample: <Swatch className="bg-chart-1" />,
-    token: '--chart-1',
-    value: 'orange-500',
+    name: '--chart-1',
+    detail: 'orange-500',
     job: 'The first series. The brand leads.',
   },
   {
     sample: <Swatch className="bg-chart-2" />,
-    token: '--chart-2',
-    value: 'sky-300',
+    name: '--chart-2',
+    detail: 'sky-300',
     job: 'The second series.',
   },
   {
     sample: <Swatch className="bg-chart-3" />,
-    token: '--chart-3',
-    value: 'violet-300',
+    name: '--chart-3',
+    detail: 'violet-300',
     job: 'The third series.',
   },
   {
     sample: <Swatch className="bg-chart-4" />,
-    token: '--chart-4',
-    value: 'teal-300',
+    name: '--chart-4',
+    detail: 'teal-300',
     job: 'The fourth series.',
   },
   {
     sample: <Swatch className="bg-chart-5" />,
-    token: '--chart-5',
-    value: 'pink-300',
+    name: '--chart-5',
+    detail: 'pink-300',
     job: 'The fifth series.',
   },
 ]
-
-interface GroupHue {
-  name: string
-  solidClassName: string
-  softClassName: string
-  borderClassName: string
-}
 
 const groupHues: GroupHue[] = [
   {
@@ -271,8 +276,8 @@ const groupHues: GroupHue[] = [
 function ColorsPage() {
   return (
     <FoundationPage
-      title="Colours"
-      principle="An orange brand over a beige page, with white cards and fields, orange borders, and neutral grey text."
+      title={title}
+      principle={principle}
       introduction={
         <>
           <p>
@@ -299,7 +304,7 @@ function ColorsPage() {
           </p>
         </>
       }
-      tokenSections={[
+      tables={[
         {
           title: 'Surfaces',
           description:
@@ -332,7 +337,7 @@ function ColorsPage() {
         {
           title: 'Loading',
           description:
-            'Placeholders and tracks sit one step above the page on the orange ramp.',
+            'Placeholders and tracks sit two steps above the page on the orange ramp.',
           rows: loadingRows,
         },
         {
@@ -357,23 +362,7 @@ function ColorsPage() {
               </p>
               <div className="border-border bg-card grid gap-3 rounded-lg border p-6 sm:grid-cols-2">
                 {groupHues.map((groupHue) => (
-                  <div key={groupHue.name} className="flex items-center gap-2">
-                    <span
-                      className={`${groupHue.solidClassName} rounded-md px-2.5 py-1 text-sm font-medium`}
-                    >
-                      {groupHue.name}
-                    </span>
-                    <span
-                      className={`${groupHue.softClassName} rounded-md px-2.5 py-1 text-sm font-medium`}
-                    >
-                      soft
-                    </span>
-                    <span
-                      className={`${groupHue.borderClassName} text-foreground rounded-md border-2 px-2.5 py-1 text-sm font-medium transition-colors duration-(--motion-fast)`}
-                    >
-                      border
-                    </span>
-                  </div>
+                  <GroupHueSwatch key={groupHue.name} hue={groupHue} />
                 ))}
               </div>
               <p>
@@ -431,37 +420,51 @@ function ColorsPage() {
           </p>
           <ul className="list-disc space-y-1 pl-6">
             <li>
-              <code>--foreground</code> is 17.20:1 on the page and 18.25:1 on
-              white. <code>--muted-foreground</code> is 7.01:1 on the page,
-              7.44:1 on white, 6.48:1 on <code>--muted</code>, and 5.48:1 on{' '}
-              <code>--accent</code>.
+              <code>--foreground</code> is{' '}
+              {contrastRatios.foregroundOnBackground} on the page and{' '}
+              {contrastRatios.foregroundOnWhite} on white.{' '}
+              <code>--muted-foreground</code> is{' '}
+              {contrastRatios.mutedForegroundOnBackground} on the page,{' '}
+              {contrastRatios.mutedForegroundOnWhite} on white, 6.48:1 on{' '}
+              <code>--muted</code>, and {contrastRatios.mutedForegroundOnAccent}{' '}
+              on <code>--accent</code>.
             </li>
             <li>
-              <code>--secondary-foreground</code> on <code>--secondary</code> is
-              14.14:1. <code>--accent-foreground</code> on <code>--accent</code>{' '}
-              is 11.96:1.
+              <code>--secondary-foreground</code> on <code>--secondary</code> is{' '}
+              {contrastRatios.secondaryForegroundOnSecondary}.{' '}
+              <code>--accent-foreground</code> on <code>--accent</code> is{' '}
+              {contrastRatios.accentForegroundOnAccent}.
             </li>
             <li>
-              <code>--primary-text</code> is 4.93:1 on the page and 5.23:1 on
-              white.
+              <code>--primary-text</code> is{' '}
+              {contrastRatios.primaryTextOnBackground} on the page and{' '}
+              {contrastRatios.primaryTextOnWhite} on white.
             </li>
             <li>
-              White on orange-600 is 3.59:1, below AA for body text. On hover an
-              orange fill steps to orange-700, where white holds 5.23:1. Dark
-              text on orange scores worse under APCA (Lc 49 against
-              white&rsquo;s Lc 68), so white stays.
+              White on orange-600 is {contrastRatios.whiteOnPrimary}, below AA
+              for body text. On hover an orange fill steps to orange-700, where
+              white holds {contrastRatios.whiteOnPrimaryHover}. Dark text on
+              orange scores worse under APCA ({apcaLightness.darkTextOnPrimary}{' '}
+              against white&rsquo;s {apcaLightness.whiteOnPrimary}), so white
+              stays.
             </li>
             <li>
-              <code>--indicator</code> is 3.38:1 on the page and 3.59:1 on
-              white. <code>--progress-fill</code> is 2.65:1 on its track.
+              <code>--indicator</code> is {contrastRatios.indicatorOnBackground}{' '}
+              on the page and {contrastRatios.indicatorOnWhite} on white.{' '}
+              <code>--progress-fill</code> is{' '}
+              {contrastRatios.progressFillOnTrack} on its track.
             </li>
             <li>
-              <code>--ring</code> is 13.46:1 or more against every surface. The
-              outline, secondary, and ghost buttons and an unpressed toggle
-              group chip ring in <code>--accent</code>, the colour their hover
-              washes to, which is 1.28:1 on the page.
+              <code>--ring</code> is {contrastRatios.ringOnAnySurface} or more
+              against every surface. The outline, secondary, and ghost buttons
+              and an unpressed toggle group chip ring in <code>--accent</code>,
+              the colour their hover washes to, which is{' '}
+              {contrastRatios.accentRingOnBackground} on the page.
             </li>
-            <li>Status pairs: success 6.23:1, warning 5.17:1, error 5.36:1.</li>
+            <li>
+              Status pairs: success {contrastRatios.successPair}, warning{' '}
+              {contrastRatios.warningPair}, error {contrastRatios.errorPair}.
+            </li>
             <li>
               Chart slots 2 to 5 sit under 3:1 on a white card, so a series is
               told apart by its label and position, never by colour alone.
@@ -470,10 +473,8 @@ function ColorsPage() {
           <p>
             Borders carry no contrast floor because they only separate surfaces
             that already differ in background. See{' '}
-            <TextLink asChild>
-              <Link to="/accessibility">Accessibility</Link>
-            </TextLink>{' '}
-            for where components ship below AA.
+            <DocTextLink to="/accessibility">Accessibility</DocTextLink> for
+            where components ship below AA.
           </p>
         </>
       }

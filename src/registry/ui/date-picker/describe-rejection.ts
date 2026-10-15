@@ -1,4 +1,6 @@
-import { parseDate, type CalendarDate } from '@internationalized/date'
+import type { CalendarDate } from '@internationalized/date'
+
+import { parseOptionalIsoDate } from '@/registry/lib/iso-date'
 
 import {
   DatePickerMode,
@@ -9,11 +11,13 @@ import {
 import { isCompleteDate } from './utils'
 
 function isUnavailable(date: CalendarDate, limits: DatePickerLimits): boolean {
-  if (limits.min !== undefined && date.compare(parseDate(limits.min)) < 0) {
+  const earliest = parseOptionalIsoDate(limits.min)
+  if (earliest !== undefined && date.compare(earliest) < 0) {
     return true
   }
 
-  if (limits.max !== undefined && date.compare(parseDate(limits.max)) > 0) {
+  const latest = parseOptionalIsoDate(limits.max)
+  if (latest !== undefined && date.compare(latest) > 0) {
     return true
   }
 

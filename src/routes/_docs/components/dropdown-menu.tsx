@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { DropdownMenuDemo } from '@/examples/dropdown-menu/demo'
 import demoSource from '@/examples/dropdown-menu/demo.tsx?raw'
@@ -23,15 +24,21 @@ import { DropdownMenuWithoutIcons } from '@/examples/dropdown-menu/without-icons
 import withoutIconsSource from '@/examples/dropdown-menu/without-icons.tsx?raw'
 import guidelines from '@/registry/ui/dropdown-menu/guidelines.md?raw'
 
+const title = 'Dropdown menu'
+
+const lead =
+  'A trigger opens a list of actions the traveller runs once: rename, duplicate, share, delete, or go somewhere.'
+
 export const Route = createFileRoute('/_docs/components/dropdown-menu')({
+  head: () => docPageHead(title, lead),
   component: DropdownMenuPage,
 })
 
 function DropdownMenuPage() {
   return (
     <DocPage
-      title="Dropdown menu"
-      lead="A trigger opens a list of actions the traveller runs once: rename, duplicate, share, delete, or go somewhere."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <DropdownMenuDemo /> }}
       installation="dropdown-menu"
       usage={usageSource}
@@ -61,7 +68,7 @@ function DropdownMenuPage() {
 
           <Example
             caption="A disabled item"
-            description="The item stays in the list at half opacity and is skipped by the arrow keys, so the menu never shifts between opens."
+            description="The item stays in the list, dimmed, and the arrow keys skip it, so the menu never shifts between opens."
             source={disabledItemSource}
           >
             <DropdownMenuDisabledItem />
@@ -154,7 +161,7 @@ function DropdownMenuPage() {
         <>
           <PropsTable
             component="DropdownMenu"
-            description="The root. It takes the Radix root's props except modal, which is always on."
+            description="The root. The menu is always modal."
             rows={[
               {
                 name: 'open',
@@ -246,9 +253,12 @@ function DropdownMenuPage() {
             <code>DropdownMenuGroup</code>, <code>DropdownMenuLabel</code>,{' '}
             <code>DropdownMenuSeparator</code>, and{' '}
             <code>DropdownMenuShortcut</code> take the props of the element they
-            render. <code>DropdownMenuShortcut</code> only displays a hint at
-            the trailing edge: the menu binds no key, so your app owns the
-            shortcut.
+            render, typed as <code>DropdownMenuGroupProps</code>,{' '}
+            <code>DropdownMenuLabelProps</code>,{' '}
+            <code>DropdownMenuSeparatorProps</code>, and{' '}
+            <code>DropdownMenuShortcutProps</code>.{' '}
+            <code>DropdownMenuShortcut</code> displays the shortcut at the
+            trailing edge and binds no key, so your app owns the shortcut.
           </p>
         </>
       }

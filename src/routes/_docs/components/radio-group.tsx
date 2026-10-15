@@ -1,10 +1,13 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import {
   DocPage,
+  DocTextLink,
   Example,
   KeyboardTable,
   PropsTable,
+  choiceFieldsRelatedPage,
+  docPageHead,
 } from '@/components/doc-page'
 import { RadioGroupControlled } from '@/examples/radio-group/controlled'
 import controlledSource from '@/examples/radio-group/controlled.tsx?raw'
@@ -19,17 +22,22 @@ import horizontalSource from '@/examples/radio-group/horizontal.tsx?raw'
 import usageSource from '@/examples/radio-group/usage.tsx?raw'
 
 import guidelines from '@/registry/ui/radio-group/guidelines.md?raw'
-import { TextLink } from '@/registry/ui/text-link'
+
+const title = 'Radio group'
+
+const lead =
+  'A radio group picks exactly one option from a small set that stays visible, and it owns its label and its error message.'
 
 export const Route = createFileRoute('/_docs/components/radio-group')({
+  head: () => docPageHead(title, lead),
   component: RadioGroupPage,
 })
 
 function RadioGroupPage() {
   return (
     <DocPage
-      title="Radio group"
-      lead="A radio group picks exactly one option from a small set that stays visible, and it owns its label and its error message."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <RadioGroupDemo /> }}
       installation="radio-group"
       usage={usageSource}
@@ -112,13 +120,9 @@ function RadioGroupPage() {
             component="RadioGroup"
             description={
               <>
-                Every other prop passes through to the Radix radio group root.
-                The{' '}
-                <TextLink asChild>
-                  <Link to="/fields">fields page</Link>
-                </TextLink>{' '}
-                describes the label, error, and wrapper behaviour that every
-                field shares.
+                Also takes every <code>&lt;div&gt;</code> attribute. The{' '}
+                <DocTextLink to="/fields">fields page</DocTextLink> describes
+                the label, error, and wrapper behaviour that every field shares.
               </>
             }
             rows={[
@@ -187,7 +191,7 @@ function RadioGroupPage() {
           />
           <PropsTable
             component="RadioGroupItem"
-            description="Takes nothing beyond these props and the Radix item's own. There is no description line and no node label."
+            description="Also takes every button attribute. There is no description line and no node label."
             rows={[
               {
                 name: 'value',
@@ -260,12 +264,7 @@ function RadioGroupPage() {
           label: 'Select',
           description: 'One choice from a list too long to show.',
         },
-        {
-          to: '/fields',
-          label: 'Fields',
-          description:
-            'The label, error, and wrapper behaviour every field shares.',
-        },
+        choiceFieldsRelatedPage,
       ]}
     />
   )

@@ -2,7 +2,7 @@ import { X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 
 import { cn } from '@/lib/utils'
-import { springSettle } from '@/registry/lib/motion'
+import { collapsePresence } from '@/registry/lib/motion'
 
 import { Button, ButtonSize, ButtonVariant } from '../button'
 
@@ -40,13 +40,7 @@ export function Alert({
   const { role: variantRole, StatusIcon } = alertStatusByVariant[variant]
   const statusIcon = icon === undefined ? <StatusIcon /> : icon
 
-  const openAnimation = animateOpen
-    ? {
-        initial: { height: 0, opacity: 0 },
-        animate: { height: 'auto', opacity: 1, transition: springSettle },
-        exit: { height: 0, opacity: 0, transition: springSettle },
-      }
-    : {}
+  const openAnimation = animateOpen ? collapsePresence : {}
 
   return (
     <AnimatePresence>

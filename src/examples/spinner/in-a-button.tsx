@@ -7,8 +7,12 @@ export function SpinnerInAButton() {
 
   async function saveTrip() {
     setLoading(true)
-    await waitForServer()
-    setLoading(false)
+
+    try {
+      await waitForServer()
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (

@@ -1,6 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { DocPage, Example, PropsTable } from '@/components/doc-page'
+import {
+  DocPage,
+  Example,
+  PropsTable,
+  docPageHead,
+} from '@/components/doc-page'
 import { AvatarClickable } from '@/examples/avatar/clickable'
 import clickableSource from '@/examples/avatar/clickable.tsx?raw'
 import { AvatarColors } from '@/examples/avatar/colors'
@@ -16,15 +21,21 @@ import sizesSource from '@/examples/avatar/sizes.tsx?raw'
 import usageSource from '@/examples/avatar/usage.tsx?raw'
 import guidelines from '@/registry/ui/avatar/guidelines.md?raw'
 
+const title = 'Avatar'
+
+const lead =
+  'An avatar is the identity mark for one person: a photo when there is one, initials when there is not.'
+
 export const Route = createFileRoute('/_docs/components/avatar')({
+  head: () => docPageHead(title, lead),
   component: AvatarPage,
 })
 
 function AvatarPage() {
   return (
     <DocPage
-      title="Avatar"
-      lead="An avatar is the identity mark for one person: a photo when there is one, initials when there is not."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <AvatarDemo /> }}
       installation="avatar"
       usage={usageSource}
@@ -40,7 +51,7 @@ function AvatarPage() {
 
           <Example
             caption="Fallback chain"
-            description="From left: a photo, a photo that failed to load, initials from a long name, initials from a one-word name, and a plain circle when there is no name. The avatar keeps its box while an image loads, so a row never shifts."
+            description="From left: a photo, a photo that failed to load, initials from a long name, initials from a one-word name, and an empty coloured circle when there is no name. The avatar keeps its box while an image loads, so a row never shifts."
             source={fallbacksSource}
           >
             <AvatarFallbacks />
@@ -94,48 +105,54 @@ function AvatarPage() {
         </>
       }
       api={
-        <PropsTable
-          component="Avatar"
-          description={
-            <>
-              Also takes every <code>&lt;span&gt;</code> attribute except{' '}
-              <code>color</code>.
-            </>
-          }
-          rows={[
-            {
-              name: 'src',
-              type: 'string',
-              description:
-                'The image URL. The image shows once it loads; until then, and if it fails, the avatar shows the fallback.',
-            },
-            {
-              name: 'name',
-              type: 'string',
-              description:
-                'The person’s name. Feeds the default alt text and the initials: the first letters of the first and last words, one letter for a one-word name. Pass it even with a photo, so a failed image still identifies the person.',
-            },
-            {
-              name: 'alt',
-              type: 'string',
-              default: 'name',
-              description:
-                'The accessible name. Pass an empty string when the name sits beside the avatar as text.',
-            },
-            {
-              name: 'color',
-              type: 'AvatarColor',
-              description:
-                'Sky, Pink, Teal, Fuchsia, Cyan, or Blue. Colours the fallback circle only; with no colour the circle is neutral. Derive it from a stable key, such as a user id, so a person keeps one colour.',
-            },
-            {
-              name: 'size',
-              type: 'AvatarSize',
-              default: 'AvatarSize.Default',
-              description: 'Default or Small.',
-            },
-          ]}
-        />
+        <>
+          <PropsTable
+            component="Avatar"
+            description={
+              <>
+                Also takes every <code>&lt;span&gt;</code> attribute except{' '}
+                <code>color</code>.
+              </>
+            }
+            rows={[
+              {
+                name: 'src',
+                type: 'string',
+                description:
+                  'The image URL. The image shows once it loads; until then, and if it fails, the avatar shows the fallback.',
+              },
+              {
+                name: 'name',
+                type: 'string',
+                description:
+                  'The person’s name. Feeds the default alt text and the initials: the first letters of the first and last words, one letter for a one-word name. Pass it even with a photo, so a failed image still identifies the person.',
+              },
+              {
+                name: 'alt',
+                type: 'string',
+                default: 'name',
+                description:
+                  'The accessible name. Pass an empty string when the name sits beside the avatar as text.',
+              },
+              {
+                name: 'color',
+                type: 'AvatarColor',
+                description:
+                  'Sky, Pink, Teal, Fuchsia, Cyan, or Blue. Colours the fallback circle only; with no colour the circle is neutral. Derive it from a stable key, such as a user id, so a person keeps one colour.',
+              },
+              {
+                name: 'size',
+                type: 'AvatarSize',
+                default: 'AvatarSize.Default',
+                description: 'Default or Small.',
+              },
+            ]}
+          />
+          <p>
+            <code>avatarVariants</code> is exported too, to draw the avatar
+            circle in its sizes on an element of your own.
+          </p>
+        </>
       }
       notes={
         <>

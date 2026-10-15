@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { BreadcrumbCollapsed } from '@/examples/breadcrumb/collapsed'
 import collapsedSource from '@/examples/breadcrumb/collapsed.tsx?raw'
@@ -17,22 +18,36 @@ import routerLinksSource from '@/examples/breadcrumb/router-links.tsx?raw'
 import usageSource from '@/examples/breadcrumb/usage.tsx?raw'
 import guidelines from '@/registry/ui/breadcrumb/guidelines.md?raw'
 
+const title = 'Breadcrumb'
+
+const lead =
+  "A single-line trail of the current page's ancestors, each a link back up, ending in the current page as plain text."
+
 export const Route = createFileRoute('/_docs/components/breadcrumb')({
+  head: () => docPageHead(title, lead),
   component: BreadcrumbPage,
 })
 
 function BreadcrumbPage() {
   return (
     <DocPage
-      title="Breadcrumb"
-      lead="A single-line trail of the current page's ancestors, each a link back up, ending in the current page as plain text."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <BreadcrumbDemo /> }}
       installation="breadcrumb"
       usage={usageSource}
       examples={
         <>
           <Example
-            caption="Collapsing a long trail"
+            caption="Router links"
+            description="A link item takes asChild and renders your router's link with the breadcrumb's styling, so the trail navigates without a page reload."
+            source={routerLinksSource}
+          >
+            <BreadcrumbRouterLinks />
+          </Example>
+
+          <Example
+            caption="Collapsed trail"
             description="From four levels, keep the root, the parent, and the current page, and put everything between the root and the parent behind the ellipsis. Open the menu: the hidden levels run from the highest ancestor down."
             source={collapsedSource}
           >
@@ -41,18 +56,10 @@ function BreadcrumbPage() {
 
           <Example
             caption="A long page title"
-            description="The current page truncates and its title attribute carries the full text. The links never truncate, so the ancestors stay readable."
+            description="The current page truncates. Pass the full text as title so it stays readable on hover. The links never truncate, so every ancestor reads in full."
             source={longPageTitleSource}
           >
             <BreadcrumbLongPageTitle />
-          </Example>
-
-          <Example
-            caption="Router links"
-            description="A link item takes asChild and renders your router's link with the breadcrumb's styling, so the trail navigates without a page reload."
-            source={routerLinksSource}
-          >
-            <BreadcrumbRouterLinks />
           </Example>
         </>
       }

@@ -26,23 +26,27 @@ export function CheckboxInAForm() {
     }
 
     setBooking(true)
-    await waitForServer()
-    setBooking(false)
-    setBooked(true)
+
+    try {
+      await waitForServer()
+      setBooked(true)
+    } finally {
+      setBooking(false)
+    }
   }
 
   return (
-    <Card className="w-full max-w-sm">
-      <CardHeader>
-        <CardTitle>Lisbon long weekend</CardTitle>
-        <CardDescription>
-          {booked
-            ? 'Booked for Brian Nguyen'
-            : 'Not booked yet. Brian Nguyen is the only traveller.'}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form onSubmit={bookTrip}>
+    <Form className="w-full max-w-sm" onSubmit={bookTrip}>
+      <Card>
+        <CardHeader>
+          <CardTitle>Lisbon long weekend</CardTitle>
+          <CardDescription>
+            {booked
+              ? 'Booked for Brian Nguyen'
+              : 'Not booked yet. Brian Nguyen is the only traveller.'}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
           <Checkbox
             label="I have read the cancellation policy"
             required
@@ -53,14 +57,14 @@ export function CheckboxInAForm() {
               setPolicyError(undefined)
             }}
           />
-          <FormActions>
-            <Button type="submit" loading={booking} disabled={booked}>
-              Book trip
-            </Button>
-          </FormActions>
-        </Form>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+      <FormActions>
+        <Button type="submit" loading={booking} disabled={booked}>
+          Book trip
+        </Button>
+      </FormActions>
+    </Form>
   )
 }
 

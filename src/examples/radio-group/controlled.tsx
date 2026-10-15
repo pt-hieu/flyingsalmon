@@ -2,14 +2,17 @@ import { useState } from 'react'
 
 import { RadioGroup, RadioGroupItem } from '@/registry/ui/radio-group'
 
-const costSplitLabels: Record<string, string> = {
-  evenly: 'Split evenly',
-  itinerary: 'By what each traveller joins',
-  organiser: 'Organiser pays',
-}
+const costSplitOptions = [
+  { value: 'evenly', label: 'Split evenly' },
+  { value: 'itinerary', label: 'By what each traveller joins' },
+  { value: 'organiser', label: 'Organiser pays' },
+]
 
 export function RadioGroupControlled() {
   const [costSplit, setCostSplit] = useState('evenly')
+  const costSplitLabel = costSplitOptions.find(
+    (option) => option.value === costSplit,
+  )?.label
 
   return (
     <div className="flex flex-col gap-4">
@@ -19,12 +22,16 @@ export function RadioGroupControlled() {
         value={costSplit}
         onValueChange={setCostSplit}
       >
-        {Object.entries(costSplitLabels).map(([value, label]) => (
-          <RadioGroupItem key={value} value={value} label={label} />
+        {costSplitOptions.map((option) => (
+          <RadioGroupItem
+            key={option.value}
+            value={option.value}
+            label={option.label}
+          />
         ))}
       </RadioGroup>
       <p className="text-muted-foreground text-sm">
-        Brian Nguyen chose: {costSplitLabels[costSplit].toLowerCase()}.
+        Brian Nguyen chose: {costSplitLabel?.toLowerCase()}.
       </p>
     </div>
   )

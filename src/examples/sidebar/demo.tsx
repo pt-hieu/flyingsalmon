@@ -115,7 +115,7 @@ export function SidebarDemo() {
   return (
     <SidebarProvider className="h-96 w-full">
       <Sidebar>
-        <TripHeader />
+        <TripSidebarHeader />
         <SidebarContent>
           <SidebarNav aria-label="Trip">
             {renderGroup('Planning', planningLinks)}
@@ -135,7 +135,7 @@ export function SidebarDemo() {
   )
 }
 
-function TripHeader() {
+function TripSidebarHeader() {
   const { layout } = useSidebar()
 
   return (

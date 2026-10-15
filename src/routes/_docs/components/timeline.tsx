@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { TimelineDemo } from '@/examples/timeline/demo'
 import demoSource from '@/examples/timeline/demo.tsx?raw'
@@ -23,15 +24,21 @@ import stripSource from '@/examples/timeline/strip.tsx?raw'
 import usageSource from '@/examples/timeline/usage.tsx?raw'
 import guidelines from '@/registry/ui/timeline/guidelines.md?raw'
 
+const title = 'Timeline'
+
+const lead =
+  'A timeline places markers in a sequence, joins them with a connector, and puts content beside each one.'
+
 export const Route = createFileRoute('/_docs/components/timeline')({
+  head: () => docPageHead(title, lead),
   component: TimelinePage,
 })
 
 function TimelinePage() {
   return (
     <DocPage
-      title="Timeline"
-      lead="A timeline places markers in a sequence, joins them with a connector, and puts content beside each one."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <TimelineDemo /> }}
       installation="timeline"
       usage={usageSource}
@@ -79,7 +86,7 @@ function TimelinePage() {
 
           <Example
             caption="A moving current marker"
-            description="The timeline owns no animation. To make the current marker travel between days, render a motion element with a shared layoutId inside the current item’s marker. Mount the timeline in the app shell, because the marker only travels when the one it leaves and the one it enters render together, and wrap it in a LayoutGroup with a unique id so two timelines on one page never trade markers. Press Next day."
+            description="Press Next day. The current marker travels from day to day."
             source={movingCurrentMarkerSource}
           >
             <TimelineMovingCurrentMarker />
@@ -182,9 +189,13 @@ function TimelinePage() {
             <code>TimelineOrientation</code> down.
           </p>
           <p>
-            A moving marker uses a <code>motion.span</code> with a shared{' '}
-            <code>layoutId</code> on the bounce spring, the same mechanism as
-            the sidebar’s active bar.
+            The timeline owns no animation. A moving marker is a{' '}
+            <code>motion.span</code> with a shared <code>layoutId</code> inside
+            the current item&rsquo;s marker, on the bounce spring, the same
+            mechanism as the sidebar&rsquo;s active bar. It travels only when
+            the marker it leaves and the one it enters render together, so mount
+            the timeline in the app shell. Wrap it in a <code>LayoutGroup</code>{' '}
+            with a unique id so two timelines on one page never trade markers.
           </p>
           <p>
             The empty marker’s dot is <code>--muted-foreground</code> on{' '}
@@ -211,7 +222,7 @@ function TimelinePage() {
           to: '/components/stepper',
           label: 'Stepper',
           description:
-            'Tracks progress through a sequence with no content beside it.',
+            'Shows a position in a sequence with no content beside it.',
         },
         {
           to: '/components/table',

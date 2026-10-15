@@ -1,5 +1,9 @@
 import { Check } from 'lucide-react'
-import { useLayoutEffect } from 'radix-ui/internal'
+import {
+  composeEventHandlers,
+  useComposedRefs,
+  useLayoutEffect,
+} from 'radix-ui/internal'
 import { useMemo, useState } from 'react'
 
 import { cn } from '@/lib/utils'
@@ -32,6 +36,8 @@ export function ComboboxItem({
   icon,
   className,
   children,
+  ref,
+  onClick,
   ...props
 }: ComboboxItemProps) {
   const {
@@ -45,6 +51,7 @@ export function ComboboxItem({
   } = useComboboxSharedState()
 
   const [element, setElement] = useState<HTMLDivElement | null>(null)
+  const composedRef = useComposedRefs(ref, setElement)
   const declaredEntry = useMemo(
     () => ({ value, label: children, disabled }),
     [value, children, disabled],
@@ -68,16 +75,16 @@ export function ComboboxItem({
   return (
     <div
       {...getItemProps({
-        ref: setElement,
+        ...props,
+        ref: composedRef,
         item: entry,
         index,
         'aria-selected': isSelected,
-        'data-highlighted': isHighlighted ? '' : undefined,
-        'data-disabled': disabled ? '' : undefined,
-        onClick: handleClick,
+        onClick: composeEventHandlers(onClick, handleClick),
         className: cn(comboboxItemClassName, className),
-        ...props,
       })}
+      data-highlighted={isHighlighted ? '' : undefined}
+      data-disabled={disabled ? '' : undefined}
     >
       {icon ? (
         <span aria-hidden className={comboboxItemIconSlotClassName}>

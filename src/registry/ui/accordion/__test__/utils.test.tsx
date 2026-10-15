@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import { onlyHeadingElement } from '@/registry/ui/accordion/utils'
+import { onlySingleElement } from '@/registry/ui/accordion/utils'
 
-describe('onlyHeadingElement', () => {
+describe('onlySingleElement', () => {
   it('hands back the single element it is given', () => {
     const heading = <h3>Baggage allowance</h3>
 
-    expect(onlyHeadingElement(heading)).toBe(heading)
+    expect(onlySingleElement(heading)).toBe(heading)
   })
 
   it.each([
@@ -19,7 +19,7 @@ describe('onlyHeadingElement', () => {
   ])(
     'rejects %s with an error that names the asChild contract',
     (_description, children) => {
-      expect(() => onlyHeadingElement(children)).toThrow(/asChild/)
+      expect(() => onlySingleElement(children)).toThrow(/asChild/)
     },
   )
 })

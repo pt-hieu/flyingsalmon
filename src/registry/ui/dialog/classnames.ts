@@ -1,25 +1,22 @@
 import { cva } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
+import { actionsRow } from '@/registry/lib/actions-row'
 import { verticalFocusRingClearance } from '@/registry/lib/interaction'
 
 import { DialogSize } from './types'
 
-export const dialogOverlayVariants = cva(
-  cn(
-    'fixed inset-0 z-50 bg-neutral-950 opacity-50',
-    'data-[state=open]:animate-floating-overlay-enter',
-    'data-[state=closed]:animate-floating-overlay-exit',
-  ),
+export const dialogOverlayClassName = cn(
+  'fixed inset-0 z-50 bg-neutral-950 opacity-50',
+  'data-[state=open]:animate-floating-overlay-enter',
+  'data-[state=closed]:animate-floating-overlay-exit',
 )
 
 const dialogTitleTypeClassName = 'font-heading text-lg font-semibold'
 
-export const dialogCloseSlotVariants = cva(
-  cn(
-    'absolute top-(--dialog-spacing) right-4 flex h-lh items-center',
-    dialogTitleTypeClassName,
-  ),
+export const dialogCloseSlotClassName = cn(
+  'absolute top-(--dialog-spacing) right-4 flex h-lh items-center',
+  dialogTitleTypeClassName,
 )
 
 export const dialogContentVariants = cva(
@@ -55,10 +52,7 @@ export const dialogBodyClassName = cn(
   verticalFocusRingClearance,
 )
 
-export const dialogFooterVariants = cva(
-  cn(
-    'flex flex-col-reverse gap-2 px-(--dialog-spacing) pb-(--dialog-spacing)',
-    'sm:flex-row sm:justify-end',
-    '[&>*]:w-full sm:[&>*]:w-auto',
-  ),
+export const dialogFooterClassName = cn(
+  actionsRow,
+  'px-(--dialog-spacing) pb-(--dialog-spacing)',
 )

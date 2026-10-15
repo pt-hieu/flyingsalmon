@@ -5,6 +5,13 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
+  fieldDescriptionRow,
+  fieldDisabledRow,
+  fieldErrorRow,
+  fieldLabelRow,
+  fieldSizeRow,
+  formRelatedPage,
 } from '@/components/doc-page'
 import { ComboboxBasic } from '@/examples/combobox/basic'
 import basicSource from '@/examples/combobox/basic.tsx?raw'
@@ -33,15 +40,21 @@ import smallSource from '@/examples/combobox/small.tsx?raw'
 import usageSource from '@/examples/combobox/usage.tsx?raw'
 import guidelines from '@/registry/ui/combobox/guidelines.md?raw'
 
+const title = 'Combobox'
+
+const lead =
+  'A field you type into, with a panel of the items your app supplies for that text: one value, several as chips, or whatever was typed.'
+
 export const Route = createFileRoute('/_docs/components/combobox')({
+  head: () => docPageHead(title, lead),
   component: ComboboxPage,
 })
 
 function ComboboxPage() {
   return (
     <DocPage
-      title="Combobox"
-      lead="A field you type into, with a panel of the items your app supplies for that text: one value, several as chips, or whatever was typed."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <ComboboxDemo /> }}
       installation="combobox"
       usage={usageSource}
@@ -158,7 +171,7 @@ function ComboboxPage() {
               {
                 keys: ['Tab', 'Shift+Tab'],
                 description:
-                  'Closes the panel without picking and moves to the next field.',
+                  'Closes the panel without picking and moves to the next field. In single mode without free text, leaving with the text erased clears the pick.',
               },
               {
                 keys: ['Home', 'End'],
@@ -233,29 +246,16 @@ function ComboboxPage() {
                 name: 'children',
                 type: 'ReactNode',
                 description:
-                  'The items to show for the current text, with any groups, labels, separators, and an empty row. The combobox filters nothing and shows exactly what you pass, so filtering, fetching, debouncing, and cancelling a billed call stay in your code.',
+                  'The items to show for the current text, with any groups, labels, separators, and an empty row. An item may sit inside your own component, such as a TripOption that returns ComboboxItem. The combobox filters nothing and shows exactly what you pass, so filtering, fetching, debouncing, and cancelling a billed call stay in your code.',
               },
-              {
-                name: 'label',
-                type: 'string',
-                description: 'The visible label above the field.',
-              },
+              fieldLabelRow('field'),
               {
                 name: 'placeholder',
                 type: 'string',
                 description: 'Shown while the input is empty.',
               },
-              {
-                name: 'description',
-                type: 'string',
-                description: 'Helper text under the field.',
-              },
-              {
-                name: 'error',
-                type: 'string',
-                description:
-                  'Marks the field invalid and shows the message under it.',
-              },
+              fieldDescriptionRow('field'),
+              fieldErrorRow(),
               {
                 name: 'allowFreeText',
                 type: 'boolean',
@@ -281,24 +281,13 @@ function ComboboxPage() {
                 description:
                   'Shows a spinner in the field while your results load.',
               },
-              {
-                name: 'size',
-                type: 'ComboboxSize',
-                default: 'ComboboxSize.Default',
-                description: 'Default or Small, matching Input and Select.',
-              },
-              {
-                name: 'disabled',
-                type: 'boolean',
-                default: 'false',
-                description:
-                  'Dims the field and removes it from the tab order.',
-              },
+              fieldSizeRow('ComboboxSize'),
+              fieldDisabledRow,
               {
                 name: 'name',
                 type: 'string',
                 description:
-                  'Posts a hidden input per value with the surrounding form.',
+                  'Posts a hidden input per value with the surrounding form. A disabled combobox posts nothing.',
               },
               {
                 name: 'required',
@@ -373,6 +362,17 @@ function ComboboxPage() {
                 default: 'false',
                 description: 'Keeps the item in place but out of reach.',
               },
+              {
+                name: 'onClick',
+                type: '(event: MouseEvent) => void',
+                description:
+                  'Runs before the pick. Call event.preventDefault() to cancel the pick.',
+              },
+              {
+                name: 'ref',
+                type: 'Ref<HTMLDivElement>',
+                description: 'Receives the option element.',
+              },
             ]}
           />
           <p>
@@ -391,7 +391,15 @@ function ComboboxPage() {
           <p>
             The field is 36px tall at the default size and 32px at small,
             matching Input and Select. Items stay 32px at both sizes. In
-            multiple mode the field grows by rows as chips wrap.
+            multiple mode the field grows by rows as chips wrap, so the clear
+            button, spinner, and chevron sit in an overlay pinned to the first
+            row rather than in the flow.
+          </p>
+          <p>
+            The panel stays shut while it has nothing to show. A keystroke that
+            finds it empty leaves a wish to open, and results that arrive later
+            open the panel unless Escape or leaving the field has withdrawn that
+            wish first.
           </p>
           <p>
             Chips commit on Enter only. A comma does not commit, because commas
@@ -428,11 +436,7 @@ function ComboboxPage() {
           label: 'Date picker',
           description: 'The field for a date or a range of dates.',
         },
-        {
-          to: '/components/form',
-          label: 'Form',
-          description: 'Field layout, the actions row, and validation.',
-        },
+        formRelatedPage,
       ]}
     />
   )

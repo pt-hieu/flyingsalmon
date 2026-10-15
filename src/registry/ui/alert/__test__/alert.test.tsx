@@ -208,11 +208,7 @@ describe('Alert', () => {
   })
 
   it('passes native props through to the alert surface', () => {
-    render(
-      <Alert id="checkout-result" data-testid="checkout-alert">
-        Saved as a draft
-      </Alert>,
-    )
+    render(<Alert id="checkout-result">Saved as a draft</Alert>)
 
     expect(screen.getByRole('status')).toHaveAttribute('id', 'checkout-result')
   })

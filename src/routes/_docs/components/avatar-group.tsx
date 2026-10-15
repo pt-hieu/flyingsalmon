@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { AvatarGroupCappedCount } from '@/examples/avatar-group/capped-count'
 import cappedCountSource from '@/examples/avatar-group/capped-count.tsx?raw'
@@ -21,15 +22,21 @@ import sizesSource from '@/examples/avatar-group/sizes.tsx?raw'
 import usageSource from '@/examples/avatar-group/usage.tsx?raw'
 import guidelines from '@/registry/ui/avatar-group/guidelines.md?raw'
 
+const title = 'Avatar group'
+
+const lead =
+  'An avatar group is a compact, overlapping roster of people: the travellers on a trip, the collaborators on a plan.'
+
 export const Route = createFileRoute('/_docs/components/avatar-group')({
+  head: () => docPageHead(title, lead),
   component: AvatarGroupPage,
 })
 
 function AvatarGroupPage() {
   return (
     <DocPage
-      title="Avatar group"
-      lead="An avatar group is a compact, overlapping roster of people: the travellers on a trip, the collaborators on a plan."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <AvatarGroupDemo /> }}
       installation="avatar-group"
       usage={usageSource}
@@ -45,7 +52,7 @@ function AvatarGroupPage() {
 
           <Example
             caption="Overflow"
-            description="max is the number of avatars shown, not the total. Whenever the roster runs past it, the group adds a +N chip, even for one person over. The chip is an avatar-shaped circle, not a badge."
+            description="max is the number of avatars shown, not the total. Whenever the roster runs past it, the group adds a +N overflow count, even for one person over. The overflow count is an avatar-shaped circle, not a badge."
             source={overflowSource}
           >
             <AvatarGroupOverflow />
@@ -53,7 +60,7 @@ function AvatarGroupPage() {
 
           <Example
             caption="Capped count"
-            description="A roster of 254 would print +250 in a circle that fits two digits. cap stops the printed number at +99 while the chip's accessible name still says 250 more. Below the cap the chip prints the real number."
+            description="A roster of 254 would print +250 in a circle that fits two digits. cap stops the printed number at +99 while the overflow count's accessible name still says 250 more. Below the cap the overflow count prints the real number."
             source={cappedCountSource}
           >
             <AvatarGroupCappedCount />
@@ -89,7 +96,7 @@ function AvatarGroupPage() {
               {
                 keys: ['ArrowRight', 'ArrowLeft'],
                 description:
-                  'Moves to the next or previous avatar, then the chip. Focus does not wrap.',
+                  'Moves to the next or previous avatar, then the overflow count. Focus does not wrap.',
               },
               {
                 keys: ['Home', 'End'],
@@ -104,10 +111,10 @@ function AvatarGroupPage() {
           />
           <p>
             The wrapper is <code>role=&quot;group&quot;</code> and forwards{' '}
-            <code>aria-label</code>. Each avatar and the chip is a focusable{' '}
-            <code>role=&quot;img&quot;</code> named by the person, or by{' '}
-            <code>alt</code> when there is no name, and the chip is named{' '}
-            <code>N more</code>. An item with neither a name nor an{' '}
+            <code>aria-label</code>. Each avatar and the overflow count is a
+            focusable <code>role=&quot;img&quot;</code> named by the person, or
+            by <code>alt</code> when there is no name, and the overflow count is
+            named <code>N more</code>. An item with neither a name nor an{' '}
             <code>alt</code> is hidden from assistive technology, gets no
             tooltip, and the arrow keys skip it.
           </p>
@@ -145,20 +152,20 @@ function AvatarGroupPage() {
                 type: 'AvatarSize',
                 default: 'AvatarSize.Default',
                 description:
-                  'Set once on the group and passed to every avatar and the chip. Items carry no size of their own.',
+                  'Set once on the group and passed to every avatar and the overflow count. Items carry no size of their own.',
               },
               {
                 name: 'max',
                 type: 'number',
                 default: '4',
                 description:
-                  'How many avatars show before the overflow chip. Values below 1 count as 1.',
+                  'How many avatars show before the overflow count. Values below 1 count as 1.',
               },
               {
                 name: 'cap',
                 type: 'number',
                 description:
-                  'The largest number the chip prints. The chip’s accessible name always states the true count.',
+                  'The largest number the overflow count prints. The overflow count’s accessible name always states the true count.',
               },
               {
                 name: 'aria-label',
@@ -175,15 +182,15 @@ function AvatarGroupPage() {
           <p>
             The first avatar sits on top and the stack descends to the right.
             Overlap is a quarter of the diameter: 8px at default size, 6px at
-            small. Every avatar and the chip wear a 2px ring in{' '}
-            <code>--background</code>; a standalone avatar has no ring. The chip
-            is <code>--secondary</code> with <code>--secondary-foreground</code>
-            , and it passes WCAG AA.
+            small. Every avatar and the overflow count wear a 2px ring in{' '}
+            <code>--background</code>; a standalone avatar has no ring. The
+            overflow count is <code>--secondary</code> with{' '}
+            <code>--secondary-foreground</code>, and it passes WCAG AA.
           </p>
           <p>
             Hidden people are not rendered, so a 250-person roster costs five
-            nodes. The roster is also the source of the chip’s tooltip: it lists
-            every hidden name, comma-joined.
+            nodes. The roster is also the source of the overflow count’s
+            tooltip: it lists every hidden name, comma-joined.
           </p>
           <p>
             Hovering an avatar parts the row over <code>--motion-base</code>.
@@ -191,10 +198,10 @@ function AvatarGroupPage() {
             slides 14px right (12px at small size), which clears the overlap,
             both 2px rings, and 2px of air. It is one step, not a fan: the faces
             beyond the two neighbours travel with them and stay overlapped, so
-            only the hovered avatar comes free. The resting z-order never
-            changes. Sweeping across the row recentres the parting on the face
-            under the pointer, and the row shuts when the pointer leaves the
-            group.
+            only the avatar under the pointer comes free. The resting z-order
+            never changes. Sweeping across the row recentres the parting on the
+            face under the pointer, and the row shuts when the pointer leaves
+            the group.
           </p>
           <p>
             Pressing an avatar closes its tooltip, because the floating layer

@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
 
-import { AvatarSize } from '../avatar'
+import { AvatarSize, avatarVariants } from '../avatar'
 
 export const avatarGroupVariants = cva('isolate flex w-max items-center', {
   variants: {
@@ -24,20 +24,11 @@ export const avatarGroupItemClassName = cn(
   'focus-visible:ring-indicator focus-visible:outline-hidden',
 )
 
-export const avatarGroupChipVariants = cva(
-  cn(
-    'bg-secondary text-secondary-foreground inline-flex shrink-0 items-center justify-center rounded-full leading-none font-medium select-none',
-    avatarGroupItemClassName,
-  ),
-  {
-    variants: {
-      size: {
-        [AvatarSize.Default]: 'size-8 text-xs',
-        [AvatarSize.Small]: 'size-6 text-2xs',
-      },
-    },
-    defaultVariants: {
-      size: AvatarSize.Default,
-    },
-  },
+const avatarGroupChipClassName = cn(
+  'bg-secondary text-secondary-foreground font-medium',
+  avatarGroupItemClassName,
 )
+
+export function avatarGroupChipVariants({ size }: { size: AvatarSize }) {
+  return cn(avatarVariants({ size }), avatarGroupChipClassName)
+}

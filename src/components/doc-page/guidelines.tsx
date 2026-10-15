@@ -1,12 +1,13 @@
 import {
   guidelinesClassName,
   guidelinesGroupClassName,
-  guidelinesHeadingClassName,
   guidelinesListClassName,
 } from './classnames'
+import { DocSubheading } from './doc-subheading'
 import { DocTextLink } from './doc-text-link'
 import { GuidelineRuleList } from './guideline-rule-list'
 import type { GuidelinesContent } from './types'
+import { toTextContent } from './utils'
 
 export interface GuidelinesProps extends GuidelinesContent {}
 
@@ -18,16 +19,16 @@ export function Guidelines({
   return (
     <div className={guidelinesClassName}>
       <div className={guidelinesGroupClassName}>
-        <h3 className={guidelinesHeadingClassName}>When to use</h3>
+        <DocSubheading>When to use</DocSubheading>
         <ul className={guidelinesListClassName}>
-          {whenToUse.map((situation, index) => (
-            <li key={index}>{situation}</li>
+          {whenToUse.map((situation) => (
+            <li key={toTextContent(situation)}>{situation}</li>
           ))}
         </ul>
       </div>
 
       <div className={guidelinesGroupClassName}>
-        <h3 className={guidelinesHeadingClassName}>When not to use</h3>
+        <DocSubheading>When not to use</DocSubheading>
         <ul className={guidelinesListClassName}>
           {whenNotToUse.map(({ situation, alternative }) => (
             <li key={alternative.label}>
@@ -40,7 +41,7 @@ export function Guidelines({
       </div>
 
       <div className={guidelinesGroupClassName}>
-        <h3 className={guidelinesHeadingClassName}>Do and don&rsquo;t</h3>
+        <DocSubheading>Do and don&rsquo;t</DocSubheading>
         <GuidelineRuleList rules={rules} />
       </div>
     </div>

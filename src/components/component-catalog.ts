@@ -20,301 +20,259 @@ export const componentCategoryLabels: Record<ComponentCategory, string> = {
   [ComponentCategory.Inputs]: 'Inputs',
   [ComponentCategory.DataDisplay]: 'Data display',
   [ComponentCategory.Feedback]: 'Feedback',
-  [ComponentCategory.SurfacesAndOverlays]: 'Surfaces & overlays',
+  [ComponentCategory.SurfacesAndOverlays]: 'Surfaces & floating components',
   [ComponentCategory.Navigation]: 'Navigation',
 }
 
 const catalogEntries = [
   {
     to: '/components/button',
-    registryName: 'button',
     label: 'Button',
     category: ComponentCategory.Inputs,
     aliases: ['action', 'cta', 'icon button', 'loading button'],
   },
   {
     to: '/components/calendar',
-    registryName: 'calendar',
     label: 'Calendar',
     category: ComponentCategory.Inputs,
     aliases: ['month view', 'date grid'],
   },
   {
     to: '/components/checkbox',
-    registryName: 'checkbox',
     label: 'Checkbox',
     category: ComponentCategory.Inputs,
     aliases: ['check box', 'tick box'],
   },
   {
     to: '/components/combobox',
-    registryName: 'combobox',
     label: 'Combobox',
     category: ComponentCategory.Inputs,
     aliases: ['autocomplete', 'typeahead', 'autosuggest', 'tags input'],
   },
   {
     to: '/components/date-picker',
-    registryName: 'date-picker',
     label: 'Date picker',
     category: ComponentCategory.Inputs,
     aliases: ['datepicker', 'date input', 'date range picker'],
   },
   {
     to: '/components/form',
-    registryName: 'form',
     label: 'Form',
     category: ComponentCategory.Inputs,
     aliases: ['fieldset', 'form layout'],
   },
   {
     to: '/components/input',
-    registryName: 'input',
     label: 'Input',
     category: ComponentCategory.Inputs,
     aliases: ['text field', 'textfield', 'text input'],
   },
   {
     to: '/components/number-field',
-    registryName: 'number-field',
     label: 'Number field',
     category: ComponentCategory.Inputs,
     aliases: ['number input', 'numeric input', 'spin button'],
   },
   {
     to: '/components/radio-group',
-    registryName: 'radio-group',
     label: 'Radio group',
     category: ComponentCategory.Inputs,
     aliases: ['radio', 'radio button', 'option group'],
   },
   {
     to: '/components/select',
-    registryName: 'select',
     label: 'Select',
     category: ComponentCategory.Inputs,
     aliases: ['dropdown', 'picker', 'listbox'],
   },
   {
     to: '/components/slider',
-    registryName: 'slider',
     label: 'Slider',
     category: ComponentCategory.Inputs,
     aliases: ['range', 'range input', 'stepped slider', 'scale'],
   },
   {
     to: '/components/switch',
-    registryName: 'switch',
     label: 'Switch',
     category: ComponentCategory.Inputs,
     aliases: ['toggle', 'toggle switch'],
   },
   {
     to: '/components/textarea',
-    registryName: 'textarea',
     label: 'Textarea',
     category: ComponentCategory.Inputs,
     aliases: ['text area', 'multiline'],
   },
   {
     to: '/components/toggle-group',
-    registryName: 'toggle-group',
     label: 'Toggle group',
     category: ComponentCategory.Inputs,
     aliases: ['segmented control', 'toggle buttons', 'button group'],
   },
   {
     to: '/components/avatar',
-    registryName: 'avatar',
     label: 'Avatar',
     category: ComponentCategory.DataDisplay,
     aliases: ['profile picture', 'user image', 'initials'],
   },
   {
     to: '/components/avatar-group',
-    registryName: 'avatar-group',
     label: 'Avatar group',
     category: ComponentCategory.DataDisplay,
     aliases: ['avatar stack', 'facepile'],
   },
   {
     to: '/components/badge',
-    registryName: 'badge',
     label: 'Badge',
     category: ComponentCategory.DataDisplay,
     aliases: ['chip', 'tag', 'pill', 'label'],
   },
   {
     to: '/components/separator',
-    registryName: 'separator',
     label: 'Separator',
     category: ComponentCategory.DataDisplay,
     aliases: ['divider', 'rule', 'hr'],
   },
   {
     to: '/components/sticker',
-    registryName: 'sticker',
     label: 'Sticker',
     category: ComponentCategory.DataDisplay,
     aliases: ['illustration', 'doodle', 'drawing', 'spot illustration'],
   },
   {
     to: '/components/table',
-    registryName: 'table',
     label: 'Table',
     category: ComponentCategory.DataDisplay,
     aliases: ['data grid', 'datagrid', 'data table'],
   },
   {
     to: '/components/timeline',
-    registryName: 'timeline',
     label: 'Timeline',
     category: ComponentCategory.DataDisplay,
     aliases: ['activity feed', 'history'],
   },
   {
     to: '/components/alert',
-    registryName: 'alert',
     label: 'Alert',
     category: ComponentCategory.Feedback,
     aliases: ['callout', 'inline message'],
   },
   {
     to: '/components/empty-state',
-    registryName: 'empty-state',
     label: 'Empty state',
     category: ComponentCategory.Feedback,
     aliases: ['blank slate', 'zero state', 'no results'],
   },
   {
     to: '/components/error-state',
-    registryName: 'error-state',
     label: 'Error state',
     category: ComponentCategory.Feedback,
     aliases: ['failed state', 'error page', 'retry'],
   },
   {
     to: '/components/notice',
-    registryName: 'notice',
     label: 'Notice',
     category: ComponentCategory.Feedback,
     aliases: ['toast', 'banner', 'snackbar', 'notification'],
   },
   {
     to: '/components/progress',
-    registryName: 'progress',
     label: 'Progress',
     category: ComponentCategory.Feedback,
     aliases: ['progress bar', 'loading bar', 'meter'],
   },
   {
     to: '/components/skeleton',
-    registryName: 'skeleton',
     label: 'Skeleton',
     category: ComponentCategory.Feedback,
     aliases: ['placeholder', 'shimmer'],
   },
   {
     to: '/components/spinner',
-    registryName: 'spinner',
     label: 'Spinner',
     category: ComponentCategory.Feedback,
     aliases: ['loader', 'circular progress', 'activity indicator'],
   },
   {
     to: '/components/accordion',
-    registryName: 'accordion',
     label: 'Accordion',
     category: ComponentCategory.SurfacesAndOverlays,
     aliases: ['collapse', 'collapsible', 'disclosure', 'expansion panel'],
   },
   {
     to: '/components/card',
-    registryName: 'card',
     label: 'Card',
     category: ComponentCategory.SurfacesAndOverlays,
     aliases: ['paper', 'panel', 'tile'],
   },
   {
     to: '/components/dialog',
-    registryName: 'dialog',
     label: 'Dialog',
     category: ComponentCategory.SurfacesAndOverlays,
     aliases: ['modal', 'popup', 'confirm'],
   },
   {
     to: '/components/drawer',
-    registryName: 'drawer',
     label: 'Drawer',
     category: ComponentCategory.SurfacesAndOverlays,
     aliases: ['sheet', 'side panel', 'slide over', 'flyout'],
   },
   {
     to: '/components/dropdown-menu',
-    registryName: 'dropdown-menu',
     label: 'Dropdown menu',
     category: ComponentCategory.SurfacesAndOverlays,
     aliases: ['menu', 'context menu', 'action menu', 'overflow menu'],
   },
   {
     to: '/components/icon-tooltip',
-    registryName: 'icon-tooltip',
     label: 'Icon tooltip',
     category: ComponentCategory.SurfacesAndOverlays,
     aliases: ['info icon', 'icon hint', 'emoji tooltip'],
   },
   {
     to: '/components/tooltip',
-    registryName: 'tooltip',
     label: 'Tooltip',
     category: ComponentCategory.SurfacesAndOverlays,
     aliases: ['hint', 'hover text', 'info tip'],
   },
   {
     to: '/components/breadcrumb',
-    registryName: 'breadcrumb',
     label: 'Breadcrumb',
     category: ComponentCategory.Navigation,
     aliases: ['breadcrumbs', 'trail'],
   },
   {
     to: '/components/page-header',
-    registryName: 'page-header',
     label: 'Page header',
     category: ComponentCategory.Navigation,
     aliases: ['page title', 'heading'],
   },
   {
     to: '/components/pagination',
-    registryName: 'pagination',
     label: 'Pagination',
     category: ComponentCategory.Navigation,
     aliases: ['pager', 'page numbers'],
   },
   {
     to: '/components/sidebar',
-    registryName: 'sidebar',
     label: 'Sidebar',
     category: ComponentCategory.Navigation,
     aliases: ['side nav', 'navigation rail', 'nav drawer'],
   },
   {
     to: '/components/stepper',
-    registryName: 'stepper',
     label: 'Stepper',
     category: ComponentCategory.Navigation,
     aliases: ['steps', 'wizard', 'step indicator'],
   },
   {
     to: '/components/tabs',
-    registryName: 'tabs',
     label: 'Tabs',
     category: ComponentCategory.Navigation,
     aliases: ['tab bar', 'tab list'],
   },
   {
     to: '/components/text-link',
-    registryName: 'text-link',
     label: 'Text link',
     category: ComponentCategory.Navigation,
     aliases: ['link', 'anchor', 'hyperlink'],
@@ -331,6 +289,8 @@ export interface CatalogComponent {
   description: string
 }
 
+const componentRoutePrefix = '/components/'
+
 const registryDescriptionsByName = new Map(
   registry.items.map((registryItem) => [
     registryItem.name,
@@ -338,9 +298,21 @@ const registryDescriptionsByName = new Map(
   ]),
 )
 
+function registryDescription(route: ComponentRoute) {
+  const registryName = route.slice(componentRoutePrefix.length)
+  const description = registryDescriptionsByName.get(registryName)
+  if (description === undefined) {
+    throw new Error(
+      `${route} has no registry item named "${registryName}" in registry.json`,
+    )
+  }
+
+  return description
+}
+
 export const componentCatalog: CatalogComponent[] = catalogEntries.map(
-  ({ registryName, ...catalogEntry }) => ({
+  (catalogEntry) => ({
     ...catalogEntry,
-    description: registryDescriptionsByName.get(registryName) ?? '',
+    description: registryDescription(catalogEntry.to),
   }),
 )
