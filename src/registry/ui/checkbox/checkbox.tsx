@@ -5,8 +5,8 @@ import { Checkbox as CheckboxPrimitive } from 'radix-ui'
 import { cn } from '@/lib/utils'
 import {
   FieldErrorMessage,
-  FieldLabelPlacement,
   fieldLabelVariants,
+  FieldLabelPlacement,
   useFieldIds,
 } from '@/registry/lib/field'
 import { springBounce, springSettle } from '@/registry/lib/motion'
@@ -69,7 +69,7 @@ export function Checkbox({
           onCheckedChange={handleCheckedChange}
           disabled={disabled}
           required={required}
-          aria-invalid={error ? true : undefined}
+          aria-invalid={hasError || undefined}
           aria-describedby={describedBy}
           className={checkboxVariants({ error: hasError })}
           {...props}

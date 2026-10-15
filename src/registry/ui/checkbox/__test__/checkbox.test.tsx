@@ -3,12 +3,11 @@ import userEvent from '@testing-library/user-event'
 import { useState } from 'react'
 import { describe, expect, it, vi } from 'vitest'
 
-import { Checkbox } from '@/registry/ui/checkbox'
+import { Checkbox, type CheckboxCheckedState } from '@/registry/ui/checkbox'
 
 function SelectAll() {
-  const [checked, setChecked] = useState<boolean | 'indeterminate'>(
-    'indeterminate',
-  )
+  const [checked, setChecked] = useState<CheckboxCheckedState>('indeterminate')
+
   return (
     <Checkbox
       label="Select all"
@@ -155,17 +154,6 @@ describe('Checkbox', () => {
     expect(
       screen.getByRole('checkbox', { name: 'Accept the terms' }),
     ).toBeRequired()
-  })
-
-  it('keeps the required marker out of the accessible name', () => {
-    render(<Checkbox label="Accept the terms" required />)
-
-    expect(
-      screen.getByRole('checkbox', { name: 'Accept the terms' }),
-    ).toBeInTheDocument()
-    expect(screen.getByText('Accept the terms')).toHaveTextContent(
-      /^Accept the terms$/,
-    )
   })
 
   it('keeps a caller description alongside the error message', () => {

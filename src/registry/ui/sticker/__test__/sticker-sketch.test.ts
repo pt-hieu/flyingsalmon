@@ -34,6 +34,8 @@ const temporaryDirectories: string[] = []
 mkdirSync(temporaryRoot, { recursive: true })
 
 afterEach(() => {
+  vi.restoreAllMocks()
+
   for (const directory of temporaryDirectories.splice(0)) {
     rmSync(directory, { recursive: true })
   }
@@ -73,7 +75,7 @@ describe('drawSticker', () => {
 
 describe('writeSticker', () => {
   it('writes a module that exports the drawn art under the given name', async () => {
-    vi.spyOn(console, 'log').mockImplementation(() => {})
+    vi.spyOn(process.stdout, 'write').mockImplementation(() => true)
     const directory = mkdtempSync(temporaryDirectoryPrefix)
     temporaryDirectories.push(directory)
     const output = pathToFileURL(join(directory, 'window-sticker-art.ts'))
@@ -85,7 +87,7 @@ describe('writeSticker', () => {
   })
 
   it('writes the same file every time it runs', () => {
-    vi.spyOn(console, 'log').mockImplementation(() => {})
+    vi.spyOn(process.stdout, 'write').mockImplementation(() => true)
     const directory = mkdtempSync(temporaryDirectoryPrefix)
     temporaryDirectories.push(directory)
     const output = pathToFileURL(join(directory, 'window-sticker-art.ts'))

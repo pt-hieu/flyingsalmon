@@ -10,7 +10,7 @@ Design guidelines for the flyingsalmon Radio group component. An alternative lin
 ## When not to use
 
 - Use [Toggle group](https://flyingsalmon.superbrian.dev/components/toggle-group) when the traveller must be able to clear the choice, because a radio group cannot be emptied once it holds a value.
-- Use [Select](https://flyingsalmon.superbrian.dev/components/select) for more than about five options, where the list outgrows the form.
+- Use [Select](https://flyingsalmon.superbrian.dev/components/select) for more than five options, where the list outgrows the form.
 
 ## Do and don't
 
@@ -22,8 +22,6 @@ Design guidelines for the flyingsalmon Radio group component. An alternative lin
   **Why:** The default saves the click, and a traveller who wants something else sees every alternative beside it.
 - **Don't:** Preselect an answer the traveller must choose deliberately.
   **Why:** A preselected answer gets accepted without being read. Leave the group empty, and a skipped group fails on submit with the message on the group itself.
-- **Do:** Put a "Decide for me" option last.
-  **Why:** The real answers come first, so the way out is there for the unsure without tempting everyone else.
 - **Don't:** Offer a single option on its own.
   **Why:** One option offers no choice and cannot be unselected. A yes or no is a checkbox.
 - **Don't:** Lay options in a row unless each label is a word or two.

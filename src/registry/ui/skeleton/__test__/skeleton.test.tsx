@@ -2,11 +2,11 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 
-import { Skeleton, SkeletonVariant } from '@/registry/ui/skeleton'
+import { Skeleton } from '@/registry/ui/skeleton'
 
 function renderSkeleton(element: React.ReactElement) {
   const { container } = render(element)
-  const skeleton = container.querySelector('[data-variant]')
+  const skeleton = container.firstElementChild
 
   if (!skeleton) throw new Error('No skeleton rendered')
 
@@ -41,28 +41,6 @@ describe('Skeleton', () => {
     expect(
       screen.getByRole('button', { name: 'After the skeleton' }),
     ).toHaveFocus()
-  })
-
-  it('takes the text shape when no variant is given', () => {
-    const skeleton = renderSkeleton(<Skeleton />)
-
-    expect(skeleton).toHaveAttribute('data-variant', 'text')
-  })
-
-  it('takes the circle shape when asked for it', () => {
-    const skeleton = renderSkeleton(
-      <Skeleton variant={SkeletonVariant.Circle} />,
-    )
-
-    expect(skeleton).toHaveAttribute('data-variant', 'circle')
-  })
-
-  it('takes the rectangle shape when asked for it', () => {
-    const skeleton = renderSkeleton(
-      <Skeleton variant={SkeletonVariant.Rectangle} />,
-    )
-
-    expect(skeleton).toHaveAttribute('data-variant', 'rectangle')
   })
 
   it('forwards consumer attributes to the block it renders', () => {

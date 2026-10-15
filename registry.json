@@ -444,7 +444,7 @@
       "name": "motion",
       "type": "registry:lib",
       "title": "Motion tokens",
-      "description": "The motion language: duration constants and the spring-bounce / spring-settle presets every component animates with.",
+      "description": "The motion language: duration constants, the spring-bounce / spring-settle presets every component animates with, and the collapse preset for content that grows open and shrinks away.",
       "dependencies": ["motion"],
       "files": [
         { "path": "src/registry/lib/motion.ts", "type": "registry:lib" }
@@ -463,8 +463,8 @@
       "name": "field",
       "type": "registry:lib",
       "title": "Field primitives",
-      "description": "The wiring every field component shares: the label-to-control id linkage with its aria-describedby merge, the shared label variants, the muted description under the field, and the animated error message.",
-      "dependencies": ["class-variance-authority"],
+      "description": "The wiring every field component shares: the label-to-control id linkage with its aria-describedby merge, the shared label variants, the end slot's button and spinner classes, the muted description under the field, and the animated error message.",
+      "dependencies": ["class-variance-authority", "motion"],
       "registryDependencies": ["@flyingsalmon/motion"],
       "files": [
         { "path": "src/registry/lib/field.tsx", "type": "registry:lib" }
@@ -476,6 +476,37 @@
       "title": "Menu item classes",
       "description": "The item, highlight, destructive, icon-slot, label, separator, and panel class strings shared by every floating list of actions or values.",
       "files": [{ "path": "src/registry/lib/menu.ts", "type": "registry:lib" }]
+    },
+    {
+      "name": "use-controllable-state",
+      "type": "registry:lib",
+      "title": "Controllable state",
+      "description": "The hook behind every component that takes a value or its default: it holds the value itself until the parent passes one, and reports every change either way.",
+      "files": [
+        {
+          "path": "src/registry/lib/use-controllable-state.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "actions-row",
+      "type": "registry:lib",
+      "title": "Actions row",
+      "description": "The row of actions that closes a form or a dialog: stacked full width with the primary action on top on a narrow screen, right-aligned in a row from the small breakpoint.",
+      "files": [
+        { "path": "src/registry/lib/actions-row.ts", "type": "registry:lib" }
+      ]
+    },
+    {
+      "name": "iso-date",
+      "type": "registry:lib",
+      "title": "ISO dates",
+      "description": "The conversion between the ISO day strings the date components take and post, such as 2026-03-07, and the calendar dates they work with inside.",
+      "dependencies": ["@internationalized/date"],
+      "files": [
+        { "path": "src/registry/lib/iso-date.ts", "type": "registry:lib" }
+      ]
     },
     {
       "name": "spinner",
@@ -506,7 +537,7 @@
       "type": "registry:ui",
       "title": "Button",
       "description": "The action component. Six variants, four sizes, and a loading state that morphs the button around its own spinner while it stays focused and reachable.",
-      "dependencies": ["class-variance-authority"],
+      "dependencies": ["class-variance-authority", "motion"],
       "registryDependencies": [
         "@flyingsalmon/interaction",
         "@flyingsalmon/motion",
@@ -540,7 +571,7 @@
       "type": "registry:ui",
       "title": "Alert",
       "description": "The app's inline vehicle for the result of an action. A neutral surface where the icon carries the variant, two sizes, an optional close button, and its own enter and exit animation.",
-      "dependencies": ["class-variance-authority", "lucide-react"],
+      "dependencies": ["class-variance-authority", "lucide-react", "motion"],
       "registryDependencies": ["@flyingsalmon/motion", "@flyingsalmon/button"],
       "files": [
         {
@@ -630,10 +661,11 @@
       "type": "registry:ui",
       "title": "Switch",
       "description": "An instant-apply on/off control that owns its label and its own busyness. Two sizes on the field family's heights, so it lines up in a row of fields; no variants, no error state; a failed toggle is a result the app shows.",
-      "dependencies": ["radix-ui"],
+      "dependencies": ["radix-ui", "class-variance-authority", "motion"],
       "registryDependencies": [
         "@flyingsalmon/interaction",
-        "@flyingsalmon/motion"
+        "@flyingsalmon/motion",
+        "@flyingsalmon/field"
       ],
       "files": [
         {
@@ -655,7 +687,7 @@
       "type": "registry:ui",
       "title": "Checkbox",
       "description": "A tri-state checkbox that owns its label and error message. One 20px size; the check mark morphs into a dash for the indeterminate state.",
-      "dependencies": ["radix-ui"],
+      "dependencies": ["radix-ui", "class-variance-authority", "motion"],
       "registryDependencies": [
         "@flyingsalmon/field",
         "@flyingsalmon/interaction",
@@ -798,8 +830,12 @@
       "type": "registry:ui",
       "title": "Dialog",
       "description": "A modal surface over a scrim. It traps focus, locks scroll, and returns focus to its trigger on close.",
-      "dependencies": ["radix-ui"],
-      "registryDependencies": ["@flyingsalmon/button"],
+      "dependencies": ["radix-ui", "class-variance-authority", "lucide-react"],
+      "registryDependencies": [
+        "@flyingsalmon/button",
+        "@flyingsalmon/interaction",
+        "@flyingsalmon/actions-row"
+      ],
       "files": [
         {
           "path": "src/registry/ui/dialog/classnames.ts",
@@ -853,8 +889,8 @@
       "type": "registry:ui",
       "title": "Dropdown Menu",
       "description": "A modal menu of actions anchored to its trigger. Arrow keys walk the items; choosing one closes the menu.",
-      "dependencies": ["radix-ui"],
-      "registryDependencies": ["@flyingsalmon/menu", "@flyingsalmon/button"],
+      "dependencies": ["radix-ui", "class-variance-authority"],
+      "registryDependencies": ["@flyingsalmon/menu"],
       "files": [
         {
           "path": "src/registry/ui/dropdown-menu/classnames.ts",
@@ -912,7 +948,7 @@
       "type": "registry:ui",
       "title": "Select",
       "description": "A single-select field that owns its label and error message. The list is a modal surface anchored to the trigger.",
-      "dependencies": ["class-variance-authority", "radix-ui"],
+      "dependencies": ["class-variance-authority", "radix-ui", "lucide-react"],
       "registryDependencies": [
         "@flyingsalmon/field",
         "@flyingsalmon/menu",
@@ -951,7 +987,8 @@
           "type": "registry:ui"
         },
         { "path": "src/registry/ui/select/select.tsx", "type": "registry:ui" },
-        { "path": "src/registry/ui/select/types.ts", "type": "registry:ui" }
+        { "path": "src/registry/ui/select/types.ts", "type": "registry:ui" },
+        { "path": "src/registry/ui/select/utils.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -1016,8 +1053,11 @@
       "type": "registry:ui",
       "title": "Tabs",
       "description": "A horizontal tab set in one underline variant. A sliding indicator tracks the selected tab; a separate bar marks focus.",
-      "dependencies": ["radix-ui"],
-      "registryDependencies": ["@flyingsalmon/motion"],
+      "dependencies": ["radix-ui", "motion"],
+      "registryDependencies": [
+        "@flyingsalmon/motion",
+        "@flyingsalmon/use-controllable-state"
+      ],
       "files": [
         { "path": "src/registry/ui/tabs/classnames.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/tabs/context.ts", "type": "registry:ui" },
@@ -1050,7 +1090,7 @@
       "title": "Form",
       "description": "A layout shell. It gives fields their vertical rhythm, an actions row, and an optional slot where the app places the submit result as an alert.",
       "dependencies": [],
-      "registryDependencies": [],
+      "registryDependencies": ["@flyingsalmon/actions-row"],
       "files": [
         { "path": "src/registry/ui/form/classnames.ts", "type": "registry:ui" },
         {
@@ -1114,6 +1154,7 @@
       "title": "Table",
       "description": "A styled primitive for tabular data in seven parts: Table, TableHeader, TableBody, TableFooter, TableRow, TableHeadCell, and TableCell. Horizontal rules only, a primary header rule, a background step on the hovered body row, and an interactive row whose single link stretches over the whole row. Sorting, selection, and pagination belong to a data table built on top.",
       "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["@flyingsalmon/interaction"],
       "files": [
         {
           "path": "src/registry/ui/table/classnames.ts",
@@ -1150,7 +1191,12 @@
           "type": "registry:ui"
         },
         { "path": "src/registry/ui/table/table.tsx", "type": "registry:ui" },
-        { "path": "src/registry/ui/table/types.ts", "type": "registry:ui" }
+        { "path": "src/registry/ui/table/types.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/table/use-horizontal-overflow.ts",
+          "type": "registry:ui"
+        },
+        { "path": "src/registry/ui/table/utils.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -1158,7 +1204,7 @@
       "type": "registry:ui",
       "title": "Accordion",
       "description": "Progressive disclosure in a divider list: a heading row opens its own panel on a height animation. Several items open at once by default; type single with collapsible gives a one-item disclosure.",
-      "dependencies": ["radix-ui"],
+      "dependencies": ["radix-ui", "lucide-react"],
       "registryDependencies": ["@flyingsalmon/interaction"],
       "files": [
         {
@@ -1265,7 +1311,10 @@
         "class-variance-authority",
         "lucide-react"
       ],
-      "registryDependencies": ["@flyingsalmon/button"],
+      "registryDependencies": [
+        "@flyingsalmon/button",
+        "@flyingsalmon/iso-date"
+      ],
       "files": [
         {
           "path": "src/registry/ui/calendar/calendar-day.tsx",
@@ -1322,7 +1371,8 @@
         "@flyingsalmon/field",
         "@flyingsalmon/interaction",
         "@flyingsalmon/spinner",
-        "@flyingsalmon/button"
+        "@flyingsalmon/button",
+        "@flyingsalmon/iso-date"
       ],
       "files": [
         {
@@ -1455,6 +1505,10 @@
         },
         { "path": "src/registry/ui/combobox/index.ts", "type": "registry:ui" },
         {
+          "path": "src/registry/ui/combobox/spinner-size-by-combobox-size.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/combobox/split-panel-children.ts",
           "type": "registry:ui"
         },
@@ -1491,7 +1545,8 @@
       "registryDependencies": [
         "@flyingsalmon/field",
         "@flyingsalmon/interaction",
-        "@flyingsalmon/spinner"
+        "@flyingsalmon/spinner",
+        "@flyingsalmon/use-controllable-state"
       ],
       "files": [
         {
@@ -1565,9 +1620,9 @@
       "description": "A set of chips that toggle in single or multiple mode, wrapping across rows. Single mode returns to empty, multiple mode takes a max, and required blocks the last deselect. No shared track and no tab shape: each chip is its own control.",
       "dependencies": ["class-variance-authority", "radix-ui"],
       "registryDependencies": [
-        "@flyingsalmon/button",
         "@flyingsalmon/field",
-        "@flyingsalmon/interaction"
+        "@flyingsalmon/interaction",
+        "@flyingsalmon/use-controllable-state"
       ],
       "files": [
         {
@@ -1662,7 +1717,11 @@
       "title": "Notice",
       "description": "One persistent message for a result with no visible home, dismissed by the user and never by a timer. It links back to its subject and never takes focus.",
       "dependencies": ["motion"],
-      "registryDependencies": ["@flyingsalmon/alert", "@flyingsalmon/motion"],
+      "registryDependencies": [
+        "@flyingsalmon/alert",
+        "@flyingsalmon/motion",
+        "@flyingsalmon/interaction"
+      ],
       "files": [
         {
           "path": "src/registry/ui/notice/classnames.ts",
@@ -1754,6 +1813,10 @@
         {
           "path": "src/registry/ui/empty-state/types.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/empty-state/use-labelling-title.ts",
+          "type": "registry:ui"
         }
       ]
     },
@@ -1826,7 +1889,8 @@
         "@flyingsalmon/motion",
         "@flyingsalmon/tooltip",
         "@flyingsalmon/button",
-        "@flyingsalmon/drawer"
+        "@flyingsalmon/drawer",
+        "@flyingsalmon/use-controllable-state"
       ],
       "files": [
         {
@@ -1840,6 +1904,10 @@
           "target": "@ui/sidebar/guidelines.md"
         },
         { "path": "src/registry/ui/sidebar/index.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/sidebar/scroll-fully-into-view.ts",
+          "type": "registry:ui"
+        },
         {
           "path": "src/registry/ui/sidebar/sidebar-content.tsx",
           "type": "registry:ui"
@@ -1900,7 +1968,8 @@
         {
           "path": "src/registry/ui/sidebar/use-sidebar.ts",
           "type": "registry:ui"
-        }
+        },
+        { "path": "src/registry/ui/sidebar/utils.ts", "type": "registry:ui" }
       ]
     },
     {
@@ -1956,8 +2025,8 @@
       "type": "registry:ui",
       "title": "Drawer",
       "description": "A modal panel inset at the right edge of the viewport for secondary content that accompanies the page still visible beside it: filters for a list, the detail of a selected row. It is dialog's root and parts with one panel of its own, and it is never app navigation and never a confirm.",
-      "dependencies": ["class-variance-authority", "radix-ui"],
-      "registryDependencies": ["@flyingsalmon/dialog", "@flyingsalmon/button"],
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["@flyingsalmon/dialog"],
       "files": [
         {
           "path": "src/registry/ui/drawer/classnames.ts",

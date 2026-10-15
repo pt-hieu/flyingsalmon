@@ -22,9 +22,7 @@ Design guidelines for the flyingsalmon Accordion component. An alternative linke
   **Why:** A closed accordion is the table of contents. When every trigger reads on its own, the closed stack is a recap the reader scans without opening anything.
 - **Do:** Start every item closed unless the reader needs it on arrival.
   **Why:** The accordion holds what helps some readers, so the page opens on what every reader needs.
-- **Do:** Put a recap of what is settled above the step it leads to, outside that step’s card.
-  **Why:** Earlier answers stay one press away while the current question stays the focus of the screen.
 - **Don't:** Give a trigger any job but opening its panel.
   **Why:** A row that opens and also acts makes every press a guess. The controls live in the panel, where the reader has chosen to look.
-- **Don't:** Box the stack or add a fill to open panels.
+- **Don't:** Give the stack a border of its own or a fill to open panels. To box it, put it in a card’s content.
   **Why:** The accordion is a flush divider list, and an open panel is the page continued, not a new surface.

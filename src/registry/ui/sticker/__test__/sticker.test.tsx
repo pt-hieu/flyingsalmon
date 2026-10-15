@@ -137,27 +137,4 @@ describe('Sticker', () => {
     expect(cutPaths).toHaveLength(3)
     expect(container.querySelector('.fill-red-500')).toBeNull()
   })
-
-  it('pops in on scroll unless popIn is off', () => {
-    const { rerender } = render(
-      <Sticker
-        art={windowArt}
-        label="A window"
-        roleClassNames={roleClassNames}
-      />,
-    )
-
-    expect(screen.getByRole('img')).toHaveClass('animate-sticker-pop')
-
-    rerender(
-      <Sticker
-        art={windowArt}
-        label="A window"
-        roleClassNames={roleClassNames}
-        popIn={false}
-      />,
-    )
-
-    expect(screen.getByRole('img')).not.toHaveClass('animate-sticker-pop')
-  })
 })

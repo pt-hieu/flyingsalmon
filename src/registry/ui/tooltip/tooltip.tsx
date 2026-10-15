@@ -28,8 +28,6 @@ export function Tooltip({
           side={side}
           align={align}
           sideOffset={8}
-          alignOffset={0}
-          avoidCollisions
           collisionPadding={8}
           className={tooltipContentClassName}
         >
