@@ -140,4 +140,42 @@ describe('Sticker', () => {
     expect(cutPaths).toHaveLength(3)
     expect(container.querySelector('.fill-red-500')).toBeNull()
   })
+
+  it('boils through every frame by default', () => {
+    const { container } = render(
+      <Sticker
+        art={windowArt}
+        label="A window"
+        roleClassNames={roleClassNames}
+      />,
+    )
+
+    expect(
+      container.querySelector('path[d="M21 21 L59 21 L59 59 L21 59 Z"]'),
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector('path[d="M22 20 L58 22 L60 58 L20 60 Z"]'),
+    ).toBeInTheDocument()
+    expect(container.querySelector('.animate-sticker-boil')).not.toBeNull()
+  })
+
+  it('holds still on its first drawing when boil is off', () => {
+    const { container } = render(
+      <Sticker
+        art={windowArt}
+        label="A window"
+        roleClassNames={roleClassNames}
+        boil={false}
+      />,
+    )
+
+    expect(
+      container.querySelector('path[d="M21 21 L59 21 L59 59 L21 59 Z"]'),
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector('path[d="M22 20 L58 22 L60 58 L20 60 Z"]'),
+    ).toBeNull()
+    expect(container.querySelector('.animate-sticker-boil')).toBeNull()
+    expect(container.querySelector('.opacity-0')).toBeNull()
+  })
 })

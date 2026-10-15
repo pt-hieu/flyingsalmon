@@ -12,8 +12,12 @@ export const stickerVariants = cva(
   },
 )
 
-export const stickerFrameVariants = cva('animate-sticker-boil', {
+export const stickerFrameVariants = cva('', {
   variants: {
+    boil: {
+      true: 'animate-sticker-boil',
+      false: '',
+    },
     leading: {
       true: '',
       false: 'opacity-0',
