@@ -4,6 +4,14 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { NumberField } from '@/registry/ui/number-field'
 
+function postedFormData(container: HTMLElement) {
+  const form = container.querySelector('form')
+
+  if (!form) throw new Error('No form rendered')
+
+  return new FormData(form)
+}
+
 describe('NumberField', () => {
   afterEach(() => {
     vi.useRealTimers()
@@ -313,7 +321,7 @@ describe('NumberField', () => {
       </form>,
     )
 
-    const formData = new FormData(container.querySelector('form')!)
+    const formData = postedFormData(container)
 
     expect(screen.getByLabelText('Budget')).toHaveValue('1.500')
     expect([...formData.entries()]).toEqual([['budgetPerPerson', '1500']])
@@ -326,9 +334,27 @@ describe('NumberField', () => {
       </form>,
     )
 
-    const formData = new FormData(container.querySelector('form')!)
+    const formData = postedFormData(container)
 
     expect(formData.get('budgetPerPerson')).toBe('')
+  })
+
+  it('posts its number to the form it names when it sits outside that form', () => {
+    const { container } = render(
+      <>
+        <form id="trip-form" />
+        <NumberField
+          label="Budget"
+          name="budgetPerPerson"
+          form="trip-form"
+          defaultValue={1500}
+        />
+      </>,
+    )
+
+    const formData = postedFormData(container)
+
+    expect(formData.get('budgetPerPerson')).toBe('1500')
   })
 
   it('posts nothing at all while the field is disabled', () => {
@@ -343,7 +369,7 @@ describe('NumberField', () => {
       </form>,
     )
 
-    const formData = new FormData(container.querySelector('form')!)
+    const formData = postedFormData(container)
 
     expect(formData.get('budgetPerPerson')).toBeNull()
   })

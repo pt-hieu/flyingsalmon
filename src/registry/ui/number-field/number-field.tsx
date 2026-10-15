@@ -4,10 +4,11 @@ import { cn } from '@/lib/utils'
 import {
   FieldDescription,
   FieldErrorMessage,
-  FieldLabelPlacement,
   fieldLabelVariants,
+  FieldLabelPlacement,
   useFieldIds,
 } from '@/registry/lib/field'
+import { useControllableState } from '@/registry/lib/use-controllable-state'
 
 import {
   numberFieldAffixClassName,
@@ -24,10 +25,11 @@ import {
   formatNumber,
   fractionDigitsForStep,
   inputModeForRange,
-  parseNumber,
   resolveLocale,
   stepDeltaForKey,
   steppedValue,
+  typedNumber,
+  unparseableNumber,
   valueTextWithAffixes,
 } from './utils'
 
@@ -69,6 +71,7 @@ export function NumberField({
   unit,
   locale,
   name,
+  form,
   className,
   id,
   disabled,
@@ -88,10 +91,11 @@ export function NumberField({
     describedBy: callerDescribedBy,
   })
 
-  const [uncontrolledValue, setUncontrolledValue] = useState<number | null>(
-    defaultValue ?? null,
-  )
-  const currentValue = value === undefined ? uncontrolledValue : value
+  const [currentValue, setCurrentValue] = useControllableState<number | null>({
+    value,
+    defaultValue: defaultValue ?? null,
+    onChange: onValueChange,
+  })
 
   const [isEditing, setIsEditing] = useState(false)
   const [editingText, setEditingText] = useState('')
@@ -117,12 +121,7 @@ export function NumberField({
 
   function reportValue(next: number | null) {
     currentValueRef.current = next
-
-    if (value === undefined) {
-      setUncontrolledValue(next)
-    }
-
-    onValueChange?.(next)
+    setCurrentValue(next)
   }
 
   function commitValue(next: number | null) {
@@ -138,19 +137,17 @@ export function NumberField({
   }
 
   function valueForCommittedText(text: string): number | null {
-    const trimmedText = text.trim()
+    const typed = typedNumber(text, resolvedLocale)
 
-    if (trimmedText === '') {
-      return null
-    }
-
-    const parsed = parseNumber(trimmedText, resolvedLocale)
-
-    if (parsed === null) {
+    if (typed === unparseableNumber) {
       return committedValueRef.current
     }
 
-    return committedNumber(parsed, min, max, fractionDigits)
+    if (typed === null) {
+      return null
+    }
+
+    return committedNumber(typed, min, max, fractionDigits)
   }
 
   function applyStep(delta: number) {
@@ -177,16 +174,10 @@ export function NumberField({
     const text = event.target.value
     setEditingText(text)
 
-    const trimmedText = text.trim()
+    const typed = typedNumber(text, resolvedLocale)
 
-    if (trimmedText === '') {
-      reportValue(null)
-    } else {
-      const parsed = parseNumber(trimmedText, resolvedLocale)
-
-      if (parsed !== null) {
-        reportValue(parsed)
-      }
+    if (typed !== unparseableNumber) {
+      reportValue(typed)
     }
 
     onChange?.(event)
@@ -295,6 +286,7 @@ export function NumberField({
             onChange={handleChange}
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
+            form={form}
             {...props}
           />
 
@@ -321,6 +313,7 @@ export function NumberField({
         <input
           type="hidden"
           name={name}
+          form={form}
           disabled={disabled}
           value={currentValue === null ? '' : String(currentValue)}
         />
