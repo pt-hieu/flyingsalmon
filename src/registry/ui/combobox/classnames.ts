@@ -20,7 +20,7 @@ import {
   menuSeparator,
 } from '@/registry/lib/menu'
 
-import { badgeIconVariants, badgeVariants, BadgeVariant } from '../badge'
+import { badgeIconClassName, badgeVariants, BadgeVariant } from '../badge'
 import { ButtonSize, ButtonVariant, buttonVariants } from '../button'
 
 import { ComboboxSize } from './types'
@@ -131,7 +131,7 @@ export const comboboxChipClassName = cn(
 )
 
 export const comboboxChipRemoveClassName = cn(
-  badgeIconVariants(),
+  badgeIconClassName,
   'cursor-pointer',
 )
 
