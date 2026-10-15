@@ -11,7 +11,7 @@ Design guidelines for the flyingsalmon Sidebar component. An alternative linked 
 
 - Use [Breadcrumb](https://flyingsalmon.superbrian.dev/components/breadcrumb) to climb back up through a hierarchy within one section, because a sidebar moves between sections.
 - Use [Tabs](https://flyingsalmon.superbrian.dev/components/tabs) to switch between peer panels on one page, because those are views of the same content rather than places.
-- Use [Drawer](https://flyingsalmon.superbrian.dev/components/drawer) for a drawer of actions or a panel that is not navigation.
+- Use [Drawer](https://flyingsalmon.superbrian.dev/components/drawer) for filters or detail that accompanies the page, because the sidebar is for navigation only.
 
 ## Do and don't
 

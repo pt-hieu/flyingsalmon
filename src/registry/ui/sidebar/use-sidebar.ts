@@ -1,10 +1,10 @@
-import { useContext } from 'react'
+import { use } from 'react'
 
 import { SidebarContext } from './context'
 import type { SidebarSharedState, SidebarState } from './types'
 
 export function useSidebarSharedState(): SidebarSharedState {
-  const sharedState = useContext(SidebarContext)
+  const sharedState = use(SidebarContext)
 
   if (!sharedState) {
     throw new Error('Sidebar state is only available inside <SidebarProvider>')

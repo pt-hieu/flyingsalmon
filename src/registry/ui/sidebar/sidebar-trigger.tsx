@@ -3,19 +3,15 @@ import { cn } from '@/lib/utils'
 import { Button, ButtonSize, ButtonVariant } from '../button'
 
 import { sidebarTriggerClassName } from './classnames'
-
 import { SidebarLayout } from './types'
 import { useSidebarSharedState } from './use-sidebar'
+import { collapseLabel } from './utils'
 
 export interface SidebarTriggerProps extends Omit<
   React.ComponentProps<typeof Button>,
   'variant' | 'size' | 'loading' | 'icon' | 'children'
 > {
   children: React.ReactNode
-}
-
-function collapseLabel(collapsed: boolean) {
-  return collapsed ? 'Expand sidebar' : 'Collapse sidebar'
 }
 
 export function SidebarTrigger({
