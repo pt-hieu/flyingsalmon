@@ -5,13 +5,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 
 export function CardDemo() {
   return (
     <Card className="w-72">
       <CardHeader>
-        <CardTitle>Weekend in Kyoto</CardTitle>
+        <CardTitle as={CardTitleElement.H2}>Weekend in Kyoto</CardTitle>
         <CardDescription>Three days, ten stops</CardDescription>
       </CardHeader>
       <CardContent className="text-sm">

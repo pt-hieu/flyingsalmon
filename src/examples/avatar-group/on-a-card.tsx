@@ -6,6 +6,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 
 const travellers = [
@@ -18,7 +19,7 @@ export function AvatarGroupOnACard() {
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle>Hanoi in spring</CardTitle>
+        <CardTitle as={CardTitleElement.H4}>Hanoi in spring</CardTitle>
         <CardDescription>12 places</CardDescription>
       </CardHeader>
       <CardContent>

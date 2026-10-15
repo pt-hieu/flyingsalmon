@@ -7,6 +7,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 import { Form, FormActions } from '@/registry/ui/form'
 import { Input } from '@/registry/ui/input'
@@ -34,7 +35,7 @@ export function ButtonSubmitInAForm() {
     <Form className="w-full max-w-sm" onSubmit={renameTrip}>
       <Card>
         <CardHeader>
-          <CardTitle>{tripName}</CardTitle>
+          <CardTitle as={CardTitleElement.H4}>{tripName}</CardTitle>
           <CardDescription>Brian Nguyen and two travellers</CardDescription>
         </CardHeader>
         <CardContent>

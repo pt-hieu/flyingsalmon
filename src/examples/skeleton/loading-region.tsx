@@ -6,6 +6,7 @@ import {
   CardContent,
   CardDescription,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 import { Skeleton, SkeletonVariant } from '@/registry/ui/skeleton'
 
@@ -26,7 +27,7 @@ export function SkeletonLoadingRegion() {
             </>
           ) : (
             <div>
-              <CardTitle>Brian Nguyen</CardTitle>
+              <CardTitle as={CardTitleElement.H4}>Brian Nguyen</CardTitle>
               <CardDescription>Organising Lisbon, six days</CardDescription>
             </div>
           )}

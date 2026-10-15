@@ -1,13 +1,19 @@
 import { Lock } from 'lucide-react'
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/registry/ui/card'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardTitleElement,
+} from '@/registry/ui/card'
 import { IconTooltip } from '@/registry/ui/icon-tooltip'
 
 export function IconTooltipOnACard() {
   return (
     <Card className="w-72">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle as={CardTitleElement.H4} className="flex items-center gap-2">
           Kyoto
           <IconTooltip
             content="Locked, so the AI won’t change it"
