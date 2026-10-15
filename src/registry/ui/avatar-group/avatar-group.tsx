@@ -54,6 +54,26 @@ export function AvatarGroup({
 
   if (roster.visibleItems.length === 0) return null
 
+  const chip = roster.chip ? (
+    <span
+      role="img"
+      aria-label={`${roster.chip.count} more`}
+      tabIndex={roster.visibleItems.length === tabStopIndex ? 0 : -1}
+      className={avatarGroupChipVariants({ size })}
+      style={
+        {
+          '--avatar-group-layer': 0,
+          '--avatar-group-offset': itemOffset({
+            childIndex: roster.visibleItems.length,
+            revealedIndex,
+          }),
+        } as React.CSSProperties
+      }
+    >
+      {roster.chip.text}
+    </span>
+  ) : null
+
   return (
     <div
       role="group"
@@ -82,7 +102,7 @@ export function AvatarGroup({
 
         const childIndex = childIndexContaining(
           event.currentTarget,
-          event.target as Node,
+          event.target,
         )
 
         if (childIndex !== null) setHoveredIndex(childIndex)
@@ -121,27 +141,11 @@ export function AvatarGroup({
         )
       })}
 
-      {roster.chip ? (
-        <Tooltip content={roster.chip.hiddenNames}>
-          <span
-            role="img"
-            aria-label={`${roster.chip.count} more`}
-            tabIndex={roster.visibleItems.length === tabStopIndex ? 0 : -1}
-            className={avatarGroupChipVariants({ size })}
-            style={
-              {
-                '--avatar-group-layer': 0,
-                '--avatar-group-offset': itemOffset({
-                  childIndex: roster.visibleItems.length,
-                  revealedIndex,
-                }),
-              } as React.CSSProperties
-            }
-          >
-            {roster.chip.text}
-          </span>
-        </Tooltip>
-      ) : null}
+      {chip && roster.chip?.hiddenNames ? (
+        <Tooltip content={roster.chip.hiddenNames}>{chip}</Tooltip>
+      ) : (
+        chip
+      )}
     </div>
   )
 }

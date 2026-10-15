@@ -5,7 +5,7 @@ Design guidelines for the flyingsalmon Avatar group component. An alternative li
 ## When to use
 
 - To show who is on a trip, a plan, or a row at a glance.
-- When the roster can grow without a bound, because the group folds the overflow into one chip.
+- When the roster can grow without a bound, because the group folds the overflow into one overflow count.
 
 ## When not to use
 
@@ -15,7 +15,7 @@ Design guidelines for the flyingsalmon Avatar group component. An alternative li
 
 ## Do and don't
 
-- **Do:** Show about four faces and let the chip carry the rest.
+- **Do:** Show about four faces and let the overflow count carry the rest.
   **Why:** The group is a glance at who is going, never the full roster. Capping the faces ends every row at the same width, so a list of trips lines up.
 - **Don't:** Leave the tooltip as the only place that says who is going.
   **Why:** Touch screens cannot open it, and the faces are a glance, not the record. Wherever the reader must know who is going, write the names as text.
