@@ -1,7 +1,13 @@
 import { cva } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
-import { FieldLabelPlacement } from '@/registry/lib/field'
+import {
+  fieldEndSlotButton,
+  fieldEndSlotSpinnerSlot,
+  fieldEndSlotSpinnerSlotDefaultSize,
+  fieldEndSlotSpinnerSlotSmallSize,
+  FieldLabelPlacement,
+} from '@/registry/lib/field'
 import {
   boundaryFocusWithinRingGeometry,
   invalidBoundaryFocusWithinRingGeometry,
@@ -77,14 +83,14 @@ export const datePickerIconButtonVariants = cva('', {
           variant: ButtonVariant.Ghost,
           size: ButtonSize.FieldIcon,
         }),
-        'text-muted-foreground',
+        fieldEndSlotButton,
       ),
       [DatePickerSize.Small]: cn(
         buttonVariants({
           variant: ButtonVariant.Ghost,
           size: ButtonSize.FieldIconSmall,
         }),
-        'text-muted-foreground',
+        fieldEndSlotButton,
       ),
     },
   },
@@ -93,25 +99,22 @@ export const datePickerIconButtonVariants = cva('', {
   },
 })
 
-export const datePickerSpinnerSlotVariants = cva(
-  'flex shrink-0 items-center justify-center',
-  {
-    variants: {
-      size: {
-        [DatePickerSize.Default]: 'size-7',
-        [DatePickerSize.Small]: 'size-6',
-      },
-      error: {
-        true: 'text-destructive',
-        false: '',
-      },
+export const datePickerSpinnerSlotVariants = cva(fieldEndSlotSpinnerSlot, {
+  variants: {
+    size: {
+      [DatePickerSize.Default]: fieldEndSlotSpinnerSlotDefaultSize,
+      [DatePickerSize.Small]: fieldEndSlotSpinnerSlotSmallSize,
     },
-    defaultVariants: {
-      size: DatePickerSize.Default,
-      error: false,
+    error: {
+      true: 'text-destructive',
+      false: '',
     },
   },
-)
+  defaultVariants: {
+    size: DatePickerSize.Default,
+    error: false,
+  },
+})
 
 export const datePickerIconClassName = 'size-4'
 

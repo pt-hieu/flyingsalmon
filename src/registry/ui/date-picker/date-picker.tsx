@@ -8,8 +8,8 @@ import { cn } from '@/lib/utils'
 import {
   FieldDescription,
   FieldErrorMessage,
-  FieldLabelPlacement,
   fieldLabelVariants,
+  FieldLabelPlacement,
   useFieldIds,
 } from '@/registry/lib/field'
 
@@ -128,13 +128,13 @@ export function DatePicker(props: DatePickerProps) {
   const rejectionMessage = describeRejection(entry, rejectionOptions)
   const errorText = error ?? rejectionMessage
 
-  const { fieldId, errorMessageId, descriptionId, describedBy } = useFieldIds({
-    id,
-    error: errorText,
-    description,
-    describedBy: callerDescribedBy,
-  })
-  const labelId = `${fieldId}-label`
+  const { fieldId, labelId, errorMessageId, descriptionId, describedBy } =
+    useFieldIds({
+      id,
+      error: errorText,
+      description,
+      describedBy: callerDescribedBy,
+    })
 
   const [open, setOpen] = useState(false)
   const boxRef = useRef<HTMLDivElement>(null)
@@ -163,13 +163,16 @@ export function DatePicker(props: DatePickerProps) {
     props.onChange?.(typeof nextValue === 'string' ? nextValue : null)
   }
 
-  function commitValue(nextValue: DatePickerValue) {
-    if (toValueKey(nextValue) === toValueKey(committedValue)) {
-      return
-    }
+  function isCommitted(nextValue: DatePickerValue) {
+    return toValueKey(nextValue) === toValueKey(committedValue)
+  }
 
+  function commitValue(nextValue: DatePickerValue) {
     rememberValue(nextValue)
-    notifyChange(nextValue)
+
+    if (!isCommitted(nextValue)) {
+      notifyChange(nextValue)
+    }
   }
 
   function applyEntry(nextEntry: DatePickerEntry) {
@@ -186,6 +189,10 @@ export function DatePicker(props: DatePickerProps) {
       return
     }
 
+    if (isCommitted(nextValue)) {
+      return
+    }
+
     commitValue(nextValue)
   }
 
@@ -195,7 +202,10 @@ export function DatePicker(props: DatePickerProps) {
     }
 
     if (nextOpen) {
-      openerRef.current = document.activeElement as HTMLElement | null
+      openerRef.current =
+        document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : null
     }
 
     setOpen(nextOpen)
@@ -290,28 +300,28 @@ export function DatePicker(props: DatePickerProps) {
                 />
 
                 {isRange ? (
-                  <span
-                    aria-hidden
-                    className={datePickerRangeSeparatorClassName}
-                  >
-                    –
-                  </span>
-                ) : null}
+                  <>
+                    <span
+                      aria-hidden
+                      className={datePickerRangeSeparatorClassName}
+                    >
+                      –
+                    </span>
 
-                {isRange ? (
-                  <DatePickerSegments
-                    {...segmentLimits}
-                    {...segmentState}
-                    aria-label="End date"
-                    value={entry.end}
-                    onChange={(nextEnd: CalendarDate | null) =>
-                      applyEntry({
-                        start: entry.start,
-                        end: nextEnd,
-                        isBeingTyped: true,
-                      })
-                    }
-                  />
+                    <DatePickerSegments
+                      {...segmentLimits}
+                      {...segmentState}
+                      aria-label="End date"
+                      value={entry.end}
+                      onChange={(nextEnd: CalendarDate | null) =>
+                        applyEntry({
+                          start: entry.start,
+                          end: nextEnd,
+                          isBeingTyped: true,
+                        })
+                      }
+                    />
+                  </>
                 ) : null}
 
                 {props.mode === DatePickerMode.Range ? (

@@ -53,8 +53,6 @@ export function DatePickerPanel({
         side={side}
         align={align}
         sideOffset={8}
-        alignOffset={0}
-        avoidCollisions
         collisionPadding={8}
         onOpenAutoFocus={(event) => event.preventDefault()}
         onCloseAutoFocus={onCloseAutoFocus}

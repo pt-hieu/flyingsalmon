@@ -12,12 +12,12 @@ import {
 } from 'react-aria-components'
 
 import { cn } from '@/lib/utils'
+import { formatIsoDate, parseOptionalIsoDate } from '@/registry/lib/iso-date'
 
 import { CalendarMonths } from './calendar-months'
 import { calendarRootClassName } from './classnames'
 import { CalendarAppearanceContext } from './context'
 import { CalendarMode, type CalendarRange } from './types'
-import { formatIsoDate } from './utils'
 
 interface CalendarBaseProps {
   'aria-label': string
@@ -62,8 +62,8 @@ export function Calendar(props: CalendarProps) {
 
   const sharedProps = {
     'aria-label': ariaLabel,
-    minValue: min === undefined ? undefined : parseDate(min),
-    maxValue: max === undefined ? undefined : parseDate(max),
+    minValue: parseOptionalIsoDate(min),
+    maxValue: parseOptionalIsoDate(max),
     isDateUnavailable:
       isDateDisabled === undefined
         ? undefined
@@ -80,6 +80,7 @@ export function Calendar(props: CalendarProps) {
 
   if (props.mode === CalendarMode.Range) {
     const { value, onChange } = props
+
     return (
       <I18nProvider locale={locale}>
         <CalendarAppearanceContext.Provider
@@ -111,6 +112,7 @@ export function Calendar(props: CalendarProps) {
   }
 
   const { value, onChange } = props
+
   return (
     <I18nProvider locale={locale}>
       <CalendarAppearanceContext.Provider

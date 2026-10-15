@@ -5,12 +5,12 @@ Design guidelines for the flyingsalmon Date picker component. An alternative lin
 ## When to use
 
 - To pick a departure day or a trip range, where the traveller may type a date or browse a month.
-- In any form that posts a date: the field writes ISO values into hidden native inputs, so a plain form submits them.
+- In any form that posts a date, because a plain form submits it.
 
 ## When not to use
 
 - Use [Calendar](https://flyingsalmon.superbrian.dev/components/calendar) when the calendar itself is the interface, on a page or in a card rather than behind a field.
-- Use [Input](https://flyingsalmon.superbrian.dev/components/input) for a date nobody picks, such as a booking reference that happens to contain digits.
+- Use [Input](https://flyingsalmon.superbrian.dev/components/input) for a code that only looks like a date, such as a booking reference.
 - Use [Number field](https://flyingsalmon.superbrian.dev/components/number-field) for a count of days rather than a position on the calendar.
 
 ## Do and don't
