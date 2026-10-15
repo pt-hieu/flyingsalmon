@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { SidebarDemo } from '@/examples/sidebar/demo'
 import demoSource from '@/examples/sidebar/demo.tsx?raw'
@@ -17,15 +18,21 @@ import startsCollapsedSource from '@/examples/sidebar/starts-collapsed.tsx?raw'
 import usageSource from '@/examples/sidebar/usage.tsx?raw'
 import guidelines from '@/registry/ui/sidebar/guidelines.md?raw'
 
+const title = 'Sidebar'
+
+const lead =
+  "The app's navigation and top bar in one component: a column that collapses to an icon rail and becomes a sticky strip on a narrow screen."
+
 export const Route = createFileRoute('/_docs/components/sidebar')({
+  head: () => docPageHead(title, lead),
   component: SidebarPage,
 })
 
 function SidebarPage() {
   return (
     <DocPage
-      title="Sidebar"
-      lead="The app's navigation and top bar in one component: a column that collapses to an icon rail and becomes a sticky strip on a narrow screen."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <SidebarDemo /> }}
       installation="sidebar"
       usage={usageSource}
@@ -97,10 +104,10 @@ function SidebarPage() {
             reader reads the same nav in either layout. A nest toggle carries{' '}
             <code>aria-expanded</code> and <code>aria-controls</code> pointed at
             its list. A focused item takes the same <code>--accent</code>{' '}
-            background as a hovered one and draws no ring, so the pointer and
-            the keyboard land on the same mark; the current page keeps its own,
-            the bar and the <code>--foreground</code> label, so the two stay
-            distinguishable.
+            background as one under the pointer and draws no ring, so the
+            pointer and the keyboard land on the same mark; the current page
+            keeps its own, the bar and the <code>--foreground</code> label, so
+            the two stay distinguishable.
           </p>
         </>
       }

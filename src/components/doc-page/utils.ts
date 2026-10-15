@@ -1,3 +1,5 @@
+import { isValidElement } from 'react'
+
 const consumerImportPrefixes = [
   { registryPrefix: '@/registry/ui/', consumerPrefix: '@/components/ui/' },
   { registryPrefix: '@/registry/lib/', consumerPrefix: '@/lib/' },
@@ -18,4 +20,16 @@ export function toAnchorId(title: string) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '')
+}
+
+export function toTextContent(node: React.ReactNode): string {
+  if (typeof node === 'string' || typeof node === 'number') return String(node)
+
+  if (Array.isArray(node)) return node.map(toTextContent).join('')
+
+  if (isValidElement<{ children?: React.ReactNode }>(node)) {
+    return toTextContent(node.props.children)
+  }
+
+  return ''
 }

@@ -1,4 +1,5 @@
 import type { LinkProps } from '@tanstack/react-router'
+import type { ThemedToken } from 'shiki/core'
 
 export enum CodeLanguage {
   Tsx = 'tsx',
@@ -57,7 +58,54 @@ export interface PropRow {
   description: React.ReactNode
 }
 
+export interface DataTableColumn {
+  heading: string
+  cellClassName?: string
+}
+
+export interface DataTableRow {
+  key: string
+  cells: React.ReactNode[]
+}
+
+export interface FoundationTableRow {
+  sample: React.ReactNode
+  name: string
+  detail: string
+  job: React.ReactNode
+}
+
+export interface FoundationTableSection {
+  title: string
+  description?: React.ReactNode
+  headings?: [string, string, string, string]
+  rows: FoundationTableRow[]
+}
+
+export interface GroupHue {
+  name: string
+  solidClassName: string
+  softClassName: string
+  borderClassName: string
+}
+
+export interface FoundationSection {
+  title: string
+  content: React.ReactNode
+}
+
+export interface HighlightedLine {
+  offset: number
+  tokens: ThemedToken[]
+}
+
 export interface ExampleSource {
   source: string
   demo: React.ReactNode
+}
+
+declare module 'react' {
+  interface CSSProperties {
+    '--code-token-color'?: string
+  }
 }

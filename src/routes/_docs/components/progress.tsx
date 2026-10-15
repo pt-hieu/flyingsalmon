@@ -1,6 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { DocPage, Example, PropsTable } from '@/components/doc-page'
+import {
+  DocPage,
+  Example,
+  PropsTable,
+  docPageHead,
+} from '@/components/doc-page'
 import { ProgressCustomMax } from '@/examples/progress/custom-max'
 import customMaxSource from '@/examples/progress/custom-max.tsx?raw'
 import { ProgressDemo } from '@/examples/progress/demo'
@@ -14,15 +19,21 @@ import statesSource from '@/examples/progress/states.tsx?raw'
 import usageSource from '@/examples/progress/usage.tsx?raw'
 import guidelines from '@/registry/ui/progress/guidelines.md?raw'
 
+const title = 'Progress'
+
+const lead =
+  'A bar for an operation with a known end: it shows how far along the work is when the fraction is computable, and that the work is running when it is not.'
+
 export const Route = createFileRoute('/_docs/components/progress')({
+  head: () => docPageHead(title, lead),
   component: ProgressPage,
 })
 
 function ProgressPage() {
   return (
     <DocPage
-      title="Progress"
-      lead="A bar for an operation with a known end: it shows how far along the work is when the fraction is computable, and that the work is running when it is not."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <ProgressDemo /> }}
       installation="progress"
       usage={usageSource}
@@ -30,7 +41,7 @@ function ProgressPage() {
         <>
           <Example
             caption="Determinate"
-            description="Press Advance. Each new value retargets the spring from wherever the fill sits, so a stream of small steps reads as one continuous travel and never as jumps."
+            description="Press Advance. The fill travels from wherever it sits to each new value, so a stream of small steps reads as one continuous movement."
             source={determinateSource}
           >
             <ProgressDeterminate />

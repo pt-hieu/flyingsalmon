@@ -1,10 +1,13 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import {
   DocPage,
+  DocTextLink,
   Example,
   KeyboardTable,
   PropsTable,
+  choiceFieldsRelatedPage,
+  docPageHead,
 } from '@/components/doc-page'
 import { ToggleGroupDemo } from '@/examples/toggle-group/demo'
 import demoSource from '@/examples/toggle-group/demo.tsx?raw'
@@ -24,18 +27,23 @@ import { ToggleGroupSizes } from '@/examples/toggle-group/sizes'
 import sizesSource from '@/examples/toggle-group/sizes.tsx?raw'
 import usageSource from '@/examples/toggle-group/usage.tsx?raw'
 
-import { TextLink } from '@/registry/ui/text-link'
 import guidelines from '@/registry/ui/toggle-group/guidelines.md?raw'
 
+const title = 'Toggle group'
+
+const lead =
+  'A toggle group is a row of chips that answers a question, in single mode or multiple mode, wrapping across lines as needed.'
+
 export const Route = createFileRoute('/_docs/components/toggle-group')({
+  head: () => docPageHead(title, lead),
   component: ToggleGroupPage,
 })
 
 function ToggleGroupPage() {
   return (
     <DocPage
-      title="Toggle group"
-      lead="A toggle group is a row of chips that answers a question, in single mode or multiple mode, wrapping across lines as needed."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <ToggleGroupDemo /> }}
       installation="toggle-group"
       usage={usageSource}
@@ -138,9 +146,7 @@ function ToggleGroupPage() {
             <code>aria-invalid</code> and links the message through{' '}
             <code>aria-describedby</code>. The focus ring appears on keyboard
             focus only. The{' '}
-            <TextLink asChild>
-              <Link to="/accessibility">accessibility page</Link>
-            </TextLink>{' '}
+            <DocTextLink to="/accessibility">accessibility page</DocTextLink>{' '}
             covers the rules every component follows.
           </p>
         </>
@@ -152,11 +158,9 @@ function ToggleGroupPage() {
             description={
               <>
                 The group is a field: the{' '}
-                <TextLink asChild>
-                  <Link to="/fields">fields page</Link>
-                </TextLink>{' '}
-                describes the label, error, and wrapper behaviour it shares. The
-                value types change with <code>mode</code>.
+                <DocTextLink to="/fields">fields page</DocTextLink> describes
+                the label, error, and wrapper behaviour it shares. The value
+                types change with <code>mode</code>.
               </>
             }
             rows={[
@@ -195,7 +199,7 @@ function ToggleGroupPage() {
                 name: 'onValueChange',
                 type: '(value: string | string[]) => void',
                 description:
-                  'Called with the next value. Single mode reports an empty string when the chip is cleared. Enforce a chip that stands alone, such as "Decide for me", here: drop the other values when it is pressed, and drop it when another is.',
+                  'Called with the next value. Single mode reports an empty string when the chip is cleared. Enforce a chip that stands alone, such as "Anywhere", here: drop the other values when it is pressed, and drop it when another is.',
               },
               {
                 name: 'max',
@@ -324,12 +328,7 @@ function ToggleGroupPage() {
           label: 'Switch',
           description: 'A setting that is only on or off.',
         },
-        {
-          to: '/fields',
-          label: 'Fields',
-          description:
-            'The label, error, and wrapper behaviour every field shares.',
-        },
+        choiceFieldsRelatedPage,
       ]}
     />
   )

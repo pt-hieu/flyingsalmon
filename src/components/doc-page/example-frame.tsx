@@ -1,5 +1,3 @@
-import { useMemo } from 'react'
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/registry/ui/tabs'
 
 import {
@@ -15,7 +13,7 @@ export interface ExampleFrameProps extends ExampleSource {
 }
 
 export function ExampleFrame({ source, demo, label }: ExampleFrameProps) {
-  const consumerSource = useMemo(() => toConsumerSource(source), [source])
+  const consumerSource = toConsumerSource(source)
 
   return (
     <Tabs defaultValue="preview">

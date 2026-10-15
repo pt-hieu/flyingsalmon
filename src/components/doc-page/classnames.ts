@@ -25,9 +25,6 @@ export const exampleListClassName = 'flex flex-col gap-12'
 
 export const exampleClassName = 'flex scroll-mt-20 flex-col gap-3'
 
-export const exampleCaptionClassName =
-  'font-heading text-foreground text-lg font-semibold'
-
 export const exampleDescriptionClassName = 'text-muted-foreground'
 
 export const exampleTabsContentClassName = 'mt-4'
@@ -53,9 +50,6 @@ export const guidelinesClassName = 'flex flex-col gap-8'
 
 export const guidelinesGroupClassName = 'flex flex-col gap-3'
 
-export const guidelinesHeadingClassName =
-  'font-heading text-foreground text-lg font-semibold'
-
 export const guidelinesListClassName = 'flex list-disc flex-col gap-2 pl-6'
 
 export const guidelineRuleListClassName = 'flex flex-col gap-4'
@@ -69,7 +63,7 @@ export const guidelineRuleStatementClassName = 'text-foreground font-medium'
 export const guidelineVerdictBadgeClassName =
   'mt-0.5 w-16 shrink-0 justify-center'
 
-export const tableTitleClassName =
+export const subheadingClassName =
   'font-heading text-foreground text-lg font-semibold'
 
 export const tableGroupClassName = 'flex flex-col gap-3'
@@ -104,3 +98,19 @@ export const noticeFrameContentClassName =
   'flex flex-col items-center gap-4 pt-40'
 
 export const codeTokenClassName = 'text-(color:--code-token-color)'
+
+export const tokenSampleClassName = 'block'
+
+export const swatchClassName = 'border-border size-8 rounded-md border'
+
+export const framePreviewClassName = 'border-border size-96 rounded-lg border'
+
+export const statusPageActionsClassName = 'flex flex-wrap gap-2'
+
+export const groupHueSwatchClassName = 'flex items-center gap-2'
+
+export const groupHueChipClassName =
+  'rounded-md px-2.5 py-1 text-sm font-medium'
+
+export const groupHueBorderChipClassName =
+  'text-foreground border-2 transition-colors duration-(--motion-fast)'

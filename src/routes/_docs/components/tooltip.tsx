@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { TooltipDemo } from '@/examples/tooltip/demo'
 import demoSource from '@/examples/tooltip/demo.tsx?raw'
@@ -17,15 +18,21 @@ import placementSource from '@/examples/tooltip/placement.tsx?raw'
 import usageSource from '@/examples/tooltip/usage.tsx?raw'
 import guidelines from '@/registry/ui/tooltip/guidelines.md?raw'
 
+const title = 'Tooltip'
+
+const lead =
+  'A short text label anchored to its trigger that never takes focus.'
+
 export const Route = createFileRoute('/_docs/components/tooltip')({
+  head: () => docPageHead(title, lead),
   component: TooltipPage,
 })
 
 function TooltipPage() {
   return (
     <DocPage
-      title="Tooltip"
-      lead="A short text label anchored to its trigger that never takes focus."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <TooltipDemo /> }}
       installation="tooltip"
       usage={usageSource}
@@ -47,7 +54,7 @@ function TooltipPage() {
 
           <Example
             caption="A keyboard shortcut"
-            description="Type the shortcut into the string. The tooltip is the one place a hint for a key belongs, and the label stays plain text."
+            description="Type the shortcut into the string. The tooltip is the one place a shortcut belongs, and the label stays plain text."
             source={keyboardShortcutSource}
           >
             <TooltipKeyboardShortcut />

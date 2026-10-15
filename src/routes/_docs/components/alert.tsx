@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { AlertCustomIcon } from '@/examples/alert/custom-icon'
 import customIconSource from '@/examples/alert/custom-icon.tsx?raw'
@@ -27,15 +28,21 @@ import { AlertWithActions } from '@/examples/alert/with-actions'
 import withActionsSource from '@/examples/alert/with-actions.tsx?raw'
 import guidelines from '@/registry/ui/alert/guidelines.md?raw'
 
+const title = 'Alert'
+
+const lead =
+  'An in-flow message that reports the result of an action where the traveller is already looking, and stays until they have seen it.'
+
 export const Route = createFileRoute('/_docs/components/alert')({
+  head: () => docPageHead(title, lead),
   component: AlertPage,
 })
 
 function AlertPage() {
   return (
     <DocPage
-      title="Alert"
-      lead="An in-flow message that reports the result of an action where the traveller is already looking, and stays until they have seen it."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <AlertDemo /> }}
       installation="alert"
       usage={usageSource}
@@ -91,7 +98,7 @@ function AlertPage() {
 
           <Example
             caption="Open and close"
-            description="open drives the one animation, height and opacity, in both directions. The alert carries its own exit, so you toggle open and write no motion code."
+            description="open grows the alert in and shrinks it out. The alert carries its own exit, so you toggle open and write no motion code."
             source={openAndCloseSource}
           >
             <AlertOpenAndClose />
@@ -183,8 +190,7 @@ function AlertPage() {
               name: 'animateOpen',
               type: 'boolean',
               default: 'true',
-              description:
-                'Set false to skip the height animation, as the notice does.',
+              description: 'Set false to skip the height animation.',
             },
             {
               name: 'role',

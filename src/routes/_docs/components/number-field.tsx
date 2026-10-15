@@ -1,10 +1,18 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import {
   DocPage,
+  DocTextLink,
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
+  fieldDescriptionRow,
+  fieldErrorRow,
+  fieldLabelRow,
+  fieldSizeRow,
+  fieldsRelatedPage,
+  formRelatedPage,
 } from '@/components/doc-page'
 import { NumberFieldBudget } from '@/examples/number-field/budget'
 import budgetSource from '@/examples/number-field/budget.tsx?raw'
@@ -26,17 +34,22 @@ import { NumberFieldSizes } from '@/examples/number-field/sizes'
 import sizesSource from '@/examples/number-field/sizes.tsx?raw'
 import usageSource from '@/examples/number-field/usage.tsx?raw'
 import guidelines from '@/registry/ui/number-field/guidelines.md?raw'
-import { TextLink } from '@/registry/ui/text-link'
+
+const title = 'Number field'
+
+const lead =
+  'A quantity field that formats for the page’s locale, clamps to its bounds, and steps from the keyboard or its own spin buttons.'
 
 export const Route = createFileRoute('/_docs/components/number-field')({
+  head: () => docPageHead(title, lead),
   component: NumberFieldPage,
 })
 
 function NumberFieldPage() {
   return (
     <DocPage
-      title="Number field"
-      lead="A quantity field that formats for the page’s locale, clamps to its bounds, and steps from the keyboard or its own spin buttons."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <NumberFieldDemo /> }}
       installation="number-field"
       usage={usageSource}
@@ -59,7 +72,7 @@ function NumberFieldPage() {
 
           <Example
             caption="Duration with a unit"
-            description="With min and max both set, Home and End jump to the ends of the range, and each spin button dims as its end arrives."
+            description="Home jumps to min and End to max, and each spin button dims as its end arrives."
             source={durationSource}
           >
             <NumberFieldDuration />
@@ -164,10 +177,7 @@ function NumberFieldPage() {
             are named Decrease and Increase. <code>required</code> marks the
             label and sets <code>aria-required</code>; the validation itself
             stays with your app. The states every field shares are described on{' '}
-            <TextLink asChild>
-              <Link to="/fields">Fields</Link>
-            </TextLink>
-            .
+            <DocTextLink to="/fields">Fields</DocTextLink>.
           </p>
         </>
       }
@@ -183,11 +193,7 @@ function NumberFieldPage() {
             </>
           }
           rows={[
-            {
-              name: 'label',
-              type: 'string',
-              description: 'The visible label, wired to the input.',
-            },
+            fieldLabelRow('field'),
             {
               name: 'value',
               type: 'number | null',
@@ -245,23 +251,11 @@ function NumberFieldPage() {
               description:
                 'The locale for grouping and the decimal mark. Defaults to the page’s language.',
             },
-            {
-              name: 'size',
-              type: 'NumberFieldSize',
-              default: 'NumberFieldSize.Default',
-              description: 'Default or Small, matching Input.',
-            },
-            {
-              name: 'description',
-              type: 'string',
-              description: 'Helper text under the field.',
-            },
-            {
-              name: 'error',
-              type: 'string',
-              description:
-                'The failure message. Text the parser cannot read reverts to the last value without raising one.',
-            },
+            fieldSizeRow('NumberFieldSize'),
+            fieldDescriptionRow('field'),
+            fieldErrorRow(
+              'Text the parser cannot read reverts to the last value without raising one.',
+            ),
             {
               name: 'loading',
               type: 'boolean',
@@ -316,12 +310,7 @@ function NumberFieldPage() {
         </>
       }
       related={[
-        {
-          to: '/fields',
-          label: 'Fields',
-          description:
-            'The label, description, error, loading, and disabled behaviour every field shares.',
-        },
+        fieldsRelatedPage,
         {
           to: '/components/input',
           label: 'Input',
@@ -332,11 +321,7 @@ function NumberFieldPage() {
           label: 'Slider',
           description: 'Picks a value on a range by dragging.',
         },
-        {
-          to: '/components/form',
-          label: 'Form',
-          description: 'Lays fields out with an actions row and a result slot.',
-        },
+        formRelatedPage,
       ]}
     />
   )

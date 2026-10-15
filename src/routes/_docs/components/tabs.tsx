@@ -1,10 +1,12 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import {
   DocPage,
+  DocTextLink,
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { TabsAutomaticActivation } from '@/examples/tabs/automatic-activation'
 import automaticActivationSource from '@/examples/tabs/automatic-activation.tsx?raw'
@@ -19,17 +21,22 @@ import manualActivationSource from '@/examples/tabs/manual-activation.tsx?raw'
 import usageSource from '@/examples/tabs/usage.tsx?raw'
 
 import guidelines from '@/registry/ui/tabs/guidelines.md?raw'
-import { TextLink } from '@/registry/ui/text-link'
+
+const title = 'Tabs'
+
+const lead =
+  'Tabs switch between co-equal panels on one page: the tabs own the switch and your app owns the content.'
 
 export const Route = createFileRoute('/_docs/components/tabs')({
+  head: () => docPageHead(title, lead),
   component: TabsPage,
 })
 
 function TabsPage() {
   return (
     <DocPage
-      title="Tabs"
-      lead="Tabs switch between co-equal panels on one page: the tabs own the switch and your app owns the content."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <TabsDemo /> }}
       installation="tabs"
       usage={usageSource}
@@ -100,9 +107,7 @@ function TabsPage() {
             the moving bar under the active tab is the focus cue, and under
             manual activation a thin bar marks the focused tab while it differs
             from the active one. The{' '}
-            <TextLink asChild>
-              <Link to="/accessibility">accessibility page</Link>
-            </TextLink>{' '}
+            <DocTextLink to="/accessibility">accessibility page</DocTextLink>{' '}
             covers the rules every component follows.
           </p>
         </>

@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { DrawerDemo } from '@/examples/drawer/demo'
 import demoSource from '@/examples/drawer/demo.tsx?raw'
@@ -21,15 +22,21 @@ import rowDetailSource from '@/examples/drawer/row-detail.tsx?raw'
 import usageSource from '@/examples/drawer/usage.tsx?raw'
 import guidelines from '@/registry/ui/drawer/guidelines.md?raw'
 
+const title = 'Drawer'
+
+const lead =
+  'A modal panel at the right edge for content that accompanies the page: filters for a list, the detail of a selected row.'
+
 export const Route = createFileRoute('/_docs/components/drawer')({
+  head: () => docPageHead(title, lead),
   component: DrawerPage,
 })
 
 function DrawerPage() {
   return (
     <DocPage
-      title="Drawer"
-      lead="A modal panel at the right edge for content that accompanies the page: filters for a list, the detail of a selected row."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <DrawerDemo /> }}
       installation="drawer"
       usage={usageSource}
@@ -204,8 +211,10 @@ function DrawerPage() {
             element, usually a Button. <code>DrawerTitle</code> is required.{' '}
             <code>DrawerDescription</code>, <code>DrawerBody</code>, and{' '}
             <code>DrawerFooter</code> are optional and take the props of the
-            element they render. <code>DrawerBody</code> is the only part that
-            scrolls.
+            element they render, typed as <code>DrawerTitleProps</code>,{' '}
+            <code>DrawerDescriptionProps</code>, <code>DrawerBodyProps</code>,
+            and <code>DrawerFooterProps</code>. <code>DrawerBody</code> is the
+            only part that scrolls.
           </p>
         </>
       }
@@ -219,11 +228,11 @@ function DrawerPage() {
           </p>
           <p>
             The panel is inset 8px from the top, the bottom, and the right, with
-            a full border, the <code>rounded-xl</code> radius, and the popover
-            surface a dialog paints, so it reads as a surface on the page rather
-            than the page&rsquo;s edge. It is 448px wide, capped at the viewport
-            minus 16px, which fills a phone screen without a separate phone
-            layout.
+            a full border, the <code>rounded-xl</code> radius, and the{' '}
+            <code>--popover</code> surface a dialog paints, so it reads as a
+            surface on the page rather than the page&rsquo;s edge. It is 448px
+            wide, capped at the viewport minus 16px, which fills a phone screen
+            without a separate phone layout.
           </p>
           <p>
             <code>fitContent</code> never shrinks the panel below 448px or grows

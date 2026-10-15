@@ -1,6 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { DocPage, Example, PropsTable } from '@/components/doc-page'
+import {
+  DocPage,
+  Example,
+  PropsTable,
+  docPageHead,
+} from '@/components/doc-page'
 import { BadgeCount } from '@/examples/badge/count'
 import countSource from '@/examples/badge/count.tsx?raw'
 import { BadgeDemo } from '@/examples/badge/demo'
@@ -16,15 +21,21 @@ import { BadgeWithIcon } from '@/examples/badge/with-icon'
 import withIconSource from '@/examples/badge/with-icon.tsx?raw'
 import guidelines from '@/registry/ui/badge/guidelines.md?raw'
 
+const title = 'Badge'
+
+const lead =
+  'A badge is a static marker for a status, a category, or a small count.'
+
 export const Route = createFileRoute('/_docs/components/badge')({
+  head: () => docPageHead(title, lead),
   component: BadgePage,
 })
 
 function BadgePage() {
   return (
     <DocPage
-      title="Badge"
-      lead="A badge is a static marker for a status, a category, or a small count."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <BadgeDemo /> }}
       installation="badge"
       usage={usageSource}
@@ -32,7 +43,7 @@ function BadgePage() {
         <>
           <Example
             caption="Variants"
-            description="Default and secondary fill, and outline draws a border only. Success, warning, and error are the status trio: a tinted fill behind coloured text."
+            description="Default marks what is live right now, secondary fills quietly, and outline draws a border only. Success, warning, and error are the status trio: a tinted fill behind coloured text."
             source={variantsSource}
           >
             <BadgeVariants />

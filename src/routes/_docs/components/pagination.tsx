@@ -5,6 +5,7 @@ import {
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { PaginationCompact } from '@/examples/pagination/compact'
 import compactSource from '@/examples/pagination/compact.tsx?raw'
@@ -21,7 +22,13 @@ import underATableSource from '@/examples/pagination/under-a-table.tsx?raw'
 import usageSource from '@/examples/pagination/usage.tsx?raw'
 import guidelines from '@/registry/ui/pagination/guidelines.md?raw'
 
+const title = 'Pagination'
+
+const lead =
+  'The control that moves between the numbered pages of one list or table whose page count is known.'
+
 export const Route = createFileRoute('/_docs/components/pagination')({
+  head: () => docPageHead(title, lead),
   component: PaginationPage,
   validateSearch: (search: Record<string, unknown>) => {
     const requestedPage = Number(search.linkPage)
@@ -35,8 +42,8 @@ export const Route = createFileRoute('/_docs/components/pagination')({
 function PaginationPage() {
   return (
     <DocPage
-      title="Pagination"
-      lead="The control that moves between the numbered pages of one list or table whose page count is known."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <PaginationDemo /> }}
       installation="pagination"
       usage={usageSource}

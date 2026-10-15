@@ -1,6 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { DocPage, Example, PropsTable } from '@/components/doc-page'
+import {
+  DocPage,
+  Example,
+  FramePreview,
+  PropsTable,
+  docPageHead,
+} from '@/components/doc-page'
 import { PageHeaderBesideSidebar } from '@/examples/page-header/beside-sidebar'
 import besideSidebarSource from '@/examples/page-header/beside-sidebar.tsx?raw'
 import { PageHeaderContentWidth } from '@/examples/page-header/content-width'
@@ -16,15 +22,21 @@ import { PageHeaderWrapping } from '@/examples/page-header/wrapping'
 import wrappingSource from '@/examples/page-header/wrapping.tsx?raw'
 import guidelines from '@/registry/ui/page-header/guidelines.md?raw'
 
+const title = 'Page header'
+
+const lead =
+  "A page's title and the actions that act on the whole page, nothing else, so every page gets the same heading."
+
 export const Route = createFileRoute('/_docs/components/page-header')({
+  head: () => docPageHead(title, lead),
   component: PageHeaderPage,
 })
 
 function PageHeaderPage() {
   return (
     <DocPage
-      title="Page header"
-      lead="A page's title and the actions that act on the whole page, nothing else, so every page gets the same heading."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <PageHeaderDemo /> }}
       installation="page-header"
       usage={usageSource}
@@ -72,13 +84,12 @@ function PageHeaderPage() {
 
           <Example
             caption="Under the sidebar strip"
-            description="Under a 700px viewport the sidebar becomes a strip across the top and the page header sits directly beneath it with the same markup. The frame is 384px wide, so it renders the strip the way a phone does."
+            description="On a narrow screen the sidebar becomes a strip across the top, and the page header sits beneath it with the same markup as beside the sidebar."
             source={besideSidebarSource}
           >
-            <iframe
+            <FramePreview
               title="Page header under the sidebar strip"
-              src="/frames/page-header-strip"
-              className="border-border h-144 w-96 rounded-lg border"
+              to="/frames/page-header-strip"
             />
           </Example>
         </>

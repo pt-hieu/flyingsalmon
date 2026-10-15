@@ -1,69 +1,81 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { GuidelineVerdict } from '@/components/doc-page'
-import { FoundationPage } from '@/components/foundation-page'
-import type { TokenRow } from '@/components/foundation-page'
+import {
+  FoundationPage,
+  GuidelineVerdict,
+  TokenSample,
+  docPageHead,
+} from '@/components/doc-page'
+import type { FoundationTableRow } from '@/components/doc-page'
+import { cn } from '@/lib/utils'
+
+const title = 'Radius'
+
+const principle =
+  'One base radius sets every corner, and each surface takes a step on the scale derived from it.'
 
 export const Route = createFileRoute('/_docs/radius')({
+  head: () => docPageHead(title, principle),
   component: RadiusPage,
 })
 
-function radiusSample(radiusClassName: string) {
-  return (
-    <span
-      aria-hidden
-      className={`${radiusClassName} border-indicator bg-card block size-10 border-2`}
-    />
-  )
-}
+const radiusSampleClassName = 'border-indicator bg-card size-10 border-2'
 
-const radiusRows: TokenRow[] = [
+const radiusRows: FoundationTableRow[] = [
   {
-    sample: radiusSample('rounded-sm'),
-    token: 'rounded-sm',
-    value: 'radius × 0.6 (7.2px)',
+    sample: <TokenSample className={cn(radiusSampleClassName, 'rounded-sm')} />,
+    name: 'rounded-sm',
+    detail: 'radius × 0.6 (7.2px)',
     job: 'Small marks: the checkbox, a date picker segment, a text link’s focus ring, a skeleton line.',
   },
   {
-    sample: radiusSample('rounded-md'),
-    token: 'rounded-md',
-    value: 'radius × 0.8 (9.6px)',
+    sample: <TokenSample className={cn(radiusSampleClassName, 'rounded-md')} />,
+    name: 'rounded-md',
+    detail: 'radius × 0.8 (9.6px)',
     job: 'Controls: buttons, field boxes, tabs, the tooltip, a calendar day.',
   },
   {
-    sample: radiusSample('rounded-lg'),
-    token: 'rounded-lg',
-    value: 'radius (12px)',
-    job: 'Containers: cards, alerts, the date picker popover, a skeleton block.',
+    sample: <TokenSample className={cn(radiusSampleClassName, 'rounded-lg')} />,
+    name: 'rounded-lg',
+    detail: 'radius (12px)',
+    job: 'Containers: cards, alerts, the date picker panel, a skeleton block.',
   },
   {
-    sample: radiusSample('rounded-xl'),
-    token: 'rounded-xl',
-    value: 'radius × 1.4 (16.8px)',
+    sample: <TokenSample className={cn(radiusSampleClassName, 'rounded-xl')} />,
+    name: 'rounded-xl',
+    detail: 'radius × 1.4 (16.8px)',
     job: 'Floating surfaces that cover the page: dialogs and drawers.',
   },
   {
-    sample: radiusSample('rounded-2xl'),
-    token: 'rounded-2xl',
-    value: 'radius × 1.8 (21.6px)',
+    sample: (
+      <TokenSample className={cn(radiusSampleClassName, 'rounded-2xl')} />
+    ),
+    name: 'rounded-2xl',
+    detail: 'radius × 1.8 (21.6px)',
     job: 'Reserved for larger surfaces in an app.',
   },
   {
-    sample: radiusSample('rounded-3xl'),
-    token: 'rounded-3xl',
-    value: 'radius × 2.2 (26.4px)',
+    sample: (
+      <TokenSample className={cn(radiusSampleClassName, 'rounded-3xl')} />
+    ),
+    name: 'rounded-3xl',
+    detail: 'radius × 2.2 (26.4px)',
     job: 'Reserved for larger surfaces in an app.',
   },
   {
-    sample: radiusSample('rounded-4xl'),
-    token: 'rounded-4xl',
-    value: 'radius × 2.6 (31.2px)',
+    sample: (
+      <TokenSample className={cn(radiusSampleClassName, 'rounded-4xl')} />
+    ),
+    name: 'rounded-4xl',
+    detail: 'radius × 2.6 (31.2px)',
     job: 'Reserved for larger surfaces in an app.',
   },
   {
-    sample: radiusSample('rounded-full'),
-    token: 'rounded-full',
-    value: '9999px',
+    sample: (
+      <TokenSample className={cn(radiusSampleClassName, 'rounded-full')} />
+    ),
+    name: 'rounded-full',
+    detail: '9999px',
     job: 'Anything circular or pill-shaped: avatars, switches, radio dots, badges.',
   },
 ]
@@ -71,8 +83,8 @@ const radiusRows: TokenRow[] = [
 function RadiusPage() {
   return (
     <FoundationPage
-      title="Radius"
-      principle="One base radius sets every corner, and each surface takes a step on the scale derived from it."
+      title={title}
+      principle={principle}
       introduction={
         <p>
           The base is <code>--radius: 0.75rem</code>, 12px. A larger surface
@@ -81,7 +93,7 @@ function RadiusPage() {
           moves with it.
         </p>
       }
-      tokenSections={[
+      tables={[
         {
           title: 'Radius scale',
           rows: radiusRows,

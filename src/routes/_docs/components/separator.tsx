@@ -1,6 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { DocPage, Example, PropsTable } from '@/components/doc-page'
+import {
+  DocPage,
+  Example,
+  PropsTable,
+  docPageHead,
+} from '@/components/doc-page'
 import { SeparatorAnnounced } from '@/examples/separator/announced'
 import announcedSource from '@/examples/separator/announced.tsx?raw'
 import { SeparatorDemo } from '@/examples/separator/demo'
@@ -12,15 +17,21 @@ import { SeparatorVertical } from '@/examples/separator/vertical'
 import verticalSource from '@/examples/separator/vertical.tsx?raw'
 import guidelines from '@/registry/ui/separator/guidelines.md?raw'
 
+const title = 'Separator'
+
+const lead =
+  'A separator is a thin rule that divides content, announced only when the division carries meaning.'
+
 export const Route = createFileRoute('/_docs/components/separator')({
+  head: () => docPageHead(title, lead),
   component: SeparatorPage,
 })
 
 function SeparatorPage() {
   return (
     <DocPage
-      title="Separator"
-      lead="A separator is a one-pixel rule that divides content, announced only when the division carries meaning."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <SeparatorDemo /> }}
       installation="separator"
       usage={usageSource}
@@ -44,7 +55,7 @@ function SeparatorPage() {
 
           <Example
             caption="Spacing from the parent"
-            description="The separator has no margin. The parent’s gap sets the rhythm of the rows and the rules between them."
+            description="The separator has no margin. The parent’s gap sets the rhythm of the rows and the rules between them: gap-2 around the first rule, gap-6 around the second."
             source={spacingSource}
           >
             <SeparatorSpacing />
@@ -67,13 +78,13 @@ function SeparatorPage() {
           component="Separator"
           description={
             <>
-              Takes the props of the Radix separator root except{' '}
-              <code>asChild</code> and <code>children</code>, so a labelled rule
-              is a different shape you build in the app that needs it. There is
-              no colour prop and no size; pass a colour through{' '}
-              <code>className</code> if you must. The separator has no margin:
-              space it with the parent&rsquo;s gap, so one number sets the
-              rhythm for the rows and the rules between them.
+              Also takes every <code>&lt;div&gt;</code> attribute except{' '}
+              <code>children</code>, so a labelled rule is a different shape you
+              build in the app that needs it. There is no colour prop and no
+              size; pass a colour through <code>className</code> if you must.
+              The separator has no margin: space it with the parent&rsquo;s gap,
+              so one number sets the rhythm for the rows and the rules between
+              them.
             </>
           }
           rows={[

@@ -1,10 +1,12 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import {
   DocPage,
+  DocTextLink,
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { SwitchConfirmFirst } from '@/examples/switch/confirm-first'
 import confirmFirstSource from '@/examples/switch/confirm-first.tsx?raw'
@@ -25,17 +27,22 @@ import { SwitchWithoutALabel } from '@/examples/switch/without-a-label'
 import withoutALabelSource from '@/examples/switch/without-a-label.tsx?raw'
 
 import guidelines from '@/registry/ui/switch/guidelines.md?raw'
-import { TextLink } from '@/registry/ui/text-link'
+
+const title = 'Switch'
+
+const lead =
+  'A switch turns a setting on or off the moment the traveller flips it, and it shows its own busyness while the change applies.'
 
 export const Route = createFileRoute('/_docs/components/switch')({
+  head: () => docPageHead(title, lead),
   component: SwitchPage,
 })
 
 function SwitchPage() {
   return (
     <DocPage
-      title="Switch"
-      lead="A switch turns a setting on or off the moment the traveller flips it, and it shows its own busyness while the change applies."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <SwitchDemo /> }}
       installation="switch"
       usage={usageSource}
@@ -122,9 +129,7 @@ function SwitchPage() {
             screen readers support poorly, and it never sets the{' '}
             <code>disabled</code> attribute, which would drop it from the tab
             order. The{' '}
-            <TextLink asChild>
-              <Link to="/accessibility">accessibility page</Link>
-            </TextLink>{' '}
+            <DocTextLink to="/accessibility">accessibility page</DocTextLink>{' '}
             covers the rules every component follows.
           </p>
         </>

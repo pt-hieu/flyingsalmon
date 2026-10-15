@@ -1,79 +1,88 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { GuidelineVerdict } from '@/components/doc-page'
-import { FoundationPage } from '@/components/foundation-page'
-import type { TokenRow } from '@/components/foundation-page'
+import {
+  FoundationPage,
+  GuidelineVerdict,
+  docPageHead,
+} from '@/components/doc-page'
+import type { FoundationTableRow } from '@/components/doc-page'
+
+const title = 'Typography'
+
+const principle =
+  'Two families do two jobs: Bricolage Grotesque announces, and Onest does the work.'
 
 export const Route = createFileRoute('/_docs/typography')({
+  head: () => docPageHead(title, principle),
   component: TypographyPage,
 })
 
-const fontRows: TokenRow[] = [
+const fontRows: FoundationTableRow[] = [
   {
     sample: <span className="font-heading text-2xl font-bold">Aa</span>,
-    token: '--font-heading',
-    value: 'Bricolage Grotesque Variable',
+    name: '--font-heading',
+    detail: 'Bricolage Grotesque Variable',
     job: 'Headings and display text: page titles, card titles, dialog titles, empty state titles.',
   },
   {
     sample: <span className="font-sans text-2xl">Aa</span>,
-    token: '--font-sans',
-    value: 'Onest Variable',
+    name: '--font-sans',
+    detail: 'Onest Variable',
     job: 'Body text and every piece of UI: labels, fields, buttons, descriptions, table cells.',
   },
 ]
 
-const scaleRows: TokenRow[] = [
+const scaleRows: FoundationTableRow[] = [
   {
     sample: (
       <span className="font-heading text-4xl leading-10 font-extrabold tracking-tight">
         Lisbon
       </span>
     ),
-    token: 'text-4xl, font-extrabold',
-    value: 'heading, tight tracking',
+    name: 'text-4xl, font-extrabold',
+    detail: 'heading, tight tracking',
     job: 'The page header title, at every header width.',
   },
   {
     sample: (
       <span className="font-heading text-lg font-semibold">Trip to Lisbon</span>
     ),
-    token: 'text-lg, font-semibold',
-    value: 'heading',
+    name: 'text-lg, font-semibold',
+    detail: 'heading',
     job: 'Dialog, drawer, and sidebar titles, and the default empty state title.',
   },
   {
     sample: (
       <span className="font-heading text-base font-semibold">Day one</span>
     ),
-    token: 'text-base, font-semibold',
-    value: 'heading',
+    name: 'text-base, font-semibold',
+    detail: 'heading',
     job: 'Accordion triggers, timeline titles, and the small empty state title.',
   },
   {
     sample: (
       <span className="font-heading text-sm font-semibold">October 2026</span>
     ),
-    token: 'text-sm, font-semibold',
-    value: 'heading',
+    name: 'text-sm, font-semibold',
+    detail: 'heading',
     job: 'The calendar heading.',
   },
   {
     sample: <span className="text-sm font-medium">Departure city</span>,
-    token: 'text-sm, font-medium',
-    value: 'sans',
+    name: 'text-sm, font-medium',
+    detail: 'sans',
     job: 'Field labels, buttons, tabs, and menu rows.',
   },
   {
     sample: <span className="text-sm">Brian Nguyen</span>,
-    token: 'text-sm',
-    value: 'sans',
+    name: 'text-sm',
+    detail: 'sans',
     job: 'Body text inside components: field values, descriptions, table cells, alerts.',
   },
   {
     sample: <span className="text-xs font-medium">3 travellers</span>,
-    token: 'text-xs, font-medium',
-    value: 'sans',
+    name: 'text-xs, font-medium',
+    detail: 'sans',
     job: 'Badges, captions, and the sidebar category labels.',
   },
 ]
@@ -81,8 +90,8 @@ const scaleRows: TokenRow[] = [
 function TypographyPage() {
   return (
     <FoundationPage
-      title="Typography"
-      principle="Two families do two jobs: Bricolage Grotesque announces, and Onest does the work."
+      title={title}
+      principle={principle}
       introduction={
         <p>
           Bricolage Grotesque has the warmth and a little of the swagger the
@@ -92,7 +101,7 @@ function TypographyPage() {
           an <code>h1</code> to <code>h6</code> needs no class.
         </p>
       }
-      tokenSections={[
+      tables={[
         {
           title: 'Families',
           rows: fontRows,

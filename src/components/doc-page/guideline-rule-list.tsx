@@ -8,6 +8,7 @@ import {
   guidelineVerdictBadgeClassName,
 } from './classnames'
 import type { GuidelineRule } from './types'
+import { toTextContent } from './utils'
 import { verdictBadgeByVerdict } from './verdict-badge-by-verdict'
 
 export interface GuidelineRuleListProps {
@@ -17,11 +18,11 @@ export interface GuidelineRuleListProps {
 export function GuidelineRuleList({ rules }: GuidelineRuleListProps) {
   return (
     <ul className={guidelineRuleListClassName}>
-      {rules.map(({ verdict, rule, reason }, index) => {
+      {rules.map(({ verdict, rule, reason }) => {
         const verdictBadge = verdictBadgeByVerdict[verdict]
 
         return (
-          <li key={index} className={guidelineRuleClassName}>
+          <li key={toTextContent(rule)} className={guidelineRuleClassName}>
             <Badge
               variant={verdictBadge.variant}
               className={guidelineVerdictBadgeClassName}

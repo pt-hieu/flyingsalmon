@@ -1,10 +1,19 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import {
   DocPage,
+  DocTextLink,
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
+  fieldDescriptionRow,
+  fieldDisabledRow,
+  fieldErrorRow,
+  fieldLabelRow,
+  fieldRequiredRow,
+  fieldsRelatedPage,
+  formRelatedPage,
 } from '@/components/doc-page'
 import { TextareaAutosize } from '@/examples/textarea/autosize'
 import autosizeSource from '@/examples/textarea/autosize.tsx?raw'
@@ -21,18 +30,23 @@ import loadingSource from '@/examples/textarea/loading.tsx?raw'
 import { TextareaReadOnly } from '@/examples/textarea/read-only'
 import readOnlySource from '@/examples/textarea/read-only.tsx?raw'
 import usageSource from '@/examples/textarea/usage.tsx?raw'
-import { TextLink } from '@/registry/ui/text-link'
 import guidelines from '@/registry/ui/textarea/guidelines.md?raw'
 
+const title = 'Textarea'
+
+const lead =
+  'A multiline text field that owns its label, its error message, and its busyness, and grows with what the traveller types.'
+
 export const Route = createFileRoute('/_docs/components/textarea')({
+  head: () => docPageHead(title, lead),
   component: TextareaPage,
 })
 
 function TextareaPage() {
   return (
     <DocPage
-      title="Textarea"
-      lead="A multiline text field that owns its label, its error message, and its busyness, and grows with what the traveller types."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <TextareaDemo /> }}
       installation="textarea"
       usage={usageSource}
@@ -118,10 +132,7 @@ function TextareaPage() {
             validation itself stays with your app. The field handles no submit
             shortcut: a key such as Cmd+Enter belongs to your form. The states
             every field shares are described on{' '}
-            <TextLink asChild>
-              <Link to="/fields">Fields</Link>
-            </TextLink>
-            .
+            <DocTextLink to="/fields">Fields</DocTextLink>.
           </p>
         </>
       }
@@ -135,12 +146,7 @@ function TextareaPage() {
             </>
           }
           rows={[
-            {
-              name: 'label',
-              type: 'string',
-              description:
-                'The visible label. Renders above the field and is wired to it.',
-            },
+            fieldLabelRow('field'),
             {
               name: 'minRows',
               type: 'number',
@@ -155,17 +161,8 @@ function TextareaPage() {
               description:
                 'The most rows the field grows to. Past it, the field scrolls.',
             },
-            {
-              name: 'description',
-              type: 'string',
-              description: 'Helper text under the field.',
-            },
-            {
-              name: 'error',
-              type: 'string',
-              description:
-                'The failure message. Turns the border, the ring, and the label destructive.',
-            },
+            fieldDescriptionRow('field'),
+            fieldErrorRow(),
             {
               name: 'loading',
               type: 'boolean',
@@ -173,13 +170,7 @@ function TextareaPage() {
               description:
                 'Pins a spinner to the top-right corner. The field stays editable. Set it, not disabled, while an autosave runs.',
             },
-            {
-              name: 'disabled',
-              type: 'boolean',
-              default: 'false',
-              description:
-                'Dims the field and its label and removes both from the tab order.',
-            },
+            fieldDisabledRow,
             {
               name: 'readOnly',
               type: 'boolean',
@@ -187,12 +178,7 @@ function TextareaPage() {
               description:
                 'Keeps the text readable on a muted background. The field stays focusable.',
             },
-            {
-              name: 'required',
-              type: 'boolean',
-              default: 'false',
-              description: 'Marks the label and sets the native attribute.',
-            },
+            fieldRequiredRow,
           ]}
         />
       }
@@ -225,22 +211,13 @@ function TextareaPage() {
         </>
       }
       related={[
-        {
-          to: '/fields',
-          label: 'Fields',
-          description:
-            'The label, description, error, loading, and disabled behaviour every field shares.',
-        },
+        fieldsRelatedPage,
         {
           to: '/components/input',
           label: 'Input',
           description: 'The single-line counterpart.',
         },
-        {
-          to: '/components/form',
-          label: 'Form',
-          description: 'Lays fields out with an actions row and a result slot.',
-        },
+        formRelatedPage,
       ]}
     />
   )

@@ -1,6 +1,7 @@
+import { createElement, Fragment } from 'react'
 import { describe, expect, it } from 'vitest'
 
-import { toAnchorId, toConsumerSource } from '../utils'
+import { toAnchorId, toConsumerSource, toTextContent } from '../utils'
 
 describe('toConsumerSource', () => {
   it('points registry imports at the paths a consumer gets from shadcn add', () => {
@@ -34,5 +35,26 @@ describe('toAnchorId', () => {
     expect(toAnchorId('Server error, with a way back')).toBe(
       'server-error-with-a-way-back',
     )
+  })
+})
+
+describe('toTextContent', () => {
+  it('reads the text a node renders, through nested elements', () => {
+    const node = createElement(
+      Fragment,
+      null,
+      'Name the action, never ',
+      createElement('code', null, 'OK'),
+      ', in ',
+      createElement('a', { href: '/components/button' }, 'one ', 2, ' words'),
+    )
+
+    expect(toTextContent(node)).toBe(
+      'Name the action, never OK, in one 2 words',
+    )
+  })
+
+  it('reads nothing from empty nodes', () => {
+    expect(toTextContent([null, undefined, false, true])).toBe('')
   })
 })

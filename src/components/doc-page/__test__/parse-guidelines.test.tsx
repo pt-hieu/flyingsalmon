@@ -147,6 +147,24 @@ describe('parseGuidelines', () => {
     )
   })
 
+  it('renders a link that follows brackets with no link', async () => {
+    const markdown = dialogGuidelines.replace(
+      'in a *short* [draft] label.',
+      'in a [draft] label, like the [Button](https://flyingsalmon.superbrian.dev/components/button) page.',
+    )
+
+    await renderGuidelines(markdown, 'Dialog')
+
+    const [rule] = getListItems('Do and don’t')
+    expect(rule).toHaveTextContent(
+      'Name the action, never OK, in a [draft] label, like the Button page.',
+    )
+    expect(within(rule).getByRole('link', { name: 'Button' })).toHaveAttribute(
+      'href',
+      '/components/button',
+    )
+  })
+
   it('joins a list item wrapped across indented lines', () => {
     const markdown = `# Tabs guidelines
 
@@ -238,6 +256,13 @@ Design guidelines for the flyingsalmon Tabs component. An alternative linked to 
       markdown: switchGuidelines.replace(
         'https://flyingsalmon.superbrian.dev/components/checkbox',
         'https://example.com/checkbox',
+      ),
+    },
+    {
+      problem: 'a link to a page the site does not have',
+      markdown: switchGuidelines.replace(
+        'https://flyingsalmon.superbrian.dev/components/checkbox',
+        'https://flyingsalmon.superbrian.dev/components/chekbox',
       ),
     },
     {

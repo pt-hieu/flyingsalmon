@@ -1,3 +1,5 @@
+import { useSyncExternalStore } from 'react'
+
 const textFieldSelector =
   'textarea, select, [contenteditable="true"], input:not([type="checkbox"], [type="radio"], [type="button"], [type="submit"], [type="reset"], [type="range"], [type="color"], [type="file"])'
 
@@ -14,4 +16,16 @@ export function isSearchShortcut(event: KeyboardEvent, applePlatform: boolean) {
   if (event.key.toLowerCase() === 'k' && commandKeyPressed) return true
 
   return event.key === '/' && !isInTextField(event.target)
+}
+
+function subscribeToPlatform() {
+  return () => {}
+}
+
+export function useApplePlatform() {
+  return useSyncExternalStore(subscribeToPlatform, isApplePlatform, () => true)
+}
+
+export function searchShortcutHint(applePlatform: boolean) {
+  return applePlatform ? '⌘K' : 'Ctrl K'
 }

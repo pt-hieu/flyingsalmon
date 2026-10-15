@@ -1,121 +1,125 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { GuidelineVerdict } from '@/components/doc-page'
-import { FoundationPage } from '@/components/foundation-page'
-import type { TokenRow } from '@/components/foundation-page'
+import {
+  FoundationPage,
+  GuidelineVerdict,
+  TokenSample,
+  docPageHead,
+} from '@/components/doc-page'
+import type { FoundationTableRow } from '@/components/doc-page'
+import { cn } from '@/lib/utils'
+
+const title = 'Motion'
+
+const principle =
+  'Motion is small, springy, and quick: it confirms what you did and never makes you wait.'
 
 export const Route = createFileRoute('/_docs/motion')({
+  head: () => docPageHead(title, principle),
   component: MotionPage,
 })
 
-function durationSample(widthClassName: string) {
-  return (
-    <span
-      aria-hidden
-      className={`${widthClassName} bg-indicator block h-3 rounded-sm`}
-    />
-  )
-}
+const durationSampleClassName = 'bg-indicator h-3 rounded-sm'
 
 function labelSample(label: string) {
   return <span className="text-foreground text-xs font-medium">{label}</span>
 }
 
-const durationRows: TokenRow[] = [
+const durationRows: FoundationTableRow[] = [
   {
-    sample: durationSample('w-10'),
-    token: '--motion-fast',
-    value: '100ms',
+    sample: <TokenSample className={cn(durationSampleClassName, 'w-10')} />,
+    name: '--motion-fast',
+    detail: '100ms',
     job: 'State feedback in colour and opacity: hover, press, focus, a check appearing.',
   },
   {
-    sample: durationSample('w-15'),
-    token: '--motion-base',
-    value: '150ms',
+    sample: <TokenSample className={cn(durationSampleClassName, 'w-15')} />,
+    name: '--motion-base',
+    detail: '150ms',
     job: 'Morphs, enters, and exits.',
   },
 ]
 
-const springRows: TokenRow[] = [
+const springRows: FoundationTableRow[] = [
   {
     sample: labelSample('Playful'),
-    token: 'springBounce',
-    value: 'visual duration 150ms, bounce 0.3',
+    name: 'springBounce',
+    detail: 'visual duration 150ms, bounce 0.3',
     job: 'Morphs and enters that stay inside the element’s own box: a scale, a translate, a thumb travelling, a check drawing in.',
   },
   {
     sample: labelSample('Calm'),
-    token: 'springSettle',
-    value: 'visual duration 150ms, bounce 0',
+    name: 'springSettle',
+    detail: 'visual duration 150ms, bounce 0',
     job: 'Every exit, and every enter that moves its neighbours: an alert or a field error growing in, the progress fill.',
   },
 ]
 
-const kindRows: TokenRow[] = [
+const kindRows: FoundationTableRow[] = [
   {
     sample: labelSample('CSS'),
-    token: 'State feedback',
-    value: 'CSS transitions, 100ms',
+    name: 'State feedback',
+    detail: 'CSS transitions, 100ms',
     job: 'Hover, press, focus, check. Colour and opacity only.',
   },
   {
     sample: labelSample('motion'),
-    token: 'Morph',
-    value: 'motion, springBounce',
+    name: 'Morph',
+    detail: 'motion, springBounce',
     job: 'A component reshapes itself: a button taking a spinner, a switch thumb travelling.',
   },
   {
     sample: labelSample('motion'),
-    token: 'Enter and exit',
-    value: 'motion, springBounce in, springSettle out',
+    name: 'Enter and exit',
+    detail: 'motion, springBounce in, springSettle out',
     job: 'A surface or element arriving or leaving. Anything that displaces its neighbours enters on springSettle.',
   },
   {
     sample: labelSample('CSS'),
-    token: 'Continuous',
-    value: 'CSS keyframes, theme animate-* utilities',
+    name: 'Continuous',
+    detail: 'CSS keyframes, theme animate-* utilities',
     job: 'A loop that never stops: spinner, skeleton, indeterminate progress.',
   },
 ]
 
-const continuousRows: TokenRow[] = [
+const continuousRows: FoundationTableRow[] = [
   {
     sample: labelSample('Loop'),
-    token: 'animate-spinner',
-    value: '800ms, linear',
+    name: 'animate-spinner',
+    detail: '800ms, linear',
     job: 'The spinner rotates once per cycle.',
   },
   {
     sample: labelSample('Loop'),
-    token: 'animate-skeleton-pulse',
-    value: '2s, ease-in-out',
+    name: 'animate-skeleton-pulse',
+    detail: '2s, ease-in-out',
     job: 'The skeleton fades between full and half opacity.',
   },
   {
     sample: labelSample('Loop'),
-    token: 'animate-switch-thumb-pulse',
-    value: '800ms, ease-in-out',
+    name: 'animate-switch-thumb-pulse',
+    detail: '800ms, ease-in-out',
     job: 'A loading switch pulses its thumb at the spinner’s tempo.',
   },
   {
     sample: labelSample('Loop'),
-    token: 'animate-progress-indeterminate',
-    value: '2s, ease-in-out',
+    name: 'animate-progress-indeterminate',
+    detail: '2s, ease-in-out',
     job: 'The indeterminate progress segment travels the track at the skeleton’s tempo.',
   },
 ]
 
-const exceptionRows: TokenRow[] = [
+const exceptionRows: FoundationTableRow[] = [
   {
     sample: labelSample('Loop'),
-    token: 'animate-sticker-boil',
-    value: '450ms step loop, three frames',
+    name: 'animate-sticker-boil',
+    detail: '450ms step loop, three frames',
     job: 'The sticker’s hand-drawn lines jitter like a cartoon: each frame shows for 150ms, then the next takes over. It runs for as long as the sticker is on the page.',
   },
   {
     sample: labelSample('Scroll'),
-    token: 'animate-sticker-pop',
-    value: 'scroll timeline, from entry 10% to cover 35%',
+    name: 'animate-sticker-pop',
+    detail: 'scroll timeline, from entry 10% to cover 35%',
     job: 'The sticker grows from small and tilted, overshoots slightly, and settles, at the speed the reader scrolls. It reverses on the way back.',
   },
 ]
@@ -123,18 +127,18 @@ const exceptionRows: TokenRow[] = [
 function MotionPage() {
   return (
     <FoundationPage
-      title="Motion"
-      principle="Motion is small, springy, and quick: it confirms what you did and never makes you wait."
+      title={title}
+      principle={principle}
       introduction={
         <p>
-          Every animated change looks finished in under 200ms, and movement uses
-          a spring so it feels like a thing with weight. The vocabulary below is
-          short on purpose. A component names a duration and a spring from it
-          instead of inventing numbers, so everything in the system moves at one
-          tempo.
+          Every animated change looks finished in under 200ms, continuous loops
+          aside, and movement uses a spring so it feels like a thing with
+          weight. The vocabulary below is short on purpose. A component names a
+          duration and a spring from it instead of inventing numbers, so
+          everything in the system moves at one tempo.
         </p>
       }
-      tokenSections={[
+      tables={[
         {
           title: 'Durations',
           description:
@@ -223,12 +227,13 @@ function MotionPage() {
             component gets its animation with the theme.
           </p>
           <p>
-            Dialog, drawer, popover, and overlay enters and exits are CSS
-            keyframes on a spring-shaped easing curve: 250ms in and 350ms out,
-            tuned to read as the spring presets do. The visible movement is over
-            inside 200ms; the remaining time is the curve settling by amounts
-            too small to see. They are the floating layer, driven by
-            Radix&rsquo;s presence state.
+            The enters and exits of the dialog, the drawer, their scrim, and the
+            anchored panels of the menu, select, combobox, date picker, and
+            tooltip are CSS keyframes on a spring-shaped easing curve: 250ms in
+            and 350ms out, tuned to read as the spring presets do. The visible
+            movement is over inside 200ms; the remaining time is the curve
+            settling by amounts too small to see. They are the floating layer,
+            driven by Radix&rsquo;s presence state.
           </p>
           <p>
             <code>sticker-pop</code> runs on a scroll timeline, so it has no

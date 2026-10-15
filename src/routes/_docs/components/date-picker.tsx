@@ -1,10 +1,18 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import {
   DocPage,
+  DocTextLink,
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
+  fieldDescriptionRow,
+  fieldErrorRow,
+  fieldLabelRow,
+  fieldSizeRow,
+  fieldsRelatedPage,
+  formRelatedPage,
 } from '@/components/doc-page'
 import { DatePickerDemo } from '@/examples/date-picker/demo'
 import demoSource from '@/examples/date-picker/demo.tsx?raw'
@@ -26,17 +34,22 @@ import { DatePickerUnavailableDays } from '@/examples/date-picker/unavailable-da
 import unavailableDaysSource from '@/examples/date-picker/unavailable-days.tsx?raw'
 import usageSource from '@/examples/date-picker/usage.tsx?raw'
 import guidelines from '@/registry/ui/date-picker/guidelines.md?raw'
-import { TextLink } from '@/registry/ui/text-link'
+
+const title = 'Date picker'
+
+const lead =
+  'A form field for one calendar day or one range, entered by typing into date segments or by picking from a calendar.'
 
 export const Route = createFileRoute('/_docs/components/date-picker')({
+  head: () => docPageHead(title, lead),
   component: DatePickerPage,
 })
 
 function DatePickerPage() {
   return (
     <DocPage
-      title="Date picker"
-      lead="A form field for one calendar day or one range, entered by typing into date segments or by picking from a calendar."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <DatePickerDemo /> }}
       installation="date-picker"
       usage={usageSource}
@@ -108,7 +121,7 @@ function DatePickerPage() {
 
           <Example
             caption="Read-only"
-            description="The date stays readable and focusable. The clear button and the calendar are not offered."
+            description="The date stays readable and focusable. The clear button is hidden, and the calendar opens for looking only."
             source={readOnlySource}
           >
             <DatePickerReadOnly />
@@ -158,10 +171,8 @@ function DatePickerPage() {
           />
           <p>
             Inside the panel, the keys are those of{' '}
-            <TextLink asChild>
-              <Link to="/components/calendar">Calendar</Link>
-            </TextLink>
-            . Screen readers hear the group name, then &ldquo;Start date&rdquo;
+            <DocTextLink to="/components/calendar">Calendar</DocTextLink>.
+            Screen readers hear the group name, then &ldquo;Start date&rdquo;
             and &ldquo;End date&rdquo; in a range, then each segment. A partly
             typed entry is silent: no ring, no message, and no{' '}
             <code>onChange</code>. A complete entry the limits refuse takes{' '}
@@ -169,10 +180,7 @@ function DatePickerPage() {
             nothing is posted, so a form cannot submit a value the field
             refused. A loading field sets <code>aria-busy</code>. The states
             every field shares are described on{' '}
-            <TextLink asChild>
-              <Link to="/fields">Fields</Link>
-            </TextLink>
-            .
+            <DocTextLink to="/fields">Fields</DocTextLink>.
           </p>
         </>
       }
@@ -223,23 +231,14 @@ function DatePickerPage() {
               description:
                 'Range mode: the names the two hidden inputs post under.',
             },
-            {
-              name: 'label',
-              type: 'string',
-              description: 'The visible label.',
-            },
+            fieldLabelRow('box'),
             {
               name: 'labelPlacement',
               type: 'FieldLabelPlacement',
               default: 'FieldLabelPlacement.Above',
               description: 'Above the box, or beside it.',
             },
-            {
-              name: 'size',
-              type: 'DatePickerSize',
-              default: 'DatePickerSize.Default',
-              description: 'Default or Small, matching Select.',
-            },
+            fieldSizeRow('DatePickerSize'),
             {
               name: 'min, max',
               type: 'string',
@@ -259,16 +258,8 @@ function DatePickerPage() {
               description:
                 'Sets the segment order, the weekday names, and the week start.',
             },
-            {
-              name: 'description',
-              type: 'string',
-              description: 'Helper text under the box.',
-            },
-            {
-              name: 'error',
-              type: 'string',
-              description: 'The failure message. Wins over the built-in ones.',
-            },
+            fieldDescriptionRow('box'),
+            fieldErrorRow('Wins over the built-in ones.'),
             {
               name: 'unavailableMessage',
               type: 'string',
@@ -354,13 +345,14 @@ function DatePickerPage() {
             is the one place this field uses a browser bubble.
           </p>
           <p>
-            The panel is a popover portalled to <code>document.body</code>, 8px
-            from the box, flipping then shifting at a viewport edge. Calendar is
-            its only content: one month in single mode and two in range mode,
-            with no footer. Focus lands on the selected day, or today when the
-            field is empty. In range mode the two groups are two date fields,
-            because the date library ships no range field, so ArrowRight at the
-            end of the start group stops there.
+            The panel is a floating layer portalled to{' '}
+            <code>document.body</code>, 8px from the box, flipping then shifting
+            at a viewport edge. Calendar is its only content: one month in
+            single mode and two in range mode, with no footer. Focus lands on
+            the selected day, or today when the field is empty. In range mode
+            the two groups are two date fields, because the date library ships
+            no range field, so ArrowRight at the end of the start group stops
+            there.
           </p>
           <p>
             The panel grows from the box: 250ms bouncing in from{' '}
@@ -385,17 +377,8 @@ function DatePickerPage() {
           label: 'Calendar',
           description: 'The month grid inside the panel, for use on its own.',
         },
-        {
-          to: '/fields',
-          label: 'Fields',
-          description:
-            'The label, description, error, loading, and disabled behaviour every field shares.',
-        },
-        {
-          to: '/components/form',
-          label: 'Form',
-          description: 'Lays fields out with an actions row and a result slot.',
-        },
+        fieldsRelatedPage,
+        formRelatedPage,
         {
           to: '/components/number-field',
           label: 'Number field',

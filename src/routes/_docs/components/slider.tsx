@@ -1,10 +1,12 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import {
   DocPage,
+  DocTextLink,
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import { SliderDemo } from '@/examples/slider/demo'
 import demoSource from '@/examples/slider/demo.tsx?raw'
@@ -16,17 +18,22 @@ import { SliderMeaningfulSteps } from '@/examples/slider/meaningful-steps'
 import meaningfulStepsSource from '@/examples/slider/meaningful-steps.tsx?raw'
 import usageSource from '@/examples/slider/usage.tsx?raw'
 import guidelines from '@/registry/ui/slider/guidelines.md?raw'
-import { TextLink } from '@/registry/ui/text-link'
+
+const title = 'Slider'
+
+const lead =
+  'A slider picks a level from a short run of steps rather than a typed number, and a description says what the current step means.'
 
 export const Route = createFileRoute('/_docs/components/slider')({
+  head: () => docPageHead(title, lead),
   component: SliderPage,
 })
 
 function SliderPage() {
   return (
     <DocPage
-      title="Slider"
-      lead="A slider picks a level from a short run of steps rather than a typed number, and a description says what the current step means."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <SliderDemo /> }}
       installation="slider"
       usage={usageSource}
@@ -80,6 +87,11 @@ function SliderPage() {
                 description: 'Moves ten steps down or up.',
               },
               {
+                keys: ['Shift+ArrowLeft', 'Shift+ArrowRight'],
+                description:
+                  'Moves ten steps down or up, as do Shift+ArrowDown and Shift+ArrowUp.',
+              },
+              {
                 keys: ['Home', 'End'],
                 description: 'Jumps to the minimum or the maximum.',
               },
@@ -92,9 +104,7 @@ function SliderPage() {
             value text already says what they show. The focus ring appears on
             keyboard focus only. <code>required</code> marks the label; a slider
             always holds a value, so there is nothing for it to block. The{' '}
-            <TextLink asChild>
-              <Link to="/accessibility">accessibility page</Link>
-            </TextLink>{' '}
+            <DocTextLink to="/accessibility">accessibility page</DocTextLink>{' '}
             covers the rules every component follows.
           </p>
         </>
@@ -174,7 +184,7 @@ function SliderPage() {
               name: 'className',
               type: 'string',
               description:
-                'Styles the wrapper. The slider fills its container up to 28rem, so use this to narrow it further.',
+                'Styles the wrapper. The slider fills its container up to a fixed maximum width, so use this to narrow it further.',
             },
           ]}
         />

@@ -3,9 +3,12 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   CodeBlock,
   CodeLanguage,
+  DataTable,
   DocPage,
+  DocSubheading,
   Example,
   PropsTable,
+  docPageHead,
 } from '@/components/doc-page'
 import {
   houseStickerLabel,
@@ -21,16 +24,14 @@ import { StickerSizeAndTilt } from '@/examples/sticker/size-and-tilt'
 import sizeAndTiltSource from '@/examples/sticker/size-and-tilt.tsx?raw'
 import usageSource from '@/examples/sticker/usage.tsx?raw'
 import guidelines from '@/registry/ui/sticker/guidelines.md?raw'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHeadCell,
-  TableHeader,
-  TableRow,
-} from '@/registry/ui/table'
+
+const title = 'Sticker'
+
+const lead =
+  'A sticker is hand-drawn art cut out like a paper sticker, marking a moment such as the end of a trip or a page with nothing on it yet.'
 
 export const Route = createFileRoute('/_docs/components/sticker')({
+  head: () => docPageHead(title, lead),
   component: StickerPage,
 })
 
@@ -74,8 +75,8 @@ const generatedArtExample = `export const doorStickerArt = {
 function StickerPage() {
   return (
     <DocPage
-      title="Sticker"
-      lead="A sticker is hand-drawn art cut out like a paper sticker, marking a moment such as the end of a trip or a page with nothing on it yet."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <StickerDemo /> }}
       installation="sticker"
       usage={usageSource}
@@ -158,7 +159,7 @@ function StickerPage() {
               },
             ]}
           />
-          <h3 className="font-heading text-lg font-semibold">The role map</h3>
+          <DocSubheading>The role map</DocSubheading>
           <p>
             <code>roleClassNames</code> gives each role a class per paint. Spell
             the classes out in full so Tailwind finds them, and split them by
@@ -173,32 +174,23 @@ function StickerPage() {
             <code>roof</code> or <code>door</code>, never after a colour, so the
             same art follows whatever theme draws it.
           </p>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHeadCell>Role</TableHeadCell>
-                <TableHeadCell>Fill</TableHeadCell>
-                <TableHeadCell>Stroke</TableHeadCell>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {Object.entries(houseStickerRoleClassNames).map(
-                ([role, classNames]) => (
-                  <TableRow key={role}>
-                    <TableCell>
-                      <code>{role}</code>
-                    </TableCell>
-                    <TableCell>
-                      <code>{classNames.fill}</code>
-                    </TableCell>
-                    <TableCell>
-                      <code>{classNames.stroke}</code>
-                    </TableCell>
-                  </TableRow>
-                ),
-              )}
-            </TableBody>
-          </Table>
+          <DataTable
+            columns={[
+              { heading: 'Role' },
+              { heading: 'Fill' },
+              { heading: 'Stroke' },
+            ]}
+            rows={Object.entries(houseStickerRoleClassNames).map(
+              ([role, classNames]) => ({
+                key: role,
+                cells: [
+                  <code key="role">{role}</code>,
+                  <code key="fill">{classNames.fill}</code>,
+                  <code key="stroke">{classNames.stroke}</code>,
+                ],
+              }),
+            )}
+          />
         </>
       }
       notes={
@@ -231,9 +223,7 @@ function StickerPage() {
             into the viewport until it covers 35% of it. A browser without
             scroll-driven animations shows the sticker at rest.
           </p>
-          <h3 className="font-heading text-lg font-semibold">
-            Drawing new art
-          </h3>
+          <DocSubheading>Drawing new art</DocSubheading>
           <p>
             Art comes from a drawing script built on rough.js. Installing the
             sticker adds <code>sticker-sketch.ts</code> to the sticker’s folder,

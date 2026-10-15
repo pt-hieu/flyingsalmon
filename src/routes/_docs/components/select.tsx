@@ -1,10 +1,18 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import {
   DocPage,
+  DocTextLink,
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
+  fieldDescriptionRow,
+  fieldErrorRow,
+  fieldLabelRow,
+  fieldSizeRow,
+  fieldsRelatedPage,
+  formRelatedPage,
 } from '@/components/doc-page'
 import { SelectDemo } from '@/examples/select/demo'
 import demoSource from '@/examples/select/demo.tsx?raw'
@@ -24,17 +32,21 @@ import { SelectSizes } from '@/examples/select/sizes'
 import sizesSource from '@/examples/select/sizes.tsx?raw'
 import usageSource from '@/examples/select/usage.tsx?raw'
 import guidelines from '@/registry/ui/select/guidelines.md?raw'
-import { TextLink } from '@/registry/ui/text-link'
+
+const title = 'Select'
+
+const lead = 'A form field that opens a short list and takes exactly one value.'
 
 export const Route = createFileRoute('/_docs/components/select')({
+  head: () => docPageHead(title, lead),
   component: SelectPage,
 })
 
 function SelectPage() {
   return (
     <DocPage
-      title="Select"
-      lead="A form field that opens a short list and takes exactly one value."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <SelectDemo /> }}
       installation="select"
       usage={usageSource}
@@ -49,7 +61,7 @@ function SelectPage() {
           </Example>
 
           <Example
-            caption="Groups, icons, and a disabled item"
+            caption="Groups"
             description="Open the trigger. Groups take a label and a separator, the checked item shows a mark in a reserved slot, and a disabled item stays in the list so positions never shift."
             source={groupsSource}
           >
@@ -89,7 +101,7 @@ function SelectPage() {
           </Example>
 
           <Example
-            caption="Long lists scroll and truncate"
+            caption="Long lists"
             description="The panel matches the trigger's width and scrolls inside a maximum height. Long item text ends in an ellipsis, and so does the chosen label in the trigger."
             source={longListSource}
           >
@@ -142,10 +154,7 @@ function SelectPage() {
             <code>aria-busy</code>. <code>required</code> marks the label, sets{' '}
             <code>aria-required</code>, and takes part in native validation. The
             states every field shares are described on{' '}
-            <TextLink asChild>
-              <Link to="/fields">Fields</Link>
-            </TextLink>
-            .
+            <DocTextLink to="/fields">Fields</DocTextLink>.
           </p>
         </>
       }
@@ -155,42 +164,24 @@ function SelectPage() {
             component="Select"
             description={
               <>
-                Also takes the props of the Radix select root, including{' '}
-                <code>value</code>, <code>defaultValue</code>,{' '}
-                <code>onValueChange</code>, <code>name</code>,{' '}
-                <code>disabled</code>, and <code>required</code>.{' '}
-                <code>className</code> styles the wrapper.
+                Also takes <code>value</code>, <code>defaultValue</code>,{' '}
+                <code>onValueChange</code>, <code>open</code>,{' '}
+                <code>defaultOpen</code>, <code>onOpenChange</code>,{' '}
+                <code>name</code>, <code>disabled</code>, and{' '}
+                <code>required</code>. <code>className</code> styles the
+                wrapper.
               </>
             }
             rows={[
-              {
-                name: 'label',
-                type: 'string',
-                description:
-                  'The visible label. Renders above the trigger and is wired to it.',
-              },
+              fieldLabelRow('trigger'),
               {
                 name: 'placeholder',
                 type: 'string',
                 description: 'Shown in the trigger while no value is chosen.',
               },
-              {
-                name: 'size',
-                type: 'SelectSize',
-                default: 'SelectSize.Default',
-                description: 'Default or Small, matching Input and Button.',
-              },
-              {
-                name: 'description',
-                type: 'string',
-                description: 'Helper text under the trigger.',
-              },
-              {
-                name: 'error',
-                type: 'string',
-                description:
-                  'The failure message. Turns the border, the ring, and the label destructive.',
-              },
+              fieldSizeRow('SelectSize'),
+              fieldDescriptionRow('trigger'),
+              fieldErrorRow(),
               {
                 name: 'loading',
                 type: 'boolean',
@@ -214,7 +205,7 @@ function SelectPage() {
           />
           <PropsTable
             component="SelectItem"
-            description="Also takes the props of the Radix select item."
+            description="Also takes every <div> attribute."
             rows={[
               {
                 name: 'value',
@@ -284,12 +275,7 @@ function SelectPage() {
         </>
       }
       related={[
-        {
-          to: '/fields',
-          label: 'Fields',
-          description:
-            'The label, description, error, loading, and disabled behaviour every field shares.',
-        },
+        fieldsRelatedPage,
         {
           to: '/components/combobox',
           label: 'Combobox',
@@ -300,11 +286,7 @@ function SelectPage() {
           label: 'Radio group',
           description: 'Keeps a few options visible at once.',
         },
-        {
-          to: '/components/form',
-          label: 'Form',
-          description: 'Lays fields out with an actions row and a result slot.',
-        },
+        formRelatedPage,
       ]}
     />
   )

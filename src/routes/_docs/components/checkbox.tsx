@@ -1,10 +1,13 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import {
   DocPage,
+  DocTextLink,
   Example,
   KeyboardTable,
   PropsTable,
+  choiceFieldsRelatedPage,
+  docPageHead,
 } from '@/components/doc-page'
 import { CheckboxDemo } from '@/examples/checkbox/demo'
 import demoSource from '@/examples/checkbox/demo.tsx?raw'
@@ -19,17 +22,21 @@ import statesSource from '@/examples/checkbox/states.tsx?raw'
 import usageSource from '@/examples/checkbox/usage.tsx?raw'
 import guidelines from '@/registry/ui/checkbox/guidelines.md?raw'
 
-import { TextLink } from '@/registry/ui/text-link'
+const title = 'Checkbox'
+
+const lead =
+  'A checkbox records a yes or no that the form collects and submits later, and it owns its label and its error message.'
 
 export const Route = createFileRoute('/_docs/components/checkbox')({
+  head: () => docPageHead(title, lead),
   component: CheckboxPage,
 })
 
 function CheckboxPage() {
   return (
     <DocPage
-      title="Checkbox"
-      lead="A checkbox records a yes or no that the form collects and submits later, and it owns its label and its error message."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <CheckboxDemo /> }}
       installation="checkbox"
       usage={usageSource}
@@ -37,7 +44,7 @@ function CheckboxPage() {
         <>
           <Example
             caption="States"
-            description="Checked and indeterminate share one orange fill, so a mixed state reads as part of the same control. There is one size and no loading state: a checkbox states intent, and the submit button shows the busyness."
+            description="From the top: unchecked, checked, indeterminate, disabled, and disabled and checked. Checked and indeterminate share one orange fill, so a mixed state reads as part of the same control. There is one size and no loading state: a checkbox states intent, and the submit button shows the busyness."
             source={statesSource}
           >
             <CheckboxStates />
@@ -94,9 +101,7 @@ function CheckboxPage() {
             focus ring appears on keyboard focus only. <code>required</code>{' '}
             marks the label and sets <code>aria-required</code>; the validation
             itself stays with your app. The{' '}
-            <TextLink asChild>
-              <Link to="/accessibility">accessibility page</Link>
-            </TextLink>{' '}
+            <DocTextLink to="/accessibility">accessibility page</DocTextLink>{' '}
             covers the rules every component follows.
           </p>
         </>
@@ -106,13 +111,10 @@ function CheckboxPage() {
           component="Checkbox"
           description={
             <>
-              Every other prop passes through to the Radix checkbox root.
-              Checkbox ships no group, so grouping is the app&rsquo;s job. The{' '}
-              <TextLink asChild>
-                <Link to="/fields">fields page</Link>
-              </TextLink>{' '}
-              describes the label, error, and wrapper behaviour that every field
-              shares.
+              Also takes every <code>&lt;button&gt;</code> attribute. Checkbox
+              ships no group, so grouping is the app&rsquo;s job. The{' '}
+              <DocTextLink to="/fields">fields page</DocTextLink> describes the
+              label, error, and wrapper behaviour that every field shares.
             </>
           }
           rows={[
@@ -214,12 +216,7 @@ function CheckboxPage() {
           description:
             'Chips for picking several options without a column of boxes.',
         },
-        {
-          to: '/fields',
-          label: 'Fields',
-          description:
-            'The label, error, and wrapper behaviour every field shares.',
-        },
+        choiceFieldsRelatedPage,
         {
           to: '/accessibility',
           label: 'Accessibility',

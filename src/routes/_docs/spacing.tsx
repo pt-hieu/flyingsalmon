@@ -1,168 +1,165 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { GuidelineVerdict } from '@/components/doc-page'
-import { FoundationPage } from '@/components/foundation-page'
-import type { TokenRow } from '@/components/foundation-page'
+import {
+  FoundationPage,
+  GuidelineVerdict,
+  TokenSample,
+  docPageHead,
+} from '@/components/doc-page'
+import type { FoundationTableRow } from '@/components/doc-page'
+import { cn } from '@/lib/utils'
+
+const title = 'Spacing'
+
+const principle =
+  'Every space is a step on Tailwind’s 4px scale, and the gap grows with the distance between ideas.'
 
 export const Route = createFileRoute('/_docs/spacing')({
+  head: () => docPageHead(title, principle),
   component: SpacingPage,
 })
 
-function stepSample(barClassName: string) {
-  return (
-    <span
-      aria-hidden
-      className={`${barClassName} bg-indicator block h-4 rounded-sm`}
-    />
-  )
-}
+const stepSampleClassName = 'bg-indicator h-4 rounded-sm'
 
-function heightSample(barClassName: string) {
-  return (
-    <span
-      aria-hidden
-      className={`${barClassName} bg-indicator block w-2 rounded-sm`}
-    />
-  )
-}
+const heightSampleClassName = 'bg-indicator w-2 rounded-sm'
 
-const stepRows: TokenRow[] = [
+const stepRows: FoundationTableRow[] = [
   {
-    sample: stepSample('w-0.5'),
-    token: '0.5',
-    value: '2px',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-0.5')} />,
+    name: '0.5',
+    detail: '2px',
     job: 'The gap between a field’s icon buttons, the padding around a date picker segment.',
   },
   {
-    sample: stepSample('w-0.75'),
-    token: '0.75',
-    value: '3px',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-0.75')} />,
+    name: '0.75',
+    detail: '3px',
     job: 'The inset of an icon button inside a field box.',
   },
   {
-    sample: stepSample('w-1'),
-    token: '1',
-    value: '4px',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-1')} />,
+    name: '1',
+    detail: '4px',
     job: 'A title to its description, the error message under a field, menu padding, the gap between tabs.',
   },
   {
-    sample: stepSample('w-1.5'),
-    token: '1.5',
-    value: '6px',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-1.5')} />,
+    name: '1.5',
+    detail: '6px',
     job: 'The icon-to-label gap in a small button or chip.',
   },
   {
-    sample: stepSample('w-2'),
-    token: '2',
-    value: '8px',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-2')} />,
+    name: '2',
+    detail: '8px',
     job: 'The icon-to-label gap in a button, a checkbox or radio to its label, a label above its field, buttons in an actions row.',
   },
   {
-    sample: stepSample('w-2.5'),
-    token: '2.5',
-    value: '10px',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-2.5')} />,
+    name: '2.5',
+    detail: '10px',
     job: 'Inline padding of a small field and a tooltip.',
   },
   {
-    sample: stepSample('w-3'),
-    token: '3',
-    value: '12px',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-3')} />,
+    name: '3',
+    detail: '12px',
     job: 'Inline padding of a field and a small button, a label beside a date picker, stacked radio options, a small alert, a timeline marker to its content.',
   },
   {
-    sample: stepSample('w-4'),
-    token: '4',
-    value: '16px',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-4')} />,
+    name: '4',
+    detail: '16px',
     job: 'Inline padding of a button and a table cell, an alert, --card-spacing.',
   },
   {
-    sample: stepSample('w-5'),
-    token: '5',
-    value: '20px',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-5')} />,
+    name: '5',
+    detail: '20px',
     job: 'The gap between fields in a form.',
   },
   {
-    sample: stepSample('w-6'),
-    token: '6',
-    value: '24px',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-6')} />,
+    name: '6',
+    detail: '24px',
     job: '--dialog-spacing, --timeline-spacing, radio options laid out in a row.',
   },
 ]
 
-const heightRows: TokenRow[] = [
+const heightRows: FoundationTableRow[] = [
   {
-    sample: heightSample('h-10'),
-    token: 'h-10',
-    value: '40px',
+    sample: <TokenSample className={cn(heightSampleClassName, 'h-10')} />,
+    name: 'h-10',
+    detail: '40px',
     job: 'A table header row.',
   },
   {
-    sample: heightSample('h-9'),
-    token: 'h-9',
-    value: '36px',
+    sample: <TokenSample className={cn(heightSampleClassName, 'h-9')} />,
+    name: 'h-9',
+    detail: '36px',
     job: 'Default size: button, icon button, field box, toggle group chip, tab.',
   },
   {
-    sample: heightSample('h-8'),
-    token: 'h-8',
-    value: '32px',
+    sample: <TokenSample className={cn(heightSampleClassName, 'h-8')} />,
+    name: 'h-8',
+    detail: '32px',
     job: 'Small size: button, icon button, field box, chip, and a menu row.',
   },
   {
-    sample: heightSample('h-5'),
-    token: 'h-5',
-    value: '20px',
+    sample: <TokenSample className={cn(heightSampleClassName, 'h-5')} />,
+    name: 'h-5',
+    detail: '20px',
     job: 'A badge, a checkbox, a radio.',
   },
 ]
 
-const variableRows: TokenRow[] = [
+const variableRows: FoundationTableRow[] = [
   {
-    sample: stepSample('w-4'),
-    token: '--card-spacing',
-    value: '--spacing(4)',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-4')} />,
+    name: '--card-spacing',
+    detail: '--spacing(4)',
     job: 'Card padding on every edge and the gap between its slots, so the header, content, and footer line up with the border.',
   },
   {
-    sample: stepSample('w-6'),
-    token: '--dialog-spacing',
-    value: '--spacing(6)',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-6')} />,
+    name: '--dialog-spacing',
+    detail: '--spacing(6)',
     job: 'Dialog and drawer padding: the header, body, and footer insets, and where the close button sits.',
   },
   {
-    sample: stepSample('w-6'),
-    token: '--timeline-spacing',
-    value: '--spacing(6)',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-6')} />,
+    name: '--timeline-spacing',
+    detail: '--spacing(6)',
     job: 'The gap between timeline items. The connectors that bridge the gap read the same variable.',
   },
   {
-    sample: stepSample('w-18'),
-    token: '--bar-height',
-    value: '--spacing(18)',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-18')} />,
+    name: '--bar-height',
+    detail: '--spacing(18)',
     job: 'The band the sidebar header and the first line of a page header share, so the wordmark, the page title, and the title’s actions sit on one centre line.',
   },
   {
-    sample: stepSample('w-0'),
-    token: '--page-header-inset',
-    value: '--spacing(0)',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-0')} />,
+    name: '--page-header-inset',
+    detail: '--spacing(0)',
     job: 'The side padding of the pane a page header sits in. The header bleeds out by it and pads back in, so its bottom rule meets both edges of the pane.',
   },
   {
-    sample: stepSample('w-0'),
-    token: '--page-header-max-width',
-    value: 'none',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-0')} />,
+    name: '--page-header-max-width',
+    detail: 'none',
     job: 'The widest a page header lets its title and actions run. The row centres inside the header while the bottom rule keeps the full width.',
   },
   {
-    sample: stepSample('w-72'),
-    token: '--sidebar-width',
-    value: '--spacing(72)',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-72')} />,
+    name: '--sidebar-width',
+    detail: '--spacing(72)',
     job: 'The expanded sidebar column. It is set on the root, so a pane beside the sidebar can offset itself by the same width.',
   },
   {
-    sample: stepSample('w-14'),
-    token: '--sidebar-width-collapsed',
-    value: '--spacing(14)',
+    sample: <TokenSample className={cn(stepSampleClassName, 'w-14')} />,
+    name: '--sidebar-width-collapsed',
+    detail: '--spacing(14)',
     job: 'The collapsed rail: the content inset, an item’s padding, and its icon, so the icons stay put as the sidebar collapses.',
   },
 ]
@@ -170,8 +167,8 @@ const variableRows: TokenRow[] = [
 function SpacingPage() {
   return (
     <FoundationPage
-      title="Spacing"
-      principle="Every space is a step on Tailwind’s 4px scale, and the gap grows with the distance between ideas."
+      title={title}
+      principle={principle}
       introduction={
         <p>
           Components use a handful of steps, the same step for the same job
@@ -180,7 +177,7 @@ function SpacingPage() {
           height lines the sidebar up with the page header.
         </p>
       }
-      tokenSections={[
+      tables={[
         {
           title: 'The scale',
           description: (
@@ -194,7 +191,7 @@ function SpacingPage() {
         {
           title: 'Control heights',
           description:
-            'Controls come in two heights, so a button, a field, and a chip line up on one row at either size.',
+            'Controls come in two heights, so a button, a field, and a chip line up on one row at either size. A table header row and the small marks, a badge, a checkbox, and a radio, keep fixed heights of their own.',
           rows: heightRows,
         },
         {

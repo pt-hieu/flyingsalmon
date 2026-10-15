@@ -1,10 +1,21 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import {
   DocPage,
+  DocTextLink,
   Example,
   KeyboardTable,
   PropsTable,
+  docPageHead,
+  fieldDescriptionRow,
+  fieldDisabledRow,
+  fieldErrorRow,
+  fieldLabelRow,
+  fieldReadOnlyRow,
+  fieldRequiredRow,
+  fieldSizeRow,
+  fieldsRelatedPage,
+  formRelatedPage,
 } from '@/components/doc-page'
 import { InputDemo } from '@/examples/input/demo'
 import demoSource from '@/examples/input/demo.tsx?raw'
@@ -28,17 +39,22 @@ import { InputTypes } from '@/examples/input/types'
 import typesSource from '@/examples/input/types.tsx?raw'
 import usageSource from '@/examples/input/usage.tsx?raw'
 import guidelines from '@/registry/ui/input/guidelines.md?raw'
-import { TextLink } from '@/registry/ui/text-link'
+
+const title = 'Input'
+
+const lead =
+  'A single-line text field that owns its label, its error message, and its busyness.'
 
 export const Route = createFileRoute('/_docs/components/input')({
+  head: () => docPageHead(title, lead),
   component: InputPage,
 })
 
 function InputPage() {
   return (
     <DocPage
-      title="Input"
-      lead="A single-line text field that owns its label, its error message, and its busyness."
+      title={title}
+      lead={lead}
       preview={{ source: demoSource, demo: <InputDemo /> }}
       installation="input"
       usage={usageSource}
@@ -147,11 +163,7 @@ function InputPage() {
             screen readers, so the wait is announced once. <code>required</code>{' '}
             marks the label and reaches the <code>&lt;input&gt;</code>; the
             validation itself stays with your app. The states every field shares
-            are described on{' '}
-            <TextLink asChild>
-              <Link to="/fields">Fields</Link>
-            </TextLink>
-            .
+            are described on <DocTextLink to="/fields">Fields</DocTextLink>.
           </p>
         </>
       }
@@ -168,12 +180,7 @@ function InputPage() {
             </>
           }
           rows={[
-            {
-              name: 'label',
-              type: 'string',
-              description:
-                'The visible label. Renders above the field and is wired to it.',
-            },
+            fieldLabelRow('field'),
             {
               name: 'type',
               type: 'InputType',
@@ -181,23 +188,9 @@ function InputPage() {
               description:
                 'Text, Email, Password, Number, Search, Telephone, or Url. A quantity takes Number field instead, which reports a number and enforces its bounds.',
             },
-            {
-              name: 'size',
-              type: 'InputSize',
-              default: 'InputSize.Default',
-              description: 'Default or Small, matching the two button heights.',
-            },
-            {
-              name: 'description',
-              type: 'string',
-              description: 'Helper text under the field.',
-            },
-            {
-              name: 'error',
-              type: 'string',
-              description:
-                'The failure message. Turns the border, the ring, and the label destructive.',
-            },
+            fieldSizeRow('InputSize'),
+            fieldDescriptionRow('field'),
+            fieldErrorRow(),
             {
               name: 'loading',
               type: 'boolean',
@@ -211,26 +204,9 @@ function InputPage() {
               description:
                 'An icon or a ghost field-icon button inside the border, on the right.',
             },
-            {
-              name: 'disabled',
-              type: 'boolean',
-              default: 'false',
-              description:
-                'Dims the field and its label and removes both from the tab order.',
-            },
-            {
-              name: 'readOnly',
-              type: 'boolean',
-              default: 'false',
-              description:
-                'Keeps the value readable on a muted background. The field stays focusable.',
-            },
-            {
-              name: 'required',
-              type: 'boolean',
-              default: 'false',
-              description: 'Marks the label and sets the native attribute.',
-            },
+            fieldDisabledRow,
+            fieldReadOnlyRow,
+            fieldRequiredRow,
           ]}
         />
       }
@@ -265,12 +241,7 @@ function InputPage() {
         </>
       }
       related={[
-        {
-          to: '/fields',
-          label: 'Fields',
-          description:
-            'The label, description, error, loading, and disabled behaviour every field shares.',
-        },
+        fieldsRelatedPage,
         {
           to: '/components/textarea',
           label: 'Textarea',
@@ -281,11 +252,7 @@ function InputPage() {
           label: 'Number field',
           description: 'The field for quantities, with steps and bounds.',
         },
-        {
-          to: '/components/form',
-          label: 'Form',
-          description: 'Lays fields out with an actions row and a result slot.',
-        },
+        formRelatedPage,
       ]}
     />
   )
