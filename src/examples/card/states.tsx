@@ -4,6 +4,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 import { Skeleton } from '@/registry/ui/skeleton'
 
@@ -12,14 +13,14 @@ export function CardStates() {
     <div className="flex flex-wrap gap-4">
       <Card className="w-56">
         <CardHeader>
-          <CardTitle>Weekend in Kyoto</CardTitle>
+          <CardTitle as={CardTitleElement.H4}>Weekend in Kyoto</CardTitle>
           <CardDescription>Three days, ten stops</CardDescription>
         </CardHeader>
       </Card>
 
       <Card interactive className="w-56">
         <CardHeader>
-          <CardTitle>
+          <CardTitle as={CardTitleElement.H4}>
             <a href="#lisbon">Lisbon long weekend</a>
           </CardTitle>
           <CardDescription>Four days, six stops</CardDescription>
@@ -28,7 +29,7 @@ export function CardStates() {
 
       <Card className="w-56" aria-busy="true">
         <CardHeader>
-          <CardTitle>
+          <CardTitle as={CardTitleElement.Div}>
             <Skeleton className="h-4 w-32" />
           </CardTitle>
           <CardDescription>

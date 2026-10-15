@@ -13,6 +13,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 import { DatePicker, DatePickerMode } from '@/registry/ui/date-picker'
 import type { DatePickerRange } from '@/registry/ui/date-picker'
@@ -56,7 +57,7 @@ export function DrawerEditOnSubmit() {
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle>{tripName}</CardTitle>
+        <CardTitle as={CardTitleElement.H4}>{tripName}</CardTitle>
         <CardDescription>
           {dates
             ? `${formatDate(dates.start)} to ${formatDate(dates.end)}`

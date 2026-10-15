@@ -6,13 +6,14 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 
 export function CardInteractive() {
   return (
     <Card interactive className="w-72">
       <CardHeader>
-        <CardTitle>
+        <CardTitle as={CardTitleElement.H4}>
           <a href="#kyoto">Weekend in Kyoto</a>
         </CardTitle>
         <CardDescription>Three days, ten stops</CardDescription>

@@ -4,6 +4,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 
 export function CardSpacing() {
@@ -11,7 +12,7 @@ export function CardSpacing() {
     <div className="flex flex-wrap items-start gap-4">
       <Card className="w-56">
         <CardHeader>
-          <CardTitle>Lisbon</CardTitle>
+          <CardTitle as={CardTitleElement.H4}>Lisbon</CardTitle>
           <CardDescription>Default spacing</CardDescription>
         </CardHeader>
         <CardContent className="text-sm">Pastel de nata at nine.</CardContent>
@@ -19,7 +20,7 @@ export function CardSpacing() {
 
       <Card className="w-56 [--card-spacing:--spacing(6)]">
         <CardHeader>
-          <CardTitle>Lisbon</CardTitle>
+          <CardTitle as={CardTitleElement.H4}>Lisbon</CardTitle>
           <CardDescription>Roomier spacing</CardDescription>
         </CardHeader>
         <CardContent className="text-sm">Pastel de nata at nine.</CardContent>

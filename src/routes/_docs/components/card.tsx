@@ -121,9 +121,14 @@ function CardPage() {
           <p>
             On an interactive card the title link&rsquo;s text is its accessible
             name, so a screen reader hears the trip name and not the whole card.
-            Pass <code>as</code> on <code>CardTitle</code> to make the title a
-            heading, so a screen reader user can jump from card to card by
-            heading.
+          </p>
+          <p>
+            The title is a heading, so a screen reader user jumps from card to
+            card by heading, and on an interactive card lands on the title link.
+            Give the title the level one below the heading the card sits under:{' '}
+            <code>h3</code>, the default, under a page section, and{' '}
+            <code>h4</code> under a subsection. The cards then nest inside that
+            section in the page outline instead of reading as its siblings.
           </p>
         </>
       }
@@ -151,7 +156,7 @@ function CardPage() {
             component="CardTitle"
             description={
               <>
-                Takes every <code>&lt;div&gt;</code> attribute, typed as{' '}
+                Takes every heading attribute, typed as{' '}
                 <code>CardTitleProps</code>.
               </>
             }
@@ -159,9 +164,9 @@ function CardPage() {
               {
                 name: 'as',
                 type: 'CardTitleElement',
-                default: 'CardTitleElement.Div',
+                default: 'CardTitleElement.H3',
                 description:
-                  'Renders the title as a heading, H2 through H6, so the card is reachable by heading navigation. Pick the level that fits the page outline.',
+                  'Sets the heading level, H2 through H6: one below the heading the card sits under. Div is for a title that is still a skeleton, which has no text to navigate to.',
               },
             ]}
           />
@@ -191,6 +196,12 @@ function CardPage() {
             tabindex elements above it. The card owns no other motion: list
             enter, exit, and reorder belong to your app through motion&rsquo;s{' '}
             <code>layout</code> prop.
+          </p>
+          <p>
+            The title sets its own font, weight, and line height and inherits
+            its size from the surrounding text, so every heading level looks the
+            same. Tailwind&rsquo;s base styles strip the browser&rsquo;s heading
+            sizes and margins.
           </p>
           <p>The focus ring meets 3:1 against both the card and the page.</p>
         </>

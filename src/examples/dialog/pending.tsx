@@ -6,6 +6,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 import {
   Dialog,
@@ -88,7 +89,7 @@ export function DialogPending() {
       {joinedTrip ? (
         <Card className="w-full">
           <CardHeader>
-            <CardTitle>{joinedTrip}</CardTitle>
+            <CardTitle as={CardTitleElement.H4}>{joinedTrip}</CardTitle>
             <CardDescription>Organised by Brian Nguyen</CardDescription>
           </CardHeader>
         </Card>

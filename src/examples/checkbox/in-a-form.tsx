@@ -7,6 +7,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 import { Checkbox } from '@/registry/ui/checkbox'
 import { Form, FormActions } from '@/registry/ui/form'
@@ -39,7 +40,7 @@ export function CheckboxInAForm() {
     <Form className="w-full max-w-sm" onSubmit={bookTrip}>
       <Card>
         <CardHeader>
-          <CardTitle>Lisbon long weekend</CardTitle>
+          <CardTitle as={CardTitleElement.H4}>Lisbon long weekend</CardTitle>
           <CardDescription>
             {booked
               ? 'Booked for Brian Nguyen'

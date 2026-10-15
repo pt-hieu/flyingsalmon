@@ -1,17 +1,17 @@
-import { use } from 'react'
+import { use, type ComponentProps } from 'react'
 
 import { cn } from '@/lib/utils'
 
 import { cardTitleVariants } from './classnames'
 import { CardInteractiveContext } from './context'
-import { CardTitleElement, type CardSlotProps } from './types'
+import { CardTitleElement } from './types'
 
-export interface CardTitleProps extends CardSlotProps {
+export interface CardTitleProps extends ComponentProps<'h3'> {
   as?: CardTitleElement
 }
 
 export function CardTitle({
-  as = CardTitleElement.Div,
+  as = CardTitleElement.H3,
   className,
   ...props
 }: CardTitleProps) {

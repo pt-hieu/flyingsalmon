@@ -8,6 +8,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 import {
   Dialog,
@@ -36,7 +37,7 @@ export function DialogDestructiveConfirm() {
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle>Hanoi in spring</CardTitle>
+        <CardTitle as={CardTitleElement.H4}>Hanoi in spring</CardTitle>
         <CardDescription>12 places, 3 travellers</CardDescription>
       </CardHeader>
       <CardAction>

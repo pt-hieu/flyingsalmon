@@ -7,6 +7,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 import { Form, FormActions } from '@/registry/ui/form'
 import {
@@ -36,7 +37,9 @@ export function ToggleGroupInAForm() {
     <Form className="w-full max-w-md" onSubmit={saveInterests}>
       <Card>
         <CardHeader>
-          <CardTitle>Brian Nguyen&rsquo;s interests</CardTitle>
+          <CardTitle as={CardTitleElement.H4}>
+            Brian Nguyen&rsquo;s interests
+          </CardTitle>
           <CardDescription>
             {savedInterests.length > 0
               ? `Saved: ${savedInterests.join(', ')}`
