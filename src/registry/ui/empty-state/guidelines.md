@@ -26,3 +26,5 @@ Design guidelines for the flyingsalmon Empty state component. An alternative lin
   **Why:** A skeleton holds the shape of what is coming. The one exception is long work that runs in the background with nothing to draw yet: there, an empty state that says the traveller is free to leave tells the truth.
 - **Don't:** Frame the block itself. Place it in a card when it needs a boundary.
   **Why:** On a page it is the page’s own message, and in a card it is the card’s. A frame of its own would compete with both.
+- **Don't:** Let the art outweigh the title. The sticker or icon is never bigger than the title it sits above, so keep its default size.
+  **Why:** Words lead. A picture larger than its title becomes the message, and the title shrinks to a caption beneath it.
