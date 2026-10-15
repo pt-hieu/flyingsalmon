@@ -1,13 +1,14 @@
 import { Portal } from 'radix-ui'
 import { DismissableLayer, Popper, Presence } from 'radix-ui/internal'
 
+import type { PanelAlign, PanelSide } from '@/registry/lib/panel'
+
 import { comboboxPanelClassName } from './classnames'
-import type { ComboboxPanelAlign, ComboboxPanelSide } from './types'
 
 export interface ComboboxPanelProps {
   open: boolean
-  side: ComboboxPanelSide
-  align: ComboboxPanelAlign
+  side: PanelSide
+  align: PanelAlign
   listProps: React.ComponentProps<'div'>
   emptyChildren: React.ReactNode
   onDismiss: () => void

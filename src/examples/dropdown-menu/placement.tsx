@@ -1,10 +1,9 @@
+import { PanelAlign, PanelSide } from '@/registry/lib/panel'
 import { Button, ButtonVariant } from '@/registry/ui/button'
 import {
   DropdownMenu,
-  DropdownMenuAlign,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSide,
   DropdownMenuTrigger,
 } from '@/registry/ui/dropdown-menu'
 
@@ -15,10 +14,7 @@ export function DropdownMenuPlacement() {
         <DropdownMenuTrigger>
           <Button variant={ButtonVariant.Outline}>Travellers</Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent
-          side={DropdownMenuSide.Bottom}
-          align={DropdownMenuAlign.End}
-        >
+        <DropdownMenuContent side={PanelSide.Bottom} align={PanelAlign.End}>
           <DropdownMenuItem>Invite by email</DropdownMenuItem>
           <DropdownMenuItem>Copy the invite link</DropdownMenuItem>
         </DropdownMenuContent>

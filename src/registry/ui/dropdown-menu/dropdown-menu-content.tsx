@@ -1,20 +1,21 @@
 import { DropdownMenu as DropdownMenuPrimitive } from 'radix-ui'
 
 import { cn } from '@/lib/utils'
+import { PanelAlign, PanelSide } from '@/registry/lib/panel'
+
 import { dropdownMenuContent } from './classnames'
-import { DropdownMenuAlign, DropdownMenuSide } from './types'
 
 export interface DropdownMenuContentProps extends Pick<
   React.ComponentProps<typeof DropdownMenuPrimitive.Content>,
   'className' | 'children'
 > {
-  side?: DropdownMenuSide
-  align?: DropdownMenuAlign
+  side?: PanelSide
+  align?: PanelAlign
 }
 
 export function DropdownMenuContent({
-  side = DropdownMenuSide.Bottom,
-  align = DropdownMenuAlign.Center,
+  side = PanelSide.Bottom,
+  align = PanelAlign.Center,
   className,
   children,
 }: DropdownMenuContentProps) {

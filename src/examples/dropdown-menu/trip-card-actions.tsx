@@ -1,6 +1,7 @@
 import { Copy, Ellipsis, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
+import { PanelAlign } from '@/registry/lib/panel'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import {
   Card,
@@ -19,7 +20,6 @@ import {
 } from '@/registry/ui/dialog'
 import {
   DropdownMenu,
-  DropdownMenuAlign,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuItemVariant,
@@ -85,7 +85,7 @@ export function DropdownMenuTripCardActions() {
                   icon={<Ellipsis />}
                 />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align={DropdownMenuAlign.End}>
+              <DropdownMenuContent align={PanelAlign.End}>
                 <DropdownMenuItem
                   icon={<Copy />}
                   onSelect={() => duplicateTrip(trip)}

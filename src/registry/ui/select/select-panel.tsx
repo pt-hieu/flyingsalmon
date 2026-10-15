@@ -1,11 +1,12 @@
 import { Select as SelectPrimitive } from 'radix-ui'
 
+import type { PanelAlign, PanelSide } from '@/registry/lib/panel'
+
 import { selectPanelClassName } from './classnames'
-import type { SelectPanelAlign, SelectPanelSide } from './types'
 
 export interface SelectPanelProps {
-  side: SelectPanelSide
-  align: SelectPanelAlign
+  side: PanelSide
+  align: PanelAlign
   children?: React.ReactNode
 }
 
