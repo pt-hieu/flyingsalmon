@@ -15,8 +15,8 @@ Design guidelines for the flyingsalmon Card component. An alternative linked to 
 
 ## Do and don't
 
-- **Don't:** Put a step’s actions inside the card that holds its fields.
-  **Why:** The card holds the work and the actions finish it, so they sit directly under the card, outside its edge. The result they produce then appears below them, where the reader is already looking.
+- **Do:** Put the actions on the card’s own item, such as accepting an invite, in its action row. Put a form’s submit row below the card that holds the fields.
+  **Why:** An action inside the edge acts on that one item. A submit row finishes the whole form, so it sits outside the card, and the result it produces appears below it, where the reader is already looking.
 - **Do:** Mark the one card the reader is working on with an orange border, and leave every other card plain.
   **Why:** Emphasis lives in the border on a flat surface. One marked card points the eye; two compete and neither reads as current.
 - **Do:** Give sibling cards in a grid the same slots in the same order.

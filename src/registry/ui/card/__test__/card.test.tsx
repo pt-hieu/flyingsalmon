@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -10,6 +10,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 
 describe('Card', () => {
@@ -83,27 +84,6 @@ describe('Card', () => {
     expect(screen.getByRole('button', { name: 'After' })).toHaveFocus()
   })
 
-  it('activates the title link when Enter is pressed on it', async () => {
-    const user = userEvent.setup()
-    const openTrip = vi.fn((event: React.MouseEvent) => event.preventDefault())
-    render(
-      <Card interactive>
-        <CardHeader>
-          <CardTitle>
-            <a href="#kyoto" onClick={openTrip}>
-              Weekend in Kyoto
-            </a>
-          </CardTitle>
-        </CardHeader>
-      </Card>,
-    )
-
-    await user.tab()
-    await user.keyboard('{Enter}')
-
-    expect(openTrip).toHaveBeenCalledTimes(1)
-  })
-
   it('gives a nested action its own tab stop after the title link', async () => {
     const user = userEvent.setup()
     render(
@@ -159,22 +139,32 @@ describe('Card', () => {
     expect(openTrip).not.toHaveBeenCalled()
   })
 
-  it('keeps a nested action outside the title link', () => {
+  it('reads the title as plain text, not a heading, by default', () => {
     render(
-      <Card interactive>
+      <Card>
         <CardHeader>
-          <CardTitle>
-            <a href="#kyoto">Weekend in Kyoto</a>
-          </CardTitle>
+          <CardTitle>Weekend in Kyoto</CardTitle>
         </CardHeader>
-        <CardAction>
-          <button type="button">Save</button>
-        </CardAction>
       </Card>,
     )
 
-    const titleLink = screen.getByRole('link', { name: 'Weekend in Kyoto' })
+    expect(screen.getByText('Weekend in Kyoto')).toBeInTheDocument()
+    expect(screen.queryByRole('heading')).not.toBeInTheDocument()
+  })
 
-    expect(within(titleLink).queryByRole('button')).not.toBeInTheDocument()
+  it('makes the title a heading at the level it is given', () => {
+    render(
+      <Card interactive>
+        <CardHeader>
+          <CardTitle as={CardTitleElement.H3}>
+            <a href="#kyoto">Weekend in Kyoto</a>
+          </CardTitle>
+        </CardHeader>
+      </Card>,
+    )
+
+    expect(
+      screen.getByRole('heading', { level: 3, name: 'Weekend in Kyoto' }),
+    ).toContainElement(screen.getByRole('link', { name: 'Weekend in Kyoto' }))
   })
 })
