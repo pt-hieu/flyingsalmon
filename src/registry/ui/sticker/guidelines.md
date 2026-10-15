@@ -16,8 +16,12 @@ Design guidelines for the flyingsalmon Sticker component. An alternative linked 
 
 - **Do:** Keep a title beside the sticker that says what it says.
   **Why:** The art is decoration with a job. It never replaces the words.
-- **Do:** Use one sticker per screen, tilted a few degrees.
-  **Why:** The tilt makes it read as stuck on rather than laid out in the grid, and a second sticker would compete for the same moment.
+- **Do:** Use one sticker per screen, or one heap of stickers that reads as a single picture, tilted a few degrees.
+  **Why:** The tilt makes it read as stuck on rather than laid out in the grid, and a second sticker apart from the first would compete for the same moment.
+- **Do:** Hold every sticker in a heap still.
+  **Why:** Boiling together, overlapping stickers jitter against each other and read as noise; held still, the heap reads as one illustration.
+- **Do:** Hold a sticker still when it sits beside content that needs the reader's attention, such as a form or a long passage.
+  **Why:** Motion pulls the eye, and a boiling sticker competes with the words and fields beside it.
 - **Do:** Put a sticker beside the heading of a long wait, such as a trip being planned.
   **Why:** The spinner says work is under way and the sticker turns the wait into a moment, so the screen never reads as empty.
 - **Don't:** Lay a sticker over text or controls.
