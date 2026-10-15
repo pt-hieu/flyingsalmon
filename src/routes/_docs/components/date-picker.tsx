@@ -303,14 +303,14 @@ function DatePickerPage() {
             },
             {
               name: 'side',
-              type: 'DatePickerPanelSide',
-              default: 'DatePickerPanelSide.Bottom',
+              type: 'PanelSide',
+              default: 'PanelSide.Bottom',
               description: 'Which side of the box the panel opens on.',
             },
             {
               name: 'align',
-              type: 'DatePickerPanelAlign',
-              default: 'DatePickerPanelAlign.Center',
+              type: 'PanelAlign',
+              default: 'PanelAlign.Center',
               description: 'How the panel aligns to the box.',
             },
           ]}

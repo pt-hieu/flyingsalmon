@@ -478,6 +478,13 @@
       "files": [{ "path": "src/registry/lib/menu.ts", "type": "registry:lib" }]
     },
     {
+      "name": "panel",
+      "type": "registry:lib",
+      "title": "Panel placement",
+      "description": "The side and align enums every panel anchored to a trigger takes: which edge of the trigger it opens from, and how it lines up along that edge.",
+      "files": [{ "path": "src/registry/lib/panel.ts", "type": "registry:lib" }]
+    },
+    {
       "name": "use-controllable-state",
       "type": "registry:lib",
       "title": "Controllable state",
@@ -890,7 +897,7 @@
       "title": "Dropdown Menu",
       "description": "A modal menu of actions anchored to its trigger. Arrow keys walk the items; choosing one closes the menu.",
       "dependencies": ["radix-ui", "class-variance-authority"],
-      "registryDependencies": ["@flyingsalmon/menu"],
+      "registryDependencies": ["@flyingsalmon/menu", "@flyingsalmon/panel"],
       "files": [
         {
           "path": "src/registry/ui/dropdown-menu/classnames.ts",
@@ -952,6 +959,7 @@
       "registryDependencies": [
         "@flyingsalmon/field",
         "@flyingsalmon/menu",
+        "@flyingsalmon/panel",
         "@flyingsalmon/interaction",
         "@flyingsalmon/spinner"
       ],
@@ -1372,7 +1380,8 @@
         "@flyingsalmon/interaction",
         "@flyingsalmon/spinner",
         "@flyingsalmon/button",
-        "@flyingsalmon/iso-date"
+        "@flyingsalmon/iso-date",
+        "@flyingsalmon/panel"
       ],
       "files": [
         {
@@ -1444,6 +1453,7 @@
       "registryDependencies": [
         "@flyingsalmon/field",
         "@flyingsalmon/menu",
+        "@flyingsalmon/panel",
         "@flyingsalmon/interaction",
         "@flyingsalmon/spinner",
         "@flyingsalmon/badge",
@@ -2053,7 +2063,8 @@
       "dependencies": ["radix-ui", "lucide-react"],
       "registryDependencies": [
         "@flyingsalmon/dropdown-menu",
-        "@flyingsalmon/interaction"
+        "@flyingsalmon/interaction",
+        "@flyingsalmon/panel"
       ],
       "files": [
         {

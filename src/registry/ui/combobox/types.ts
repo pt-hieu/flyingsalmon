@@ -10,19 +10,6 @@ export enum ComboboxSize {
   Small = 'sm',
 }
 
-export enum ComboboxPanelSide {
-  Top = 'top',
-  Right = 'right',
-  Bottom = 'bottom',
-  Left = 'left',
-}
-
-export enum ComboboxPanelAlign {
-  Start = 'start',
-  Center = 'center',
-  End = 'end',
-}
-
 export enum ComboboxHighlightEdge {
   First = 'first',
   Last = 'last',

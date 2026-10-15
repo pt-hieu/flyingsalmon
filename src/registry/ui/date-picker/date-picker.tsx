@@ -12,6 +12,7 @@ import {
   FieldLabelPlacement,
   useFieldIds,
 } from '@/registry/lib/field'
+import { PanelAlign, PanelSide } from '@/registry/lib/panel'
 
 import { Spinner } from '../spinner'
 
@@ -33,8 +34,6 @@ import { readEntryValue } from './read-entry-value'
 import { spinnerSizeByDatePickerSize } from './spinner-size-by-date-picker-size'
 import {
   DatePickerMode,
-  DatePickerPanelAlign,
-  DatePickerPanelSide,
   DatePickerSize,
   type DatePickerEntry,
   type DatePickerLimits,
@@ -58,8 +57,8 @@ interface DatePickerBaseProps extends DatePickerLimits {
   locale?: string
   unavailableMessage?: string
   rangeOrderMessage?: string
-  side?: DatePickerPanelSide
-  align?: DatePickerPanelAlign
+  side?: PanelSide
+  align?: PanelAlign
   'aria-describedby'?: string
   className?: string
 }
@@ -101,8 +100,8 @@ export function DatePicker(props: DatePickerProps) {
     isDateDisabled,
     unavailableMessage = "That date isn't available",
     rangeOrderMessage = 'End date must be after the start date',
-    side = DatePickerPanelSide.Bottom,
-    align = DatePickerPanelAlign.Center,
+    side = PanelSide.Bottom,
+    align = PanelAlign.Center,
     'aria-describedby': callerDescribedBy,
     className,
   } = props

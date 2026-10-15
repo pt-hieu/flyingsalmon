@@ -1,13 +1,13 @@
 import { Popover as PopoverPrimitive } from 'radix-ui'
 
+import type { PanelAlign, PanelSide } from '@/registry/lib/panel'
+
 import { Calendar, CalendarMode } from '../calendar'
 
 import { datePickerPanelClassName } from './classnames'
 import {
   DatePickerMode,
   type DatePickerLimits,
-  type DatePickerPanelAlign,
-  type DatePickerPanelSide,
   type DatePickerValue,
 } from './types'
 
@@ -18,8 +18,8 @@ export interface DatePickerPanelProps extends DatePickerLimits {
   onChange: (value: DatePickerValue) => void
   locale: string
   readOnly: boolean
-  side: DatePickerPanelSide
-  align: DatePickerPanelAlign
+  side: PanelSide
+  align: PanelAlign
   onCloseAutoFocus: (event: Event) => void
 }
 

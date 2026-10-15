@@ -10,6 +10,7 @@ import {
   FieldLabelPlacement,
   useFieldIds,
 } from '@/registry/lib/field'
+import { PanelAlign, PanelSide } from '@/registry/lib/panel'
 
 import { Spinner } from '../spinner'
 
@@ -22,7 +23,7 @@ import {
   selectWrapperClassName,
 } from './classnames'
 import { SelectPanel } from './select-panel'
-import { SelectPanelAlign, SelectPanelSide, SelectSize } from './types'
+import { SelectSize } from './types'
 import { spinnerSizeFor } from './utils'
 
 export interface SelectProps extends Omit<
@@ -37,8 +38,8 @@ export interface SelectProps extends Omit<
   placeholder?: string
   id?: string
   'aria-describedby'?: string
-  side?: SelectPanelSide
-  align?: SelectPanelAlign
+  side?: PanelSide
+  align?: PanelAlign
   className?: string
   children?: React.ReactNode
 }
@@ -54,8 +55,8 @@ export function Select({
   'aria-describedby': callerDescribedBy,
   disabled,
   required,
-  side = SelectPanelSide.Bottom,
-  align = SelectPanelAlign.Center,
+  side = PanelSide.Bottom,
+  align = PanelAlign.Center,
   className,
   children,
   ...props
