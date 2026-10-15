@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority'
 import { AnimatePresence, motion } from 'motion/react'
 import { useId } from 'react'
 
-import { springSettle } from '@/registry/lib/motion'
+import { collapsePresence } from '@/registry/lib/motion'
 
 export interface UseFieldIdsOptions {
   id?: string
@@ -19,6 +19,7 @@ export function useFieldIds({
 }: UseFieldIdsOptions) {
   const generatedId = useId()
   const fieldId = id ?? generatedId
+  const labelId = `${fieldId}-label`
   const errorMessageId = `${fieldId}-error`
   const descriptionId = `${fieldId}-description`
 
@@ -31,7 +32,7 @@ export function useFieldIds({
       .filter(Boolean)
       .join(' ') || undefined
 
-  return { fieldId, errorMessageId, descriptionId, describedBy }
+  return { fieldId, labelId, errorMessageId, descriptionId, describedBy }
 }
 
 export enum FieldLabelPlacement {
@@ -79,6 +80,15 @@ export function fieldLabelVariants(options: FieldLabelVariantsOptions) {
   return fieldLabelBaseVariants(options)
 }
 
+export const fieldEndSlotButton = 'text-muted-foreground'
+
+export const fieldEndSlotSpinnerSlot =
+  'flex shrink-0 items-center justify-center'
+
+export const fieldEndSlotSpinnerSlotDefaultSize = 'size-7'
+
+export const fieldEndSlotSpinnerSlotSmallSize = 'size-6'
+
 const fieldDescriptionVariants = cva('text-muted-foreground pt-1 text-xs', {
   variants: {
     disabled: {
@@ -125,9 +135,7 @@ export function FieldErrorMessage({ id, children }: FieldErrorMessageProps) {
         <motion.p
           key="error"
           id={id}
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1, transition: springSettle }}
-          exit={{ height: 0, opacity: 0, transition: springSettle }}
+          {...collapsePresence}
           className="text-destructive overflow-hidden pt-1 text-xs"
         >
           {children}
