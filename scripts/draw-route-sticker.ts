@@ -1,14 +1,15 @@
 import { ink, writeSticker } from '../src/registry/ui/sticker/sticker-sketch.ts'
 import type { Pen } from '../src/registry/ui/sticker/sticker-sketch.ts'
 
+import { drawPencilEraser } from './draw-pencil-eraser.ts'
+
 const pin =
   'M 225 96 C 212 80 208 70 208 52 A 17 17 0 1 1 242 52 C 242 70 238 80 225 96 Z'
 const pencil = 'M 196 196 L 207.6 180.1 L 282 137.1 L 290 150.9 L 215.6 193.9 Z'
 
-function drawFrame(
-  { generator, draw, drawSilhouette }: Pen,
-  frameSeed: number,
-) {
+function drawFrame(pen: Pen, frameSeed: number) {
+  const { generator, draw, drawSilhouette } = pen
+
   drawSilhouette(
     [
       'M 20 40 L 100 30 L 180 44 L 260 34 L 260 174 L 180 184 L 100 170 L 20 180 Z',
@@ -114,14 +115,7 @@ function drawFrame(
       seed: frameSeed + 53,
     }),
   )
-  draw(
-    generator.path('M 269.9 144.1 L 282 137.1 L 290 150.9 L 277.9 157.9 Z', {
-      ...ink,
-      fill: 'eraser',
-      strokeWidth: 2,
-      seed: frameSeed + 54,
-    }),
-  )
+  drawPencilEraser(pen, frameSeed + 54)
 }
 
 writeSticker({
