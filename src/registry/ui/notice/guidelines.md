@@ -19,6 +19,8 @@ Design guidelines for the flyingsalmon Notice component. An alternative linked t
   **Why:** A message with no way back to its subject cannot be acted on, and the traveller has to hunt for what it meant.
 - **Do:** Leave the notice on screen until the traveller follows its subject or dismisses it.
   **Why:** It carries a result with no other home, so it stays until it is seen. A timer would take it from someone who looked away. That is what separates it from a toast.
+- **Do:** Place the notice below the page header and centre it on the content area, beside the sidebar rather than across it.
+  **Why:** The notice stays until it is seen, so over the page header it would hide the screen’s title and actions for as long as it shows. Centred on the content, it reads as part of the page it reports on.
 - **Don't:** Stack notices. A new result replaces the one showing.
   **Why:** One notice at a time keeps each result tied to the action that caused it. A pile has no order and no owner.
 - **Don't:** Show a notice about an item the traveller can already see.

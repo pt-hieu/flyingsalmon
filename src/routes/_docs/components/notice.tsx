@@ -14,6 +14,8 @@ import { NoticeDemo } from '@/examples/notice/demo'
 import demoSource from '@/examples/notice/demo.tsx?raw'
 import { NoticeDismissFromHandle } from '@/examples/notice/dismiss-from-handle'
 import dismissFromHandleSource from '@/examples/notice/dismiss-from-handle.tsx?raw'
+import { NoticePlacedInAppShell } from '@/examples/notice/placed-in-app-shell'
+import placedInAppShellSource from '@/examples/notice/placed-in-app-shell.tsx?raw'
 import { NoticeReplacement } from '@/examples/notice/replacement'
 import replacementSource from '@/examples/notice/replacement.tsx?raw'
 import usageSource from '@/examples/notice/usage.tsx?raw'
@@ -87,6 +89,25 @@ function NoticePage() {
               <DialogServerError />
             </NoticeFrame>
           </Example>
+
+          <Example
+            caption="Placed in an app shell"
+            description={
+              <>
+                Save the trip. The notice lands below the page header and
+                centres on the content beside the sidebar, so the title and
+                actions stay in view while it shows. The shell sets{' '}
+                <code>--notice-offset-top</code> and{' '}
+                <code>--notice-offset-left</code> around the provider, and
+                follows the sidebar as it collapses or becomes a strip.
+              </>
+            }
+            source={placedInAppShellSource}
+          >
+            <NoticeFrame ownsAppShell>
+              <NoticePlacedInAppShell />
+            </NoticeFrame>
+          </Example>
         </>
       }
       guidelines={guidelines}
@@ -130,7 +151,23 @@ function NoticePage() {
         <>
           <PropsTable
             component="NoticeProvider"
-            description="Mount it once in the app shell: a second provider would give the page two notices that do not know about each other. It renders the live regions, the notice outlet, then your children."
+            description={
+              <>
+                Mount it once in the app shell: a second provider would give the
+                page two notices that do not know about each other. It renders
+                the live regions, the notice outlet, then your children. To keep
+                the notice clear of your shell, set{' '}
+                <code>--notice-offset-top</code> to the height of what stays
+                above the content, such as a page header, and{' '}
+                <code>--notice-offset-left</code> or{' '}
+                <code>--notice-offset-right</code> to the width of a sidebar or
+                panel, on any element around the provider. Each defaults to
+                zero, the edge of the viewport. A shell with a sidebar maps the
+                sidebar’s layout and its page header’s height onto these
+                offsets, so the notice follows the sidebar as it collapses or
+                becomes a strip.
+              </>
+            }
             rows={[
               {
                 name: 'children',
@@ -203,10 +240,25 @@ function NoticePage() {
             and the announcement comes only from the provider’s live regions.
           </p>
           <p>
-            The card is fixed 16px from the top, centred, at most{' '}
-            <code>max-w-md</code> wide, and the viewport width minus 16px on
-            each side when narrow. It sits on <code>z-50</code> and overlays the
-            header, because a reserved strip would displace content.
+            The card is fixed 16px below <code>--notice-offset-top</code>,
+            centred between <code>--notice-offset-left</code> and{' '}
+            <code>--notice-offset-right</code> with 16px inside each, and at
+            most <code>max-w-md</code> wide. With no offsets set it sits 16px
+            from the top of the viewport and centres on it. It sits on{' '}
+            <code>z-50</code> and overlays whatever scrolls beneath it, because
+            a reserved strip would displace content.
+          </p>
+          <p>
+            Custom properties inherit, so the offsets work from any element
+            around <code>NoticeProvider</code>, including a{' '}
+            <code>display: contents</code> wrapper inside the sidebar shell that
+            reads the sidebar’s layout.
+          </p>
+          <p>
+            A fixed top offset such as <code>var(--bar-height)</code> assumes a
+            one-row page header. A header whose title or actions wrap is taller,
+            so a shell with one measures the header’s height and sets{' '}
+            <code>--notice-offset-top</code> from it.
           </p>
           <p>
             It enters and leaves on opacity and an 8px vertical travel, on{' '}
