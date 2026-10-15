@@ -9,18 +9,29 @@ const travellers = [
   { id: 'anh', name: 'Anh Vo', color: AvatarColor.Pink },
 ]
 
+const visibleCount = 3
+
 export function AvatarGroupNamesBesideGroup() {
+  const firstNames = travellers
+    .slice(0, visibleCount)
+    .map((traveller) => traveller.name.split(' ')[0])
+  const otherCount = travellers.length - visibleCount
+
   return (
     <div className="flex items-center gap-3">
       <AvatarGroup
         items={travellers}
-        max={3}
+        max={visibleCount}
         aria-label="Hanoi in spring travellers"
       />
       <p className="text-sm">
-        <span className="font-medium">Brian, Linh and Minh</span>{' '}
-        <span className="text-muted-foreground">and 2 others</span>
+        <span className="font-medium">{listNames(firstNames)}</span>{' '}
+        <span className="text-muted-foreground">and {otherCount} others</span>
       </p>
     </div>
   )
+}
+
+function listNames(names: string[]) {
+  return `${names.slice(0, -1).join(', ')} and ${names.at(-1)}`
 }

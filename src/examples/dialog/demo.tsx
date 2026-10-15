@@ -1,3 +1,8 @@
+import {
+  DateFormatter,
+  getLocalTimeZone,
+  parseDate,
+} from '@internationalized/date'
 import { Plus } from 'lucide-react'
 import { useId, useState } from 'react'
 
@@ -20,9 +25,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/registry/ui/dialog'
+import { Form } from '@/registry/ui/form'
 import { Input } from '@/registry/ui/input'
 
 interface Trip {
+  id: string
   destination: string
   dates: DatePickerRange | null
 }
@@ -31,7 +38,11 @@ export function DialogDemo() {
   const formId = useId()
   const [open, setOpen] = useState(false)
   const [trips, setTrips] = useState<Trip[]>([
-    { destination: 'Hanoi', dates: { start: '2026-03-03', end: '2026-03-09' } },
+    {
+      id: 'trip-hanoi',
+      destination: 'Hanoi',
+      dates: { start: '2026-03-03', end: '2026-03-09' },
+    },
   ])
   const [destination, setDestination] = useState('')
   const [dates, setDates] = useState<DatePickerRange | null>(null)
@@ -45,8 +56,12 @@ export function DialogDemo() {
       return
     }
 
-    setTrips([{ destination, dates }, ...trips])
+    setTrips((currentTrips) => [
+      { id: crypto.randomUUID(), destination, dates },
+      ...currentTrips,
+    ])
     setOpen(false)
+
     setDestination('')
     setDates(null)
     setDestinationError(undefined)
@@ -64,12 +79,7 @@ export function DialogDemo() {
             Pick a destination and your dates.
           </DialogDescription>
           <DialogBody>
-            <form
-              id={formId}
-              noValidate
-              onSubmit={planTrip}
-              className="flex flex-col gap-4"
-            >
+            <Form id={formId} onSubmit={planTrip} className="gap-4">
               <Input
                 label="Destination"
                 placeholder="Lisbon"
@@ -86,7 +96,7 @@ export function DialogDemo() {
                 value={dates}
                 onChange={setDates}
               />
-            </form>
+            </Form>
           </DialogBody>
           <DialogFooter>
             <DialogClose>
@@ -99,13 +109,13 @@ export function DialogDemo() {
         </DialogContent>
       </Dialog>
 
-      {trips.map((trip, index) => (
-        <Card key={`${trip.destination}-${index}`}>
+      {trips.map((trip) => (
+        <Card key={trip.id}>
           <CardHeader>
             <CardTitle>{trip.destination}</CardTitle>
             <CardDescription>
               {trip.dates
-                ? `${trip.dates.start} to ${trip.dates.end}`
+                ? `${formatDate(trip.dates.start)} to ${formatDate(trip.dates.end)}`
                 : 'Dates to be decided'}
             </CardDescription>
           </CardHeader>
@@ -113,4 +123,10 @@ export function DialogDemo() {
       ))}
     </div>
   )
+}
+
+const dateFormatter = new DateFormatter('en-US', { dateStyle: 'medium' })
+
+function formatDate(isoDate: string) {
+  return dateFormatter.format(parseDate(isoDate).toDate(getLocalTimeZone()))
 }

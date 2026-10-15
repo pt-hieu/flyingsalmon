@@ -5,7 +5,7 @@ export function InputReadOnly() {
     <Input
       className="w-72"
       label="Booking reference"
-      defaultValue="HT-4F7K2Q"
+      defaultValue="TRIP-4F7K2Q"
       readOnly
     />
   )

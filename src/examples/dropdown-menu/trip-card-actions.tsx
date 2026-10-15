@@ -41,24 +41,30 @@ const initialTrips: Trip[] = [
 export function DropdownMenuTripCardActions() {
   const [trips, setTrips] = useState(initialTrips)
   const [tripToDelete, setTripToDelete] = useState<Trip | null>(null)
-  const [nextId, setNextId] = useState(3)
+  const [confirmingDelete, setConfirmingDelete] = useState(false)
 
   function duplicateTrip(trip: Trip) {
     setTrips((currentTrips) => {
       const index = currentTrips.findIndex(({ id }) => id === trip.id)
+      const nextId = Math.max(...currentTrips.map(({ id }) => id)) + 1
       const copy = { ...trip, id: nextId, name: `${trip.name} (copy)` }
+
       return [
         ...currentTrips.slice(0, index + 1),
         copy,
         ...currentTrips.slice(index + 1),
       ]
     })
-    setNextId(nextId + 1)
+  }
+
+  function confirmDelete(trip: Trip) {
+    setTripToDelete(trip)
+    setConfirmingDelete(true)
   }
 
   function deleteTrip(trip: Trip) {
     setTrips((currentTrips) => currentTrips.filter(({ id }) => id !== trip.id))
-    setTripToDelete(null)
+    setConfirmingDelete(false)
   }
 
   return (
@@ -90,7 +96,7 @@ export function DropdownMenuTripCardActions() {
                 <DropdownMenuItem
                   icon={<Trash2 />}
                   variant={DropdownMenuItemVariant.Destructive}
-                  onSelect={() => setTripToDelete(trip)}
+                  onSelect={() => confirmDelete(trip)}
                 >
                   Delete trip
                 </DropdownMenuItem>
@@ -109,10 +115,8 @@ export function DropdownMenuTripCardActions() {
       ) : null}
 
       <Dialog
-        open={tripToDelete !== null}
-        onOpenChange={(open) => {
-          if (!open) setTripToDelete(null)
-        }}
+        open={confirmingDelete}
+        onOpenChange={setConfirmingDelete}
         dismissible={false}
       >
         <DialogContent>

@@ -1,4 +1,9 @@
-import { getLocalTimeZone, today } from '@internationalized/date'
+import {
+  DateFormatter,
+  getLocalTimeZone,
+  parseDate,
+  today,
+} from '@internationalized/date'
 import { useState } from 'react'
 
 import { Calendar, CalendarMode } from '@/registry/ui/calendar'
@@ -23,9 +28,15 @@ export function CalendarRangeExample() {
       />
       <p className="text-muted-foreground text-sm">
         {tripDates
-          ? `Brian Nguyen travels ${tripDates.start} to ${tripDates.end}.`
+          ? `Brian Nguyen travels ${formatDate(tripDates.start)} to ${formatDate(tripDates.end)}.`
           : 'No trip dates picked.'}
       </p>
     </div>
   )
+}
+
+const dateFormatter = new DateFormatter('en-US', { dateStyle: 'medium' })
+
+function formatDate(isoDate: string) {
+  return dateFormatter.format(parseDate(isoDate).toDate(getLocalTimeZone()))
 }

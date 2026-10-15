@@ -9,15 +9,19 @@ import {
 } from '@/registry/ui/card'
 import { Select, SelectItem } from '@/registry/ui/select'
 
-const visibilityLabels: Record<string, string> = {
-  private: 'Only you',
-  friends: 'Friends you invite',
-}
+const visibilityOptions = [
+  { value: 'private', label: 'Only you' },
+  { value: 'friends', label: 'Friends you invite' },
+  { value: 'public', label: 'Anyone with the link' },
+]
 
 export function SelectLoading() {
   const [visibility, setVisibility] = useState('private')
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string>()
+  const visibilityLabel = visibilityOptions.find(
+    (option) => option.value === visibility,
+  )?.label
 
   async function changeVisibility(nextVisibility: string) {
     setSaving(true)
@@ -28,18 +32,16 @@ export function SelectLoading() {
       setVisibility(nextVisibility)
     } catch {
       setError('Public trips need a verified email')
+    } finally {
+      setSaving(false)
     }
-
-    setSaving(false)
   }
 
   return (
     <Card className="w-72">
       <CardHeader>
         <CardTitle>Lisbon long weekend</CardTitle>
-        <CardDescription>
-          Visible to: {visibilityLabels[visibility]}
-        </CardDescription>
+        <CardDescription>Visible to: {visibilityLabel}</CardDescription>
       </CardHeader>
       <CardContent>
         <Select
@@ -49,9 +51,11 @@ export function SelectLoading() {
           loading={saving}
           error={error}
         >
-          <SelectItem value="private">Only you</SelectItem>
-          <SelectItem value="friends">Friends you invite</SelectItem>
-          <SelectItem value="public">Anyone with the link</SelectItem>
+          {visibilityOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
         </Select>
       </CardContent>
     </Card>

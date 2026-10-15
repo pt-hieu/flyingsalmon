@@ -9,14 +9,22 @@ export function ButtonLoading() {
 
   async function saveTrip() {
     setSaving(true)
-    await waitForServer()
-    setSaving(false)
+
+    try {
+      await waitForServer()
+    } finally {
+      setSaving(false)
+    }
   }
 
   async function searchFlights() {
     setSearching(true)
-    await waitForServer()
-    setSearching(false)
+
+    try {
+      await waitForServer()
+    } finally {
+      setSearching(false)
+    }
   }
 
   return (

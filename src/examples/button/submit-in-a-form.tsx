@@ -21,38 +21,42 @@ export function ButtonSubmitInAForm() {
   async function renameTrip(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setSaving(true)
-    await waitForServer()
-    setTripName(draftName)
-    setSaving(false)
+
+    try {
+      await waitForServer()
+      setTripName(draftName)
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
-    <Card className="w-full max-w-sm">
-      <CardHeader>
-        <CardTitle>{tripName}</CardTitle>
-        <CardDescription>Brian Nguyen and two travellers</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form onSubmit={renameTrip}>
+    <Form className="w-full max-w-sm" onSubmit={renameTrip}>
+      <Card>
+        <CardHeader>
+          <CardTitle>{tripName}</CardTitle>
+          <CardDescription>Brian Nguyen and two travellers</CardDescription>
+        </CardHeader>
+        <CardContent>
           <Input
             label="Trip name"
             value={draftName}
             onChange={(event) => setDraftName(event.target.value)}
           />
-          <FormActions>
-            <Button
-              variant={ButtonVariant.Outline}
-              onClick={() => setDraftName(tripName)}
-            >
-              Reset
-            </Button>
-            <Button type="submit" loading={saving}>
-              Rename
-            </Button>
-          </FormActions>
-        </Form>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+      <FormActions>
+        <Button
+          variant={ButtonVariant.Outline}
+          onClick={() => setDraftName(tripName)}
+        >
+          Reset
+        </Button>
+        <Button type="submit" loading={saving}>
+          Rename
+        </Button>
+      </FormActions>
+    </Form>
   )
 }
 

@@ -1,3 +1,8 @@
+import {
+  DateFormatter,
+  getLocalTimeZone,
+  parseDate,
+} from '@internationalized/date'
 import { Pencil } from 'lucide-react'
 import { useId, useState } from 'react'
 
@@ -21,6 +26,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/registry/ui/drawer'
+import { Form } from '@/registry/ui/form'
 import { Input } from '@/registry/ui/input'
 
 export function DrawerEditOnSubmit() {
@@ -41,25 +47,26 @@ export function DrawerEditOnSubmit() {
     setOpen(false)
   }
 
+  function changeOpen(nextOpen: boolean) {
+    setDraftName(tripName)
+    setDraftDates(dates)
+    setOpen(nextOpen)
+  }
+
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
         <CardTitle>{tripName}</CardTitle>
         <CardDescription>
-          {dates ? `${dates.start} to ${dates.end}` : 'Dates to be decided'}
+          {dates
+            ? `${formatDate(dates.start)} to ${formatDate(dates.end)}`
+            : 'Dates to be decided'}
         </CardDescription>
       </CardHeader>
       <CardAction>
-        <Drawer open={open} onOpenChange={setOpen}>
+        <Drawer open={open} onOpenChange={changeOpen}>
           <DrawerTrigger>
-            <Button
-              variant={ButtonVariant.Outline}
-              icon={<Pencil />}
-              onClick={() => {
-                setDraftName(tripName)
-                setDraftDates(dates)
-              }}
-            >
+            <Button variant={ButtonVariant.Outline} icon={<Pencil />}>
               Edit trip
             </Button>
           </DrawerTrigger>
@@ -69,11 +76,7 @@ export function DrawerEditOnSubmit() {
               Saving closes the panel and updates the card.
             </DrawerDescription>
             <DrawerBody>
-              <form
-                id={formId}
-                onSubmit={saveTrip}
-                className="flex flex-col gap-4"
-              >
+              <Form id={formId} onSubmit={saveTrip} className="gap-4">
                 <Input
                   label="Trip name"
                   value={draftName}
@@ -85,7 +88,7 @@ export function DrawerEditOnSubmit() {
                   value={draftDates}
                   onChange={setDraftDates}
                 />
-              </form>
+              </Form>
             </DrawerBody>
             <DrawerFooter>
               <DrawerClose>
@@ -100,4 +103,10 @@ export function DrawerEditOnSubmit() {
       </CardAction>
     </Card>
   )
+}
+
+const dateFormatter = new DateFormatter('en-US', { dateStyle: 'medium' })
+
+function formatDate(isoDate: string) {
+  return dateFormatter.format(parseDate(isoDate).toDate(getLocalTimeZone()))
 }

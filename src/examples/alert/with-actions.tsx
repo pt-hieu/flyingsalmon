@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import {
   Alert,
   AlertDescription,
@@ -7,9 +9,15 @@ import {
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 
 export function AlertWithActions() {
+  const [open, setOpen] = useState(true)
+
   return (
     <div className="flex w-80 flex-col gap-3">
-      <Alert variant={AlertVariant.Error} onClose={() => {}}>
+      <Alert
+        variant={AlertVariant.Error}
+        open={open}
+        onClose={() => setOpen(false)}
+      >
         <AlertTitle>Day 3 could not be planned</AlertTitle>
         <AlertDescription>
           The planner stopped part-way through.

@@ -1,9 +1,8 @@
 import { useRef, useState } from 'react'
 
-import { cn } from '@/lib/utils'
-import { offsetFocusRingGeometry } from '@/registry/lib/interaction'
 import { AlertVariant } from '@/registry/ui/alert'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
+import { Card, CardContent } from '@/registry/ui/card'
 import { useNotice } from '@/registry/ui/notice'
 import type { NoticeHandle } from '@/registry/ui/notice'
 
@@ -24,14 +23,7 @@ export function NoticeDismissFromHandle() {
       title: 'Trip saved',
       description: 'Six days in Lisbon, ready to share.',
       subject: (
-        <button
-          type="button"
-          onClick={openTheTrip}
-          className={cn(
-            offsetFocusRingGeometry,
-            'ring-ring focus-visible:ring-offset-card rounded-sm',
-          )}
-        >
+        <button type="button" onClick={openTheTrip}>
           Open the trip
         </button>
       ),
@@ -48,9 +40,9 @@ export function NoticeDismissFromHandle() {
         Save the trip
       </Button>
       {tripVisible ? (
-        <p className="border-border bg-card text-card-foreground rounded-lg border px-4 py-3 text-sm">
-          Lisbon, six days
-        </p>
+        <Card>
+          <CardContent className="text-sm">Lisbon, six days</CardContent>
+        </Card>
       ) : null}
     </>
   )

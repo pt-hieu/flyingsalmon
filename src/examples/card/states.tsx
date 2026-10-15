@@ -12,17 +12,17 @@ export function CardStates() {
     <div className="flex flex-wrap gap-4">
       <Card className="w-56">
         <CardHeader>
-          <CardTitle>Static</CardTitle>
-          <CardDescription>One state, no feedback</CardDescription>
+          <CardTitle>Weekend in Kyoto</CardTitle>
+          <CardDescription>Three days, ten stops</CardDescription>
         </CardHeader>
       </Card>
 
       <Card interactive className="w-56">
         <CardHeader>
           <CardTitle>
-            <a href="#interactive">Interactive</a>
+            <a href="#lisbon">Lisbon long weekend</a>
           </CardTitle>
-          <CardDescription>Hover, focus, press</CardDescription>
+          <CardDescription>Four days, six stops</CardDescription>
         </CardHeader>
       </Card>
 

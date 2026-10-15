@@ -7,10 +7,7 @@ import {
 
 export function AccordionDemo() {
   return (
-    <Accordion
-      className="w-full max-w-sm"
-      defaultValue={['bookings', 'closures']}
-    >
+    <Accordion className="w-full max-w-sm" defaultValue={['bookings']}>
       <AccordionItem value="bookings">
         <AccordionTrigger>Can the planner use my bookings?</AccordionTrigger>
         <AccordionContent>

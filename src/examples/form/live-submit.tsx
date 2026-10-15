@@ -24,9 +24,13 @@ export function FormLiveSubmit() {
 
     setSavedDestination(null)
     setSaving(true)
-    await waitForServer()
-    setSavedDestination(destination)
-    setSaving(false)
+
+    try {
+      await waitForServer()
+      setSavedDestination(destination)
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (

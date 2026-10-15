@@ -1,6 +1,10 @@
+import { useState } from 'react'
+
 import { Combobox, ComboboxItem, ComboboxMode } from '@/registry/ui/combobox'
 
 export function ComboboxDisabled() {
+  const [returnCityId, setReturnCityId] = useState<string | null>(null)
+
   return (
     <Combobox
       className="w-72"
@@ -8,8 +12,8 @@ export function ComboboxDisabled() {
       disabled
       label="Return city"
       placeholder="Same as departure"
-      value={null}
-      onValueChange={() => {}}
+      value={returnCityId}
+      onValueChange={setReturnCityId}
     >
       <ComboboxItem value="city-london">London</ComboboxItem>
     </Combobox>

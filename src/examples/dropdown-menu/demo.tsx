@@ -24,7 +24,7 @@ export function DropdownMenuDemo() {
           icon={<Ellipsis />}
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent align={DropdownMenuAlign.Start}>
+      <DropdownMenuContent align={DropdownMenuAlign.End}>
         <DropdownMenuLabel>Kyoto in autumn</DropdownMenuLabel>
         <DropdownMenuItem icon={<Pencil />}>
           Rename

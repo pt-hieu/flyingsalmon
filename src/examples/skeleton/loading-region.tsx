@@ -35,7 +35,7 @@ export function SkeletonLoadingRegion() {
       <Button
         variant={ButtonVariant.Outline}
         size={ButtonSize.Small}
-        onClick={() => setLoading(!loading)}
+        onClick={() => setLoading((currentLoading) => !currentLoading)}
       >
         {loading ? 'Content arrives' : 'Load again'}
       </Button>

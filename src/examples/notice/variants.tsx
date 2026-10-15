@@ -1,23 +1,11 @@
 import { Link } from '@tanstack/react-router'
 
-import { cn } from '@/lib/utils'
-import { offsetFocusRingGeometry } from '@/registry/lib/interaction'
 import { AlertVariant } from '@/registry/ui/alert'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import { useNotice } from '@/registry/ui/notice'
 import type { NoticeInput } from '@/registry/ui/notice'
 
-const tripLink = (
-  <Link
-    to="/components/notice"
-    className={cn(
-      offsetFocusRingGeometry,
-      'ring-ring focus-visible:ring-offset-card rounded-sm',
-    )}
-  >
-    View the trip
-  </Link>
-)
+const tripLink = <Link to="/components/notice">View the trip</Link>
 
 const notices: { label: string; notice: NoticeInput }[] = [
   {
@@ -42,8 +30,8 @@ const notices: { label: string; notice: NoticeInput }[] = [
     label: 'Warning',
     notice: {
       variant: AlertVariant.Warning,
-      title: 'Two credits left',
-      description: 'Planning another trip uses your last one.',
+      title: 'Passport expires soon',
+      description: 'Linh’s passport runs out a month after the trip.',
       subject: tripLink,
     },
   },

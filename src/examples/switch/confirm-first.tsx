@@ -8,9 +8,13 @@ export function SwitchConfirmFirst() {
 
   async function saveOfflineMaps(nextOfflineMaps: boolean) {
     setSaving(true)
-    await waitForServer()
-    setOfflineMaps(nextOfflineMaps)
-    setSaving(false)
+
+    try {
+      await waitForServer()
+      setOfflineMaps(nextOfflineMaps)
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (

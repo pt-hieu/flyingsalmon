@@ -1,6 +1,10 @@
+import { useState } from 'react'
+
 import { Slider } from '@/registry/ui/slider'
 
 export function SliderDisabled() {
+  const [nightlyBudget, setNightlyBudget] = useState(200)
+
   return (
     <Slider
       className="w-full"
@@ -8,10 +12,10 @@ export function SliderDisabled() {
       min={50}
       max={300}
       step={50}
-      value={200}
+      value={nightlyBudget}
       description="Up to $200 a night, set by the organiser"
       disabled
-      onValueChange={() => {}}
+      onValueChange={setNightlyBudget}
     />
   )
 }

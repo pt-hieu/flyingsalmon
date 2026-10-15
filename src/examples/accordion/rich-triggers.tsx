@@ -7,6 +7,12 @@ import {
 import { Avatar, AvatarColor, AvatarSize } from '@/registry/ui/avatar'
 import { Badge, BadgeVariant } from '@/registry/ui/badge'
 
+const travellers = [
+  { name: 'Brian Nguyen', color: AvatarColor.Sky },
+  { name: 'Mai Tran', color: AvatarColor.Teal },
+  { name: 'Ken Sato', color: AvatarColor.Fuchsia },
+]
+
 export function AccordionRichTriggers() {
   return (
     <Accordion className="w-full max-w-sm" defaultValue={['flights']}>
@@ -41,26 +47,19 @@ export function AccordionRichTriggers() {
         <AccordionTrigger>
           <span className="flex items-center gap-2">
             Travellers
-            <Badge variant={BadgeVariant.Secondary}>3</Badge>
+            <Badge variant={BadgeVariant.Secondary}>{travellers.length}</Badge>
           </span>
         </AccordionTrigger>
         <AccordionContent>
           <div className="flex items-center gap-2">
-            <Avatar
-              size={AvatarSize.Small}
-              name="Brian Nguyen"
-              color={AvatarColor.Sky}
-            />
-            <Avatar
-              size={AvatarSize.Small}
-              name="Mai Tran"
-              color={AvatarColor.Teal}
-            />
-            <Avatar
-              size={AvatarSize.Small}
-              name="Ken Sato"
-              color={AvatarColor.Fuchsia}
-            />
+            {travellers.map((traveller) => (
+              <Avatar
+                key={traveller.name}
+                size={AvatarSize.Small}
+                name={traveller.name}
+                color={traveller.color}
+              />
+            ))}
           </div>
         </AccordionContent>
       </AccordionItem>

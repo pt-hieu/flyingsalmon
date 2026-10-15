@@ -1,6 +1,7 @@
 import { useId, useState } from 'react'
 
-import { Avatar } from '@/registry/ui/avatar'
+import { AvatarGroup } from '@/registry/ui/avatar-group'
+import type { AvatarGroupItem } from '@/registry/ui/avatar-group'
 import { Button, ButtonVariant } from '@/registry/ui/button'
 import {
   Drawer,
@@ -12,6 +13,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/registry/ui/drawer'
+import { Form } from '@/registry/ui/form'
 import { Input } from '@/registry/ui/input'
 
 export function DrawerPending() {
@@ -20,24 +22,41 @@ export function DrawerPending() {
   const [checking, setChecking] = useState(false)
   const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState<string>()
-  const [travellers, setTravellers] = useState(['Brian Nguyen'])
+  const [travellers, setTravellers] = useState<AvatarGroupItem[]>([
+    { id: 'brian@example.com', name: 'Brian Nguyen' },
+  ])
 
   async function inviteTraveller(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setChecking(true)
 
-    const travellerName = await findTraveller(email)
+    const invitedTraveller = travellers.find(
+      (traveller) => traveller.id === email,
+    )
 
-    setChecking(false)
-
-    if (!travellerName) {
-      setEmailError('No traveller uses that email. Check the spelling.')
+    if (invitedTraveller) {
+      setEmailError(`${invitedTraveller.name} is already on this trip.`)
       return
     }
 
-    setTravellers([...travellers, travellerName])
-    setEmail('')
-    setOpen(false)
+    setChecking(true)
+
+    try {
+      const travellerName = await findTraveller(email)
+
+      if (!travellerName) {
+        setEmailError('No traveller uses that email. Check the spelling.')
+        return
+      }
+
+      setTravellers((currentTravellers) => [
+        ...currentTravellers,
+        { id: email, name: travellerName },
+      ])
+      setEmail('')
+      setOpen(false)
+    } finally {
+      setChecking(false)
+    }
   }
 
   return (
@@ -52,7 +71,7 @@ export function DrawerPending() {
             The address is looked up before they are added. Try mai@example.com.
           </DrawerDescription>
           <DrawerBody>
-            <form id={formId} noValidate onSubmit={inviteTraveller}>
+            <Form id={formId} onSubmit={inviteTraveller}>
               <Input
                 label="Email"
                 value={email}
@@ -62,7 +81,7 @@ export function DrawerPending() {
                   setEmailError(undefined)
                 }}
               />
-            </form>
+            </Form>
           </DrawerBody>
           <DrawerFooter>
             <DrawerClose>
@@ -77,11 +96,7 @@ export function DrawerPending() {
         </DrawerContent>
       </Drawer>
 
-      <div className="flex items-center gap-2">
-        {travellers.map((travellerName) => (
-          <Avatar key={travellerName} name={travellerName} />
-        ))}
-      </div>
+      <AvatarGroup items={travellers} aria-label="Travellers on this trip" />
     </div>
   )
 }

@@ -20,7 +20,7 @@ export function AlertOpenAndClose() {
       <Button
         variant={ButtonVariant.Outline}
         size={ButtonSize.Small}
-        onClick={() => setOpen(!open)}
+        onClick={() => setOpen((currentOpen) => !currentOpen)}
       >
         {open ? 'Close the alert' : 'Open the alert'}
       </Button>

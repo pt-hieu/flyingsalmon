@@ -1,4 +1,4 @@
-import { TriangleAlert } from 'lucide-react'
+import { CloudOff } from 'lucide-react'
 
 import { Button } from '@/registry/ui/button'
 import { Card, CardContent } from '@/registry/ui/card'
@@ -18,7 +18,7 @@ export function ErrorStateSmallInACard() {
       <CardContent>
         <ErrorState size={EmptyStateSize.Small}>
           <EmptyStateIcon>
-            <TriangleAlert />
+            <CloudOff />
           </EmptyStateIcon>
           <EmptyStateTitle as={EmptyStateTitleElement.H3}>
             Travellers did not load

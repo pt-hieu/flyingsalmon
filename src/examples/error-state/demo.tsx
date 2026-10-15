@@ -22,9 +22,8 @@ export function ErrorStateDemo() {
       />
       <EmptyStateTitle>Planning failed</EmptyStateTitle>
       <EmptyStateDescription>
-        It stopped while planning the days in Lisbon. All 12 credits are back in
-        your wallet and your trip details are saved. Try again or change them
-        first.
+        It stopped while planning the days in Lisbon. Your trip details are
+        saved. Try again or change them first.
       </EmptyStateDescription>
       <EmptyStateActions>
         <Button>Try again</Button>
