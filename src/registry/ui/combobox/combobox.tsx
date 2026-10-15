@@ -10,6 +10,7 @@ import {
   FieldLabelPlacement,
   useFieldIds,
 } from '@/registry/lib/field'
+import { PanelAlign, PanelSide } from '@/registry/lib/panel'
 
 import { Spinner } from '../spinner'
 
@@ -32,13 +33,7 @@ import { ComboboxSharedStateContext } from './context'
 import { hasPanelContent } from './has-panel-content'
 import { spinnerSizeByComboboxSize } from './spinner-size-by-combobox-size'
 import { splitPanelChildren } from './split-panel-children'
-import {
-  type ComboboxItemEntry,
-  ComboboxMode,
-  ComboboxPanelAlign,
-  ComboboxPanelSide,
-  ComboboxSize,
-} from './types'
+import { type ComboboxItemEntry, ComboboxMode, ComboboxSize } from './types'
 import { useComboboxItemRegistry } from './use-combobox-item-registry'
 import { useHighlightOnArrowOpen } from './use-highlight-on-arrow-open'
 import { useOpenOnArrival } from './use-open-on-arrival'
@@ -62,8 +57,8 @@ interface ComboboxBaseProps {
   open?: boolean
   defaultOpen?: boolean
   onOpenChange?: (open: boolean) => void
-  side?: ComboboxPanelSide
-  align?: ComboboxPanelAlign
+  side?: PanelSide
+  align?: PanelAlign
   className?: string
   children?: React.ReactNode
 }
@@ -107,8 +102,8 @@ export function Combobox(props: ComboboxProps) {
     open,
     defaultOpen,
     onOpenChange,
-    side = ComboboxPanelSide.Bottom,
-    align = ComboboxPanelAlign.Start,
+    side = PanelSide.Bottom,
+    align = PanelAlign.Start,
     className,
     children,
   } = props

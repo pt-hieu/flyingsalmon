@@ -27,8 +27,4 @@ export {
   DropdownMenuTrigger,
   type DropdownMenuTriggerProps,
 } from './dropdown-menu-trigger'
-export {
-  DropdownMenuAlign,
-  DropdownMenuItemVariant,
-  DropdownMenuSide,
-} from './types'
+export { DropdownMenuItemVariant } from './types'

@@ -1,10 +1,10 @@
 import { Ellipsis } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
+import { PanelAlign } from '@/registry/lib/panel'
 
 import {
   DropdownMenu,
-  DropdownMenuAlign,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '../dropdown-menu'
@@ -39,7 +39,7 @@ export function BreadcrumbEllipsis({
           <Ellipsis className={breadcrumbEllipsisIconClassName} />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align={DropdownMenuAlign.Start}>
+      <DropdownMenuContent align={PanelAlign.Start}>
         {children}
       </DropdownMenuContent>
     </DropdownMenu>

@@ -191,14 +191,14 @@ function SelectPage() {
               },
               {
                 name: 'side',
-                type: 'SelectPanelSide',
-                default: 'SelectPanelSide.Bottom',
+                type: 'PanelSide',
+                default: 'PanelSide.Bottom',
                 description: 'Which side of the trigger the list opens on.',
               },
               {
                 name: 'align',
-                type: 'SelectPanelAlign',
-                default: 'SelectPanelAlign.Center',
+                type: 'PanelAlign',
+                default: 'PanelAlign.Center',
                 description: 'How the list aligns to the trigger on that side.',
               },
             ]}

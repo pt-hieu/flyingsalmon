@@ -9,9 +9,4 @@ export { ComboboxGroup } from './combobox-group'
 export { ComboboxItem, type ComboboxItemProps } from './combobox-item'
 export { ComboboxLabel } from './combobox-label'
 export { ComboboxSeparator } from './combobox-separator'
-export {
-  ComboboxMode,
-  ComboboxPanelAlign,
-  ComboboxPanelSide,
-  ComboboxSize,
-} from './types'
+export { ComboboxMode, ComboboxSize } from './types'

@@ -312,14 +312,14 @@ function ComboboxPage() {
               },
               {
                 name: 'side',
-                type: 'ComboboxPanelSide',
-                default: 'ComboboxPanelSide.Bottom',
+                type: 'PanelSide',
+                default: 'PanelSide.Bottom',
                 description: 'Which side of the field the panel prefers.',
               },
               {
                 name: 'align',
-                type: 'ComboboxPanelAlign',
-                default: 'ComboboxPanelAlign.Start',
+                type: 'PanelAlign',
+                default: 'PanelAlign.Start',
                 description: 'How the panel lines up along that side.',
               },
               {

@@ -1,9 +1,9 @@
 import { Copy, Ellipsis, Pencil, Trash2 } from 'lucide-react'
 
+import { PanelAlign } from '@/registry/lib/panel'
 import { Button, ButtonSize, ButtonVariant } from '@/registry/ui/button'
 import {
   DropdownMenu,
-  DropdownMenuAlign,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuItemVariant,
@@ -24,7 +24,7 @@ export function DropdownMenuDemo() {
           icon={<Ellipsis />}
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent align={DropdownMenuAlign.End}>
+      <DropdownMenuContent align={PanelAlign.End}>
         <DropdownMenuLabel>Kyoto in autumn</DropdownMenuLabel>
         <DropdownMenuItem icon={<Pencil />}>
           Rename
