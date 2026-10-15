@@ -1,4 +1,4 @@
-import { use } from 'react'
+import { use, useLayoutEffect } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -12,16 +12,24 @@ export interface EmptyStateTitleProps extends React.ComponentProps<'h2'> {
 
 export function EmptyStateTitle({
   as = EmptyStateTitleElement.H2,
+  id,
   className,
   ...props
 }: EmptyStateTitleProps) {
-  const { size, titleId } = use(EmptyStateContext)
+  const { size, titleId, registerTitleId } = use(EmptyStateContext)
+  const headingId = id ?? titleId
   const Heading: React.ElementType = as
+
+  useLayoutEffect(() => {
+    registerTitleId?.(headingId)
+
+    return () => registerTitleId?.(undefined)
+  }, [headingId, registerTitleId])
 
   return (
     <Heading
       data-slot="empty-state-title"
-      id={titleId}
+      id={headingId}
       className={cn(emptyStateTitleVariants({ size }), className)}
       {...props}
     />

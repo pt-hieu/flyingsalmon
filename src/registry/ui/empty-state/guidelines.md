@@ -16,8 +16,8 @@ Design guidelines for the flyingsalmon Empty state component. An alternative lin
 
 - **Do:** Title the block with a plain statement or a short question, and say in the description what the traveller can do next.
   **Why:** A resting state with no next step leaves the traveller to guess whether something broke.
-- **Do:** Offer one action: filled when it starts something, outline when it only leads out.
-  **Why:** One button is an obvious next step, and its fill tells the traveller whether it begins something or takes them back.
+- **Do:** Lead with one filled action that starts something. A second, outline action may lead out.
+  **Why:** One filled button is an obvious next step, and the outline beside it tells the traveller which button takes them back.
 - **Do:** Give a friendly empty a sticker, and a dead end, such as a trip that does not exist, an icon.
   **Why:** The sticker invites the traveller to begin. The icon says plainly that there is nothing here to begin.
 - **Do:** Keep a block inside a card quieter than one that fills a page.
