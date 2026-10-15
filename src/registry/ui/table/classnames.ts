@@ -1,27 +1,29 @@
 import { cva } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
+import { offsetFocusRingGeometry } from '@/registry/lib/interaction'
 
 import { TableHeadCellScope } from './types'
 
-export const tableContainerVariants = cva('w-full overflow-x-auto')
-
-export const tableVariants = cva('w-full text-sm')
-
-export const tableHeaderVariants = cva(
-  '[&>tr]:border-b [&>tr]:border-b-(--table-header-border)',
+export const tableContainerClassName = cn(
+  'w-full overflow-x-auto',
+  'focus-visible:ring-indicator',
+  offsetFocusRingGeometry,
 )
 
-export const tableBodyVariants = cva(
-  cn(
-    '[&>tr]:border-border [&>tr]:border-b',
-    '[&>tr]:transition-colors [&>tr]:duration-(--motion-fast)',
-    '[&>tr[data-interactive]:has([data-row-link]_a:is(:focus-visible,:active))]:border-b-indicator',
-    '[&>tr:has(+tr[data-interactive]_[data-row-link]_a:is(:focus-visible,:active))]:border-b-indicator',
-  ),
+export const tableClassName = 'w-full text-sm'
+
+export const tableHeaderClassName =
+  '[&>tr]:border-b [&>tr]:border-b-(--table-header-border)'
+
+export const tableBodyClassName = cn(
+  '[&>tr]:border-border [&>tr]:border-b',
+  '[&>tr]:transition-colors [&>tr]:duration-(--motion-fast)',
+  '[&>tr[data-interactive]:has([data-row-link]_a:is(:focus-visible,:active))]:border-b-indicator',
+  '[&>tr:has(+tr[data-interactive]_[data-row-link]_a:is(:focus-visible,:active))]:border-b-indicator',
 )
 
-export const tableFooterVariants = cva('font-medium')
+export const tableFooterClassName = 'font-medium'
 
 export const tableRowVariants = cva('', {
   variants: {
@@ -58,4 +60,4 @@ export const tableHeadCellVariants = cva(
   },
 )
 
-export const tableCellVariants = cva('px-4 py-3 align-middle')
+export const tableCellClassName = 'px-4 py-3 align-middle'

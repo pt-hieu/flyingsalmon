@@ -1,17 +1,31 @@
-import type { ComponentProps } from 'react'
+import { type ComponentProps, useRef } from 'react'
 
 import { cn } from '@/lib/utils'
 
-import { tableContainerVariants, tableVariants } from './classnames'
+import { tableClassName, tableContainerClassName } from './classnames'
+import { useHorizontalOverflow } from './use-horizontal-overflow'
+import { scrollRegionProps } from './utils'
 
-export type TableProps = ComponentProps<'table'>
+export interface TableProps extends ComponentProps<'table'> {
+  scrollRegionLabel?: string
+}
 
-export function Table({ className, ...props }: TableProps) {
+export function Table({ scrollRegionLabel, className, ...props }: TableProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const overflows = useHorizontalOverflow(containerRef)
+
   return (
-    <div className={tableContainerVariants()}>
+    <div
+      ref={containerRef}
+      className={tableContainerClassName}
+      {...scrollRegionProps(
+        overflows,
+        scrollRegionLabel ?? props['aria-label'],
+      )}
+    >
       <table
         data-slot="table"
-        className={cn(tableVariants(), className)}
+        className={cn(tableClassName, className)}
         {...props}
       />
     </div>

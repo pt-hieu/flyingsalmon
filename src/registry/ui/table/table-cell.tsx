@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react'
 
 import { cn } from '@/lib/utils'
 
-import { tableCellVariants } from './classnames'
+import { tableCellClassName } from './classnames'
 
 export interface TableCellProps extends ComponentProps<'td'> {
   rowLink?: boolean
@@ -17,7 +17,7 @@ export function TableCell({
     <td
       data-slot="table-cell"
       data-row-link={rowLink || undefined}
-      className={cn(tableCellVariants(), className)}
+      className={cn(tableCellClassName, className)}
       {...props}
     />
   )
