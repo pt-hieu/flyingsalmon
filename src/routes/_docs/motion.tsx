@@ -114,7 +114,7 @@ const exceptionRows: FoundationTableRow[] = [
     sample: labelSample('Loop'),
     name: 'animate-sticker-boil',
     detail: '450ms step loop, three frames',
-    job: 'The sticker’s hand-drawn lines jitter like a cartoon: each frame shows for 150ms, then the next takes over. It runs for as long as the sticker is on the page.',
+    job: 'The sticker’s hand-drawn lines jitter like a cartoon: each frame shows for 150ms, then the next takes over. It runs for as long as the sticker is on the page, unless the caller holds the sticker still with boil={false}.',
   },
   {
     sample: labelSample('Scroll'),
