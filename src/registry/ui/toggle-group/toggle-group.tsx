@@ -1,5 +1,4 @@
 import { ToggleGroup as ToggleGroupPrimitive } from 'radix-ui'
-import { useState } from 'react'
 
 import { cn } from '@/lib/utils'
 import {
@@ -8,6 +7,7 @@ import {
   fieldLabelVariants,
   useFieldIds,
 } from '@/registry/lib/field'
+import { useControllableState } from '@/registry/lib/use-controllable-state'
 
 import {
   toggleGroupListClassName,
@@ -47,6 +47,11 @@ export interface ToggleGroupMultipleProps extends ToggleGroupBaseProps {
 export type ToggleGroupProps = ToggleGroupSingleProps | ToggleGroupMultipleProps
 
 export function ToggleGroup(props: ToggleGroupProps) {
+  const { max, ...propsWithoutMax } =
+    props.mode === ToggleGroupMode.Multiple
+      ? props
+      : { ...props, max: undefined }
+
   const {
     mode = ToggleGroupMode.Single,
     label,
@@ -63,41 +68,37 @@ export function ToggleGroup(props: ToggleGroupProps) {
     onValueChange,
     'aria-describedby': callerDescribedBy,
     ...rest
-  } = props
+  } = propsWithoutMax
 
-  const max = props.mode === ToggleGroupMode.Multiple ? props.max : undefined
-
-  const { fieldId, errorMessageId, describedBy } = useFieldIds({
+  const { fieldId, labelId, errorMessageId, describedBy } = useFieldIds({
     id,
     error,
     describedBy: callerDescribedBy,
   })
 
-  const labelId = `${fieldId}-label`
   const hasError = Boolean(error)
   const isDisabled = Boolean(disabled)
 
-  const [uncontrolledValues, setUncontrolledValues] = useState(() =>
-    toPressedValues(defaultValue),
-  )
+  const reportChange = (nextValues: string[]) => {
+    if (props.mode === ToggleGroupMode.Multiple) {
+      props.onValueChange?.(nextValues)
+    } else {
+      props.onValueChange?.(nextValues[0] ?? '')
+    }
+  }
 
-  const pressedValues =
-    value === undefined ? uncontrolledValues : toPressedValues(value)
+  const [pressedValues, setPressedValues] = useControllableState({
+    value: value === undefined ? undefined : toPressedValues(value),
+    defaultValue: toPressedValues(defaultValue),
+    onChange: reportChange,
+  })
 
   const isAtMax = max !== undefined && pressedValues.length >= max
 
   const commitValues = (nextValues: string[]) => {
     if (required && nextValues.length === 0) return
 
-    if (value === undefined) setUncontrolledValues(nextValues)
-
-    const reportChange = onValueChange as
-      | ((value: string | string[]) => void)
-      | undefined
-
-    reportChange?.(
-      mode === ToggleGroupMode.Multiple ? nextValues : (nextValues[0] ?? ''),
-    )
+    setPressedValues(nextValues)
   }
 
   const sharedRootProps = {

@@ -22,5 +22,3 @@ Design guidelines for the flyingsalmon Toggle group component. An alternative li
   **Why:** They dim in place, so the row keeps its shape and the traveller sees what they could swap in by unpressing another.
 - **Do:** Keep each chip to a word or two, with a leading icon where it speeds the scan.
   **Why:** Chips wrap across lines, and short labels keep the rows even. An answer that needs a sentence belongs in a radio group.
-- **Don't:** Let a "Decide for me" chip stay pressed beside other chips.
-  **Why:** Handing the choice over and making it yourself cannot both be true. Pressing it clears the others, and pressing another clears it, so the row never contradicts itself.

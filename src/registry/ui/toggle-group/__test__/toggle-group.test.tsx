@@ -140,6 +140,14 @@ describe('ToggleGroup', () => {
     expect(screen.getByRole('button', { name: 'Museum' })).toBeEnabled()
   })
 
+  it('keeps max off the group element it renders', () => {
+    render(<InterestsGroup max={2} />)
+
+    expect(
+      screen.getByRole('group', { name: 'Interests' }),
+    ).not.toHaveAttribute('max')
+  })
+
   it('blocks the last deselect when required in single mode', async () => {
     const user = userEvent.setup()
     const onValueChange = vi.fn()
