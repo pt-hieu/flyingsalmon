@@ -12,6 +12,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 import { DatePicker, DatePickerMode } from '@/registry/ui/date-picker'
 import type { DatePickerRange } from '@/registry/ui/date-picker'
@@ -112,7 +113,7 @@ export function DialogDemo() {
       {trips.map((trip) => (
         <Card key={trip.id}>
           <CardHeader>
-            <CardTitle>{trip.destination}</CardTitle>
+            <CardTitle as={CardTitleElement.H2}>{trip.destination}</CardTitle>
             <CardDescription>
               {trip.dates
                 ? `${formatDate(trip.dates.start)} to ${formatDate(trip.dates.end)}`

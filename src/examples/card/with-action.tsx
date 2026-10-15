@@ -5,13 +5,14 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 
 export function CardWithAction() {
   return (
     <Card className="w-72">
       <CardHeader>
-        <CardTitle>Invite Mai Tran</CardTitle>
+        <CardTitle as={CardTitleElement.H4}>Invite Mai Tran</CardTitle>
         <CardDescription>She can view and edit the trip.</CardDescription>
       </CardHeader>
       <CardAction>

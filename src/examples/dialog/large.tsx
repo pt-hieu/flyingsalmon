@@ -7,6 +7,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 import { DatePicker } from '@/registry/ui/date-picker'
 import {
@@ -59,8 +60,8 @@ export function DialogLarge() {
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle>
-          {traveller.firstName} {traveller.lastName}
+        <CardTitle as={CardTitleElement.H4}>
+          {`${traveller.firstName} ${traveller.lastName}`}
         </CardTitle>
         <CardDescription>{traveller.email}</CardDescription>
       </CardHeader>

@@ -9,6 +9,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 import {
   Dialog,
@@ -73,7 +74,7 @@ export function DropdownMenuTripCardActions() {
         <Card key={trip.id}>
           <CardHeader className="flex-row items-start justify-between gap-2">
             <div className="flex flex-col gap-1">
-              <CardTitle>{trip.name}</CardTitle>
+              <CardTitle as={CardTitleElement.H4}>{trip.name}</CardTitle>
               <CardDescription>{trip.summary}</CardDescription>
             </div>
             <DropdownMenu>

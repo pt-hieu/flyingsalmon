@@ -6,6 +6,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 import { Select, SelectItem } from '@/registry/ui/select'
 
@@ -40,7 +41,7 @@ export function SelectLoading() {
   return (
     <Card className="w-72">
       <CardHeader>
-        <CardTitle>Lisbon long weekend</CardTitle>
+        <CardTitle as={CardTitleElement.H4}>Lisbon long weekend</CardTitle>
         <CardDescription>Visible to: {visibilityLabel}</CardDescription>
       </CardHeader>
       <CardContent>
