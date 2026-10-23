@@ -14,10 +14,10 @@
     "preview": "vite preview",
     "deploy": "pnpm build && wrangler deploy",
     "lint": "oxlint",
-    "format": "oxfmt && oxlint --fix",
+    "format": "bun fmt --no-script && oxlint --fix",
     "test": "vitest run",
     "test:watch": "vitest",
-    "check": "oxfmt --check && oxlint && tsc --noEmit && vitest run"
+    "check": "bun fmt --check --no-script && oxlint && bun check --no-script && vitest run"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",
