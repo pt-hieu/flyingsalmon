@@ -22,6 +22,8 @@ import { StickerPopIn } from '@/examples/sticker/pop-in'
 import popInSource from '@/examples/sticker/pop-in.tsx?raw'
 import { StickerSizeAndTilt } from '@/examples/sticker/size-and-tilt'
 import sizeAndTiltSource from '@/examples/sticker/size-and-tilt.tsx?raw'
+import { StickerStillHeap } from '@/examples/sticker/still-heap'
+import stillHeapSource from '@/examples/sticker/still-heap.tsx?raw'
 import usageSource from '@/examples/sticker/usage.tsx?raw'
 import { StickerPaint } from '@/registry/ui/sticker'
 import guidelines from '@/registry/ui/sticker/guidelines.md?raw'
@@ -108,6 +110,14 @@ function StickerPage() {
           >
             <StickerSizeAndTilt />
           </Example>
+
+          <Example
+            caption="Still heap"
+            description="Three stickers overlap as one piece of art, and each holds still on its first drawing. Boiling together, they would jitter against each other and read as noise rather than as one picture."
+            source={stillHeapSource}
+          >
+            <StickerStillHeap />
+          </Example>
         </>
       }
       guidelines={guidelines}
@@ -159,6 +169,13 @@ function StickerPage() {
                 default: 'true',
                 description:
                   'Plays the scroll-linked pop-in. Pass false for a sticker already in view when its page opens: the pop is tied to scroll position, so a sticker at the top of a page would sit part-way through it until the reader scrolled.',
+              },
+              {
+                name: 'boil',
+                type: 'boolean',
+                default: 'true',
+                description:
+                  'Boils the lines, swapping the three frames on a loop. Pass false to hold the sticker still on its first drawing.',
               },
             ]}
           />
@@ -219,6 +236,8 @@ function StickerPage() {
             <code>animate-sticker-boil</code>), so the lines jitter like a
             cartoon’s. The boil is continuous and runs as long as the sticker is
             on the page, one of the documented exceptions to the 200ms limit.
+            With <code>boil</code> off, the sticker renders only its first frame
+            and runs no animation.
           </p>
           <p>
             The pop-in (<code>animate-sticker-pop</code>) runs on scroll

@@ -21,6 +21,7 @@ export interface StickerProps extends React.ComponentProps<'svg'> {
   label: string
   roleClassNames: StickerRoleClassNames
   popIn?: boolean
+  boil?: boolean
 }
 
 export function Sticker({
@@ -28,9 +29,12 @@ export function Sticker({
   label,
   roleClassNames,
   popIn = true,
+  boil = true,
   className,
   ...props
 }: StickerProps) {
+  const shownFrames = boil ? art.frames : art.frames.slice(0, 1)
+
   return (
     <svg
       {...props}
@@ -41,7 +45,7 @@ export function Sticker({
       strokeLinejoin="round"
       className={cn(stickerVariants({ popIn }), className)}
     >
-      {withContentKeys(art.frames, frameContent).map(
+      {withContentKeys(shownFrames, frameContent).map(
         ({ key: frameKey, item: layers }, frameIndex) => {
           const keyedSilhouette = withContentKeys(
             cutLayers(layers),
@@ -56,7 +60,10 @@ export function Sticker({
                   '--sticker-frame-delay': boilFrameDelay(frameIndex),
                 } as React.CSSProperties
               }
-              className={stickerFrameVariants({ leading: frameIndex === 0 })}
+              className={stickerFrameVariants({
+                boil,
+                leading: frameIndex === 0,
+              })}
             >
               {cutPasses.map((pass) => (
                 <g
