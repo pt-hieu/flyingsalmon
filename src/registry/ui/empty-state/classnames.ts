@@ -30,8 +30,8 @@ export const emptyStateIconVariants = cva(
 export const emptyStateStickerVariants = cva('shrink-0 -rotate-3', {
   variants: {
     size: {
-      [EmptyStateSize.Default]: 'max-w-60',
-      [EmptyStateSize.Small]: 'max-w-40',
+      [EmptyStateSize.Default]: 'max-w-28',
+      [EmptyStateSize.Small]: 'max-w-24',
     },
   },
   defaultVariants: {
