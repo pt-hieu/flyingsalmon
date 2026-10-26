@@ -139,7 +139,7 @@ describe('Card', () => {
     expect(openTrip).not.toHaveBeenCalled()
   })
 
-  it('reads the title as plain text, not a heading, by default', () => {
+  it('makes the title a level 3 heading by default', () => {
     render(
       <Card>
         <CardHeader>
@@ -148,15 +148,16 @@ describe('Card', () => {
       </Card>,
     )
 
-    expect(screen.getByText('Weekend in Kyoto')).toBeInTheDocument()
-    expect(screen.queryByRole('heading')).not.toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { level: 3, name: 'Weekend in Kyoto' }),
+    ).toBeInTheDocument()
   })
 
-  it('makes the title a heading at the level it is given', () => {
+  it('makes the title a heading at the level it is given, around the title link', () => {
     render(
       <Card interactive>
         <CardHeader>
-          <CardTitle as={CardTitleElement.H3}>
+          <CardTitle as={CardTitleElement.H4}>
             <a href="#kyoto">Weekend in Kyoto</a>
           </CardTitle>
         </CardHeader>
@@ -164,7 +165,20 @@ describe('Card', () => {
     )
 
     expect(
-      screen.getByRole('heading', { level: 3, name: 'Weekend in Kyoto' }),
+      screen.getByRole('heading', { level: 4, name: 'Weekend in Kyoto' }),
     ).toContainElement(screen.getByRole('link', { name: 'Weekend in Kyoto' }))
+  })
+
+  it('reads the title as plain text, not a heading, when it is a div', () => {
+    render(
+      <Card>
+        <CardHeader>
+          <CardTitle as={CardTitleElement.Div}>Weekend in Kyoto</CardTitle>
+        </CardHeader>
+      </Card>,
+    )
+
+    expect(screen.getByText('Weekend in Kyoto')).toBeInTheDocument()
+    expect(screen.queryByRole('heading')).not.toBeInTheDocument()
   })
 })

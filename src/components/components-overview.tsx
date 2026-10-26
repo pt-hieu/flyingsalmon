@@ -13,6 +13,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 import {
   EmptyState,
@@ -100,7 +101,10 @@ export function ComponentsOverview({
                     </div>
 
                     <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
+                      <CardTitle
+                        as={CardTitleElement.H4}
+                        className="flex items-center gap-2"
+                      >
                         <Link to={component.to}>{component.label}</Link>
                       </CardTitle>
                       <CardDescription className="line-clamp-2">

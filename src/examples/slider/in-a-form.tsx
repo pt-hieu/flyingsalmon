@@ -7,6 +7,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardTitleElement,
 } from '@/registry/ui/card'
 import { Form, FormActions } from '@/registry/ui/form'
 import { Slider } from '@/registry/ui/slider'
@@ -32,7 +33,7 @@ export function SliderInAForm() {
     <Form className="w-full max-w-sm" onSubmit={saveBudget}>
       <Card>
         <CardHeader>
-          <CardTitle>Lisbon long weekend</CardTitle>
+          <CardTitle as={CardTitleElement.H4}>Lisbon long weekend</CardTitle>
           <CardDescription>
             Brian Nguyen&rsquo;s budget: up to ${savedBudget} a night
           </CardDescription>
