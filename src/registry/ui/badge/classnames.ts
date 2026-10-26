@@ -26,4 +26,4 @@ export const badgeVariants = cva(
   },
 )
 
-export const badgeIconVariants = cva('flex shrink-0 [&>svg]:size-3')
+export const badgeIconClassName = 'flex shrink-0 [&>svg]:size-3'

@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 
-import { badgeIconVariants, badgeVariants } from './classnames'
+import { badgeIconClassName, badgeVariants } from './classnames'
 import { BadgeVariant } from './types'
 
 export interface BadgeProps extends Omit<
@@ -21,7 +21,7 @@ export function Badge({
   return (
     <span className={cn(badgeVariants({ variant }), className)} {...props}>
       {icon ? (
-        <span aria-hidden className={badgeIconVariants()}>
+        <span aria-hidden className={badgeIconClassName}>
           {icon}
         </span>
       ) : null}
