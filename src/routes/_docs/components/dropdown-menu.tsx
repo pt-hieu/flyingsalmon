@@ -199,15 +199,15 @@ function DropdownMenuPage() {
             rows={[
               {
                 name: 'side',
-                type: 'DropdownMenuSide',
-                default: 'DropdownMenuSide.Bottom',
+                type: 'PanelSide',
+                default: 'PanelSide.Bottom',
                 description:
                   'Which edge of the trigger the panel opens from. It flips when there is no room.',
               },
               {
                 name: 'align',
-                type: 'DropdownMenuAlign',
-                default: 'DropdownMenuAlign.Center',
+                type: 'PanelAlign',
+                default: 'PanelAlign.Center',
                 description: 'How the panel lines up along that edge.',
               },
             ]}

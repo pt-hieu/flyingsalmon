@@ -12,19 +12,6 @@ export enum DatePickerSize {
   Small = 'sm',
 }
 
-export enum DatePickerPanelSide {
-  Top = 'top',
-  Right = 'right',
-  Bottom = 'bottom',
-  Left = 'left',
-}
-
-export enum DatePickerPanelAlign {
-  Start = 'start',
-  Center = 'center',
-  End = 'end',
-}
-
 export type DatePickerRange = CalendarRange
 
 export type DatePickerValue = string | DatePickerRange | null
