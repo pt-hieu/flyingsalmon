@@ -11,13 +11,9 @@ import {
   avatarGroupVariants,
 } from './classnames'
 import { resolveRoster } from './resolve-roster'
+import { stepFocusWithin, tabStopChildIndex } from './roving-focus'
 import type { AvatarGroupItem } from './types'
-import {
-  childIndexContaining,
-  itemOffset,
-  stepFocusWithin,
-  tabStopChildIndex,
-} from './utils'
+import { childIndexContaining, itemOffset } from './utils'
 
 export interface AvatarGroupProps extends Omit<
   React.ComponentProps<'div'>,

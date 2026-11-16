@@ -13,7 +13,7 @@ import {
   readWideViewport,
   subscribeToWideViewport,
   unknownViewportOnServer,
-} from './utils'
+} from './wide-viewport'
 
 export interface SidebarProviderProps extends React.ComponentProps<'div'> {
   collapsed?: boolean

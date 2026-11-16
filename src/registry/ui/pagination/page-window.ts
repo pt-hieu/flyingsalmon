@@ -20,17 +20,6 @@ export function pageWindow(currentPage: number, pageCount: number): number[] {
   return [1, currentPage - 1, currentPage, currentPage + 1, pageCount]
 }
 
-export function pageItemLabel(page: number): string {
-  return `Page ${page}`
-}
-
-export function defaultPageLabel(
-  currentPage: number,
-  pageCount: number,
-): string {
-  return `Page ${currentPage} of ${pageCount}`
-}
-
 function pagesFromTo(firstPage: number, lastPage: number): number[] {
   return Array.from(
     { length: lastPage - firstPage + 1 },

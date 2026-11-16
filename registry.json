@@ -1275,6 +1275,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/avatar-group/roving-focus.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/avatar-group/types.ts",
           "type": "registry:ui"
         },
@@ -1436,6 +1440,10 @@
         {
           "path": "src/registry/ui/date-picker/utils.ts",
           "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/date-picker/value-conversion.ts",
+          "type": "registry:ui"
         }
       ]
     },
@@ -1585,6 +1593,18 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/number-field/number-text.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/step-keys.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/number-field/stepping.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/number-field/types.ts",
           "type": "registry:ui"
         },
@@ -1620,7 +1640,10 @@
         },
         { "path": "src/registry/ui/slider/index.ts", "type": "registry:ui" },
         { "path": "src/registry/ui/slider/slider.tsx", "type": "registry:ui" },
-        { "path": "src/registry/ui/slider/utils.ts", "type": "registry:ui" }
+        {
+          "path": "src/registry/ui/slider/track-position.ts",
+          "type": "registry:ui"
+        }
       ]
     },
     {
@@ -1915,6 +1938,10 @@
         },
         { "path": "src/registry/ui/sidebar/index.ts", "type": "registry:ui" },
         {
+          "path": "src/registry/ui/sidebar/owns-current-mark.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/sidebar/scroll-fully-into-view.ts",
           "type": "registry:ui"
         },
@@ -1979,7 +2006,11 @@
           "path": "src/registry/ui/sidebar/use-sidebar.ts",
           "type": "registry:ui"
         },
-        { "path": "src/registry/ui/sidebar/utils.ts", "type": "registry:ui" }
+        { "path": "src/registry/ui/sidebar/utils.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/sidebar/wide-viewport.ts",
+          "type": "registry:ui"
+        }
       ]
     },
     {
@@ -2125,6 +2156,14 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/pagination/page-labels.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/pagination/page-window.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/pagination/pagination-item.tsx",
           "type": "registry:ui"
         },
@@ -2135,8 +2174,7 @@
         {
           "path": "src/registry/ui/pagination/types.ts",
           "type": "registry:ui"
-        },
-        { "path": "src/registry/ui/pagination/utils.ts", "type": "registry:ui" }
+        }
       ]
     },
     {
@@ -2176,6 +2214,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/registry/ui/sticker/content-keys.ts",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/registry/ui/sticker/cut-passes.ts",
           "type": "registry:ui"
         },
@@ -2185,6 +2227,14 @@
           "target": "@ui/sticker/guidelines.md"
         },
         { "path": "src/registry/ui/sticker/index.ts", "type": "registry:ui" },
+        {
+          "path": "src/registry/ui/sticker/layer-paint.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/registry/ui/sticker/layer-roles.ts",
+          "type": "registry:ui"
+        },
         {
           "path": "src/registry/ui/sticker/sticker.tsx",
           "type": "registry:ui"

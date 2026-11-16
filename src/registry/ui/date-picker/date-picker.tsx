@@ -41,7 +41,7 @@ import {
   type DatePickerValue,
 } from './types'
 import { useDatePickerValue } from './use-date-picker-value'
-import { toValueKey } from './utils'
+import { toValueKey } from './value-conversion'
 
 interface DatePickerBaseProps extends DatePickerLimits {
   label?: string

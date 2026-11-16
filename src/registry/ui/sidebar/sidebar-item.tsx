@@ -16,10 +16,11 @@ import {
   sidebarNestRowClassName,
 } from './classnames'
 import { SidebarNestContext, SidebarNestItemsContext } from './context'
+import { ownsCurrentMark } from './owns-current-mark'
 import { SidebarNestToggle } from './sidebar-nest-toggle'
 import { SidebarLayout } from './types'
 import { useSidebarSharedState } from './use-sidebar'
-import { ownsCurrentMark, slottedItem } from './utils'
+import { slottedItem } from './utils'
 
 export interface SidebarItemProps extends React.ComponentProps<'button'> {
   icon?: React.ReactNode

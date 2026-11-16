@@ -15,7 +15,8 @@ import type {
   PaginationPageLabelFormatter,
   PaginationPageLinkRenderer,
 } from './types'
-import { defaultPageLabel, pageItemLabel, pageWindow } from './utils'
+import { defaultPageLabel, pageItemLabel } from './page-labels'
+import { pageWindow } from './page-window'
 
 export interface PaginationProps extends Omit<
   React.ComponentProps<'nav'>,

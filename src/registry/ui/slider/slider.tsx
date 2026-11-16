@@ -13,7 +13,7 @@ import {
   sliderWellVariants,
   sliderWrapperClassName,
 } from './classnames'
-import { stepPercents, thumbCenterOffset, valuePercent } from './utils'
+import { stepPercents, thumbCenterOffset, valuePercent } from './track-position'
 
 export interface SliderProps {
   label: string

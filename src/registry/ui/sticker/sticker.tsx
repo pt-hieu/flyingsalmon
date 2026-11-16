@@ -2,19 +2,11 @@ import { cn } from '@/lib/utils'
 
 import { stickerFrameVariants, stickerVariants } from './classnames'
 import { cutPasses } from './cut-passes'
+import { frameContent, layerContent, withContentKeys } from './content-keys'
+import { unpaintedFill, unpaintedStroke } from './layer-paint'
+import { cutLayers, drawingLayers } from './layer-roles'
 import type { StickerArt, StickerRoleClassNames } from './types'
-import {
-  boilFrameDelay,
-  cutLayers,
-  drawingLayers,
-  drawingStrokeWidth,
-  frameContent,
-  layerContent,
-  stickerViewBox,
-  unpaintedFill,
-  unpaintedStroke,
-  withContentKeys,
-} from './utils'
+import { boilFrameDelay, drawingStrokeWidth, stickerViewBox } from './utils'
 
 export interface StickerProps extends React.ComponentProps<'svg'> {
   art: StickerArt

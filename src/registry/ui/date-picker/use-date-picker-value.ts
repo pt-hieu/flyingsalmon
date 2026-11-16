@@ -6,7 +6,7 @@ import type {
   DatePickerValueState,
   UseDatePickerValueOptions,
 } from './types'
-import { toEntry, toValueKey } from './utils'
+import { toEntry, toValueKey } from './value-conversion'
 
 export function useDatePickerValue({
   value,
