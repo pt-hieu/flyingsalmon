@@ -5,6 +5,8 @@ Namespace: `@flyingsalmon`. First consumer: hottrip, an AI trip planner in the s
 
 Every coding rule, for the registry and the docs site alike, is in `CODING_STANDARDS.md`.
 
+`CODE_MAP.md` says where things live in this repo; read it before searching for a file. A change that adds, moves, or removes a directory, an entry point, or a path the map names updates the map in the same commit.
+
 ## Docs copy
 
 Every word a docs-site visitor reads follows these rules:
