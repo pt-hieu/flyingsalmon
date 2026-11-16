@@ -17,6 +17,6 @@ How the shadcn CLI transforms a registry item when a consumer runs `shadcn add`.
 
 `pnpm lint` runs `@shadcn/lint` against the theme.
 
-- A dynamic value reaches a class through a CSS custom property set in `style`: `style={{ '--slider-fill-width': width }}` with `w-(--slider-fill-width)`.
+- A dynamic value reaches a class through a CSS custom property set in `style`: `style={fillStyle}` with `w-(--slider-fill-width)`, where `fillStyle` is typed by an interface in the folder's `types.ts` that extends `React.CSSProperties` and declares `'--slider-fill-width'`, so the compiler checks the property without an `as` cast.
 - A new allow entry in `.oxlintrc.json` needs a spec or ADR behind the value, the same bar ADR 0006 sets for a shared class string.
 - `no-unknown-classes` skips cva variant entries keyed by an enum member (shadcn-ui/lint#70), so a misspelled class there still passes.

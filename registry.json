@@ -1643,7 +1643,8 @@
         {
           "path": "src/registry/ui/slider/track-position.ts",
           "type": "registry:ui"
-        }
+        },
+        { "path": "src/registry/ui/slider/types.ts", "type": "registry:ui" }
       ]
     },
     {

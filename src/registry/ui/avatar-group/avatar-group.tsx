@@ -12,7 +12,7 @@ import {
 } from './classnames'
 import { resolveRoster } from './resolve-roster'
 import { stepFocusWithin, tabStopChildIndex } from './roving-focus'
-import type { AvatarGroupItem } from './types'
+import type { AvatarGroupItem, AvatarGroupItemStyle } from './types'
 import { childIndexContaining, itemOffset } from './utils'
 
 export interface AvatarGroupProps extends Omit<
@@ -50,21 +50,20 @@ export function AvatarGroup({
 
   if (roster.visibleItems.length === 0) return null
 
+  const chipStyle: AvatarGroupItemStyle = {
+    '--avatar-group-layer': 0,
+    '--avatar-group-offset': itemOffset({
+      childIndex: roster.visibleItems.length,
+      revealedIndex,
+    }),
+  }
   const chip = roster.chip ? (
     <span
       role="img"
       aria-label={`${roster.chip.count} more`}
       tabIndex={roster.visibleItems.length === tabStopIndex ? 0 : -1}
       className={avatarGroupChipVariants({ size })}
-      style={
-        {
-          '--avatar-group-layer': 0,
-          '--avatar-group-offset': itemOffset({
-            childIndex: roster.visibleItems.length,
-            revealedIndex,
-          }),
-        } as React.CSSProperties
-      }
+      style={chipStyle}
     >
       {roster.chip.text}
     </span>
@@ -109,6 +108,10 @@ export function AvatarGroup({
       }}
     >
       {roster.visibleItems.map((visibleItem, childIndex) => {
+        const itemStyle: AvatarGroupItemStyle = {
+          '--avatar-group-layer': visibleItem.layer,
+          '--avatar-group-offset': itemOffset({ childIndex, revealedIndex }),
+        }
         const avatarProps = {
           name: visibleItem.item.name,
           src: visibleItem.item.src,
@@ -116,19 +119,23 @@ export function AvatarGroup({
           size,
           alt: '',
           className: avatarGroupItemClassName,
-          style: {
-            '--avatar-group-layer': visibleItem.layer,
-            '--avatar-group-offset': itemOffset({ childIndex, revealedIndex }),
-          } as React.CSSProperties,
         }
 
         if (!visibleItem.name)
-          return <Avatar key={visibleItem.key} {...avatarProps} aria-hidden />
+          return (
+            <Avatar
+              key={visibleItem.key}
+              {...avatarProps}
+              style={itemStyle}
+              aria-hidden
+            />
+          )
 
         return (
           <Tooltip key={visibleItem.key} content={visibleItem.name}>
             <Avatar
               {...avatarProps}
+              style={itemStyle}
               role="img"
               aria-label={visibleItem.name}
               tabIndex={childIndex === tabStopIndex ? 0 : -1}

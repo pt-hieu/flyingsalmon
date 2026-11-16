@@ -20,6 +20,11 @@ export interface AvatarGroupChip {
   hiddenNames: string
 }
 
+export interface AvatarGroupItemStyle extends React.CSSProperties {
+  '--avatar-group-layer': number
+  '--avatar-group-offset': string
+}
+
 export interface AvatarGroupRoster {
   visibleItems: AvatarGroupVisibleItem[]
   chip: AvatarGroupChip | null

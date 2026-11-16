@@ -104,8 +104,6 @@ export interface ExampleSource {
   demo: React.ReactNode
 }
 
-declare module 'react' {
-  interface CSSProperties {
-    '--code-token-color'?: string
-  }
+export interface CodeTokenStyle extends React.CSSProperties {
+  '--code-token-color': string | undefined
 }

@@ -12,6 +12,10 @@ export interface StickerLayer {
   readonly d: string
 }
 
+export interface StickerFrameStyle extends React.CSSProperties {
+  '--sticker-frame-delay': string
+}
+
 export interface StickerArt {
   readonly width: number
   readonly height: number

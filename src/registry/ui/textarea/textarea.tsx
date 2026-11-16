@@ -16,7 +16,7 @@ import {
   textareaVariants,
   textareaWrapperClassName,
 } from './classnames'
-import type { TextareaElementProps } from './types'
+import type { TextareaElementProps, TextareaStyle } from './types'
 import { rowsToHeight } from './utils'
 
 export interface TextareaProps extends Omit<TextareaElementProps, 'rows'> {
@@ -50,6 +50,12 @@ export function Textarea({
     describedBy: callerDescribedBy,
   })
 
+  const textareaStyle: TextareaStyle = {
+    '--textarea-min-height': rowsToHeight(minRows),
+    '--textarea-max-height': rowsToHeight(maxRows),
+    ...style,
+  }
+
   return (
     <div className={cn(textareaWrapperClassName, className)}>
       {label ? (
@@ -74,13 +80,7 @@ export function Textarea({
           aria-invalid={error ? true : undefined}
           aria-busy={loading || undefined}
           aria-describedby={describedBy}
-          style={
-            {
-              '--textarea-min-height': rowsToHeight(minRows),
-              '--textarea-max-height': rowsToHeight(maxRows),
-              ...style,
-            } as React.CSSProperties
-          }
+          style={textareaStyle}
           className={textareaVariants({ loading })}
           {...props}
           rows={minRows}

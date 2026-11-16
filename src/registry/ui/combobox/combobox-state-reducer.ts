@@ -83,8 +83,29 @@ function reduceWithVetoes(
     case useCombobox.stateChangeTypes.ItemClick:
       return isMultiple ? stayOpenAfterPick(state, changes) : changes
 
-    default:
+    case useCombobox.stateChangeTypes.InputKeyDownArrowDown:
+    case useCombobox.stateChangeTypes.InputKeyDownArrowUp:
+    case useCombobox.stateChangeTypes.InputKeyDownHome:
+    case useCombobox.stateChangeTypes.InputKeyDownEnd:
+    case useCombobox.stateChangeTypes.InputKeyDownPageUp:
+    case useCombobox.stateChangeTypes.InputKeyDownPageDown:
+    case useCombobox.stateChangeTypes.MenuMouseLeave:
+    case useCombobox.stateChangeTypes.ItemMouseMove:
+    case useCombobox.stateChangeTypes.ToggleButtonClick:
+    case useCombobox.stateChangeTypes.FunctionToggleMenu:
+    case useCombobox.stateChangeTypes.FunctionOpenMenu:
+    case useCombobox.stateChangeTypes.FunctionCloseMenu:
+    case useCombobox.stateChangeTypes.FunctionSetHighlightedIndex:
+    case useCombobox.stateChangeTypes.FunctionSelectItem:
+    case useCombobox.stateChangeTypes.FunctionSetInputValue:
+    case useCombobox.stateChangeTypes.FunctionReset:
+    case useCombobox.stateChangeTypes.ControlledPropUpdatedSelectedItem:
       return changes
+
+    default: {
+      const unhandledType: never = type
+      return unhandledType
+    }
   }
 }
 

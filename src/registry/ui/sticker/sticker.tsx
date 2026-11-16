@@ -5,7 +5,11 @@ import { cutPasses } from './cut-passes'
 import { frameContent, layerContent, withContentKeys } from './content-keys'
 import { unpaintedFill, unpaintedStroke } from './layer-paint'
 import { cutLayers, drawingLayers } from './layer-roles'
-import type { StickerArt, StickerRoleClassNames } from './types'
+import type {
+  StickerArt,
+  StickerFrameStyle,
+  StickerRoleClassNames,
+} from './types'
 import { boilFrameDelay, drawingStrokeWidth, stickerViewBox } from './utils'
 
 export interface StickerProps extends React.ComponentProps<'svg'> {
@@ -43,15 +47,14 @@ export function Sticker({
             cutLayers(layers),
             layerContent,
           )
+          const frameStyle: StickerFrameStyle = {
+            '--sticker-frame-delay': boilFrameDelay(frameIndex),
+          }
 
           return (
             <g
               key={frameKey}
-              style={
-                {
-                  '--sticker-frame-delay': boilFrameDelay(frameIndex),
-                } as React.CSSProperties
-              }
+              style={frameStyle}
               className={stickerFrameVariants({
                 boil,
                 leading: frameIndex === 0,

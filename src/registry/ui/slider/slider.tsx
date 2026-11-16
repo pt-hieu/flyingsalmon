@@ -14,6 +14,7 @@ import {
   sliderWrapperClassName,
 } from './classnames'
 import { stepPercents, thumbCenterOffset, valuePercent } from './track-position'
+import type { SliderFillStyle, SliderStepDotStyle } from './types'
 
 export interface SliderProps {
   label: string
@@ -50,7 +51,9 @@ export function Slider({
     descriptionId,
   } = useFieldIds({ id, description })
 
-  const fillWidth = thumbCenterOffset(valuePercent(value, min, max))
+  const fillStyle: SliderFillStyle = {
+    '--slider-fill-width': thumbCenterOffset(valuePercent(value, min, max)),
+  }
   const stepDotOffsets = stepPercents(min, max, step).map(thumbCenterOffset)
 
   return (
@@ -77,22 +80,22 @@ export function Slider({
             <span
               aria-hidden
               className={sliderFillClassName}
-              style={
-                { '--slider-fill-width': fillWidth } as React.CSSProperties
-              }
+              style={fillStyle}
             />
-            {stepDotOffsets.map((stepDotOffset) => (
-              <span
-                key={stepDotOffset}
-                aria-hidden
-                className={sliderStepDotClassName}
-                style={
-                  {
-                    '--slider-step-dot-offset': stepDotOffset,
-                  } as React.CSSProperties
-                }
-              />
-            ))}
+            {stepDotOffsets.map((stepDotOffset) => {
+              const stepDotStyle: SliderStepDotStyle = {
+                '--slider-step-dot-offset': stepDotOffset,
+              }
+
+              return (
+                <span
+                  key={stepDotOffset}
+                  aria-hidden
+                  className={sliderStepDotClassName}
+                  style={stepDotStyle}
+                />
+              )
+            })}
           </SliderPrimitive.Track>
           <SliderPrimitive.Thumb
             id={thumbId}

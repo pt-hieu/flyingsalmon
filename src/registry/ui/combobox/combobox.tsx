@@ -78,9 +78,7 @@ export interface ComboboxMultipleProps extends ComboboxBaseProps {
 export type ComboboxProps = ComboboxSingleProps | ComboboxMultipleProps
 
 function leaveKeyToTheCaret(event: React.KeyboardEvent) {
-  ;(
-    event.nativeEvent as KeyboardEvent & { preventDownshiftDefault?: boolean }
-  ).preventDownshiftDefault = true
+  Object.assign(event.nativeEvent, { preventDownshiftDefault: true })
 }
 
 export function Combobox(props: ComboboxProps) {
