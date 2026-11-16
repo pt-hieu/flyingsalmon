@@ -46,8 +46,6 @@ function createPen(layers: StickerLayer[]): Pen {
     for (const { d: rawPath, fill, stroke } of generator.toPaths(drawable)) {
       const roundedPath = rawPath.replaceAll(/(\.\d)\d+/g, '$1')
 
-      // Node strips types rather than compiling them, so this script cannot
-      // load the StickerPaint enum at runtime and asserts its values instead.
       if (fill && fill !== 'none') {
         layers.push({
           role: fill,

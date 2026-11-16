@@ -104,7 +104,8 @@ function reduceWithVetoes(
 
     default: {
       const unhandledType: never = type
-      return unhandledType
+      void unhandledType
+      return changes
     }
   }
 }
